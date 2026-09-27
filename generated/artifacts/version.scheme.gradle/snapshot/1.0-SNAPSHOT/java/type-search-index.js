@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"eu.algites.lib.common.version.scheme.gradle","l":"AIcGradleVersionScheme"},{"p":"eu.algites.lib.common.version.scheme.gradle","l":"AIrGradleVersionConstraint"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

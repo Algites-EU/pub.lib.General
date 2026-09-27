@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: version.scheme.pep440
+  ArtifactCoordinateId: pub.lib.General_version.scheme.pep440
+  GroupId: eu.algites.lib.common
+  Version: 1.0-SNAPSHOT
+  SourcePath: version/scheme/pep440
+  StructureKind: artifact
+  Name: "PEP 440 version scheme"
+  Description: "PEP 440 version parsing, comparison, and specifier semantics."
+SourceMetadata:
+  DescriptorHierarchy:

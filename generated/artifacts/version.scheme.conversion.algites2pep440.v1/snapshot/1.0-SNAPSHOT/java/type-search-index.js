@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"eu.algites.lib.common.version.scheme.conversion.algites2pep440.v1","l":"AIcAlgitesToPep440VersionConverterV1"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

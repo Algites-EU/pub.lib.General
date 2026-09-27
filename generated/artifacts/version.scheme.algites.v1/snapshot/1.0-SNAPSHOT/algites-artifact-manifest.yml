@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: version.scheme.algites.v1
+  ArtifactCoordinateId: pub.lib.General_version.scheme.algites.v1
+  GroupId: eu.algites.lib.common
+  Version: 1.0-SNAPSHOT
+  SourcePath: version/scheme/algites/v1
+  StructureKind: artifact
+  Name: "Algites version scheme v1"
+  Description: "Version 1 of the Algites ecosystem version scheme."
+SourceMetadata:
+  DescriptorHierarchy:

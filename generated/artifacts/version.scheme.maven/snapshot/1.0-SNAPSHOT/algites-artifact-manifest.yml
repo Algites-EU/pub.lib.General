@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: version.scheme.maven
+  ArtifactCoordinateId: pub.lib.General_version.scheme.maven
+  GroupId: eu.algites.lib.common
+  Version: 1.0-SNAPSHOT
+  SourcePath: version/scheme/maven
+  StructureKind: artifact
+  Name: "Maven version scheme"
+  Description: "Maven version comparison and range semantics."
+SourceMetadata:
+  DescriptorHierarchy:

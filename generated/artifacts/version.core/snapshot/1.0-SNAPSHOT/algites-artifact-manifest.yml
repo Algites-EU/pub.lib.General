@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: version.core
+  ArtifactCoordinateId: pub.lib.General_version.core
+  GroupId: eu.algites.lib.common
+  Version: 1.0-SNAPSHOT
+  SourcePath: version/core
+  StructureKind: artifact
+  Name: "Version core"
+  Description: "Technology-neutral version representation, comparison, formatting, interval, and scheme APIs."
+SourceMetadata:
+  DescriptorHierarchy:

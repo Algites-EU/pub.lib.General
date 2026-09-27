@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"eu.algites.lib.common.version.scheme.algites.v1","l":"AIcAlgitesVersionSchemeV1"},{"p":"eu.algites.lib.common.version.scheme.algites.v1","l":"AInAlgitesVersionQualifierKindV1"},{"p":"eu.algites.lib.common.version.scheme.algites.v1","l":"AIrAlgitesVersionV1"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: version.scheme.gradle
+  ArtifactCoordinateId: pub.lib.General_version.scheme.gradle
+  GroupId: eu.algites.lib.common
+  Version: 1.0-SNAPSHOT
+  SourcePath: version/scheme/gradle
+  StructureKind: artifact
+  Name: "Gradle version scheme"
+  Description: "Gradle dependency-version and rich-version-constraint semantics."
+SourceMetadata:
+  DescriptorHierarchy:

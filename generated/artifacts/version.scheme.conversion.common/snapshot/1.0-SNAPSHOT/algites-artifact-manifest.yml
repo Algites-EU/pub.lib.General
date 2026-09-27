@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: version.scheme.conversion.common
+  ArtifactCoordinateId: pub.lib.General_version.scheme.conversion.common
+  GroupId: eu.algites.lib.common
+  Version: 1.0-SNAPSHOT
+  SourcePath: version/scheme/conversion/common
+  StructureKind: artifact
+  Name: "Version conversion common"
+  Description: "Common contracts and diagnostics for conversion between version schemes."
+SourceMetadata:
+  DescriptorHierarchy:

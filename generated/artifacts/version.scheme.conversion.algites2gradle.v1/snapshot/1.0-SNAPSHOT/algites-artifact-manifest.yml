@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: version.scheme.conversion.algites2gradle.v1
+  ArtifactCoordinateId: pub.lib.General_version.scheme.conversion.algites2gradle.v1
+  GroupId: eu.algites.lib.common
+  Version: 1.0-SNAPSHOT
+  SourcePath: version/scheme/conversion/algites2gradle/v1
+  StructureKind: artifact
+  Name: "Algites v1 to Gradle version conversion"
+  Description: "Conversion of Algites version scheme v1 to Gradle version semantics."
+SourceMetadata:
+  DescriptorHierarchy:
