@@ -1,4 +1,0 @@
-Artifact:
-  TechnologyKinds: [java]
-  Name: Version management utilities
-  Description: General-purpose utilities for version representation, parsing, formatting, comparison, and version management.

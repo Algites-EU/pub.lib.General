@@ -1,0 +1,4 @@
+Artifact:
+  TechnologyKinds: [java]
+  Name: Maven to Gradle version conversion
+  Description: Conversion of Maven version requirements to Gradle version constraints.
