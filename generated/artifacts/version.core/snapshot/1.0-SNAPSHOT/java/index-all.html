@@ -144,6 +144,12 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="eu/algites/lib/common/version/AIcVersion.html#%3Cinit%3E(java.lang.String)" class="member-name-link">AIcVersion(String)</a> - Constructor for class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersion.html" title="class in eu.algites.lib.common.version">AIcVersion</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionBound.html" class="type-name-link" title="class in eu.algites.lib.common.version">AIcVersionBound</a> - Class in <a href="eu/algites/lib/common/version/package-summary.html">eu.algites.lib.common.version</a></dt>
+<dd>
+<div class="block">Default immutable implementation of <a href="eu/algites/lib/common/version/AIiVersionBound.html" title="interface in eu.algites.lib.common.version"><code>AIiVersionBound</code></a>.</div>
+</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionBound.html#%3Cinit%3E(java.lang.String,boolean)" class="member-name-link">AIcVersionBound(String, boolean)</a> - Constructor for class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionBound.html" title="class in eu.algites.lib.common.version">AIcVersionBound</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="eu/algites/lib/common/version/AIcVersionInterval.html" class="type-name-link" title="class in eu.algites.lib.common.version">AIcVersionInterval</a> - Class in <a href="eu/algites/lib/common/version/package-summary.html">eu.algites.lib.common.version</a></dt>
 <dd>
 <div class="block">
@@ -156,6 +162,16 @@ loadScripts(document, 'script');</script>
 <dt><a href="eu/algites/lib/common/version/AIcVersionInterval.html#%3Cinit%3E(eu.algites.lib.common.interval.AInIntervalBoundary,eu.algites.lib.common.version.AIcVersion,eu.algites.lib.common.interval.AInIntervalBoundary,eu.algites.lib.common.version.AIcVersion,eu.algites.lib.common.version.AIiVersionScheme)" class="member-name-link">AIcVersionInterval(AInIntervalBoundary, AIcVersion, AInIntervalBoundary, AIcVersion, AIiVersionScheme)</a> - Constructor for class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionInterval.html" title="class in eu.algites.lib.common.version">AIcVersionInterval</a></dt>
 <dd>
 <div class="block">Creates a new version interval validated using the comparator of the provided scheme.</div>
+</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirement.html" class="type-name-link" title="class in eu.algites.lib.common.version">AIcVersionRequirement</a> - Class in <a href="eu/algites/lib/common/version/package-summary.html">eu.algites.lib.common.version</a></dt>
+<dd>
+<div class="block">Default immutable implementation of <a href="eu/algites/lib/common/version/AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version"><code>AIiVersionRequirement</code></a>.</div>
+</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirement.html#%3Cinit%3E(java.lang.String,eu.algites.lib.common.version.AIiVersionBound,eu.algites.lib.common.version.AIiVersionBound,boolean,java.util.List,java.lang.String)" class="member-name-link">AIcVersionRequirement(String, AIiVersionBound, AIiVersionBound, boolean, List&lt;String&gt;, String)</a> - Constructor for class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionRequirement.html" title="class in eu.algites.lib.common.version">AIcVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirementParser.html" class="type-name-link" title="class in eu.algites.lib.common.version">AIcVersionRequirementParser</a> - Class in <a href="eu/algites/lib/common/version/package-summary.html">eu.algites.lib.common.version</a></dt>
+<dd>
+<div class="block">Parser for compact portable version-requirement boundary expressions.</div>
 </dd>
 <dt><a href="eu/algites/lib/common/version/AIcVersionSchemeDataType.html" class="type-name-link" title="class in eu.algites.lib.common.version">AIcVersionSchemeDataType</a> - Class in <a href="eu/algites/lib/common/version/package-summary.html">eu.algites.lib.common.version</a></dt>
 <dd>
@@ -171,6 +187,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="eu/algites/lib/common/version/AIcVersionToken.html#%3Cinit%3E(eu.algites.lib.common.version.AInVersionTokenType,java.lang.String)" class="member-name-link">AIcVersionToken(AInVersionTokenType, String)</a> - Constructor for class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionToken.html" title="class in eu.algites.lib.common.version">AIcVersionToken</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIiVersionBound.html" class="type-name-link" title="interface in eu.algites.lib.common.version">AIiVersionBound</a> - Interface in <a href="eu/algites/lib/common/version/package-summary.html">eu.algites.lib.common.version</a></dt>
+<dd>
+<div class="block">Boundary of a portable version requirement.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/AIiVersionCodec.html" class="type-name-link" title="interface in eu.algites.lib.common.version">AIiVersionCodec</a> - Interface in <a href="eu/algites/lib/common/version/package-summary.html">eu.algites.lib.common.version</a></dt>
 <dd>
 <div class="block">
@@ -195,6 +215,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">
  Title: <a href="eu/algites/lib/common/version/AIiVersionQualifier.html" title="interface in eu.algites.lib.common.version"><code>AIiVersionQualifier</code></a></div>
+</dd>
+<dt><a href="eu/algites/lib/common/version/AIiVersionRequirement.html" class="type-name-link" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a> - Interface in <a href="eu/algites/lib/common/version/package-summary.html">eu.algites.lib.common.version</a></dt>
+<dd>
+<div class="block">Portable version requirement independent of a concrete build ecosystem.</div>
 </dd>
 <dt><a href="eu/algites/lib/common/version/AIiVersionScheme.html" class="type-name-link" title="interface in eu.algites.lib.common.version">AIiVersionScheme</a> - Interface in <a href="eu/algites/lib/common/version/package-summary.html">eu.algites.lib.common.version</a></dt>
 <dd>
@@ -431,6 +455,16 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="eu/algites/lib/common/version/package-summary.html">eu.algites.lib.common.version</a> - package eu.algites.lib.common.version</dt>
 <dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirement.html#exact(java.lang.String)" class="member-name-link">exact(String)</a> - Static method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionRequirement.html" title="class in eu.algites.lib.common.version">AIcVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirement.html#exactVersionText()" class="member-name-link">exactVersionText()</a> - Method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionRequirement.html" title="class in eu.algites.lib.common.version">AIcVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIiVersionRequirement.html#exactVersionText()" class="member-name-link">exactVersionText()</a> - Method in interface eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirement.html#excludedVersionTexts()" class="member-name-link">excludedVersionTexts()</a> - Method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionRequirement.html" title="class in eu.algites.lib.common.version">AIcVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIiVersionRequirement.html#excludedVersionTexts()" class="member-name-link">excludedVersionTexts()</a> - Method in interface eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:F">F</h2>
 <dl class="index">
@@ -533,6 +567,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Build identification is ignored during comparison.</div>
 </dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionBound.html#inclusive()" class="member-name-link">inclusive()</a> - Method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionBound.html" title="class in eu.algites.lib.common.version">AIcVersionBound</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIiVersionBound.html#inclusive()" class="member-name-link">inclusive()</a> - Method in interface eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIiVersionBound.html" title="interface in eu.algites.lib.common.version">AIiVersionBound</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="eu/algites/lib/common/version/AIcDefaultVersionCodec.html#INSTANCE" class="member-name-link">INSTANCE</a> - Static variable in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcDefaultVersionCodec.html" title="class in eu.algites.lib.common.version">AIcDefaultVersionCodec</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="eu/algites/lib/common/version/AIcDefaultVersionFormatter.html#INSTANCE" class="member-name-link">INSTANCE</a> - Static variable in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcDefaultVersionFormatter.html" title="class in eu.algites.lib.common.version">AIcDefaultVersionFormatter</a></dt>
@@ -594,6 +632,18 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Practical Maven/Gradle-friendly ordering, tolerant to common patterns.</div>
 </dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirement.html#maximum()" class="member-name-link">maximum()</a> - Method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionRequirement.html" title="class in eu.algites.lib.common.version">AIcVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIiVersionRequirement.html#maximum()" class="member-name-link">maximum()</a> - Method in interface eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirement.html#maximumStrict()" class="member-name-link">maximumStrict()</a> - Method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionRequirement.html" title="class in eu.algites.lib.common.version">AIcVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIiVersionRequirement.html#maximumStrict()" class="member-name-link">maximumStrict()</a> - Method in interface eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirement.html#minimum()" class="member-name-link">minimum()</a> - Method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionRequirement.html" title="class in eu.algites.lib.common.version">AIcVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIiVersionRequirement.html#minimum()" class="member-name-link">minimum()</a> - Method in interface eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:N">N</h2>
 <dl class="index">
@@ -637,6 +687,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirementParser.html#parseMaximum(java.lang.String)" class="member-name-link">parseMaximum(String)</a> - Static method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionRequirementParser.html" title="class in eu.algites.lib.common.version">AIcVersionRequirementParser</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirementParser.html#parseMinimum(java.lang.String)" class="member-name-link">parseMinimum(String)</a> - Static method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionRequirementParser.html" title="class in eu.algites.lib.common.version">AIcVersionRequirementParser</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="eu/algites/lib/common/version/AIcDefaultVersionCodec.html#parseVersion(java.lang.String,eu.algites.lib.common.version.AIiVersionScheme)" class="member-name-link">parseVersion(String, AIiVersionScheme)</a> - Method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcDefaultVersionCodec.html" title="class in eu.algites.lib.common.version">AIcDefaultVersionCodec</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="eu/algites/lib/common/version/AIiVersionCodec.html#parseVersion(java.lang.String,eu.algites.lib.common.version.AIiVersionScheme)" class="member-name-link">parseVersion(String, AIiVersionScheme)</a> - Method in interface eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIiVersionCodec.html" title="interface in eu.algites.lib.common.version">AIiVersionCodec</a></dt>
@@ -646,6 +700,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="eu/algites/lib/common/version/AInVersionQualifierKind.html#POST_RELEASE" class="member-name-link">POST_RELEASE</a> - Enum constant in enum class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AInVersionQualifierKind.html" title="enum class in eu.algites.lib.common.version">AInVersionQualifierKind</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="eu/algites/lib/common/version/AInVersionQualifierKind.html#PRE_RELEASE" class="member-name-link">PRE_RELEASE</a> - Enum constant in enum class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AInVersionQualifierKind.html" title="enum class in eu.algites.lib.common.version">AInVersionQualifierKind</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionRequirement.html#preferredVersionText()" class="member-name-link">preferredVersionText()</a> - Method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionRequirement.html" title="class in eu.algites.lib.common.version">AIcVersionRequirement</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIiVersionRequirement.html#preferredVersionText()" class="member-name-link">preferredVersionText()</a> - Method in interface eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:Q">Q</h2>
@@ -851,6 +909,10 @@ the order they are declared.</div>
 <div class="block">Provides the structural interpretation for this scheme.</div>
 </dd>
 <dt><a href="eu/algites/lib/common/version/AInBuiltinVersionScheme.html#versionStructure()" class="member-name-link">versionStructure()</a> - Method in enum class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AInBuiltinVersionScheme.html" title="enum class in eu.algites.lib.common.version">AInBuiltinVersionScheme</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIcVersionBound.html#versionText()" class="member-name-link">versionText()</a> - Method in class eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIcVersionBound.html" title="class in eu.algites.lib.common.version">AIcVersionBound</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/common/version/AIiVersionBound.html#versionText()" class="member-name-link">versionText()</a> - Method in interface eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIiVersionBound.html" title="interface in eu.algites.lib.common.version">AIiVersionBound</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="eu/algites/lib/common/version/AIiVersionSchemeTextParts.html#versionText()" class="member-name-link">versionText()</a> - Method in interface eu.algites.lib.common.version.<a href="eu/algites/lib/common/version/AIiVersionSchemeTextParts.html" title="interface in eu.algites.lib.common.version">AIiVersionSchemeTextParts</a></dt>
 <dd>&nbsp;</dd>

@@ -1,1 +1,1 @@
-typeSearchIndex = [{"p":"eu.algites.lib.common.version.scheme.conversion.algites2gradle.v1","l":"AIcAlgitesToGradleVersionConverterV1"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();
+typeSearchIndex = [{"p":"eu.algites.lib.common.version.scheme.conversion.algites2gradle.v1","l":"AIcAlgitesToGradleVersionConverterV1"},{"p":"eu.algites.lib.common.version.scheme.conversion.algites2gradle.v1","l":"AIcAlgitesVersionRequirementToGradleRendererV1"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();
