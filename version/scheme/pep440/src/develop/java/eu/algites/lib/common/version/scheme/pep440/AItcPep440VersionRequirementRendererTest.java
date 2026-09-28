@@ -22,7 +22,7 @@ public class AItcPep440VersionRequirementRendererTest {
 		);
 
 		Map<AInPythonBuildPhase, String> locRendered = AIcPep440VersionRequirementRenderer.render(locRequirement);
-		Assert.assertEquals(locRendered.get(AInPythonBuildPhase.PREFERRED), "==1.5.2,>=1.2.0,<2.0.0,!=1.4.0");
+		Assert.assertEquals(locRendered.get(AInPythonBuildPhase.PREFERRED), "==1.5.2,>=1.2.0,<2.0.0,!=1.4.0,!=1.6.0");
 		Assert.assertEquals(locRendered.get(AInPythonBuildPhase.NON_STRICT_MAXIMUMS), ">=1.2.0,<2.0.0,!=1.4.0,!=1.6.0");
 		Assert.assertEquals(locRendered.get(AInPythonBuildPhase.STRICT_MAXIMUMS), ">=1.2.0,!=1.4.0,!=1.6.0");
 	}
