@@ -7,8 +7,21 @@ import org.testng.annotations.Test;
 public class AItcAlgitesVersionSchemeV1Test {
 	@Test
 	public void testSnapshotCarriesInstanceSequence() {
-		AIrAlgitesVersionV1 locVersion = AIcAlgitesVersionSchemeV1.snapshot("1", 0, 20260927012345678L);
+		AIiAlgitesVersionV1 locVersion = AIcAlgitesVersionSchemeV1.snapshot("1", 0, 20260927012345678L);
 		Assert.assertEquals(locVersion.baseVersionText(), "1.0");
 		Assert.assertEquals(locVersion.qualifierKind(), AInAlgitesVersionQualifierKindV1.SNAPSHOT);
 	}
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void testReleaseLineVersionRejectsNonNumericClassifierText() {
+		AIcAlgitesVersionSchemeV1.release("prod-1.3", 2);
+	}
+
+	@Test
+	public void testCanonicalTextRoundTrip() {
+		AIiAlgitesVersionV1 locVersion = AIcAlgitesVersionTextV1.parse("1.3.2-SNAPSHOT");
+		Assert.assertEquals(locVersion.releaseLineVersion(), "1.3");
+		Assert.assertEquals(locVersion.revision(), 2);
+		Assert.assertEquals(AIcAlgitesVersionTextV1.render(locVersion), "1.3.2-SNAPSHOT");
+	}
+
 }
