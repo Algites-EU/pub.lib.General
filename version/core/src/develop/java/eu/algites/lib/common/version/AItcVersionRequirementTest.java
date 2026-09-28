@@ -29,6 +29,66 @@ public class AItcVersionRequirementTest {
 		AIcVersionRequirementParser.parseMinimum("<1.2.0");
 	}
 
+	@Test
+	public void testMaximumStrictRemainsUnspecifiedWithoutMaximum() {
+		AIcVersionRequirement locRequirement = new AIcVersionRequirement(
+				"1.5.2",
+				null,
+				null,
+				null,
+				List.of(),
+				null
+		);
+
+		Assert.assertNull(locRequirement.maximumStrict());
+		Assert.assertFalse(locRequirement.effectiveMaximumStrict());
+	}
+
+	@Test
+	public void testMaximumStrictExplicitTrueWithoutMaximumIsIneffective() {
+		AIcVersionRequirement locRequirement = new AIcVersionRequirement(
+				"1.5.2",
+				null,
+				null,
+				true,
+				List.of(),
+				null
+		);
+
+		Assert.assertEquals(locRequirement.maximumStrict(), Boolean.TRUE);
+		Assert.assertFalse(locRequirement.effectiveMaximumStrict());
+	}
+
+	@Test
+	public void testMaximumStrictDefaultsToTrueWithMaximum() {
+		AIcVersionRequirement locRequirement = new AIcVersionRequirement(
+				null,
+				null,
+				AIcVersionRequirementParser.parseMaximum("<2.0.0"),
+				null,
+				List.of(),
+				null
+		);
+
+		Assert.assertNull(locRequirement.maximumStrict());
+		Assert.assertTrue(locRequirement.effectiveMaximumStrict());
+	}
+
+	@Test
+	public void testMaximumStrictCanBeExplicitlyFalseWithMaximum() {
+		AIcVersionRequirement locRequirement = new AIcVersionRequirement(
+				null,
+				null,
+				AIcVersionRequirementParser.parseMaximum("<2.0.0"),
+				false,
+				List.of(),
+				null
+		);
+
+		Assert.assertEquals(locRequirement.maximumStrict(), Boolean.FALSE);
+		Assert.assertFalse(locRequirement.effectiveMaximumStrict());
+	}
+
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void testExactRejectsAdditionalRequirementFields() {
 		new AIcVersionRequirement(

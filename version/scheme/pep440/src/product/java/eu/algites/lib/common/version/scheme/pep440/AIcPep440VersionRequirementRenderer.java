@@ -33,11 +33,11 @@ public final class AIcPep440VersionRequirementRenderer {
 			);
 		}
 
-		if (aRequirement.maximum() != null && !aRequirement.maximumStrict()) {
+		if (aRequirement.maximum() != null && !aRequirement.effectiveMaximumStrict()) {
 			locResult.put(AInPythonBuildPhase.NON_STRICT_MAXIMUMS, renderConstraint(aRequirement, true));
 		}
 
-		locResult.put(AInPythonBuildPhase.STRICT_MAXIMUMS, renderConstraint(aRequirement, aRequirement.maximumStrict()));
+		locResult.put(AInPythonBuildPhase.STRICT_MAXIMUMS, renderConstraint(aRequirement, aRequirement.effectiveMaximumStrict()));
 		return Map.copyOf(locResult);
 	}
 

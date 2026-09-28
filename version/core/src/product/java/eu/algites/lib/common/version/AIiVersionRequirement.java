@@ -16,7 +16,12 @@ public interface AIiVersionRequirement {
 	@Nullable
 	AIiVersionBound maximum();
 
-	boolean maximumStrict();
+	@Nullable
+	Boolean maximumStrict();
+
+	default boolean effectiveMaximumStrict() {
+		return maximum() != null && (maximumStrict() == null || maximumStrict());
+	}
 
 	@Nonnull
 	List<String> excludedVersionTexts();

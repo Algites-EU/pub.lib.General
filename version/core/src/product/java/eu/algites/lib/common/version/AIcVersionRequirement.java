@@ -14,7 +14,8 @@ public final class AIcVersionRequirement implements AIiVersionRequirement {
 	private final AIiVersionBound minimum;
 	@Nullable
 	private final AIiVersionBound maximum;
-	private final boolean maximumStrict;
+	@Nullable
+	private final Boolean maximumStrict;
 	@Nonnull
 	private final List<String> excludedVersionTexts;
 	@Nullable
@@ -24,7 +25,7 @@ public final class AIcVersionRequirement implements AIiVersionRequirement {
 			@Nullable final String aExactVersionText,
 			@Nullable final AIiVersionBound aMinimum,
 			@Nullable final AIiVersionBound aMaximum,
-			final boolean aMaximumStrict,
+			@Nullable final Boolean aMaximumStrict,
 			@Nullable final List<String> aExcludedVersionTexts,
 			@Nullable final String aPreferredVersionText
 	) {
@@ -38,7 +39,7 @@ public final class AIcVersionRequirement implements AIiVersionRequirement {
 	}
 
 	public static AIcVersionRequirement exact(@Nonnull final String aVersionText) {
-		return new AIcVersionRequirement(aVersionText, null, null, false, List.of(), null);
+		return new AIcVersionRequirement(aVersionText, null, null, null, List.of(), null);
 	}
 
 	@Override
@@ -60,7 +61,8 @@ public final class AIcVersionRequirement implements AIiVersionRequirement {
 	}
 
 	@Override
-	public boolean maximumStrict() {
+	@Nullable
+	public Boolean maximumStrict() {
 		return maximumStrict;
 	}
 
@@ -78,13 +80,10 @@ public final class AIcVersionRequirement implements AIiVersionRequirement {
 
 	private void validate() {
 		if (exactVersionText != null) {
-			if (minimum != null || maximum != null || maximumStrict || !excludedVersionTexts.isEmpty() || preferredVersionText != null) {
+			if (minimum != null || maximum != null || !excludedVersionTexts.isEmpty() || preferredVersionText != null) {
 				throw new IllegalArgumentException("Exact version cannot be combined with range, exclusion, or preference fields");
 			}
 			return;
-		}
-		if (maximumStrict && maximum == null) {
-			throw new IllegalArgumentException("MaximumStrict requires Maximum");
 		}
 		if (preferredVersionText != null && excludedVersionTexts.contains(preferredVersionText)) {
 			throw new IllegalArgumentException("Preferred version must not be excluded");

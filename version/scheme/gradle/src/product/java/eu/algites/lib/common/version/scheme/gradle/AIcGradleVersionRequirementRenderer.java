@@ -26,7 +26,7 @@ public final class AIcGradleVersionRequirementRenderer {
 		String locRequire = null;
 		String locStrictly = null;
 		if (!locRange.isEmpty()) {
-			if (aRequirement.maximum() != null && aRequirement.maximumStrict()) {
+			if (aRequirement.maximum() != null && aRequirement.effectiveMaximumStrict()) {
 				locStrictly = locRange;
 			} else {
 				locRequire = locRange;
