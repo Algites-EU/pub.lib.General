@@ -26,4 +26,18 @@ public class AItcAlgitesVersionRequirementToPep440RendererV1Test {
 		Assert.assertEquals(locRendered.get(AInPythonBuildPhase.NON_STRICT_MAXIMUMS), ">=1.2.0,<2.0.0,!=1.4.0");
 		Assert.assertEquals(locRendered.get(AInPythonBuildPhase.STRICT_MAXIMUMS), ">=1.2.0,!=1.4.0");
 	}
+	@Test
+	public void testExactSnapshotRequirementMatchesSnapshotSeries() {
+		AIcVersionRequirement locRequirement = AIcVersionRequirement.exact("1.0-SNAPSHOT");
+		Map<AInPythonBuildPhase, String> locRendered = AIcAlgitesVersionRequirementToPep440RendererV1.render(locRequirement);
+		Assert.assertEquals(locRendered, Map.of(AInPythonBuildPhase.STRICT_MAXIMUMS, ">=1.0.dev0,<1.0a0"));
+	}
+
+	@Test
+	public void testExactReleaseRequirementRemainsExact() {
+		AIcVersionRequirement locRequirement = AIcVersionRequirement.exact("1.0");
+		Map<AInPythonBuildPhase, String> locRendered = AIcAlgitesVersionRequirementToPep440RendererV1.render(locRequirement);
+		Assert.assertEquals(locRendered, Map.of(AInPythonBuildPhase.STRICT_MAXIMUMS, "==1.0"));
+	}
+
 }
