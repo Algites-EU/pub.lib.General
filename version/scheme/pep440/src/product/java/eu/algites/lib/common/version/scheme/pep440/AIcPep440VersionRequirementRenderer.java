@@ -2,6 +2,7 @@ package eu.algites.lib.common.version.scheme.pep440;
 
 import eu.algites.lib.common.version.AIiVersionBound;
 import eu.algites.lib.common.version.AIiVersionRequirement;
+import eu.algites.lib.common.version.AIsVersionRequirementNormalizer;
 import jakarta.annotation.Nonnull;
 
 import java.util.ArrayList;
@@ -17,27 +18,30 @@ public final class AIcPep440VersionRequirementRenderer {
 	@Nonnull
 	public static Map<AInPythonBuildPhase, String> render(@Nonnull final AIiVersionRequirement aRequirement) {
 		Objects.requireNonNull(aRequirement, "Version requirement must not be null");
+		AIiVersionRequirement locRequirement = AIsVersionRequirementNormalizer
+				.normalize(aRequirement, AIcPep440VersionScheme.INSTANCE)
+				.requirement();
 		EnumMap<AInPythonBuildPhase, String> locResult = new EnumMap<>(AInPythonBuildPhase.class);
 
-		if (aRequirement.exactVersionText() != null) {
-			locResult.put(AInPythonBuildPhase.STRICT_MAXIMUMS, "==" + aRequirement.exactVersionText());
+		if (locRequirement.exactVersionText() != null) {
+			locResult.put(AInPythonBuildPhase.STRICT_MAXIMUMS, "==" + locRequirement.exactVersionText());
 			return Map.copyOf(locResult);
 		}
 
-		if (aRequirement.preferredVersionText() != null) {
-			String locDeclaredConstraint = renderConstraint(aRequirement, true);
-			String locPreferredConstraint = "==" + aRequirement.preferredVersionText();
+		if (locRequirement.preferredVersionText() != null) {
+			String locDeclaredConstraint = renderConstraint(locRequirement, true);
+			String locPreferredConstraint = "==" + locRequirement.preferredVersionText();
 			locResult.put(
 					AInPythonBuildPhase.PREFERRED,
 					locDeclaredConstraint.isEmpty() ? locPreferredConstraint : locPreferredConstraint + "," + locDeclaredConstraint
 			);
 		}
 
-		if (aRequirement.maximum() != null && !aRequirement.effectiveMaximumStrict()) {
-			locResult.put(AInPythonBuildPhase.NON_STRICT_MAXIMUMS, renderConstraint(aRequirement, true));
+		if (locRequirement.maximum() != null && !locRequirement.effectiveMaximumStrict()) {
+			locResult.put(AInPythonBuildPhase.NON_STRICT_MAXIMUMS, renderConstraint(locRequirement, true));
 		}
 
-		locResult.put(AInPythonBuildPhase.STRICT_MAXIMUMS, renderConstraint(aRequirement, aRequirement.effectiveMaximumStrict()));
+		locResult.put(AInPythonBuildPhase.STRICT_MAXIMUMS, renderConstraint(locRequirement, locRequirement.effectiveMaximumStrict()));
 		return Map.copyOf(locResult);
 	}
 

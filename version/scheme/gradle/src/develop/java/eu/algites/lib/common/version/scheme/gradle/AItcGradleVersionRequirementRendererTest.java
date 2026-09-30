@@ -42,4 +42,22 @@ public class AItcGradleVersionRequirementRendererTest {
 		Assert.assertNull(locRendered.require());
 		Assert.assertEquals(locRendered.strictly(), "[1.2.0,2.0.0)");
 	}
+
+	@Test
+	public void testExactWithInheritedPreferenceRendersStrictExact() {
+		AIcVersionRequirement locRequirement = new AIcVersionRequirement(
+				"5",
+				null,
+				null,
+				null,
+				List.of(),
+				"6"
+		);
+
+		AIrGradleVersionConstraint locRendered = AIcGradleVersionRequirementRenderer.render(locRequirement);
+
+		Assert.assertNull(locRendered.require());
+		Assert.assertEquals(locRendered.strictly(), "5");
+		Assert.assertNull(locRendered.prefer());
+	}
 }

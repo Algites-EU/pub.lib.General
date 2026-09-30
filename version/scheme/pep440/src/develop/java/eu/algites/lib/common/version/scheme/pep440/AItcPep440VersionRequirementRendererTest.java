@@ -43,4 +43,21 @@ public class AItcPep440VersionRequirementRendererTest {
 		Assert.assertFalse(locRendered.containsKey(AInPythonBuildPhase.NON_STRICT_MAXIMUMS));
 		Assert.assertEquals(locRendered.get(AInPythonBuildPhase.STRICT_MAXIMUMS), ">=1.2.0,<2.0.0");
 	}
+
+	@Test
+	public void testExactWithInheritedPreferenceRendersOnlyStrictPhase() {
+		AIcVersionRequirement locRequirement = new AIcVersionRequirement(
+				"5",
+				null,
+				null,
+				null,
+				List.of(),
+				"6"
+		);
+
+		Map<AInPythonBuildPhase, String> locRendered = AIcPep440VersionRequirementRenderer.render(locRequirement);
+
+		Assert.assertEquals(locRendered.size(), 1);
+		Assert.assertEquals(locRendered.get(AInPythonBuildPhase.STRICT_MAXIMUMS), "==5");
+	}
 }

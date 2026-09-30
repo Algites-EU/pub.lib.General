@@ -2,6 +2,7 @@ package eu.algites.lib.common.version.scheme.gradle;
 
 import eu.algites.lib.common.version.AIiVersionBound;
 import eu.algites.lib.common.version.AIiVersionRequirement;
+import eu.algites.lib.common.version.AIsVersionRequirementNormalizer;
 import jakarta.annotation.Nonnull;
 
 import java.util.Objects;
@@ -13,20 +14,23 @@ public final class AIcGradleVersionRequirementRenderer {
 	@Nonnull
 	public static AIrGradleVersionConstraint render(@Nonnull final AIiVersionRequirement aRequirement) {
 		Objects.requireNonNull(aRequirement, "Version requirement must not be null");
-		if (aRequirement.exactVersionText() != null) {
+		AIiVersionRequirement locRequirement = AIsVersionRequirementNormalizer
+				.normalize(aRequirement, AIcGradleVersionScheme.INSTANCE)
+				.requirement();
+		if (locRequirement.exactVersionText() != null) {
 			return new AIrGradleVersionConstraint(
 					null,
-					aRequirement.exactVersionText(),
+					locRequirement.exactVersionText(),
 					null,
-					aRequirement.excludedVersionTexts()
+					locRequirement.excludedVersionTexts()
 			);
 		}
 
-		String locRange = renderRange(aRequirement.minimum(), aRequirement.maximum());
+		String locRange = renderRange(locRequirement.minimum(), locRequirement.maximum());
 		String locRequire = null;
 		String locStrictly = null;
 		if (!locRange.isEmpty()) {
-			if (aRequirement.maximum() != null && aRequirement.effectiveMaximumStrict()) {
+			if (locRequirement.maximum() != null && locRequirement.effectiveMaximumStrict()) {
 				locStrictly = locRange;
 			} else {
 				locRequire = locRange;
@@ -36,8 +40,8 @@ public final class AIcGradleVersionRequirementRenderer {
 		return new AIrGradleVersionConstraint(
 				locRequire,
 				locStrictly,
-				aRequirement.preferredVersionText(),
-				aRequirement.excludedVersionTexts()
+				locRequirement.preferredVersionText(),
+				locRequirement.excludedVersionTexts()
 		);
 	}
 

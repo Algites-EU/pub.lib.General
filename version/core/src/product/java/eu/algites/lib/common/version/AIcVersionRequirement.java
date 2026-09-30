@@ -35,7 +35,6 @@ public final class AIcVersionRequirement implements AIiVersionRequirement {
 		maximumStrict = aMaximumStrict;
 		excludedVersionTexts = normalizeVersions(aExcludedVersionTexts);
 		preferredVersionText = normalizeNullable(aPreferredVersionText, "Preferred version");
-		validate();
 	}
 
 	public static AIcVersionRequirement exact(@Nonnull final String aVersionText) {
@@ -76,18 +75,6 @@ public final class AIcVersionRequirement implements AIiVersionRequirement {
 	@Nullable
 	public String preferredVersionText() {
 		return preferredVersionText;
-	}
-
-	private void validate() {
-		if (exactVersionText != null) {
-			if (minimum != null || maximum != null || !excludedVersionTexts.isEmpty() || preferredVersionText != null) {
-				throw new IllegalArgumentException("Exact version cannot be combined with range, exclusion, or preference fields");
-			}
-			return;
-		}
-		if (preferredVersionText != null && excludedVersionTexts.contains(preferredVersionText)) {
-			throw new IllegalArgumentException("Preferred version must not be excluded");
-		}
 	}
 
 	@Nullable

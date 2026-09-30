@@ -2,7 +2,7 @@
 
 Defines PEP 440 version semantics and the native `AIrPep440VersionRequirement` representation used for Python package versions and dependency specifiers.
 
-`AIcPep440VersionRequirementRenderer` converts the portable `AIiVersionRequirement` into a sparse map keyed by `AInPythonBuildPhase`:
+`AIcPep440VersionRequirementRenderer` first normalizes the portable `AIiVersionRequirement` against the PEP 440 scheme and converts the result into a sparse map keyed by `AInPythonBuildPhase`:
 
 - `PREFERRED` exists only when a preferred exact version is declared.
 - `NON_STRICT_MAXIMUMS` exists only when a maximum is declared with `MaximumStrict=false`; it retains that maximum.

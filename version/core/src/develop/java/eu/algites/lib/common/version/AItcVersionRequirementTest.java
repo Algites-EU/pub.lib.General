@@ -89,15 +89,98 @@ public class AItcVersionRequirementTest {
 		Assert.assertFalse(locRequirement.effectiveMaximumStrict());
 	}
 
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testExactRejectsAdditionalRequirementFields() {
-		new AIcVersionRequirement(
-				"1.5.2",
-				AIcVersionRequirementParser.parseMinimum(">=1.0"),
+
+	@Test
+	public void testEffectiveExactMayCoexistWithInheritedPreference() {
+		AIcVersionRequirement locRequirement = new AIcVersionRequirement(
+				"5",
 				null,
+				null,
+				null,
+				List.of(),
+				"6"
+		);
+
+		AIrVersionRequirementNormalization locNormalized = AIsVersionRequirementNormalizer.normalize(
+				locRequirement,
+				AInBuiltinVersionScheme.MAVEN_DEFAULT
+		);
+
+		Assert.assertEquals(locNormalized.requirement().exactVersionText(), "5");
+		Assert.assertNull(locNormalized.requirement().preferredVersionText());
+		Assert.assertEquals(locNormalized.informationMessages().size(), 1);
+	}
+
+	@Test
+	public void testExactMustSatisfyStrictRange() {
+		AIcVersionRequirement locRequirement = new AIcVersionRequirement(
+				"5",
+				AIcVersionRequirementParser.parseMinimum(">=4"),
+				AIcVersionRequirementParser.parseMaximum("<=6"),
+				true,
+				List.of(),
+				null
+		);
+
+		AIrVersionRequirementNormalization locNormalized = AIsVersionRequirementNormalizer.normalize(
+				locRequirement,
+				AInBuiltinVersionScheme.MAVEN_DEFAULT
+		);
+
+		Assert.assertEquals(locNormalized.requirement().exactVersionText(), "5");
+	}
+
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void testExactOutsideStrictMaximumFailsNormalization() {
+		AIcVersionRequirement locRequirement = new AIcVersionRequirement(
+				"7",
+				null,
+				AIcVersionRequirementParser.parseMaximum("<=6"),
+				true,
+				List.of(),
+				null
+		);
+
+		AIsVersionRequirementNormalizer.normalize(locRequirement, AInBuiltinVersionScheme.MAVEN_DEFAULT);
+	}
+
+	@Test
+	public void testExactMayOverrideNonStrictMaximum() {
+		AIcVersionRequirement locRequirement = new AIcVersionRequirement(
+				"7",
+				null,
+				AIcVersionRequirementParser.parseMaximum("<=6"),
 				false,
 				List.of(),
 				null
 		);
+
+		AIrVersionRequirementNormalization locNormalized = AIsVersionRequirementNormalizer.normalize(
+				locRequirement,
+				AInBuiltinVersionScheme.MAVEN_DEFAULT
+		);
+
+		Assert.assertEquals(locNormalized.requirement().exactVersionText(), "7");
+		Assert.assertEquals(locNormalized.informationMessages().size(), 1);
+	}
+
+	@Test
+	public void testPreferredExcludedByMergedRequirementIsIgnoredDuringNormalization() {
+		AIcVersionRequirement locRequirement = new AIcVersionRequirement(
+				null,
+				null,
+				null,
+				null,
+				List.of("5"),
+				"5"
+		);
+
+		AIrVersionRequirementNormalization locNormalized = AIsVersionRequirementNormalizer.normalize(
+				locRequirement,
+				AInBuiltinVersionScheme.MAVEN_DEFAULT
+		);
+
+		Assert.assertNull(locNormalized.requirement().preferredVersionText());
+		Assert.assertEquals(locNormalized.informationMessages().size(), 1);
 	}
 }
