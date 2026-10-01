@@ -1,0 +1,54 @@
+python.eu.algites.lib.naming.convention.aicd_naming_profile
+===========================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.aicd_naming_profile
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.aicd_naming_profile.AIcdNamingProfile
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdNamingProfile
+
+   Carries immutable naming profile data.
+
+   .. attribute:: input_conventions
+
+      Source-subject naming conventions.
+
+   .. attribute:: output_rules
+
+      Target-subject rendering rules.
+
+   .. attribute:: input_version_policy
+
+      Input canonical-version policy.
+
+   .. attribute:: output_version_policy
+
+      Output canonical-version policy.
+
+
+   .. py:attribute:: input_conventions
+      :type:  Mapping[eu.algites.lib.naming.convention.ain_input_name_kind.AInInputNameKind, eu.algites.lib.naming.convention.ain_name_convention.AInNameConvention]
+
+
+   .. py:attribute:: output_rules
+      :type:  Mapping[eu.algites.lib.naming.convention.ain_output_name_kind.AInOutputNameKind, eu.algites.lib.naming.convention.aicd_output_name_rule.AIcdOutputNameRule]
+
+
+   .. py:attribute:: input_version_policy
+      :type:  eu.algites.lib.naming.convention.aicd_input_version_policy.AIcdInputVersionPolicy
+
+
+   .. py:attribute:: output_version_policy
+      :type:  eu.algites.lib.naming.convention.aicd_output_version_policy.AIcdOutputVersionPolicy
+
+

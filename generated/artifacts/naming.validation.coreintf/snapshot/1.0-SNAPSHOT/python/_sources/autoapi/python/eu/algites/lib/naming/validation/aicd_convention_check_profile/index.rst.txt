@@ -1,0 +1,70 @@
+python.eu.algites.lib.naming.validation.aicd_convention_check_profile
+=====================================================================
+
+.. py:module:: python.eu.algites.lib.naming.validation.aicd_convention_check_profile
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.validation.aicd_convention_check_profile.AIcdConventionCheckProfile
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdConventionCheckProfile
+
+   Carries immutable convention check profile data.
+
+   .. attribute:: enabled
+
+      Whether checking is enabled.
+
+   .. attribute:: naming_rules
+
+      Subject-specific naming rules.
+
+   .. attribute:: input_version_policy
+
+      Input canonical-version policy.
+
+   .. attribute:: output_version_policy
+
+      Output canonical-version policy.
+
+   .. attribute:: input_version_reaction
+
+      Reaction to input-version violations.
+
+   .. attribute:: output_version_reaction
+
+      Reaction to output-version violations.
+
+
+   .. py:attribute:: enabled
+      :type:  bool
+
+
+   .. py:attribute:: naming_rules
+      :type:  Mapping[eu.algites.lib.naming.validation.ain_convention_subject.AInConventionSubject, eu.algites.lib.naming.validation.aicd_convention_check_rule.AIcdConventionCheckRule]
+
+
+   .. py:attribute:: input_version_policy
+      :type:  eu.algites.lib.naming.convention.aicd_input_version_policy.AIcdInputVersionPolicy
+
+
+   .. py:attribute:: output_version_policy
+      :type:  eu.algites.lib.naming.convention.aicd_output_version_policy.AIcdOutputVersionPolicy
+
+
+   .. py:attribute:: input_version_reaction
+      :type:  eu.algites.lib.naming.validation.ain_convention_violation_reaction.AInConventionViolationReaction
+
+
+   .. py:attribute:: output_version_reaction
+      :type:  eu.algites.lib.naming.validation.ain_convention_violation_reaction.AInConventionViolationReaction
+
+

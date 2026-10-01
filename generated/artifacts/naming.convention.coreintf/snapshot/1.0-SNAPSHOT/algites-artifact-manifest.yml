@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: naming.convention.coreintf
+  ArtifactCoordinateId: pub.lib.General_naming.convention.coreintf
+  GroupId: eu.algites.lib.naming
+  Version: 1.0-SNAPSHOT
+  SourcePath: naming/convention/coreintf
+  StructureKind: artifact
+  Name: "Naming convention core interfaces"
+  Description: "Technology-neutral naming and version-policy contracts exposed in Java and Python."
+SourceMetadata:
+  DescriptorHierarchy:

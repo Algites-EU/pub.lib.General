@@ -1,0 +1,43 @@
+python.eu.algites.lib.naming.validation.aii_convention_checker
+==============================================================
+
+.. py:module:: python.eu.algites.lib.naming.validation.aii_convention_checker
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.validation.aii_convention_checker.AIiConventionChecker
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiConventionChecker
+
+   Bases: :py:obj:`Protocol`
+
+
+   Defines naming and canonical-version convention validation operations.
+
+
+   .. py:method:: check_name(subject: eu.algites.lib.naming.validation.ain_convention_subject.AInConventionSubject, value: str, profile: eu.algites.lib.naming.validation.aicd_convention_check_profile.AIcdConventionCheckProfile) -> Sequence[eu.algites.lib.naming.validation.aicd_convention_violation.AIcdConventionViolation]
+
+      Check one name against its subject-specific naming convention.
+
+
+
+   .. py:method:: check_input_version(value: str, explicit_version: int | None, profile: eu.algites.lib.naming.validation.aicd_convention_check_profile.AIcdConventionCheckProfile) -> Sequence[eu.algites.lib.naming.validation.aicd_convention_violation.AIcdConventionViolation]
+
+      Check extraction and consistency of an input canonical version.
+
+
+
+   .. py:method:: check_output_version(version: int | None, rendered_suffix: str, profile: eu.algites.lib.naming.validation.aicd_convention_check_profile.AIcdConventionCheckProfile) -> Sequence[eu.algites.lib.naming.validation.aicd_convention_violation.AIcdConventionViolation]
+
+      Check rendering of an output canonical version.
+
+
+

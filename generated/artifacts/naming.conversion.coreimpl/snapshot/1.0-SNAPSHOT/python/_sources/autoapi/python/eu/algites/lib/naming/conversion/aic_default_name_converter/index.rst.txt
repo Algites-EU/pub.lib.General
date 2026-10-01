@@ -1,0 +1,58 @@
+python.eu.algites.lib.naming.conversion.aic_default_name_converter
+==================================================================
+
+.. py:module:: python.eu.algites.lib.naming.conversion.aic_default_name_converter
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.conversion.aic_default_name_converter.AIcDefaultNameConverter
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcDefaultNameConverter
+
+   Provides default name converter functionality.
+
+
+   .. py:method:: tokenize(value: str, convention: eu.algites.lib.naming.convention.ain_name_convention.AInNameConvention) -> tuple[str, Ellipsis]
+
+      Split a governed name into normalized word tokens.
+
+
+
+   .. py:method:: render(tokens: collections.abc.Sequence[str], convention: eu.algites.lib.naming.convention.ain_name_convention.AInNameConvention) -> str
+
+      Render normalized word tokens using a target naming convention.
+
+
+
+   .. py:method:: convert(value: str, input_convention: eu.algites.lib.naming.convention.ain_name_convention.AInNameConvention, output_convention: eu.algites.lib.naming.convention.ain_name_convention.AInNameConvention) -> str
+
+      Convert a name between explicitly declared naming conventions.
+
+
+
+   .. py:method:: conforms(value: str, convention: eu.algites.lib.naming.convention.ain_name_convention.AInNameConvention) -> bool
+
+      Return whether a name conforms exactly to a naming convention.
+
+
+
+   .. py:method:: parse_versioned_name(value: str, explicit_version: int | None, policy: eu.algites.lib.naming.convention.aicd_input_version_policy.AIcdInputVersionPolicy) -> eu.algites.lib.naming.conversion.aicd_parsed_versioned_name.AIcdParsedVersionedName
+
+      Separate a logical name from its canonical definition version.
+
+
+
+   .. py:method:: render_version(version: int | None, policy: eu.algites.lib.naming.convention.aicd_output_version_policy.AIcdOutputVersionPolicy) -> str
+
+      Render a canonical definition version using the configured output policy.
+
+
+

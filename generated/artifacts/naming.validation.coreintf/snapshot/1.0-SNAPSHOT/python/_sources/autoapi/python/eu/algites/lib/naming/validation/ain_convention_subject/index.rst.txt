@@ -1,0 +1,60 @@
+python.eu.algites.lib.naming.validation.ain_convention_subject
+==============================================================
+
+.. py:module:: python.eu.algites.lib.naming.validation.ain_convention_subject
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.validation.ain_convention_subject.AInConventionSubject
+
+
+Module Contents
+---------------
+
+.. py:class:: AInConventionSubject
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Defines the convention subject enumeration.
+
+
+   .. py:attribute:: DEFINITION_NAME
+      :value: 'DEFINITION_NAME'
+
+
+
+   .. py:attribute:: PROPERTY_NAME
+      :value: 'PROPERTY_NAME'
+
+
+
+   .. py:attribute:: ENUM_VALUE
+      :value: 'ENUM_VALUE'
+
+
+
+   .. py:attribute:: SYMBOLIC_MAP_KEY
+      :value: 'SYMBOLIC_MAP_KEY'
+
+
+
+   .. py:attribute:: PACKAGE_SEGMENT
+      :value: 'PACKAGE_SEGMENT'
+
+
+
+   .. py:attribute:: INPUT_VERSION
+      :value: 'INPUT_VERSION'
+
+
+
+   .. py:attribute:: OUTPUT_VERSION
+      :value: 'OUTPUT_VERSION'
+
+
+

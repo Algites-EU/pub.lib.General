@@ -1,0 +1,60 @@
+python.eu.algites.lib.naming.convention.aicd_output_name_rule
+=============================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.aicd_output_name_rule
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.aicd_output_name_rule.AIcdOutputNameRule
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdOutputNameRule
+
+   Carries immutable output name rule data.
+
+   .. attribute:: convention
+
+      Naming convention.
+
+   .. attribute:: prefix
+
+      Literal name prefix.
+
+   .. attribute:: type_marker
+
+      Semantic type marker.
+
+   .. attribute:: suffix
+
+      Literal name suffix.
+
+
+   .. py:attribute:: convention
+      :type:  eu.algites.lib.naming.convention.ain_name_convention.AInNameConvention
+
+
+   .. py:attribute:: prefix
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: type_marker
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: suffix
+      :type:  str
+      :value: ''
+
+
+

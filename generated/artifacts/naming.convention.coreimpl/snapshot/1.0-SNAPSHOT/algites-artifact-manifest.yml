@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: naming.convention.coreimpl
+  ArtifactCoordinateId: pub.lib.General_naming.convention.coreimpl
+  GroupId: eu.algites.lib.naming
+  Version: 1.0-SNAPSHOT
+  SourcePath: naming/convention/coreimpl
+  StructureKind: artifact
+  Name: "Naming convention core implementation"
+  Description: "Standard Algites naming profiles and reusable default convention definitions."
+SourceMetadata:
+  DescriptorHierarchy:

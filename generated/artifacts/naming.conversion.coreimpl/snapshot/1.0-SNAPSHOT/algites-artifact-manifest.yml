@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: naming.conversion.coreimpl
+  ArtifactCoordinateId: pub.lib.General_naming.conversion.coreimpl
+  GroupId: eu.algites.lib.naming
+  Version: 1.0-SNAPSHOT
+  SourcePath: naming/conversion/coreimpl
+  StructureKind: artifact
+  Name: "Naming conversion core implementation"
+  Description: "Default deterministic conversion implementation for supported naming conventions and version suffix policies."
+SourceMetadata:
+  DescriptorHierarchy:

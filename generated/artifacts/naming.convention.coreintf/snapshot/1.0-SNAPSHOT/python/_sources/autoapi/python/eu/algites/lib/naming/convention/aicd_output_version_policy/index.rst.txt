@@ -1,0 +1,62 @@
+python.eu.algites.lib.naming.convention.aicd_output_version_policy
+==================================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.aicd_output_version_policy
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.aicd_output_version_policy.AIcdOutputVersionPolicy
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdOutputVersionPolicy
+
+   Carries immutable output version policy data.
+
+   .. attribute:: include_version
+
+      Whether to render the canonical version.
+
+   .. attribute:: separator
+
+      Version separator.
+
+   .. attribute:: prefix
+
+      Literal name prefix.
+
+   .. attribute:: suffix
+
+      Literal name suffix.
+
+
+   .. py:attribute:: include_version
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: separator
+      :type:  str
+      :value: '_'
+
+
+
+   .. py:attribute:: prefix
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: suffix
+      :type:  str
+      :value: ''
+
+
+

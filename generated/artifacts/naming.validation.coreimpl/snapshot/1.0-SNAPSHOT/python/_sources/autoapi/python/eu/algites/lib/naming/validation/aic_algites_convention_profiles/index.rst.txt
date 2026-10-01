@@ -1,0 +1,30 @@
+python.eu.algites.lib.naming.validation.aic_algites_convention_profiles
+=======================================================================
+
+.. py:module:: python.eu.algites.lib.naming.validation.aic_algites_convention_profiles
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.validation.aic_algites_convention_profiles.AIcAlgitesConventionProfiles
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcAlgitesConventionProfiles
+
+   Provides strict Algites convention-check profiles.
+
+
+   .. py:method:: strict() -> eu.algites.lib.naming.validation.aicd_convention_check_profile.AIcdConventionCheckProfile
+      :staticmethod:
+
+
+      Return the strict Algites convention-check profile.
+
+
+

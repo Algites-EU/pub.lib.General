@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: naming.validation.coreimpl
+  ArtifactCoordinateId: pub.lib.General_naming.validation.coreimpl
+  GroupId: eu.algites.lib.naming
+  Version: 1.0-SNAPSHOT
+  SourcePath: naming/validation/coreimpl
+  StructureKind: artifact
+  Name: "Naming validation core implementation"
+  Description: "Default validator and strict Algites naming/version validation profile."
+SourceMetadata:
+  DescriptorHierarchy:

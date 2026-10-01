@@ -1,0 +1,45 @@
+python.eu.algites.lib.naming.validation.ain_convention_violation_reaction
+=========================================================================
+
+.. py:module:: python.eu.algites.lib.naming.validation.ain_convention_violation_reaction
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.validation.ain_convention_violation_reaction.AInConventionViolationReaction
+
+
+Module Contents
+---------------
+
+.. py:class:: AInConventionViolationReaction
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Defines the convention violation reaction enumeration.
+
+
+   .. py:attribute:: IGNORE
+      :value: 'IGNORE'
+
+
+
+   .. py:attribute:: INFO
+      :value: 'INFO'
+
+
+
+   .. py:attribute:: WARNING
+      :value: 'WARNING'
+
+
+
+   .. py:attribute:: ERROR
+      :value: 'ERROR'
+
+
+

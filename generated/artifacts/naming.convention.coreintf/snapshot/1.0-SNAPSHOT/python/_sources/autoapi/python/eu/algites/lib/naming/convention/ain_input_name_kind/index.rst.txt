@@ -1,0 +1,70 @@
+python.eu.algites.lib.naming.convention.ain_input_name_kind
+===========================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.ain_input_name_kind
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.ain_input_name_kind.AInInputNameKind
+
+
+Module Contents
+---------------
+
+.. py:class:: AInInputNameKind
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Defines the input name kind enumeration.
+
+
+   .. py:attribute:: DEFINITION
+      :value: 'DEFINITION'
+
+
+
+   .. py:attribute:: PROPERTY
+      :value: 'PROPERTY'
+
+
+
+   .. py:attribute:: ENUM_VALUE
+      :value: 'ENUM_VALUE'
+
+
+
+   .. py:attribute:: SYMBOLIC_MAP_KEY
+      :value: 'SYMBOLIC_MAP_KEY'
+
+
+
+   .. py:attribute:: PACKAGE_SEGMENT
+      :value: 'PACKAGE_SEGMENT'
+
+
+
+   .. py:attribute:: FILE_STEM
+      :value: 'FILE_STEM'
+
+
+
+   .. py:attribute:: DATA_TYPE_FILE_STEM
+      :value: 'DATA_TYPE_FILE_STEM'
+
+
+
+   .. py:attribute:: ENUM_TYPE_FILE_STEM
+      :value: 'ENUM_TYPE_FILE_STEM'
+
+
+
+   .. py:attribute:: INTERFACE_TYPE_FILE_STEM
+      :value: 'INTERFACE_TYPE_FILE_STEM'
+
+
+

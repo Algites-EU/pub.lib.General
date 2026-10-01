@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: naming.conversion.coreintf
+  ArtifactCoordinateId: pub.lib.General_naming.conversion.coreintf
+  GroupId: eu.algites.lib.naming
+  Version: 1.0-SNAPSHOT
+  SourcePath: naming/conversion/coreintf
+  StructureKind: artifact
+  Name: "Naming conversion core interfaces"
+  Description: "Programmatic contracts for tokenization, rendering, conversion, and versioned-name parsing."
+SourceMetadata:
+  DescriptorHierarchy:

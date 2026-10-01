@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: naming.validation.coreintf
+  ArtifactCoordinateId: pub.lib.General_naming.validation.coreintf
+  GroupId: eu.algites.lib.naming
+  Version: 1.0-SNAPSHOT
+  SourcePath: naming/validation/coreintf
+  StructureKind: artifact
+  Name: "Naming validation core interfaces"
+  Description: "Configurable naming/version validation contracts and structured diagnostics."
+SourceMetadata:
+  DescriptorHierarchy:

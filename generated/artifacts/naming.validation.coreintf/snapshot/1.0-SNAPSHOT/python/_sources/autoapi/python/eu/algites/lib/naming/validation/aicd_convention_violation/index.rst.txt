@@ -1,0 +1,54 @@
+python.eu.algites.lib.naming.validation.aicd_convention_violation
+=================================================================
+
+.. py:module:: python.eu.algites.lib.naming.validation.aicd_convention_violation
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.validation.aicd_convention_violation.AIcdConventionViolation
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdConventionViolation
+
+   Carries immutable convention violation data.
+
+   .. attribute:: subject
+
+      Convention subject.
+
+   .. attribute:: reaction
+
+      Convention-violation reaction.
+
+   .. attribute:: value
+
+      Offending value.
+
+   .. attribute:: message
+
+      Human-readable diagnostic.
+
+
+   .. py:attribute:: subject
+      :type:  eu.algites.lib.naming.validation.ain_convention_subject.AInConventionSubject
+
+
+   .. py:attribute:: reaction
+      :type:  eu.algites.lib.naming.validation.ain_convention_violation_reaction.AInConventionViolationReaction
+
+
+   .. py:attribute:: value
+      :type:  str
+
+
+   .. py:attribute:: message
+      :type:  str
+
+

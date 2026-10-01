@@ -1,0 +1,38 @@
+python.eu.algites.lib.naming.convention.aic_algites_naming_profiles
+===================================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.aic_algites_naming_profiles
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.aic_algites_naming_profiles.AIcAlgitesNamingProfiles
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcAlgitesNamingProfiles
+
+   Provides standard strict Algites naming profiles for generated source.
+
+
+   .. py:method:: java_profile() -> eu.algites.lib.naming.convention.aicd_naming_profile.AIcdNamingProfile
+      :staticmethod:
+
+
+      Return the standard Algites naming profile for Java output.
+
+
+
+   .. py:method:: python_profile() -> eu.algites.lib.naming.convention.aicd_naming_profile.AIcdNamingProfile
+      :staticmethod:
+
+
+      Return the standard Algites naming profile for Python output.
+
+
+
