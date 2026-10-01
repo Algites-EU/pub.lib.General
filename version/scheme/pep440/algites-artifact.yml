@@ -2,3 +2,14 @@ Artifact:
   TechnologyKinds: [java]
   Name: PEP 440 version scheme
   Description: PEP 440 version parsing, comparison, and specifier semantics.
+
+Dependencies:
+  - DependencyKind: java
+    Items:
+      - GroupId: org.testng
+        ArtifactId: testng
+        Usages: [develop_implementation]
+        VersionRequirement:
+          Minimum: ">=7.0.0"
+          Maximum: "<8.0.0"
+          MaximumStrict: true

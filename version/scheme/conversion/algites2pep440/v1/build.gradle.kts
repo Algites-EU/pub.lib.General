@@ -14,7 +14,6 @@ java {
     }
 }
 
-val TESTNG_VERSION = "7.11.0"
 val JAKARTA_ANNOTATION_VERSION = "3.0.0"
 
 dependencies {
@@ -22,5 +21,4 @@ dependencies {
     api(project(":version:scheme:conversion:common"))
     api(project(":version:scheme:algites:v1"))
     api(project(":version:scheme:pep440"))
-    testImplementation("org.testng:testng:" + TESTNG_VERSION)
 }

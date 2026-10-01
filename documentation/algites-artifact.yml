@@ -2,3 +2,14 @@ Artifact:
   TechnologyKinds: [java]
   Name: Documentation model utilities
   Description: Renderer-neutral utilities and model types for building documentation structures and abstract syntax trees.
+
+Dependencies:
+  - DependencyKind: java
+    Items:
+      - GroupId: org.testng
+        ArtifactId: testng
+        Usages: [develop_implementation]
+        VersionRequirement:
+          Minimum: ">=7.0.0"
+          Maximum: "<8.0.0"
+          MaximumStrict: true

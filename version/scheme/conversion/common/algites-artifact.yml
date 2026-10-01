@@ -2,3 +2,14 @@ Artifact:
   TechnologyKinds: [java]
   Name: Version conversion common
   Description: Common contracts and diagnostics for conversion between version schemes.
+
+Dependencies:
+  - DependencyKind: java
+    Items:
+      - GroupId: org.testng
+        ArtifactId: testng
+        Usages: [develop_implementation]
+        VersionRequirement:
+          Minimum: ">=7.0.0"
+          Maximum: "<8.0.0"
+          MaximumStrict: true

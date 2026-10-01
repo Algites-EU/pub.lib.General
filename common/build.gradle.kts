@@ -18,11 +18,9 @@ java {
     }
 }
 
-val TESTNG_VERSION = "7.11.0"
 val JAKARTA_ANNOTATION_VERSION = "3.0.0"
 
 dependencies {
-    testImplementation("org.testng:testng:" + TESTNG_VERSION)
     implementation("jakarta.annotation:jakarta.annotation-api:" + JAKARTA_ANNOTATION_VERSION)
 }
 

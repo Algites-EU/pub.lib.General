@@ -2,3 +2,14 @@ Artifact:
   TechnologyKinds: [java]
   Name: Algites v1 to Gradle version conversion
   Description: Conversion of Algites version scheme v1 to Gradle version semantics.
+
+Dependencies:
+  - DependencyKind: java
+    Items:
+      - GroupId: org.testng
+        ArtifactId: testng
+        Usages: [develop_implementation]
+        VersionRequirement:
+          Minimum: ">=7.0.0"
+          Maximum: "<8.0.0"
+          MaximumStrict: true
