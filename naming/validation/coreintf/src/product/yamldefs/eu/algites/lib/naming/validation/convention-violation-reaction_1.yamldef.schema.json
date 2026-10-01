@@ -11,5 +11,5 @@
     "warning",
     "error"
   ],
-  "description": "Canonical enumeration of reactions that a convention checker may apply to a violation."
+  "description": "Canonical enumeration of reactions that a convention validator may apply to a violation."
 }

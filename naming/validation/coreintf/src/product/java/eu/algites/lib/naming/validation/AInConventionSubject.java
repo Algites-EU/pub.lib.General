@@ -1,6 +1,6 @@
 package eu.algites.lib.naming.validation;
 
-/** Governed convention subjects supported by the generic checker. */
+/** Governed convention subjects supported by the generic validator. */
 public enum AInConventionSubject {
     /** Represents the definition name value. */
     DEFINITION_NAME,

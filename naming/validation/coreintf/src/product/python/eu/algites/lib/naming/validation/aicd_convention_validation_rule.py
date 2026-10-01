@@ -5,8 +5,8 @@ from eu.algites.lib.naming.validation.ain_convention_violation_reaction import A
 from eu.algites.lib.naming.convention.ain_name_convention import AInNameConvention
 
 @dataclass(frozen=True, slots=True)
-class AIcdConventionCheckRule:
-    """Carries immutable convention check rule data.
+class AIcdConventionValidationRule:
+    """Carries immutable convention-validation rule data.
 
     Attributes:
         convention: Naming convention.

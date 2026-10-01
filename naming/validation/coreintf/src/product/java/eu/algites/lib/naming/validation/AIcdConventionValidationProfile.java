@@ -8,24 +8,24 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Configurable convention-check profile.
+ * Configurable convention-validation profile.
  *
- * @param enabled whether this profile performs checks
+ * @param enabled whether this profile performs validation
  * @param namingRules subject-specific naming rules
  * @param inputVersionPolicy input canonical-version policy
  * @param outputVersionPolicy output canonical-version policy
  * @param inputVersionReaction reaction to input-version violations
  * @param outputVersionReaction reaction to output-version violations
  */
-public record AIcdConventionCheckProfile(
+public record AIcdConventionValidationProfile(
         boolean enabled,
-        Map<AInConventionSubject, AIcdConventionCheckRule> namingRules,
+        Map<AInConventionSubject, AIcdConventionValidationRule> namingRules,
         AIcdInputVersionPolicy inputVersionPolicy,
         AIcdOutputVersionPolicy outputVersionPolicy,
         AInConventionViolationReaction inputVersionReaction,
         AInConventionViolationReaction outputVersionReaction) {
     /** Validates and normalizes the supplied data-object components. */
-    public AIcdConventionCheckProfile {
+    public AIcdConventionValidationProfile {
         namingRules = Map.copyOf(Objects.requireNonNull(namingRules, "namingRules"));
         Objects.requireNonNull(inputVersionPolicy, "inputVersionPolicy");
         Objects.requireNonNull(outputVersionPolicy, "outputVersionPolicy");

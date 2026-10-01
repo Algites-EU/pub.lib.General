@@ -11,5 +11,5 @@
   "x-jsondefs-id": "eu.algites.lib.naming.validation.convention-violation-reaction",
   "x-jsondefs-version": 1,
   "x-jsondefs-name": "convention-violation-reaction",
-  "description": "Canonical enumeration of reactions that a convention checker may apply to a violation."
+  "description": "Canonical enumeration of reactions that a convention validator may apply to a violation."
 }

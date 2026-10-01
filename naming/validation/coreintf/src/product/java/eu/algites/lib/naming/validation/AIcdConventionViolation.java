@@ -4,7 +4,7 @@ package eu.algites.lib.naming.validation;
 import java.util.Objects;
 
 /**
- * Structured convention-check finding.
+ * Structured convention-validation finding.
  *
  * @param subject semantic subject that violated a convention
  * @param reaction configured violation reaction

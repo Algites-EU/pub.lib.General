@@ -1,15 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "eu.algites.lib.naming.validation.convention-check-profile",
-  "x-yamldefs-id": "eu.algites.lib.naming.validation.convention-check-profile",
+  "$id": "eu.algites.lib.naming.validation.convention-validation-profile",
+  "x-yamldefs-id": "eu.algites.lib.naming.validation.convention-validation-profile",
   "x-yamldefs-version": 1,
-  "x-yamldefs-name": "convention-check-profile",
+  "x-yamldefs-name": "convention-validation-profile",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "Enabled": {
       "type": "boolean",
-      "description": "Controls whether the example resource endpoint is enabled."
+      "description": "Controls whether convention validation is enabled."
     },
     "NamingRules": {
       "type": "object",
@@ -45,5 +45,5 @@
   "required": [
     "Enabled"
   ],
-  "description": "Defines configurable naming and version validation rules for a convention checker."
+  "description": "Defines configurable naming and version validation rules for convention validation."
 }

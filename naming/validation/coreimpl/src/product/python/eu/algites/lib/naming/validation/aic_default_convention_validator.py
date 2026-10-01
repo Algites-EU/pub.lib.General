@@ -5,14 +5,14 @@ from eu.algites.lib.naming.conversion.aic_default_name_converter import AIcDefau
 from eu.algites.lib.naming.validation.ain_convention_subject import AInConventionSubject
 from eu.algites.lib.naming.validation.ain_convention_violation_reaction import AInConventionViolationReaction
 
-class AIcDefaultConventionChecker:
-    """Provides default convention checker functionality."""
+class AIcDefaultConventionValidator:
+    """Provides default convention validator functionality."""
     def __init__(self) -> None:
         """Initialize this service instance."""
         self._converter = AIcDefaultNameConverter()
 
-    def check_name(self, subject, value, profile):
-        """Check one name against its subject-specific naming convention."""
+    def validate_name(self, subject, value, profile):
+        """Validate one name against its subject-specific naming convention."""
         if not profile.enabled:
             return ()
         rule = profile.naming_rules.get(subject)
@@ -20,8 +20,8 @@ class AIcDefaultConventionChecker:
             return ()
         return (AIcdConventionViolation(subject, rule.reaction, value, f"Expected {rule.convention.value} naming."),)
 
-    def check_input_version(self, value, explicit_version, profile):
-        """Check extraction and consistency of an input canonical version."""
+    def validate_input_version(self, value, explicit_version, profile):
+        """Validate extraction and consistency of an input canonical version."""
         if not profile.enabled or profile.input_version_reaction is AInConventionViolationReaction.IGNORE:
             return ()
         try:
@@ -30,8 +30,8 @@ class AIcDefaultConventionChecker:
         except ValueError as exc:
             return (AIcdConventionViolation(AInConventionSubject.INPUT_VERSION, profile.input_version_reaction, value, str(exc)),)
 
-    def check_output_version(self, version, rendered_suffix, profile):
-        """Check rendering of an output canonical version."""
+    def validate_output_version(self, version, rendered_suffix, profile):
+        """Validate rendering of an output canonical version."""
         if not profile.enabled or profile.output_version_reaction is AInConventionViolationReaction.IGNORE:
             return ()
         expected = self._converter.render_version(version, profile.output_version_policy)
