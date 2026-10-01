@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.validation.convention-violation-reaction" version="1">
+  <xs:annotation><xs:documentation>Defines reactions applied when a governed naming or version convention is violated.</xs:documentation></xs:annotation><xs:simpleType name="convention-violation-reaction">
+    <xs:annotation><xs:documentation>Defines one convention-violation reaction.</xs:documentation></xs:annotation><xs:restriction base="xs:string">
+      <xs:enumeration value="ignore"/>
+      <xs:enumeration value="info"/>
+      <xs:enumeration value="warning"/>
+      <xs:enumeration value="error"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

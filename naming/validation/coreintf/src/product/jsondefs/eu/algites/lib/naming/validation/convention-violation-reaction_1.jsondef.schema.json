@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eu.algites.lib.naming.validation.convention-violation-reaction",
+  "type": "string",
+  "enum": [
+    "ignore",
+    "info",
+    "warning",
+    "error"
+  ],
+  "x-jsondefs-id": "eu.algites.lib.naming.validation.convention-violation-reaction",
+  "x-jsondefs-version": 1,
+  "x-jsondefs-name": "convention-violation-reaction",
+  "description": "Canonical enumeration of reactions that a convention checker may apply to a violation."
+}

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.output-name-kind" version="1">
+  <xs:annotation><xs:documentation>Defines generated output-name subject categories used by naming profiles.</xs:documentation></xs:annotation><xs:simpleType name="output-name-kind">
+    <xs:annotation><xs:documentation>Defines one output-name subject category.</xs:documentation></xs:annotation><xs:restriction base="xs:string">
+      <xs:enumeration value="data_type"/>
+      <xs:enumeration value="enum_type"/>
+      <xs:enumeration value="interface_type"/>
+      <xs:enumeration value="property"/>
+      <xs:enumeration value="enum_constant"/>
+      <xs:enumeration value="package_segment"/>
+      <xs:enumeration value="file_stem"/>
+      <xs:enumeration value="data_type_file_stem"/>
+      <xs:enumeration value="enum_type_file_stem"/>
+      <xs:enumeration value="interface_type_file_stem"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

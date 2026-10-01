@@ -12,6 +12,7 @@ This repository contains reusable public libraries that provide common functiona
 
 It currently contains:
 - general-purpose utility code,
+- reusable naming convention, conversion, and validation infrastructure,
 - documentation model utilities,
 - a technology-neutral version model,
 - concrete version-scheme implementations,
@@ -31,6 +32,10 @@ The repository is organized as a set of independently buildable Algites artifact
 ├── common/
 │   ├── README.md
 │   └── src/
+├── naming/
+│   ├── convention/{coreintf,coreimpl}/
+│   ├── conversion/{coreintf,coreimpl}/
+│   └── validation/{coreintf,coreimpl}/
 ├── documentation/
 │   ├── README.md
 │   └── src/
@@ -76,6 +81,9 @@ The repository is organized as a set of independently buildable Algites artifact
 The main modules are:
 
 - `common` — general-purpose support utilities shared across Algites artifacts and repositories.
+- `naming/convention` — naming conventions, naming policies, and versioned-name policy contracts/defaults.
+- `naming/conversion` — deterministic token-based conversion between naming conventions.
+- `naming/validation` — configurable validation against naming and version policies, including the strict Algites profile.
 - `documentation` — renderer-neutral documentation model and abstract-syntax-tree utilities.
 - `version/core` — technology-neutral version representation, comparison, formatting, interval, codec, and scheme APIs.
 - `version/scheme/algites/v1` — version 1 of the Algites version scheme.
@@ -130,10 +138,10 @@ https://github.com/Algites-EU/pub.gov.Algites.specs/blob/main/ci/Algites-Github-
 
 Each module is published as an independent Algites artifact. Consumers should depend only on the modules they actually require.
 
-The repository uses the Java/Maven group ID:
+Most legacy/common artifacts inherit the repository default GroupId `eu.algites.lib.common`. Functional artifact families may override that default. The naming family uses:
 
 ```text
-eu.algites.lib.common
+eu.algites.lib.naming
 ```
 
 Example Maven dependency for the version core artifact:
@@ -170,6 +178,10 @@ cd pub.lib.General
 ```
 
 Individual artifacts follow the standard Algites source layout below `src/product/<source-kind>` and `src/develop/<source-kind>`, including the standard `.gen` and `.extgen` generated-source suffix semantics where applicable.
+
+Python artifacts use PEP 420 namespace packages where namespaces are shared; no `__init__.py` is required in the new naming packages. Each main public `AI*` Python type lives in its own deterministic snake_case module, matching the Java one-public-type-per-file organization.
+
+Algites data-object naming is semantic rather than implementation-specific: handwritten Java `record` types and Python `@dataclass` types use `AIcd...`; generated data objects use `AIcgd...`. The `d` marker denotes a data object, while `g` additionally denotes generated source. Public/protected source API is documented with Javadoc or Python docstrings; undocumented source API is not considered acceptable Algites source.
 
 When extending the version subsystem:
 

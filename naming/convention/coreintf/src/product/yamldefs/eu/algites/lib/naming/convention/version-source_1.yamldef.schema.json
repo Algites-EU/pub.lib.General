@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eu.algites.lib.naming.convention.version-source",
+  "x-yamldefs-id": "eu.algites.lib.naming.convention.version-source",
+  "x-yamldefs-version": 1,
+  "x-yamldefs-name": "version-source",
+  "type": "string",
+  "enum": [
+    "explicit_metadata",
+    "file_name_suffix",
+    "explicit_then_file_name"
+  ],
+  "description": "Canonical enumeration of strategies used to obtain a semantic definition version."
+}

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.version-source" version="1">
+  <xs:annotation><xs:documentation>Defines strategies for resolving canonical definition versions from source metadata and filenames.</xs:documentation></xs:annotation><xs:simpleType name="version-source">
+    <xs:annotation><xs:documentation>Defines one canonical version source strategy.</xs:documentation></xs:annotation><xs:restriction base="xs:string">
+      <xs:enumeration value="explicit_metadata"/>
+      <xs:enumeration value="file_name_suffix"/>
+      <xs:enumeration value="explicit_then_file_name"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

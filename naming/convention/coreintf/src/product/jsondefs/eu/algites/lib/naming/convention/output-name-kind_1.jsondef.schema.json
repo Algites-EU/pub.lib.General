@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eu.algites.lib.naming.convention.output-name-kind",
+  "type": "string",
+  "enum": [
+    "data_type",
+    "enum_type",
+    "interface_type",
+    "property",
+    "enum_constant",
+    "package_segment",
+    "file_stem",
+    "data_type_file_stem",
+    "enum_type_file_stem",
+    "interface_type_file_stem"
+  ],
+  "x-jsondefs-id": "eu.algites.lib.naming.convention.output-name-kind",
+  "x-jsondefs-version": 1,
+  "x-jsondefs-name": "output-name-kind",
+  "description": "Canonical enumeration of semantic target-name subjects produced by naming profiles."
+}

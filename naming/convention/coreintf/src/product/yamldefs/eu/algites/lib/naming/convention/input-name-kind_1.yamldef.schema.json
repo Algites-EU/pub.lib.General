@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eu.algites.lib.naming.convention.input-name-kind",
+  "x-yamldefs-id": "eu.algites.lib.naming.convention.input-name-kind",
+  "x-yamldefs-version": 1,
+  "x-yamldefs-name": "input-name-kind",
+  "type": "string",
+  "enum": [
+    "definition",
+    "property",
+    "enum_value",
+    "symbolic_map_key",
+    "package_segment",
+    "file_stem",
+    "data_type_file_stem",
+    "enum_type_file_stem",
+    "interface_type_file_stem"
+  ],
+  "description": "Canonical enumeration of semantic source-name subjects understood by naming profiles."
+}

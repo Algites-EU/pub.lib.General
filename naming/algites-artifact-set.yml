@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/algites-artifact-set_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/algites-artifact-set_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/algites-artifact-set_1.yamldef.schema.json
+
+ArtifactSet:
+  Name: Naming infrastructure
+  Description: Reusable naming conventions, conversion, and validation for Java, Python, definitions, files, packages, and other named model elements.
+
+GroupId: eu.algites.lib.naming

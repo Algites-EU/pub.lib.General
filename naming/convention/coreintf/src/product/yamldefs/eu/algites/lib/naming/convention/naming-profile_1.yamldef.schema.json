@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eu.algites.lib.naming.convention.naming-profile",
+  "x-yamldefs-id": "eu.algites.lib.naming.convention.naming-profile",
+  "x-yamldefs-version": 1,
+  "x-yamldefs-name": "naming-profile",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "InputNaming": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "name-convention_1.yamldef.schema.json"
+      },
+      "propertyNames": {
+        "$ref": "input-name-kind_1.yamldef.schema.json"
+      },
+      "description": "Maps semantic input-name subjects to their expected lexical naming conventions."
+    },
+    "OutputNaming": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "Convention": {
+            "$ref": "name-convention_1.yamldef.schema.json",
+            "description": "Selects the lexical naming convention for this subject."
+          },
+          "Prefix": {
+            "type": "string",
+            "description": "Text prepended to the rendered logical name."
+          },
+          "TypeMarker": {
+            "type": "string",
+            "description": "Semantic type marker inserted between prefix and rendered logical name."
+          },
+          "Suffix": {
+            "type": "string",
+            "description": "Text appended after the rendered logical name."
+          }
+        },
+        "required": [
+          "Convention"
+        ],
+        "additionalProperties": false
+      },
+      "propertyNames": {
+        "$ref": "output-name-kind_1.yamldef.schema.json"
+      },
+      "description": "Maps semantic output-name subjects to target rendering rules."
+    },
+    "InputVersionPolicy": {
+      "type": "object",
+      "properties": {
+        "Source": {
+          "$ref": "version-source_1.yamldef.schema.json",
+          "description": "Selects where the input definition version is obtained."
+        },
+        "FileNameSeparator": {
+          "type": "string",
+          "description": "Separator between the logical source name and file-name version suffix."
+        },
+        "RequirePositiveInteger": {
+          "type": "boolean",
+          "description": "Requires a discovered definition version to be a positive integer."
+        },
+        "RequireMatchingSources": {
+          "type": "boolean",
+          "description": "Requires explicit and file-name versions to match when both are present."
+        }
+      },
+      "required": [
+        "Source"
+      ],
+      "additionalProperties": false,
+      "description": "Controls how the canonical source-definition version is discovered and validated."
+    },
+    "OutputVersionPolicy": {
+      "type": "object",
+      "properties": {
+        "IncludeVersion": {
+          "type": "boolean",
+          "description": "Controls whether the semantic definition version is emitted in generated names."
+        },
+        "Separator": {
+          "type": "string",
+          "description": "Separator emitted before the generated version fragment."
+        },
+        "Prefix": {
+          "type": "string",
+          "description": "Text prepended to the rendered logical name."
+        },
+        "Suffix": {
+          "type": "string",
+          "description": "Text appended after the rendered logical name."
+        }
+      },
+      "required": [
+        "IncludeVersion"
+      ],
+      "additionalProperties": false,
+      "description": "Controls how the canonical definition version is rendered in generated names."
+    }
+  },
+  "required": [
+    "InputNaming",
+    "OutputNaming",
+    "InputVersionPolicy",
+    "OutputVersionPolicy"
+  ],
+  "description": "Defines source naming rules, target naming rules, and independent input/output version policies."
+}

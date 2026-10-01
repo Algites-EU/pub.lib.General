@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eu.algites.lib.naming.validation.convention-check-profile",
+  "x-yamldefs-id": "eu.algites.lib.naming.validation.convention-check-profile",
+  "x-yamldefs-version": 1,
+  "x-yamldefs-name": "convention-check-profile",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "Enabled": {
+      "type": "boolean",
+      "description": "Controls whether the example resource endpoint is enabled."
+    },
+    "NamingRules": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "Convention": {
+            "$ref": "../convention/name-convention_1.yamldef.schema.json",
+            "description": "Selects the lexical naming convention for this subject."
+          },
+          "OnViolation": {
+            "$ref": "convention-violation-reaction_1.yamldef.schema.json",
+            "description": "Reaction to use when the governed naming rule is violated."
+          }
+        },
+        "required": [
+          "Convention",
+          "OnViolation"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Defines validation rules per governed naming subject."
+    },
+    "InputVersionOnViolation": {
+      "$ref": "convention-violation-reaction_1.yamldef.schema.json",
+      "description": "Reaction to use when the input version policy is violated."
+    },
+    "OutputVersionOnViolation": {
+      "$ref": "convention-violation-reaction_1.yamldef.schema.json",
+      "description": "Reaction to use when the output version policy is violated."
+    }
+  },
+  "required": [
+    "Enabled"
+  ],
+  "description": "Defines configurable naming and version validation rules for a convention checker."
+}

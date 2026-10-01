@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/algites-artifact_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/algites-artifact_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/algites-artifact_1.yamldef.schema.json
+
+Artifact:
+  TechnologyKinds: [java, python]
+  Name: Naming convention core interfaces
+  Description: Technology-neutral naming and version-policy contracts exposed in Java and Python.
+
+Dependencies:
+  - DependencyKind: java
+    Items:
+      - GroupId: org.testng
+        ArtifactId: testng
+        Usages: [develop_implementation]
+        VersionRequirement: { Exact: "7.10.2" }

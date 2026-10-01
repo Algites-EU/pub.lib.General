@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/algites-artifact_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/algites-artifact_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/algites-artifact_1.yamldef.schema.json
+
+Artifact:
+  TechnologyKinds: [java, python]
+  Name: Naming conversion core implementation
+  Description: Default deterministic conversion implementation for supported naming conventions and version suffix policies.
+
+Dependencies:
+  - DependencyKind: modustro
+    Items:
+      - GroupId: eu.algites.lib.naming
+        ArtifactId: pub.lib.General_naming.convention.coreintf
+        Usages: [product_api]
+        VersionRequirement: { Exact: "1.0-SNAPSHOT" }
+      - GroupId: eu.algites.lib.naming
+        ArtifactId: pub.lib.General_naming.conversion.coreintf
+        Usages: [product_api]
+        VersionRequirement: { Exact: "1.0-SNAPSHOT" }
+  - DependencyKind: java
+    Items:
+      - GroupId: org.testng
+        ArtifactId: testng
+        Usages: [develop_implementation]
+        VersionRequirement: { Exact: "7.10.2" }

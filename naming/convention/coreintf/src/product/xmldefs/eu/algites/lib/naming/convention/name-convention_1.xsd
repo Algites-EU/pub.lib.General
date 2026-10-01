@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.name-convention" version="1">
+  <xs:annotation><xs:documentation>Defines supported canonical word-boundary and case conventions.</xs:documentation></xs:annotation><xs:simpleType name="name-convention">
+    <xs:annotation><xs:documentation>Defines one supported naming convention.</xs:documentation></xs:annotation><xs:restriction base="xs:string">
+      <xs:enumeration value="as_is"/>
+      <xs:enumeration value="lower_snake_case"/>
+      <xs:enumeration value="upper_snake_case"/>
+      <xs:enumeration value="lower_camel_case"/>
+      <xs:enumeration value="upper_camel_case"/>
+      <xs:enumeration value="lower_kebab_case"/>
+      <xs:enumeration value="upper_kebab_case"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
