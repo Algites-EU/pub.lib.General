@@ -1,7 +1,7 @@
-python.eu.algites.lib.naming.validation.aicd_convention_check_profile
-=====================================================================
+python.eu.algites.lib.naming.validation.aicd_convention_validation_profile
+==========================================================================
 
-.. py:module:: python.eu.algites.lib.naming.validation.aicd_convention_check_profile
+.. py:module:: python.eu.algites.lib.naming.validation.aicd_convention_validation_profile
 
 
 Classes
@@ -9,19 +9,19 @@ Classes
 
 .. autoapisummary::
 
-   python.eu.algites.lib.naming.validation.aicd_convention_check_profile.AIcdConventionCheckProfile
+   python.eu.algites.lib.naming.validation.aicd_convention_validation_profile.AIcdConventionValidationProfile
 
 
 Module Contents
 ---------------
 
-.. py:class:: AIcdConventionCheckProfile
+.. py:class:: AIcdConventionValidationProfile
 
-   Carries immutable convention check profile data.
+   Carries immutable convention-validation profile data.
 
    .. attribute:: enabled
 
-      Whether checking is enabled.
+      Whether validation is enabled.
 
    .. attribute:: naming_rules
 
@@ -49,7 +49,7 @@ Module Contents
 
 
    .. py:attribute:: naming_rules
-      :type:  Mapping[eu.algites.lib.naming.validation.ain_convention_subject.AInConventionSubject, eu.algites.lib.naming.validation.aicd_convention_check_rule.AIcdConventionCheckRule]
+      :type:  Mapping[eu.algites.lib.naming.validation.ain_convention_subject.AInConventionSubject, eu.algites.lib.naming.validation.aicd_convention_validation_rule.AIcdConventionValidationRule]
 
 
    .. py:attribute:: input_version_policy

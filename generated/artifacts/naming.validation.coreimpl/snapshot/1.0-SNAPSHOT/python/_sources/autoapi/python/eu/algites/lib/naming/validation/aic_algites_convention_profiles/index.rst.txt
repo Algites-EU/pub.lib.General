@@ -17,14 +17,14 @@ Module Contents
 
 .. py:class:: AIcAlgitesConventionProfiles
 
-   Provides strict Algites convention-check profiles.
+   Provides strict Algites convention-validation profiles.
 
 
-   .. py:method:: strict() -> eu.algites.lib.naming.validation.aicd_convention_check_profile.AIcdConventionCheckProfile
+   .. py:method:: strict() -> eu.algites.lib.naming.validation.aicd_convention_validation_profile.AIcdConventionValidationProfile
       :staticmethod:
 
 
-      Return the strict Algites convention-check profile.
+      Return the strict Algites convention-validation profile.
 
 
 

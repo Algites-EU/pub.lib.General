@@ -1,7 +1,7 @@
-python.eu.algites.lib.naming.validation.aicd_convention_check_rule
-==================================================================
+python.eu.algites.lib.naming.validation.aicd_convention_validation_rule
+=======================================================================
 
-.. py:module:: python.eu.algites.lib.naming.validation.aicd_convention_check_rule
+.. py:module:: python.eu.algites.lib.naming.validation.aicd_convention_validation_rule
 
 
 Classes
@@ -9,15 +9,15 @@ Classes
 
 .. autoapisummary::
 
-   python.eu.algites.lib.naming.validation.aicd_convention_check_rule.AIcdConventionCheckRule
+   python.eu.algites.lib.naming.validation.aicd_convention_validation_rule.AIcdConventionValidationRule
 
 
 Module Contents
 ---------------
 
-.. py:class:: AIcdConventionCheckRule
+.. py:class:: AIcdConventionValidationRule
 
-   Carries immutable convention check rule data.
+   Carries immutable convention-validation rule data.
 
    .. attribute:: convention
 
