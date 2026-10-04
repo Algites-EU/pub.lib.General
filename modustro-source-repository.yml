@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-source-repository_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-source-repository_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-source-repository_1.yamldef.schema.json
+
+SourceRepository:
+  Id: pub.lib.General
+  Name: Algites public general-purpose libraries repository
+
+GroupId: eu.algites.lib.common
+
+Version:
+  ReleaseLineVersion: "1"
+  Revision: 0
+  QualifierKind: snapshot

@@ -109,7 +109,7 @@ Algites version semantics are explicitly versioned below `version/scheme/algites
 The repository uses the shared Algites Gradle build infrastructure:
 
 ```bash
-./gradlew clean algitesBuild
+./gradlew clean modustroBuild
 ```
 
 For a conventional Gradle lifecycle build, the following is also available where appropriate:
@@ -174,7 +174,7 @@ Typical workflow:
 ```bash
 git clone https://github.com/Algites-EU/pub.lib.General.git
 cd pub.lib.General
-./gradlew clean algitesBuild
+./gradlew clean modustroBuild
 ```
 
 Individual artifacts follow the standard Algites source layout below `src/product/<source-kind>` and `src/develop/<source-kind>`, including the standard `.gen` and `.extgen` generated-source suffix semantics where applicable.
@@ -220,3 +220,15 @@ See:
 ---
 
 **© Algites**
+
+
+## Modustro repository initialization
+
+Repository and artifact metadata use `modustro-source-repository.yml`,
+`modustro-artifact-set.yml` and `modustro-artifact.yml`. Root Settings load the
+compiled `modustro.builder.gradleinit` artifact once; project inclusion,
+resource endpoints and metadata are resolved by that plugin. Artifact source
+sets, dependencies and output production are configured by the shared Modustro
+conventions. Source generation is inferred from `src/product/yamldefs`,
+`src/product/jsondefs` and `src/product/xmldefs`, without per-file generation
+sections in descriptors. Test-only canonical fixtures belong below `src/develop`.

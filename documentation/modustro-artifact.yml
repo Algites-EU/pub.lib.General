@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+
+Artifact:
+  TechnologyKinds: [java]
+  Name: Documentation model utilities
+  Description: Renderer-neutral utilities and model types for building documentation structures and abstract syntax trees.
+
+
+Dependencies:
+- DependencyKind: java
+  Items:
+  - GroupId: org.testng
+    ArtifactId: testng
+    Usages:
+    - develop_implementation
+    VersionRequirement:
+      Minimum: '>=7.0.0'
+      Maximum: <8.0.0
+      MaximumStrict: true
+  - GroupId: jakarta.annotation
+    ArtifactId: jakarta.annotation-api
+    Usages:
+    - product_implementation
+    VersionRequirement:
+      Exact: 3.0.0
+- DependencyKind: modustro
+  Items:
+  - GroupId: eu.algites.lib.common
+    ArtifactId: pub.lib.General_common
+    Usages:
+    - product_api
+    VersionRequirement:
+      Exact: 1.0-SNAPSHOT
+  - GroupId: eu.algites.lib.common
+    ArtifactId: pub.lib.General_common
+    Usages:
+    - develop_implementation
+    VersionRequirement:
+      Exact: 1.0-SNAPSHOT
