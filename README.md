@@ -84,8 +84,8 @@ The main modules are:
 - `naming/convention` — naming conventions, naming policies, and versioned-name policy contracts/defaults.
 - `naming/conversion` — deterministic token-based conversion between naming conventions.
 - `naming/validation` — configurable validation against naming and version policies, including the strict Algites profile.
-- `documentation` — renderer-neutral documentation model and abstract-syntax-tree utilities.
-- `version/core` — technology-neutral version representation, comparison, formatting, interval, codec, and scheme APIs.
+- `documentation/intf` and `documentation/impl` — renderer-neutral documentation contracts and implementations.
+- `version/commonintf` and `version/commonimpl` — version contracts and shared implementations (existing Java packages retained).
 - `version/scheme/algites/v1` — version 1 of the Algites version scheme.
 - `version/scheme/maven` — Maven version and version-range semantics.
 - `version/scheme/gradle` — Gradle dependency-version and rich-version-constraint semantics.
@@ -144,19 +144,19 @@ Most legacy/common artifacts inherit the repository default GroupId `eu.algites.
 eu.algites.lib.naming
 ```
 
-Example Maven dependency for the version core artifact:
+Example Maven dependency for the higher-level version implementation artifact:
 
 ```xml
 <dependency>
   <groupId>eu.algites.lib.common</groupId>
-  <artifactId>pub.lib.General_version.core</artifactId>
+  <artifactId>pub.lib.General_version.commonimpl</artifactId>
   <version>...</version>
 </dependency>
 ```
 
 For version handling, use:
 
-- `version/core` when only the generic version model and scheme SPI are required;
+- `version/commonintf` for the generic version model and scheme SPI, or `version/commonimpl` when its extra helpers and parsers are needed;
 - `version/scheme/maven`, `version/scheme/gradle`, or `version/scheme/pep440` for a concrete external version scheme;
 - `version/scheme/algites/v1` for Algites v1 version semantics;
 - a module below `version/scheme/conversion` when explicit conversion between schemes is required.
@@ -185,7 +185,7 @@ Algites data-object naming is semantic rather than implementation-specific: hand
 
 When extending the version subsystem:
 
-- keep generic APIs and algorithms in `version/core`;
+- keep low-level version APIs and their necessary primitives in `version/commonintf`, and other generic implementations in `version/commonimpl`;
 - keep scheme-specific behavior in the corresponding module below `version/scheme`;
 - keep knowledge of two schemes in an explicit module below `version/scheme/conversion` rather than introducing cross-scheme dependencies into the scheme modules themselves;
 - add tests and update the module-local `README.md` together with behavioral changes.
@@ -232,3 +232,33 @@ sets, dependencies and output production are configured by the shared Modustro
 conventions. Source generation is inferred from `src/product/yamldefs`,
 `src/product/jsondefs` and `src/product/xmldefs`, without per-file generation
 sections in descriptors. Test-only canonical fixtures belong below `src/develop`.
+
+## New general-purpose text and structured data libraries
+
+- [`text/format`](text/format/README.md): reusable text-format descriptors, reference policies, static profile catalog, and formatting helpers.
+- [`data/smartdataobject`](data/smartdataobject/README.md): general mutable SmartDataObject runtime, read-only and mutable contracts, raw/effective defaults, presence, validation and identity-aware diagnostic/transport graph rendering.
+
+These modules use `intf` and `impl` artifact names because they expose a public contract directly; there is no extra `core`/`facade` boundary. Internals of `data/smartdataobject/impl` are intentionally non-public so the graph engine may later move into a separate general object-graph artifact. Code generation for concrete `AIig` / `AIigd` / `AIcgd` classes belongs to `pub.tool.General`, not to this repository.
+
+## General DataObject and SmartDataObject (1.1-SNAPSHOT)
+
+`data/dataobject/intf` owns pure data-object markers (`AIiDataObject`, `AIiInputDataObject`, `AIiOutputDataObject`) and normalized contract annotations (`AIaDataObject`, `AIaDataObjectField`). These interfaces and annotations are independent of SmartDataObject and any source schema language.
+
+`data/smartdataobject/intf` depends on the general marker; its `impl` contains the mutable SmartDataObject runtime and private graph snapshot/rendering helpers. The `text/format` modules remain general-purpose and separate.
+
+The established naming profile record has additional **copy-returning** methods for deriving input/output rule overrides without changing existing constructors, fields or accessors. Implementations and new modules in this repository belong to the `1.1-SNAPSHOT` release line. Consumers must explicitly upgrade rather than silently reuse old `1.0-SNAPSHOT` publications.
+
+## Artifact layout migration (1.1-SNAPSHOT)
+
+The naming artifacts have moved from `coreintf`/`coreimpl` to `intf`/`impl`.
+`documentation` has been split into `documentation/intf` (read/write-access
+interfaces) and `documentation/impl` (concrete model classes). `version/core`
+is replaced by `version/commonintf` and `version/commonimpl`. No Java/Python
+package names or pre-existing public class names change as part of this move.
+
+For migration details, full old/new artifact coordinates and the one-shot
+`git mv` procedure, see [the 1.1 migration guide](devtools/README-migration-1.1.md).
+
+The naming profile API gains Java `withInputConvention` / `withOutputRule`
+and analogous Python `with_input_convention` / `with_output_rule` methods; they
+produce derived profiles rather than modifying existing instances.

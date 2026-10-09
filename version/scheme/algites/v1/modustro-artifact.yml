@@ -28,8 +28,8 @@ Dependencies:
 - DependencyKind: modustro
   Items:
   - GroupId: eu.algites.lib.common
-    ArtifactId: pub.lib.General_version.core
+    ArtifactId: pub.lib.General_version.commonintf
     Usages:
     - product_api
     VersionRequirement:
-      Exact: 1.0-SNAPSHOT
+      Exact: 1.1-SNAPSHOT

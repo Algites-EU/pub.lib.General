@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+
+Artifact:
+  TechnologyKinds: [java, python]
+  Name: Text format implementations
+  Description: Reusable low-level text escaping and structured output helpers.
+
+Dependencies:
+  - DependencyKind: modustro
+    Items:
+      - GroupId: eu.algites.lib.text
+        ArtifactId: pub.lib.General_text.format.intf
+        Usages: [product_api]
+        VersionRequirement: { Exact: "1.1-SNAPSHOT" }
+  - DependencyKind: java
+    Items:
+      - GroupId: org.testng
+        ArtifactId: testng
+        Usages: [develop_implementation]
+        VersionRequirement:
+          Minimum: ">=7.0.0"
+          Maximum: "<8.0.0"
+          MaximumStrict: true
