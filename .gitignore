@@ -42,6 +42,7 @@ venv/
 
 
 
-# Canonical generated source roots are reproducible build state.
+# Only build-integrated .gen sources are reproducible build state.
+# Externally generated .extgen sources MUST be tracked in Git.
 **/src/product/*.gen/
 **/src/develop/*.gen/

@@ -27,7 +27,7 @@ git status --short
 | `naming/conversion/coreimpl` | `naming/conversion/impl` |
 | `naming/validation/coreintf` | `naming/validation/intf` |
 | `naming/validation/coreimpl` | `naming/validation/impl` |
-| `version/core` | `version/commonintf + version/commonimpl` |
+| `version/core` | `version/common/intf + version/common/impl` |
 | `documentation (single artifact)` | `documentation/intf + documentation/impl` |
 
 All Java/Python packages and pre-existing type names are unchanged.
@@ -47,8 +47,26 @@ dependencies must follow the actual new artifact graph.
 
 ## Intentional version module limitation
 
-The version `commonintf` artifact contains some `AIc*`, `AInBuiltin*`
+The version `common/intf` artifact contains some `AIc*`, `AInBuiltin*`
 and `AIs*` types because their current Java APIs form a dependency cycle
 if naïvely split by filename prefix alone. The partition is acyclic and
 does not alter public signatures. A future redesign of the version API
 could reduce the foundational implementation footprint.
+
+## Correction to 1.1 version/common nesting
+
+The final layout is `version/common/intf` and `version/common/impl`, **not**
+`version/commonintf` and `version/commonimpl`. The artifact coordinates are
+`pub.lib.General_version.common.intf` and
+`pub.lib.General_version.common.impl`.
+
+If you already ran the older migration and now have the two flat directories,
+run `bash devtools/migrate-version-common-to-nested-git-mv.sh` **before** overlaying
+this ZIP. The incremental script tolerates unrelated Git changes.
+
+If you are still starting from the original `version/core`, use the updated
+`devtools/migrate-1.1-artifact-layout-git-mv.sh` instead. Do not run both
+scripts on the same checkout.
+
+After applying the corrected ZIP, run `git add -A`. Any stale references to the
+flat artifact coordinates in downstream consumers must also be updated.

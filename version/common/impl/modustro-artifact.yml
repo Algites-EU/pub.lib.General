@@ -54,7 +54,7 @@ Dependencies:
     VersionRequirement:
       Exact: 1.1-SNAPSHOT
   - GroupId: eu.algites.lib.common
-    ArtifactId: pub.lib.General_version.commonintf
+    ArtifactId: pub.lib.General_version.common.intf
     Usages:
     - product_api
     VersionRequirement:

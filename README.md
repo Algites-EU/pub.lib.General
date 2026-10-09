@@ -28,54 +28,29 @@ The repository is organized as a set of independently buildable Algites artifact
 
 ```text
 .
-├── README.md
 ├── common/
-│   ├── README.md
-│   └── src/
 ├── naming/
-│   ├── convention/{coreintf,coreimpl}/
-│   ├── conversion/{coreintf,coreimpl}/
-│   └── validation/{coreintf,coreimpl}/
-├── documentation/
-│   ├── README.md
-│   └── src/
+│   ├── convention/{intf,impl}/
+│   ├── conversion/{intf,impl}/
+│   └── validation/{intf,impl}/
+├── documentation/{intf,impl}/
+├── data/
+│   ├── dataobject/intf/
+│   └── smartdataobject/{intf,impl}/
+├── text/format/{intf,impl}/
 └── version/
-    ├── core/
-    │   ├── README.md
-    │   └── src/
+    ├── common/{intf,impl}/
     └── scheme/
-        ├── algites/
-        │   └── v1/
-        │       ├── README.md
-        │       └── src/
+        ├── algites/v1/
         ├── maven/
-        │   ├── README.md
-        │   └── src/
         ├── gradle/
-        │   ├── README.md
-        │   └── src/
         ├── pep440/
-        │   ├── README.md
-        │   └── src/
         └── conversion/
             ├── common/
-            │   ├── README.md
-            │   └── src/
             ├── maven2gradle/
-            │   ├── README.md
-            │   └── src/
-            ├── algites2maven/
-            │   └── v1/
-            │       ├── README.md
-            │       └── src/
-            ├── algites2gradle/
-            │   └── v1/
-            │       ├── README.md
-            │       └── src/
-            └── algites2pep440/
-                └── v1/
-                    ├── README.md
-                    └── src/
+            ├── algites2maven/v1/
+            ├── algites2gradle/v1/
+            └── algites2pep440/v1/
 ```
 
 The main modules are:
@@ -85,7 +60,7 @@ The main modules are:
 - `naming/conversion` — deterministic token-based conversion between naming conventions.
 - `naming/validation` — configurable validation against naming and version policies, including the strict Algites profile.
 - `documentation/intf` and `documentation/impl` — renderer-neutral documentation contracts and implementations.
-- `version/commonintf` and `version/commonimpl` — version contracts and shared implementations (existing Java packages retained).
+- `version/common/intf` and `version/common/impl` — version contracts and shared implementations (existing Java packages retained).
 - `version/scheme/algites/v1` — version 1 of the Algites version scheme.
 - `version/scheme/maven` — Maven version and version-range semantics.
 - `version/scheme/gradle` — Gradle dependency-version and rich-version-constraint semantics.
@@ -149,14 +124,14 @@ Example Maven dependency for the higher-level version implementation artifact:
 ```xml
 <dependency>
   <groupId>eu.algites.lib.common</groupId>
-  <artifactId>pub.lib.General_version.commonimpl</artifactId>
+  <artifactId>pub.lib.General_version.common.impl</artifactId>
   <version>...</version>
 </dependency>
 ```
 
 For version handling, use:
 
-- `version/commonintf` for the generic version model and scheme SPI, or `version/commonimpl` when its extra helpers and parsers are needed;
+- `version/common/intf` for the generic version model and scheme SPI, or `version/common/impl` when its extra helpers and parsers are needed;
 - `version/scheme/maven`, `version/scheme/gradle`, or `version/scheme/pep440` for a concrete external version scheme;
 - `version/scheme/algites/v1` for Algites v1 version semantics;
 - a module below `version/scheme/conversion` when explicit conversion between schemes is required.
@@ -185,7 +160,7 @@ Algites data-object naming is semantic rather than implementation-specific: hand
 
 When extending the version subsystem:
 
-- keep low-level version APIs and their necessary primitives in `version/commonintf`, and other generic implementations in `version/commonimpl`;
+- keep low-level version APIs and their necessary primitives in `version/common/intf`, and other generic implementations in `version/common/impl`;
 - keep scheme-specific behavior in the corresponding module below `version/scheme`;
 - keep knowledge of two schemes in an explicit module below `version/scheme/conversion` rather than introducing cross-scheme dependencies into the scheme modules themselves;
 - add tests and update the module-local `README.md` together with behavioral changes.
@@ -253,7 +228,7 @@ The established naming profile record has additional **copy-returning** methods 
 The naming artifacts have moved from `coreintf`/`coreimpl` to `intf`/`impl`.
 `documentation` has been split into `documentation/intf` (read/write-access
 interfaces) and `documentation/impl` (concrete model classes). `version/core`
-is replaced by `version/commonintf` and `version/commonimpl`. No Java/Python
+is replaced by `version/common/intf` and `version/common/impl`. No Java/Python
 package names or pre-existing public class names change as part of this move.
 
 For migration details, full old/new artifact coordinates and the one-shot

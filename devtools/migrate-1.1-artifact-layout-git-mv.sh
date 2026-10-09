@@ -5,7 +5,7 @@ set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 git diff --quiet || { echo "Working tree has unstaged changes" >&2; exit 1; }
 git diff --cached --quiet || { echo "Working tree has staged changes" >&2; exit 1; }
-if [[ -d naming/convention/intf || -d version/commonimpl ]]; then echo "Artifact migration appears already applied" >&2; exit 1; fi
+if [[ -d naming/convention/intf || -d version/common/impl ]]; then echo "Artifact migration appears already applied" >&2; exit 1; fi
 mkdir -p naming/convention
 git mv naming/convention/coreintf naming/convention/intf
 mkdir -p naming/convention
@@ -100,78 +100,78 @@ mkdir -p documentation/intf/src/product/java/eu/algites/lib/common/documentation
 git mv documentation/impl/src/product/java/eu/algites/lib/common/documentation/model/package-info.java documentation/intf/src/product/java/eu/algites/lib/common/documentation/model/package-info.java
 mkdir -p documentation
 git mv documentation/README.md.MIGRATION_TMP documentation/README.md
+mkdir -p version/common
+git mv version/core version/common/impl
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIcBuildAwareVersionComparator.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIcBuildAwareVersionComparator.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIcCalverLikeVersionComparator.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIcCalverLikeVersionComparator.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIcDefaultVersionCodec.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIcDefaultVersionCodec.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIcDefaultVersionFormatter.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIcDefaultVersionFormatter.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIcMavenLikeVersionComparator.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIcMavenLikeVersionComparator.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIcSemverLikeVersionComparator.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIcSemverLikeVersionComparator.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIcVersion.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIcVersion.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIcVersionSchemeDataType.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIcVersionSchemeDataType.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIcVersionToken.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIcVersionToken.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionBound.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionBound.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionCodec.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionCodec.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionComparator.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionComparator.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionFormat.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionFormat.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionFormatter.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionFormatter.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionQualifier.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionQualifier.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionRequirement.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionRequirement.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionScheme.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionScheme.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeData.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeData.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeDataType.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeDataType.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeDataUidRecord.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeDataUidRecord.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeTextParts.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeTextParts.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIiVersionStructure.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIiVersionStructure.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionFormat.java version/common/intf/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionFormat.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionScheme.java version/common/intf/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionScheme.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionStructure.java version/common/intf/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionStructure.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AInVersionBuildComparisonPolicy.java version/common/intf/src/product/java/eu/algites/lib/common/version/AInVersionBuildComparisonPolicy.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AInVersionBuildFormatPolicy.java version/common/intf/src/product/java/eu/algites/lib/common/version/AInVersionBuildFormatPolicy.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AInVersionQualifierKind.java version/common/intf/src/product/java/eu/algites/lib/common/version/AInVersionQualifierKind.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AInVersionTokenType.java version/common/intf/src/product/java/eu/algites/lib/common/version/AInVersionTokenType.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIrVersionQualifier.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIrVersionQualifier.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIrVersionRequirementNormalization.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIrVersionRequirementNormalization.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIrVersionSchemeDataUidRecord.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIrVersionSchemeDataUidRecord.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIrVersionSchemeTextParts.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIrVersionSchemeTextParts.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIsVersionComparator.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIsVersionComparator.java
+mkdir -p version/common/intf/src/product/java/eu/algites/lib/common/version
+git mv version/common/impl/src/product/java/eu/algites/lib/common/version/AIsVersionTokenizer.java version/common/intf/src/product/java/eu/algites/lib/common/version/AIsVersionTokenizer.java
 mkdir -p version
-git mv version/core version/commonimpl
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIcBuildAwareVersionComparator.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIcBuildAwareVersionComparator.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIcCalverLikeVersionComparator.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIcCalverLikeVersionComparator.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIcDefaultVersionCodec.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIcDefaultVersionCodec.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIcDefaultVersionFormatter.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIcDefaultVersionFormatter.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIcMavenLikeVersionComparator.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIcMavenLikeVersionComparator.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIcSemverLikeVersionComparator.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIcSemverLikeVersionComparator.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIcVersion.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIcVersion.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIcVersionSchemeDataType.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIcVersionSchemeDataType.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIcVersionToken.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIcVersionToken.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionBound.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionBound.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionCodec.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionCodec.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionComparator.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionComparator.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionFormat.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionFormat.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionFormatter.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionFormatter.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionQualifier.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionQualifier.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionRequirement.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionRequirement.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionScheme.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionScheme.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeData.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeData.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeDataType.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeDataType.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeDataUidRecord.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeDataUidRecord.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeTextParts.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionSchemeTextParts.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIiVersionStructure.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIiVersionStructure.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionFormat.java version/commonintf/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionFormat.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionScheme.java version/commonintf/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionScheme.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionStructure.java version/commonintf/src/product/java/eu/algites/lib/common/version/AInBuiltinVersionStructure.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AInVersionBuildComparisonPolicy.java version/commonintf/src/product/java/eu/algites/lib/common/version/AInVersionBuildComparisonPolicy.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AInVersionBuildFormatPolicy.java version/commonintf/src/product/java/eu/algites/lib/common/version/AInVersionBuildFormatPolicy.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AInVersionQualifierKind.java version/commonintf/src/product/java/eu/algites/lib/common/version/AInVersionQualifierKind.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AInVersionTokenType.java version/commonintf/src/product/java/eu/algites/lib/common/version/AInVersionTokenType.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIrVersionQualifier.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIrVersionQualifier.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIrVersionRequirementNormalization.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIrVersionRequirementNormalization.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIrVersionSchemeDataUidRecord.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIrVersionSchemeDataUidRecord.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIrVersionSchemeTextParts.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIrVersionSchemeTextParts.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIsVersionComparator.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIsVersionComparator.java
-mkdir -p version/commonintf/src/product/java/eu/algites/lib/common/version
-git mv version/commonimpl/src/product/java/eu/algites/lib/common/version/AIsVersionTokenizer.java version/commonintf/src/product/java/eu/algites/lib/common/version/AIsVersionTokenizer.java
-mkdir -p version
-git mv version/commonimpl/README.md version/README.md
+git mv version/common/impl/README.md version/README.md
 echo "Git moves completed. Overlay the full 1.1 ZIP and run git add -A to stage new descriptors and updates."
