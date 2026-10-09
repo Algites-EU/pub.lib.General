@@ -41,3 +41,7 @@ venv/
 
 
 
+
+# Canonical generated source roots are reproducible build state.
+**/src/product/*.gen/
+**/src/develop/*.gen/
