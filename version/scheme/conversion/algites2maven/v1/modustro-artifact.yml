@@ -32,16 +32,16 @@ Dependencies:
     Usages:
     - product_api
     VersionRequirement:
-      Exact: 1.0-SNAPSHOT
+      Exact: 1.1-SNAPSHOT
   - GroupId: eu.algites.lib.common
     ArtifactId: pub.lib.General_version.scheme.algites.v1
     Usages:
     - product_api
     VersionRequirement:
-      Exact: 1.0-SNAPSHOT
+      Exact: 1.1-SNAPSHOT
   - GroupId: eu.algites.lib.common
     ArtifactId: pub.lib.General_version.scheme.maven
     Usages:
     - product_api
     VersionRequirement:
-      Exact: 1.0-SNAPSHOT
+      Exact: 1.1-SNAPSHOT
