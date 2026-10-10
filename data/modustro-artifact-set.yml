@@ -3,3 +3,5 @@ $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs
 ArtifactSet:
   Name: General data structure libraries
   Description: Reusable general data structure libraries.
+
+GroupId: eu.algites.lib.data

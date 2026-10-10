@@ -3,3 +3,5 @@ $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs
 ArtifactSet:
   Name: Text processing libraries
   Description: Reusable text processing libraries.
+
+GroupId: eu.algites.lib.text

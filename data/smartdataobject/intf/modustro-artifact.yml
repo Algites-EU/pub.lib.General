@@ -13,8 +13,6 @@ Dependencies:
         ArtifactId: pub.lib.General_data.dataobject.intf
         Usages: [product_api]
         VersionRequirement: { Exact: "1.1-SNAPSHOT" }
-  - DependencyKind: modustro
-    Items:
       - GroupId: eu.algites.lib.text
         ArtifactId: pub.lib.General_text.format.intf
         Usages: [product_api]
