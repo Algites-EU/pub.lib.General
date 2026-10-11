@@ -1,0 +1,90 @@
+python.eu.algites.lib.naming.convention.aicd_naming_profile
+===========================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.aicd_naming_profile
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.aicd_naming_profile.AIcdNamingProfile
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdNamingProfile
+
+   Carries immutable naming profile data.
+
+   .. attribute:: input_conventions
+
+      Source-subject naming conventions.
+
+   .. attribute:: output_rules
+
+      Target-subject rendering rules.
+
+   .. attribute:: input_version_policy
+
+      Input canonical-version policy.
+
+   .. attribute:: output_version_policy
+
+      Output canonical-version policy.
+
+
+   .. py:attribute:: input_conventions
+      :type:  Mapping[eu.algites.lib.naming.convention.ain_input_name_kind.AInInputNameKind, eu.algites.lib.naming.convention.ain_name_convention.AInNameConvention]
+
+
+   .. py:attribute:: output_rules
+      :type:  Mapping[eu.algites.lib.naming.convention.ain_output_name_kind.AInOutputNameKind, eu.algites.lib.naming.convention.aicd_output_name_rule.AIcdOutputNameRule]
+
+
+   .. py:attribute:: input_version_policy
+      :type:  eu.algites.lib.naming.convention.aicd_input_version_policy.AIcdInputVersionPolicy
+
+
+   .. py:attribute:: output_version_policy
+      :type:  eu.algites.lib.naming.convention.aicd_output_version_policy.AIcdOutputVersionPolicy
+
+
+   .. py:method:: with_input_convention(kind: eu.algites.lib.naming.convention.ain_input_name_kind.AInInputNameKind, convention: eu.algites.lib.naming.convention.ain_name_convention.AInNameConvention) -> AIcdNamingProfile
+
+      Return a new profile with a single input-convention override.
+
+
+
+   .. py:method:: with_input_conventions(conventions: Mapping[eu.algites.lib.naming.convention.ain_input_name_kind.AInInputNameKind, eu.algites.lib.naming.convention.ain_name_convention.AInNameConvention]) -> AIcdNamingProfile
+
+      Replace input conventions without modifying the original profile.
+
+
+
+   .. py:method:: with_output_rule(kind: eu.algites.lib.naming.convention.ain_output_name_kind.AInOutputNameKind, rule: eu.algites.lib.naming.convention.aicd_output_name_rule.AIcdOutputNameRule) -> AIcdNamingProfile
+
+      Return a new profile with a single output-name rule override.
+
+
+
+   .. py:method:: with_output_rules(rules: Mapping[eu.algites.lib.naming.convention.ain_output_name_kind.AInOutputNameKind, eu.algites.lib.naming.convention.aicd_output_name_rule.AIcdOutputNameRule]) -> AIcdNamingProfile
+
+      Replace output rules without modifying the original profile.
+
+
+
+   .. py:method:: with_input_version_policy(policy: eu.algites.lib.naming.convention.aicd_input_version_policy.AIcdInputVersionPolicy) -> AIcdNamingProfile
+
+      Return a new profile with a different input-version policy.
+
+
+
+   .. py:method:: with_output_version_policy(policy: eu.algites.lib.naming.convention.aicd_output_version_policy.AIcdOutputVersionPolicy) -> AIcdNamingProfile
+
+      Return a new profile with a different output-version policy.
+
+
+

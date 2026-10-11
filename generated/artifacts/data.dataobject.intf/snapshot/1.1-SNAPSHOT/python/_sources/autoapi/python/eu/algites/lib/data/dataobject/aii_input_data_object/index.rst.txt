@@ -1,0 +1,30 @@
+python.eu.algites.lib.data.dataobject.aii_input_data_object
+===========================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.aii_input_data_object
+
+.. autoapi-nested-parse::
+
+   Marker for data objects allowed as facade or component inputs.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.aii_input_data_object.AIiInputDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiInputDataObject
+
+   Bases: :py:obj:`python.eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject`
+
+
+   Marker for data objects allowed as facade or component inputs.
+
+

@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: documentation.intf
+  ArtifactCoordinateId: pub.lib.General_documentation.intf
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: documentation/intf
+  StructureKind: artifact
+  Name: "Documentation model interfaces"
+  Description: "Public read and write access contracts for renderer-neutral documentation models."
+SourceMetadata:
+  DescriptorHierarchy:

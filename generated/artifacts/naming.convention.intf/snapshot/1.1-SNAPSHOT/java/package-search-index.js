@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"eu.algites.lib.naming.convention"},{"l":"eu.algites.lib.naming.convention.xmldefs"}];updateSearchResults();

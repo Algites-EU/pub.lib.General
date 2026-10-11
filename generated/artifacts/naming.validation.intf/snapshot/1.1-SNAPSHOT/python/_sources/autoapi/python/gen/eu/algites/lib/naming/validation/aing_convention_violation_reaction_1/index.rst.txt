@@ -1,0 +1,53 @@
+python.gen.eu.algites.lib.naming.validation.aing_convention_violation_reaction_1
+================================================================================
+
+.. py:module:: python.gen.eu.algites.lib.naming.validation.aing_convention_violation_reaction_1
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.gen.eu.algites.lib.naming.validation.aing_convention_violation_reaction_1.AIngConventionViolationReaction_1
+
+
+Module Contents
+---------------
+
+.. py:class:: AIngConventionViolationReaction_1
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Canonical enumeration of reactions that a convention validator may apply to a violation. Canonical representations: YAMLDEFS: eu.algites.lib.naming.validation.convention-violation-reaction (src/product/yamldefs/eu/algites/lib/naming/validation/convention-violation-reaction_1.yamldef.schema.json); JSONDEFS: eu.algites.lib.naming.validation.convention-violation-reaction (src/product/jsondefs/eu/algites/lib/naming/validation/convention-violation-reaction_1.jsondef.schema.json)
+
+   Generated from canonical definition eu.algites.lib.naming.validation.convention-violation-reaction/1. Source: src/product/yamldefs/eu/algites/lib/naming/validation/convention-violation-reaction_1.yamldef.schema.json. Do not edit manually.
+
+   Values:
+       IGNORE: Canonical enum value ignore.
+       INFO: Canonical enum value info.
+       WARNING: Canonical enum value warning.
+       ERROR: Canonical enum value error.
+
+
+   .. py:attribute:: IGNORE
+      :value: 'ignore'
+
+
+
+   .. py:attribute:: INFO
+      :value: 'info'
+
+
+
+   .. py:attribute:: WARNING
+      :value: 'warning'
+
+
+
+   .. py:attribute:: ERROR
+      :value: 'error'
+
+
+

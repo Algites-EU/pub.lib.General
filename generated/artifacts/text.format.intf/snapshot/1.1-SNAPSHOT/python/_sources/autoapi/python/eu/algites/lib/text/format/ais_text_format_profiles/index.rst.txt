@@ -1,0 +1,46 @@
+python.eu.algites.lib.text.format.ais_text_format_profiles
+==========================================================
+
+.. py:module:: python.eu.algites.lib.text.format.ais_text_format_profiles
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.text.format.ais_text_format_profiles.AIsTextFormatProfiles
+
+
+Module Contents
+---------------
+
+.. py:class:: AIsTextFormatProfiles
+
+   Static profile catalog; do not instantiate.
+
+
+   .. py:attribute:: JSON_STANDARD
+
+
+   .. py:attribute:: JSON_DOTNET_PRESERVE
+
+
+   .. py:attribute:: JSON_DIAGNOSTIC
+
+
+   .. py:attribute:: YAML_STANDARD
+
+
+   .. py:attribute:: YAML_NATIVE_REFERENCES
+
+
+   .. py:attribute:: YAML_DIAGNOSTIC
+
+
+   .. py:attribute:: XML_XSD
+
+
+   .. py:attribute:: XML_DIAGNOSTIC
+
+

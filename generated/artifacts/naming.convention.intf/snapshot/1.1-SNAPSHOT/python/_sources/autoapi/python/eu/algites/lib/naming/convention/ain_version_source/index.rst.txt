@@ -1,0 +1,40 @@
+python.eu.algites.lib.naming.convention.ain_version_source
+==========================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.ain_version_source
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.ain_version_source.AInVersionSource
+
+
+Module Contents
+---------------
+
+.. py:class:: AInVersionSource
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Defines the version source enumeration.
+
+
+   .. py:attribute:: EXPLICIT_METADATA
+      :value: 'EXPLICIT_METADATA'
+
+
+
+   .. py:attribute:: FILE_NAME_SUFFIX
+      :value: 'FILE_NAME_SUFFIX'
+
+
+
+   .. py:attribute:: EXPLICIT_THEN_FILE_NAME
+      :value: 'EXPLICIT_THEN_FILE_NAME'
+
+
+

@@ -1,0 +1,60 @@
+python.eu.algites.lib.naming.convention.ain_name_convention
+===========================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.ain_name_convention
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.ain_name_convention.AInNameConvention
+
+
+Module Contents
+---------------
+
+.. py:class:: AInNameConvention
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Defines the name convention enumeration.
+
+
+   .. py:attribute:: AS_IS
+      :value: 'AS_IS'
+
+
+
+   .. py:attribute:: LOWER_SNAKE_CASE
+      :value: 'LOWER_SNAKE_CASE'
+
+
+
+   .. py:attribute:: UPPER_SNAKE_CASE
+      :value: 'UPPER_SNAKE_CASE'
+
+
+
+   .. py:attribute:: LOWER_CAMEL_CASE
+      :value: 'LOWER_CAMEL_CASE'
+
+
+
+   .. py:attribute:: UPPER_CAMEL_CASE
+      :value: 'UPPER_CAMEL_CASE'
+
+
+
+   .. py:attribute:: LOWER_KEBAB_CASE
+      :value: 'LOWER_KEBAB_CASE'
+
+
+
+   .. py:attribute:: UPPER_KEBAB_CASE
+      :value: 'UPPER_KEBAB_CASE'
+
+
+

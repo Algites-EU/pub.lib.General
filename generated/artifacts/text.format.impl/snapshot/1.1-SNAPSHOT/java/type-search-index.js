@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"eu.algites.lib.text.format","l":"AIsTextFormatEscapes"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

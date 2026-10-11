@@ -1,0 +1,67 @@
+python.eu.algites.lib.data.dataobject.aicd_data_object
+======================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.aicd_data_object
+
+.. autoapi-nested-parse::
+
+   Metadata for a normalized data object contract.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdDataObject
+
+   Describes a data contract independently of its source or runtime implementation.
+
+
+   .. py:attribute:: id
+      :type:  str
+
+
+   .. py:attribute:: version
+      :type:  int
+      :value: -1
+
+
+
+   .. py:attribute:: title
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: description
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: xml_local_name
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: xml_namespace
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: fingerprint
+      :type:  str
+      :value: ''
+
+
+

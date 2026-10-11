@@ -1,0 +1,95 @@
+python.eu.algites.lib.data.smartdataobject.aii_smart_data_object
+================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.aii_smart_data_object
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.aii_smart_data_object.AIiSmartDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiSmartDataObject
+
+   Bases: :py:obj:`eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject`
+
+
+   Runtime contract implemented by mutable schema-generated data objects.
+
+
+   .. py:method:: is_ByRawValuesValid() -> bool
+      :abstractmethod:
+
+
+
+   .. py:method:: is_ByEffectiveValuesValid() -> bool
+      :abstractmethod:
+
+
+
+   .. py:method:: is_DeeplyByRawValuesValid() -> bool
+      :abstractmethod:
+
+
+
+   .. py:method:: is_DeeplyByEffectiveValuesValid() -> bool
+      :abstractmethod:
+
+
+
+   .. py:method:: get_RawNotPresentRequiredFields() -> Set[str]
+      :abstractmethod:
+
+
+
+   .. py:method:: get_EffectiveNotPresentRequiredFields() -> Set[str]
+      :abstractmethod:
+
+
+
+   .. py:method:: get_DeeplyRawNotPresentRequiredFields() -> Set[str]
+      :abstractmethod:
+
+
+
+   .. py:method:: get_DeeplyEffectiveNotPresentRequiredFields() -> Set[str]
+      :abstractmethod:
+
+
+
+   .. py:method:: get_RawValuesValidationIssues() -> list[python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue]
+      :abstractmethod:
+
+
+
+   .. py:method:: get_EffectiveValuesValidationIssues() -> list[python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue]
+      :abstractmethod:
+
+
+
+   .. py:method:: get_DeeplyRawValuesValidationIssues() -> list[python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue]
+      :abstractmethod:
+
+
+
+   .. py:method:: get_DeeplyEffectiveValuesValidationIssues() -> list[python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue]
+      :abstractmethod:
+
+
+
+   .. py:method:: toString_RawValues(aProfile: eu.algites.lib.text.format.aii_text_format_profile.AIiTextFormatProfile, aMode: eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode) -> str
+      :abstractmethod:
+
+
+
+   .. py:method:: toString_EffectiveValues(aProfile: eu.algites.lib.text.format.aii_text_format_profile.AIiTextFormatProfile, aMode: eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode) -> str
+      :abstractmethod:
+
+
+

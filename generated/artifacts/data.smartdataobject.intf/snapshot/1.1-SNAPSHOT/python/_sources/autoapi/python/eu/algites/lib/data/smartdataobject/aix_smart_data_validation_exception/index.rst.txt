@@ -1,0 +1,33 @@
+python.eu.algites.lib.data.smartdataobject.aix_smart_data_validation_exception
+==============================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.aix_smart_data_validation_exception
+
+.. autoapi-nested-parse::
+
+   Validation error for effective SmartDataObject wire serialization.
+
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.aix_smart_data_validation_exception.AIxSmartDataValidationException
+
+
+Module Contents
+---------------
+
+.. py:exception:: AIxSmartDataValidationException(issues)
+
+   Bases: :py:obj:`ValueError`
+
+
+   Preserves field-path diagnostics without silently serializing an invalid DTO.
+
+
+   .. py:attribute:: issues
+
+

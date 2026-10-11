@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: naming.convention.intf
+  ArtifactCoordinateId: pub.lib.General_naming.convention.intf
+  GroupId: eu.algites.lib.naming
+  Version: 1.1-SNAPSHOT
+  SourcePath: naming/convention/intf
+  StructureKind: artifact
+  Name: "Naming convention Public interfaces"
+  Description: "Technology-neutral naming and version-policy contracts exposed in Java and Python."
+SourceMetadata:
+  DescriptorHierarchy:

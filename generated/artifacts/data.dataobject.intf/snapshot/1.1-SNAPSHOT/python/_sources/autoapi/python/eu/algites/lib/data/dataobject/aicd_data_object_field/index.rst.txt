@@ -1,0 +1,80 @@
+python.eu.algites.lib.data.dataobject.aicd_data_object_field
+============================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.aicd_data_object_field
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdDataObjectField
+
+   Normalized field descriptor independent of SmartDataObject implementations.
+
+
+   .. py:attribute:: name
+      :type:  str
+
+
+   .. py:attribute:: description
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: presence_required
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: allows_null
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: default_factory
+      :type:  Callable[[], Any] | None
+      :value: None
+
+
+
+   .. py:attribute:: xml_local_name
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: xml_namespace
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: xml_attribute
+      :type:  bool
+      :value: False
+
+
+
+   .. py:attribute:: expected_type
+      :type:  type | None
+      :value: None
+
+
+
+   .. py:attribute:: getter_name
+      :type:  str
+      :value: ''
+
+
+

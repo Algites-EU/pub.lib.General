@@ -1,0 +1,50 @@
+python.eu.algites.lib.text.format.ain_text_output_object_reference_mode
+=======================================================================
+
+.. py:module:: python.eu.algites.lib.text.format.ain_text_output_object_reference_mode
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode
+
+
+Module Contents
+---------------
+
+.. py:class:: AInTextOutputObjectReferenceMode
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Identity-preserving text output policies.
+
+
+   .. py:attribute:: NO_REFERENCES
+      :value: 'NO_REFERENCES'
+
+
+
+   .. py:attribute:: ALL_OBJECTS
+      :value: 'ALL_OBJECTS'
+
+
+
+   .. py:attribute:: CYCLIC_REFERENCES_ONLY
+      :value: 'CYCLIC_REFERENCES_ONLY'
+
+
+
+   .. py:attribute:: REPEATED_OBJECTS
+      :value: 'REPEATED_OBJECTS'
+
+
+
+   .. py:attribute:: OPTIMIZED_TEXT_OUTPUT_SIZE
+      :value: 'OPTIMIZED_TEXT_OUTPUT_SIZE'
+
+
+

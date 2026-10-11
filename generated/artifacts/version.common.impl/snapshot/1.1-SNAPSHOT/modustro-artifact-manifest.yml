@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: version.common.impl
+  ArtifactCoordinateId: pub.lib.General_version.common.impl
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: version/common/impl
+  StructureKind: artifact
+  Name: "Version common implementation"
+  Description: "Higher-level concrete version-value helpers, parsers, bounds, intervals, and normalization."
+SourceMetadata:
+  DescriptorHierarchy:

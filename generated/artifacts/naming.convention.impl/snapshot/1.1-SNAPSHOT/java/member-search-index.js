@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"eu.algites.lib.naming.convention","c":"AIcAlgitesNamingProfiles","l":"javaProfile()"},{"p":"eu.algites.lib.naming.convention","c":"AIcAlgitesNamingProfiles","l":"pythonProfile()"}];updateSearchResults();

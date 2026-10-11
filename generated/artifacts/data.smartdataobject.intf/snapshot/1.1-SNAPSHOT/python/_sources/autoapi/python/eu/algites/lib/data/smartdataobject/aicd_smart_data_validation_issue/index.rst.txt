@@ -1,0 +1,34 @@
+python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue
+===========================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdSmartDataValidationIssue
+
+   One local or graph-path validation diagnostic.
+
+
+   .. py:attribute:: path
+      :type:  str
+
+
+   .. py:attribute:: code
+      :type:  str
+
+
+   .. py:attribute:: message
+      :type:  str
+
+

@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: data.dataobject.intf
+  ArtifactCoordinateId: pub.lib.General_data.dataobject.intf
+  GroupId: eu.algites.lib.data
+  Version: 1.1-SNAPSHOT
+  SourcePath: data/dataobject/intf
+  StructureKind: artifact
+  Name: "General data object contracts"
+  Description: "Framework-neutral data object markers and normalized contract metadata."
+SourceMetadata:
+  DescriptorHierarchy:

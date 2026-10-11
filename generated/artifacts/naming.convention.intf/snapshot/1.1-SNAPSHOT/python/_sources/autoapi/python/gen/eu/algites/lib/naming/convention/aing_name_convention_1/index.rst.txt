@@ -1,0 +1,71 @@
+python.gen.eu.algites.lib.naming.convention.aing_name_convention_1
+==================================================================
+
+.. py:module:: python.gen.eu.algites.lib.naming.convention.aing_name_convention_1
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.gen.eu.algites.lib.naming.convention.aing_name_convention_1.AIngNameConvention_1
+
+
+Module Contents
+---------------
+
+.. py:class:: AIngNameConvention_1
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Canonical enumeration of supported lexical naming conventions. Canonical representations: YAMLDEFS: eu.algites.lib.naming.convention.name-convention (src/product/yamldefs/eu/algites/lib/naming/convention/name-convention_1.yamldef.schema.json); JSONDEFS: eu.algites.lib.naming.convention.name-convention (src/product/jsondefs/eu/algites/lib/naming/convention/name-convention_1.jsondef.schema.json)
+
+   Generated from canonical definition eu.algites.lib.naming.convention.name-convention/1. Source: src/product/yamldefs/eu/algites/lib/naming/convention/name-convention_1.yamldef.schema.json. Do not edit manually.
+
+   Values:
+       AS_IS: Canonical enum value as_is.
+       LOWER_SNAKE_CASE: Canonical enum value lower_snake_case.
+       UPPER_SNAKE_CASE: Canonical enum value upper_snake_case.
+       LOWER_CAMEL_CASE: Canonical enum value lower_camel_case.
+       UPPER_CAMEL_CASE: Canonical enum value upper_camel_case.
+       LOWER_KEBAB_CASE: Canonical enum value lower_kebab_case.
+       UPPER_KEBAB_CASE: Canonical enum value upper_kebab_case.
+
+
+   .. py:attribute:: AS_IS
+      :value: 'as_is'
+
+
+
+   .. py:attribute:: LOWER_SNAKE_CASE
+      :value: 'lower_snake_case'
+
+
+
+   .. py:attribute:: UPPER_SNAKE_CASE
+      :value: 'upper_snake_case'
+
+
+
+   .. py:attribute:: LOWER_CAMEL_CASE
+      :value: 'lower_camel_case'
+
+
+
+   .. py:attribute:: UPPER_CAMEL_CASE
+      :value: 'upper_camel_case'
+
+
+
+   .. py:attribute:: LOWER_KEBAB_CASE
+      :value: 'lower_kebab_case'
+
+
+
+   .. py:attribute:: UPPER_KEBAB_CASE
+      :value: 'upper_kebab_case'
+
+
+

@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: documentation.impl
+  ArtifactCoordinateId: pub.lib.General_documentation.impl
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: documentation/impl
+  StructureKind: artifact
+  Name: "Documentation model implementation"
+  Description: "Renderer-neutral concrete documentation-model implementations."
+SourceMetadata:
+  DescriptorHierarchy:

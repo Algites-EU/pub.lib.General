@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: common
+  ArtifactCoordinateId: pub.lib.General_common
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: common
+  StructureKind: artifact
+  Name: "General purpose modules and utilities"
+  Description: "General-purpose support Open source utilities shared across Algites artifacts and repositories."
+SourceMetadata:
+  DescriptorHierarchy:

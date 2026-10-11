@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: data.smartdataobject.intf
+  ArtifactCoordinateId: pub.lib.General_data.smartdataobject.intf
+  GroupId: eu.algites.lib.data
+  Version: 1.1-SNAPSHOT
+  SourcePath: data/smartdataobject/intf
+  StructureKind: artifact
+  Name: "Smart Data Object interfaces"
+  Description: "Smart data object runtime contracts, validation and serialization APIs."
+SourceMetadata:
+  DescriptorHierarchy:

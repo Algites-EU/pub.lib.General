@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: version.common.intf
+  ArtifactCoordinateId: pub.lib.General_version.common.intf
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: version/common/intf
+  StructureKind: artifact
+  Name: "Version common interfaces"
+  Description: "Public version contracts and the minimal concrete primitives needed by their existing APIs."
+SourceMetadata:
+  DescriptorHierarchy:

@@ -1,0 +1,60 @@
+python.eu.algites.lib.naming.convention.aicd_input_version_policy
+=================================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.aicd_input_version_policy
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.aicd_input_version_policy.AIcdInputVersionPolicy
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdInputVersionPolicy
+
+   Carries immutable input version policy data.
+
+   .. attribute:: source
+
+      Version-source strategy.
+
+   .. attribute:: file_name_separator
+
+      Separator used before a filename version.
+
+   .. attribute:: require_positive_integer
+
+      Whether versions must be positive integers.
+
+   .. attribute:: require_matching_sources
+
+      Whether independent version sources must agree.
+
+
+   .. py:attribute:: source
+      :type:  eu.algites.lib.naming.convention.ain_version_source.AInVersionSource
+
+
+   .. py:attribute:: file_name_separator
+      :type:  str
+      :value: '_'
+
+
+
+   .. py:attribute:: require_positive_integer
+      :type:  bool
+      :value: True
+
+
+
+   .. py:attribute:: require_matching_sources
+      :type:  bool
+      :value: False
+
+
+

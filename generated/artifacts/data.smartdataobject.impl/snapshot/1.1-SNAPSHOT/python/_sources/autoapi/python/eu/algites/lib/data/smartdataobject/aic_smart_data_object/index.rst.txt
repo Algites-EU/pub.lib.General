@@ -1,0 +1,93 @@
+python.eu.algites.lib.data.smartdataobject.aic_smart_data_object
+================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.aic_smart_data_object
+
+.. autoapi-nested-parse::
+
+   Smart Data Object runtime. Internal graph nodes are deliberately private.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcSmartDataObject
+
+   Bases: :py:obj:`eu.algites.lib.data.smartdataobject.aii_smart_data_object.AIiSmartDataObject`
+
+
+   Mutable, presence-aware SmartDataObject foundation.
+
+
+   .. py:attribute:: DEFAULT_DIAGNOSTIC_PROFILE
+
+
+   .. py:attribute:: DEFAULT_DIAGNOSTIC_REFERENCE_MODE
+
+
+   .. py:method:: set_RawField(name: str, value: Any) -> None
+
+
+   .. py:method:: get_RawField(name: str) -> Any
+
+
+   .. py:method:: get_EffectiveField(name: str) -> Any
+
+
+   .. py:method:: isPresent_Field(name: str) -> bool
+
+
+   .. py:method:: unset_Field(name: str) -> None
+
+
+   .. py:method:: get_RawValuesValidationIssues()
+
+
+   .. py:method:: get_EffectiveValuesValidationIssues()
+
+
+   .. py:method:: get_DeeplyRawValuesValidationIssues()
+
+
+   .. py:method:: get_DeeplyEffectiveValuesValidationIssues()
+
+
+   .. py:method:: is_ByRawValuesValid()
+
+
+   .. py:method:: is_ByEffectiveValuesValid()
+
+
+   .. py:method:: is_DeeplyByRawValuesValid()
+
+
+   .. py:method:: is_DeeplyByEffectiveValuesValid()
+
+
+   .. py:method:: get_RawNotPresentRequiredFields()
+
+
+   .. py:method:: get_EffectiveNotPresentRequiredFields()
+
+
+   .. py:method:: get_DeeplyRawNotPresentRequiredFields()
+
+
+   .. py:method:: get_DeeplyEffectiveNotPresentRequiredFields()
+
+
+   .. py:method:: toString_RawValues(aProfile, aMode=Mode.NO_REFERENCES)
+
+
+   .. py:method:: toString_EffectiveValues(aProfile, aMode=Mode.NO_REFERENCES)
+
+

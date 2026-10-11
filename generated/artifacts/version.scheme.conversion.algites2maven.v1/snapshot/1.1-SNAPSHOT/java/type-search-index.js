@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"eu.algites.lib.common.version.scheme.conversion.algites2maven.v1","l":"AIcAlgitesToMavenVersionConverterV1"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

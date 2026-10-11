@@ -1,0 +1,37 @@
+python.eu.algites.lib.text.format.ais_text_format_escapes
+=========================================================
+
+.. py:module:: python.eu.algites.lib.text.format.ais_text_format_escapes
+
+.. autoapi-nested-parse::
+
+   Simple format-specific scalar escaping used by generic text output tools.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.text.format.ais_text_format_escapes.AIsTextFormatEscapes
+
+
+Module Contents
+---------------
+
+.. py:class:: AIsTextFormatEscapes
+
+   Static-only encoder catalog.
+
+
+   .. py:method:: json_string(value: str) -> str
+      :staticmethod:
+
+
+
+   .. py:method:: xml_text(value: str) -> str
+      :staticmethod:
+
+
+

@@ -1,0 +1,27 @@
+python.eu.algites.lib.data.dataobject.aii_data_object
+=====================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.aii_data_object
+
+.. autoapi-nested-parse::
+
+   Marker for a data object, independent of storage, serialization and mutability.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiDataObject
+
+   Marker for a data object, independent of storage, serialization and mutability.
+
+

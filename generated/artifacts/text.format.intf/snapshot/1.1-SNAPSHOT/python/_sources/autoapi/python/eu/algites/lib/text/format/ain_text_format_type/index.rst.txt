@@ -1,0 +1,40 @@
+python.eu.algites.lib.text.format.ain_text_format_type
+======================================================
+
+.. py:module:: python.eu.algites.lib.text.format.ain_text_format_type
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.text.format.ain_text_format_type.AInTextFormatType
+
+
+Module Contents
+---------------
+
+.. py:class:: AInTextFormatType
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Built-in text syntax categories.
+
+
+   .. py:attribute:: JSON
+      :value: 'JSON'
+
+
+
+   .. py:attribute:: YAML
+      :value: 'YAML'
+
+
+
+   .. py:attribute:: XML
+      :value: 'XML'
+
+
+

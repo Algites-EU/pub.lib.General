@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"eu.algites.lib.text.format","c":"AIsTextFormatEscapes","l":"jsonString(String)","u":"jsonString(java.lang.String)"},{"p":"eu.algites.lib.text.format","c":"AIsTextFormatEscapes","l":"xmlText(String)","u":"xmlText(java.lang.String)"}];updateSearchResults();

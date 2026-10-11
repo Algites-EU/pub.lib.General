@@ -1,0 +1,47 @@
+python.gen.eu.algites.lib.naming.convention.xmldefs.aing_version_source_1
+=========================================================================
+
+.. py:module:: python.gen.eu.algites.lib.naming.convention.xmldefs.aing_version_source_1
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.gen.eu.algites.lib.naming.convention.xmldefs.aing_version_source_1.AIngVersionSource_1
+
+
+Module Contents
+---------------
+
+.. py:class:: AIngVersionSource_1
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Defines one canonical version source strategy.
+
+   Generated from canonical definition eu.algites.lib.naming.convention.version-source/1. Source: src/product/xmldefs/eu/algites/lib/naming/convention/version-source_1.xsd. Do not edit manually.
+
+   Values:
+       EXPLICIT_METADATA: Canonical enum value explicit_metadata.
+       FILE_NAME_SUFFIX: Canonical enum value file_name_suffix.
+       EXPLICIT_THEN_FILE_NAME: Canonical enum value explicit_then_file_name.
+
+
+   .. py:attribute:: EXPLICIT_METADATA
+      :value: 'explicit_metadata'
+
+
+
+   .. py:attribute:: FILE_NAME_SUFFIX
+      :value: 'file_name_suffix'
+
+
+
+   .. py:attribute:: EXPLICIT_THEN_FILE_NAME
+      :value: 'explicit_then_file_name'
+
+
+

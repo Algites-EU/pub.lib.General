@@ -1,0 +1,83 @@
+python.gen.eu.algites.lib.naming.convention.xmldefs.aing_input_name_kind_1
+==========================================================================
+
+.. py:module:: python.gen.eu.algites.lib.naming.convention.xmldefs.aing_input_name_kind_1
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.gen.eu.algites.lib.naming.convention.xmldefs.aing_input_name_kind_1.AIngInputNameKind_1
+
+
+Module Contents
+---------------
+
+.. py:class:: AIngInputNameKind_1
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Defines one input-name subject category.
+
+   Generated from canonical definition eu.algites.lib.naming.convention.input-name-kind/1. Source: src/product/xmldefs/eu/algites/lib/naming/convention/input-name-kind_1.xsd. Do not edit manually.
+
+   Values:
+       DEFINITION: Canonical enum value definition.
+       PROPERTY: Canonical enum value property.
+       ENUM_VALUE: Canonical enum value enum_value.
+       SYMBOLIC_MAP_KEY: Canonical enum value symbolic_map_key.
+       PACKAGE_SEGMENT: Canonical enum value package_segment.
+       FILE_STEM: Canonical enum value file_stem.
+       DATA_TYPE_FILE_STEM: Canonical enum value data_type_file_stem.
+       ENUM_TYPE_FILE_STEM: Canonical enum value enum_type_file_stem.
+       INTERFACE_TYPE_FILE_STEM: Canonical enum value interface_type_file_stem.
+
+
+   .. py:attribute:: DEFINITION
+      :value: 'definition'
+
+
+
+   .. py:attribute:: PROPERTY
+      :value: 'property'
+
+
+
+   .. py:attribute:: ENUM_VALUE
+      :value: 'enum_value'
+
+
+
+   .. py:attribute:: SYMBOLIC_MAP_KEY
+      :value: 'symbolic_map_key'
+
+
+
+   .. py:attribute:: PACKAGE_SEGMENT
+      :value: 'package_segment'
+
+
+
+   .. py:attribute:: FILE_STEM
+      :value: 'file_stem'
+
+
+
+   .. py:attribute:: DATA_TYPE_FILE_STEM
+      :value: 'data_type_file_stem'
+
+
+
+   .. py:attribute:: ENUM_TYPE_FILE_STEM
+      :value: 'enum_type_file_stem'
+
+
+
+   .. py:attribute:: INTERFACE_TYPE_FILE_STEM
+      :value: 'interface_type_file_stem'
+
+
+

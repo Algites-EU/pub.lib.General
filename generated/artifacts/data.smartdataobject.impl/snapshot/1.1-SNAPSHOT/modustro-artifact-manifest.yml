@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: data.smartdataobject.impl
+  ArtifactCoordinateId: pub.lib.General_data.smartdataobject.impl
+  GroupId: eu.algites.lib.data
+  Version: 1.1-SNAPSHOT
+  SourcePath: data/smartdataobject/impl
+  StructureKind: artifact
+  Name: "Smart Data Object runtime"
+  Description: "Mutable SmartDataObject foundation, field metadata, graph snapshots, deep validation and serialization."
+SourceMetadata:
+  DescriptorHierarchy:

@@ -1,0 +1,12 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: ""
+  ArtifactCoordinateId: pub.lib.General_
+  Version: ""
+  SourcePath: ""
+  StructureKind: ""
+  Name: ""
+  Description: ""
+SourceMetadata:
+  DescriptorHierarchy:
