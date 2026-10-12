@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eu.algites.lib.naming.convention.container-structure-type",
+  "type": "string",
+  "enum": [
+    "object",
+    "class",
+    "interface",
+    "enum",
+    "exception",
+    "annotation",
+    "resource_bundle"
+  ],
+  "description": "Kind of represented container, independent of its naming profile.",
+  "x-jsondefs-id": "eu.algites.lib.naming.convention.container-structure-type",
+  "x-jsondefs-version": 1,
+  "x-jsondefs-name": "container-structure-type"
+}

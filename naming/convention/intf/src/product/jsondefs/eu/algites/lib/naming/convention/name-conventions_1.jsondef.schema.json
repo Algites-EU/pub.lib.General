@@ -1,0 +1,206 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eu.algites.lib.naming.convention.name-conventions",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "StandardConventionsFile": {
+      "type": "string"
+    },
+    "IdentifierConventions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Regexp": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "Regexp"
+        ]
+      }
+    },
+    "VersionConventions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Regexp": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "Regexp"
+        ]
+      }
+    },
+    "NameFragments": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Segments": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "Ref": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "Ref"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "Kind": {
+                      "enum": [
+                        "constant_string",
+                        "identifier",
+                        "version",
+                        "variable"
+                      ]
+                    },
+                    "Value": {
+                      "type": "string"
+                    },
+                    "Convention": {
+                      "type": "string"
+                    },
+                    "CustomConventionRegexp": {
+                      "type": "string"
+                    },
+                    "Name": {
+                      "type": "string"
+                    },
+                    "Regexp": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "Kind"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "Segments"
+        ]
+      }
+    },
+    "NameCompositions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Segments": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "Ref": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "Ref"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "Kind": {
+                      "enum": [
+                        "constant_string",
+                        "identifier",
+                        "version",
+                        "variable"
+                      ]
+                    },
+                    "Value": {
+                      "type": "string"
+                    },
+                    "Convention": {
+                      "type": "string"
+                    },
+                    "CustomConventionRegexp": {
+                      "type": "string"
+                    },
+                    "Name": {
+                      "type": "string"
+                    },
+                    "Regexp": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "Kind"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "Segments"
+        ]
+      }
+    },
+    "NameConventions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ContainerStructureType": {
+            "$ref": "container-structure-type_1.jsondef.schema.json"
+          },
+          "StructureNaming": {
+            "type": "object",
+            "propertyNames": {
+              "$ref": "source-structure-kind_1.jsondef.schema.json"
+            },
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "ContainerStructureType",
+          "StructureNaming"
+        ]
+      }
+    }
+  },
+  "required": [
+    "NameCompositions",
+    "NameConventions"
+  ],
+  "description": "Reusable fragments, compositions and container-specific structure naming profiles.",
+  "x-jsondefs-id": "eu.algites.lib.naming.convention.name-conventions",
+  "x-jsondefs-version": 1,
+  "x-jsondefs-name": "name-conventions"
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.source-structure-kind" version="1">
+  <xs:simpleType name="source-structure-kind"><xs:restriction base="xs:string">
+      <xs:enumeration value="main_container_name"/>
+      <xs:enumeration value="sub_container_name"/>
+      <xs:enumeration value="field_name"/>
+      <xs:enumeration value="enum_item_name"/>
+      <xs:enumeration value="constant_name"/>
+      <xs:enumeration value="method_name"/>
+      <xs:enumeration value="method_parameter_name"/>
+      <xs:enumeration value="local_variable_name"/>
+      <xs:enumeration value="package_segment_name"/>
+      <xs:enumeration value="file_name_stem"/>
+      <xs:enumeration value="file_name_suffix"/>
+  </xs:restriction></xs:simpleType>
+</xs:schema>

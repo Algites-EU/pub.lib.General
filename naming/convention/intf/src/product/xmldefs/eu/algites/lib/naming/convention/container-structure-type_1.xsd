@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.container-structure-type" version="1">
+  <xs:simpleType name="container-structure-type"><xs:restriction base="xs:string">
+      <xs:enumeration value="object"/>
+      <xs:enumeration value="class"/>
+      <xs:enumeration value="interface"/>
+      <xs:enumeration value="enum"/>
+      <xs:enumeration value="exception"/>
+      <xs:enumeration value="annotation"/>
+      <xs:enumeration value="resource_bundle"/>
+  </xs:restriction></xs:simpleType>
+</xs:schema>

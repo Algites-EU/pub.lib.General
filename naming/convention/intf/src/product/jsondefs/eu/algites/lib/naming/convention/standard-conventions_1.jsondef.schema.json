@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "eu.algites.lib.naming.convention.standard-conventions",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "IdentifierConventions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Regexp": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "Regexp"
+        ]
+      }
+    },
+    "VersionConventions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Regexp": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "Regexp"
+        ]
+      }
+    }
+  },
+  "required": [
+    "IdentifierConventions",
+    "VersionConventions"
+  ],
+  "description": "Reusable regular expressions with named capture groups. Regex syntax canonicalized from Java named groups.",
+  "x-jsondefs-id": "eu.algites.lib.naming.convention.standard-conventions",
+  "x-jsondefs-version": 1,
+  "x-jsondefs-name": "standard-conventions"
+}

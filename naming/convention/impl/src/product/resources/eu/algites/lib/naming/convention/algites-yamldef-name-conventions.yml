@@ -1,0 +1,53 @@
+StandardConventionsFile: standard-conventions.yml
+NameCompositions:
+  schema-name:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case
+  schema-stem:
+    Segments:
+    - Kind: identifier
+      Convention: lower_kebab_case
+  schema-stem-versioned:
+    Segments:
+    - Kind: identifier
+      Convention: lower_kebab_case
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer
+  schema-enum-item:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case
+  schema-suffix:
+    Segments:
+    - Kind: constant_string
+      Value: .yamldef.schema.json
+  schema-property:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case
+  schema-package:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case
+NameConventions:
+  algites-yamldef-schema:
+    ContainerStructureType: object
+    StructureNaming:
+      main_container_name: schema-name
+      file_name_stem: schema-stem
+      file_name_suffix: schema-suffix
+      enum_item_name: schema-enum-item
+      field_name: schema-property
+      package_segment_name: schema-package
+  algites-yamldef-schema-versioned:
+    ContainerStructureType: object
+    StructureNaming:
+      main_container_name: schema-name
+      file_name_stem: schema-stem-versioned
+      file_name_suffix: schema-suffix
+      enum_item_name: schema-enum-item
+      field_name: schema-property
+      package_segment_name: schema-package

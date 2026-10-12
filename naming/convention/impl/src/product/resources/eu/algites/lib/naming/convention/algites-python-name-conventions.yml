@@ -1,0 +1,1048 @@
+StandardConventionsFile: standard-conventions.yml
+NameFragments:
+  method-parameter-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: a_
+  local-variable-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: loc_
+  algites-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+  generated-marker:
+    Segments:
+    - Kind: constant_string
+      Value: g
+  data-marker:
+    Segments:
+    - Kind: constant_string
+      Value: d
+  version-suffix:
+    Segments:
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer
+  intf-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: i
+  intf-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aii_
+  intf-data-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: i
+    - Kind: constant_string
+      Value: d
+  intf-data-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aiid_
+  intf-generated-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: i
+    - Kind: constant_string
+      Value: g
+  intf-generated-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aiig_
+  intf-generated-data-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: i
+    - Kind: constant_string
+      Value: g
+    - Kind: constant_string
+      Value: d
+  intf-generated-data-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aiigd_
+  class-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: c
+  class-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aic_
+  class-data-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: c
+    - Kind: constant_string
+      Value: d
+  class-data-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aicd_
+  class-generated-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: c
+    - Kind: constant_string
+      Value: g
+  class-generated-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aicg_
+  class-generated-data-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: c
+    - Kind: constant_string
+      Value: g
+    - Kind: constant_string
+      Value: d
+  class-generated-data-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aicgd_
+  enum-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: n
+  enum-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: ain_
+  enum-generated-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: n
+    - Kind: constant_string
+      Value: g
+  enum-generated-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aing_
+  ann-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: a
+  ann-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aia_
+  ann-generated-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: a
+    - Kind: constant_string
+      Value: g
+  ann-generated-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aiag_
+  exc-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: x
+  exc-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aix_
+  exc-generated-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: x
+    - Kind: constant_string
+      Value: g
+  exc-generated-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: aixg_
+  rb-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: r
+  rb-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: air_
+  rb-generated-prefix:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: r
+    - Kind: constant_string
+      Value: g
+  rb-generated-prefix-file:
+    Segments:
+    - Kind: constant_string
+      Value: airg_
+NameCompositions:
+  algites-python-intf:
+    Segments:
+    - Ref: intf-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-intf-file:
+    Segments:
+    - Ref: intf-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-intf-versioned:
+    Segments:
+    - Ref: intf-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-intf-versioned-file:
+    Segments:
+    - Ref: intf-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-data-intf:
+    Segments:
+    - Ref: intf-data-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-data-intf-file:
+    Segments:
+    - Ref: intf-data-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-data-intf-versioned:
+    Segments:
+    - Ref: intf-data-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-data-intf-versioned-file:
+    Segments:
+    - Ref: intf-data-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-gen-intf:
+    Segments:
+    - Ref: intf-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-gen-intf-file:
+    Segments:
+    - Ref: intf-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-gen-intf-versioned:
+    Segments:
+    - Ref: intf-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-gen-intf-versioned-file:
+    Segments:
+    - Ref: intf-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-gen-data-intf:
+    Segments:
+    - Ref: intf-generated-data-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-gen-data-intf-file:
+    Segments:
+    - Ref: intf-generated-data-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-gen-data-intf-versioned:
+    Segments:
+    - Ref: intf-generated-data-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-gen-data-intf-versioned-file:
+    Segments:
+    - Ref: intf-generated-data-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-class:
+    Segments:
+    - Ref: class-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-class-file:
+    Segments:
+    - Ref: class-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-class-versioned:
+    Segments:
+    - Ref: class-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-class-versioned-file:
+    Segments:
+    - Ref: class-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-data-class:
+    Segments:
+    - Ref: class-data-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-data-class-file:
+    Segments:
+    - Ref: class-data-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-data-class-versioned:
+    Segments:
+    - Ref: class-data-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-data-class-versioned-file:
+    Segments:
+    - Ref: class-data-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-gen-class:
+    Segments:
+    - Ref: class-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-gen-class-file:
+    Segments:
+    - Ref: class-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-gen-class-versioned:
+    Segments:
+    - Ref: class-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-gen-class-versioned-file:
+    Segments:
+    - Ref: class-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-gen-data-class:
+    Segments:
+    - Ref: class-generated-data-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-gen-data-class-file:
+    Segments:
+    - Ref: class-generated-data-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-gen-data-class-versioned:
+    Segments:
+    - Ref: class-generated-data-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-gen-data-class-versioned-file:
+    Segments:
+    - Ref: class-generated-data-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-enum:
+    Segments:
+    - Ref: enum-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-enum-file:
+    Segments:
+    - Ref: enum-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-enum-versioned:
+    Segments:
+    - Ref: enum-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-enum-versioned-file:
+    Segments:
+    - Ref: enum-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-gen-enum:
+    Segments:
+    - Ref: enum-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-gen-enum-file:
+    Segments:
+    - Ref: enum-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-gen-enum-versioned:
+    Segments:
+    - Ref: enum-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-gen-enum-versioned-file:
+    Segments:
+    - Ref: enum-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-ann:
+    Segments:
+    - Ref: ann-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-ann-file:
+    Segments:
+    - Ref: ann-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-ann-versioned:
+    Segments:
+    - Ref: ann-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-ann-versioned-file:
+    Segments:
+    - Ref: ann-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-gen-ann:
+    Segments:
+    - Ref: ann-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-gen-ann-file:
+    Segments:
+    - Ref: ann-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-gen-ann-versioned:
+    Segments:
+    - Ref: ann-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-gen-ann-versioned-file:
+    Segments:
+    - Ref: ann-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-exc:
+    Segments:
+    - Ref: exc-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-exc-file:
+    Segments:
+    - Ref: exc-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-exc-versioned:
+    Segments:
+    - Ref: exc-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-exc-versioned-file:
+    Segments:
+    - Ref: exc-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-gen-exc:
+    Segments:
+    - Ref: exc-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-gen-exc-file:
+    Segments:
+    - Ref: exc-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-gen-exc-versioned:
+    Segments:
+    - Ref: exc-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-gen-exc-versioned-file:
+    Segments:
+    - Ref: exc-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-rb:
+    Segments:
+    - Ref: rb-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-rb-file:
+    Segments:
+    - Ref: rb-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-rb-versioned:
+    Segments:
+    - Ref: rb-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-rb-versioned-file:
+    Segments:
+    - Ref: rb-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  algites-python-gen-rb:
+    Segments:
+    - Ref: rb-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+  algites-python-gen-rb-file:
+    Segments:
+    - Ref: rb-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+  algites-python-gen-rb-versioned:
+    Segments:
+    - Ref: rb-generated-prefix
+    - Kind: identifier
+      Convention: upper_camel_case
+    - Ref: version-suffix
+  algites-python-gen-rb-versioned-file:
+    Segments:
+    - Ref: rb-generated-prefix-file
+    - Kind: identifier
+      Convention: lower_snake_case
+    - Ref: version-suffix
+  source-extension:
+    Segments:
+    - Kind: constant_string
+      Value: .py
+  field-name:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case
+  method-name:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case
+  parameter-name:
+    Segments:
+    - Ref: method-parameter-prefix
+    - Kind: identifier
+      Convention: lower_snake_case
+  local-variable-name:
+    Segments:
+    - Ref: local-variable-prefix
+    - Kind: identifier
+      Convention: lower_snake_case
+  package-segment-name:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case
+  enum-item-name:
+    Segments:
+    - Kind: identifier
+      Convention: upper_snake_case
+  constant-name:
+    Segments:
+    - Kind: identifier
+      Convention: upper_snake_case
+NameConventions:
+  algites-python-intf:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-python-intf
+      sub_container_name: algites-python-intf
+      file_name_stem: algites-python-intf-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-intf-versioned:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-python-intf-versioned
+      sub_container_name: algites-python-intf-versioned
+      file_name_stem: algites-python-intf-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-data-intf:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-python-data-intf
+      sub_container_name: algites-python-data-intf
+      file_name_stem: algites-python-data-intf-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-data-intf-versioned:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-python-data-intf-versioned
+      sub_container_name: algites-python-data-intf-versioned
+      file_name_stem: algites-python-data-intf-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-intf:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-python-gen-intf
+      sub_container_name: algites-python-gen-intf
+      file_name_stem: algites-python-gen-intf-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-intf-versioned:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-python-gen-intf-versioned
+      sub_container_name: algites-python-gen-intf-versioned
+      file_name_stem: algites-python-gen-intf-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-data-intf:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-python-gen-data-intf
+      sub_container_name: algites-python-gen-data-intf
+      file_name_stem: algites-python-gen-data-intf-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-data-intf-versioned:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-python-gen-data-intf-versioned
+      sub_container_name: algites-python-gen-data-intf-versioned
+      file_name_stem: algites-python-gen-data-intf-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-class:
+    ContainerStructureType: class
+    StructureNaming:
+      main_container_name: algites-python-class
+      sub_container_name: algites-python-class
+      file_name_stem: algites-python-class-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-class-versioned:
+    ContainerStructureType: class
+    StructureNaming:
+      main_container_name: algites-python-class-versioned
+      sub_container_name: algites-python-class-versioned
+      file_name_stem: algites-python-class-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-data-class:
+    ContainerStructureType: class
+    StructureNaming:
+      main_container_name: algites-python-data-class
+      sub_container_name: algites-python-data-class
+      file_name_stem: algites-python-data-class-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-data-class-versioned:
+    ContainerStructureType: class
+    StructureNaming:
+      main_container_name: algites-python-data-class-versioned
+      sub_container_name: algites-python-data-class-versioned
+      file_name_stem: algites-python-data-class-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-class:
+    ContainerStructureType: class
+    StructureNaming:
+      main_container_name: algites-python-gen-class
+      sub_container_name: algites-python-gen-class
+      file_name_stem: algites-python-gen-class-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-class-versioned:
+    ContainerStructureType: class
+    StructureNaming:
+      main_container_name: algites-python-gen-class-versioned
+      sub_container_name: algites-python-gen-class-versioned
+      file_name_stem: algites-python-gen-class-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-data-class:
+    ContainerStructureType: class
+    StructureNaming:
+      main_container_name: algites-python-gen-data-class
+      sub_container_name: algites-python-gen-data-class
+      file_name_stem: algites-python-gen-data-class-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-data-class-versioned:
+    ContainerStructureType: class
+    StructureNaming:
+      main_container_name: algites-python-gen-data-class-versioned
+      sub_container_name: algites-python-gen-data-class-versioned
+      file_name_stem: algites-python-gen-data-class-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-enum:
+    ContainerStructureType: enum
+    StructureNaming:
+      main_container_name: algites-python-enum
+      sub_container_name: algites-python-enum
+      file_name_stem: algites-python-enum-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-enum-versioned:
+    ContainerStructureType: enum
+    StructureNaming:
+      main_container_name: algites-python-enum-versioned
+      sub_container_name: algites-python-enum-versioned
+      file_name_stem: algites-python-enum-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-enum:
+    ContainerStructureType: enum
+    StructureNaming:
+      main_container_name: algites-python-gen-enum
+      sub_container_name: algites-python-gen-enum
+      file_name_stem: algites-python-gen-enum-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-enum-versioned:
+    ContainerStructureType: enum
+    StructureNaming:
+      main_container_name: algites-python-gen-enum-versioned
+      sub_container_name: algites-python-gen-enum-versioned
+      file_name_stem: algites-python-gen-enum-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-ann:
+    ContainerStructureType: annotation
+    StructureNaming:
+      main_container_name: algites-python-ann
+      sub_container_name: algites-python-ann
+      file_name_stem: algites-python-ann-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-ann-versioned:
+    ContainerStructureType: annotation
+    StructureNaming:
+      main_container_name: algites-python-ann-versioned
+      sub_container_name: algites-python-ann-versioned
+      file_name_stem: algites-python-ann-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-ann:
+    ContainerStructureType: annotation
+    StructureNaming:
+      main_container_name: algites-python-gen-ann
+      sub_container_name: algites-python-gen-ann
+      file_name_stem: algites-python-gen-ann-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-ann-versioned:
+    ContainerStructureType: annotation
+    StructureNaming:
+      main_container_name: algites-python-gen-ann-versioned
+      sub_container_name: algites-python-gen-ann-versioned
+      file_name_stem: algites-python-gen-ann-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-exc:
+    ContainerStructureType: exception
+    StructureNaming:
+      main_container_name: algites-python-exc
+      sub_container_name: algites-python-exc
+      file_name_stem: algites-python-exc-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-exc-versioned:
+    ContainerStructureType: exception
+    StructureNaming:
+      main_container_name: algites-python-exc-versioned
+      sub_container_name: algites-python-exc-versioned
+      file_name_stem: algites-python-exc-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-exc:
+    ContainerStructureType: exception
+    StructureNaming:
+      main_container_name: algites-python-gen-exc
+      sub_container_name: algites-python-gen-exc
+      file_name_stem: algites-python-gen-exc-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-exc-versioned:
+    ContainerStructureType: exception
+    StructureNaming:
+      main_container_name: algites-python-gen-exc-versioned
+      sub_container_name: algites-python-gen-exc-versioned
+      file_name_stem: algites-python-gen-exc-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-rb:
+    ContainerStructureType: resource_bundle
+    StructureNaming:
+      main_container_name: algites-python-rb
+      sub_container_name: algites-python-rb
+      file_name_stem: algites-python-rb-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-rb-versioned:
+    ContainerStructureType: resource_bundle
+    StructureNaming:
+      main_container_name: algites-python-rb-versioned
+      sub_container_name: algites-python-rb-versioned
+      file_name_stem: algites-python-rb-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-rb:
+    ContainerStructureType: resource_bundle
+    StructureNaming:
+      main_container_name: algites-python-gen-rb
+      sub_container_name: algites-python-gen-rb
+      file_name_stem: algites-python-gen-rb-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name
+  algites-python-gen-rb-versioned:
+    ContainerStructureType: resource_bundle
+    StructureNaming:
+      main_container_name: algites-python-gen-rb-versioned
+      sub_container_name: algites-python-gen-rb-versioned
+      file_name_stem: algites-python-gen-rb-versioned-file
+      file_name_suffix: source-extension
+      field_name: field-name
+      method_name: method-name
+      method_parameter_name: parameter-name
+      local_variable_name: local-variable-name
+      package_segment_name: package-segment-name
+      enum_item_name: enum-item-name
+      constant_name: constant-name

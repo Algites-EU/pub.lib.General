@@ -4,6 +4,6 @@ $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs
 
 ArtifactSet:
   Name: Naming infrastructure
-  Description: Reusable naming conventions, conversion, and validation for Java, Python, definitions, files, packages, and other named model elements.
+  Description: Declarative YAML name compositions and parsing for Java, Python and schema definitions.
 
 GroupId: eu.algites.lib.naming

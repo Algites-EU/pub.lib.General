@@ -1,0 +1,46 @@
+# An independent target naming catalog. Takes variables captured by example-input.yml.
+# Output: AIigCustomerAddress__beta__7-2__eu_west.java
+# Channel moves ahead of region; major and minor are reversed and use '-'.
+StandardConventionsFile: standard-conventions.yml
+NameFragments:
+  output-java-suffix:
+    Segments:
+      - Kind: constant_string
+        Value: '.java'
+  generated-interface-prefix:
+    Segments:
+      - Kind: constant_string
+        Value: 'AIig'
+NameCompositions:
+  example-output-stem:
+    Segments:
+      - Ref: generated-interface-prefix
+      - Kind: identifier
+        Convention: upper_camel_case
+      - Kind: constant_string
+        Value: '__'
+      - Kind: variable
+        Name: channel
+        Regexp: '[a-z]+'
+      - Kind: constant_string
+        Value: '__'
+      - Kind: variable
+        Name: minor
+        Regexp: '0|[1-9][0-9]*'
+      - Kind: constant_string
+        Value: '-'
+      - Kind: variable
+        Name: major
+        Regexp: '0|[1-9][0-9]*'
+      - Kind: constant_string
+        Value: '__'
+      - Kind: variable
+        Name: region
+        Regexp: '[a-z]+(?:_[a-z]+)*'
+NameConventions:
+  example-output:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: example-output-stem
+      file_name_stem: example-output-stem
+      file_name_suffix: output-java-suffix

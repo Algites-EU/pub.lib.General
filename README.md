@@ -57,8 +57,7 @@ The main modules are:
 
 - `common` — general-purpose support utilities shared across Algites artifacts and repositories.
 - `naming/convention` — naming conventions, naming policies, and versioned-name policy contracts/defaults.
-- `naming/conversion` — deterministic token-based conversion between naming conventions.
-- `naming/validation` — configurable validation against naming and version policies, including the strict Algites profile.
+- `naming/convention` — YAML-backed name compositions, validation, parsing and conversion for Java, Python and canonical schema names.
 - `documentation/intf` and `documentation/impl` — renderer-neutral documentation contracts and implementations.
 - `version/common/intf` and `version/common/impl` — version contracts and shared implementations (existing Java packages retained).
 - `version/scheme/algites/v1` — version 1 of the Algites version scheme.
@@ -237,3 +236,46 @@ For migration details, full old/new artifact coordinates and the one-shot
 The naming profile API gains Java `withInputConvention` / `withOutputRule`
 and analogous Python `with_input_convention` / `with_output_rule` methods; they
 produce derived profiles rather than modifying existing instances.
+
+
+### YAML naming composition examples (1.1)
+
+The resource catalog in `naming/convention/impl/src/product/resources/eu/algites/lib/naming/convention/`
+contains two standalone, schema-compatible examples:
+
+- `example-input.yml` describes how a name is **parsed** using a conventional
+  `identifier` plus custom `region`, `channel`, `major`, and `minor` captures.
+- `example-output.yml` demonstrates the same captured values **rendered** with
+  a different identifier convention, reordered user-defined fields, and a new
+  major/minor delimiter. Both are also packaged in the Python native sources.
+
+For example, the complete input filename
+`customer_address--eu_west--beta--2.7.demo.schema` is recognized as
+`identifier=customer_address`, `region=eu_west`, `channel=beta`,
+`version=2.7`, `major=2`, `minor=7`. Converting the filename stem between the
+catalogs and appending the output's `file_name_suffix` creates
+`AIigCustomerAddress__beta__7-2__eu_west.java`.
+
+```python
+from pathlib import Path
+from eu.algites.lib.naming.convention.aic_name_convention_catalog import AIcNameConventionCatalog
+
+root = Path('naming/convention/impl/src/product/resources/eu/algites/lib/naming/convention')
+source = AIcNameConventionCatalog.load(root / 'example-input.yml')
+target = AIcNameConventionCatalog.load(root / 'example-output.yml')
+filename = 'customer_address--eu_west--beta--2.7.demo.schema'
+parsed = source.recognize_filename(filename)
+stem = source.convert(filename.removesuffix('.demo.schema'),
+                      'example-input', target, 'example-output', 'file_name_stem')
+result = stem + target.format('example-output', 'file_name_suffix', parsed.variables)
+assert result == 'AIigCustomerAddress__beta__7-2__eu_west.java'
+```
+
+The `version` pattern defines three named groups at once (`version`, `major`,
+`minor`). `region` and `channel` are extra `variable` segments; their names do
+not require any new enum, generator source change, or hardcoded parser rule.
+If a conversion requires custom variables, the source pattern must capture each
+variable required by the target composition. The formatting engine validates
+all values against their target regexes. A regex specifies recognition, but
+arbitrary conversions of the **identifier** still require a supported lexical
+format (e.g. `lower_snake_case` to `upper_camel_case`).

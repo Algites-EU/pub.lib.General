@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.name-conventions" version="1">
+  <xs:complexType name="name-conventions"><xs:sequence>
+    <xs:element name="StandardConventionsFile" minOccurs="0" type="xs:anyType"/>
+    <xs:element name="IdentifierConventions" minOccurs="0" type="xs:anyType"/>
+    <xs:element name="VersionConventions" minOccurs="0" type="xs:anyType"/>
+    <xs:element name="NameFragments" minOccurs="0" type="xs:anyType"/>
+    <xs:element name="NameCompositions" minOccurs="0" type="xs:anyType"/>
+    <xs:element name="NameConventions" minOccurs="0" type="xs:anyType"/>
+  </xs:sequence></xs:complexType>
+</xs:schema>
