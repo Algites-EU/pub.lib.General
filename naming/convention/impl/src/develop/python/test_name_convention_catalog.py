@@ -6,7 +6,7 @@ import pytest
 from eu.algites.lib.naming.convention.aic_name_convention_catalog import AIcNameConventionCatalog
 
 
-ROOT = Path(__file__).resolve().parents[3] / 'src/product/resources/eu/algites/lib/naming/convention'
+ROOT = Path(__file__).resolve().parents[3] / 'src/product/config/eu/algites/lib/naming/convention'
 
 
 def catalog(language: str) -> AIcNameConventionCatalog:
@@ -116,11 +116,13 @@ def test_custom_version_named_variables_can_be_recomposed():
     assert match is not None and match.variables['major'] == '1' and match.variables['minor'] == '0'
 
 
-def test_java_and_python_packaged_yaml_catalogs_are_in_sync():
-    """Both standalone technology artifacts must ship the exact same declarative catalog."""
-    installed = Path(__file__).resolve().parents[3] / 'src/product/python/eu/algites/lib/naming/convention'
-    for file in ROOT.glob('*.yml'):
-        assert (installed / file.name).read_bytes() == file.read_bytes(), file.name
+def test_all_naming_catalogs_exist_under_product_config():
+    """Configuration files are maintained once under the Modustro config resource root."""
+    expected = {'standard-conventions.yml', 'algites-java-name-conventions.yml',
+                'algites-python-name-conventions.yml', 'algites-yamldef-name-conventions.yml',
+                'algites-jsondef-name-conventions.yml', 'algites-xmldef-name-conventions.yml',
+                'example-input.yml', 'example-output.yml'}
+    assert {p.name for p in ROOT.glob('*.yml')} == expected
 
 
 @pytest.mark.parametrize('language,expected_parameter,expected_local', [
@@ -185,3 +187,47 @@ def test_yaml_example_reorders_user_variables_and_major_minor_versions():
         'minor': '7', 'major': '2', 'region': 'eu_west'
     }
     assert target.recognize_filename('AIigCustomerAddress__beta__7-2__eu_west.java.java') is None
+
+
+def test_standard_catalog_uses_python_import_roots_independent_of_checkout(tmp_path):
+    """Product config is an import root, never a repository-relative search path."""
+    import os
+    import subprocess
+    import sys
+
+    module_root = ROOT.parents[5] / 'python'
+    config_root = ROOT.parents[5] / 'config'
+    assert module_root.is_dir() and config_root.is_dir()
+    unrelated = tmp_path / 'unrelated-directory'
+    unrelated.mkdir()
+    code = ("from eu.algites.lib.naming.convention.aic_name_convention_catalog "
+            "import AIcNameConventionCatalog; "
+            "assert len(AIcNameConventionCatalog.standard('java').names) == 32; "
+            "assert len(AIcNameConventionCatalog.standard('python').names) == 32")
+    env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(config_root))))
+    subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
+
+
+def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
+    """The installed Python wheel keeps YAML under an isolated artifact package."""
+    import os
+    import shutil
+    import subprocess
+    import sys
+
+    module_root = ROOT.parents[5] / 'python'
+    stage = tmp_path / 'wheel-packages'
+    destination = (stage / 'algites/pub/lib/general/naming/convention/impl'
+                   / 'eu/algites/lib/naming/convention')
+    destination.mkdir(parents=True)
+    for item in ROOT.glob('*.yml'):
+        shutil.copy2(item, destination / item.name)
+    unrelated = tmp_path / 'outside-repository'
+    unrelated.mkdir()
+    code = ("from eu.algites.lib.naming.convention.aic_name_convention_catalog "
+            "import AIcNameConventionCatalog; "
+            "assert len(AIcNameConventionCatalog.standard('java').names) == 32; "
+            "assert len(AIcNameConventionCatalog.standard('python').names) == 32; "
+            "assert len(AIcNameConventionCatalog.load_resource('algites-yamldef-name-conventions.yml').names) == 2")
+    env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(stage))))
+    subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)

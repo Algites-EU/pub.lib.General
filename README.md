@@ -240,14 +240,14 @@ produce derived profiles rather than modifying existing instances.
 
 ### YAML naming composition examples (1.1)
 
-The resource catalog in `naming/convention/impl/src/product/resources/eu/algites/lib/naming/convention/`
+The resource catalog in `naming/convention/impl/src/product/config/eu/algites/lib/naming/convention/`
 contains two standalone, schema-compatible examples:
 
 - `example-input.yml` describes how a name is **parsed** using a conventional
   `identifier` plus custom `region`, `channel`, `major`, and `minor` captures.
 - `example-output.yml` demonstrates the same captured values **rendered** with
   a different identifier convention, reordered user-defined fields, and a new
-  major/minor delimiter. Both are also packaged in the Python native sources.
+  major/minor delimiter. Both are stored in the shared Modustro configuration root.
 
 For example, the complete input filename
 `customer_address--eu_west--beta--2.7.demo.schema` is recognized as
@@ -260,7 +260,7 @@ catalogs and appending the output's `file_name_suffix` creates
 from pathlib import Path
 from eu.algites.lib.naming.convention.aic_name_convention_catalog import AIcNameConventionCatalog
 
-root = Path('naming/convention/impl/src/product/resources/eu/algites/lib/naming/convention')
+root = Path('naming/convention/impl/src/product/config/eu/algites/lib/naming/convention')
 source = AIcNameConventionCatalog.load(root / 'example-input.yml')
 target = AIcNameConventionCatalog.load(root / 'example-output.yml')
 filename = 'customer_address--eu_west--beta--2.7.demo.schema'

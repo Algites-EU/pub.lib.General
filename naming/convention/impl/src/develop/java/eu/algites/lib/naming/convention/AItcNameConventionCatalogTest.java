@@ -9,13 +9,11 @@ import org.testng.annotations.Test;
 
 /** Native Java checks for YAML composition resolution, parsing and ownership selection. */
 public final class AItcNameConventionCatalogTest {
-    private static final Path CATALOG_ROOT = Path.of("src/product/resources/eu/algites/lib/naming/convention");
 
     /** All Java profiles classify their generated names uniquely, including data-marker prefixes. */
     @Test
     public void AIcAllJavaProfilesAndAmbiguities() throws Exception {
-        AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.load(
-                CATALOG_ROOT.resolve("algites-java-name-conventions.yml"));
+        AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.loadResource("algites-java-name-conventions.yml");
         Assert.assertEquals(locCatalog.names().size(), 32);
         for (String locName : locCatalog.names()) {
             Map<String, String> locVars = Map.of("identifier", "Customer", "version", "2");
@@ -32,8 +30,7 @@ public final class AItcNameConventionCatalogTest {
     /** All Python convention names are interpreted natively by the JVM, without Python execution. */
     @Test
     public void AIcPythonCatalogOnJava() throws Exception {
-        AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.load(
-                CATALOG_ROOT.resolve("algites-python-name-conventions.yml"));
+        AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.loadResource("algites-python-name-conventions.yml");
         Assert.assertEquals(locCatalog.names().size(), 32);
         Assert.assertEquals(locCatalog.recognizeFilename("aiig_customer_1.py", null).conventionName(),
                 "algites-python-gen-intf-versioned");
@@ -42,8 +39,7 @@ public final class AItcNameConventionCatalogTest {
     /** Cleanup removes only matching generated output files across package subdirectories. */
     @Test
     public void AIcCleanOnlyOwnRole() throws Exception {
-        AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.load(
-                CATALOG_ROOT.resolve("algites-java-name-conventions.yml"));
+        AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.loadResource("algites-java-name-conventions.yml");
         Path locRoot = Files.createTempDirectory("algites-naming-catalog-test");
         try {
             Path locNested = Files.createDirectories(locRoot.resolve("eu/algites/test"));
@@ -63,8 +59,7 @@ public final class AItcNameConventionCatalogTest {
     /** The declared YAML patterns render all three generator roles natively. */
     @Test
     public void AIcNativeRenderingUsesYaml() throws Exception {
-        AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.load(
-                CATALOG_ROOT.resolve("algites-java-name-conventions.yml"));
+        AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.loadResource("algites-java-name-conventions.yml");
         Map<String, String> locValues = Map.of("identifier", "customer", "version", "1");
         Assert.assertEquals(locCatalog.format("algites-java-gen-intf-versioned", "main_container_name",
                 locValues, "lower_kebab_case"), "AIigCustomer_1");
@@ -78,8 +73,7 @@ public final class AItcNameConventionCatalogTest {
     @Test
     public void AIcSourceElementConventionsAndCompleteFilenames() throws Exception {
         for (String locLanguage : new String[]{"java", "python"}) {
-            AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.load(
-                    CATALOG_ROOT.resolve("algites-" + locLanguage + "-name-conventions.yml"));
+            AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.loadResource("algites-" + locLanguage + "-name-conventions.yml");
             boolean locJava = locLanguage.equals("java");
             String locIdentifier = locJava ? "CustomerAddress" : "customer_address";
             String locParameter = locJava ? "aCustomerAddress" : "a_customer_address";
@@ -106,13 +100,18 @@ public final class AItcNameConventionCatalogTest {
         }
     }
 
+    /** Standard runtime catalogs are loadable from the compiled artifact classpath. */
+    @Test
+    public void AIcStandardCatalogResourceAvailable() throws Exception {
+        Assert.assertEquals(AIcNameConventionCatalog.standard("java").names().size(), 32);
+        Assert.assertEquals(AIcNameConventionCatalog.standard("python").names().size(), 32);
+    }
+
     /** User-defined captures are extracted and reordered entirely through the example YAML catalogs. */
     @Test
     public void AIcCustomVariableCompositionExample() throws Exception {
-        AIcNameConventionCatalog locSource = AIcNameConventionCatalog.load(
-                CATALOG_ROOT.resolve("example-input.yml"));
-        AIcNameConventionCatalog locTarget = AIcNameConventionCatalog.load(
-                CATALOG_ROOT.resolve("example-output.yml"));
+        AIcNameConventionCatalog locSource = AIcNameConventionCatalog.loadResource("example-input.yml");
+        AIcNameConventionCatalog locTarget = AIcNameConventionCatalog.loadResource("example-output.yml");
         String locInput = "customer_address--eu_west--beta--2.7.demo.schema";
         var locMatch = locSource.recognizeFilename(locInput, null);
         Assert.assertNotNull(locMatch);

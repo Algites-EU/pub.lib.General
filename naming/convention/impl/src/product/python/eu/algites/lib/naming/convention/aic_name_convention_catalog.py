@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from importlib import resources
 from pathlib import Path
 import re
-from typing import Any, Mapping
+from typing import Any, Callable, Mapping
 import yaml
 
 
@@ -39,14 +40,18 @@ class AIcNameConventionCatalog:
             self.filename_pattern(name)
 
     @classmethod
-    def load(cls, path: str | Path) -> AIcNameConventionCatalog:
-        path = Path(path).resolve()
-        config = yaml.safe_load(path.read_text(encoding='utf-8'))
+    def _load_document(cls, filename: str, read_text: Callable[[str], str]) -> AIcNameConventionCatalog:
+        """Resolve a YAML catalog and its standard sibling using one resource provider."""
+        config = yaml.safe_load(read_text(filename))
         if not isinstance(config, dict):
-            raise ValueError(f'Name conventions document must be a mapping: {path}')
+            raise ValueError(f'Name conventions document must be a mapping: {filename}')
         if 'StandardConventionsFile' in config:
-            standard_path = (path.parent / config['StandardConventionsFile']).resolve()
-            standard = yaml.safe_load(standard_path.read_text(encoding='utf-8'))
+            standard_name = config['StandardConventionsFile']
+            if not isinstance(standard_name, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*\.yml', standard_name):
+                raise ValueError(f'Invalid standard conventions resource name: {standard_name!r}')
+            standard = yaml.safe_load(read_text(standard_name))
+            if not isinstance(standard, dict):
+                raise ValueError(f'Standard conventions document must be a mapping: {standard_name}')
             for section in ('IdentifierConventions', 'VersionConventions'):
                 combined = dict(standard.get(section, {}))
                 for name, item in config.get(section, {}).items():
@@ -57,19 +62,45 @@ class AIcNameConventionCatalog:
         return cls(config)
 
     @classmethod
+    def load(cls, path: str | Path) -> AIcNameConventionCatalog:
+        """Load an explicitly selected external catalog without searching parent directories."""
+        path = Path(path)
+        return cls._load_document(path.name, lambda name: (path.parent / name).read_text(encoding='utf-8'))
+
+    @classmethod
+    def load_resource(cls, filename: str) -> AIcNameConventionCatalog:
+        """Read the resource from the importable Python package or its Modustro resource bundle.
+
+        This uses Python package-resource lookup, never the source-repository layout.
+        Modustro publishes config resources under this artifact's isolated resource
+        namespace. A local Python environment may also expose the config source
+        root directly as a namespace package on sys.path.
+        """
+        if not isinstance(filename, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*\.yml', filename):
+            raise ValueError(f'Invalid naming catalog resource filename: {filename!r}')
+        providers = (
+            ('eu.algites.lib.naming.convention', ()),
+            ('algites.pub.lib.general.naming.convention.impl',
+             ('eu', 'algites', 'lib', 'naming', 'convention')),
+        )
+        for package, subpath in providers:
+            try:
+                root = resources.files(package).joinpath(*subpath)
+            except (ModuleNotFoundError, TypeError):
+                continue
+            if root.joinpath(filename).is_file():
+                return cls._load_document(filename, lambda name: root.joinpath(name).read_text(encoding='utf-8'))
+        raise FileNotFoundError(
+            f'Algites YAML naming resource {filename!r} not found in the installed '
+            'naming artifact or its configured Python resource roots'
+        )
+
+    @classmethod
     def standard(cls, technology: str) -> AIcNameConventionCatalog:
-        """Load the standard YAML profile for a target technology."""
+        """Load an artifact-packaged catalog; independent of checkout and version context."""
         if technology not in ('java', 'python'):
             raise ValueError(f'Unsupported naming target: {technology}')
-        base = Path(__file__).resolve()
-        candidates = [base.parent / f'algites-{technology}-name-conventions.yml']
-        for ancestor in base.parents:
-            candidates.append(ancestor / 'resources/eu/algites/lib/naming/convention' / f'algites-{technology}-name-conventions.yml')
-            candidates.append(ancestor / 'naming/convention/impl/src/product/resources/eu/algites/lib/naming/convention' / f'algites-{technology}-name-conventions.yml')
-        for candidate in candidates:
-            if candidate.is_file():
-                return cls.load(candidate)
-        raise FileNotFoundError(f'Algites YAML naming conventions not available for {technology}')
+        return cls.load_resource(f'algites-{technology}-name-conventions.yml')
 
     @property
     def names(self) -> tuple[str, ...]:

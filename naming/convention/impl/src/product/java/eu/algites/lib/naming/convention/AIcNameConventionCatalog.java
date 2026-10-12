@@ -41,17 +41,37 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
         return new AIcNameConventionCatalog(locDocument, locStandard);
     }
 
+    /**
+     * Loads a YAML naming catalog from the artifact classpath, including its standard-conventions sibling.
+     * This also works when the artifact is consumed from a JAR rather than a source checkout.
+     */
+    public static AIcNameConventionCatalog loadResource(String aFilename) throws IOException {
+        if (aFilename == null || !aFilename.matches("[A-Za-z0-9][A-Za-z0-9_.-]*\\.yml"))
+            throw new IllegalArgumentException("Expected a YAML catalog filename: " + aFilename);
+        String locDirectory = "eu/algites/lib/naming/convention/";
+        ClassLoader locLoader = AIcNameConventionCatalog.class.getClassLoader();
+        try (var locCatalog = locLoader.getResourceAsStream(locDirectory + aFilename)) {
+            if (locCatalog == null) throw new IOException("Missing packaged Algites YAML naming catalog: " + locDirectory + aFilename);
+            JsonNode locDocument = MAPPER.readTree(locCatalog);
+            JsonNode locStandard = MAPPER.createObjectNode();
+            if (locDocument.has("StandardConventionsFile")) {
+                String locSibling = locDocument.path("StandardConventionsFile").asText();
+                if (!locSibling.matches("[A-Za-z0-9][A-Za-z0-9_.-]*\\.yml"))
+                    throw new IOException("Invalid standard naming catalog resource: " + locSibling);
+                try (var locStream = locLoader.getResourceAsStream(locDirectory + locSibling)) {
+                    if (locStream == null) throw new IOException("Missing packaged standard naming catalog: " + locDirectory + locSibling);
+                    locStandard = MAPPER.readTree(locStream);
+                }
+            }
+            return new AIcNameConventionCatalog(locDocument, locStandard);
+        }
+    }
+
     /** Loads the standard Algites catalog from its packaged YAML resources. */
     public static AIcNameConventionCatalog standard(String aTechnology) throws IOException {
         if (!aTechnology.equals("java") && !aTechnology.equals("python"))
             throw new IllegalArgumentException("Unknown standard technology: " + aTechnology);
-        String locDirectory = "eu/algites/lib/naming/convention/";
-        ClassLoader locLoader = AIcNameConventionCatalog.class.getClassLoader();
-        try (var locCatalog = locLoader.getResourceAsStream(locDirectory + "algites-" + aTechnology + "-name-conventions.yml");
-             var locStandard = locLoader.getResourceAsStream(locDirectory + "standard-conventions.yml")) {
-            if (locCatalog == null || locStandard == null) throw new IOException("Missing packaged Algites YAML naming catalog for " + aTechnology);
-            return new AIcNameConventionCatalog(MAPPER.readTree(locCatalog), MAPPER.readTree(locStandard));
-        }
+        return loadResource("algites-" + aTechnology + "-name-conventions.yml");
     }
 
     private AIcNameConventionCatalog(JsonNode aDocument, JsonNode aStandard) {
