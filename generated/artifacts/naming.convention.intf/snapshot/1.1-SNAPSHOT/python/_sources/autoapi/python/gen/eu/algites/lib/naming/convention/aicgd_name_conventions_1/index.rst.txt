@@ -1,0 +1,147 @@
+python.gen.eu.algites.lib.naming.convention.aicgd_name_conventions_1
+====================================================================
+
+.. py:module:: python.gen.eu.algites.lib.naming.convention.aicgd_name_conventions_1
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   python.gen.eu.algites.lib.naming.convention.aicgd_name_conventions_1.AIcSchemaTemporalValue
+   python.gen.eu.algites.lib.naming.convention.aicgd_name_conventions_1.AIcSchemaDuration
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.gen.eu.algites.lib.naming.convention.aicgd_name_conventions_1.AIcgdNameConventions_1
+
+
+Module Contents
+---------------
+
+.. py:data:: AIcSchemaTemporalValue
+
+.. py:data:: AIcSchemaDuration
+
+.. py:class:: AIcgdNameConventions_1
+
+   Reusable fragments, compositions and container-specific structure naming profiles. Canonical representations: YAMLDEFS: eu.algites.lib.naming.convention.name-conventions (src/product/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json); JSONDEFS: eu.algites.lib.naming.convention.name-conventions (src/product/jsondefs/eu/algites/lib/naming/convention/name-conventions_1.jsondef.schema.json)
+
+   Generated from canonical definition eu.algites.lib.naming.convention.name-conventions/1. Source: src/product/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json. Do not edit manually.
+
+   .. attribute:: name_compositions
+
+      Value of canonical property NameCompositions.
+
+   .. attribute:: name_conventions
+
+      Value of canonical property NameConventions.
+
+   .. attribute:: standard_conventions_file
+
+      Value of canonical property StandardConventionsFile.
+
+   .. attribute:: identifier_conventions
+
+      Value of canonical property IdentifierConventions.
+
+   .. attribute:: version_conventions
+
+      Value of canonical property VersionConventions.
+
+   .. attribute:: name_fragments
+
+      Value of canonical property NameFragments.
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__NAME_COMPOSITIONS
+      :value: 'NameCompositions'
+
+
+      ** ``NameCompositions``
+
+      :type: **Field Name
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__NAME_CONVENTIONS
+      :value: 'NameConventions'
+
+
+      ** ``NameConventions``
+
+      :type: **Field Name
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__STANDARD_CONVENTIONS_FILE
+      :value: 'StandardConventionsFile'
+
+
+      ** ``StandardConventionsFile``
+
+      :type: **Field Name
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__IDENTIFIER_CONVENTIONS
+      :value: 'IdentifierConventions'
+
+
+      ** ``IdentifierConventions``
+
+      :type: **Field Name
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__VERSION_CONVENTIONS
+      :value: 'VersionConventions'
+
+
+      ** ``VersionConventions``
+
+      :type: **Field Name
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__NAME_FRAGMENTS
+      :value: 'NameFragments'
+
+
+      ** ``NameFragments``
+
+      :type: **Field Name
+
+
+   .. py:attribute:: name_compositions
+      :type:  Mapping[str, Any]
+
+
+   .. py:attribute:: name_conventions
+      :type:  Mapping[str, Any]
+
+
+   .. py:attribute:: standard_conventions_file
+      :type:  str
+
+
+   .. py:attribute:: identifier_conventions
+      :type:  Mapping[str, Any]
+
+
+   .. py:attribute:: version_conventions
+      :type:  Mapping[str, Any]
+
+
+   .. py:attribute:: name_fragments
+      :type:  Mapping[str, Any]
+
+
+   .. py:method:: from_mapping(value: Mapping[str, object])
+      :classmethod:
+
+
+
+   .. py:method:: to_mapping() -> Mapping[str, object]
+
+

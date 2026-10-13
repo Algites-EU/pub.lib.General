@@ -1,1 +1,0 @@
-typeSearchIndex = [{"p":"eu.algites.lib.naming.conversion","l":"AIcdParsedVersionedName"},{"p":"eu.algites.lib.naming.conversion","l":"AIiNameConverter"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

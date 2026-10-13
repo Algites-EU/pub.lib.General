@@ -1,0 +1,71 @@
+python.gen.eu.algites.lib.naming.convention.xmldefs.aing_container_structure_type_1
+===================================================================================
+
+.. py:module:: python.gen.eu.algites.lib.naming.convention.xmldefs.aing_container_structure_type_1
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.gen.eu.algites.lib.naming.convention.xmldefs.aing_container_structure_type_1.AIngContainerStructureType_1
+
+
+Module Contents
+---------------
+
+.. py:class:: AIngContainerStructureType_1
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Generated representation of canonical definition container-structure-type.
+
+   Generated from canonical definition eu.algites.lib.naming.convention.container-structure-type/1. Source: src/product/xmldefs/eu/algites/lib/naming/convention/container-structure-type_1.xsd. Do not edit manually.
+
+   Values:
+       OBJECT: Canonical enum value object.
+       CLASS: Canonical enum value class.
+       INTERFACE: Canonical enum value interface.
+       ENUM: Canonical enum value enum.
+       EXCEPTION: Canonical enum value exception.
+       ANNOTATION: Canonical enum value annotation.
+       RESOURCE_BUNDLE: Canonical enum value resource_bundle.
+
+
+   .. py:attribute:: OBJECT
+      :value: 'object'
+
+
+
+   .. py:attribute:: CLASS
+      :value: 'class'
+
+
+
+   .. py:attribute:: INTERFACE
+      :value: 'interface'
+
+
+
+   .. py:attribute:: ENUM
+      :value: 'enum'
+
+
+
+   .. py:attribute:: EXCEPTION
+      :value: 'exception'
+
+
+
+   .. py:attribute:: ANNOTATION
+      :value: 'annotation'
+
+
+
+   .. py:attribute:: RESOURCE_BUNDLE
+      :value: 'resource_bundle'
+
+
+

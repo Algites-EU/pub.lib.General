@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"eu.algites.lib.naming.validation"},{"l":"eu.algites.lib.naming.validation.xmldefs"}];updateSearchResults();

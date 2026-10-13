@@ -1,0 +1,30 @@
+python.eu.algites.lib.naming.convention.aicd_name_match
+=======================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.aicd_name_match
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.aicd_name_match.AIcdNameMatch
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdNameMatch
+
+   One unambiguously recognized filename, with captured name variables.
+
+
+   .. py:attribute:: convention_name
+      :type:  str
+
+
+   .. py:attribute:: variables
+      :type:  Mapping[str, str]
+
+

@@ -1,1 +1,0 @@
-typeSearchIndex = [{"p":"eu.algites.lib.naming.conversion","l":"AIcDefaultNameConverter"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

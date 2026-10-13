@@ -1,0 +1,95 @@
+python.gen.eu.algites.lib.naming.convention.xmldefs.aing_source_structure_kind_1
+================================================================================
+
+.. py:module:: python.gen.eu.algites.lib.naming.convention.xmldefs.aing_source_structure_kind_1
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.gen.eu.algites.lib.naming.convention.xmldefs.aing_source_structure_kind_1.AIngSourceStructureKind_1
+
+
+Module Contents
+---------------
+
+.. py:class:: AIngSourceStructureKind_1
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Generated representation of canonical definition source-structure-kind.
+
+   Generated from canonical definition eu.algites.lib.naming.convention.source-structure-kind/1. Source: src/product/xmldefs/eu/algites/lib/naming/convention/source-structure-kind_1.xsd. Do not edit manually.
+
+   Values:
+       MAIN_CONTAINER_NAME: Canonical enum value main_container_name.
+       SUB_CONTAINER_NAME: Canonical enum value sub_container_name.
+       FIELD_NAME: Canonical enum value field_name.
+       ENUM_ITEM_NAME: Canonical enum value enum_item_name.
+       CONSTANT_NAME: Canonical enum value constant_name.
+       METHOD_NAME: Canonical enum value method_name.
+       METHOD_PARAMETER_NAME: Canonical enum value method_parameter_name.
+       LOCAL_VARIABLE_NAME: Canonical enum value local_variable_name.
+       PACKAGE_SEGMENT_NAME: Canonical enum value package_segment_name.
+       FILE_NAME_STEM: Canonical enum value file_name_stem.
+       FILE_NAME_SUFFIX: Canonical enum value file_name_suffix.
+
+
+   .. py:attribute:: MAIN_CONTAINER_NAME
+      :value: 'main_container_name'
+
+
+
+   .. py:attribute:: SUB_CONTAINER_NAME
+      :value: 'sub_container_name'
+
+
+
+   .. py:attribute:: FIELD_NAME
+      :value: 'field_name'
+
+
+
+   .. py:attribute:: ENUM_ITEM_NAME
+      :value: 'enum_item_name'
+
+
+
+   .. py:attribute:: CONSTANT_NAME
+      :value: 'constant_name'
+
+
+
+   .. py:attribute:: METHOD_NAME
+      :value: 'method_name'
+
+
+
+   .. py:attribute:: METHOD_PARAMETER_NAME
+      :value: 'method_parameter_name'
+
+
+
+   .. py:attribute:: LOCAL_VARIABLE_NAME
+      :value: 'local_variable_name'
+
+
+
+   .. py:attribute:: PACKAGE_SEGMENT_NAME
+      :value: 'package_segment_name'
+
+
+
+   .. py:attribute:: FILE_NAME_STEM
+      :value: 'file_name_stem'
+
+
+
+   .. py:attribute:: FILE_NAME_SUFFIX
+      :value: 'file_name_suffix'
+
+
+

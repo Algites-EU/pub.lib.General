@@ -17,22 +17,16 @@ Module Contents
 
 .. py:class:: AIcAlgitesNamingProfiles
 
-   Provides standard strict Algites naming profiles for generated source.
+   Resolves declarative naming conventions from YAML, with no hardcoded naming rules.
 
 
-   .. py:method:: java_profile() -> eu.algites.lib.naming.convention.aicd_naming_profile.AIcdNamingProfile
+   .. py:method:: java_profile() -> eu.algites.lib.naming.convention.aic_name_convention_catalog.AIcNameConventionCatalog
       :staticmethod:
 
 
-      Return the standard Algites naming profile for Java output.
 
-
-
-   .. py:method:: python_profile() -> eu.algites.lib.naming.convention.aicd_naming_profile.AIcdNamingProfile
+   .. py:method:: python_profile() -> eu.algites.lib.naming.convention.aic_name_convention_catalog.AIcNameConventionCatalog
       :staticmethod:
-
-
-      Return the standard Algites naming profile for Python output.
 
 
 
