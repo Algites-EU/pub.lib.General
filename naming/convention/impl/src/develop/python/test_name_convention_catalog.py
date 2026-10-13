@@ -13,6 +13,17 @@ def catalog(language: str) -> AIcNameConventionCatalog:
     return AIcNameConventionCatalog.load(ROOT / f'algites-{language}-name-conventions.yml')
 
 
+def test_name_match_is_in_its_own_public_type_module():
+    """Each publicly named Algites type has exactly one matching product module."""
+    from eu.algites.lib.naming.convention.aicd_name_match import AIcdNameMatch
+
+    catalog_match = catalog('java').recognize_filename('AIigCustomer_1.java')
+    assert isinstance(catalog_match, AIcdNameMatch)
+    assert catalog_match.convention_name == 'algites-java-gen-intf-versioned'
+    assert catalog_match.variables['identifier'] == 'Customer'
+    assert AIcdNameMatch.__module__.endswith('.aicd_name_match')
+
+
 def test_all_java_combinations_and_distinct_filename_classification():
     cat = catalog('java')
     assert len(cat.names) == 32

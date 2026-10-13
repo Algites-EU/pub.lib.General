@@ -1,23 +1,16 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from importlib import resources
 from pathlib import Path
 import re
 from typing import Any, Callable, Mapping
 import yaml
 
+from eu.algites.lib.naming.convention.aicd_name_match import AIcdNameMatch
+
 
 _NAMED_CAPTURE = re.compile(r'\(\?<([A-Za-z][A-Za-z0-9_]*)>')
 _CAMEL_BOUNDARY = re.compile(r'(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])')
-
-
-@dataclass(frozen=True, slots=True)
-class AIcdNameMatch:
-    """One unambiguously recognized filename, with captured name variables."""
-
-    convention_name: str
-    variables: Mapping[str, str]
 
 
 class AIcNameConventionCatalog:
