@@ -54,6 +54,7 @@ final class AIcSmartDataMetadata {
                     if (!Modifier.isStatic(locFactory.getModifiers()) || !locGetter.getReturnType().isAssignableFrom(locFactory.getReturnType()))
                         throw new IllegalArgumentException("Invalid default factory: " + locFactory);
                 }
+                String locName = locAnnotation.name().isBlank() ? derivedFieldName(locGetter) : locAnnotation.name();
                 AIaSmartDataObjectField locFieldPolicy = locGetter.getDeclaredAnnotation(AIaSmartDataObjectField.class);
                 AIaSmartDataObject locTypePolicy = locType.getDeclaredAnnotation(AIaSmartDataObject.class);
                 boolean locAllowNonPresentRead = locFieldPolicy != null
@@ -61,17 +62,23 @@ final class AIcSmartDataMetadata {
                         : locTypePolicy != null && locTypePolicy.allowNonPresentRead();
                 if (locAllowNonPresentRead && locGetter.getReturnType().isPrimitive())
                     throw new IllegalArgumentException("A primitive SmartData getter cannot return null: " + locGetter);
-                var locField = new AIcdField(locAnnotation.name(), locAnnotation, locGetter, locFactory, locAllowNonPresentRead);
-                AIcdField locBefore = locFields.putIfAbsent(locAnnotation.name(), locField);
+                var locField = new AIcdField(locName, locAnnotation, locGetter, locFactory, locAllowNonPresentRead);
+                AIcdField locBefore = locFields.putIfAbsent(locName, locField);
                 if (locBefore != null && (!locBefore.getter().getReturnType().equals(locGetter.getReturnType()) ||
                     !locBefore.annotation().equals(locAnnotation) ||
                     locBefore.allowNonPresentRead() != locAllowNonPresentRead))
-                    throw new IllegalArgumentException("Conflicting inherited SmartData field: " + locAnnotation.name());
+                    throw new IllegalArgumentException("Conflicting inherited SmartData field: " + locName);
             }
         }
         if (locFields.isEmpty()) throw new IllegalArgumentException("No annotated read-only SmartData contract: " + aType);
         return new AIcdDescriptor(locSchema, List.copyOf(locFields.values()),
                 Collections.unmodifiableMap(new LinkedHashMap<>(locFields)));
+    }
+    private static String derivedFieldName(Method aGetter) {
+        String locMethod = aGetter.getName();
+        if (!locMethod.startsWith("get") || locMethod.length() <= 3 || !Character.isUpperCase(locMethod.charAt(3)))
+            throw new IllegalArgumentException("Cannot derive field name from getter: " + aGetter);
+        return locMethod.substring(3);
     }
     private static void collect(Class<?> aType, List<Class<?>> aTypes) {
         if (aType == null || aType == Object.class || aTypes.contains(aType)) return;

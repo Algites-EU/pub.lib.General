@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface AIaDataObjectField {
-    String name();
+    String name() default "";
     String description() default "";
     boolean presenceRequired() default false;
     boolean allowsNull() default false;
