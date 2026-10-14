@@ -46,3 +46,18 @@ venv/
 # Externally generated .extgen sources MUST be tracked in Git.
 **/src/product/*.gen/
 **/src/develop/*.gen/
+
+# IntelliJ IDEA - local configuration
+/.idea/*
+!/.idea/gradle.xml
+!/.idea/codeStyles/
+!/.idea/codeStyles/**
+!/.idea/inspectionProfiles/
+!/.idea/inspectionProfiles/**
+!/.idea/copyright/
+!/.idea/copyright/**
+!/.idea/encodings.xml
+!/.idea/vcs.xml
+
+# Local editor scratch files
+/.idea/#*#
