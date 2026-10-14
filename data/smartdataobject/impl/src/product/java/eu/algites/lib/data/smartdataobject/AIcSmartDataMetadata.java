@@ -16,7 +16,7 @@ import java.util.Objects;
 
 /** Package-private schema metadata resolver, cached by implementation class. */
 final class AIcSmartDataMetadata {
-    record AIcdField(String name, AIaDataObjectField annotation, Method getter, Method defaultFactory) {
+    record AIcdField(String name, AIaDataObjectField annotation, Method getter, Method defaultFactory, boolean allowNonPresentRead) {
         Object createDefault() {
             if (defaultFactory == null) return null;
             try { return defaultFactory.invoke(null); }
@@ -54,10 +54,18 @@ final class AIcSmartDataMetadata {
                     if (!Modifier.isStatic(locFactory.getModifiers()) || !locGetter.getReturnType().isAssignableFrom(locFactory.getReturnType()))
                         throw new IllegalArgumentException("Invalid default factory: " + locFactory);
                 }
-                var locField = new AIcdField(locAnnotation.name(), locAnnotation, locGetter, locFactory);
+                AIaSmartDataObjectField locFieldPolicy = locGetter.getDeclaredAnnotation(AIaSmartDataObjectField.class);
+                AIaSmartDataObject locTypePolicy = locType.getDeclaredAnnotation(AIaSmartDataObject.class);
+                boolean locAllowNonPresentRead = locFieldPolicy != null
+                        ? locFieldPolicy.allowNonPresentRead()
+                        : locTypePolicy != null && locTypePolicy.allowNonPresentRead();
+                if (locAllowNonPresentRead && locGetter.getReturnType().isPrimitive())
+                    throw new IllegalArgumentException("A primitive SmartData getter cannot return null: " + locGetter);
+                var locField = new AIcdField(locAnnotation.name(), locAnnotation, locGetter, locFactory, locAllowNonPresentRead);
                 AIcdField locBefore = locFields.putIfAbsent(locAnnotation.name(), locField);
                 if (locBefore != null && (!locBefore.getter().getReturnType().equals(locGetter.getReturnType()) ||
-                    !locBefore.annotation().equals(locAnnotation)))
+                    !locBefore.annotation().equals(locAnnotation) ||
+                    locBefore.allowNonPresentRead() != locAllowNonPresentRead))
                     throw new IllegalArgumentException("Conflicting inherited SmartData field: " + locAnnotation.name());
             }
         }

@@ -77,6 +77,27 @@ public final class AItcSmartDataObjectSmokeTest {
         @Override public void unset_Child() { unset_Field("Child"); }
     }
 
+    @AIaDataObject(id = "test-read-policy", version = 1)
+    @AIaSmartDataObject(allowNonPresentRead = true)
+    public interface AIigReadPolicy extends AIiDataObject {
+        @AIaDataObjectField(name = "OptionalRead", presenceRequired = true)
+        String getOptionalRead();
+        @AIaDataObjectField(name = "StrictRead", presenceRequired = true)
+        @AIaSmartDataObjectField(allowNonPresentRead = false)
+        String getStrictRead();
+        @AIaDataObjectField(name = "DefaultRead", presenceRequired = true,
+                defaultFactoryMethod = "defaultRead")
+        String getDefaultRead();
+        static String defaultRead() { return "default"; }
+    }
+    public static final class AIcgdReadPolicy extends AIcSmartDataObject implements AIigReadPolicy {
+        public String getOptionalRead() { return (String) get_EffectiveField("OptionalRead"); }
+        public String getStrictRead() { return (String) get_EffectiveField("StrictRead"); }
+        public String getDefaultRead() { return (String) get_EffectiveField("DefaultRead"); }
+        public String getRawOptionalRead() { return (String) get_RawField("OptionalRead"); }
+        public boolean isOptionalReadPresent() { return isPresent_Field("OptionalRead"); }
+    }
+
     private static void verify(boolean aCondition, String aMessage) {
         if (!aCondition) throw new AssertionError(aMessage);
     }
@@ -89,6 +110,17 @@ public final class AItcSmartDataObjectSmokeTest {
                     AInTextOutputObjectReferenceMode.REPEATED_OBJECTS));
             return;
         }
+        AIcgdReadPolicy locPolicy = new AIcgdReadPolicy();
+        verify(locPolicy.getOptionalRead() == null, "SmartDO absent-read policy");
+        verify(locPolicy.getRawOptionalRead() == null && !locPolicy.isOptionalReadPresent(),
+                "raw/presence unchanged");
+        verify(locPolicy.getDefaultRead().equals("default"), "default precedes absent-read policy");
+        verify(locPolicy.get_RawNotPresentRequiredFields().contains("OptionalRead"),
+                "required validation unchanged");
+        boolean locStrictFailed = false;
+        try { locPolicy.getStrictRead(); }
+        catch (IllegalStateException aException) { locStrictFailed = true; }
+        verify(locStrictFailed, "getter-level false overrides interface-level true");
         AIcgdDemo locA = new AIcgdDemo();
         locA.setName("A");
         verify(locA.getPort() == 8080, "effective default");

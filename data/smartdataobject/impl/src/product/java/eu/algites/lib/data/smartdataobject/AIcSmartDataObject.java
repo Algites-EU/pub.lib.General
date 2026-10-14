@@ -51,7 +51,7 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         var locField = requireField(aName);
         if (present.contains(aName)) return values.get(aName);
         if (locField.hasDefault()) return locField.createDefault();
-        if (locField.annotation().presenceRequired())
+        if (locField.annotation().presenceRequired() && !locField.allowNonPresentRead())
             throw new IllegalStateException("Required field is absent: " + aName);
         return null;
     }

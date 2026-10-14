@@ -477,9 +477,20 @@ class AIcSmartDataObject(AIiSmartDataObject):
             return self._values[name]
         if definition.default_factory:
             return definition.default_factory()
-        if definition.presence_required:
+        if definition.presence_required and not self._allow_non_present_read(name, definition):
             raise ValueError('Required property is absent: ' + name)
         return None
+
+    def _allow_non_present_read(self, name: str, definition: Any) -> bool:
+        getter_name = definition.getter_name or 'get' + name
+        for cls in type(self).__mro__:
+            getter = cls.__dict__.get(getter_name)
+            if getter is not None and hasattr(getter, '__smart_data_object_allow_non_present_read__'):
+                return bool(getter.__smart_data_object_allow_non_present_read__)
+        for cls in type(self).__mro__:
+            if '__smart_data_object_allow_non_present_read__' in cls.__dict__:
+                return bool(cls.__dict__['__smart_data_object_allow_non_present_read__'])
+        return False
 
     def isPresent_Field(self, name: str) -> bool:
         self._check(name)

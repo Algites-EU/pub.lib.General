@@ -125,3 +125,37 @@ def test_xml_namespaced_fields_and_raw_document():
     root = ET.fromstring(xml)
     assert root.tag == '{urn:settings}Settings'
     assert root.find('{urn:field}Name').text == 'A&B'
+
+
+def test_smartdo_non_present_read_policy():
+    from eu.algites.lib.data.smartdataobject.smart_data_object_policy import smart_data_object, smart_data_object_field
+    from eu.algites.lib.data.smartdataobject.aic_smart_data_object import AIcSmartDataObject
+    from eu.algites.lib.data.dataobject.aicd_data_object_field import AIcdDataObjectField
+
+    @smart_data_object(allow_non_present_read=True)
+    class AIigExample:
+        __data_object_fields__ = (
+            AIcdDataObjectField('Value', presence_required=True, getter_name='getValue'),
+            AIcdDataObjectField('Strict', presence_required=True, getter_name='getStrict'),
+            AIcdDataObjectField('Default', presence_required=True,
+                                default_factory=lambda: 'default', getter_name='getDefault'),
+        )
+        def getValue(self): raise NotImplementedError
+        @smart_data_object_field(allow_non_present_read=False)
+        def getStrict(self): raise NotImplementedError
+        def getDefault(self): raise NotImplementedError
+
+    class AIcgExample(AIcSmartDataObject, AIigExample):
+        def getValue(self): return self.get_EffectiveField('Value')
+        def getStrict(self): return self.get_EffectiveField('Strict')
+        def getDefault(self): return self.get_EffectiveField('Default')
+
+    instance = AIcgExample()
+    assert instance.getValue() is None
+    assert instance.get_RawField('Value') is None
+    assert not instance.isPresent_Field('Value')
+    assert instance.getDefault() == 'default'
+    assert 'Value' in instance.get_RawNotPresentRequiredFields()
+    import pytest
+    with pytest.raises(ValueError, match='Required property is absent'):
+        instance.getStrict()
