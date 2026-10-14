@@ -1,0 +1,33 @@
+python.eu.algites.lib.data.smartdataobject.smart_data_object_policy
+===================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.smart_data_object_policy
+
+.. autoapi-nested-parse::
+
+   SmartDataObject effective-read policies; unrelated to DataObject validation.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.smart_data_object_policy.smart_data_object
+   python.eu.algites.lib.data.smartdataobject.smart_data_object_policy.smart_data_object_field
+
+
+Module Contents
+---------------
+
+.. py:function:: smart_data_object(*, allow_non_present_read: bool = False)
+
+   Set an interface-wide default for reading absent required values.
+
+
+.. py:function:: smart_data_object_field(*, allow_non_present_read: bool = False)
+
+   Override the interface policy for a specific getter (including False).
+
+
