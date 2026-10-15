@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: journal.impl
+  ArtifactCoordinateId: pub.lib.General_journal.impl
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: journal/impl
+  StructureKind: artifact
+  Name: "General in-memory journal implementation"
+  Description: "Thread-safe atomic in-memory journal with ordered before/after append listeners."
+SourceMetadata:
+  DescriptorHierarchy:

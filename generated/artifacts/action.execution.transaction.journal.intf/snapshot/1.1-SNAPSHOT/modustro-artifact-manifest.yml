@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: action.execution.transaction.journal.intf
+  ArtifactCoordinateId: pub.lib.General_action.execution.transaction.journal.intf
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: action/execution/transaction/journal/intf
+  StructureKind: artifact
+  Name: "Action transaction journal contracts"
+  Description: "Specialized transactional journal entries and durability requirements."
+SourceMetadata:
+  DescriptorHierarchy:

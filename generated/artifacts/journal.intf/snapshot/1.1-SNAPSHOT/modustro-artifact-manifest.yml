@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: journal.intf
+  ArtifactCoordinateId: pub.lib.General_journal.intf
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: journal/intf
+  StructureKind: artifact
+  Name: "General journal interfaces"
+  Description: "Read-only journals, immutable snapshots, batches and append-listener contracts."
+SourceMetadata:
+  DescriptorHierarchy:

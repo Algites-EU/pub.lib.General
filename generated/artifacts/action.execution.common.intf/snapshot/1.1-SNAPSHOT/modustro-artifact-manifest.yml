@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: action.execution.common.intf
+  ArtifactCoordinateId: pub.lib.General_action.execution.common.intf
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: action/execution/common/intf
+  StructureKind: artifact
+  Name: "Action execution shared contracts"
+  Description: "Stable execution identities, scopes, dependencies, failures and portable explicit contexts."
+SourceMetadata:
+  DescriptorHierarchy:

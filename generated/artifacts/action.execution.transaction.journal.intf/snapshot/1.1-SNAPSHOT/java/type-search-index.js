@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"eu.algites.lib.action.execution.transaction.journal","l":"AIiTransactionJournal"},{"p":"eu.algites.lib.action.execution.transaction.journal","l":"AIiTransactionJournalEntry"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

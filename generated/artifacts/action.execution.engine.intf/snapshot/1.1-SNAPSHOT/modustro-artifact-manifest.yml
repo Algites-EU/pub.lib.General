@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: action.execution.engine.intf
+  ArtifactCoordinateId: pub.lib.General_action.execution.engine.intf
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: action/execution/engine/intf
+  StructureKind: artifact
+  Name: "Action execution engine contracts"
+  Description: "Typed actions, plans, scheduling, worker services, failure policies and result contracts."
+SourceMetadata:
+  DescriptorHierarchy:

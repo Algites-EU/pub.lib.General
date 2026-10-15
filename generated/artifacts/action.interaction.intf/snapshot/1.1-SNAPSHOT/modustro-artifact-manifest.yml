@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: action.interaction.intf
+  ArtifactCoordinateId: pub.lib.General_action.interaction.intf
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: action/interaction/intf
+  StructureKind: artifact
+  Name: "General action interaction contracts"
+  Description: "Provider/caller protocols, typed events and state-result snapshots, independent directions."
+SourceMetadata:
+  DescriptorHierarchy:

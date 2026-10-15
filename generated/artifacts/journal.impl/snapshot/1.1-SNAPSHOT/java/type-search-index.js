@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"eu.algites.lib.journal","l":"AIcInMemoryJournal"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

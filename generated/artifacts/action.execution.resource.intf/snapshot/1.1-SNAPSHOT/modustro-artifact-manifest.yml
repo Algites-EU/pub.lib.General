@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: action.execution.resource.intf
+  ArtifactCoordinateId: pub.lib.General_action.execution.resource.intf
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: action/execution/resource/intf
+  StructureKind: artifact
+  Name: "Execution resource contracts"
+  Description: "Shared engine-wide endpoint capacity admission, leases and snapshot contracts."
+SourceMetadata:
+  DescriptorHierarchy:

@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: action.execution.transaction.core.intf
+  ArtifactCoordinateId: pub.lib.General_action.execution.transaction.core.intf
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: action/execution/transaction/core/intf
+  StructureKind: artifact
+  Name: "Action execution transaction contracts"
+  Description: "Hierarchical top-level transactions, joined scopes, typed finalization, rollback and reactions."
+SourceMetadata:
+  DescriptorHierarchy:
