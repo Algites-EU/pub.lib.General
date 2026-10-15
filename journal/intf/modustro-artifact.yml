@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+
+Artifact:
+  TechnologyKinds: [java]
+  Name: General journal interfaces
+  Description: Read-only journals, immutable snapshots, batches and append-listener contracts.

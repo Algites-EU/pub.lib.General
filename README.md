@@ -29,6 +29,7 @@ The repository is organized as a set of independently buildable Algites artifact
 ```text
 .
 ├── common/
+├── journal/{intf,impl}/
 ├── naming/
 │   ├── convention/{intf,impl}/
 │   ├── conversion/{intf,impl}/
@@ -56,6 +57,8 @@ The repository is organized as a set of independently buildable Algites artifact
 The main modules are:
 
 - `common` — general-purpose support utilities shared across Algites artifacts and repositories.
+- `journal/{intf,impl}` — thread-safe append-only journals with atomic batches, immutable snapshots, and append listeners.
+- `action/` — statically planned, reactive and transaction-aware Action Execution contracts, resource coordination and typed interaction; see [Action Framework](action/ACTION-FRAMEWORK.md).
 - `naming/convention` — naming conventions, naming policies, and versioned-name policy contracts/defaults.
 - `naming/convention` — YAML-backed name compositions, validation, parsing and conversion for Java, Python and canonical schema names.
 - `documentation/intf` and `documentation/impl` — renderer-neutral documentation contracts and implementations.

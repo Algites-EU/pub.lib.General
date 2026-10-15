@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+
+Artifact:
+  TechnologyKinds: [java]
+  Name: Action transaction journal contracts
+  Description: Specialized transactional journal entries and durability requirements.
+
+Dependencies:
+  - DependencyKind: modustro
+    Items:
+      - GroupId: eu.algites.lib.common
+        ArtifactId: pub.lib.General_journal.intf
+        Usages: [product_api]
+        VersionRequirement: { Exact: "1.1-SNAPSHOT" }
