@@ -25,6 +25,9 @@ build/*
 **/build/
 **/*.egg-info/
 
+# temporary python generated projects:
+**/pyproject.toml
+
 # Python caches
 __pycache__/
 *.py[cod]

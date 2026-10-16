@@ -456,6 +456,52 @@ class AIcSmartDataObject(AIiSmartDataObject):
         self._values: dict[str, Any] = {}
         self._present: set[str] = set()
 
+    @classmethod
+    def from_mapping(cls, aValue: Mapping[str, Any]):
+        """Create a generated SmartDataObject from canonical raw field names.
+
+        This belongs to the common SDO runtime, not to individual framework
+        binding generators. Unknown fields and absent required fields fail.
+        """
+        if not isinstance(aValue, Mapping):
+            raise TypeError('DataObject input must be a mapping')
+        fields = cls._fields()
+        unknown = set(aValue) - fields.keys()
+        if unknown:
+            raise ValueError('Unknown DataObject fields: ' + repr(sorted(unknown)))
+        result = cls()
+        for name, value in aValue.items():
+            result.set_RawField(name, value)
+        problems = result.get_RawValuesValidationIssues()
+        if problems:
+            raise AIxSmartDataValidationException(problems)
+        return result
+
+    def to_mapping(self) -> Mapping[str, Any]:
+        """Export raw canonical wire values without serializing the entire object graph."""
+        visiting: set[int] = set()
+
+        def convert(value):
+            if isinstance(value, Enum):
+                return value.value
+            if isinstance(value, AIcSmartDataObject):
+                identity = id(value)
+                if identity in visiting:
+                    raise ValueError('Cannot convert a cyclic SmartDataObject to an inline mapping')
+                visiting.add(identity)
+                try:
+                    return {name: convert(value._values[name]) for name in value._fields()
+                            if name in value._present}
+                finally:
+                    visiting.remove(identity)
+            if isinstance(value, Mapping):
+                return {key: convert(item) for key, item in value.items()}
+            if isinstance(value, (tuple, list)):
+                return [convert(item) for item in value]
+            return value
+
+        return convert(self)
+
     def _check(self, name: str) -> Any:
         try:
             return self._fields()[name]

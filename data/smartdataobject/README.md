@@ -21,3 +21,13 @@ An absent required field without a default returns `null` only when the policy
 permits it. Primitive Java getters cannot opt in because they cannot return
 `null`. Python equivalents are `@smart_data_object(...)` and
 `@smart_data_object_field(...)` in the SmartDO package.
+
+## Canonical mapping for generated SmartDataObjects
+
+Python `AIcSmartDataObject.from_mapping(mapping)` creates a new instance from
+canonical wire-key fields, checks unknown keys and validates raw required/null
+constraints. `to_mapping()` exports only present raw fields, recursively mapping
+nested SmartDataObjects, lists and enum values without generating framework-
+specific DTO classes. Cyclic inline object graphs are rejected because canonical
+mapping has no universal reference encoding; use the configurable general SDO
+text format profiles for reference-preserving serialization.

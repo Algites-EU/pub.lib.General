@@ -12,7 +12,7 @@ public interface AIiObjectStorageObjectMetadata {
     String getKey();
 
     /** Exact binary object length, in bytes; never negative. */
-    long getLength();
+    long getContentLength();
 
     /** Optional media type without provider-specific transport headers. */
     String getContentType();
