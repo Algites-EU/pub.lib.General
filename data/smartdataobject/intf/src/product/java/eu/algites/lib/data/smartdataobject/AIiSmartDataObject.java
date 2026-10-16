@@ -1,13 +1,10 @@
 package eu.algites.lib.data.smartdataobject;
 
-import eu.algites.lib.data.dataobject.AIaDataObject;
-import eu.algites.lib.data.dataobject.AIaDataObjectField;
-import eu.algites.lib.data.dataobject.AIiDataObject;
-
 import eu.algites.lib.data.dataobject.AIiDataObject;
 import eu.algites.lib.text.format.AIiTextFormatProfile;
 import eu.algites.lib.text.format.AInTextOutputObjectReferenceMode;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /** Public mutable data-object state, presence, validation and textual output contract. */
@@ -24,6 +21,10 @@ public interface AIiSmartDataObject extends AIiDataObject {
     List<AIcdSmartDataValidationIssue> get_EffectiveValuesValidationIssues();
     List<AIcdSmartDataValidationIssue> get_DeeplyRawValuesValidationIssues();
     List<AIcdSmartDataValidationIssue> get_DeeplyEffectiveValuesValidationIssues();
+    /** Capture the present raw field values as an identity-preserving typed mapping. */
+    Map<String, AIidVirtualFieldValue> toMapping_RawValues();
+    /** Capture effective values, including defaults, as an identity-preserving typed mapping. */
+    Map<String, AIidVirtualFieldValue> toMapping_EffectiveValues();
     String toString_RawValues(AIiTextFormatProfile aProfile, AInTextOutputObjectReferenceMode aMode);
     String toString_EffectiveValues(AIiTextFormatProfile aProfile, AInTextOutputObjectReferenceMode aMode);
 }

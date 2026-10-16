@@ -4,8 +4,9 @@ from dataclasses import dataclass
 @dataclass(frozen=True, slots=True)
 class AIcdDataObject:
     """Describes a data contract independently of its source or runtime implementation."""
-    id: str
-    version: int = -1
+    schema_id: str = ''
+    schema_version: int = -1
+    schema_url: str = ''
     title: str = ''
     description: str = ''
     xml_local_name: str = ''

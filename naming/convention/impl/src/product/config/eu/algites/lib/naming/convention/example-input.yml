@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json
 # An independent schema naming catalog. Demonstrates custom named variables.
 # Input: customer_address--eu_west--beta--2.7.demo.schema
 # Captures identifier=customer_address, region=eu_west, channel=beta,

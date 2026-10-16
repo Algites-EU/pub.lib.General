@@ -1,7 +1,8 @@
 from __future__ import annotations
 from abc import abstractmethod
 from eu.algites.lib.data.dataobject.aii_data_object import AIiDataObject
-from typing import Set
+from typing import Set, Mapping
+from .aiid_virtual_field_value import AIidVirtualFieldValue
 from .aicd_smart_data_validation_issue import AIcdSmartDataValidationIssue
 from eu.algites.lib.text.format.aii_text_format_profile import AIiTextFormatProfile
 from eu.algites.lib.text.format.ain_text_output_object_reference_mode import AInTextOutputObjectReferenceMode
@@ -32,6 +33,10 @@ class AIiSmartDataObject(AIiDataObject):
     def get_DeeplyRawValuesValidationIssues(self) -> list[AIcdSmartDataValidationIssue]: ...
     @abstractmethod
     def get_DeeplyEffectiveValuesValidationIssues(self) -> list[AIcdSmartDataValidationIssue]: ...
+    @abstractmethod
+    def toMapping_RawValues(self) -> Mapping[str, AIidVirtualFieldValue]: ...
+    @abstractmethod
+    def toMapping_EffectiveValues(self) -> Mapping[str, AIidVirtualFieldValue]: ...
     @abstractmethod
     def toString_RawValues(self, aProfile: AIiTextFormatProfile, aMode: AInTextOutputObjectReferenceMode) -> str: ...
     @abstractmethod

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "eu.algites.lib.naming.convention.name-conventions",
+  "$id": "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json",
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -202,5 +202,7 @@
   "description": "Reusable fragments, compositions and container-specific structure naming profiles.",
   "x-yamldefs-id": "eu.algites.lib.naming.convention.name-conventions",
   "x-yamldefs-version": 1,
-  "x-yamldefs-name": "name-conventions"
+  "x-yamldefs-name": "name-conventions",
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.name-conventions",
+  "x-algites-schema-version": 1
 }

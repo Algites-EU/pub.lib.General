@@ -31,3 +31,40 @@ nested SmartDataObjects, lists and enum values without generating framework-
 specific DTO classes. Cyclic inline object graphs are rejected because canonical
 mapping has no universal reference encoding; use the configurable general SDO
 text format profiles for reference-preserving serialization.
+
+## Typed virtual SDO mappings (Java and Python)
+
+The lossless in-process representation is **not** the legacy plain wire mapping.
+The read-only `AIig` contract declares fields; the generated `AIigd` mutable
+contract carries a complete schema identity, and its `AIcgd` implementation
+stores raw values and explicit presence. Calling `toMapping_RawValues()` or
+`toMapping_EffectiveValues()` builds a detached graph of typed field wrappers.
+Every field value is an `AIidVirtualFieldValue` exposing a concrete
+`getValueClass()` and `getValueRepresentation()`; SDO representations are
+`Map<String, AIidVirtualFieldValue>` / Python mappings with matching keys.
+
+The virtual graph reuses the **same in-memory mapping instances** when objects
+are shared or cyclic. Identity is determined by `==`, not `equals()`; containers
+are also memoized. This is intentionally not plain JSON data. The runtime
+factory `AIsSmartDataObjectFactory.fromMapping(Class, Map)` in Java (and
+`from_mapping(type, mapping)` in Python) restores the actual concrete type and
+shared instance identity. The Java generator emits a map-accepting constructor
+on each `AIcgd` that delegates to the base class; the factory centralizes
+reflection. Both construction routes use scoped mapping contexts, cleaned up
+on success and exception. Never expose partially populated cyclic objects
+before the outermost construction has completed.
+
+Raw mappings omit absent fields and preserve explicit nulls. Effective mappings
+include calculated defaults where applicable; consequently an effective
+mapping is not a substitute for a raw mapping when restoring presence state.
+The simpler Python `to_mapping()` and `from_mapping()` remain compatibility
+operations at existing AAC wire boundaries; they do **not** have the same
+lossless graph semantics as typed virtual mappings.
+
+The existing text-format profiles still render through the common internal
+SmartDataObject graph snapshot. They do **not yet** implement a portable
+round-trip decoder for the typed virtual representation. Carrying concrete
+Java/Python classes in memory does not identify a portable wire type: that
+requires the separate `SchemaId`/`SchemaVersion`, `SchemaUrl`, and object
+reference identifiers in the eventual JSON/YAML/XML format. No inference
+from multiple inherited interfaces can recreate a missing concrete type.

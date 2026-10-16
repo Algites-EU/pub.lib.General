@@ -10,6 +10,7 @@ from typing import Any
 import xml.etree.ElementTree as ET
 
 from eu.algites.lib.data.smartdataobject.aii_smart_data_object import AIiSmartDataObject
+from eu.algites.lib.data.smartdataobject.aiid_virtual_field_value import AIidVirtualFieldValue
 from eu.algites.lib.data.dataobject.aii_data_object import AIiDataObject
 from eu.algites.lib.data.smartdataobject.aix_smart_data_validation_exception import AIxSmartDataValidationException
 from eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue import AIcdSmartDataValidationIssue
@@ -452,9 +453,12 @@ class AIcSmartDataObject(AIiSmartDataObject):
                 data[fld.name] = fld
         return data
 
-    def __init__(self):
+    def __init__(self, aMapping: Mapping[str, AIidVirtualFieldValue] | None = None):
         self._values: dict[str, Any] = {}
         self._present: set[str] = set()
+        if aMapping is not None:
+            from eu.algites.lib.data.smartdataobject.ais_smart_data_object_factory import AIsSmartDataObjectFactory
+            AIsSmartDataObjectFactory.populate(self, aMapping)
 
     @classmethod
     def from_mapping(cls, aValue: Mapping[str, Any]):
@@ -501,6 +505,45 @@ class AIcSmartDataObject(AIiSmartDataObject):
             return value
 
         return convert(self)
+
+    def _typed_graph(self, effective: bool) -> dict[str, AIidVirtualFieldValue]:
+        """Create typed virtual nodes from the same snapshot used by validators."""
+        snapshot = _Snapshot(self)
+        known: dict[_Node, AIidVirtualFieldValue] = {}
+
+        def convert(node: _Node) -> AIidVirtualFieldValue:
+            if node in known:
+                return known[node]
+            wrapper = AIidVirtualFieldValue(type(node.obj) if node.obj is not None else type(None))
+            known[node] = wrapper
+            if node.kind == 'smart':
+                fields: dict[str, AIidVirtualFieldValue] = {}
+                wrapper.value_representation = fields
+                for fld in node.fields:
+                    if fld.present or (effective and fld.descriptor.default_factory):
+                        fields[fld.descriptor.name] = convert(snapshot.value(fld, effective))
+            elif node.kind == 'list':
+                contents: list[AIidVirtualFieldValue] = []
+                wrapper.value_representation = contents
+                contents.extend(convert(child) for child in node.children)
+            elif node.kind == 'map':
+                contents: dict[AIidVirtualFieldValue, AIidVirtualFieldValue] = {}
+                wrapper.value_representation = contents
+                for key, value in node.entries:
+                    contents[convert(key)] = convert(value)
+            else:
+                wrapper.value_representation = node.obj
+            return wrapper
+
+        return convert(snapshot.root).getValueRepresentation()
+
+    def toMapping_RawValues(self) -> Mapping[str, AIidVirtualFieldValue]:
+        """Return a typed identity-preserving graph containing only raw fields."""
+        return self._typed_graph(False)
+
+    def toMapping_EffectiveValues(self) -> Mapping[str, AIidVirtualFieldValue]:
+        """Return a typed identity-preserving graph including effective defaults."""
+        return self._typed_graph(True)
 
     def _check(self, name: str) -> Any:
         try:

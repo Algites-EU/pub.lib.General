@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "eu.algites.lib.naming.convention.container-structure-type",
+  "$id": "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/container-structure-type_1.yamldef.schema.json",
   "type": "string",
   "enum": [
     "object",
@@ -14,5 +14,7 @@
   "description": "Kind of represented container, independent of its naming profile.",
   "x-yamldefs-id": "eu.algites.lib.naming.convention.container-structure-type",
   "x-yamldefs-version": 1,
-  "x-yamldefs-name": "container-structure-type"
+  "x-yamldefs-name": "container-structure-type",
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.container-structure-type",
+  "x-algites-schema-version": 1
 }

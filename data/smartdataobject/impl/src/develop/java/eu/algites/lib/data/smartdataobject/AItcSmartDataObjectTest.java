@@ -7,18 +7,20 @@ import eu.algites.lib.data.dataobject.AIiDataObject;
 import eu.algites.lib.text.format.AInTextOutputObjectReferenceMode;
 import eu.algites.lib.text.format.AIsTextFormatProfiles;
 import java.util.Set;
+import java.util.List;
+import java.util.Map;
 import org.testng.annotations.Test;
 
 /** TestNG coverage for SmartDataObject runtime and serialization. */
 public final class AItcSmartDataObjectTest {
-    @AIaDataObject(id = "test-options", version = 1, fingerprint = "xyz456")
+    @AIaDataObject(schemaId = "test-options", schemaVersion = 1, fingerprint = "xyz456")
     public interface AIigOptions extends AIiDataObject {
         @AIaDataObjectField(name = "Host", presenceRequired = true)
         String getHost();
         @AIaDataObjectField(name = "Secure", presenceRequired = true)
         Boolean getSecure();
     }
-    @AIaDataObject(id = "test-settings", version = 1, fingerprint = "abc123",
+    @AIaDataObject(schemaId = "test-settings", schemaVersion = 1, fingerprint = "abc123",
             xmlLocalName = "Settings", xmlNamespace = "urn:settings")
     public interface AIigDemo extends AIiDataObject {
         @AIaDataObjectField(name = "Name", presenceRequired = true, xmlNamespace = "urn:field")
@@ -56,6 +58,8 @@ public final class AItcSmartDataObjectTest {
         void unset_Child();
     }
     public static final class AIcgdDemo extends AIcSmartDataObject implements AIigdDemo {
+        public AIcgdDemo() { super(); }
+        public AIcgdDemo(Map<String, AIidVirtualFieldValue> aMapping) { super(aMapping); }
         @Override public String getName() { return (String) get_EffectiveField("Name"); }
         @Override public void setName(String aName) { set_RawField("Name", aName); }
         @Override public String get_Name() { return (String) get_RawField("Name"); }
@@ -78,7 +82,7 @@ public final class AItcSmartDataObjectTest {
         @Override public void unset_Child() { unset_Field("Child"); }
     }
 
-    @AIaDataObject(id = "test-read-policy", version = 1)
+    @AIaDataObject(schemaId = "test-read-policy", schemaVersion = 1)
     @AIaSmartDataObject(allowNonPresentRead = true)
     public interface AIigReadPolicy extends AIiDataObject {
         @AIaDataObjectField(presenceRequired = true)
@@ -161,6 +165,29 @@ public final class AItcSmartDataObjectTest {
         verify(!locA.isPresent_Child() && locA.get_Child() == null, "unset operation");
         locA.setPort(null);
         verify(locA.isPresent_Port() && !locA.is_ByEffectiveValuesValid(), "present null violates nullability");
+    }
+
+    @Test
+    public void verifyTypedMappingPreservesPolymorphismAndCycles() {
+        AIcgdDemo locA = new AIcgdDemo();
+        AIcgdDemo locB = new AIcgdDemo();
+        locA.setName("A");
+        locB.setName("B");
+        locA.setChild(locB);
+        locB.setChild(locA);
+        Map<String, AIidVirtualFieldValue> locVirtual = locA.toMapping_RawValues();
+        verify(locVirtual.get("Child").getValueClass() == AIcgdDemo.class,
+                "typed node must preserve the concrete implementation class");
+        var locMappedB = locVirtual.get("Child").getValueRepresentation();
+        verify(((Map<?, ?>) locMappedB).get("Child") instanceof AIidVirtualFieldValue,
+                "all field values must use the uniform wrapper");
+        verify(((AIidVirtualFieldValue) ((Map<?, ?>) locMappedB).get("Child"))
+                .getValueRepresentation() == locVirtual, "cycle is represented by identity");
+        AIcgdDemo locRestored = AIsSmartDataObjectFactory.fromMapping(AIcgdDemo.class, locVirtual);
+        verify(locRestored.get_Child().get_Child() == locRestored, "factory preserves cycle");
+        verify(locRestored.get_Child().getName().equals("B"), "typed nested SDO restored");
+        AIcgdDemo locDirect = new AIcgdDemo(locVirtual);
+        verify(locDirect.get_Child().get_Child() == locDirect, "public mapping constructor preserves cycle");
     }
 
 }

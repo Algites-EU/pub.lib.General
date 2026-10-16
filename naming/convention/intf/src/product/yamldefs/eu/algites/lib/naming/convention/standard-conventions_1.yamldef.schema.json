@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "eu.algites.lib.naming.convention.standard-conventions",
+  "$id": "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/standard-conventions_1.yamldef.schema.json",
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -44,5 +44,7 @@
   "description": "Reusable regular expressions with named capture groups. Regex syntax canonicalized from Java named groups.",
   "x-yamldefs-id": "eu.algites.lib.naming.convention.standard-conventions",
   "x-yamldefs-version": 1,
-  "x-yamldefs-name": "standard-conventions"
+  "x-yamldefs-name": "standard-conventions",
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.standard-conventions",
+  "x-algites-schema-version": 1
 }

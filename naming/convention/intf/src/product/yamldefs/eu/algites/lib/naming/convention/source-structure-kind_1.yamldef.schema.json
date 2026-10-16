@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "eu.algites.lib.naming.convention.source-structure-kind",
+  "$id": "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-kind_1.yamldef.schema.json",
   "type": "string",
   "enum": [
     "main_container_name",
@@ -18,5 +18,7 @@
   "description": "Structural name roles independent of source and target languages.",
   "x-yamldefs-id": "eu.algites.lib.naming.convention.source-structure-kind",
   "x-yamldefs-version": 1,
-  "x-yamldefs-name": "source-structure-kind"
+  "x-yamldefs-name": "source-structure-kind",
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.source-structure-kind",
+  "x-algites-schema-version": 1
 }

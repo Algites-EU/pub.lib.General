@@ -3,7 +3,6 @@ package eu.algites.lib.data.smartdataobject;
 import eu.algites.lib.text.format.AIiTextFormatProfile;
 import eu.algites.lib.text.format.AInTextOutputObjectReferenceMode;
 import eu.algites.lib.text.format.AIsTextFormatProfiles;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -15,6 +14,18 @@ import java.util.Set;
 public abstract class AIcSmartDataObject implements AIiSmartDataObject {
     private final Map<String, Object> values = new LinkedHashMap<>();
     private final Set<String> present = new LinkedHashSet<>();
+
+    /** Create an initially empty, mutable data object. */
+    protected AIcSmartDataObject() { }
+
+    /**
+     * Populate this object from a typed virtual field graph. The factory registers
+     * the already allocated {@code this} before following any child reference.
+     */
+    protected AIcSmartDataObject(Map<String, AIidVirtualFieldValue> aMapping) {
+        AIsSmartDataObjectFactory.populate(this, aMapping);
+    }
+
 
     /** Immutable pair of global diagnostic defaults, changed atomically at application startup. */
     public record AIcdDiagnosticSettings(AIiTextFormatProfile profile,
@@ -109,6 +120,12 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
             if (locIssue.code().equals("REQUIRED_ABSENT")) locResult.add(locIssue.path());
         }
         return Collections.unmodifiableSet(locResult);
+    }
+    @Override public final Map<String, AIidVirtualFieldValue> toMapping_RawValues() {
+        return AIcSmartDataVirtualMapper.capture(this, false);
+    }
+    @Override public final Map<String, AIidVirtualFieldValue> toMapping_EffectiveValues() {
+        return AIcSmartDataVirtualMapper.capture(this, true);
     }
     @Override public final String toString_RawValues(AIiTextFormatProfile aProfile, AInTextOutputObjectReferenceMode aMode) {
         return AIcSmartDataGraphRenderer.render(AIcSmartDataGraphSnapshot.capture(this), aProfile, aMode, false);
