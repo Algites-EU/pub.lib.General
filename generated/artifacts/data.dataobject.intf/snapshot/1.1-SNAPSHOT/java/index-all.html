@@ -48,16 +48,24 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/data/dataobject/AIaDataObject.html" class="type-name-link" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObject</a> - Annotation Interface in <a href="eu/algites/lib/data/dataobject/package-summary.html">eu.algites.lib.data.dataobject</a></dt>
 <dd>
-<div class="block">Normalized data contract identity, independent of its source or generated implementation.</div>
+<div class="block">Stable identity and descriptive metadata of a data-object schema.</div>
 </dd>
 <dt><a href="eu/algites/lib/data/dataobject/AIaDataObjectField.html" class="type-name-link" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObjectField</a> - Annotation Interface in <a href="eu/algites/lib/data/dataobject/package-summary.html">eu.algites.lib.data.dataobject</a></dt>
 <dd>
 <div class="block">Normalized field metadata attached to a read-only data contract getter.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html" class="type-name-link" title="class in eu.algites.lib.data.dataobject">AIcdSchemaIdentity</a> - Record Class in <a href="eu/algites/lib/data/dataobject/package-summary.html">eu.algites.lib.data.dataobject</a></dt>
+<dd>
+<div class="block">Explicitly separates the four Algites identifiers associated with a schema.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#%3Cinit%3E(java.lang.String,int,java.lang.String)" class="member-name-link">AIcdSchemaIdentity(String, int, String)</a> - Constructor for record class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html" title="class in eu.algites.lib.data.dataobject">AIcdSchemaIdentity</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>AIcdSchemaIdentity</code> record class.</div>
 </dd>
 <dt><a href="eu/algites/lib/data/dataobject/AIiDataObject.html" class="type-name-link" title="interface in eu.algites.lib.data.dataobject">AIiDataObject</a> - Interface in <a href="eu/algites/lib/data/dataobject/package-summary.html">eu.algites.lib.data.dataobject</a></dt>
 <dd>
@@ -87,6 +95,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
+<dt><a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html" title="class in eu.algites.lib.data.dataobject">AIcdSchemaIdentity</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
 <dt><a href="eu/algites/lib/data/dataobject/package-summary.html">eu.algites.lib.data.dataobject</a> - package eu.algites.lib.data.dataobject</dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -95,10 +107,12 @@ loadScripts(document, 'script');</script>
 <dt><a href="eu/algites/lib/data/dataobject/AIaDataObject.html#fingerprint()" class="member-name-link">fingerprint()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaDataObject.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObject</a></dt>
 <dd>&nbsp;</dd>
 </dl>
-<h2 class="title" id="I:I">I</h2>
+<h2 class="title" id="I:H">H</h2>
 <dl class="index">
-<dt><a href="eu/algites/lib/data/dataobject/AIaDataObject.html#id()" class="member-name-link">id()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaDataObject.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObject</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html" title="class in eu.algites.lib.data.dataobject">AIcdSchemaIdentity</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:N">N</h2>
 <dl class="index">
@@ -110,15 +124,48 @@ loadScripts(document, 'script');</script>
 <dt><a href="eu/algites/lib/data/dataobject/AIaDataObjectField.html#presenceRequired()" class="member-name-link">presenceRequired()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaDataObjectField.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObjectField</a></dt>
 <dd>&nbsp;</dd>
 </dl>
+<h2 class="title" id="I:S">S</h2>
+<dl class="index">
+<dt><a href="eu/algites/lib/data/dataobject/AIaDataObject.html#schemaId()" class="member-name-link">schemaId()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaDataObject.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObject</a></dt>
+<dd>
+<div class="block">Unversioned logical SchemaId; empty only on incomplete handwritten source contracts.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#schemaId()" class="member-name-link">schemaId()</a> - Method in record class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html" title="class in eu.algites.lib.data.dataobject">AIcdSchemaIdentity</a></dt>
+<dd>
+<div class="block">Returns the value of the <a href="./eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#param-schemaId"><code>schemaId</code></a> record component.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIaDataObject.html#schemaUrl()" class="member-name-link">schemaUrl()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaDataObject.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObject</a></dt>
+<dd>
+<div class="block">Published URL of one schema representation; optional, never the SchemaId.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#schemaUrl()" class="member-name-link">schemaUrl()</a> - Method in record class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html" title="class in eu.algites.lib.data.dataobject">AIcdSchemaIdentity</a></dt>
+<dd>
+<div class="block">Returns the value of the <a href="./eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#param-schemaUrl"><code>schemaUrl</code></a> record component.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIaDataObject.html#schemaVersion()" class="member-name-link">schemaVersion()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaDataObject.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObject</a></dt>
+<dd>
+<div class="block">Positive SchemaVersion; -1 denotes an incomplete handwritten source contract.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#schemaVersion()" class="member-name-link">schemaVersion()</a> - Method in record class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html" title="class in eu.algites.lib.data.dataobject">AIcdSchemaIdentity</a></dt>
+<dd>
+<div class="block">Returns the value of the <a href="./eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#param-schemaVersion"><code>schemaVersion</code></a> record component.</div>
+</dd>
+</dl>
 <h2 class="title" id="I:T">T</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/data/dataobject/AIaDataObject.html#title()" class="member-name-link">title()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaDataObject.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObject</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#toString()" class="member-name-link">toString()</a> - Method in record class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html" title="class in eu.algites.lib.data.dataobject">AIcdSchemaIdentity</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:V">V</h2>
 <dl class="index">
-<dt><a href="eu/algites/lib/data/dataobject/AIaDataObject.html#version()" class="member-name-link">version()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaDataObject.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObject</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#versionedSchemaId()" class="member-name-link">versionedSchemaId()</a> - Method in record class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html" title="class in eu.algites.lib.data.dataobject">AIcdSchemaIdentity</a></dt>
+<dd>
+<div class="block">Unambiguous logical identity and version, intentionally distinct from SchemaUrl.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:X">X</h2>
 <dl class="index">
@@ -133,7 +180,7 @@ loadScripts(document, 'script');</script>
 <dt><a href="eu/algites/lib/data/dataobject/AIaDataObjectField.html#xmlNamespace()" class="member-name-link">xmlNamespace()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaDataObjectField.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObjectField</a></dt>
 <dd>&nbsp;</dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
 </div>
 </div>
 </body>

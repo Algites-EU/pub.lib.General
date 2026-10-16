@@ -49,7 +49,7 @@
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.</span></span><span class="sig-name descname"><span class="pre">AIcSmartDataObject</span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.</span></span><span class="sig-name descname"><span class="pre">AIcSmartDataObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aMapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">eu.algites.lib.data.smartdataobject.aii_smart_data_object.AIiSmartDataObject</span></code></p>
 <p>Mutable, presence-aware SmartDataObject foundation.</p>
 <dl class="py attribute">
@@ -61,6 +61,32 @@
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject.DEFAULT_DIAGNOSTIC_REFERENCE_MODE">
 <span class="sig-name descname"><span class="pre">DEFAULT_DIAGNOSTIC_REFERENCE_MODE</span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject.DEFAULT_DIAGNOSTIC_REFERENCE_MODE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject.from_mapping">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_mapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aValue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject.from_mapping" title="Link to this definition">¶</a></dt>
+<dd><p>Create a generated SmartDataObject from canonical raw field names.</p>
+<p>This belongs to the common SDO runtime, not to individual framework
+binding generators. Unknown fields and absent required fields fail.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject.to_mapping">
+<span class="sig-name descname"><span class="pre">to_mapping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject.to_mapping" title="Link to this definition">¶</a></dt>
+<dd><p>Export raw canonical wire values without serializing the entire object graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject.toMapping_RawValues">
+<span class="sig-name descname"><span class="pre">toMapping_RawValues</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject.toMapping_RawValues" title="Link to this definition">¶</a></dt>
+<dd><p>Return a typed identity-preserving graph containing only raw fields.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject.toMapping_EffectiveValues">
+<span class="sig-name descname"><span class="pre">toMapping_EffectiveValues</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject.toMapping_EffectiveValues" title="Link to this definition">¶</a></dt>
+<dd><p>Return a typed identity-preserving graph including effective defaults.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aic_smart_data_object.AIcSmartDataObject.set_RawField">

@@ -1,0 +1,40 @@
+python.eu.algites.lib.data.smartdataobject.ais_smart_data_object_factory
+========================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.ais_smart_data_object_factory
+
+.. autoapi-nested-parse::
+
+   Shared factory for reconstructing graph-typed SmartDataObjects.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.ais_smart_data_object_factory.AIsSmartDataObjectFactory
+
+
+Module Contents
+---------------
+
+.. py:class:: AIsSmartDataObjectFactory
+
+   Construct SDO graphs using concrete classes supplied by virtual values.
+
+   The public entry point creates a fresh context; nested generated constructors
+   reuse it. ContextVar tokens make cleanup safe even when construction fails.
+
+
+   .. py:method:: from_mapping(a_class: type, a_mapping: collections.abc.Mapping[str, eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue])
+      :staticmethod:
+
+
+
+   .. py:method:: populate(a_object, a_mapping: collections.abc.Mapping[str, eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue])
+      :staticmethod:
+
+
+

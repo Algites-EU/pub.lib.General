@@ -48,7 +48,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.AIcdDiagnosticSettings.html#%3Cinit%3E(eu.algites.lib.text.format.AIiTextFormatProfile,eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)" class="member-name-link">AIcdDiagnosticSettings(AIiTextFormatProfile, AInTextOutputObjectReferenceMode)</a> - Constructor for record class eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.AIcdDiagnosticSettings.html" title="class in eu.algites.lib.data.smartdataobject">AIcSmartDataObject.AIcdDiagnosticSettings</a></dt>
@@ -60,10 +60,20 @@ loadScripts(document, 'script');</script>
 <div class="block">Mutable generated DTO foundation; snapshot and graph implementation remain package-private.</div>
 </dd>
 <dt><a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.html#%3Cinit%3E()" class="member-name-link">AIcSmartDataObject()</a> - Constructor for class eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.html" title="class in eu.algites.lib.data.smartdataobject">AIcSmartDataObject</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Create an initially empty, mutable data object.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.html#%3Cinit%3E(java.util.Map)" class="member-name-link">AIcSmartDataObject(Map&lt;String, AIidVirtualFieldValue&gt;)</a> - Constructor for class eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.html" title="class in eu.algites.lib.data.smartdataobject">AIcSmartDataObject</a></dt>
+<dd>
+<div class="block">Populate this object from a typed virtual field graph.</div>
+</dd>
 <dt><a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.AIcdDiagnosticSettings.html" class="type-name-link" title="class in eu.algites.lib.data.smartdataobject">AIcSmartDataObject.AIcdDiagnosticSettings</a> - Record Class in <a href="eu/algites/lib/data/smartdataobject/package-summary.html">eu.algites.lib.data.smartdataobject</a></dt>
 <dd>
 <div class="block">Immutable pair of global diagnostic defaults, changed atomically at application startup.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/smartdataobject/AIsSmartDataObjectFactory.html" class="type-name-link" title="class in eu.algites.lib.data.smartdataobject">AIsSmartDataObjectFactory</a> - Class in <a href="eu/algites/lib/data/smartdataobject/package-summary.html">eu.algites.lib.data.smartdataobject</a></dt>
+<dd>
+<div class="block">Universal graph-construction factory for generated mutable SmartDataObjects.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
@@ -74,6 +84,13 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="eu/algites/lib/data/smartdataobject/package-summary.html">eu.algites.lib.data.smartdataobject</a> - package eu.algites.lib.data.smartdataobject</dt>
 <dd>&nbsp;</dd>
+</dl>
+<h2 class="title" id="I:F">F</h2>
+<dl class="index">
+<dt><a href="eu/algites/lib/data/smartdataobject/AIsSmartDataObjectFactory.html#fromMapping(java.lang.Class,java.util.Map)" class="member-name-link">fromMapping(Class&lt;? extends T&gt;, Map&lt;String, AIidVirtualFieldValue&gt;)</a> - Static method in class eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIsSmartDataObjectFactory.html" title="class in eu.algites.lib.data.smartdataobject">AIsSmartDataObjectFactory</a></dt>
+<dd>
+<div class="block">Construct a complete, shared-reference-preserving SDO graph from typed mapping nodes.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
@@ -149,6 +166,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:T">T</h2>
 <dl class="index">
+<dt><a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.html#toMapping_EffectiveValues()" class="member-name-link">toMapping_EffectiveValues()</a> - Method in class eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.html" title="class in eu.algites.lib.data.smartdataobject">AIcSmartDataObject</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.html#toMapping_RawValues()" class="member-name-link">toMapping_RawValues()</a> - Method in class eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.html" title="class in eu.algites.lib.data.smartdataobject">AIcSmartDataObject</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.AIcdDiagnosticSettings.html#toString()" class="member-name-link">toString()</a> - Method in record class eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.AIcdDiagnosticSettings.html" title="class in eu.algites.lib.data.smartdataobject">AIcSmartDataObject.AIcdDiagnosticSettings</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
@@ -167,7 +188,7 @@ loadScripts(document, 'script');</script>
 <dt><a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.html#unset_Field(java.lang.String)" class="member-name-link">unset_Field(String)</a> - Method in class eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIcSmartDataObject.html" title="class in eu.algites.lib.data.smartdataobject">AIcSmartDataObject</a></dt>
 <dd>&nbsp;</dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
 </div>
 </div>
 </body>

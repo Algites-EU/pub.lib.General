@@ -40,7 +40,7 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#annotation-interface-optional-element-summary">Optional</a>&nbsp;|&nbsp;</li>
-<li><a href="#annotation-interface-required-element-summary">Required</a></li>
+<li>Required</li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
@@ -68,25 +68,15 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/Retention.html" title="class or interface in java.lang.annotation" class="external-link">@Retention</a>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/RetentionPolicy.html#RUNTIME" title="class or interface in java.lang.annotation" class="external-link">RUNTIME</a>)
 <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/Target.html" title="class or interface in java.lang.annotation" class="external-link">@Target</a>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/ElementType.html#TYPE" title="class or interface in java.lang.annotation" class="external-link">TYPE</a>)
 </span><span class="modifiers">public @interface </span><span class="element-name type-name-label">AIaDataObject</span></div>
-<div class="block">Normalized data contract identity, independent of its source or generated implementation.</div>
+<div class="block">Stable identity and descriptive metadata of a data-object schema.
+
+ <p>SchemaId is the unversioned logical identifier, while schemaVersion selects a
+ version of that schema. Neither denotes the published SchemaUrl nor an object instance.
+ Generated mutable contracts carry a complete annotation even when their source
+ read-only interface specifies only partial metadata.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
-<!-- =========== ANNOTATION INTERFACE REQUIRED MEMBER SUMMARY =========== -->
-<li>
-<section class="member-summary" id="annotation-interface-required-element-summary">
-<h2>Required Element Summary</h2>
-<div class="caption"><span>Required Elements</span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier and Type</div>
-<div class="table-header col-second">Required Element</div>
-<div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#id()" class="member-name-link">id</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-</div>
-</section>
-</li>
 <!-- =========== ANNOTATION INTERFACE OPTIONAL MEMBER SUMMARY =========== -->
 <li>
 <section class="member-summary" id="annotation-interface-optional-element-summary">
@@ -103,10 +93,22 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color"><code><a href="#fingerprint()" class="member-name-link">fingerprint</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#title()" class="member-name-link">title</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>int</code></div>
-<div class="col-second odd-row-color"><code><a href="#version()" class="member-name-link">version</a></code></div>
+<div class="col-second even-row-color"><code><a href="#schemaId()" class="member-name-link">schemaId</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Unversioned logical SchemaId; empty only on incomplete handwritten source contracts.</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#schemaUrl()" class="member-name-link">schemaUrl</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">Published URL of one schema representation; optional, never the SchemaId.</div>
+</div>
+<div class="col-first even-row-color"><code>int</code></div>
+<div class="col-second even-row-color"><code><a href="#schemaVersion()" class="member-name-link">schemaVersion</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Positive SchemaVersion; -1 denotes an incomplete handwritten source contract.</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#title()" class="member-name-link">title</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#xmlLocalName()" class="member-name-link">xmlLocalName</a></code></div>
@@ -127,25 +129,35 @@ loadScripts(document, 'script');</script>
 <h2>Element Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="id()">
-<h3>id</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">id</span></div>
+<section class="detail" id="schemaId()">
+<h3>schemaId</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">schemaId</span></div>
+<div class="block">Unversioned logical SchemaId; empty only on incomplete handwritten source contracts.</div>
+<dl class="notes">
+<dt>Default:</dt>
+<dd>""</dd>
+</dl>
 </section>
 </li>
-</ul>
-</section>
-</li>
-<!-- ============ ANNOTATION INTERFACE MEMBER DETAIL =========== -->
 <li>
-<section class="member-details">
-<ul class="member-list">
-<li>
-<section class="detail" id="version()">
-<h3>version</h3>
-<div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">version</span></div>
+<section class="detail" id="schemaVersion()">
+<h3>schemaVersion</h3>
+<div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">schemaVersion</span></div>
+<div class="block">Positive SchemaVersion; -1 denotes an incomplete handwritten source contract.</div>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>-1</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="schemaUrl()">
+<h3>schemaUrl</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">schemaUrl</span></div>
+<div class="block">Published URL of one schema representation; optional, never the SchemaId.</div>
+<dl class="notes">
+<dt>Default:</dt>
+<dd>""</dd>
 </dl>
 </section>
 </li>

@@ -25,13 +25,21 @@ Module Contents
    Describes a data contract independently of its source or runtime implementation.
 
 
-   .. py:attribute:: id
+   .. py:attribute:: schema_id
       :type:  str
+      :value: ''
 
 
-   .. py:attribute:: version
+
+   .. py:attribute:: schema_version
       :type:  int
       :value: -1
+
+
+
+   .. py:attribute:: schema_url
+      :type:  str
+      :value: ''
 
 
 

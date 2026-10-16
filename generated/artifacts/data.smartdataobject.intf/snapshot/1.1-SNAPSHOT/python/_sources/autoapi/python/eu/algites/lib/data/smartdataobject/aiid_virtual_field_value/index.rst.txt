@@ -1,0 +1,53 @@
+python.eu.algites.lib.data.smartdataobject.aiid_virtual_field_value
+===================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.aiid_virtual_field_value
+
+.. autoapi-nested-parse::
+
+   Uniform typed node of an identity-preserving SmartDataObject virtual graph.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue
+
+
+Module Contents
+---------------
+
+.. py:class:: AIidVirtualFieldValue
+
+   Carry a concrete runtime class and representation without confusing them.
+
+   SmartDataObjects are represented by field-name dictionaries containing other
+   virtual values; containers contain virtual values too. Node objects may be
+   shared to express aliases and cycles. Not a JSON/YAML/XML wire encoding.
+
+
+   .. py:attribute:: value_class
+      :type:  type
+
+
+   .. py:attribute:: value_representation
+      :type:  Any
+      :value: None
+
+
+
+   .. py:method:: getValueRepresentation() -> Any
+
+      Return the representation, not the original DTO instance.
+
+
+
+   .. py:method:: getValueClass() -> type
+
+      Return the concrete runtime class, not a field's declared interface.
+
+
+

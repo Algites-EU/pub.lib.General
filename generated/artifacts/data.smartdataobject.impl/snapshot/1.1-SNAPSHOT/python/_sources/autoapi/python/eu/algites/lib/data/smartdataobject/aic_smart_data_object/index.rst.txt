@@ -20,7 +20,7 @@ Classes
 Module Contents
 ---------------
 
-.. py:class:: AIcSmartDataObject
+.. py:class:: AIcSmartDataObject(aMapping: collections.abc.Mapping[str, eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue] | None = None)
 
    Bases: :py:obj:`eu.algites.lib.data.smartdataobject.aii_smart_data_object.AIiSmartDataObject`
 
@@ -32,6 +32,35 @@ Module Contents
 
 
    .. py:attribute:: DEFAULT_DIAGNOSTIC_REFERENCE_MODE
+
+
+   .. py:method:: from_mapping(aValue: collections.abc.Mapping[str, Any])
+      :classmethod:
+
+
+      Create a generated SmartDataObject from canonical raw field names.
+
+      This belongs to the common SDO runtime, not to individual framework
+      binding generators. Unknown fields and absent required fields fail.
+
+
+
+   .. py:method:: to_mapping() -> collections.abc.Mapping[str, Any]
+
+      Export raw canonical wire values without serializing the entire object graph.
+
+
+
+   .. py:method:: toMapping_RawValues() -> collections.abc.Mapping[str, eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue]
+
+      Return a typed identity-preserving graph containing only raw fields.
+
+
+
+   .. py:method:: toMapping_EffectiveValues() -> collections.abc.Mapping[str, eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue]
+
+      Return a typed identity-preserving graph including effective defaults.
+
 
 
    .. py:method:: set_RawField(name: str, value: Any) -> None

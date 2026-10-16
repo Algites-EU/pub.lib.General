@@ -1,0 +1,51 @@
+python.eu.algites.lib.data.dataobject.aicd_schema_identity
+==========================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.aicd_schema_identity
+
+.. autoapi-nested-parse::
+
+   Four unambiguously named Algites schema identifiers.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.aicd_schema_identity.AIcdSchemaIdentity
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdSchemaIdentity
+
+   SchemaId and SchemaVersion form VersionedSchemaId; SchemaUrl is separate.
+
+   SchemaUrl identifies one published representation and may be absent. None
+   of these properties is an object-instance ID or a JSON Schema dialect URL.
+
+
+   .. py:attribute:: schema_id
+      :type:  str
+
+
+   .. py:attribute:: schema_version
+      :type:  int
+
+
+   .. py:attribute:: schema_url
+      :type:  str
+      :value: ''
+
+
+
+   .. py:property:: versioned_schema_id
+      :type: str
+
+
+      Return the logical schema identity with version, not a URL.
+
+

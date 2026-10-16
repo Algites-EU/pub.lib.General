@@ -34,12 +34,13 @@
             
   <section id="module-python.eu.algites.lib.text.format.ain_text_output_object_reference_mode">
 <span id="python-eu-algites-lib-text-format-ain-text-output-object-reference-mode"></span><h1>python.eu.algites.lib.text.format.ain_text_output_object_reference_mode<a class="headerlink" href="#module-python.eu.algites.lib.text.format.ain_text_output_object_reference_mode" title="Link to this heading">¶</a></h1>
+<p>Reference policies for the text rendering of cyclic or shared SDO graphs.</p>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode" title="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AInTextOutputObjectReferenceMode</span></code></a></p></td>
-<td><p>Identity-preserving text output policies.</p></td>
+<td><p>Choose whether a format references object instances or emits values inline.</p></td>
 </tr>
 </tbody>
 </table>
@@ -50,31 +51,38 @@
 <dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.</span></span><span class="sig-name descname"><span class="pre">AInTextOutputObjectReferenceMode</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
-<p>Identity-preserving text output policies.</p>
+<p>Choose whether a format references object instances or emits values inline.</p>
+<p>These values do not select a schema identity and a text profile may reject
+unsupported policies. Virtual mappings always preserve object identity.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.NO_REFERENCES">
 <span class="sig-name descname"><span class="pre">NO_REFERENCES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NO_REFERENCES'</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.NO_REFERENCES" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Always inline values; shared identity is lost and cycles cannot be encoded.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.ALL_OBJECTS">
 <span class="sig-name descname"><span class="pre">ALL_OBJECTS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ALL_OBJECTS'</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.ALL_OBJECTS" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Assign a reference identifier to every eligible object, even unique ones.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.CYCLIC_REFERENCES_ONLY">
 <span class="sig-name descname"><span class="pre">CYCLIC_REFERENCES_ONLY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CYCLIC_REFERENCES_ONLY'</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.CYCLIC_REFERENCES_ONLY" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Use references to break cycles, but not necessarily to preserve all sharing.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.REPEATED_OBJECTS">
 <span class="sig-name descname"><span class="pre">REPEATED_OBJECTS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'REPEATED_OBJECTS'</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.REPEATED_OBJECTS" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Represent shared objects and cycles as references preserving their identity.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.OPTIMIZED_TEXT_OUTPUT_SIZE">
 <span class="sig-name descname"><span class="pre">OPTIMIZED_TEXT_OUTPUT_SIZE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OPTIMIZED_TEXT_OUTPUT_SIZE'</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.OPTIMIZED_TEXT_OUTPUT_SIZE" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Choose references by text-size savings while still representing cycles.</p>
+</dd></dl>
 
 </dd></dl>
 

@@ -69,7 +69,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html" class="type-name-link" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a> - Enum Class in <a href="eu/algites/lib/text/format/package-summary.html">eu.algites.lib.text.format</a></dt>
 <dd>
-<div class="block">Decides when graph identity is rendered as a reference rather than a value.</div>
+<div class="block">Controls identity preservation when a SmartDataObject graph is written as text.</div>
 </dd>
 <dt><a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html" class="type-name-link" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a> - Enum Class in <a href="eu/algites/lib/text/format/package-summary.html">eu.algites.lib.text.format</a></dt>
 <dd>
@@ -80,12 +80,16 @@ loadScripts(document, 'script');</script>
 <div class="block">Non-instantiable catalog of stable text format protocol descriptors.</div>
 </dd>
 <dt><a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html#ALL_OBJECTS" class="member-name-link">ALL_OBJECTS</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Assign a reference identity to every eligible graph object, including unique objects.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html#CYCLIC_REFERENCES_ONLY" class="member-name-link">CYCLIC_REFERENCES_ONLY</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Encode references only where required to terminate cycles, not every shared value.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
@@ -165,14 +169,18 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:N">N</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html#NO_REFERENCES" class="member-name-link">NO_REFERENCES</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Inline every occurrence; shared identity is lost and cycles cannot be represented.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html#NONE" class="member-name-link">NONE</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:O">O</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html#OPTIMIZED_TEXT_OUTPUT_SIZE" class="member-name-link">OPTIMIZED_TEXT_OUTPUT_SIZE</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Choose references to minimize text size while still representing all cycles.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">
@@ -181,7 +189,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the value of the <code>referenceEncoding</code> record component.</div>
 </dd>
 <dt><a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html#REPEATED_OBJECTS" class="member-name-link">REPEATED_OBJECTS</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Preserve repeated-object identity as well as cycles through references.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">

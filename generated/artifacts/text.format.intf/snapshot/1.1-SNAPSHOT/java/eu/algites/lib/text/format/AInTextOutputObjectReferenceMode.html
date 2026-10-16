@@ -82,7 +82,11 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public enum </span><span class="element-name type-name-label">AInTextOutputObjectReferenceMode</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html" title="class or interface in java.lang" class="external-link">Enum</a>&lt;<a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a>&gt;</span></div>
-<div class="block">Decides when graph identity is rendered as a reference rather than a value.</div>
+<div class="block">Controls identity preservation when a SmartDataObject graph is written as text.
+
+ <p>This controls object-instance references, not SchemaId, SchemaUrl, or a
+ JSON Schema <code>$id</code>. Each format profile accepts a subset of these modes.
+ In-memory virtual mappings preserve identity independently of this setting.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -104,15 +108,25 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Enum Constant</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code><a href="#ALL_OBJECTS" class="member-name-link">ALL_OBJECTS</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Assign a reference identity to every eligible graph object, including unique objects.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="#CYCLIC_REFERENCES_ONLY" class="member-name-link">CYCLIC_REFERENCES_ONLY</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Encode references only where required to terminate cycles, not every shared value.</div>
+</div>
 <div class="col-first even-row-color"><code><a href="#NO_REFERENCES" class="member-name-link">NO_REFERENCES</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Inline every occurrence; shared identity is lost and cycles cannot be represented.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="#OPTIMIZED_TEXT_OUTPUT_SIZE" class="member-name-link">OPTIMIZED_TEXT_OUTPUT_SIZE</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Choose references to minimize text size while still representing all cycles.</div>
+</div>
 <div class="col-first even-row-color"><code><a href="#REPEATED_OBJECTS" class="member-name-link">REPEATED_OBJECTS</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Preserve repeated-object identity as well as cycles through references.</div>
+</div>
 </div>
 </section>
 </li>
@@ -162,30 +176,35 @@ the order they are declared.</div>
 <section class="detail" id="NO_REFERENCES">
 <h3>NO_REFERENCES</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a></span>&nbsp;<span class="element-name">NO_REFERENCES</span></div>
+<div class="block">Inline every occurrence; shared identity is lost and cycles cannot be represented.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="ALL_OBJECTS">
 <h3>ALL_OBJECTS</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a></span>&nbsp;<span class="element-name">ALL_OBJECTS</span></div>
+<div class="block">Assign a reference identity to every eligible graph object, including unique objects.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="CYCLIC_REFERENCES_ONLY">
 <h3>CYCLIC_REFERENCES_ONLY</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a></span>&nbsp;<span class="element-name">CYCLIC_REFERENCES_ONLY</span></div>
+<div class="block">Encode references only where required to terminate cycles, not every shared value.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="REPEATED_OBJECTS">
 <h3>REPEATED_OBJECTS</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a></span>&nbsp;<span class="element-name">REPEATED_OBJECTS</span></div>
+<div class="block">Preserve repeated-object identity as well as cycles through references.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="OPTIMIZED_TEXT_OUTPUT_SIZE">
 <h3>OPTIMIZED_TEXT_OUTPUT_SIZE</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a></span>&nbsp;<span class="element-name">OPTIMIZED_TEXT_OUTPUT_SIZE</span></div>
+<div class="block">Choose references to minimize text size while still representing all cycles.</div>
 </section>
 </li>
 </ul>

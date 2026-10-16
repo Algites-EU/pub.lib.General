@@ -83,6 +83,16 @@ Module Contents
 
 
 
+   .. py:method:: toMapping_RawValues() -> Mapping[str, python.eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue]
+      :abstractmethod:
+
+
+
+   .. py:method:: toMapping_EffectiveValues() -> Mapping[str, python.eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue]
+      :abstractmethod:
+
+
+
    .. py:method:: toString_RawValues(aProfile: eu.algites.lib.text.format.aii_text_format_profile.AIiTextFormatProfile, aMode: eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode) -> str
       :abstractmethod:
 

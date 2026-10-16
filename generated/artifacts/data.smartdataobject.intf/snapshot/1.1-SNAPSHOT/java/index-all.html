@@ -67,6 +67,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates an instance of a <code>AIcdSmartDataValidationIssue</code> record class.</div>
 </dd>
+<dt><a href="eu/algites/lib/data/smartdataobject/AIidVirtualFieldValue.html" class="type-name-link" title="interface in eu.algites.lib.data.smartdataobject">AIidVirtualFieldValue</a> - Interface in <a href="eu/algites/lib/data/smartdataobject/package-summary.html">eu.algites.lib.data.smartdataobject</a></dt>
+<dd>
+<div class="block">A typed node in the in-memory virtual representation of a SmartDataObject graph.</div>
+</dd>
 <dt><a href="eu/algites/lib/data/smartdataobject/AIiSmartDataObject.html" class="type-name-link" title="interface in eu.algites.lib.data.smartdataobject">AIiSmartDataObject</a> - Interface in <a href="eu/algites/lib/data/smartdataobject/package-summary.html">eu.algites.lib.data.smartdataobject</a></dt>
 <dd>
 <div class="block">Public mutable data-object state, presence, validation and textual output contract.</div>
@@ -122,6 +126,14 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="eu/algites/lib/data/smartdataobject/AIxSmartDataValidationException.html#getIssues()" class="member-name-link">getIssues()</a> - Method in exception eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIxSmartDataValidationException.html" title="class in eu.algites.lib.data.smartdataobject">AIxSmartDataValidationException</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="eu/algites/lib/data/smartdataobject/AIidVirtualFieldValue.html#getValueClass()" class="member-name-link">getValueClass()</a> - Method in interface eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIidVirtualFieldValue.html" title="interface in eu.algites.lib.data.smartdataobject">AIidVirtualFieldValue</a></dt>
+<dd>
+<div class="block">Return the concrete original runtime class, or Void.class for explicit null.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/smartdataobject/AIidVirtualFieldValue.html#getValueRepresentation()" class="member-name-link">getValueRepresentation()</a> - Method in interface eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIidVirtualFieldValue.html" title="interface in eu.algites.lib.data.smartdataobject">AIidVirtualFieldValue</a></dt>
+<dd>
+<div class="block">Return the virtual value graph, never confusing the wrapper with its value.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:H">H</h2>
 <dl class="index">
@@ -157,6 +169,14 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:T">T</h2>
 <dl class="index">
+<dt><a href="eu/algites/lib/data/smartdataobject/AIiSmartDataObject.html#toMapping_EffectiveValues()" class="member-name-link">toMapping_EffectiveValues()</a> - Method in interface eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIiSmartDataObject.html" title="interface in eu.algites.lib.data.smartdataobject">AIiSmartDataObject</a></dt>
+<dd>
+<div class="block">Capture effective values, including defaults, as an identity-preserving typed mapping.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/smartdataobject/AIiSmartDataObject.html#toMapping_RawValues()" class="member-name-link">toMapping_RawValues()</a> - Method in interface eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIiSmartDataObject.html" title="interface in eu.algites.lib.data.smartdataobject">AIiSmartDataObject</a></dt>
+<dd>
+<div class="block">Capture the present raw field values as an identity-preserving typed mapping.</div>
+</dd>
 <dt><a href="eu/algites/lib/data/smartdataobject/AIcdSmartDataValidationIssue.html#toString()" class="member-name-link">toString()</a> - Method in record class eu.algites.lib.data.smartdataobject.<a href="eu/algites/lib/data/smartdataobject/AIcdSmartDataValidationIssue.html" title="class in eu.algites.lib.data.smartdataobject">AIcdSmartDataValidationIssue</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
