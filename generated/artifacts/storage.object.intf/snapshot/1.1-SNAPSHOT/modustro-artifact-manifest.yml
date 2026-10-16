@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: storage.object.intf
+  ArtifactCoordinateId: pub.lib.General_storage.object.intf
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: storage/object/intf
+  StructureKind: artifact
+  Name: "Object storage contracts"
+  Description: "Backend-neutral streaming object reads, atomic create-only writes, revision CAS, listing and optional cleanup."
+SourceMetadata:
+  DescriptorHierarchy:
