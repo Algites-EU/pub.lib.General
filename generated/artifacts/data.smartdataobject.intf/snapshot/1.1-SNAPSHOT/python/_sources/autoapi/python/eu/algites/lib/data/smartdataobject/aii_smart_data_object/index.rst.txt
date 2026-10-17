@@ -17,10 +17,19 @@ Module Contents
 
 .. py:class:: AIiSmartDataObject
 
-   Bases: :py:obj:`eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject`, :py:obj:`eu.algites.lib.common.validation.aii_validatable.AIiValidatable`
+   Bases: :py:obj:`eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject`, :py:obj:`eu.algites.lib.common.validation.aii_validatable.AIiValidatable`\ [\ :py:obj:`eu.algites.lib.data.smartdataobject.aii_sdo_validation_issue.AIiSdoValidationIssue`\ ]
 
 
-   Runtime contract implemented by mutable schema-generated data objects.
+   .. py:attribute:: FIELD_SYSTEM_NAME
+
+
+   .. py:attribute:: FIELD_LOCALIZED_NAME
+
+
+   .. py:attribute:: FIELD_LOCALIZED_DESCRIPTION
+
+
+   .. py:method:: getValidationIssues() -> list[eu.algites.lib.data.smartdataobject.aii_sdo_validation_issue.AIiSdoValidationIssue]
 
 
    .. py:method:: isValid() -> bool

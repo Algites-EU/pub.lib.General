@@ -15,7 +15,11 @@
 <script type="text/javascript" src="script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="all-classes-index-page">
-<script type="text/javascript">var pathtoroot = "./";
+<script type="text/javascript">var evenRowColor = "even-row-color";
+var oddRowColor = "odd-row-color";
+var tableTab = "table-tab";
+var activeTableTab = "active-table-tab";
+var pathtoroot = "./";
 loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -27,7 +31,8 @@ loadScripts(document, 'script');</script>
 <div class="top-nav" id="navbar-top">
 <div class="skip-nav"><a href="#skip-navbar-top" title="Skip navigation links">Skip navigation links</a></div>
 <ul id="navbar-top-firstrow" class="nav-list" title="Navigation">
-<li><a href="eu/algites/lib/common/documentation/model/package-summary.html">Package</a></li>
+<li><a href="index.html">Overview</a></li>
+<li>Package</li>
 <li>Class</li>
 <li><a href="overview-tree.html">Tree</a></li>
 <li><a href="index-all.html">Index</a></li>
@@ -49,153 +54,159 @@ loadScripts(document, 'script');</script>
 <h1 title="All Classes and Interfaces" class="title">All Classes and Interfaces</h1>
 </div>
 <div id="all-classes-table">
-<div class="caption"><span>Interfaces</span></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="all-classes-table-tab0" role="tab" aria-selected="true" aria-controls="all-classes-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('all-classes-table', 'all-classes-table', 2)" class="active-table-tab">All Classes and Interfaces</button><button id="all-classes-table-tab1" role="tab" aria-selected="false" aria-controls="all-classes-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('all-classes-table', 'all-classes-table-tab1', 2)" class="table-tab">Interfaces</button><button id="all-classes-table-tab4" role="tab" aria-selected="false" aria-controls="all-classes-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('all-classes-table', 'all-classes-table-tab4', 2)" class="table-tab">Record Classes</button></div>
+<div id="all-classes-table.tabpanel" role="tabpanel" aria-labelledby="all-classes-table-tab0">
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationBlockElement.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationBlockElement</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="eu/algites/lib/common/documentation/xmldefs/AIcgdAlgitesDocumentation_1.html" title="class in eu.algites.lib.common.documentation.xmldefs">AIcgdAlgitesDocumentation_1</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="block">Documentation metadata vocabulary shared by Algites XMLDEFS schemas.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationBlockElement.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationBlockElement</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a block-level documentation element.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationBlockElementWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationBlockElementWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationBlockElementWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationBlockElementWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a block-level documentation element.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationCodeBlock.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationCodeBlock</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationCodeBlock.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationCodeBlock</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a standalone code block.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationCodeBlockWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationCodeBlockWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationCodeBlockWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationCodeBlockWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a code block.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationContainerElement.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationContainerElement</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationContainerElement.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationContainerElement</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a block-level documentation element that can contain child blocks.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationContainerElementWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationContainerElementWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationContainerElementWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationContainerElementWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a block-level documentation container.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationDocument.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationDocument</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationDocument.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationDocument</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents the root of a documentation element tree.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationDocumentWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationDocumentWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationDocumentWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationDocumentWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a documentation document.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationElement.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationElement</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationElement.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationElement</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a common renderer-neutral documentation element.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationElementWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationElementWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationElementWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationElementWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a renderer-neutral documentation element.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationInlineCode.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationInlineCode</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationInlineCode.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationInlineCode</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents inline code inside textual content.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationInlineCodeWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationInlineCodeWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationInlineCodeWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationInlineCodeWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a inline code element.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationInlineElement.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationInlineElement</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationInlineElement.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationInlineElement</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents an inline documentation element.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationInlineElementWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationInlineElementWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationInlineElementWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationInlineElementWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a inline documentation element.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationLineBreak.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationLineBreak</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationLineBreak.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationLineBreak</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents an explicit line break inside inline content.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationLineBreakWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationLineBreakWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationLineBreakWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationLineBreakWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a line break element.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationLink.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationLink</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationLink.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationLink</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a non-semantic inline link.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationLinkWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationLinkWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationLinkWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationLinkWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a link element.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationParagraph.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationParagraph</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationParagraph.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationParagraph</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a paragraph with ordered inline content.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationParagraphWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationParagraphWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationParagraphWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationParagraphWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a documentation paragraph.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationReference.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationReference</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationReference.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationReference</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a semantic inline reference to another documented object.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationReferenceTarget.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationReferenceTarget</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationReferenceTarget.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationReferenceTarget</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a renderer-neutral target of a semantic documentation reference.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationReferenceTargetWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationReferenceTargetWriteAccess</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationReferenceTargetWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationReferenceTargetWriteAccess</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a semantic reference target.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationReferenceWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationReferenceWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationReferenceWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationReferenceWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a semantic reference element.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationSection.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationSection</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationSection.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationSection</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a hierarchical documentation section.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationSectionWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationSectionWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationSectionWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationSectionWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a documentation section.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTable.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTable</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTable.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTable</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a tabular block element.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableCell.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableCell</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableCell.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableCell</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a cell in a documentation table row.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableCellWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableCellWriteAccess</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableCellWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableCellWriteAccess</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a documentation table cell.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableColumn.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableColumn</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableColumn.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableColumn</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents metadata of a documentation table column.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableColumnWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableColumnWriteAccess</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableColumnWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableColumnWriteAccess</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a table column.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableRow.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableRow</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableRow.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableRow</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents a row in a documentation table.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableRowWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableRowWriteAccess</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableRowWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableRowWriteAccess</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a documentation table row.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTableWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTableWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a documentation table.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationText.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationText</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationText.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationText</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Represents plain inline text.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTextWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTextWriteAccess</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="eu/algites/lib/common/documentation/model/AIiDocumentationTextWriteAccess.html" title="interface in eu.algites.lib.common.documentation.model">AIiDocumentationTextWriteAccess</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Provides write access to a text element.</div>
+</div>
 </div>
 </div>
 </div>

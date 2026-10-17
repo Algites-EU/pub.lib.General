@@ -95,17 +95,23 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../../../algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#release(java.lang.String,int)" class="member-name-link">release</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aReleaseLineVersion,
  int&nbsp;aRevision)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Releases  from the corresponding registry.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../../../algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#releaseCandidate(java.lang.String,int,long)" class="member-name-link">releaseCandidate</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aReleaseLineVersion,
  int&nbsp;aRevision,
  long&nbsp;aSequence)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Releases candidate from the corresponding registry.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../../../algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#snapshot(java.lang.String,int,java.lang.Long)" class="member-name-link">snapshot</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aReleaseLineVersion,
  int&nbsp;aRevision,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;aSnapshotInstance)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a snapshot version with the supplied release line, revision and instance.</div>
+</div>
 </div>
 </div>
 </div>
@@ -128,6 +134,14 @@ loadScripts(document, 'script');</script>
 <h3>release</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../../../algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a></span>&nbsp;<span class="element-name">release</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aReleaseLineVersion,
  int&nbsp;aRevision)</span></div>
+<div class="block">Releases  from the corresponding registry.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aReleaseLineVersion</code> - release-line identifier</dd>
+<dd><code>aRevision</code> - revision number within the release line</dd>
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -136,6 +150,15 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../../../algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a></span>&nbsp;<span class="element-name">snapshot</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aReleaseLineVersion,
  int&nbsp;aRevision,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;aSnapshotInstance)</span></div>
+<div class="block">Creates a snapshot version with the supplied release line, revision and instance.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aReleaseLineVersion</code> - release-line identifier</dd>
+<dd><code>aRevision</code> - revision number within the release line</dd>
+<dd><code>aSnapshotInstance</code> - snapshot instance sequence number</dd>
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -144,6 +167,15 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../../../algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a></span>&nbsp;<span class="element-name">releaseCandidate</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aReleaseLineVersion,
  int&nbsp;aRevision,
  long&nbsp;aSequence)</span></div>
+<div class="block">Releases candidate from the corresponding registry.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aReleaseLineVersion</code> - release-line identifier</dd>
+<dd><code>aRevision</code> - revision number within the release line</dd>
+<dd><code>aSequence</code> - release candidate sequence number</dd>
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 </section>
 </li>
 </ul>

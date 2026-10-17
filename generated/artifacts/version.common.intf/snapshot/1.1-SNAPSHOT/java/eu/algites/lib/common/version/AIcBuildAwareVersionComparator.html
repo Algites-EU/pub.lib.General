@@ -116,7 +116,9 @@ implements <a href="AIiVersionComparator.html" title="interface in eu.algites.li
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aBuildDelimiter,
  boolean&nbsp;aVersionBeforeBuild,
  <a href="AInVersionBuildComparisonPolicy.html" title="enum class in eu.algites.lib.common.version">AInVersionBuildComparisonPolicy</a>&nbsp;aBuildComparisonPolicy)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates a build aware version comparator instance with the supplied configuration.</div>
+</div>
 </div>
 </section>
 </li>
@@ -134,7 +136,7 @@ implements <a href="AIiVersionComparator.html" title="interface in eu.algites.li
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#compare(eu.algites.lib.common.version.AIcVersion,eu.algites.lib.common.version.AIcVersion)" class="member-name-link">compare</a><wbr>(<a href="AIcVersion.html" title="class in eu.algites.lib.common.version">AIcVersion</a>&nbsp;aLeft,
  <a href="AIcVersion.html" title="class in eu.algites.lib.common.version">AIcVersion</a>&nbsp;aRight)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
 </div>
 </div>
 </div>
@@ -165,6 +167,14 @@ implements <a href="AIiVersionComparator.html" title="interface in eu.algites.li
  boolean&nbsp;aVersionBeforeBuild,
  @Nonnull
  <a href="AInVersionBuildComparisonPolicy.html" title="enum class in eu.algites.lib.common.version">AInVersionBuildComparisonPolicy</a>&nbsp;aBuildComparisonPolicy)</span></div>
+<div class="block">Creates a build aware version comparator instance with the supplied configuration.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aBaseComparator</code> - base comparator supplied to the operation</dd>
+<dd><code>aBuildDelimiter</code> - build delimiter supplied to the operation</dd>
+<dd><code>aVersionBeforeBuild</code> - version before build supplied to the operation</dd>
+<dd><code>aBuildComparisonPolicy</code> - build comparison policy supplied to the operation</dd>
+</dl>
 </section>
 </li>
 </ul>

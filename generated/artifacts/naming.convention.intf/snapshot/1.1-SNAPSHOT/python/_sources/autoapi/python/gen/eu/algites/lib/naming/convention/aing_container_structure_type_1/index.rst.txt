@@ -25,13 +25,13 @@ Module Contents
    Generated from canonical definition eu.algites.lib.naming.convention.container-structure-type/1. Source: src/product/yamldefs/eu/algites/lib/naming/convention/container-structure-type_1.yamldef.schema.json. Do not edit manually.
 
    Values:
-       OBJECT: Canonical enum value object.
-       CLASS: Canonical enum value class.
-       INTERFACE: Canonical enum value interface.
-       ENUM: Canonical enum value enum.
-       EXCEPTION: Canonical enum value exception.
-       ANNOTATION: Canonical enum value annotation.
-       RESOURCE_BUNDLE: Canonical enum value resource_bundle.
+       OBJECT: A general data object or document container.
+       CLASS: A concrete or abstract class declaration.
+       INTERFACE: An interface declaration defining a contract.
+       ENUM: An enumeration type containing a fixed set of values.
+       EXCEPTION: A throwable exception type.
+       ANNOTATION: An annotation type used to attach metadata.
+       RESOURCE_BUNDLE: A resource bundle containing localized text or other resources.
 
 
    .. py:attribute:: OBJECT

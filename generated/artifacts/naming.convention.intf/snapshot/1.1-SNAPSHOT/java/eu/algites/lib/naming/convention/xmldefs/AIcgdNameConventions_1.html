@@ -78,17 +78,17 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>Record Components:</dt>
-<dd><code><span id="param-standardConventionsFile">standardConventionsFile</span></code> - Value of canonical property StandardConventionsFile.</dd>
-<dd><code><span id="param-identifierConventions">identifierConventions</span></code> - Value of canonical property IdentifierConventions.</dd>
-<dd><code><span id="param-versionConventions">versionConventions</span></code> - Value of canonical property VersionConventions.</dd>
-<dd><code><span id="param-nameFragments">nameFragments</span></code> - Value of canonical property NameFragments.</dd>
-<dd><code><span id="param-nameCompositions">nameCompositions</span></code> - Value of canonical property NameCompositions.</dd>
-<dd><code><span id="param-nameConventions">nameConventions</span></code> - Value of canonical property NameConventions.</dd>
+<dd><code><span id="param-standardConventionsFile">standardConventionsFile</span></code> - Relative path to the file containing shared identifier and version convention definitions.</dd>
+<dd><code><span id="param-identifierConventions">identifierConventions</span></code> - Named identifier conventions whose regular expressions validate or recognize identifiers.</dd>
+<dd><code><span id="param-versionConventions">versionConventions</span></code> - Named version conventions whose regular expressions recognize version components.</dd>
+<dd><code><span id="param-nameFragments">nameFragments</span></code> - Reusable named sequences of text, identifier, version or variable segments.</dd>
+<dd><code><span id="param-nameCompositions">nameCompositions</span></code> - Named compositions that combine reusable fragments into full names.</dd>
+<dd><code><span id="param-nameConventions">nameConventions</span></code> - Naming rules for supported container structures and their contained source elements.</dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">AIcgdNameConventions_1</span>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;standardConventionsFile, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;identifierConventions, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;versionConventions, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;nameFragments, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;nameCompositions, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;nameConventions)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
-<div class="block">Generated representation of canonical definition name-conventions.
+<div class="block">Reusable fragments, compositions and container-specific structure naming profiles.
 
  <p>Generated from canonical definition eu.algites.lib.naming.convention.name-conventions/1. Source: src/product/xmldefs/eu/algites/lib/naming/convention/name-conventions_1.xsd. Do not edit manually.</p></div>
 </section>
@@ -115,32 +115,38 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#SCHEMA_FIELD_NAME__IDENTIFIER_CONVENTIONS" class="member-name-link">SCHEMA_FIELD_NAME__IDENTIFIER_CONVENTIONS</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block"><strong>Field Name:</strong> <code>IdentifierConventions</code></div>
+<div class="block"><strong>Field Name:</strong> <code>IdentifierConventions</code><br/>
+ <strong>Field Description:</strong> Named identifier conventions whose regular expressions validate or recognize identifiers.</div>
 </div>
 <div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#SCHEMA_FIELD_NAME__NAME_COMPOSITIONS" class="member-name-link">SCHEMA_FIELD_NAME__NAME_COMPOSITIONS</a></code></div>
 <div class="col-last even-row-color">
-<div class="block"><strong>Field Name:</strong> <code>NameCompositions</code></div>
+<div class="block"><strong>Field Name:</strong> <code>NameCompositions</code><br/>
+ <strong>Field Description:</strong> Named compositions that combine reusable fragments into full names.</div>
 </div>
 <div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#SCHEMA_FIELD_NAME__NAME_CONVENTIONS" class="member-name-link">SCHEMA_FIELD_NAME__NAME_CONVENTIONS</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block"><strong>Field Name:</strong> <code>NameConventions</code></div>
+<div class="block"><strong>Field Name:</strong> <code>NameConventions</code><br/>
+ <strong>Field Description:</strong> Naming rules for supported container structures and their contained source elements.</div>
 </div>
 <div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#SCHEMA_FIELD_NAME__NAME_FRAGMENTS" class="member-name-link">SCHEMA_FIELD_NAME__NAME_FRAGMENTS</a></code></div>
 <div class="col-last even-row-color">
-<div class="block"><strong>Field Name:</strong> <code>NameFragments</code></div>
+<div class="block"><strong>Field Name:</strong> <code>NameFragments</code><br/>
+ <strong>Field Description:</strong> Reusable named sequences of text, identifier, version or variable segments.</div>
 </div>
 <div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#SCHEMA_FIELD_NAME__STANDARD_CONVENTIONS_FILE" class="member-name-link">SCHEMA_FIELD_NAME__STANDARD_CONVENTIONS_FILE</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block"><strong>Field Name:</strong> <code>StandardConventionsFile</code></div>
+<div class="block"><strong>Field Name:</strong> <code>StandardConventionsFile</code><br/>
+ <strong>Field Description:</strong> Relative path to the file containing shared identifier and version convention definitions.</div>
 </div>
 <div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#SCHEMA_FIELD_NAME__VERSION_CONVENTIONS" class="member-name-link">SCHEMA_FIELD_NAME__VERSION_CONVENTIONS</a></code></div>
 <div class="col-last even-row-color">
-<div class="block"><strong>Field Name:</strong> <code>VersionConventions</code></div>
+<div class="block"><strong>Field Name:</strong> <code>VersionConventions</code><br/>
+ <strong>Field Description:</strong> Named version conventions whose regular expressions recognize version components.</div>
 </div>
 </div>
 </section>
@@ -276,7 +282,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="SCHEMA_FIELD_NAME__STANDARD_CONVENTIONS_FILE">
 <h3>SCHEMA_FIELD_NAME__STANDARD_CONVENTIONS_FILE</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">SCHEMA_FIELD_NAME__STANDARD_CONVENTIONS_FILE</span></div>
-<div class="block"><strong>Field Name:</strong> <code>StandardConventionsFile</code></div>
+<div class="block"><strong>Field Name:</strong> <code>StandardConventionsFile</code><br/>
+ <strong>Field Description:</strong> Relative path to the file containing shared identifier and version convention definitions.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -291,7 +298,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="SCHEMA_FIELD_NAME__IDENTIFIER_CONVENTIONS">
 <h3>SCHEMA_FIELD_NAME__IDENTIFIER_CONVENTIONS</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">SCHEMA_FIELD_NAME__IDENTIFIER_CONVENTIONS</span></div>
-<div class="block"><strong>Field Name:</strong> <code>IdentifierConventions</code></div>
+<div class="block"><strong>Field Name:</strong> <code>IdentifierConventions</code><br/>
+ <strong>Field Description:</strong> Named identifier conventions whose regular expressions validate or recognize identifiers.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -306,7 +314,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="SCHEMA_FIELD_NAME__VERSION_CONVENTIONS">
 <h3>SCHEMA_FIELD_NAME__VERSION_CONVENTIONS</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">SCHEMA_FIELD_NAME__VERSION_CONVENTIONS</span></div>
-<div class="block"><strong>Field Name:</strong> <code>VersionConventions</code></div>
+<div class="block"><strong>Field Name:</strong> <code>VersionConventions</code><br/>
+ <strong>Field Description:</strong> Named version conventions whose regular expressions recognize version components.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -321,7 +330,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="SCHEMA_FIELD_NAME__NAME_FRAGMENTS">
 <h3>SCHEMA_FIELD_NAME__NAME_FRAGMENTS</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">SCHEMA_FIELD_NAME__NAME_FRAGMENTS</span></div>
-<div class="block"><strong>Field Name:</strong> <code>NameFragments</code></div>
+<div class="block"><strong>Field Name:</strong> <code>NameFragments</code><br/>
+ <strong>Field Description:</strong> Reusable named sequences of text, identifier, version or variable segments.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -336,7 +346,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="SCHEMA_FIELD_NAME__NAME_COMPOSITIONS">
 <h3>SCHEMA_FIELD_NAME__NAME_COMPOSITIONS</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">SCHEMA_FIELD_NAME__NAME_COMPOSITIONS</span></div>
-<div class="block"><strong>Field Name:</strong> <code>NameCompositions</code></div>
+<div class="block"><strong>Field Name:</strong> <code>NameCompositions</code><br/>
+ <strong>Field Description:</strong> Named compositions that combine reusable fragments into full names.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -351,7 +362,8 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="SCHEMA_FIELD_NAME__NAME_CONVENTIONS">
 <h3>SCHEMA_FIELD_NAME__NAME_CONVENTIONS</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">SCHEMA_FIELD_NAME__NAME_CONVENTIONS</span></div>
-<div class="block"><strong>Field Name:</strong> <code>NameConventions</code></div>
+<div class="block"><strong>Field Name:</strong> <code>NameConventions</code><br/>
+ <strong>Field Description:</strong> Naming rules for supported container structures and their contained source elements.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>

@@ -25,17 +25,17 @@ Module Contents
    Generated from canonical definition eu.algites.lib.naming.convention.source-structure-kind/1. Source: src/product/yamldefs/eu/algites/lib/naming/convention/source-structure-kind_1.yamldef.schema.json. Do not edit manually.
 
    Values:
-       MAIN_CONTAINER_NAME: Canonical enum value main_container_name.
-       SUB_CONTAINER_NAME: Canonical enum value sub_container_name.
-       FIELD_NAME: Canonical enum value field_name.
-       ENUM_ITEM_NAME: Canonical enum value enum_item_name.
-       CONSTANT_NAME: Canonical enum value constant_name.
-       METHOD_NAME: Canonical enum value method_name.
-       METHOD_PARAMETER_NAME: Canonical enum value method_parameter_name.
-       LOCAL_VARIABLE_NAME: Canonical enum value local_variable_name.
-       PACKAGE_SEGMENT_NAME: Canonical enum value package_segment_name.
-       FILE_NAME_STEM: Canonical enum value file_name_stem.
-       FILE_NAME_SUFFIX: Canonical enum value file_name_suffix.
+       MAIN_CONTAINER_NAME: Name of the primary class, interface or other generated container.
+       SUB_CONTAINER_NAME: Name of a nested or subordinate container.
+       FIELD_NAME: Name assigned to a data field or property.
+       ENUM_ITEM_NAME: Name assigned to one constant of an enumeration.
+       CONSTANT_NAME: Name assigned to a constant declaration.
+       METHOD_NAME: Name assigned to a callable method.
+       METHOD_PARAMETER_NAME: Name assigned to a parameter in a method signature.
+       LOCAL_VARIABLE_NAME: Name assigned to a variable local to a method or block.
+       PACKAGE_SEGMENT_NAME: Name of one hierarchical package segment.
+       FILE_NAME_STEM: File name portion preceding its suffix or extension.
+       FILE_NAME_SUFFIX: File name suffix or extension used by the naming convention.
 
 
    .. py:attribute:: MAIN_CONTAINER_NAME

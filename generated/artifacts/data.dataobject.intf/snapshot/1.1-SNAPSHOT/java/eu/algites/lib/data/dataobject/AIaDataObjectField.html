@@ -83,7 +83,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>boolean</code></div>
 <div class="col-second even-row-color"><code><a href="#allowsNull()" class="member-name-link">allowsNull</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Declares whether the field accepts an explicit null value.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#defaultFactoryMethod()" class="member-name-link">defaultFactoryMethod</a></code></div>
 <div class="col-last odd-row-color">
@@ -91,22 +93,34 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#description()" class="member-name-link">description</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Returns the explanatory description of this declaration.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#name()" class="member-name-link">name</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Returns the original, stable field name used by the data schema.</div>
+</div>
 <div class="col-first even-row-color"><code>boolean</code></div>
 <div class="col-second even-row-color"><code><a href="#presenceRequired()" class="member-name-link">presenceRequired</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Reports whether a value must be present for this field.</div>
+</div>
 <div class="col-first odd-row-color"><code>boolean</code></div>
 <div class="col-second odd-row-color"><code><a href="#xmlAttribute()" class="member-name-link">xmlAttribute</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Reports whether the field is represented as an XML attribute.</div>
+</div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#xmlLocalName()" class="member-name-link">xmlLocalName</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Returns the configured XML local name, independently of its namespace.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#xmlNamespace()" class="member-name-link">xmlNamespace</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Returns the XML namespace associated with this schema or field.</div>
+</div>
 </div>
 </section>
 </li>
@@ -123,6 +137,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="name()">
 <h3>name</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">name</span></div>
+<div class="block">Returns the original, stable field name used by the data schema.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>""</dd>
@@ -133,6 +152,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="description()">
 <h3>description</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">description</span></div>
+<div class="block">Returns the explanatory description of this declaration.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>""</dd>
@@ -143,6 +167,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="presenceRequired()">
 <h3>presenceRequired</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">presenceRequired</span></div>
+<div class="block">Reports whether a value must be present for this field.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>false</dd>
@@ -153,6 +182,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="allowsNull()">
 <h3>allowsNull</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">allowsNull</span></div>
+<div class="block">Declares whether the field accepts an explicit null value.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>false</dd>
@@ -174,6 +208,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="xmlLocalName()">
 <h3>xmlLocalName</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">xmlLocalName</span></div>
+<div class="block">Returns the configured XML local name, independently of its namespace.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>""</dd>
@@ -184,6 +223,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="xmlNamespace()">
 <h3>xmlNamespace</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">xmlNamespace</span></div>
+<div class="block">Returns the XML namespace associated with this schema or field.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>""</dd>
@@ -194,6 +238,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="xmlAttribute()">
 <h3>xmlAttribute</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">xmlAttribute</span></div>
+<div class="block">Reports whether the field is represented as an XML attribute.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>false</dd>

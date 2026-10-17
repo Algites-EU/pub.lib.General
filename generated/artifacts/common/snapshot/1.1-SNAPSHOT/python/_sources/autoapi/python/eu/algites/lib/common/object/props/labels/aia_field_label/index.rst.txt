@@ -23,9 +23,20 @@ Module Contents
    (metadata={'AIaFieldLabel': AIaFieldLabel(...)}) / __field_labels__.
 
 
+   .. py:attribute:: DEFAULT_ROLE_CODE
+      :value: 'field.name'
+
+
+
    .. py:attribute:: label
       :type:  str
       :value: ''
+
+
+
+   .. py:attribute:: roleCode
+      :type:  str
+      :value: 'field.name'
 
 
 
@@ -89,6 +100,12 @@ Module Contents
 
       .. py:attribute:: label
          :type:  str
+
+
+      .. py:attribute:: roleCode
+         :type:  str
+         :value: 'field.name'
+
 
 
       .. py:attribute:: purpose

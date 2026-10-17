@@ -34,31 +34,51 @@
             
   <section id="module-python.eu.algites.lib.common.validation.aii_validatable">
 <span id="python-eu-algites-lib-common-validation-aii-validatable"></span><h1>python.eu.algites.lib.common.validation.aii_validatable<a class="headerlink" href="#module-python.eu.algites.lib.common.validation.aii_validatable" title="Link to this heading">¶</a></h1>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#python.eu.algites.lib.common.validation.aii_validatable.T" title="python.eu.algites.lib.common.validation.aii_validatable.T"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable" title="python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AIiValidatable</span></code></a></p></td>
-<td><p>Value that may be temporarily invalid while being assembled.</p></td>
+<td><p>A value that can be temporarily invalid while being assembled.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.validation.aii_validatable.T">
+<span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.common.validation.aii_validatable.</span></span><span class="sig-name descname"><span class="pre">T</span></span><a class="headerlink" href="#python.eu.algites.lib.common.validation.aii_validatable.T" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.common.validation.aii_validatable.</span></span><span class="sig-name descname"><span class="pre">AIiValidatable</span></span><a class="headerlink" href="#python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Value that may be temporarily invalid while being assembled.</p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Generic</span></code>[<a class="reference internal" href="#python.eu.algites.lib.common.validation.aii_validatable.T" title="python.eu.algites.lib.common.validation.aii_validatable.T"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code></a>]</p>
+<p>A value that can be temporarily invalid while being assembled.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable.isValid">
 <span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">isValid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable.isValid" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable.getValidationIssues">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">getValidationIssues</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#python.eu.algites.lib.common.validation.aii_validatable.T" title="python.eu.algites.lib.common.validation.aii_validatable.T"><span class="pre">T</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable.getValidationIssues" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable.getInvalidStateMessage">
-<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">getInvalidStateMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aLocale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable.getInvalidStateMessage" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getInvalidStateMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aLocale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable.getInvalidStateMessage" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

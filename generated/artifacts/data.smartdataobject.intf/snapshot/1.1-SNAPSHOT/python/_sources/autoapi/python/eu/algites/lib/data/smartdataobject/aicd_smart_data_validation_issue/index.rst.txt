@@ -17,7 +17,10 @@ Module Contents
 
 .. py:class:: AIcdSmartDataValidationIssue
 
-   One local or graph-path validation diagnostic.
+   Bases: :py:obj:`eu.algites.lib.data.smartdataobject.aii_sdo_validation_issue.AIiSdoValidationIssue`
+
+
+   Technical issue with optional owner metadata and nested diagnostic.
 
 
    .. py:attribute:: path
@@ -30,5 +33,41 @@ Module Contents
 
    .. py:attribute:: message
       :type:  str
+
+
+   .. py:attribute:: ownerType
+      :type:  type | None
+      :value: None
+
+
+
+   .. py:attribute:: propertyName
+      :type:  str | None
+      :value: None
+
+
+
+   .. py:attribute:: fieldDescription
+      :type:  str | None
+      :value: None
+
+
+
+   .. py:attribute:: nestedIssue
+      :type:  eu.algites.lib.common.validation.aii_validation_issue.AIiValidationIssue | None
+      :value: None
+
+
+
+   .. py:method:: getCode() -> str
+
+
+   .. py:method:: getPath() -> str
+
+
+   .. py:method:: getMessage(aLocale: str | None) -> str
+
+
+   .. py:method:: getRelatedTopicText(aTopicId: str, aLocale: str | None) -> str | None
 
 

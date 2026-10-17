@@ -121,11 +121,17 @@ implements <a href="../enums/AIiEnumItem.html" title="interface in eu.algites.li
 <div class="table-header col-first">Enum Constant</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code><a href="#CLOSED" class="member-name-link">CLOSED</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Inclusive interval endpoint; the boundary value is included.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="#OPEN" class="member-name-link">OPEN</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Exclusive interval endpoint; the boundary value is not included.</div>
+</div>
 <div class="col-first even-row-color"><code><a href="#UNBOUNDED" class="member-name-link">UNBOUNDED</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Missing interval endpoint; no boundary value is imposed.</div>
+</div>
 </div>
 </section>
 </li>
@@ -192,18 +198,21 @@ the order they are declared.</div>
 <section class="detail" id="OPEN">
 <h3>OPEN</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInIntervalBoundary.html" title="enum class in eu.algites.lib.common.interval">AInIntervalBoundary</a></span>&nbsp;<span class="element-name">OPEN</span></div>
+<div class="block">Exclusive interval endpoint; the boundary value is not included.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="CLOSED">
 <h3>CLOSED</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInIntervalBoundary.html" title="enum class in eu.algites.lib.common.interval">AInIntervalBoundary</a></span>&nbsp;<span class="element-name">CLOSED</span></div>
+<div class="block">Inclusive interval endpoint; the boundary value is included.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="UNBOUNDED">
 <h3>UNBOUNDED</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInIntervalBoundary.html" title="enum class in eu.algites.lib.common.interval">AInIntervalBoundary</a></span>&nbsp;<span class="element-name">UNBOUNDED</span></div>
+<div class="block">Missing interval endpoint; no boundary value is imposed.</div>
 </section>
 </li>
 </ul>
@@ -279,7 +288,6 @@ not permitted.)</div>
 <section class="detail" id="code()">
 <h3>code</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">code</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../enums/AIiEnumItem.html#code()">AIiEnumItem</a></code></span></div>
 <div class="block">Gets the code of the enum. It is the value, used for writing into databases
  or configuration files, the final code how the enum item is presented
  outside of the java classes.</div>

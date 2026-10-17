@@ -76,6 +76,14 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
+<dt>Record Components:</dt>
+<dd><code><span id="param-id">id</span></code> - stable identifier of the profile</dd>
+<dd><code><span id="param-formatType">formatType</span></code> - serialization syntax used by the profile</dd>
+<dd><code><span id="param-referenceEncoding">referenceEncoding</span></code> - encoding strategy used for shared references</dd>
+<dd><code><span id="param-diagnostic">diagnostic</span></code> - whether this profile is intended for diagnostic output</dd>
+<dd><code><span id="param-supportedModes">supportedModes</span></code> - reference modes supported by the profile</dd>
+</dl>
+<dl class="notes">
 <dt>All Implemented Interfaces:</dt>
 <dd><code><a href="AIiTextFormatProfile.html" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a></code></dd>
 </dl>
@@ -101,7 +109,7 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
  boolean&nbsp;diagnostic,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a>&gt;&nbsp;supportedModes)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Creates an instance of a <code>AIcdTextFormatProfile</code> record class.</div>
+<div class="block">Creates an immutable text formatting profile and its supported reference modes.</div>
 </div>
 </div>
 </section>
@@ -120,7 +128,7 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#diagnostic()" class="member-name-link">diagnostic</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>diagnostic</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-diagnostic"><code>diagnostic</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></div>
@@ -130,17 +138,23 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AInTextFormatType.html" title="enum class in eu.algites.lib.text.format">AInTextFormatType</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#formatType()" class="member-name-link">formatType</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>formatType</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-formatType"><code>formatType</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AInTextFormatType.html" title="enum class in eu.algites.lib.text.format">AInTextFormatType</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFormatType()" class="member-name-link">getFormatType</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the format type.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getId()" class="member-name-link">getId</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the id.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getReferenceEncoding()" class="member-name-link">getReferenceEncoding</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the reference encoding.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -149,23 +163,27 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#id()" class="member-name-link">id</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>id</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-id"><code>id</code></a> record component.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isDiagnostic()" class="member-name-link">isDiagnostic</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks whether diagnostic is enabled or present.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isReferenceModeSupported(eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)" class="member-name-link">isReferenceModeSupported</a><wbr>(<a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a>&nbsp;aMode)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks whether reference mode supported is enabled or present.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#referenceEncoding()" class="member-name-link">referenceEncoding</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>referenceEncoding</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-referenceEncoding"><code>referenceEncoding</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#supportedModes()" class="member-name-link">supportedModes</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>supportedModes</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-supportedModes"><code>supportedModes</code></a> record component.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
@@ -197,14 +215,14 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
  <a href="AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a>&nbsp;referenceEncoding,
  boolean&nbsp;diagnostic,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a>&gt;&nbsp;supportedModes)</span></div>
-<div class="block">Creates an instance of a <code>AIcdTextFormatProfile</code> record class.</div>
+<div class="block">Creates an immutable text formatting profile and its supported reference modes.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>id</code> - the value for the <code>id</code> record component</dd>
-<dd><code>formatType</code> - the value for the <code>formatType</code> record component</dd>
-<dd><code>referenceEncoding</code> - the value for the <code>referenceEncoding</code> record component</dd>
-<dd><code>diagnostic</code> - the value for the <code>diagnostic</code> record component</dd>
-<dd><code>supportedModes</code> - the value for the <code>supportedModes</code> record component</dd>
+<dd><code>id</code> - id supplied to the operation</dd>
+<dd><code>formatType</code> - format type supplied to the operation</dd>
+<dd><code>referenceEncoding</code> - reference encoding supplied to the operation</dd>
+<dd><code>diagnostic</code> - diagnostic supplied to the operation</dd>
+<dd><code>supportedModes</code> - supported modes supplied to the operation</dd>
 </dl>
 </section>
 </li>
@@ -220,9 +238,12 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <section class="detail" id="getId()">
 <h3>getId</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getId</span>()</div>
+<div class="block">Returns the id.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="AIiTextFormatProfile.html#getId()">getId</a></code>&nbsp;in interface&nbsp;<code><a href="AIiTextFormatProfile.html" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a></code></dd>
+<dt>Returns:</dt>
+<dd>the id</dd>
 </dl>
 </section>
 </li>
@@ -230,9 +251,12 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <section class="detail" id="getFormatType()">
 <h3>getFormatType</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AInTextFormatType.html" title="enum class in eu.algites.lib.text.format">AInTextFormatType</a></span>&nbsp;<span class="element-name">getFormatType</span>()</div>
+<div class="block">Returns the format type.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="AIiTextFormatProfile.html#getFormatType()">getFormatType</a></code>&nbsp;in interface&nbsp;<code><a href="AIiTextFormatProfile.html" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a></code></dd>
+<dt>Returns:</dt>
+<dd>the format type</dd>
 </dl>
 </section>
 </li>
@@ -240,9 +264,12 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <section class="detail" id="getReferenceEncoding()">
 <h3>getReferenceEncoding</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a></span>&nbsp;<span class="element-name">getReferenceEncoding</span>()</div>
+<div class="block">Returns the reference encoding.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="AIiTextFormatProfile.html#getReferenceEncoding()">getReferenceEncoding</a></code>&nbsp;in interface&nbsp;<code><a href="AIiTextFormatProfile.html" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a></code></dd>
+<dt>Returns:</dt>
+<dd>the reference encoding</dd>
 </dl>
 </section>
 </li>
@@ -250,9 +277,12 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <section class="detail" id="isDiagnostic()">
 <h3>isDiagnostic</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isDiagnostic</span>()</div>
+<div class="block">Checks whether diagnostic is enabled or present.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="AIiTextFormatProfile.html#isDiagnostic()">isDiagnostic</a></code>&nbsp;in interface&nbsp;<code><a href="AIiTextFormatProfile.html" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a></code></dd>
+<dt>Returns:</dt>
+<dd>the diagnostic</dd>
 </dl>
 </section>
 </li>
@@ -260,9 +290,14 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <section class="detail" id="isReferenceModeSupported(eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)">
 <h3>isReferenceModeSupported</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isReferenceModeSupported</span><wbr><span class="parameters">(<a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a>&nbsp;aMode)</span></div>
+<div class="block">Checks whether reference mode supported is enabled or present.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="AIiTextFormatProfile.html#isReferenceModeSupported(eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)">isReferenceModeSupported</a></code>&nbsp;in interface&nbsp;<code><a href="AIiTextFormatProfile.html" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>aMode</code> - mode supplied to the operation</dd>
+<dt>Returns:</dt>
+<dd>the reference mode supported</dd>
 </dl>
 </section>
 </li>
@@ -311,10 +346,10 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <section class="detail" id="id()">
 <h3>id</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">id</span>()</div>
-<div class="block">Returns the value of the <code>id</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-id"><code>id</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>id</code> record component</dd>
+<dd>the value of the <a href="#param-id"><code>id</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -322,10 +357,10 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <section class="detail" id="formatType()">
 <h3>formatType</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AInTextFormatType.html" title="enum class in eu.algites.lib.text.format">AInTextFormatType</a></span>&nbsp;<span class="element-name">formatType</span>()</div>
-<div class="block">Returns the value of the <code>formatType</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-formatType"><code>formatType</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>formatType</code> record component</dd>
+<dd>the value of the <a href="#param-formatType"><code>formatType</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -333,10 +368,10 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <section class="detail" id="referenceEncoding()">
 <h3>referenceEncoding</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a></span>&nbsp;<span class="element-name">referenceEncoding</span>()</div>
-<div class="block">Returns the value of the <code>referenceEncoding</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-referenceEncoding"><code>referenceEncoding</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>referenceEncoding</code> record component</dd>
+<dd>the value of the <a href="#param-referenceEncoding"><code>referenceEncoding</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -344,10 +379,10 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <section class="detail" id="diagnostic()">
 <h3>diagnostic</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">diagnostic</span>()</div>
-<div class="block">Returns the value of the <code>diagnostic</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-diagnostic"><code>diagnostic</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>diagnostic</code> record component</dd>
+<dd>the value of the <a href="#param-diagnostic"><code>diagnostic</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -355,10 +390,10 @@ implements <a href="AIiTextFormatProfile.html" title="interface in eu.algites.li
 <section class="detail" id="supportedModes()">
 <h3>supportedModes</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a>&gt;</span>&nbsp;<span class="element-name">supportedModes</span>()</div>
-<div class="block">Returns the value of the <code>supportedModes</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-supportedModes"><code>supportedModes</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>supportedModes</code> record component</dd>
+<dd>the value of the <a href="#param-supportedModes"><code>supportedModes</code></a> record component</dd>
 </dl>
 </section>
 </li>

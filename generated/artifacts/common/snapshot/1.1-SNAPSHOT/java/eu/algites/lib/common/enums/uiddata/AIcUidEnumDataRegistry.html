@@ -101,7 +101,9 @@ implements <a href="AIiUidEnumDataRegistry.html" title="interface in eu.algites.
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>protected </code></div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">AIcUidEnumDataRegistry</a>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates a uid enum data registry instance.</div>
+</div>
 </div>
 </section>
 </li>
@@ -202,6 +204,7 @@ DT&gt;&gt;<br><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.b
 <section class="detail" id="&lt;init&gt;()">
 <h3>AIcUidEnumDataRegistry</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="element-name">AIcUidEnumDataRegistry</span>()</div>
+<div class="block">Creates a uid enum data registry instance.</div>
 </section>
 </li>
 </ul>
@@ -237,7 +240,6 @@ DT&gt;&gt;</span>
  boolean&nbsp;aOverwriteExisting,
  T...&nbsp;aDataToRegister)</span>
               throws <span class="exceptions"><a href="AIxEnumDataRegistryIllegalOperationException.html" title="class in eu.algites.lib.common.enums.uiddata">AIxEnumDataRegistryIllegalOperationException</a></span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="AIiUidEnumDataRegistry.html#registerData(boolean,boolean,boolean,T...)">AIiUidEnumDataRegistry</a></code></span></div>
 <div class="block">Registers the given data items.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
@@ -272,7 +274,6 @@ T extends <a href="AIiUidEnumData.html" title="interface in eu.algites.lib.commo
 DT&gt;&gt;</span>
 <span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;T&gt;</span>&nbsp;<span class="element-name">releaseData</span><wbr><span class="parameters">(T...&nbsp;aDataToRelease)</span>
              throws <span class="exceptions"><a href="AIxEnumDataRegistryIllegalOperationException.html" title="class in eu.algites.lib.common.enums.uiddata">AIxEnumDataRegistryIllegalOperationException</a></span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="AIiUidEnumDataRegistry.html#releaseData(T...)">AIiUidEnumDataRegistry</a></code></span></div>
 <div class="block">Releases the given data items.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
@@ -300,7 +301,6 @@ DT&gt;&gt;</span>
 <span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;T&gt;</span>&nbsp;<span class="element-name">releaseData</span><wbr><span class="parameters">(DT&nbsp;aDataType,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;aUidToRelease)</span>
              throws <span class="exceptions"><a href="AIxEnumDataRegistryIllegalOperationException.html" title="class in eu.algites.lib.common.enums.uiddata">AIxEnumDataRegistryIllegalOperationException</a></span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="AIiUidEnumDataRegistry.html#releaseData(DT,java.lang.String...)">AIiUidEnumDataRegistry</a></code></span></div>
 <div class="block">Releases the data items of the given data type for the given UIDs.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
@@ -328,7 +328,6 @@ T extends <a href="AIiUidEnumData.html" title="interface in eu.algites.lib.commo
 DT&gt;&gt;</span>
 <span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;T&gt;</span>&nbsp;<span class="element-name">findByUid</span><wbr><span class="parameters">(DT&nbsp;aDataType,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aUid)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="AIiUidEnumDataRegistry.html#findByUid(DT,java.lang.String)">AIiUidEnumDataRegistry</a></code></span></div>
 <div class="block">Finds the data item by UID.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
@@ -355,7 +354,6 @@ DT&gt;&gt;</span>
 <span class="return-type">T</span>&nbsp;<span class="element-name">getOrThrow</span><wbr><span class="parameters">(DT&nbsp;aDataType,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aUid)</span>
       throws <span class="exceptions"><a href="AIxEnumDataRegistryItemNotFoundException.html" title="class in eu.algites.lib.common.enums.uiddata">AIxEnumDataRegistryItemNotFoundException</a></span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="AIiUidEnumDataRegistry.html#getOrThrow(DT,java.lang.String)">AIiUidEnumDataRegistry</a></code></span></div>
 <div class="block">Gets the data item by UID.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
@@ -382,7 +380,6 @@ T extends <a href="AIiUidEnumData.html" title="interface in eu.algites.lib.commo
 ?,<wbr>
 DT&gt;&gt;</span>
 <span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;T&gt;</span>&nbsp;<span class="element-name">items</span><wbr><span class="parameters">(DT&nbsp;aDataType)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="AIiUidEnumDataRegistry.html#items(DT)">AIiUidEnumDataRegistry</a></code></span></div>
 <div class="block">Gets all data items of the given data type.</div>
 <dl class="notes">
 <dt>Specified by:</dt>

@@ -39,7 +39,7 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue" title="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AIcdSmartDataValidationIssue</span></code></a></p></td>
-<td><p>One local or graph-path validation diagnostic.</p></td>
+<td><p>Technical issue with optional owner metadata and nested diagnostic.</p></td>
 </tr>
 </tbody>
 </table>
@@ -49,7 +49,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.</span></span><span class="sig-name descname"><span class="pre">AIcdSmartDataValidationIssue</span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue" title="Link to this definition">¶</a></dt>
-<dd><p>One local or graph-path validation diagnostic.</p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">eu.algites.lib.data.smartdataobject.aii_sdo_validation_issue.AIiSdoValidationIssue</span></code></p>
+<p>Technical issue with optional owner metadata and nested diagnostic.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.path">
 <span class="sig-name descname"><span class="pre">path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.path" title="Link to this definition">¶</a></dt>
@@ -63,6 +64,46 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.message">
 <span class="sig-name descname"><span class="pre">message</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.message" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.ownerType">
+<span class="sig-name descname"><span class="pre">ownerType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">type</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.ownerType" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.propertyName">
+<span class="sig-name descname"><span class="pre">propertyName</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.propertyName" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.fieldDescription">
+<span class="sig-name descname"><span class="pre">fieldDescription</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.fieldDescription" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.nestedIssue">
+<span class="sig-name descname"><span class="pre">nestedIssue</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">eu.algites.lib.common.validation.aii_validation_issue.AIiValidationIssue</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.nestedIssue" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.getCode">
+<span class="sig-name descname"><span class="pre">getCode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.getCode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.getPath">
+<span class="sig-name descname"><span class="pre">getPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.getPath" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.getMessage">
+<span class="sig-name descname"><span class="pre">getMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aLocale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.getMessage" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.getRelatedTopicText">
+<span class="sig-name descname"><span class="pre">getRelatedTopicText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aTopicId</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aLocale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue.getRelatedTopicText" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

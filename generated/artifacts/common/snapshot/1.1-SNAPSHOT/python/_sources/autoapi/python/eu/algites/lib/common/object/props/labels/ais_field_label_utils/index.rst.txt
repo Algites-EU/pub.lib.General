@@ -17,7 +17,7 @@ Module Contents
 
 .. py:class:: AIsFieldLabelUtils
 
-   .. py:method:: findLabel(aOwnerClass: type, aPropertyName: str, aRenderingOutputPurpose=None, aRenderingOutputFormat=None, aRenderingOutputLocale=None) -> str
+   .. py:method:: findLabel(aOwnerClass: type, aPropertyName: str, aRenderingOutputPurpose=None, aRenderingOutputFormat=None, aRenderingOutputLocale=None, aRoleCode: str = AIaFieldLabel.DEFAULT_ROLE_CODE) -> str | None
       :staticmethod:
 
 

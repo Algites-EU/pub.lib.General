@@ -1,0 +1,45 @@
+python.eu.algites.lib.common.validation.aii_validation_issue
+============================================================
+
+.. py:module:: python.eu.algites.lib.common.validation.aii_validation_issue
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.validation.aii_validation_issue.AIiValidationIssue
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiValidationIssue
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   Locale None selects technical text; unknown non-None locales fall back to English.
+
+
+   .. py:method:: getCode() -> str
+      :abstractmethod:
+
+
+
+   .. py:method:: getPath() -> str
+      :abstractmethod:
+
+
+
+   .. py:method:: getMessage(aLocale: str | None) -> str
+      :abstractmethod:
+
+
+
+   .. py:method:: getRelatedTopicText(aTopicId: str, aLocale: str | None) -> str | None
+      :abstractmethod:
+
+
+

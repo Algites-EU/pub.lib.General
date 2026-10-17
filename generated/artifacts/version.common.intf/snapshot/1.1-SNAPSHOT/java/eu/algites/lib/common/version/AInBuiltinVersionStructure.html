@@ -114,13 +114,21 @@ implements <a href="AIiVersionStructure.html" title="interface in eu.algites.lib
 <div class="table-header col-first">Enum Constant</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code><a href="#BUILD_AFTER_PLUS_IGNORED" class="member-name-link">BUILD_AFTER_PLUS_IGNORED</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Build metadata after a plus sign, excluded from ordering.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="#BUILD_AFTER_PLUS_ORDERED" class="member-name-link">BUILD_AFTER_PLUS_ORDERED</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Build metadata after a plus sign, included in ordering.</div>
+</div>
 <div class="col-first even-row-color"><code><a href="#BUILD_BEFORE_PLUS_IGNORED" class="member-name-link">BUILD_BEFORE_PLUS_IGNORED</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Build component before the plus delimiter, excluded from ordering.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="#NO_BUILD" class="member-name-link">NO_BUILD</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Version layout without a separate build component.</div>
+</div>
 </div>
 </section>
 </li>
@@ -137,7 +145,7 @@ implements <a href="AIiVersionStructure.html" title="interface in eu.algites.lib
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AInVersionBuildComparisonPolicy.html" title="enum class in eu.algites.lib.common.version">AInVersionBuildComparisonPolicy</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buildComparisonPolicy()" class="member-name-link">buildComparisonPolicy</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#buildDelimiter()" class="member-name-link">buildDelimiter</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -145,7 +153,7 @@ implements <a href="AIiVersionStructure.html" title="interface in eu.algites.lib
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#code()" class="member-name-link">code</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="AInBuiltinVersionStructure.html" title="enum class in eu.algites.lib.common.version">AInBuiltinVersionStructure</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#valueOf(java.lang.String)" class="member-name-link">valueOf</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
@@ -159,7 +167,7 @@ the order they are declared.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#versionBeforeBuild()" class="member-name-link">versionBeforeBuild</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
 </div>
 </div>
 </div>
@@ -187,24 +195,28 @@ the order they are declared.</div>
 <section class="detail" id="NO_BUILD">
 <h3>NO_BUILD</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInBuiltinVersionStructure.html" title="enum class in eu.algites.lib.common.version">AInBuiltinVersionStructure</a></span>&nbsp;<span class="element-name">NO_BUILD</span></div>
+<div class="block">Version layout without a separate build component.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="BUILD_AFTER_PLUS_IGNORED">
 <h3>BUILD_AFTER_PLUS_IGNORED</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInBuiltinVersionStructure.html" title="enum class in eu.algites.lib.common.version">AInBuiltinVersionStructure</a></span>&nbsp;<span class="element-name">BUILD_AFTER_PLUS_IGNORED</span></div>
+<div class="block">Build metadata after a plus sign, excluded from ordering.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="BUILD_AFTER_PLUS_ORDERED">
 <h3>BUILD_AFTER_PLUS_ORDERED</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInBuiltinVersionStructure.html" title="enum class in eu.algites.lib.common.version">AInBuiltinVersionStructure</a></span>&nbsp;<span class="element-name">BUILD_AFTER_PLUS_ORDERED</span></div>
+<div class="block">Build metadata after a plus sign, included in ordering.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="BUILD_BEFORE_PLUS_IGNORED">
 <h3>BUILD_BEFORE_PLUS_IGNORED</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AInBuiltinVersionStructure.html" title="enum class in eu.algites.lib.common.version">AInBuiltinVersionStructure</a></span>&nbsp;<span class="element-name">BUILD_BEFORE_PLUS_IGNORED</span></div>
+<div class="block">Build component before the plus delimiter, excluded from ordering.</div>
 </section>
 </li>
 </ul>
@@ -273,7 +285,6 @@ not permitted.)</div>
 <h3>buildDelimiter</h3>
 <div class="member-signature"><span class="annotations">@Nonnull
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">buildDelimiter</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="AIiVersionStructure.html#buildDelimiter()">AIiVersionStructure</a></code></span></div>
 <div class="block">Build delimiter separating the precedence-relevant version part and the build-identification part.
  <p>
  An empty delimiter means that the scheme does not use a dedicated build-identification section.

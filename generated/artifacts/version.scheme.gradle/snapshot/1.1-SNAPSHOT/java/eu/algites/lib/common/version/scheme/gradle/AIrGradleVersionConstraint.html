@@ -76,6 +76,13 @@ loadScripts(document, 'script');</script>
 </div>
 </div>
 <section class="class-description" id="class-description">
+<dl class="notes">
+<dt>Record Components:</dt>
+<dd><code><span id="param-require">require</span></code> - required version constraint, when specified</dd>
+<dd><code><span id="param-strictly">strictly</span></code> - strict version requirement, when specified</dd>
+<dd><code><span id="param-prefer">prefer</span></code> - preferred version, when specified</dd>
+<dd><code><span id="param-reject">reject</span></code> - versions excluded by this requirement</dd>
+</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">AIrGradleVersionConstraint</span>(@Nullable <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;require, @Nullable <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;strictly, @Nullable <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;prefer, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;reject)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
@@ -96,7 +103,7 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;prefer,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;reject)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Creates an instance of a <code>AIrGradleVersionConstraint</code> record class.</div>
+<div class="block">Normalizes a Gradle rich version constraint, retaining its exclusion list.</div>
 </div>
 </div>
 </section>
@@ -125,25 +132,27 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#prefer()" class="member-name-link">prefer</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>prefer</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-prefer"><code>prefer</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#reject()" class="member-name-link">reject</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>reject</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-reject"><code>reject</code></a> record component.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#require()" class="member-name-link">require</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>require</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-require"><code>require</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="AIrGradleVersionConstraint.html" title="class in eu.algites.lib.common.version.scheme.gradle">AIrGradleVersionConstraint</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#require(java.lang.String)" class="member-name-link">require</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aRequire)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Creates a Gradle requirement with the supplied mandatory version constraint.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#strictly()" class="member-name-link">strictly</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>strictly</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-strictly"><code>strictly</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
@@ -177,13 +186,13 @@ loadScripts(document, 'script');</script>
  @Nullable
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;prefer,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;reject)</span></div>
-<div class="block">Creates an instance of a <code>AIrGradleVersionConstraint</code> record class.</div>
+<div class="block">Normalizes a Gradle rich version constraint, retaining its exclusion list.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>require</code> - the value for the <code>require</code> record component</dd>
-<dd><code>strictly</code> - the value for the <code>strictly</code> record component</dd>
-<dd><code>prefer</code> - the value for the <code>prefer</code> record component</dd>
-<dd><code>reject</code> - the value for the <code>reject</code> record component</dd>
+<dd><code>require</code> - require supplied to the operation</dd>
+<dd><code>strictly</code> - strictly supplied to the operation</dd>
+<dd><code>prefer</code> - prefer supplied to the operation</dd>
+<dd><code>reject</code> - reject supplied to the operation</dd>
 </dl>
 </section>
 </li>
@@ -199,6 +208,13 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="require(java.lang.String)">
 <h3>require</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="AIrGradleVersionConstraint.html" title="class in eu.algites.lib.common.version.scheme.gradle">AIrGradleVersionConstraint</a></span>&nbsp;<span class="element-name">require</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aRequire)</span></div>
+<div class="block">Creates a Gradle requirement with the supplied mandatory version constraint.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aRequire</code> - require supplied to the operation</dd>
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -247,10 +263,10 @@ loadScripts(document, 'script');</script>
 <h3>require</h3>
 <div class="member-signature"><span class="annotations">@Nullable
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">require</span>()</div>
-<div class="block">Returns the value of the <code>require</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-require"><code>require</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>require</code> record component</dd>
+<dd>the value of the <a href="#param-require"><code>require</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -259,10 +275,10 @@ loadScripts(document, 'script');</script>
 <h3>strictly</h3>
 <div class="member-signature"><span class="annotations">@Nullable
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">strictly</span>()</div>
-<div class="block">Returns the value of the <code>strictly</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-strictly"><code>strictly</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>strictly</code> record component</dd>
+<dd>the value of the <a href="#param-strictly"><code>strictly</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -271,10 +287,10 @@ loadScripts(document, 'script');</script>
 <h3>prefer</h3>
 <div class="member-signature"><span class="annotations">@Nullable
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">prefer</span>()</div>
-<div class="block">Returns the value of the <code>prefer</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-prefer"><code>prefer</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>prefer</code> record component</dd>
+<dd>the value of the <a href="#param-prefer"><code>prefer</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -282,10 +298,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="reject()">
 <h3>reject</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">reject</span>()</div>
-<div class="block">Returns the value of the <code>reject</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-reject"><code>reject</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>reject</code> record component</dd>
+<dd>the value of the <a href="#param-reject"><code>reject</code></a> record component</dd>
 </dl>
 </section>
 </li>

@@ -94,19 +94,29 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#baseVersionText()" class="member-name-link">baseVersionText</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the base version text without prerelease or snapshot qualifiers.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="AInAlgitesVersionQualifierKindV1.html" title="enum class in eu.algites.lib.common.version.scheme.algites.v1">AInAlgitesVersionQualifierKindV1</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#qualifierKind()" class="member-name-link">qualifierKind</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the classification of the Algites version qualifier.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#qualifierSequence()" class="member-name-link">qualifierSequence</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the sequence number of a snapshot or release candidate, when present.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#releaseLineVersion()" class="member-name-link">releaseLineVersion</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Releases line version from the corresponding registry.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#revision()" class="member-name-link">revision</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the revision number within the release line.</div>
+</div>
 </div>
 </div>
 </div>
@@ -126,12 +136,22 @@ loadScripts(document, 'script');</script>
 <h3>releaseLineVersion</h3>
 <div class="member-signature"><span class="annotations">@Nonnull
 </span><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">releaseLineVersion</span>()</div>
+<div class="block">Releases line version from the corresponding registry.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="revision()">
 <h3>revision</h3>
 <div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">revision</span>()</div>
+<div class="block">Returns the revision number within the release line.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -139,6 +159,11 @@ loadScripts(document, 'script');</script>
 <h3>qualifierKind</h3>
 <div class="member-signature"><span class="annotations">@Nonnull
 </span><span class="return-type"><a href="AInAlgitesVersionQualifierKindV1.html" title="enum class in eu.algites.lib.common.version.scheme.algites.v1">AInAlgitesVersionQualifierKindV1</a></span>&nbsp;<span class="element-name">qualifierKind</span>()</div>
+<div class="block">Returns the classification of the Algites version qualifier.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -146,6 +171,11 @@ loadScripts(document, 'script');</script>
 <h3>qualifierSequence</h3>
 <div class="member-signature"><span class="annotations">@Nullable
 </span><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a></span>&nbsp;<span class="element-name">qualifierSequence</span>()</div>
+<div class="block">Returns the sequence number of a snapshot or release candidate, when present.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -153,6 +183,11 @@ loadScripts(document, 'script');</script>
 <h3>baseVersionText</h3>
 <div class="member-signature"><span class="annotations">@Nonnull
 </span><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">baseVersionText</span>()</div>
+<div class="block">Returns the base version text without prerelease or snapshot qualifiers.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 </section>
 </li>
 </ul>

@@ -114,7 +114,9 @@ implements <a href="AIiVersionCodec.html" title="interface in eu.algites.lib.com
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static final <a href="AIcDefaultVersionCodec.html" title="class in eu.algites.lib.common.version">AIcDefaultVersionCodec</a></code></div>
 <div class="col-second even-row-color"><code><a href="#INSTANCE" class="member-name-link">INSTANCE</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Shared immutable instance of the default version codec implementation.</div>
+</div>
 </div>
 </section>
 </li>
@@ -127,7 +129,9 @@ implements <a href="AIiVersionCodec.html" title="interface in eu.algites.lib.com
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(eu.algites.lib.common.version.AIiVersionFormatter)" class="member-name-link">AIcDefaultVersionCodec</a><wbr>(<a href="AIiVersionFormatter.html" title="interface in eu.algites.lib.common.version">AIiVersionFormatter</a>&nbsp;aVersionFormatter)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates a default version codec instance with the supplied configuration.</div>
+</div>
 </div>
 </section>
 </li>
@@ -179,6 +183,7 @@ implements <a href="AIiVersionCodec.html" title="interface in eu.algites.lib.com
 <h3>INSTANCE</h3>
 <div class="member-signature"><span class="annotations">@Nonnull
 </span><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="AIcDefaultVersionCodec.html" title="class in eu.algites.lib.common.version">AIcDefaultVersionCodec</a></span>&nbsp;<span class="element-name">INSTANCE</span></div>
+<div class="block">Shared immutable instance of the default version codec implementation.</div>
 </section>
 </li>
 </ul>
@@ -194,6 +199,11 @@ implements <a href="AIiVersionCodec.html" title="interface in eu.algites.lib.com
 <h3>AIcDefaultVersionCodec</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AIcDefaultVersionCodec</span><wbr><span class="parameters">(@Nonnull
  <a href="AIiVersionFormatter.html" title="interface in eu.algites.lib.common.version">AIiVersionFormatter</a>&nbsp;aVersionFormatter)</span></div>
+<div class="block">Creates a default version codec instance with the supplied configuration.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aVersionFormatter</code> - formatter used to render version text</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -212,7 +222,6 @@ implements <a href="AIiVersionCodec.html" title="interface in eu.algites.lib.com
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aVersionText,
  @Nonnull
  <a href="AIiVersionScheme.html" title="interface in eu.algites.lib.common.version">AIiVersionScheme</a>&nbsp;aScheme)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="AIiVersionCodec.html#parseVersion(java.lang.String,eu.algites.lib.common.version.AIiVersionScheme)">AIiVersionCodec</a></code></span></div>
 <div class="block">Parses a version text into <a href="AIcVersion.html" title="class in eu.algites.lib.common.version"><code>AIcVersion</code></a>.
  <p>
  Parsing is intentionally tolerant - the scheme mainly influences subsequent comparison and formatting.
@@ -236,7 +245,6 @@ implements <a href="AIiVersionCodec.html" title="interface in eu.algites.lib.com
  <a href="AIcVersion.html" title="class in eu.algites.lib.common.version">AIcVersion</a>&nbsp;aVersion,
  @Nonnull
  <a href="AIiVersionScheme.html" title="interface in eu.algites.lib.common.version">AIiVersionScheme</a>&nbsp;aScheme)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="AIiVersionCodec.html#formatVersionText(eu.algites.lib.common.version.AIcVersion,eu.algites.lib.common.version.AIiVersionScheme)">AIiVersionCodec</a></code></span></div>
 <div class="block">Formats a version into a string according to the given scheme.</div>
 <dl class="notes">
 <dt>Specified by:</dt>

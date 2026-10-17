@@ -39,13 +39,13 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#annotation-interface-optional-element-summary">Optional</a>&nbsp;|&nbsp;</li>
 <li>Required</li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#annotation-interface-element-detail">Element</a></li>
 </ul>
 </div>
@@ -127,13 +127,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code><a href="../../rendering/AInRenderingOutputBuiltinFormat.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinFormat</a></code></div>
 <div class="col-second even-row-color"><code><a href="#format()" class="member-name-link">format</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Formats  using the configured formatting rules.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#formatCode()" class="member-name-link">formatCode</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Formats code using the configured formatting rules.</div>
+</div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputFormatResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputFormatResolver</a>&gt;</code></div>
 <div class="col-second even-row-color"><code><a href="#formatResolver()" class="member-name-link">formatResolver</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Formats resolver using the configured formatting rules.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#label()" class="member-name-link">label</a></code></div>
 <div class="col-last odd-row-color">
@@ -151,19 +157,51 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#localeCode()" class="member-name-link">localeCode</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Returns the explicitly configured locale code, or an empty value for the default.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputLocaleResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputLocaleResolver</a>&gt;</code></div>
 <div class="col-second odd-row-color"><code><a href="#localeResolver()" class="member-name-link">localeResolver</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Returns the resolver used to determine the effective output locale.</div>
+</div>
 <div class="col-first even-row-color"><code><a href="../../rendering/AInRenderingOutputBuiltinPurpose.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinPurpose</a></code></div>
 <div class="col-second even-row-color"><code><a href="#purpose()" class="member-name-link">purpose</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Returns the built-in rendering purpose associated with this label.</div>
+</div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#purposeCode()" class="member-name-link">purposeCode</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Returns an optional custom rendering purpose code.</div>
+</div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputPurposeResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputPurposeResolver</a>&gt;</code></div>
 <div class="col-second even-row-color"><code><a href="#purposeResolver()" class="member-name-link">purposeResolver</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Returns the resolver used to select the rendering purpose.</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#roleCode()" class="member-name-link">roleCode</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">The semantic role of the primary label (not a rendering purpose).</div>
+</div>
+</div>
+</section>
+</li>
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="caption"><span>Fields</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#DEFAULT_ROLE_CODE" class="member-name-link">DEFAULT_ROLE_CODE</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Default role used by pre-existing field title annotations.</div>
+</div>
 </div>
 </section>
 </li>
@@ -171,11 +209,45 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details" id="annotation-interface-element-detail">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="DEFAULT_ROLE_CODE">
+<h3>DEFAULT_ROLE_CODE</h3>
+<div class="member-signature"><span class="modifiers">static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">DEFAULT_ROLE_CODE</span></div>
+<div class="block">Default role used by pre-existing field title annotations.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../../../../../constant-values.html#eu.algites.lib.common.object.props.labels.AIaFieldLabel.DEFAULT_ROLE_CODE">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ============ ANNOTATION INTERFACE MEMBER DETAIL =========== -->
 <li>
 <section class="member-details">
 <h2>Element Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="roleCode()">
+<h3>roleCode</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">roleCode</span></div>
+<div class="block">The semantic role of the primary label (not a rendering purpose).</div>
+<dl class="notes">
+<dt>Default:</dt>
+<dd>"field.name"</dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="label()">
 <h3>label</h3>
@@ -227,6 +299,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="purpose()">
 <h3>purpose</h3>
 <div class="member-signature"><span class="return-type"><a href="../../rendering/AInRenderingOutputBuiltinPurpose.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinPurpose</a></span>&nbsp;<span class="element-name">purpose</span></div>
+<div class="block">Returns the built-in rendering purpose associated with this label.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>DEFAULT</dd>
@@ -237,6 +314,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="purposeCode()">
 <h3>purposeCode</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">purposeCode</span></div>
+<div class="block">Returns an optional custom rendering purpose code.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>""</dd>
@@ -247,6 +329,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="purposeResolver()">
 <h3>purposeResolver</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputPurposeResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputPurposeResolver</a>&gt;</span>&nbsp;<span class="element-name">purposeResolver</span></div>
+<div class="block">Returns the resolver used to select the rendering purpose.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>eu.algites.lib.common.object.props.labels.AIaFieldLabel.NoPurposeResolver.class</dd>
@@ -257,6 +344,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="format()">
 <h3>format</h3>
 <div class="member-signature"><span class="return-type"><a href="../../rendering/AInRenderingOutputBuiltinFormat.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinFormat</a></span>&nbsp;<span class="element-name">format</span></div>
+<div class="block">Formats  using the configured formatting rules.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the format</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>DEFAULT</dd>
@@ -267,6 +359,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="formatCode()">
 <h3>formatCode</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">formatCode</span></div>
+<div class="block">Formats code using the configured formatting rules.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the format code</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>""</dd>
@@ -277,6 +374,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="formatResolver()">
 <h3>formatResolver</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputFormatResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputFormatResolver</a>&gt;</span>&nbsp;<span class="element-name">formatResolver</span></div>
+<div class="block">Formats resolver using the configured formatting rules.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the format resolver</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>eu.algites.lib.common.object.props.labels.AIaFieldLabel.NoFormatResolver.class</dd>
@@ -287,6 +389,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="localeCode()">
 <h3>localeCode</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">localeCode</span></div>
+<div class="block">Returns the explicitly configured locale code, or an empty value for the default.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>""</dd>
@@ -297,6 +404,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="localeResolver()">
 <h3>localeResolver</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputLocaleResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputLocaleResolver</a>&gt;</span>&nbsp;<span class="element-name">localeResolver</span></div>
+<div class="block">Returns the resolver used to determine the effective output locale.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>eu.algites.lib.common.object.props.labels.AIaFieldLabel.NoLocaleResolver.class</dd>

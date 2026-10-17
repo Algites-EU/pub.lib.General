@@ -75,6 +75,11 @@ loadScripts(document, 'script');</script>
 </div>
 </div>
 <section class="class-description" id="class-description">
+<dl class="notes">
+<dt>Record Components:</dt>
+<dd><code><span id="param-requirement">requirement</span></code> - normalized version requirement</dd>
+<dd><code><span id="param-informationMessages">informationMessages</span></code> - informational messages generated while normalizing</dd>
+</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">AIrVersionRequirementNormalization</span>(@Nonnull <a href="AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a>&nbsp;requirement, @Nonnull <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;informationMessages)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
@@ -93,7 +98,7 @@ loadScripts(document, 'script');</script>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(eu.algites.lib.common.version.AIiVersionRequirement,java.util.List)" class="member-name-link">AIrVersionRequirementNormalization</a><wbr>(<a href="AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a>&nbsp;requirement,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;informationMessages)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Creates an instance of a <code>AIrVersionRequirementNormalization</code> record class.</div>
+<div class="block">Creates a version requirement normalization instance with the supplied configuration.</div>
 </div>
 </div>
 </section>
@@ -122,12 +127,12 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#informationMessages()" class="member-name-link">informationMessages</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>informationMessages</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-informationMessages"><code>informationMessages</code></a> record component.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#requirement()" class="member-name-link">requirement</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the value of the <code>requirement</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-requirement"><code>requirement</code></a> record component.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
@@ -158,11 +163,11 @@ loadScripts(document, 'script');</script>
  <a href="AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a>&nbsp;requirement,
  @Nonnull
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;informationMessages)</span></div>
-<div class="block">Creates an instance of a <code>AIrVersionRequirementNormalization</code> record class.</div>
+<div class="block">Creates a version requirement normalization instance with the supplied configuration.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>requirement</code> - the value for the <code>requirement</code> record component</dd>
-<dd><code>informationMessages</code> - the value for the <code>informationMessages</code> record component</dd>
+<dd><code>requirement</code> - requirement supplied to the operation</dd>
+<dd><code>informationMessages</code> - information messages supplied to the operation</dd>
 </dl>
 </section>
 </li>
@@ -220,10 +225,10 @@ loadScripts(document, 'script');</script>
 <h3>requirement</h3>
 <div class="member-signature"><span class="annotations">@Nonnull
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AIiVersionRequirement.html" title="interface in eu.algites.lib.common.version">AIiVersionRequirement</a></span>&nbsp;<span class="element-name">requirement</span>()</div>
-<div class="block">Returns the value of the <code>requirement</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-requirement"><code>requirement</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>requirement</code> record component</dd>
+<dd>the value of the <a href="#param-requirement"><code>requirement</code></a> record component</dd>
 </dl>
 </section>
 </li>
@@ -232,10 +237,10 @@ loadScripts(document, 'script');</script>
 <h3>informationMessages</h3>
 <div class="member-signature"><span class="annotations">@Nonnull
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">informationMessages</span>()</div>
-<div class="block">Returns the value of the <code>informationMessages</code> record component.</div>
+<div class="block">Returns the value of the <a href="#param-informationMessages"><code>informationMessages</code></a> record component.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the value of the <code>informationMessages</code> record component</dd>
+<dd>the value of the <a href="#param-informationMessages"><code>informationMessages</code></a> record component</dd>
 </dl>
 </section>
 </li>

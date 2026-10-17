@@ -119,25 +119,39 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static final int</code></div>
 <div class="col-second even-row-color"><code><a href="#FIRST_UID_SPECIFIC_PART_POSITION" class="member-name-link">FIRST_UID_SPECIFIC_PART_POSITION</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">First index available for type-specific UID components.</div>
+</div>
 <div class="col-first odd-row-color"><code>static final int</code></div>
 <div class="col-second odd-row-color"><code><a href="#LAST_UID_HEADER_PART_POSITION" class="member-name-link">LAST_UID_HEADER_PART_POSITION</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Last index occupied by the fixed UID header.</div>
+</div>
 <div class="col-first even-row-color"><code>static final int</code></div>
 <div class="col-second even-row-color"><code><a href="#NAMESPACE_UID_POSITION" class="member-name-link">NAMESPACE_UID_POSITION</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Index of the namespace component in a structured UID.</div>
+</div>
 <div class="col-first odd-row-color"><code>static final int</code></div>
 <div class="col-second odd-row-color"><code><a href="#ORIGIN_UID_POSITION" class="member-name-link">ORIGIN_UID_POSITION</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Index of the origin component in a structured UID.</div>
+</div>
 <div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html" title="class or interface in java.util.regex" class="external-link">Pattern</a></code></div>
 <div class="col-second even-row-color"><code><a href="#UID_COMMON_PART_PATTERN" class="member-name-link">UID_COMMON_PART_PATTERN</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Pattern restricting the characters allowed in ordinary UID components.</div>
+</div>
 <div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html" title="class or interface in java.util.regex" class="external-link">Pattern</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#UID_CUSTOM_NAMESPACE_PART_PATTERN" class="member-name-link">UID_CUSTOM_NAMESPACE_PART_PATTERN</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Pattern requiring a nonempty, valid custom namespace.</div>
+</div>
 <div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#UID_PART_SEPARATOR" class="member-name-link">UID_PART_SEPARATOR</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Separator between parts of a structured UID.</div>
+</div>
 </div>
 </section>
 </li>
@@ -242,6 +256,7 @@ O&gt;&gt;<br>void</code></div>
 <section class="detail" id="UID_PART_SEPARATOR">
 <h3>UID_PART_SEPARATOR</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">UID_PART_SEPARATOR</span></div>
+<div class="block">Separator between parts of a structured UID.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -256,18 +271,21 @@ O&gt;&gt;<br>void</code></div>
 <section class="detail" id="UID_COMMON_PART_PATTERN">
 <h3>UID_COMMON_PART_PATTERN</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html" title="class or interface in java.util.regex" class="external-link">Pattern</a></span>&nbsp;<span class="element-name">UID_COMMON_PART_PATTERN</span></div>
+<div class="block">Pattern restricting the characters allowed in ordinary UID components.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="UID_CUSTOM_NAMESPACE_PART_PATTERN">
 <h3>UID_CUSTOM_NAMESPACE_PART_PATTERN</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html" title="class or interface in java.util.regex" class="external-link">Pattern</a></span>&nbsp;<span class="element-name">UID_CUSTOM_NAMESPACE_PART_PATTERN</span></div>
+<div class="block">Pattern requiring a nonempty, valid custom namespace.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="ORIGIN_UID_POSITION">
 <h3>ORIGIN_UID_POSITION</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">ORIGIN_UID_POSITION</span></div>
+<div class="block">Index of the origin component in a structured UID.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -282,6 +300,7 @@ O&gt;&gt;<br>void</code></div>
 <section class="detail" id="NAMESPACE_UID_POSITION">
 <h3>NAMESPACE_UID_POSITION</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">NAMESPACE_UID_POSITION</span></div>
+<div class="block">Index of the namespace component in a structured UID.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -296,6 +315,7 @@ O&gt;&gt;<br>void</code></div>
 <section class="detail" id="LAST_UID_HEADER_PART_POSITION">
 <h3>LAST_UID_HEADER_PART_POSITION</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">LAST_UID_HEADER_PART_POSITION</span></div>
+<div class="block">Last index occupied by the fixed UID header.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -310,6 +330,7 @@ O&gt;&gt;<br>void</code></div>
 <section class="detail" id="FIRST_UID_SPECIFIC_PART_POSITION">
 <h3>FIRST_UID_SPECIFIC_PART_POSITION</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">FIRST_UID_SPECIFIC_PART_POSITION</span></div>
+<div class="block">First index available for type-specific UID components.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>

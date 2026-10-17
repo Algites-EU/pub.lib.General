@@ -27,7 +27,7 @@ Module Contents
 
 .. py:class:: AIcBoundedList(aMinSize=None, aMaxSize=None, aPolicy=AInBoundsMutationPolicy.PREVENT_WORSENING)
 
-   Bases: :py:obj:`collections.abc.MutableSequence`\ [\ :py:obj:`T`\ ], :py:obj:`eu.algites.lib.common.validation.aii_validatable.AIiValidatable`
+   Bases: :py:obj:`collections.abc.MutableSequence`\ [\ :py:obj:`T`\ ], :py:obj:`eu.algites.lib.common.validation.aii_validatable.AIiValidatable`\ [\ :py:obj:`eu.algites.lib.common.list.aicd_bounded_list_validation_issue.AIcdBoundedListValidationIssue`\ ]
 
 
    Bounded mutable list. Every size change is transactional; callbacks edit a detached copy.
@@ -82,6 +82,9 @@ Module Contents
 
 
    .. py:method:: isValid() -> bool
+
+
+   .. py:method:: getValidationIssues() -> list[eu.algites.lib.common.list.aicd_bounded_list_validation_issue.AIcdBoundedListValidationIssue]
 
 
    .. py:method:: getInvalidStateMessage(aLocale: str | None) -> str

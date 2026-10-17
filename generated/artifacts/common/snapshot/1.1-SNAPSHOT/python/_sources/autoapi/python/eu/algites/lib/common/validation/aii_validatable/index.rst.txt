@@ -4,6 +4,14 @@ python.eu.algites.lib.common.validation.aii_validatable
 .. py:module:: python.eu.algites.lib.common.validation.aii_validatable
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.validation.aii_validatable.T
+
+
 Classes
 -------
 
@@ -15,12 +23,14 @@ Classes
 Module Contents
 ---------------
 
+.. py:data:: T
+
 .. py:class:: AIiValidatable
 
-   Bases: :py:obj:`abc.ABC`
+   Bases: :py:obj:`abc.ABC`, :py:obj:`Generic`\ [\ :py:obj:`T`\ ]
 
 
-   Value that may be temporarily invalid while being assembled.
+   A value that can be temporarily invalid while being assembled.
 
 
    .. py:method:: isValid() -> bool
@@ -28,8 +38,11 @@ Module Contents
 
 
 
-   .. py:method:: getInvalidStateMessage(aLocale: str | None) -> str
+   .. py:method:: getValidationIssues() -> list[T]
       :abstractmethod:
 
+
+
+   .. py:method:: getInvalidStateMessage(aLocale: str | None) -> str
 
 

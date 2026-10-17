@@ -36,11 +36,11 @@ Module Contents
 
    .. attribute:: identifier_conventions
 
-      Value of canonical property IdentifierConventions.
+      Named identifier conventions whose regular expressions validate or recognize identifiers.
 
    .. attribute:: version_conventions
 
-      Value of canonical property VersionConventions.
+      Named version conventions whose regular expressions recognize version components.
 
 
    .. py:attribute:: SCHEMA_FIELD_NAME__IDENTIFIER_CONVENTIONS
@@ -48,6 +48,8 @@ Module Contents
 
 
       ** ``IdentifierConventions``
+
+      **Field Description:** Named identifier conventions whose regular expressions validate or recognize identifiers.
 
       :type: **Field Name
 
@@ -57,6 +59,8 @@ Module Contents
 
 
       ** ``VersionConventions``
+
+      **Field Description:** Named version conventions whose regular expressions recognize version components.
 
       :type: **Field Name
 

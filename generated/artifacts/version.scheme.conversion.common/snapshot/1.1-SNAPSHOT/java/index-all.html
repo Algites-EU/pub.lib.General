@@ -65,19 +65,21 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html#%3Cinit%3E(T,eu.algites.lib.common.version.scheme.conversion.AInVersionConversionQuality,java.util.List)" class="member-name-link">AIrVersionConversionResult(T, AInVersionConversionQuality, List&lt;String&gt;)</a> - Constructor for record class eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html" title="class in eu.algites.lib.common.version.scheme.conversion">AIrVersionConversionResult</a></dt>
 <dd>
-<div class="block">Creates an instance of a <code>AIrVersionConversionResult</code> record class.</div>
+<div class="block">Creates a version conversion result with its value, quality and diagnostics.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AIiVersionConverter.html#convert(S)" class="member-name-link">convert(S)</a> - Method in interface eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AIiVersionConverter.html" title="interface in eu.algites.lib.common.version.scheme.conversion">AIiVersionConverter</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Converts  to the target representation.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html#diagnostics()" class="member-name-link">diagnostics()</a> - Method in record class eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html" title="class in eu.algites.lib.common.version.scheme.conversion">AIrVersionConversionResult</a></dt>
 <dd>
-<div class="block">Returns the value of the <code>diagnostics</code> record component.</div>
+<div class="block">Returns the value of the <a href="./eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html#param-diagnostics"><code>diagnostics</code></a> record component.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
@@ -89,9 +91,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/package-summary.html">eu.algites.lib.common.version.scheme.conversion</a> - package eu.algites.lib.common.version.scheme.conversion</dt>
 <dd>&nbsp;</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html#exact(T)" class="member-name-link">exact(T)</a> - Static method in record class eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html" title="class in eu.algites.lib.common.version.scheme.conversion">AIrVersionConversionResult</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the exact version requirement, when specified.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AInVersionConversionQuality.html#EXACT" class="member-name-link">EXACT</a> - Enum constant in enum class eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AInVersionConversionQuality.html" title="enum class in eu.algites.lib.common.version.scheme.conversion">AInVersionConversionQuality</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Conversion preserving the exact version requirement.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:H">H</h2>
 <dl class="index">
@@ -103,20 +109,26 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:L">L</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AInVersionConversionQuality.html#LOSSLESS_WITH_NORMALIZATION" class="member-name-link">LOSSLESS_WITH_NORMALIZATION</a> - Enum constant in enum class eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AInVersionConversionQuality.html" title="enum class in eu.algites.lib.common.version.scheme.conversion">AInVersionConversionQuality</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Conversion preserving meaning after normalizing syntax.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AInVersionConversionQuality.html#LOSSY" class="member-name-link">LOSSY</a> - Enum constant in enum class eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AInVersionConversionQuality.html" title="enum class in eu.algites.lib.common.version.scheme.conversion">AInVersionConversionQuality</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Conversion that cannot fully preserve source requirement semantics.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:N">N</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html#normalized(T,java.lang.String)" class="member-name-link">normalized(T, String)</a> - Static method in record class eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html" title="class in eu.algites.lib.common.version.scheme.conversion">AIrVersionConversionResult</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Normalizes d to the canonical representation.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:Q">Q</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html#quality()" class="member-name-link">quality()</a> - Method in record class eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html" title="class in eu.algites.lib.common.version.scheme.conversion">AIrVersionConversionResult</a></dt>
 <dd>
-<div class="block">Returns the value of the <code>quality</code> record component.</div>
+<div class="block">Returns the value of the <a href="./eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html#param-quality"><code>quality</code></a> record component.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:T">T</h2>
@@ -129,13 +141,15 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:U">U</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AInVersionConversionQuality.html#UNSUPPORTED" class="member-name-link">UNSUPPORTED</a> - Enum constant in enum class eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AInVersionConversionQuality.html" title="enum class in eu.algites.lib.common.version.scheme.conversion">AInVersionConversionQuality</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Conversion that cannot represent the source requirement.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:V">V</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html#value()" class="member-name-link">value()</a> - Method in record class eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html" title="class in eu.algites.lib.common.version.scheme.conversion">AIrVersionConversionResult</a></dt>
 <dd>
-<div class="block">Returns the value of the <code>value</code> record component.</div>
+<div class="block">Returns the value of the <a href="./eu/algites/lib/common/version/scheme/conversion/AIrVersionConversionResult.html#param-value"><code>value</code></a> record component.</div>
 </dd>
 <dt><a href="eu/algites/lib/common/version/scheme/conversion/AInVersionConversionQuality.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class eu.algites.lib.common.version.scheme.conversion.<a href="eu/algites/lib/common/version/scheme/conversion/AInVersionConversionQuality.html" title="enum class in eu.algites.lib.common.version.scheme.conversion">AInVersionConversionQuality</a></dt>
 <dd>

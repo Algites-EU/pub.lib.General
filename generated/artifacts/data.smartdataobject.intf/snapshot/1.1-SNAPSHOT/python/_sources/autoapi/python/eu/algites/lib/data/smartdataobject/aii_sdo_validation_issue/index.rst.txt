@@ -1,0 +1,46 @@
+python.eu.algites.lib.data.smartdataobject.aii_sdo_validation_issue
+===================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.aii_sdo_validation_issue
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.aii_sdo_validation_issue.AIiSdoValidationIssue
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiSdoValidationIssue
+
+   Bases: :py:obj:`eu.algites.lib.common.validation.aii_validation_issue.AIiValidationIssue`
+
+
+   .. py:attribute:: FIELD_SYSTEM_NAME
+      :value: 'field.systemName'
+
+
+
+   .. py:attribute:: FIELD_LOCALIZED_NAME
+      :value: 'field.name'
+
+
+
+   .. py:attribute:: FIELD_LOCALIZED_DESCRIPTION
+      :value: 'field.description'
+
+
+
+   .. py:method:: getFieldName() -> str | None
+
+
+   .. py:method:: getFieldTitle(aLocale: str | None) -> str | None
+
+
+   .. py:method:: getFieldDescription(aLocale: str | None) -> str | None
+
+

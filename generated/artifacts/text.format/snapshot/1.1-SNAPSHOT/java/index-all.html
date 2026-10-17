@@ -57,7 +57,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html#%3Cinit%3E(java.lang.String,eu.algites.lib.text.format.AInTextFormatType,eu.algites.lib.text.format.AInTextReferenceEncoding,boolean,java.util.Set)" class="member-name-link">AIcdTextFormatProfile(String, AInTextFormatType, AInTextReferenceEncoding, boolean, Set&lt;AInTextOutputObjectReferenceMode&gt;)</a> - Constructor for record class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html" title="class in eu.algites.lib.text.format">AIcdTextFormatProfile</a></dt>
 <dd>
-<div class="block">Creates an instance of a <code>AIcdTextFormatProfile</code> record class.</div>
+<div class="block">Creates an immutable text formatting profile and its supported reference modes.</div>
 </dd>
 <dt><a href="eu/algites/lib/text/format/AIiTextFormatProfile.html" class="type-name-link" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a> - Interface in <a href="eu/algites/lib/text/format/package-summary.html">eu.algites.lib.text.format</a></dt>
 <dd>
@@ -99,7 +99,7 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html#diagnostic()" class="member-name-link">diagnostic()</a> - Method in record class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html" title="class in eu.algites.lib.text.format">AIcdTextFormatProfile</a></dt>
 <dd>
-<div class="block">Returns the value of the <code>diagnostic</code> record component.</div>
+<div class="block">Returns the value of the <a href="./eu/algites/lib/text/format/AIcdTextFormatProfile.html#param-diagnostic"><code>diagnostic</code></a> record component.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
@@ -115,23 +115,35 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html#formatType()" class="member-name-link">formatType()</a> - Method in record class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html" title="class in eu.algites.lib.text.format">AIcdTextFormatProfile</a></dt>
 <dd>
-<div class="block">Returns the value of the <code>formatType</code> record component.</div>
+<div class="block">Returns the value of the <a href="./eu/algites/lib/text/format/AIcdTextFormatProfile.html#param-formatType"><code>formatType</code></a> record component.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html#getFormatType()" class="member-name-link">getFormatType()</a> - Method in record class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html" title="class in eu.algites.lib.text.format">AIcdTextFormatProfile</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the format type.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIiTextFormatProfile.html#getFormatType()" class="member-name-link">getFormatType()</a> - Method in interface eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIiTextFormatProfile.html" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the format type.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html#getId()" class="member-name-link">getId()</a> - Method in record class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html" title="class in eu.algites.lib.text.format">AIcdTextFormatProfile</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the id.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIiTextFormatProfile.html#getId()" class="member-name-link">getId()</a> - Method in interface eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIiTextFormatProfile.html" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the id.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html#getReferenceEncoding()" class="member-name-link">getReferenceEncoding()</a> - Method in record class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html" title="class in eu.algites.lib.text.format">AIcdTextFormatProfile</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the reference encoding.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIiTextFormatProfile.html#getReferenceEncoding()" class="member-name-link">getReferenceEncoding()</a> - Method in interface eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIiTextFormatProfile.html" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the reference encoding.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:H">H</h2>
 <dl class="index">
@@ -144,31 +156,51 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html#id()" class="member-name-link">id()</a> - Method in record class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html" title="class in eu.algites.lib.text.format">AIcdTextFormatProfile</a></dt>
 <dd>
-<div class="block">Returns the value of the <code>id</code> record component.</div>
+<div class="block">Returns the value of the <a href="./eu/algites/lib/text/format/AIcdTextFormatProfile.html#param-id"><code>id</code></a> record component.</div>
 </dd>
 <dt><a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html#isDiagnostic()" class="member-name-link">isDiagnostic()</a> - Method in record class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html" title="class in eu.algites.lib.text.format">AIcdTextFormatProfile</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Checks whether diagnostic is enabled or present.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIiTextFormatProfile.html#isDiagnostic()" class="member-name-link">isDiagnostic()</a> - Method in interface eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIiTextFormatProfile.html" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Checks whether diagnostic is enabled or present.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html#isReferenceModeSupported(eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)" class="member-name-link">isReferenceModeSupported(AInTextOutputObjectReferenceMode)</a> - Method in record class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html" title="class in eu.algites.lib.text.format">AIcdTextFormatProfile</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Checks whether reference mode supported is enabled or present.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIiTextFormatProfile.html#isReferenceModeSupported(eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)" class="member-name-link">isReferenceModeSupported(AInTextOutputObjectReferenceMode)</a> - Method in interface eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIiTextFormatProfile.html" title="interface in eu.algites.lib.text.format">AIiTextFormatProfile</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Checks whether reference mode supported is enabled or present.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:J">J</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AInTextFormatType.html#JSON" class="member-name-link">JSON</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextFormatType.html" title="enum class in eu.algites.lib.text.format">AInTextFormatType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">JSON document format.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html#JSON_DIAGNOSTIC" class="member-name-link">JSON_DIAGNOSTIC</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">JSON encoding that exposes references for diagnostics.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html#JSON_DIAGNOSTIC" class="member-name-link">JSON_DIAGNOSTIC</a> - Static variable in class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html" title="class in eu.algites.lib.text.format">AIsTextFormatProfiles</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">JSON encoding that exposes references for diagnostics.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html#JSON_DOTNET" class="member-name-link">JSON_DOTNET</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">JSON reference encoding compatible with .NET object identity conventions.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html#JSON_DOTNET_PRESERVE" class="member-name-link">JSON_DOTNET_PRESERVE</a> - Static variable in class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html" title="class in eu.algites.lib.text.format">AIsTextFormatProfiles</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">JSON profile retaining .NET-compatible object identity.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html#JSON_STANDARD" class="member-name-link">JSON_STANDARD</a> - Static variable in class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html" title="class in eu.algites.lib.text.format">AIsTextFormatProfiles</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Standard JSON formatting without nonstandard reference markers.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIsTextFormatEscapes.html#jsonString(java.lang.String)" class="member-name-link">jsonString(String)</a> - Static method in class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIsTextFormatEscapes.html" title="class in eu.algites.lib.text.format">AIsTextFormatEscapes</a></dt>
 <dd>
 <div class="block">Encodes a Java string as a JSON string literal.</div>
@@ -181,7 +213,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Inline every occurrence; shared identity is lost and cycles cannot be represented.</div>
 </dd>
 <dt><a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html#NONE" class="member-name-link">NONE</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">No special reference encoding is applied.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:O">O</h2>
 <dl class="index">
@@ -194,7 +228,7 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html#referenceEncoding()" class="member-name-link">referenceEncoding()</a> - Method in record class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html" title="class in eu.algites.lib.text.format">AIcdTextFormatProfile</a></dt>
 <dd>
-<div class="block">Returns the value of the <code>referenceEncoding</code> record component.</div>
+<div class="block">Returns the value of the <a href="./eu/algites/lib/text/format/AIcdTextFormatProfile.html#param-referenceEncoding"><code>referenceEncoding</code></a> record component.</div>
 </dd>
 <dt><a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html#REPEATED_OBJECTS" class="member-name-link">REPEATED_OBJECTS</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextOutputObjectReferenceMode.html" title="enum class in eu.algites.lib.text.format">AInTextOutputObjectReferenceMode</a></dt>
 <dd>
@@ -205,7 +239,7 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html#supportedModes()" class="member-name-link">supportedModes()</a> - Method in record class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIcdTextFormatProfile.html" title="class in eu.algites.lib.text.format">AIcdTextFormatProfile</a></dt>
 <dd>
-<div class="block">Returns the value of the <code>supportedModes</code> record component.</div>
+<div class="block">Returns the value of the <a href="./eu/algites/lib/text/format/AIcdTextFormatProfile.html#param-supportedModes"><code>supportedModes</code></a> record component.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:T">T</h2>
@@ -248,15 +282,25 @@ the order they are declared.</div>
 <h2 class="title" id="I:X">X</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AInTextFormatType.html#XML" class="member-name-link">XML</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextFormatType.html" title="enum class in eu.algites.lib.text.format">AInTextFormatType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">XML document format.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html#XML_DIAGNOSTIC" class="member-name-link">XML_DIAGNOSTIC</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">XML encoding that exposes object references for diagnostics.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html#XML_DIAGNOSTIC" class="member-name-link">XML_DIAGNOSTIC</a> - Static variable in class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html" title="class in eu.algites.lib.text.format">AIsTextFormatProfiles</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">XML encoding that exposes object references for diagnostics.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html#XML_SCHEMA" class="member-name-link">XML_SCHEMA</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">XML reference representation based on schema-compatible structures.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html#XML_XSD" class="member-name-link">XML_XSD</a> - Static variable in class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html" title="class in eu.algites.lib.text.format">AIsTextFormatProfiles</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">XML formatting profile designed for XSD-constrained documents.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIsTextFormatEscapes.html#xmlText(java.lang.String)" class="member-name-link">xmlText(String)</a> - Static method in class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIsTextFormatEscapes.html" title="class in eu.algites.lib.text.format">AIsTextFormatEscapes</a></dt>
 <dd>
 <div class="block">Escapes character content and quoted attribute content in XML 1.0.</div>
@@ -265,15 +309,25 @@ the order they are declared.</div>
 <h2 class="title" id="I:Y">Y</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/text/format/AInTextFormatType.html#YAML" class="member-name-link">YAML</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextFormatType.html" title="enum class in eu.algites.lib.text.format">AInTextFormatType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">YAML document format.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html#YAML_DIAGNOSTIC" class="member-name-link">YAML_DIAGNOSTIC</a> - Static variable in class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html" title="class in eu.algites.lib.text.format">AIsTextFormatProfiles</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">YAML profile exposing references for diagnostic purposes.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html#YAML_NATIVE" class="member-name-link">YAML_NATIVE</a> - Enum constant in enum class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AInTextReferenceEncoding.html" title="enum class in eu.algites.lib.text.format">AInTextReferenceEncoding</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Native YAML anchor and alias reference encoding.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html#YAML_NATIVE_REFERENCES" class="member-name-link">YAML_NATIVE_REFERENCES</a> - Static variable in class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html" title="class in eu.algites.lib.text.format">AIsTextFormatProfiles</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">YAML profile preserving shared references with anchors and aliases.</div>
+</dd>
 <dt><a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html#YAML_STANDARD" class="member-name-link">YAML_STANDARD</a> - Static variable in class eu.algites.lib.text.format.<a href="eu/algites/lib/text/format/AIsTextFormatProfiles.html" title="class in eu.algites.lib.text.format">AIsTextFormatProfiles</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Standard YAML formatting profile.</div>
+</dd>
 </dl>
 <a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:X">X</a>&nbsp;<a href="#I:Y">Y</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
 </div>

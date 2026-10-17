@@ -30,33 +30,33 @@ Module Contents
 
 .. py:class:: AIcgdNameConventions_1
 
-   Generated representation of canonical definition name-conventions.
+   Reusable fragments, compositions and container-specific structure naming profiles.
 
    Generated from canonical definition eu.algites.lib.naming.convention.name-conventions/1. Source: src/product/xmldefs/eu/algites/lib/naming/convention/name-conventions_1.xsd. Do not edit manually.
 
    .. attribute:: standard_conventions_file
 
-      Value of canonical property StandardConventionsFile.
+      Relative path to the file containing shared identifier and version convention definitions.
 
    .. attribute:: identifier_conventions
 
-      Value of canonical property IdentifierConventions.
+      Named identifier conventions whose regular expressions validate or recognize identifiers.
 
    .. attribute:: version_conventions
 
-      Value of canonical property VersionConventions.
+      Named version conventions whose regular expressions recognize version components.
 
    .. attribute:: name_fragments
 
-      Value of canonical property NameFragments.
+      Reusable named sequences of text, identifier, version or variable segments.
 
    .. attribute:: name_compositions
 
-      Value of canonical property NameCompositions.
+      Named compositions that combine reusable fragments into full names.
 
    .. attribute:: name_conventions
 
-      Value of canonical property NameConventions.
+      Naming rules for supported container structures and their contained source elements.
 
 
    .. py:attribute:: SCHEMA_FIELD_NAME__STANDARD_CONVENTIONS_FILE
@@ -64,6 +64,8 @@ Module Contents
 
 
       ** ``StandardConventionsFile``
+
+      **Field Description:** Relative path to the file containing shared identifier and version convention definitions.
 
       :type: **Field Name
 
@@ -74,6 +76,8 @@ Module Contents
 
       ** ``IdentifierConventions``
 
+      **Field Description:** Named identifier conventions whose regular expressions validate or recognize identifiers.
+
       :type: **Field Name
 
 
@@ -82,6 +86,8 @@ Module Contents
 
 
       ** ``VersionConventions``
+
+      **Field Description:** Named version conventions whose regular expressions recognize version components.
 
       :type: **Field Name
 
@@ -92,6 +98,8 @@ Module Contents
 
       ** ``NameFragments``
 
+      **Field Description:** Reusable named sequences of text, identifier, version or variable segments.
+
       :type: **Field Name
 
 
@@ -101,6 +109,8 @@ Module Contents
 
       ** ``NameCompositions``
 
+      **Field Description:** Named compositions that combine reusable fragments into full names.
+
       :type: **Field Name
 
 
@@ -109,6 +119,8 @@ Module Contents
 
 
       ** ``NameConventions``
+
+      **Field Description:** Naming rules for supported container structures and their contained source elements.
 
       :type: **Field Name
 

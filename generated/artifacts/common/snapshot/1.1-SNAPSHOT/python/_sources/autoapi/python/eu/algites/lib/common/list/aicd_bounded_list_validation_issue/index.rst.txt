@@ -1,0 +1,46 @@
+python.eu.algites.lib.common.list.aicd_bounded_list_validation_issue
+====================================================================
+
+.. py:module:: python.eu.algites.lib.common.list.aicd_bounded_list_validation_issue
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.list.aicd_bounded_list_validation_issue.AIcdBoundedListValidationIssue
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdBoundedListValidationIssue
+
+   Bases: :py:obj:`eu.algites.lib.common.validation.aii_validation_issue.AIiValidationIssue`
+
+
+   .. py:attribute:: code
+      :type:  str
+
+
+   .. py:attribute:: actualSize
+      :type:  int
+
+
+   .. py:attribute:: bound
+      :type:  int
+
+
+   .. py:method:: getCode() -> str
+
+
+   .. py:method:: getPath() -> str
+
+
+   .. py:method:: getRelatedTopicText(aTopicId: str, aLocale: str | None) -> str | None
+
+
+   .. py:method:: getMessage(aLocale: str | None) -> str
+
+

@@ -43,13 +43,13 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -72,15 +72,42 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Superinterfaces:</dt>
-<dd><code>eu.algites.lib.data.dataobject.AIiDataObject</code>, <code>eu.algites.lib.common.validation.AIiValidatable</code></dd>
+<dd><code>eu.algites.lib.data.dataobject.AIiDataObject</code>, <code>eu.algites.lib.common.validation.AIiValidatable&lt;<a href="AIiSdoValidationIssue.html" title="interface in eu.algites.lib.data.smartdataobject">AIiSdoValidationIssue</a>&gt;</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">AIiSmartDataObject</span><span class="extends-implements">
-extends eu.algites.lib.data.dataobject.AIiDataObject, eu.algites.lib.common.validation.AIiValidatable</span></div>
+extends eu.algites.lib.data.dataobject.AIiDataObject, eu.algites.lib.common.validation.AIiValidatable&lt;<a href="AIiSdoValidationIssue.html" title="interface in eu.algites.lib.data.smartdataobject">AIiSdoValidationIssue</a>&gt;</span></div>
 <div class="block">Public mutable data-object state, presence, validation and textual output contract.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="caption"><span>Fields</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#FIELD_LOCALIZED_DESCRIPTION" class="member-name-link">FIELD_LOCALIZED_DESCRIPTION</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Role identifying the localized explanatory description of an SDO field.</div>
+</div>
+<div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#FIELD_LOCALIZED_NAME" class="member-name-link">FIELD_LOCALIZED_NAME</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">Role identifying the localized display name of an SDO field.</div>
+</div>
+<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#FIELD_SYSTEM_NAME" class="member-name-link">FIELD_SYSTEM_NAME</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Role identifying the stable, unlocalized system name of an SDO field.</div>
+</div>
+</div>
+</section>
+</li>
 <!-- ========== METHOD SUMMARY =========== -->
 <li>
 <section class="method-summary" id="method-summary">
@@ -94,68 +121,99 @@ extends eu.algites.lib.data.dataobject.AIiDataObject, eu.algites.lib.common.vali
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#get_DeeplyEffectiveNotPresentRequiredFields()" class="member-name-link">get_DeeplyEffectiveNotPresentRequiredFields</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the  deeply effective not present required fields.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AIcdSmartDataValidationIssue.html" title="class in eu.algites.lib.data.smartdataobject">AIcdSmartDataValidationIssue</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#get_DeeplyEffectiveValuesValidationIssues()" class="member-name-link">get_DeeplyEffectiveValuesValidationIssues</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the  deeply effective values validation issues.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#get_DeeplyRawNotPresentRequiredFields()" class="member-name-link">get_DeeplyRawNotPresentRequiredFields</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the  deeply raw not present required fields.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AIcdSmartDataValidationIssue.html" title="class in eu.algites.lib.data.smartdataobject">AIcdSmartDataValidationIssue</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#get_DeeplyRawValuesValidationIssues()" class="member-name-link">get_DeeplyRawValuesValidationIssues</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the  deeply raw values validation issues.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#get_EffectiveNotPresentRequiredFields()" class="member-name-link">get_EffectiveNotPresentRequiredFields</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the  effective not present required fields.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AIcdSmartDataValidationIssue.html" title="class in eu.algites.lib.data.smartdataobject">AIcdSmartDataValidationIssue</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#get_EffectiveValuesValidationIssues()" class="member-name-link">get_EffectiveValuesValidationIssues</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the  effective values validation issues.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#get_RawNotPresentRequiredFields()" class="member-name-link">get_RawNotPresentRequiredFields</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the  raw not present required fields.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AIcdSmartDataValidationIssue.html" title="class in eu.algites.lib.data.smartdataobject">AIcdSmartDataValidationIssue</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#get_RawValuesValidationIssues()" class="member-name-link">get_RawValuesValidationIssues</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Returns the  raw values validation issues.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getInvalidStateMessage(java.util.Locale)" class="member-name-link">getInvalidStateMessage</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Locale.html" title="class or interface in java.util" class="external-link">Locale</a>&nbsp;aLocale)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">Returns all current validation failures in a localized, readable form.</div>
+<div class="block">Localized aggregate, using field labels resolved by the common label framework.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="AIiSdoValidationIssue.html" title="interface in eu.algites.lib.data.smartdataobject">AIiSdoValidationIssue</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getValidationIssues()" class="member-name-link">getValidationIssues</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#is_ByEffectiveValuesValid()" class="member-name-link">is_ByEffectiveValuesValid</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Checks whether  by effective values valid is enabled or present.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#is_ByEffectiveValuesValid()" class="member-name-link">is_ByEffectiveValuesValid</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#is_ByRawValuesValid()" class="member-name-link">is_ByRawValuesValid</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Checks whether  by raw values valid is enabled or present.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#is_ByRawValuesValid()" class="member-name-link">is_ByRawValuesValid</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#is_DeeplyByEffectiveValuesValid()" class="member-name-link">is_DeeplyByEffectiveValuesValid</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Checks whether  deeply by effective values valid is enabled or present.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#is_DeeplyByEffectiveValuesValid()" class="member-name-link">is_DeeplyByEffectiveValuesValid</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#is_DeeplyByRawValuesValid()" class="member-name-link">is_DeeplyByRawValuesValid</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#isValid()" class="member-name-link">isValid</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#is_DeeplyByRawValuesValid()" class="member-name-link">is_DeeplyByRawValuesValid</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Checks whether  deeply by raw values valid is enabled or present.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#isValid()" class="member-name-link">isValid</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block">The generic validity view uses complete effective values, including nested values.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="AIidVirtualFieldValue.html" title="interface in eu.algites.lib.data.smartdataobject">AIidVirtualFieldValue</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toMapping_EffectiveValues()" class="member-name-link">toMapping_EffectiveValues</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="AIidVirtualFieldValue.html" title="interface in eu.algites.lib.data.smartdataobject">AIidVirtualFieldValue</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toMapping_EffectiveValues()" class="member-name-link">toMapping_EffectiveValues</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Capture effective values, including defaults, as an identity-preserving typed mapping.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="AIidVirtualFieldValue.html" title="interface in eu.algites.lib.data.smartdataobject">AIidVirtualFieldValue</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toMapping_RawValues()" class="member-name-link">toMapping_RawValues</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="AIidVirtualFieldValue.html" title="interface in eu.algites.lib.data.smartdataobject">AIidVirtualFieldValue</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toMapping_RawValues()" class="member-name-link">toMapping_RawValues</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Capture the present raw field values as an identity-preserving typed mapping.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toString_EffectiveValues(eu.algites.lib.text.format.AIiTextFormatProfile,eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)" class="member-name-link">toString_EffectiveValues</a><wbr>(eu.algites.lib.text.format.AIiTextFormatProfile&nbsp;aProfile,
- eu.algites.lib.text.format.AInTextOutputObjectReferenceMode&nbsp;aMode)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toString_RawValues(eu.algites.lib.text.format.AIiTextFormatProfile,eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)" class="member-name-link">toString_RawValues</a><wbr>(eu.algites.lib.text.format.AIiTextFormatProfile&nbsp;aProfile,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toString_EffectiveValues(eu.algites.lib.text.format.AIiTextFormatProfile,eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)" class="member-name-link">toString_EffectiveValues</a><wbr>(eu.algites.lib.text.format.AIiTextFormatProfile&nbsp;aProfile,
  eu.algites.lib.text.format.AInTextOutputObjectReferenceMode&nbsp;aMode)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Renders the effective field values, including applicable defaults, for diagnostics.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toString_RawValues(eu.algites.lib.text.format.AIiTextFormatProfile,eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)" class="member-name-link">toString_RawValues</a><wbr>(eu.algites.lib.text.format.AIiTextFormatProfile&nbsp;aProfile,
+ eu.algites.lib.text.format.AInTextOutputObjectReferenceMode&nbsp;aMode)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Renders directly stored field values without applying defaults.</div>
+</div>
 </div>
 </div>
 </div>
@@ -165,11 +223,74 @@ extends eu.algites.lib.data.dataobject.AIiDataObject, eu.algites.lib.common.vali
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="FIELD_SYSTEM_NAME">
+<h3>FIELD_SYSTEM_NAME</h3>
+<div class="member-signature"><span class="modifiers">static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">FIELD_SYSTEM_NAME</span></div>
+<div class="block">Role identifying the stable, unlocalized system name of an SDO field.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../../../constant-values.html#eu.algites.lib.data.smartdataobject.AIiSmartDataObject.FIELD_SYSTEM_NAME">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="FIELD_LOCALIZED_NAME">
+<h3>FIELD_LOCALIZED_NAME</h3>
+<div class="member-signature"><span class="modifiers">static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">FIELD_LOCALIZED_NAME</span></div>
+<div class="block">Role identifying the localized display name of an SDO field.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../../../constant-values.html#eu.algites.lib.data.smartdataobject.AIiSmartDataObject.FIELD_LOCALIZED_NAME">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="FIELD_LOCALIZED_DESCRIPTION">
+<h3>FIELD_LOCALIZED_DESCRIPTION</h3>
+<div class="member-signature"><span class="modifiers">static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">FIELD_LOCALIZED_DESCRIPTION</span></div>
+<div class="block">Role identifying the localized explanatory description of an SDO field.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../../../constant-values.html#eu.algites.lib.data.smartdataobject.AIiSmartDataObject.FIELD_LOCALIZED_DESCRIPTION">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ============ METHOD DETAIL ========== -->
 <li>
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="getValidationIssues()">
+<h3>getValidationIssues</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;? extends <a href="AIiSdoValidationIssue.html" title="interface in eu.algites.lib.data.smartdataobject">AIiSdoValidationIssue</a>&gt;</span>&nbsp;<span class="element-name">getValidationIssues</span>()</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code>getValidationIssues</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.common.validation.AIiValidatable&lt;<a href="AIiSdoValidationIssue.html" title="interface in eu.algites.lib.data.smartdataobject">AIiSdoValidationIssue</a>&gt;</code></dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="isValid()">
 <h3>isValid</h3>
@@ -177,7 +298,7 @@ extends eu.algites.lib.data.dataobject.AIiDataObject, eu.algites.lib.common.vali
 <div class="block">The generic validity view uses complete effective values, including nested values.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code>isValid</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.common.validation.AIiValidatable</code></dd>
+<dd><code>isValid</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.common.validation.AIiValidatable&lt;<a href="AIiSdoValidationIssue.html" title="interface in eu.algites.lib.data.smartdataobject">AIiSdoValidationIssue</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -185,10 +306,10 @@ extends eu.algites.lib.data.dataobject.AIiDataObject, eu.algites.lib.common.vali
 <section class="detail" id="getInvalidStateMessage(java.util.Locale)">
 <h3>getInvalidStateMessage</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getInvalidStateMessage</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Locale.html" title="class or interface in java.util" class="external-link">Locale</a>&nbsp;aLocale)</span></div>
-<div class="block">Returns all current validation failures in a localized, readable form.</div>
+<div class="block">Localized aggregate, using field labels resolved by the common label framework.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code>getInvalidStateMessage</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.common.validation.AIiValidatable</code></dd>
+<dd><code>getInvalidStateMessage</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.common.validation.AIiValidatable&lt;<a href="AIiSdoValidationIssue.html" title="interface in eu.algites.lib.data.smartdataobject">AIiSdoValidationIssue</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -196,72 +317,132 @@ extends eu.algites.lib.data.dataobject.AIiDataObject, eu.algites.lib.common.vali
 <section class="detail" id="is_ByRawValuesValid()">
 <h3>is_ByRawValuesValid</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">is_ByRawValuesValid</span>()</div>
+<div class="block">Checks whether  by raw values valid is enabled or present.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  by raw values valid</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="is_ByEffectiveValuesValid()">
 <h3>is_ByEffectiveValuesValid</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">is_ByEffectiveValuesValid</span>()</div>
+<div class="block">Checks whether  by effective values valid is enabled or present.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  by effective values valid</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="is_DeeplyByRawValuesValid()">
 <h3>is_DeeplyByRawValuesValid</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">is_DeeplyByRawValuesValid</span>()</div>
+<div class="block">Checks whether  deeply by raw values valid is enabled or present.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  deeply by raw values valid</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="is_DeeplyByEffectiveValuesValid()">
 <h3>is_DeeplyByEffectiveValuesValid</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">is_DeeplyByEffectiveValuesValid</span>()</div>
+<div class="block">Checks whether  deeply by effective values valid is enabled or present.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  deeply by effective values valid</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="get_RawNotPresentRequiredFields()">
 <h3>get_RawNotPresentRequiredFields</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">get_RawNotPresentRequiredFields</span>()</div>
+<div class="block">Returns the  raw not present required fields.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  raw not present required fields</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="get_EffectiveNotPresentRequiredFields()">
 <h3>get_EffectiveNotPresentRequiredFields</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">get_EffectiveNotPresentRequiredFields</span>()</div>
+<div class="block">Returns the  effective not present required fields.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  effective not present required fields</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="get_DeeplyRawNotPresentRequiredFields()">
 <h3>get_DeeplyRawNotPresentRequiredFields</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">get_DeeplyRawNotPresentRequiredFields</span>()</div>
+<div class="block">Returns the  deeply raw not present required fields.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  deeply raw not present required fields</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="get_DeeplyEffectiveNotPresentRequiredFields()">
 <h3>get_DeeplyEffectiveNotPresentRequiredFields</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">get_DeeplyEffectiveNotPresentRequiredFields</span>()</div>
+<div class="block">Returns the  deeply effective not present required fields.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  deeply effective not present required fields</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="get_RawValuesValidationIssues()">
 <h3>get_RawValuesValidationIssues</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AIcdSmartDataValidationIssue.html" title="class in eu.algites.lib.data.smartdataobject">AIcdSmartDataValidationIssue</a>&gt;</span>&nbsp;<span class="element-name">get_RawValuesValidationIssues</span>()</div>
+<div class="block">Returns the  raw values validation issues.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  raw values validation issues</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="get_EffectiveValuesValidationIssues()">
 <h3>get_EffectiveValuesValidationIssues</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AIcdSmartDataValidationIssue.html" title="class in eu.algites.lib.data.smartdataobject">AIcdSmartDataValidationIssue</a>&gt;</span>&nbsp;<span class="element-name">get_EffectiveValuesValidationIssues</span>()</div>
+<div class="block">Returns the  effective values validation issues.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  effective values validation issues</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="get_DeeplyRawValuesValidationIssues()">
 <h3>get_DeeplyRawValuesValidationIssues</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AIcdSmartDataValidationIssue.html" title="class in eu.algites.lib.data.smartdataobject">AIcdSmartDataValidationIssue</a>&gt;</span>&nbsp;<span class="element-name">get_DeeplyRawValuesValidationIssues</span>()</div>
+<div class="block">Returns the  deeply raw values validation issues.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  deeply raw values validation issues</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="get_DeeplyEffectiveValuesValidationIssues()">
 <h3>get_DeeplyEffectiveValuesValidationIssues</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="AIcdSmartDataValidationIssue.html" title="class in eu.algites.lib.data.smartdataobject">AIcdSmartDataValidationIssue</a>&gt;</span>&nbsp;<span class="element-name">get_DeeplyEffectiveValuesValidationIssues</span>()</div>
+<div class="block">Returns the  deeply effective values validation issues.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the  deeply effective values validation issues</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -283,6 +464,14 @@ extends eu.algites.lib.data.dataobject.AIiDataObject, eu.algites.lib.common.vali
 <h3>toString_RawValues</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">toString_RawValues</span><wbr><span class="parameters">(eu.algites.lib.text.format.AIiTextFormatProfile&nbsp;aProfile,
  eu.algites.lib.text.format.AInTextOutputObjectReferenceMode&nbsp;aMode)</span></div>
+<div class="block">Renders directly stored field values without applying defaults.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aProfile</code> - profile supplied to the operation</dd>
+<dd><code>aMode</code> - mode supplied to the operation</dd>
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -290,6 +479,14 @@ extends eu.algites.lib.data.dataobject.AIiDataObject, eu.algites.lib.common.vali
 <h3>toString_EffectiveValues</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">toString_EffectiveValues</span><wbr><span class="parameters">(eu.algites.lib.text.format.AIiTextFormatProfile&nbsp;aProfile,
  eu.algites.lib.text.format.AInTextOutputObjectReferenceMode&nbsp;aMode)</span></div>
+<div class="block">Renders the effective field values, including applicable defaults, for diagnostics.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aProfile</code> - profile supplied to the operation</dd>
+<dd><code>aMode</code> - mode supplied to the operation</dd>
+<dt>Returns:</dt>
+<dd>the result of the operation</dd>
+</dl>
 </section>
 </li>
 </ul>

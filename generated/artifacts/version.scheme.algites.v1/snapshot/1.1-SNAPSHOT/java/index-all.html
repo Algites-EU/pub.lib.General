@@ -65,7 +65,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Default immutable implementation of <a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1"><code>AIiAlgitesVersionV1</code></a>.</div>
 </dd>
 <dt><a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html#%3Cinit%3E(java.lang.String,int,eu.algites.lib.common.version.scheme.algites.v1.AInAlgitesVersionQualifierKindV1,java.lang.Long)" class="member-name-link">AIcAlgitesVersionV1(String, int, AInAlgitesVersionQualifierKindV1, Long)</a> - Constructor for class eu.algites.lib.common.version.scheme.impl.algites.v1.<a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html" title="class in eu.algites.lib.common.version.scheme.impl.algites.v1">AIcAlgitesVersionV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Creates a algites version v1 instance with the supplied configuration.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html" class="type-name-link" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a> - Interface in <a href="eu/algites/lib/common/version/scheme/algites/v1/package-summary.html">eu.algites.lib.common.version.scheme.algites.v1</a></dt>
 <dd>
 <div class="block">Public contract of an Algites version scheme v1 value.</div>
@@ -78,9 +80,13 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:B">B</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html#baseVersionText()" class="member-name-link">baseVersionText()</a> - Method in interface eu.algites.lib.common.version.scheme.algites.v1.<a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the base version text without prerelease or snapshot qualifiers.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html#baseVersionText()" class="member-name-link">baseVersionText()</a> - Method in class eu.algites.lib.common.version.scheme.impl.algites.v1.<a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html" title="class in eu.algites.lib.common.version.scheme.impl.algites.v1">AIcAlgitesVersionV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the base version text without prerelease or snapshot qualifiers.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
@@ -92,46 +98,78 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionTextV1.html#parse(java.lang.String)" class="member-name-link">parse(String)</a> - Static method in class eu.algites.lib.common.version.scheme.impl.algites.v1.<a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionTextV1.html" title="class in eu.algites.lib.common.version.scheme.impl.algites.v1">AIcAlgitesVersionTextV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Parses  into its structured representation.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:Q">Q</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html#qualifierKind()" class="member-name-link">qualifierKind()</a> - Method in interface eu.algites.lib.common.version.scheme.algites.v1.<a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the classification of the Algites version qualifier.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html#qualifierKind()" class="member-name-link">qualifierKind()</a> - Method in class eu.algites.lib.common.version.scheme.impl.algites.v1.<a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html" title="class in eu.algites.lib.common.version.scheme.impl.algites.v1">AIcAlgitesVersionV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the classification of the Algites version qualifier.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html#qualifierSequence()" class="member-name-link">qualifierSequence()</a> - Method in interface eu.algites.lib.common.version.scheme.algites.v1.<a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the sequence number of a snapshot or release candidate, when present.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html#qualifierSequence()" class="member-name-link">qualifierSequence()</a> - Method in class eu.algites.lib.common.version.scheme.impl.algites.v1.<a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html" title="class in eu.algites.lib.common.version.scheme.impl.algites.v1">AIcAlgitesVersionV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the sequence number of a snapshot or release candidate, when present.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/algites/v1/AInAlgitesVersionQualifierKindV1.html#RC" class="member-name-link">RC</a> - Enum constant in enum class eu.algites.lib.common.version.scheme.algites.v1.<a href="eu/algites/lib/common/version/scheme/algites/v1/AInAlgitesVersionQualifierKindV1.html" title="enum class in eu.algites.lib.common.version.scheme.algites.v1">AInAlgitesVersionQualifierKindV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Qualifier identifying a release candidate.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionSchemeV1.html#release(java.lang.String,int)" class="member-name-link">release(String, int)</a> - Static method in class eu.algites.lib.common.version.scheme.impl.algites.v1.<a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionSchemeV1.html" title="class in eu.algites.lib.common.version.scheme.impl.algites.v1">AIcAlgitesVersionSchemeV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Releases  from the corresponding registry.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/algites/v1/AInAlgitesVersionQualifierKindV1.html#RELEASE" class="member-name-link">RELEASE</a> - Enum constant in enum class eu.algites.lib.common.version.scheme.algites.v1.<a href="eu/algites/lib/common/version/scheme/algites/v1/AInAlgitesVersionQualifierKindV1.html" title="enum class in eu.algites.lib.common.version.scheme.algites.v1">AInAlgitesVersionQualifierKindV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Qualifier identifying a final release.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionSchemeV1.html#releaseCandidate(java.lang.String,int,long)" class="member-name-link">releaseCandidate(String, int, long)</a> - Static method in class eu.algites.lib.common.version.scheme.impl.algites.v1.<a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionSchemeV1.html" title="class in eu.algites.lib.common.version.scheme.impl.algites.v1">AIcAlgitesVersionSchemeV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Releases candidate from the corresponding registry.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html#releaseLineVersion()" class="member-name-link">releaseLineVersion()</a> - Method in interface eu.algites.lib.common.version.scheme.algites.v1.<a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Releases line version from the corresponding registry.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html#releaseLineVersion()" class="member-name-link">releaseLineVersion()</a> - Method in class eu.algites.lib.common.version.scheme.impl.algites.v1.<a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html" title="class in eu.algites.lib.common.version.scheme.impl.algites.v1">AIcAlgitesVersionV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Releases line version from the corresponding registry.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionTextV1.html#render(eu.algites.lib.common.version.scheme.algites.v1.AIiAlgitesVersionV1)" class="member-name-link">render(AIiAlgitesVersionV1)</a> - Static method in class eu.algites.lib.common.version.scheme.impl.algites.v1.<a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionTextV1.html" title="class in eu.algites.lib.common.version.scheme.impl.algites.v1">AIcAlgitesVersionTextV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Renders  into the requested external representation.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html#revision()" class="member-name-link">revision()</a> - Method in interface eu.algites.lib.common.version.scheme.algites.v1.<a href="eu/algites/lib/common/version/scheme/algites/v1/AIiAlgitesVersionV1.html" title="interface in eu.algites.lib.common.version.scheme.algites.v1">AIiAlgitesVersionV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the revision number within the release line.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html#revision()" class="member-name-link">revision()</a> - Method in class eu.algites.lib.common.version.scheme.impl.algites.v1.<a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionV1.html" title="class in eu.algites.lib.common.version.scheme.impl.algites.v1">AIcAlgitesVersionV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the revision number within the release line.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionSchemeV1.html#snapshot(java.lang.String,int,java.lang.Long)" class="member-name-link">snapshot(String, int, Long)</a> - Static method in class eu.algites.lib.common.version.scheme.impl.algites.v1.<a href="eu/algites/lib/common/version/scheme/impl/algites/v1/AIcAlgitesVersionSchemeV1.html" title="class in eu.algites.lib.common.version.scheme.impl.algites.v1">AIcAlgitesVersionSchemeV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Creates a snapshot version with the supplied release line, revision and instance.</div>
+</dd>
 <dt><a href="eu/algites/lib/common/version/scheme/algites/v1/AInAlgitesVersionQualifierKindV1.html#SNAPSHOT" class="member-name-link">SNAPSHOT</a> - Enum constant in enum class eu.algites.lib.common.version.scheme.algites.v1.<a href="eu/algites/lib/common/version/scheme/algites/v1/AInAlgitesVersionQualifierKindV1.html" title="enum class in eu.algites.lib.common.version.scheme.algites.v1">AInAlgitesVersionQualifierKindV1</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Snapshot qualifier identifying a development build.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:V">V</h2>
 <dl class="index">
