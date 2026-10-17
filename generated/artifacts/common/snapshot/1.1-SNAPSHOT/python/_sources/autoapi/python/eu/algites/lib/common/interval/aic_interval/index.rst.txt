@@ -1,0 +1,47 @@
+python.eu.algites.lib.common.interval.aic_interval
+==================================================
+
+.. py:module:: python.eu.algites.lib.common.interval.aic_interval
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.interval.aic_interval.T
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.interval.aic_interval.AIcInterval
+
+
+Module Contents
+---------------
+
+.. py:data:: T
+
+.. py:class:: AIcInterval(aLeftBoundary: eu.algites.lib.common.interval.ain_interval_boundary.AInIntervalBoundary, aLeftValue: T | None, aRightBoundary: eu.algites.lib.common.interval.ain_interval_boundary.AInIntervalBoundary, aRightValue: T | None)
+
+   Bases: :py:obj:`Generic`\ [\ :py:obj:`T`\ ]
+
+
+   Immutable interval with the same endpoints and validation as the Java type.
+
+
+   .. py:method:: getLeftBoundary() -> eu.algites.lib.common.interval.ain_interval_boundary.AInIntervalBoundary
+
+
+   .. py:method:: getLeftValue() -> T | None
+
+
+   .. py:method:: getRightBoundary() -> eu.algites.lib.common.interval.ain_interval_boundary.AInIntervalBoundary
+
+
+   .. py:method:: getRightValue() -> T | None
+
+

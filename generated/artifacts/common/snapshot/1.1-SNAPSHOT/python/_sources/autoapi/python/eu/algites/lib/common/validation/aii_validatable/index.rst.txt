@@ -1,0 +1,35 @@
+python.eu.algites.lib.common.validation.aii_validatable
+=======================================================
+
+.. py:module:: python.eu.algites.lib.common.validation.aii_validatable
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.validation.aii_validatable.AIiValidatable
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiValidatable
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   Value that may be temporarily invalid while being assembled.
+
+
+   .. py:method:: isValid() -> bool
+      :abstractmethod:
+
+
+
+   .. py:method:: getInvalidStateMessage(aLocale: str | None) -> str
+      :abstractmethod:
+
+
+

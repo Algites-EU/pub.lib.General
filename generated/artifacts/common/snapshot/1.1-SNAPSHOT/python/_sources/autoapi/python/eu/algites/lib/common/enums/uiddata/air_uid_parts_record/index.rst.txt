@@ -1,0 +1,28 @@
+python.eu.algites.lib.common.enums.uiddata.air_uid_parts_record
+===============================================================
+
+.. py:module:: python.eu.algites.lib.common.enums.uiddata.air_uid_parts_record
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.enums.uiddata.air_uid_parts_record.AIrUidPartsRecord
+
+
+Module Contents
+---------------
+
+.. py:class:: AIrUidPartsRecord(aOrigin: eu.algites.lib.common.enums.uiddata.ain_uid_enum_data_origin.AInUidEnumDataOrigin, aNamespace: str)
+
+   Immutable Java-record-style carrier for origin and namespace.
+
+
+   .. py:method:: origin() -> eu.algites.lib.common.enums.uiddata.ain_uid_enum_data_origin.AInUidEnumDataOrigin
+
+
+   .. py:method:: namespace() -> str
+
+

@@ -1,0 +1,44 @@
+python.eu.algites.lib.common.interval.aii_interval
+==================================================
+
+.. py:module:: python.eu.algites.lib.common.interval.aii_interval
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.interval.aii_interval.T
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.interval.aii_interval.AIiInterval
+
+
+Module Contents
+---------------
+
+.. py:data:: T
+
+.. py:class:: AIiInterval
+
+   Bases: :py:obj:`Protocol`\ [\ :py:obj:`T`\ ]
+
+
+   .. py:method:: getLeftBoundary() -> eu.algites.lib.common.interval.ain_interval_boundary.AInIntervalBoundary
+
+
+   .. py:method:: getLeftValue() -> T | None
+
+
+   .. py:method:: getRightBoundary() -> eu.algites.lib.common.interval.ain_interval_boundary.AInIntervalBoundary
+
+
+   .. py:method:: getRightValue() -> T | None
+
+

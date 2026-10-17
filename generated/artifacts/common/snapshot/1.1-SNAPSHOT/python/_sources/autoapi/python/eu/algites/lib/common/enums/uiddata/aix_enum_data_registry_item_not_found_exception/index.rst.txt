@@ -1,0 +1,25 @@
+python.eu.algites.lib.common.enums.uiddata.aix_enum_data_registry_item_not_found_exception
+==========================================================================================
+
+.. py:module:: python.eu.algites.lib.common.enums.uiddata.aix_enum_data_registry_item_not_found_exception
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.enums.uiddata.aix_enum_data_registry_item_not_found_exception.AIxEnumDataRegistryItemNotFoundException
+
+
+Module Contents
+---------------
+
+.. py:exception:: AIxEnumDataRegistryItemNotFoundException(aMessage)
+
+   Bases: :py:obj:`LookupError`
+
+
+   Base class for lookup errors.
+
+

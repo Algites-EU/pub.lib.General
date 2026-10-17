@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>python.eu.algites.lib.common.list.aic_bounded_list &#8212; common  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../../../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../../../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-python.eu.algites.lib.common.list.aic_bounded_list">
+<span id="python-eu-algites-lib-common-list-aic-bounded-list"></span><h1>python.eu.algites.lib.common.list.aic_bounded_list<a class="headerlink" href="#module-python.eu.algites.lib.common.list.aic_bounded_list" title="Link to this heading">¶</a></h1>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList" title="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AIcBoundedList</span></code></a></p></td>
+<td><p>Bounded mutable list. Every size change is transactional; callbacks edit a detached copy.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.T">
+<span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.common.list.aic_bounded_list.</span></span><span class="sig-name descname"><span class="pre">T</span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.common.list.aic_bounded_list.</span></span><span class="sig-name descname"><span class="pre">AIcBoundedList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aMinSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aMaxSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aPolicy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AInBoundsMutationPolicy.PREVENT_WORSENING</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">collections.abc.MutableSequence</span></code>[<a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code></a>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">eu.algites.lib.common.validation.aii_validatable.AIiValidatable</span></code></p>
+<p>Bounded mutable list. Every size change is transactional; callbacks edit a detached copy.</p>
+<p>Constructor accepts (min_size, max_size[, policy]) or (AIiInterval[, policy]).
+Python integers are checked against the Java 32-bit list-size domain for parity.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.getMinSize">
+<span class="sig-name descname"><span class="pre">getMinSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.getMinSize" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.getMaxSize">
+<span class="sig-name descname"><span class="pre">getMaxSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.getMaxSize" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.getMutationPolicy">
+<span class="sig-name descname"><span class="pre">getMutationPolicy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ain_bounds_mutation_policy/index.html#python.eu.algites.lib.common.list.ain_bounds_mutation_policy.AInBoundsMutationPolicy" title="python.eu.algites.lib.common.list.ain_bounds_mutation_policy.AInBoundsMutationPolicy"><span class="pre">eu.algites.lib.common.list.ain_bounds_mutation_policy.AInBoundsMutationPolicy</span></a></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.getMutationPolicy" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><span class="pre">T</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.insert" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.modifyAtomically">
+<span class="sig-name descname"><span class="pre">modifyAtomically</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aChange</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><span class="pre">T</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.modifyAtomically" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aIndex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><span class="pre">T</span></a></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.get" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aIndex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aElement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><span class="pre">T</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><span class="pre">T</span></a></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.set" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.removeAt">
+<span class="sig-name descname"><span class="pre">removeAt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aIndex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><span class="pre">T</span></a></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.removeAt" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.add" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.addAll">
+<span class="sig-name descname"><span class="pre">addAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.addAll" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aItems</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><span class="pre">T</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.extend" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.removeAll">
+<span class="sig-name descname"><span class="pre">removeAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><span class="pre">T</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.removeAll" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.retainAll">
+<span class="sig-name descname"><span class="pre">retainAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><span class="pre">T</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.retainAll" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.removeIf">
+<span class="sig-name descname"><span class="pre">removeIf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#python.eu.algites.lib.common.list.aic_bounded_list.T" title="python.eu.algites.lib.common.list.aic_bounded_list.T"><span class="pre">T</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.removeIf" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.clear" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.isValid">
+<span class="sig-name descname"><span class="pre">isValid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.isValid" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.getInvalidStateMessage">
+<span class="sig-name descname"><span class="pre">getInvalidStateMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aLocale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList.getInvalidStateMessage" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../../../index.html">common</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../../index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../../../../../../../_sources/autoapi/python/eu/algites/lib/common/list/aic_bounded_list/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

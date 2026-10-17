@@ -1,0 +1,42 @@
+python.eu.algites.lib.common.enums.uiddata.aic_uid_enum_data_registry
+=====================================================================
+
+.. py:module:: python.eu.algites.lib.common.enums.uiddata.aic_uid_enum_data_registry
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.enums.uiddata.aic_uid_enum_data_registry.AIcUidEnumDataRegistry
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcUidEnumDataRegistry
+
+   Thread-safe identity-keyed singleton UID registry, like its Java counterpart.
+
+
+   .. py:method:: getInstance()
+      :classmethod:
+
+
+
+   .. py:method:: registerData(aReadOnly, aPermanent, aOverwriteExisting, *aDataToRegister)
+
+
+   .. py:method:: releaseData(*args)
+
+
+   .. py:method:: findByUid(aDataType, aUid)
+
+
+   .. py:method:: getOrThrow(aDataType, aUid)
+
+
+   .. py:method:: items(aDataType)
+
+

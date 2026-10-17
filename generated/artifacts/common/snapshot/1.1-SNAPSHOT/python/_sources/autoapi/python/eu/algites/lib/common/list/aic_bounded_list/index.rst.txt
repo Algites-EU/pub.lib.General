@@ -1,0 +1,89 @@
+python.eu.algites.lib.common.list.aic_bounded_list
+==================================================
+
+.. py:module:: python.eu.algites.lib.common.list.aic_bounded_list
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.list.aic_bounded_list.T
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.list.aic_bounded_list.AIcBoundedList
+
+
+Module Contents
+---------------
+
+.. py:data:: T
+
+.. py:class:: AIcBoundedList(aMinSize=None, aMaxSize=None, aPolicy=AInBoundsMutationPolicy.PREVENT_WORSENING)
+
+   Bases: :py:obj:`collections.abc.MutableSequence`\ [\ :py:obj:`T`\ ], :py:obj:`eu.algites.lib.common.validation.aii_validatable.AIiValidatable`
+
+
+   Bounded mutable list. Every size change is transactional; callbacks edit a detached copy.
+
+   Constructor accepts (min_size, max_size[, policy]) or (AIiInterval[, policy]).
+   Python integers are checked against the Java 32-bit list-size domain for parity.
+
+
+   .. py:method:: getMinSize() -> int | None
+
+
+   .. py:method:: getMaxSize() -> int | None
+
+
+   .. py:method:: getMutationPolicy() -> eu.algites.lib.common.list.ain_bounds_mutation_policy.AInBoundsMutationPolicy
+
+
+   .. py:method:: insert(index: int, value: T)
+
+
+   .. py:method:: modifyAtomically(aChange: collections.abc.Callable[[list[T]], object]) -> None
+
+
+   .. py:method:: get(aIndex: int) -> T
+
+
+   .. py:method:: set(aIndex: int, aElement: T) -> T
+
+
+   .. py:method:: removeAt(aIndex: int) -> T
+
+
+   .. py:method:: add(*args) -> None
+
+
+   .. py:method:: addAll(*args) -> bool
+
+
+   .. py:method:: extend(aItems: collections.abc.Iterable[T]) -> None
+
+
+   .. py:method:: removeAll(items: collections.abc.Iterable[T]) -> bool
+
+
+   .. py:method:: retainAll(items: collections.abc.Iterable[T]) -> bool
+
+
+   .. py:method:: removeIf(pred: collections.abc.Callable[[T], bool]) -> bool
+
+
+   .. py:method:: clear() -> None
+
+
+   .. py:method:: isValid() -> bool
+
+
+   .. py:method:: getInvalidStateMessage(aLocale: str | None) -> str
+
+

@@ -17,10 +17,16 @@ Module Contents
 
 .. py:class:: AIiSmartDataObject
 
-   Bases: :py:obj:`eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject`
+   Bases: :py:obj:`eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject`, :py:obj:`eu.algites.lib.common.validation.aii_validatable.AIiValidatable`
 
 
    Runtime contract implemented by mutable schema-generated data objects.
+
+
+   .. py:method:: isValid() -> bool
+
+
+   .. py:method:: getInvalidStateMessage(aLocale: str | None) -> str
 
 
    .. py:method:: is_ByRawValuesValid() -> bool

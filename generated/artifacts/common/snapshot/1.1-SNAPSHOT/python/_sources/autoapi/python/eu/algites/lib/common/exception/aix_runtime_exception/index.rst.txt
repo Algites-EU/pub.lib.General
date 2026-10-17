@@ -1,0 +1,28 @@
+python.eu.algites.lib.common.exception.aix_runtime_exception
+============================================================
+
+.. py:module:: python.eu.algites.lib.common.exception.aix_runtime_exception
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.exception.aix_runtime_exception.AIxRuntimeException
+
+
+Module Contents
+---------------
+
+.. py:exception:: AIxRuntimeException(aMessageSupplier, aCause=None, aMessageOutputPurpose=None, aRenderingOutputFormat=None, aLocale=None)
+
+   Bases: :py:obj:`RuntimeError`
+
+
+   Runtime error with supplier evaluated in the requested rendering context.
+
+
+   .. py:method:: getMessageOutputPurpose()
+
+

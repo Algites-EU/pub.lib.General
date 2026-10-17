@@ -1,0 +1,95 @@
+python.eu.algites.lib.common.enums.uiddata.ais_uid_enum_data_utils
+==================================================================
+
+.. py:module:: python.eu.algites.lib.common.enums.uiddata.ais_uid_enum_data_utils
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.enums.uiddata.ais_uid_enum_data_utils.AIsUidEnumDataUtils
+
+
+Module Contents
+---------------
+
+.. py:class:: AIsUidEnumDataUtils
+
+   .. py:attribute:: UID_PART_SEPARATOR
+      :value: ':'
+
+
+
+   .. py:attribute:: UID_COMMON_PART_PATTERN
+
+
+   .. py:attribute:: UID_CUSTOM_NAMESPACE_PART_PATTERN
+
+
+   .. py:attribute:: ORIGIN_UID_POSITION
+      :value: 0
+
+
+
+   .. py:attribute:: NAMESPACE_UID_POSITION
+      :value: 1
+
+
+
+   .. py:attribute:: LAST_UID_HEADER_PART_POSITION
+      :value: 1
+
+
+
+   .. py:attribute:: FIRST_UID_SPECIFIC_PART_POSITION
+      :value: 2
+
+
+
+   .. py:method:: createUid(aOrigin, aUidNamespacePart, aSpecificUidParts, aSpecificUidPartsMetadata) -> str
+      :staticmethod:
+
+
+
+   .. py:method:: createBuiltinUid(aSpecificUidParts, aSpecificUidPartsMetadata) -> str
+      :staticmethod:
+
+
+
+   .. py:method:: createCustomUid(aUidNamespacePart, aSpecificUidParts, aSpecificUidPartsMetadata) -> str
+      :staticmethod:
+
+
+
+   .. py:method:: splitUidIntoParts(aEnumDataType, aUid) -> list[str]
+      :staticmethod:
+
+
+
+   .. py:method:: parseUid(aEnumDataType, aUid)
+      :staticmethod:
+
+
+
+   .. py:method:: validateUid(aEnumDataType, aUid) -> None
+      :staticmethod:
+
+
+
+   .. py:method:: isValidOutputTypeUid(aEnumDataType, aUid) -> bool
+      :staticmethod:
+
+
+
+   .. py:method:: getOrigin(aEnumDataType, aUid)
+      :staticmethod:
+
+
+
+   .. py:method:: getNamespace(aEnumDataType, aUid)
+      :staticmethod:
+
+
+

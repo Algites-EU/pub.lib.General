@@ -1,0 +1,25 @@
+python.eu.algites.lib.common.enums.uiddata.air_uid_part_metadata
+================================================================
+
+.. py:module:: python.eu.algites.lib.common.enums.uiddata.air_uid_part_metadata
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.enums.uiddata.air_uid_part_metadata.AIrUidPartMetadata
+
+
+Module Contents
+---------------
+
+.. py:class:: AIrUidPartMetadata(aDisplayLabelSupplier: collections.abc.Callable[[], str], aOriginValuesOrMap: collections.abc.Mapping | collections.abc.Sequence | bool, aRequiredForAllItems: bool | None = None)
+
+   .. py:method:: displayLabelSupplier()
+
+
+   .. py:method:: requiredForOrigin()
+
+

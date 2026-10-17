@@ -1,0 +1,22 @@
+python.eu.algites.lib.common.exception.aix_development_error_exception
+======================================================================
+
+.. py:module:: python.eu.algites.lib.common.exception.aix_development_error_exception
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.exception.aix_development_error_exception.AIxDevelopmentErrorException
+
+
+Module Contents
+---------------
+
+.. py:class:: AIxDevelopmentErrorException(aMessage, aCause=None, aMessageOutputPurpose=None, aRenderingOutputFormat=None, aLocale=None)
+
+   Bases: :py:obj:`eu.algites.lib.common.exception.aix_runtime_exception.AIxRuntimeException`
+
+

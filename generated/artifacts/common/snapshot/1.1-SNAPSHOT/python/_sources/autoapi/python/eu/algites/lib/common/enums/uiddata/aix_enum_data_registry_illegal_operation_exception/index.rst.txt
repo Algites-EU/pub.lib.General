@@ -1,0 +1,25 @@
+python.eu.algites.lib.common.enums.uiddata.aix_enum_data_registry_illegal_operation_exception
+=============================================================================================
+
+.. py:module:: python.eu.algites.lib.common.enums.uiddata.aix_enum_data_registry_illegal_operation_exception
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.enums.uiddata.aix_enum_data_registry_illegal_operation_exception.AIxEnumDataRegistryIllegalOperationException
+
+
+Module Contents
+---------------
+
+.. py:exception:: AIxEnumDataRegistryIllegalOperationException(aMessage)
+
+   Bases: :py:obj:`RuntimeError`
+
+
+   Unspecified run-time error.
+
+

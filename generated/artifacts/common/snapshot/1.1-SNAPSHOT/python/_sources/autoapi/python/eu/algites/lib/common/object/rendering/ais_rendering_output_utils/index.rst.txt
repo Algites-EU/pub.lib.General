@@ -1,0 +1,69 @@
+python.eu.algites.lib.common.object.rendering.ais_rendering_output_utils
+========================================================================
+
+.. py:module:: python.eu.algites.lib.common.object.rendering.ais_rendering_output_utils
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.object.rendering.ais_rendering_output_utils.AIsRenderingOutputUtils
+
+
+Module Contents
+---------------
+
+.. py:class:: AIsRenderingOutputUtils
+
+   .. py:method:: usedRenderingOutputPurpose()
+      :staticmethod:
+
+
+
+   .. py:method:: useRenderingOutputPurpose(aRenderingOutputPurpose)
+      :staticmethod:
+
+
+
+   .. py:method:: isUsedRenderingOutputPurpose(aRenderingOutputPurpose) -> bool
+      :staticmethod:
+
+
+
+   .. py:method:: usedRenderingOutputFormat()
+      :staticmethod:
+
+
+
+   .. py:method:: useRenderingOutputFormat(aRenderingOutputFormat)
+      :staticmethod:
+
+
+
+   .. py:method:: isUsedRenderingOutputFormat(aRenderingOutputFormat) -> bool
+      :staticmethod:
+
+
+
+   .. py:method:: usedRenderingOutputLocale()
+      :staticmethod:
+
+
+
+   .. py:method:: useRenderingOutputLocale(aRenderingOutputLocale)
+      :staticmethod:
+
+
+
+   .. py:method:: isUsedRenderingOutputLocale(aRenderingOutputLocale) -> bool
+      :staticmethod:
+
+
+
+   .. py:method:: resolveStringOutput(aStringOutputSupplier, aRenderingOutputPurpose=None, aRenderingOutputFormat=None, aRenderingLocale=None) -> str
+      :staticmethod:
+
+
+

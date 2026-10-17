@@ -1,0 +1,132 @@
+python.eu.algites.lib.common.object.props.labels.aia_field_label
+================================================================
+
+.. py:module:: python.eu.algites.lib.common.object.props.labels.aia_field_label
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.object.props.labels.aia_field_label.AIaFieldLabel
+
+
+Module Contents
+---------------
+
+.. py:class:: AIaFieldLabel
+
+   Python reflection counterpart of Java @AIaFieldLabel.
+
+   Apply to a getter as a decorator, or attach in dataclass field metadata
+   (metadata={'AIaFieldLabel': AIaFieldLabel(...)}) / __field_labels__.
+
+
+   .. py:attribute:: label
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: labels
+      :type:  tuple[AIaFieldLabel.Entry, Ellipsis]
+      :value: ()
+
+
+
+   .. py:attribute:: labelResolver
+      :type:  type | None
+      :value: None
+
+
+
+   .. py:attribute:: purpose
+      :type:  eu.algites.lib.common.object.rendering.ain_rendering_output_builtin_purpose.AInRenderingOutputBuiltinPurpose
+
+
+   .. py:attribute:: purposeCode
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: purposeResolver
+      :type:  type | None
+      :value: None
+
+
+
+   .. py:attribute:: format
+      :type:  eu.algites.lib.common.object.rendering.ain_rendering_output_builtin_format.AInRenderingOutputBuiltinFormat
+
+
+   .. py:attribute:: formatCode
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: formatResolver
+      :type:  type | None
+      :value: None
+
+
+
+   .. py:attribute:: localeCode
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: localeResolver
+      :type:  type | None
+      :value: None
+
+
+
+   .. py:class:: Entry
+
+      .. py:attribute:: label
+         :type:  str
+
+
+      .. py:attribute:: purpose
+         :type:  eu.algites.lib.common.object.rendering.ain_rendering_output_builtin_purpose.AInRenderingOutputBuiltinPurpose
+
+
+      .. py:attribute:: purposeCode
+         :type:  str
+         :value: ''
+
+
+
+      .. py:attribute:: format
+         :type:  eu.algites.lib.common.object.rendering.ain_rendering_output_builtin_format.AInRenderingOutputBuiltinFormat
+
+
+      .. py:attribute:: formatCode
+         :type:  str
+         :value: ''
+
+
+
+      .. py:attribute:: localeCode
+         :type:  str
+         :value: ''
+
+
+
+
+   .. py:class:: NoLabelResolver
+
+
+   .. py:class:: NoPurposeResolver
+
+
+   .. py:class:: NoFormatResolver
+
+
+   .. py:class:: NoLocaleResolver
+
+

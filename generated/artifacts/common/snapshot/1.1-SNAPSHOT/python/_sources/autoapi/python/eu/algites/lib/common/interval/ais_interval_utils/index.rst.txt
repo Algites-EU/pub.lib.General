@@ -1,0 +1,74 @@
+python.eu.algites.lib.common.interval.ais_interval_utils
+========================================================
+
+.. py:module:: python.eu.algites.lib.common.interval.ais_interval_utils
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.interval.ais_interval_utils.AIsIntervalUtils
+
+
+Module Contents
+---------------
+
+.. py:class:: AIsIntervalUtils
+
+   .. py:method:: validateInterval(aInterval) -> None
+      :staticmethod:
+
+
+
+   .. py:method:: isLeftUnbounded(aInterval) -> bool
+      :staticmethod:
+
+
+
+   .. py:method:: isRightUnbounded(aInterval) -> bool
+      :staticmethod:
+
+
+
+   .. py:method:: contains(aInterval, aValue) -> bool
+      :staticmethod:
+
+
+
+   .. py:method:: compare(aLeft, aRight) -> int
+      :staticmethod:
+
+
+
+   .. py:method:: isStrictlyBefore(aLeft, aRight) -> bool
+      :staticmethod:
+
+
+
+   .. py:method:: tryIntersect(aLeft, aRight)
+      :staticmethod:
+
+
+
+   .. py:method:: intersect(aLeft, aRight)
+      :staticmethod:
+
+
+
+   .. py:method:: overlaps(aLeft, aRight) -> bool
+      :staticmethod:
+
+
+
+   .. py:method:: isSatisfiable(aInterval) -> bool
+      :staticmethod:
+
+
+
+   .. py:method:: toStringRepresentation(aInterval) -> str
+      :staticmethod:
+
+
+

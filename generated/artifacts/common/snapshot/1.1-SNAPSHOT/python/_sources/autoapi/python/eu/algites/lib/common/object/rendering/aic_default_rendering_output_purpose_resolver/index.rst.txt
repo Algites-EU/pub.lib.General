@@ -1,0 +1,22 @@
+python.eu.algites.lib.common.object.rendering.aic_default_rendering_output_purpose_resolver
+===========================================================================================
+
+.. py:module:: python.eu.algites.lib.common.object.rendering.aic_default_rendering_output_purpose_resolver
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.object.rendering.aic_default_rendering_output_purpose_resolver.AIcDefaultRenderingOutputPurposeResolver
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcDefaultRenderingOutputPurposeResolver
+
+   .. py:method:: resolvePurpose()
+
+
