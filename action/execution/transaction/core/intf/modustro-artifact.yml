@@ -12,7 +12,6 @@ Dependencies:
       - GroupId: eu.algites.lib.common
         ArtifactId: pub.lib.General_action.execution.engine.intf
         Usages: [product_api]
-        VersionRequirement: { Exact: "1.1-SNAPSHOT" }
   - DependencyKind: java
     Items:
       - GroupId: org.testng

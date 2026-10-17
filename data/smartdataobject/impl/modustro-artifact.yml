@@ -12,15 +12,12 @@ Dependencies:
       - GroupId: eu.algites.lib.data
         ArtifactId: pub.lib.General_data.smartdataobject.intf
         Usages: [product_api]
-        VersionRequirement: { Exact: "1.1-SNAPSHOT" }
       - GroupId: eu.algites.lib.text
-        ArtifactId: pub.lib.General_text.format.intf
+        ArtifactId: pub.lib.General_text.format
         Usages: [product_api]
-        VersionRequirement: { Exact: "1.1-SNAPSHOT" }
       - GroupId: eu.algites.lib.text
-        ArtifactId: pub.lib.General_text.format.impl
+        ArtifactId: pub.lib.General_text.format
         Usages: [product_api]
-        VersionRequirement: { Exact: "1.1-SNAPSHOT" }
   - DependencyKind: java
     Items:
       - GroupId: org.testng

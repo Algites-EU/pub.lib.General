@@ -1,5 +1,7 @@
 package eu.algites.lib.common.version.scheme.pep440;
 
+
+import eu.algites.lib.common.version.scheme.impl.pep440.AIcPep440VersionScheme;
 import eu.algites.lib.common.version.AIcVersion;
 import org.testng.Assert;
 import org.testng.annotations.Test;

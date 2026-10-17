@@ -22,7 +22,7 @@ git status --short
 | Before | After |
 |---|---|
 | `naming/convention/coreintf` | `naming/convention/intf` |
-| `naming/convention/coreimpl` | `naming/convention/impl` |
+| `naming/convention/coreimpl` | `naming/convention/algites` |
 | `naming/conversion/coreintf` | `naming/conversion/intf` |
 | `naming/conversion/coreimpl` | `naming/conversion/impl` |
 | `naming/validation/coreintf` | `naming/validation/intf` |

@@ -12,4 +12,3 @@ Dependencies:
       - GroupId: eu.algites.lib.common
         ArtifactId: pub.lib.General_journal.intf
         Usages: [product_api]
-        VersionRequirement: { Exact: "1.1-SNAPSHOT" }

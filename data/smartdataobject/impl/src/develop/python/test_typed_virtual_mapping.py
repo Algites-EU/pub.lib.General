@@ -4,8 +4,8 @@ from __future__ import annotations
 import pytest
 
 from eu.algites.lib.data.dataobject.aicd_data_object_field import AIcdDataObjectField
-from eu.algites.lib.data.smartdataobject.aic_smart_data_object import AIcSmartDataObject
-from eu.algites.lib.data.smartdataobject.ais_smart_data_object_factory import AIsSmartDataObjectFactory
+from eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object import AIcSmartDataObject
+from eu.algites.lib.data.smartdataobject.impl.standard.ais_smart_data_object_factory import AIsSmartDataObjectFactory
 from eu.algites.lib.data.smartdataobject.aiid_virtual_field_value import AIidVirtualFieldValue
 
 

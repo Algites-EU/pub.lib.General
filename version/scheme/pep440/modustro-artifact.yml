@@ -31,5 +31,3 @@ Dependencies:
     ArtifactId: pub.lib.General_version.common.impl
     Usages:
     - product_api
-    VersionRequirement:
-      Exact: 1.1-SNAPSHOT

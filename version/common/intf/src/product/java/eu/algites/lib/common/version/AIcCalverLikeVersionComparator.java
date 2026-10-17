@@ -1,5 +1,6 @@
 package eu.algites.lib.common.version;
 
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.Objects;
  * </p>
  * <ul>
  *   <li>Create a comparator implementing {@link AIiVersionComparator}.</li>
- *   <li>Optionally add a purpose (e.g. enum constant) or use {@link AIcCustomVersionScheme}.</li>
+ *   <li>Optionally add a purpose (e.g. enum constant) or use <code>eu.algites.lib.common.version.impl.standard.AIcCustomVersionScheme</code></li>
  *   <li>Use {@link AIsVersionComparator#compare(AIcVersion, AIcVersion, AIiVersionComparator)}.</li>
  * </ul>
  * <p>

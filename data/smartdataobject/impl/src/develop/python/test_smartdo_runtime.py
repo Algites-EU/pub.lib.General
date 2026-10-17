@@ -3,7 +3,7 @@ import json
 import pytest
 
 from eu.algites.lib.data.dataobject.aicd_data_object_field import AIcdDataObjectField
-from eu.algites.lib.data.smartdataobject.aic_smart_data_object import AIcSmartDataObject
+from eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object import AIcSmartDataObject
 from eu.algites.lib.text.format.ais_text_format_profiles import AIsTextFormatProfiles as F
 from eu.algites.lib.text.format.ain_text_output_object_reference_mode import AInTextOutputObjectReferenceMode as M
 
@@ -129,7 +129,7 @@ def test_xml_namespaced_fields_and_raw_document():
 
 def test_smartdo_non_present_read_policy():
     from eu.algites.lib.data.smartdataobject.smart_data_object_policy import smart_data_object, smart_data_object_field
-    from eu.algites.lib.data.smartdataobject.aic_smart_data_object import AIcSmartDataObject
+    from eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object import AIcSmartDataObject
     from eu.algites.lib.data.dataobject.aicd_data_object_field import AIcdDataObjectField
 
     @smart_data_object(allow_non_present_read=True)

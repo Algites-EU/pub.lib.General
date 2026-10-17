@@ -1,7 +1,9 @@
 package eu.algites.lib.common.version.scheme.pep440;
 
-import eu.algites.lib.common.version.AIcVersionRequirement;
-import eu.algites.lib.common.version.AIcVersionRequirementParser;
+
+import eu.algites.lib.common.version.scheme.impl.pep440.AIcPep440VersionRequirementRenderer;
+import eu.algites.lib.common.version.impl.standard.AIcVersionRequirement;
+import eu.algites.lib.common.version.impl.standard.AIcVersionRequirementParser;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

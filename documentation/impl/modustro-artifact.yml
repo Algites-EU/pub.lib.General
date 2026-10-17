@@ -31,17 +31,11 @@ Dependencies:
     ArtifactId: pub.lib.General_common
     Usages:
     - product_api
-    VersionRequirement:
-      Exact: 1.1-SNAPSHOT
   - GroupId: eu.algites.lib.common
     ArtifactId: pub.lib.General_common
     Usages:
     - develop_implementation
-    VersionRequirement:
-      Exact: 1.1-SNAPSHOT
   - GroupId: eu.algites.lib.common
     ArtifactId: pub.lib.General_documentation.intf
     Usages:
     - product_api
-    VersionRequirement:
-      Exact: 1.1-SNAPSHOT

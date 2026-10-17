@@ -1,5 +1,8 @@
 package eu.algites.lib.common.version.scheme.algites.v1;
 
+
+import eu.algites.lib.common.version.scheme.impl.algites.v1.AIcAlgitesVersionSchemeV1;
+import eu.algites.lib.common.version.scheme.impl.algites.v1.AIcAlgitesVersionTextV1;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

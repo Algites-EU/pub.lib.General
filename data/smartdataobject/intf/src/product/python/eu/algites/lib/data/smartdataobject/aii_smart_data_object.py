@@ -2,8 +2,8 @@ from __future__ import annotations
 from abc import abstractmethod
 from eu.algites.lib.data.dataobject.aii_data_object import AIiDataObject
 from typing import Set, Mapping
-from .aiid_virtual_field_value import AIidVirtualFieldValue
-from .aicd_smart_data_validation_issue import AIcdSmartDataValidationIssue
+from eu.algites.lib.data.smartdataobject.aiid_virtual_field_value import AIidVirtualFieldValue
+from eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue import AIcdSmartDataValidationIssue
 from eu.algites.lib.text.format.aii_text_format_profile import AIiTextFormatProfile
 from eu.algites.lib.text.format.ain_text_output_object_reference_mode import AInTextOutputObjectReferenceMode
 

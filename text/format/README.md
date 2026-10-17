@@ -13,3 +13,9 @@
 Reference policies describe **when** to emit identities and references. The profile determines **how** to represent them. Unsupported combinations throw rather than silently rewriting the wire contract. An object's per-output `dNr` is not a persistent ID; aliases use identity, never equality. Raw/effective values are independent of the reference mode.
 
 `JSON_DOTNET_PRESERVE` uses `$id` / `$ref` / `$values`; unescaped user fields with reserved names must not collide with protocol metadata. Canonical plain JSON and XML XSD profiles deliberately support only `NO_REFERENCES`. Diagnostic profiles can render cycles using transient references. YAML's native profile writes `&anchor` and `*alias`.
+
+
+
+
+## Integrated text formatting implementation
+

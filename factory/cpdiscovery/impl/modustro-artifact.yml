@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+Artifact:
+  Name: Category Provider Discovery standard implementation
+  Description: Atomic provider discovery catalog using Java ServiceLoader/JPMS and Python entry points.
+  TechnologyKinds: [java, python]
+Dependencies:
+  - DependencyKind: modustro
+    Items:
+      - GroupId: eu.algites.lib.common
+        ArtifactId: pub.lib.General_factory.cpdiscovery.intf
+        Usages: [product_api]
+  - DependencyKind: java
+    Items:
+      - GroupId: org.testng
+        ArtifactId: testng
+        Usages: [develop_implementation]
+        VersionRequirement:
+          Minimum: ">=7.0.0"
+          Maximum: "<8.0.0"
+          MaximumStrict: true
+  - DependencyKind: python
+    Items:
+      - ArtifactId: pytest
+        Usages: [develop_implementation]
+        VersionRequirement:
+          Minimum: ">=8.0"
+          Maximum: "<10.0"
+          MaximumStrict: true

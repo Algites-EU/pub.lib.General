@@ -1,5 +1,7 @@
 package eu.algites.lib.common.version.scheme.maven;
 
+
+import eu.algites.lib.common.version.scheme.impl.maven.AIcMavenVersionScheme;
 import eu.algites.lib.common.version.AIcVersion;
 import org.testng.Assert;
 import org.testng.annotations.Test;
