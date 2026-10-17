@@ -19,7 +19,7 @@ import java.util.Objects;
  * </p>
  * <ul>
  *   <li>Create a comparator implementing {@link AIiVersionComparator}.</li>
- *   <li>Optionally add a purpose (e.g. enum constant) or use <code>eu.algites.lib.common.version.impl.standard.AIcCustomVersionScheme</code></li>
+ *   <li>Optionally add a purpose (e.g. enum constant) or use <code>custom version scheme</code>.</li>
  *   <li>Use {@link AIsVersionComparator#compare(AIcVersion, AIcVersion, AIiVersionComparator)}.</li>
  * </ul>
  * <p>

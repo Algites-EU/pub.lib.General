@@ -9,11 +9,9 @@ from typing import Any
 
 from eu.algites.lib.factory.cpdiscovery.aii_category_provider_registry import AIiCategoryProviderRegistry
 from eu.algites.lib.factory.cpdiscovery.aii_category_provider_factory import AIiCategoryProviderFactory
-from eu.algites.lib.factory.cpdiscovery.aix_category_provider_discovery_exception import (
-    AIxCategoryProviderConflictException,
-    AIxCategoryProviderDiscoveryException,
-    AIxCategoryProviderUnavailableException,
-)
+from eu.algites.lib.factory.cpdiscovery.aix_category_provider_conflict_exception import AIxCategoryProviderConflictException
+from eu.algites.lib.factory.cpdiscovery.aix_category_provider_discovery_exception import AIxCategoryProviderDiscoveryException
+from eu.algites.lib.factory.cpdiscovery.aix_category_provider_unavailable_exception import AIxCategoryProviderUnavailableException
 
 
 @dataclass(frozen=True)

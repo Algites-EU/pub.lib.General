@@ -2,9 +2,8 @@ from abc import ABC
 import pytest
 from eu.algites.lib.factory.cpdiscovery.aii_category_provider_factory import AIiCategoryProviderFactory
 from eu.algites.lib.factory.cpdiscovery.category_provider_factory import category_provider_factory
-from eu.algites.lib.factory.cpdiscovery.aix_category_provider_discovery_exception import (
-    AIxCategoryProviderConflictException, AIxCategoryProviderUnavailableException,
-)
+from eu.algites.lib.factory.cpdiscovery.aix_category_provider_conflict_exception import AIxCategoryProviderConflictException
+from eu.algites.lib.factory.cpdiscovery.aix_category_provider_unavailable_exception import AIxCategoryProviderUnavailableException
 from eu.algites.lib.factory.cpdiscovery.impl.standard.aic_category_provider_registry import AIcCategoryProviderRegistry
 
 class AIiResult(ABC):
