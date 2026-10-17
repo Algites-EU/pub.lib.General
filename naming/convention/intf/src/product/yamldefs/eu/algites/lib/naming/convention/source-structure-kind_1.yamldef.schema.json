@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-kind_1.yamldef.schema.json",
   "type": "string",
+  "title": "Source structure kind",
   "enum": [
     "main_container_name",
     "sub_container_name",
@@ -20,5 +21,62 @@
   "x-yamldefs-version": 1,
   "x-yamldefs-name": "source-structure-kind",
   "x-algites-schema-id": "eu.algites.lib.naming.convention.source-structure-kind",
-  "x-algites-schema-version": 1
+  "x-algites-schema-version": 1,
+  "oneOf": [
+    {
+      "const": "main_container_name",
+      "title": "Main container name",
+      "description": "Name of the primary class, interface or other generated container."
+    },
+    {
+      "const": "sub_container_name",
+      "title": "Subcontainer name",
+      "description": "Name of a nested or subordinate container."
+    },
+    {
+      "const": "field_name",
+      "title": "Field name",
+      "description": "Name assigned to a data field or property."
+    },
+    {
+      "const": "enum_item_name",
+      "title": "Enumeration item name",
+      "description": "Name assigned to one constant of an enumeration."
+    },
+    {
+      "const": "constant_name",
+      "title": "Constant name",
+      "description": "Name assigned to a constant declaration."
+    },
+    {
+      "const": "method_name",
+      "title": "Method name",
+      "description": "Name assigned to a callable method."
+    },
+    {
+      "const": "method_parameter_name",
+      "title": "Method parameter name",
+      "description": "Name assigned to a parameter in a method signature."
+    },
+    {
+      "const": "local_variable_name",
+      "title": "Local variable name",
+      "description": "Name assigned to a variable local to a method or block."
+    },
+    {
+      "const": "package_segment_name",
+      "title": "Package segment name",
+      "description": "Name of one hierarchical package segment."
+    },
+    {
+      "const": "file_name_stem",
+      "title": "File name stem",
+      "description": "File name portion preceding its suffix or extension."
+    },
+    {
+      "const": "file_name_suffix",
+      "title": "File name suffix",
+      "description": "File name suffix or extension used by the naming convention."
+    }
+  ]
 }

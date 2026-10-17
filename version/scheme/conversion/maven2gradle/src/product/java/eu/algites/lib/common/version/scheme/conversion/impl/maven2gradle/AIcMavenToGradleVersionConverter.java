@@ -14,6 +14,7 @@ public final class AIcMavenToGradleVersionConverter implements AIiVersionConvert
 	private static final Pattern RANGE = Pattern.compile("^([\\[(])([^,]*),([^,]*)([\\])])$");
 	private static final Pattern NUMERIC_VERSION = Pattern.compile("^[0-9]+(?:\\.[0-9]+)*$");
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AIrVersionConversionResult<AIrGradleVersionConstraint> convert(@Nonnull final AIrMavenVersionRequirement aSource) {

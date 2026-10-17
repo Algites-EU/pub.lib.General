@@ -24,10 +24,15 @@ public final class AIcSemverLikeVersion extends AIcVersion {
 	@Serial
 	private static final long serialVersionUID = 2L;
 
+	/**
+	 * Creates a semver like version instance with the supplied configuration.
+	 * @param aOriginalText original unparsed version text
+	 */
 	public AIcSemverLikeVersion(@NotNull final String aOriginalText) {
 		super(aOriginalText);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected AIiVersionScheme getHandlingMode() {
 		return AInBuiltinVersionScheme.SEMVER_DEFAULT;

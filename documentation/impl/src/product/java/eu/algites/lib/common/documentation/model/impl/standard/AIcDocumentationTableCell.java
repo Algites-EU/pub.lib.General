@@ -57,21 +57,25 @@ public class AIcDocumentationTableCell
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getColumnId() {
         return columnId;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<AIiDocumentationInlineElement> getInlineElements() {
         return Collections.unmodifiableList(inlineElements);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addInlineElement(AIiDocumentationInlineElement aInlineElement) {
         inlineElements.add(Objects.requireNonNull(aInlineElement, "Parameter aInlineElement must not be null."));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addInlineElements(List<? extends AIiDocumentationInlineElement> aInlineElements) {
         Objects.requireNonNull(aInlineElements, "Parameter aInlineElements must not be null.");
@@ -81,6 +85,7 @@ public class AIcDocumentationTableCell
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addText(
             String aElementId,
@@ -88,11 +93,13 @@ public class AIcDocumentationTableCell
         addInlineElement(new AIcDocumentationText(aElementId, aText));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addLineBreak(String aElementId) {
         addInlineElement(new AIcDocumentationLineBreak(aElementId));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addLink(
             String aElementId,
@@ -102,6 +109,7 @@ public class AIcDocumentationTableCell
         addInlineElement(new AIcDocumentationLink(aElementId, aLabel, aTarget, aTitle));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addReference(
             String aElementId,
@@ -111,6 +119,7 @@ public class AIcDocumentationTableCell
         addInlineElement(new AIcDocumentationReference(aElementId, aLabel, aReferenceTarget, aTitle));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addInlineCode(
             String aElementId,

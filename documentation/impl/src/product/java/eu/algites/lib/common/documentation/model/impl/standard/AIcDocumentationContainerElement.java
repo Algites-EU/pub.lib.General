@@ -29,16 +29,19 @@ public abstract class AIcDocumentationContainerElement
         super(aElementId);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<AIiDocumentationBlockElement> getChildElements() {
         return Collections.unmodifiableList(childElements);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addChildElement(AIiDocumentationBlockElement aChildElement) {
         childElements.add(Objects.requireNonNull(aChildElement, "Parameter aChildElement must not be null."));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addChildElements(List<? extends AIiDocumentationBlockElement> aChildElements) {
         Objects.requireNonNull(aChildElements, "Parameter aChildElements must not be null.");

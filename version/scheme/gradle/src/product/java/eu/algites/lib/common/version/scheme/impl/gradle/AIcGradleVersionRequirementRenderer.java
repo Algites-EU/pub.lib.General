@@ -13,6 +13,11 @@ import java.util.Objects;
 public final class AIcGradleVersionRequirementRenderer {
 	private AIcGradleVersionRequirementRenderer() { /* utility class */ }
 
+	/**
+	 * Renders  into the requested external representation.
+	 * @param aRequirement version requirement to process
+	 * @return the render
+	 */
 	@Nonnull
 	public static AIrGradleVersionConstraint render(@Nonnull final AIiVersionRequirement aRequirement) {
 		Objects.requireNonNull(aRequirement, "Version requirement must not be null");

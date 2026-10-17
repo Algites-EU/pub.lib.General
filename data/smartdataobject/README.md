@@ -68,3 +68,20 @@ Java/Python classes in memory does not identify a portable wire type: that
 requires the separate `SchemaId`/`SchemaVersion`, `SchemaUrl`, and object
 reference identifiers in the eventual JSON/YAML/XML format. No inference
 from multiple inherited interfaces can recreate a missing concrete type.
+
+## Generic validation issues and field topics
+
+`AIiSmartDataObject` implements `AIiValidatable<AIiSdoValidationIssue>`.
+Its generic validity delegates to the existing deeply-effective validation;
+all existing local/deep and raw/effective methods remain available.
+`AIiSdoValidationIssue` extends the general issue interface with related-text
+roles `FIELD_SYSTEM_NAME`, `FIELD_LOCALIZED_NAME`, and `FIELD_LOCALIZED_DESCRIPTION` (string topic
+identifiers, not a closed enum). `getFieldName()`, `getFieldTitle(Locale)` and
+`getFieldDescription(Locale)` are convenience methods.
+
+A null locale means technical, untranslated field names, source descriptions
+and original diagnostic text; it is **not** an instruction to use the process
+locale. Unsupported non-null locales fall back to English. Missing related
+text topics return `null`. Deep SDO validation retains the owning field's
+metadata when reporting nested `AIiValidatable` collection issues, and keeps
+technical `path` values independent of localized labels.

@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/container-structure-type_1.jsondef.schema.json",
   "type": "string",
+  "title": "Container structure type",
   "enum": [
     "object",
     "class",
@@ -16,5 +17,42 @@
   "x-jsondefs-version": 1,
   "x-jsondefs-name": "container-structure-type",
   "x-algites-schema-id": "eu.algites.lib.naming.convention.container-structure-type",
-  "x-algites-schema-version": 1
+  "x-algites-schema-version": 1,
+  "oneOf": [
+    {
+      "const": "object",
+      "title": "Object",
+      "description": "A general data object or document container."
+    },
+    {
+      "const": "class",
+      "title": "Class",
+      "description": "A concrete or abstract class declaration."
+    },
+    {
+      "const": "interface",
+      "title": "Interface",
+      "description": "An interface declaration defining a contract."
+    },
+    {
+      "const": "enum",
+      "title": "Enumeration",
+      "description": "An enumeration type containing a fixed set of values."
+    },
+    {
+      "const": "exception",
+      "title": "Exception",
+      "description": "A throwable exception type."
+    },
+    {
+      "const": "annotation",
+      "title": "Annotation",
+      "description": "An annotation type used to attach metadata."
+    },
+    {
+      "const": "resource_bundle",
+      "title": "Resource bundle",
+      "description": "A resource bundle containing localized text or other resources."
+    }
+  ]
 }

@@ -12,6 +12,9 @@ import eu.algites.lib.common.version.AInBuiltinVersionStructure;
  */
 public final class AIcMavenVersionScheme {
 
+	/**
+	 * Shared immutable instance of the maven version scheme implementation.
+	 */
 	public static final AIiVersionScheme INSTANCE = new AIcCustomVersionScheme(
 			"maven",
 			new AIcMavenLikeVersionComparator(),

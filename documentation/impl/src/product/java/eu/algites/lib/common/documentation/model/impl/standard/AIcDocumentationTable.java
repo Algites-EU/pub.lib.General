@@ -38,26 +38,31 @@ public class AIcDocumentationTable
         tableTitle = Objects.requireNonNull(aTableTitle, "Parameter aTableTitle must not be null.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getTableTitle() {
         return tableTitle;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<AIiDocumentationTableColumn> getColumns() {
         return Collections.unmodifiableList(columns);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<AIiDocumentationTableRow> getRows() {
         return Collections.unmodifiableList(rows);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addColumn(AIiDocumentationTableColumn aColumn) {
         columns.add(Objects.requireNonNull(aColumn, "Parameter aColumn must not be null."));
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addRow(AIiDocumentationTableRow aRow) {
         rows.add(Objects.requireNonNull(aRow, "Parameter aRow must not be null."));

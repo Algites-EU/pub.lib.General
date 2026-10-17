@@ -19,6 +19,11 @@ public final class AIcAlgitesVersionRequirementToPep440ConverterV1 {
 
 	private AIcAlgitesVersionRequirementToPep440ConverterV1() { /* utility class */ }
 
+	/**
+	 * Converts  to the target representation.
+	 * @param aRequirement version requirement to process
+	 * @return the result of the operation
+	 */
 	@Nonnull
 	public static AIcVersionRequirement convert(@Nonnull final AIiVersionRequirement aRequirement) {
 		Objects.requireNonNull(aRequirement, "version requirement must not be null");

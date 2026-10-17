@@ -22,12 +22,16 @@ public final class AIcDefaultVersionFormatter implements AIiVersionFormatter, Se
 	@Serial
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Shared immutable instance of the default version formatter implementation.
+	 */
 	@Nonnull
 	public static final AIcDefaultVersionFormatter INSTANCE = new AIcDefaultVersionFormatter();
 
 	private AIcDefaultVersionFormatter() {
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String formatVersionText(@Nonnull final AIcVersion aVersion, @Nonnull final AIiVersionScheme aScheme) {

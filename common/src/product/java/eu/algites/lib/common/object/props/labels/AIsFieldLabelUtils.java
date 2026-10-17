@@ -55,6 +55,8 @@ import java.util.Set;
 public class AIsFieldLabelUtils {
 
 	private record AIcFieldMeta(
+            String defaultLabel,
+            String defaultRoleCode,
 			Map<AIcLabelKey, String> labelsByKey,
 			AIiFieldLabelResolver labelResolverOrNull,
 			AIiRenderingOutputPurposeResolver purposeResolverOrNull,
@@ -66,6 +68,7 @@ public class AIsFieldLabelUtils {
 
 	
 	private record AIcLabelKey(
+            String roleCode,
 			String purposeCode,
 			String formatCodeOrNull,
 			String localeCodeOrNull
@@ -81,6 +84,7 @@ private record AIcFieldMetaNode(
 	}
 
 	private static final ClassValue<AIcFieldMetaNode> CACHE = new ClassValue<>() {
+		/** {@inheritDoc} */
 		@Override
 		protected AIcFieldMetaNode computeValue(Class<?> type) {
 			AIcFieldMetaNode locParentOrNull = null;
@@ -272,14 +276,12 @@ private record AIcFieldMetaNode(
 
 		for (AIaFieldLabel.Entry e : ann.labels()) {
 			String locPurposeCode = resolvePurposeCodeOrNull(e);
-			if (locPurposeCode == null || locPurposeCode.isBlank()) {
-				continue;
-			}
+            if (locPurposeCode == null || locPurposeCode.isBlank()) locPurposeCode = AInRenderingOutputBuiltinPurpose.DEFAULT.code();
 
 			String locFormatCodeOrNull = resolveFormatCodeOrNull(e);
 			String locLocaleCodeOrNull = normalizeLocaleCodeOrNull(e.localeCode());
 
-			labels.put(new AIcLabelKey(locPurposeCode, locFormatCodeOrNull, locLocaleCodeOrNull), e.label());
+			labels.put(new AIcLabelKey(e.roleCode(), locPurposeCode, locFormatCodeOrNull, locLocaleCodeOrNull), e.label());
 		}
 		AIiFieldLabelResolver labelResolver = instantiateLabelResolverIfAny(ann);
 		AIiRenderingOutputPurposeResolver purposeResolver = instantiatePurposeResolverIfAny(ann);
@@ -287,6 +289,7 @@ private record AIcFieldMetaNode(
 		AIiRenderingOutputLocaleResolver localeResolver = instantiateLocaleResolverIfAny(ann);
 
 		return new AIcFieldMeta(
+                ann.label(), ann.roleCode(),
 				Collections.unmodifiableMap(labels),
 				labelResolver,
 				purposeResolver,
@@ -422,10 +425,16 @@ private record AIcFieldMetaNode(
 	 */
 	public static String findLabel(Class<?> aOwnerClass, String aPropertyName, AIiRenderingOutputPurpose aRenderingOutputPurpose,
 			final AIiRenderingOutputFormat aRenderingOutputFormat, final Locale aRenderingOutputLocale) {
+        return findLabel(aOwnerClass, aPropertyName, aRenderingOutputPurpose, aRenderingOutputFormat,
+                aRenderingOutputLocale, AIaFieldLabel.DEFAULT_ROLE_CODE);
+    }
+
+    /** Resolve a given semantic text role while preserving independent rendering axes. */
+    public static String findLabel(Class<?> aOwnerClass, String aPropertyName, AIiRenderingOutputPurpose aRenderingOutputPurpose,
+            AIiRenderingOutputFormat aRenderingOutputFormat, Locale aRenderingOutputLocale, String aRoleCode) {
 		AIcFieldMeta locMeta = findMeta(aOwnerClass, aPropertyName);
-		if (locMeta == null) {
-			return aPropertyName;
-		}
+        boolean locDefaultRole = AIaFieldLabel.DEFAULT_ROLE_CODE.equals(aRoleCode);
+		if (locMeta == null) return locDefaultRole ? aPropertyName : null;
 
 		AIiRenderingOutputPurpose locResolvedPurpose = aRenderingOutputPurpose;
 		if (locResolvedPurpose == null && locMeta.purposeResolverOrNull != null) {
@@ -451,17 +460,18 @@ private record AIcFieldMetaNode(
 			locResolvedLocale = AIsRenderingOutputUtils.usedRenderingOutputLocale();
 		}
 
-		if (locMeta.labelResolverOrNull != null) {
-			String locResolved = locMeta.labelResolverOrNull.resolveLabel(aOwnerClass, aPropertyName, locResolvedPurpose,
-					locResolvedFormat,
-					locResolvedLocale);
+        if (locMeta.labelResolverOrNull != null) {
+            String locResolved = locMeta.labelResolverOrNull.resolveLabel(aOwnerClass, aPropertyName,
+                    aRoleCode, locResolvedPurpose, locResolvedFormat, locResolvedLocale);
 			if (locResolved != null && !locResolved.isBlank()) {
 				return locResolved;
 			}
 		}
 
-		String locMapped = resolveMappedLabelOrNull(locMeta.labelsByKey, locResolvedPurpose, locResolvedFormat, locResolvedLocale);
-		return (locMapped != null && !locMapped.isBlank()) ? locMapped : aPropertyName;
+		String locMapped = resolveMappedLabelOrNull(locMeta.labelsByKey, aRoleCode, locResolvedPurpose, locResolvedFormat, locResolvedLocale);
+        if (locMapped != null && !locMapped.isBlank()) return locMapped;
+        if (!locMeta.defaultLabel.isBlank() && aRoleCode.equals(locMeta.defaultRoleCode)) return locMeta.defaultLabel;
+        return locDefaultRole ? aPropertyName : null;
 	}
 
 
@@ -489,6 +499,7 @@ private record AIcFieldMetaNode(
 	 */
 	private static String resolveMappedLabelOrNull(
 			Map<AIcLabelKey, String> aLabelsByKey,
+            String aRoleCode,
 			AIiRenderingOutputPurpose aResolvedPurpose,
 			AIiRenderingOutputFormat aResolvedFormat,
 			Locale aResolvedLocale
@@ -507,7 +518,7 @@ private record AIcFieldMetaNode(
 
 		if (locFormatCodeOrNull != null && !locLocaleCandidateCodes.isEmpty()) {
 			for (String locLocaleCode : locLocaleCandidateCodes) {
-				String locFound = aLabelsByKey.get(new AIcLabelKey(locPurposeCode, locFormatCodeOrNull, locLocaleCode));
+				String locFound = aLabelsByKey.get(new AIcLabelKey(aRoleCode, locPurposeCode, locFormatCodeOrNull, locLocaleCode));
 				if (locFound != null) {
 					return locFound;
 				}
@@ -515,7 +526,7 @@ private record AIcFieldMetaNode(
 		}
 
 		if (locFormatCodeOrNull != null) {
-			String locFound = aLabelsByKey.get(new AIcLabelKey(locPurposeCode, locFormatCodeOrNull, null));
+			String locFound = aLabelsByKey.get(new AIcLabelKey(aRoleCode, locPurposeCode, locFormatCodeOrNull, null));
 			if (locFound != null) {
 				return locFound;
 			}
@@ -523,14 +534,19 @@ private record AIcFieldMetaNode(
 
 		if (!locLocaleCandidateCodes.isEmpty()) {
 			for (String locLocaleCode : locLocaleCandidateCodes) {
-				String locFound = aLabelsByKey.get(new AIcLabelKey(locPurposeCode, null, locLocaleCode));
+				String locFound = aLabelsByKey.get(new AIcLabelKey(aRoleCode, locPurposeCode, null, locLocaleCode));
 				if (locFound != null) {
 					return locFound;
 				}
 			}
 		}
 
-		return aLabelsByKey.get(new AIcLabelKey(locPurposeCode, null, null));
+        String locFound = aLabelsByKey.get(new AIcLabelKey(aRoleCode, locPurposeCode, null, null));
+        if (locFound != null) return locFound;
+        if (!AInRenderingOutputBuiltinPurpose.DEFAULT.code().equals(locPurposeCode))
+            return resolveMappedLabelOrNull(aLabelsByKey, aRoleCode, AInRenderingOutputBuiltinPurpose.DEFAULT,
+                    aResolvedFormat, aResolvedLocale);
+        return null;
 	}
 
 	private static String normalizeKeyPartOrNull(String aCode) {

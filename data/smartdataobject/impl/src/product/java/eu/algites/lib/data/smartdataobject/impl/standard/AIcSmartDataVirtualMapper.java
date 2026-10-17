@@ -15,7 +15,9 @@ final class AIcSmartDataVirtualMapper {
         private final Class<?> valueClass;
         private Object representation;
         private AIcValue(Class<?> aValueClass) { valueClass = aValueClass; }
+        /** {@inheritDoc} */
         @Override public Object getValueRepresentation() { return representation; }
+        /** {@inheritDoc} */
         @Override public Class<?> getValueClass() { return valueClass; }
     }
 

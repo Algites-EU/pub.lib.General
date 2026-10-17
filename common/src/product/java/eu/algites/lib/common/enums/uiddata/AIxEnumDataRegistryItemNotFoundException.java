@@ -13,6 +13,10 @@ import java.util.function.Supplier;
  */
 public class AIxEnumDataRegistryItemNotFoundException extends AIxRuntimeException {
 
+	/**
+	 * Creates a enum data registry item not found exception instance with the supplied configuration.
+	 * @param aMessageSupplier supplier producing the diagnostic message when needed
+	 */
 	public AIxEnumDataRegistryItemNotFoundException(final Supplier<String> aMessageSupplier) {
 		super(aMessageSupplier, null, null, null);
 	}

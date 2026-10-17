@@ -9,6 +9,7 @@ import jakarta.annotation.Nonnull;
 
 /** Converts Algites version scheme v1 directly into a Gradle requirement. */
 public final class AIcAlgitesToGradleVersionConverterV1 implements AIiVersionConverter<AIiAlgitesVersionV1, AIrGradleVersionConstraint> {
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AIrVersionConversionResult<AIrGradleVersionConstraint> convert(@Nonnull final AIiAlgitesVersionV1 aSource) {

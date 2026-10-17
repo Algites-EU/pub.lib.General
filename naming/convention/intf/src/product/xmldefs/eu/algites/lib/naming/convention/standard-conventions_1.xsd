@@ -1,7 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.standard-conventions" version="1">
-  <xs:complexType name="standard-conventions"><xs:sequence>
-    <xs:element name="IdentifierConventions" minOccurs="0" type="xs:anyType"/>
-    <xs:element name="VersionConventions" minOccurs="0" type="xs:anyType"/>
-  </xs:sequence></xs:complexType>
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:algdoc="urn:eu:algites:documentation:1" targetNamespace="eu.algites.lib.naming.convention.standard-conventions" version="1">
+  <xs:annotation>
+    <xs:appinfo>
+      <algdoc:title>Standard conventions</algdoc:title>
+    </xs:appinfo>
+    <xs:documentation>Reusable regular expressions with named capture groups. Regex syntax canonicalized from Java named groups.</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="urn:eu:algites:documentation:1" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/common/documentation/algites-documentation_1.xsd"/>
+  <xs:complexType name="standard-conventions">
+    <xs:annotation>
+      <xs:appinfo>
+        <algdoc:title>Standard conventions</algdoc:title>
+      </xs:appinfo>
+      <xs:documentation>Reusable regular expressions with named capture groups. Regex syntax canonicalized from Java named groups.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="IdentifierConventions" minOccurs="0" type="xs:anyType">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Identifier conventions</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Named identifier conventions whose regular expressions validate or recognize identifiers.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VersionConventions" minOccurs="0" type="xs:anyType">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Version conventions</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Named version conventions whose regular expressions recognize version components.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
 </xs:schema>

@@ -23,6 +23,7 @@ public final class AIcSemverLikeVersionComparator implements AIiVersionComparato
 	@Serial
 	private static final long serialVersionUID = 1L;
 
+	/** {@inheritDoc} */
 	@Override
 	public int compare(final AIcVersion aLeft, final AIcVersion aRight) {
 		Objects.requireNonNull(aLeft, "Left version must not be null");

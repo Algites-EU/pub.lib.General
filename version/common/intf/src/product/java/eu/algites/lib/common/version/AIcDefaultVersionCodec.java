@@ -25,16 +25,24 @@ public final class AIcDefaultVersionCodec implements AIiVersionCodec, Serializab
 	@Serial
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Shared immutable instance of the default version codec implementation.
+	 */
 	@Nonnull
 	public static final AIcDefaultVersionCodec INSTANCE = new AIcDefaultVersionCodec(AIcDefaultVersionFormatter.INSTANCE);
 
 	@Nonnull
 	private final AIiVersionFormatter versionFormatter;
 
+	/**
+	 * Creates a default version codec instance with the supplied configuration.
+	 * @param aVersionFormatter formatter used to render version text
+	 */
 	public AIcDefaultVersionCodec(@Nonnull final AIiVersionFormatter aVersionFormatter) {
 		versionFormatter = Objects.requireNonNull(aVersionFormatter, "Version formatter must not be null");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AIcVersion parseVersion(@Nonnull final String aVersionText, @Nonnull final AIiVersionScheme aScheme) {
@@ -45,6 +53,7 @@ public final class AIcDefaultVersionCodec implements AIiVersionCodec, Serializab
 		return new AIcVersion(locText);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String formatVersionText(@Nonnull final AIcVersion aVersion, @Nonnull final AIiVersionScheme aScheme) {

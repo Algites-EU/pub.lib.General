@@ -20,7 +20,13 @@ import org.jetbrains.annotations.Nullable;
  * @date 13.01.26 17:00
  */
 public enum AInUidEnumDataOrigin implements AIiUidEnumDataOrigin {
+	/**
+	 * Identifier origin managed by the built-in registry.
+	 */
 	BUILTIN("builtin", false),
+	/**
+	 * Identifier origin provided by application-defined data.
+	 */
 	CUSTOM("custom", true);
 
 	private final String code;
@@ -68,6 +74,7 @@ public enum AInUidEnumDataOrigin implements AIiUidEnumDataOrigin {
 		return null;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean namespaceUsed() {
 		return namespaceUsed;

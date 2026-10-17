@@ -1,0 +1,13 @@
+from __future__ import annotations
+from abc import ABC, abstractmethod
+
+class AIiValidationIssue(ABC):
+    """Locale None selects technical text; unknown non-None locales fall back to English."""
+    @abstractmethod
+    def getCode(self) -> str: ...
+    @abstractmethod
+    def getPath(self) -> str: ...
+    @abstractmethod
+    def getMessage(self, aLocale: str | None) -> str: ...
+    @abstractmethod
+    def getRelatedTopicText(self, aTopicId: str, aLocale: str | None) -> str | None: ...

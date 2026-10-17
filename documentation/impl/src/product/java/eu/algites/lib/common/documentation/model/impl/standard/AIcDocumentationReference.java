@@ -40,16 +40,19 @@ public class AIcDocumentationReference
         title = Objects.requireNonNull(aTitle, "Parameter aTitle must not be null.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getLabel() {
         return label;
     }
 
+    /** {@inheritDoc} */
     @Override
     public AIiDocumentationReferenceTarget getReferenceTarget() {
         return referenceTarget;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getTitle() {
         return title;

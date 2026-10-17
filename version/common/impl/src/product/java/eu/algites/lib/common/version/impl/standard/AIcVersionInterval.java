@@ -298,11 +298,23 @@ public class AIcVersionInterval extends AIcInterval<AIcVersion> {
 			value = aValue;
 		}
 
+		/**
+		 * Creates an interval endpoint on the left-hand side.
+		 * @param aBoundary inclusion rule for the interval endpoint
+		 * @param aValue value being processed
+		 * @return the result of the operation
+		 */
 		@Nonnull
 		public static Endpoint left(@Nonnull final AInIntervalBoundary aBoundary, @Nullable final AIcVersion aValue) {
 			return new Endpoint(aBoundary, aValue);
 		}
 
+		/**
+		 * Creates an interval endpoint on the right-hand side.
+		 * @param aBoundary inclusion rule for the interval endpoint
+		 * @param aValue value being processed
+		 * @return the result of the operation
+		 */
 		@Nonnull
 		public static Endpoint right(@Nonnull final AInIntervalBoundary aBoundary, @Nullable final AIcVersion aValue) {
 			return new Endpoint(aBoundary, aValue);

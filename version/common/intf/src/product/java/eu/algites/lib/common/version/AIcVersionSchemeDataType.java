@@ -28,6 +28,7 @@ import java.util.function.BiFunction;
  */
 public class AIcVersionSchemeDataType implements AIiVersionSchemeDataType {
 
+	/** {@inheritDoc} */
 	@Override
 	public BiFunction<String, List<String>, ? extends AIiVersionSchemeDataUidRecord> getUidRecordFactory() {
 		return (aUid, aParts) -> {
@@ -39,6 +40,7 @@ public class AIcVersionSchemeDataType implements AIiVersionSchemeDataType {
 		};
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public List<AIiUidPartMetadata<AInUidEnumDataOrigin>> getSpecificUidPartsMetadata() {
 		return AIiVersionSchemeDataUidRecord.RECORD_SPECIFIC_PARTS_METADATA;

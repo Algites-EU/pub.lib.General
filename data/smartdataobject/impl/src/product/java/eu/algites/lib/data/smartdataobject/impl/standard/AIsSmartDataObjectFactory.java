@@ -27,6 +27,7 @@ public final class AIsSmartDataObjectFactory {
     }
     private static final ThreadLocal<AIcContext> CURRENT = new ThreadLocal<>();
     private static final ClassValue<Constructor<?>> CONSTRUCTORS = new ClassValue<>() {
+        /** {@inheritDoc} */
         @Override protected Constructor<?> computeValue(Class<?> aType) {
             try {
                 Constructor<?> locConstructor = aType.getConstructor(Map.class);

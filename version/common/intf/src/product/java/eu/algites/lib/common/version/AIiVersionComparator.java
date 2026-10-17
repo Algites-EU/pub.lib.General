@@ -19,6 +19,7 @@ import java.util.Comparator;
 @FunctionalInterface
 public interface AIiVersionComparator extends Comparator<AIcVersion> {
 
+	/** {@inheritDoc} */
 	@Override
 	int compare(AIcVersion aLeft, AIcVersion aRight);
 }

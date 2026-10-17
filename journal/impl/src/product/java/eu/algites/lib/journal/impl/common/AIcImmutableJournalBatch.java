@@ -16,6 +16,7 @@ final class AIcImmutableJournalBatch<E extends AIiJournalEntry> implements AIiJo
         entries = List.copyOf(aEntries);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<E> getEntries() {
         return entries;

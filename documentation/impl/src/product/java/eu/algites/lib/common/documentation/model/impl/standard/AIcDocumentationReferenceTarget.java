@@ -49,26 +49,31 @@ public class AIcDocumentationReferenceTarget
         displayName = Objects.requireNonNull(aDisplayName, "Parameter aDisplayName must not be null.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getSourceSystemId() {
         return sourceSystemId;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getTargetKind() {
         return targetKind;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getTargetId() {
         return targetId;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getQualifiedName() {
         return qualifiedName;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getDisplayName() {
         return displayName;

@@ -29,14 +29,17 @@ import java.util.List;
  */
 public interface AIiVersionSchemeDataUidRecord extends AIiUidEnumDataRecord, AIiEnumItem {
 
+	/** {@inheritDoc} */
 	@AIaFieldLabel(label = "version-scheme-uid")
 	@Override
 	String uid();
 
+	/** {@inheritDoc} */
 	@AIaFieldLabel(label = "version-scheme-origin")
 	@Override
 	AInUidEnumDataOrigin origin();
 
+	/** {@inheritDoc} */
 	@AIaFieldLabel(label = "version-scheme-namespace")
 	@Override
 	String namespace();
@@ -53,6 +56,7 @@ public interface AIiVersionSchemeDataUidRecord extends AIiUidEnumDataRecord, AIi
 	@AIaFieldLabel(label = "version-scheme-code")
 	String schemeCode();
 
+	/** {@inheritDoc} */
 	@Override
 	default String code() { return schemeCode(); }
 

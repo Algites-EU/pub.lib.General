@@ -26,7 +26,7 @@ import java.util.function.Predicate;
  *
  * @param <T> element type
  */
-public class AIcBoundedList<T> extends AbstractList<T> implements RandomAccess, AIiValidatable {
+public class AIcBoundedList<T> extends AbstractList<T> implements RandomAccess, AIiValidatable<AIcdBoundedListValidationIssue> {
     private final List<T> values = new ArrayList<>();
     private final Integer minSize;
     private final Integer maxSize;
@@ -91,16 +91,20 @@ public class AIcBoundedList<T> extends AbstractList<T> implements RandomAccess, 
     /** Returns the selected mutation policy. */
     public AInBoundsMutationPolicy getMutationPolicy() { return mutationPolicy; }
 
+    /** {@inheritDoc} */
     @Override public int size() { return values.size(); }
+    /** {@inheritDoc} */
     @Override public T get(int aIndex) { return values.get(aIndex); }
 
     /** Replaces an element; the list size is unchanged. */
     @Override public T set(int aIndex, T aElement) { return values.set(aIndex, aElement); }
 
+    /** {@inheritDoc} */
     @Override public void add(int aIndex, T aElement) {
         mutate(locItems -> locItems.add(aIndex, aElement));
     }
 
+    /** {@inheritDoc} */
     @Override public T remove(int aIndex) {
         List<T> locCandidate = new ArrayList<>(values);
         T locRemoved = locCandidate.remove(aIndex);
@@ -108,8 +112,10 @@ public class AIcBoundedList<T> extends AbstractList<T> implements RandomAccess, 
         return locRemoved;
     }
 
+    /** {@inheritDoc} */
     @Override public boolean addAll(Collection<? extends T> aItems) { return addAll(size(), aItems); }
 
+    /** {@inheritDoc} */
     @Override public boolean addAll(int aIndex, Collection<? extends T> aItems) {
         Objects.requireNonNull(aItems, "Items");
         List<T> locCandidate = new ArrayList<>(values);
@@ -125,21 +131,25 @@ public class AIcBoundedList<T> extends AbstractList<T> implements RandomAccess, 
         if (aFromIndex != aToIndex) publish(locCandidate, true);
     }
 
+    /** {@inheritDoc} */
     @Override public boolean removeAll(Collection<?> aItems) {
         Objects.requireNonNull(aItems, "Items");
         return modifySelection(locItems -> locItems.removeAll(aItems));
     }
 
+    /** {@inheritDoc} */
     @Override public boolean retainAll(Collection<?> aItems) {
         Objects.requireNonNull(aItems, "Items");
         return modifySelection(locItems -> locItems.retainAll(aItems));
     }
 
+    /** {@inheritDoc} */
     @Override public boolean removeIf(Predicate<? super T> aFilter) {
         Objects.requireNonNull(aFilter, "Filter");
         return modifySelection(locItems -> locItems.removeIf(aFilter));
     }
 
+    /** {@inheritDoc} */
     @Override public void clear() {
         if (!values.isEmpty()) publish(new ArrayList<>(), true);
     }
@@ -186,16 +196,18 @@ public class AIcBoundedList<T> extends AbstractList<T> implements RandomAccess, 
     private long below(long aSize) { return minSize == null ? 0 : Math.max(0L, (long) minSize - aSize); }
     private long above(long aSize) { return maxSize == null ? 0 : Math.max(0L, aSize - maxSize); }
 
+    /** {@inheritDoc} */
     @Override public boolean isValid() { return below(size()) == 0 && above(size()) == 0; }
 
+    /** {@inheritDoc} */
+    @Override public List<AIcdBoundedListValidationIssue> getValidationIssues() {
+        if (below(size()) > 0) return List.of(new AIcdBoundedListValidationIssue("MIN_ITEMS", size(), minSize));
+        if (above(size()) > 0) return List.of(new AIcdBoundedListValidationIssue("MAX_ITEMS", size(), maxSize));
+        return List.of();
+    }
+
+    /** {@inheritDoc} */
     @Override public String getInvalidStateMessage(Locale aLocale) {
-        if (isValid()) return "";
-        boolean locCzech = aLocale != null && "cs".equals(aLocale.getLanguage());
-        if (below(size()) > 0) return locCzech
-                ? "Seznam musí obsahovat alespoň " + minSize + " položek; aktuálně obsahuje " + size() + "."
-                : "List must contain at least " + minSize + " items; current size is " + size() + ".";
-        return locCzech
-                ? "Seznam smí obsahovat nejvýše " + maxSize + " položek; aktuálně obsahuje " + size() + "."
-                : "List must contain at most " + maxSize + " items; current size is " + size() + ".";
+        return AIiValidatable.super.getInvalidStateMessage(aLocale);
     }
 }

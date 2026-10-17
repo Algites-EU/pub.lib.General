@@ -12,6 +12,11 @@ public final class AIcVersionBound implements AIiVersionBound {
 	private final String versionText;
 	private final boolean inclusive;
 
+	/**
+	 * Creates a version bound with an endpoint value and its inclusiveness flag.
+	 * @param aVersionText version text to interpret
+	 * @param aInclusive inclusive supplied to the operation
+	 */
 	public AIcVersionBound(@Nonnull final String aVersionText, final boolean aInclusive) {
 		versionText = Objects.requireNonNull(aVersionText, "Version text must not be null").trim();
 		if (versionText.isEmpty()) {
@@ -20,12 +25,14 @@ public final class AIcVersionBound implements AIiVersionBound {
 		inclusive = aInclusive;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String versionText() {
 		return versionText;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean inclusive() {
 		return inclusive;

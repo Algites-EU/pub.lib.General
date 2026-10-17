@@ -1,12 +1,76 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.container-structure-type" version="1">
-  <xs:simpleType name="container-structure-type"><xs:restriction base="xs:string">
-      <xs:enumeration value="object"/>
-      <xs:enumeration value="class"/>
-      <xs:enumeration value="interface"/>
-      <xs:enumeration value="enum"/>
-      <xs:enumeration value="exception"/>
-      <xs:enumeration value="annotation"/>
-      <xs:enumeration value="resource_bundle"/>
-  </xs:restriction></xs:simpleType>
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:algdoc="urn:eu:algites:documentation:1" targetNamespace="eu.algites.lib.naming.convention.container-structure-type" version="1">
+  <xs:annotation>
+    <xs:appinfo>
+      <algdoc:title>Container structure type</algdoc:title>
+    </xs:appinfo>
+    <xs:documentation>Kind of represented container, independent of its naming profile.</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="urn:eu:algites:documentation:1" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/common/documentation/algites-documentation_1.xsd"/>
+  <xs:simpleType name="container-structure-type">
+    <xs:annotation>
+      <xs:appinfo>
+        <algdoc:title>Container structure type</algdoc:title>
+      </xs:appinfo>
+      <xs:documentation>Kind of represented container, independent of its naming profile.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="object">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Object</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>A general data object or document container.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="class">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Class</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>A concrete or abstract class declaration.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="interface">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Interface</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>An interface declaration defining a contract.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="enum">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Enumeration</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>An enumeration type containing a fixed set of values.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="exception">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Exception</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>A throwable exception type.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="annotation">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Annotation</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>An annotation type used to attach metadata.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="resource_bundle">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Resource bundle</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>A resource bundle containing localized text or other resources.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
 </xs:schema>

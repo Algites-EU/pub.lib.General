@@ -17,6 +17,11 @@ public final class AIcAlgitesVersionTextV1 {
 
 	private AIcAlgitesVersionTextV1() { /* utility class */ }
 
+	/**
+	 * Parses  into its structured representation.
+	 * @param aValue value being processed
+	 * @return the parse
+	 */
 	@Nonnull
 	public static AIiAlgitesVersionV1 parse(@Nonnull final String aValue) {
 		String locValue = Objects.requireNonNull(aValue, "value must not be null").trim();
@@ -39,6 +44,11 @@ public final class AIcAlgitesVersionTextV1 {
 		return AIcAlgitesVersionSchemeV1.release(locReleaseLineVersion, locRevision);
 	}
 
+	/**
+	 * Renders  into the requested external representation.
+	 * @param aVersion version instance to render or compare
+	 * @return the render
+	 */
 	@Nonnull
 	public static String render(@Nonnull final AIiAlgitesVersionV1 aVersion) {
 		Objects.requireNonNull(aVersion, "version must not be null");

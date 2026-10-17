@@ -20,11 +20,13 @@ final class AIcJournalAppendResult<E extends AIiJournalEntry>
         journalSnapshot = Objects.requireNonNull(aSnapshot);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<AIiJournalBatch<E>> getAppendedBatches() {
         return appendedBatches;
     }
 
+    /** {@inheritDoc} */
     @Override
     public AIiJournalSnapshot<E> getJournalSnapshot() {
         return journalSnapshot;

@@ -8,6 +8,9 @@ import eu.algites.lib.common.version.AInBuiltinVersionStructure;
 
 /** PEP 440 version scheme. */
 public final class AIcPep440VersionScheme {
+	/**
+	 * Shared immutable instance of the pep440 version scheme implementation.
+	 */
 	public static final AIiVersionScheme INSTANCE = new AIcCustomVersionScheme(
 			"pep440", new AIcPep440VersionComparator(), AInBuiltinVersionStructure.NO_BUILD,
 			AInBuiltinVersionFormat.OMIT_BUILD, AIcDefaultVersionCodec.INSTANCE);

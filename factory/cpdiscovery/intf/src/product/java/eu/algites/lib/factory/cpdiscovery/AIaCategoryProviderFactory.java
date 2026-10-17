@@ -9,6 +9,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface AIaCategoryProviderFactory {
+    /**
+     * Returns the unique identifier of the provider factory.
+     * @return the result of the operation
+     */
     String providerId();
+    /**
+     * Lists the categories supplied by this provider factory.
+     * @return the result of the operation
+     */
     String[] categories();
 }

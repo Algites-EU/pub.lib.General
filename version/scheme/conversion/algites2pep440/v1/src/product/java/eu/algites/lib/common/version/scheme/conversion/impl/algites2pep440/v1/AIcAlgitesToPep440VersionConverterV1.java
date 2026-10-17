@@ -9,6 +9,7 @@ import jakarta.annotation.Nonnull;
 
 /** Converts Algites version scheme v1 into PEP 440 publication-version syntax. */
 public final class AIcAlgitesToPep440VersionConverterV1 implements AIiVersionConverter<AIiAlgitesVersionV1, AIrPep440VersionRequirement> {
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AIrVersionConversionResult<AIrPep440VersionRequirement> convert(@Nonnull final AIiAlgitesVersionV1 aSource) {

@@ -39,16 +39,19 @@ public class AIcDocumentationTableColumn
         columnDescription = Objects.requireNonNull(aColumnDescription, "Parameter aColumnDescription must not be null.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getColumnId() {
         return columnId;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getColumnTitle() {
         return columnTitle;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getColumnDescription() {
         return columnDescription;

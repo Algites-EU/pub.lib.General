@@ -17,6 +17,8 @@ import jakarta.annotation.Nullable;
  * Company: Algites
  * </p>
  *
+ * @param kind qualifier classification
+ * @param label optional human-readable qualifier label
  * @author linhart1
  * @date 29.01.26 8:29
  */

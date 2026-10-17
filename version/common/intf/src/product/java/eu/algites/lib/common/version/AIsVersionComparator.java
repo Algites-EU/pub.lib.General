@@ -322,8 +322,17 @@ public final class AIsVersionComparator {
 	}
 
 	private enum AInVersionItemType {
+		/**
+		 * Comparison component for numeric version tokens.
+		 */
 		NUMERIC,
+		/**
+		 * Comparison component for textual version qualifiers.
+		 */
 		QUALIFIER,
+		/**
+		 * Comparison component indicating a released version.
+		 */
 		RELEASE_MARKER
 	}
 

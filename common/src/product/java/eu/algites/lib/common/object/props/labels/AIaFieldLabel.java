@@ -33,6 +33,12 @@ import java.util.Locale;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.RECORD_COMPONENT})
 public @interface AIaFieldLabel {
+    /** Default role used by pre-existing field title annotations. */
+    String DEFAULT_ROLE_CODE = "field.name";
+
+    /** The semantic role of the primary label (not a rendering purpose). */
+    String roleCode() default DEFAULT_ROLE_CODE;
+
 
 
 	/* --- LABEL axis --- */
@@ -60,18 +66,53 @@ public @interface AIaFieldLabel {
 	/* --- MODE axis --- */
 
 
+	/**
+	 * Returns the built-in rendering purpose associated with this label.
+	 * @return the result of the operation
+	 */
 	AInRenderingOutputBuiltinPurpose purpose() default AInRenderingOutputBuiltinPurpose.DEFAULT; /* nice enum selection in iDE */
+	/**
+	 * Returns an optional custom rendering purpose code.
+	 * @return the result of the operation
+	 */
 	String purposeCode() default ""; /* for custom purposes without  enums */
+	/**
+	 * Returns the resolver used to select the rendering purpose.
+	 * @return the result of the operation
+	 */
 	Class<? extends AIiRenderingOutputPurposeResolver> purposeResolver() default NoPurposeResolver.class;
 
+	/**
+	 * Formats  using the configured formatting rules.
+	 * @return the format
+	 */
 	AInRenderingOutputBuiltinFormat format() default AInRenderingOutputBuiltinFormat.DEFAULT; /* nice enum selection in iDE */
+	/**
+	 * Formats code using the configured formatting rules.
+	 * @return the format code
+	 */
 	String formatCode() default ""; /* for custom formats without  enums */
+	/**
+	 * Formats resolver using the configured formatting rules.
+	 * @return the format resolver
+	 */
 	Class<? extends AIiRenderingOutputFormatResolver> formatResolver() default NoFormatResolver.class;
 
+	/**
+	 * Returns the explicitly configured locale code, or an empty value for the default.
+	 * @return the result of the operation
+	 */
 	String localeCode() default ""; /* for custom locales without  enums */
+	/**
+	 * Returns the resolver used to determine the effective output locale.
+	 * @return the result of the operation
+	 */
 	Class<? extends AIiRenderingOutputLocaleResolver> localeResolver() default NoLocaleResolver.class;
 	
-	@interface Entry {
+    @interface Entry {
+        /** Field text role, independently of purpose, format and locale. */
+        String roleCode() default DEFAULT_ROLE_CODE;
+
 
 		/**
 		 * Mode of the label if the default {@link AInRenderingOutputBuiltinPurpose} is sufficient to be used.

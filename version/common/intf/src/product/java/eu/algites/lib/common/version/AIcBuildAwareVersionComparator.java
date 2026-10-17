@@ -41,6 +41,13 @@ public final class AIcBuildAwareVersionComparator implements AIiVersionComparato
 	@Nonnull
 	private final AInVersionBuildComparisonPolicy buildComparisonPolicy;
 
+	/**
+	 * Creates a build aware version comparator instance with the supplied configuration.
+	 * @param aBaseComparator base comparator supplied to the operation
+	 * @param aBuildDelimiter build delimiter supplied to the operation
+	 * @param aVersionBeforeBuild version before build supplied to the operation
+	 * @param aBuildComparisonPolicy build comparison policy supplied to the operation
+	 */
 	public AIcBuildAwareVersionComparator(
 			@Nonnull final AIiVersionComparator aBaseComparator,
 			@Nonnull final String aBuildDelimiter,
@@ -53,6 +60,7 @@ public final class AIcBuildAwareVersionComparator implements AIiVersionComparato
 		buildComparisonPolicy = Objects.requireNonNull(aBuildComparisonPolicy, "Build comparison policy must not be null");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public int compare(@Nonnull final AIcVersion aLeft, @Nonnull final AIcVersion aRight) {
 		Objects.requireNonNull(aLeft, "Left version must not be null");

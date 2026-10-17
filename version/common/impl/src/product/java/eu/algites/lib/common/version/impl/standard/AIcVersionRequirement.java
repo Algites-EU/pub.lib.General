@@ -24,6 +24,15 @@ public final class AIcVersionRequirement implements AIiVersionRequirement {
 	@Nullable
 	private final String preferredVersionText;
 
+	/**
+	 * Creates a version requirement with exact, bounded, excluded and preferred constraints.
+	 * @param aExactVersionText exact version text supplied to the operation
+	 * @param aMinimum minimum permitted version
+	 * @param aMaximum maximum permitted version
+	 * @param aMaximumStrict maximum strict supplied to the operation
+	 * @param aExcludedVersionTexts excluded version texts supplied to the operation
+	 * @param aPreferredVersionText preferred version text supplied to the operation
+	 */
 	public AIcVersionRequirement(
 			@Nullable final String aExactVersionText,
 			@Nullable final AIiVersionBound aMinimum,
@@ -40,40 +49,51 @@ public final class AIcVersionRequirement implements AIiVersionRequirement {
 		preferredVersionText = normalizeNullable(aPreferredVersionText, "Preferred version");
 	}
 
+	/**
+	 * Returns the exact version requirement, when specified.
+	 * @param aVersionText version text to interpret
+	 * @return the result of the operation
+	 */
 	public static AIcVersionRequirement exact(@Nonnull final String aVersionText) {
 		return new AIcVersionRequirement(aVersionText, null, null, null, List.of(), null);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nullable
 	public String exactVersionText() {
 		return exactVersionText;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nullable
 	public AIiVersionBound minimum() {
 		return minimum;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nullable
 	public AIiVersionBound maximum() {
 		return maximum;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nullable
 	public Boolean maximumStrict() {
 		return maximumStrict;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public List<String> excludedVersionTexts() {
 		return excludedVersionTexts;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nullable
 	public String preferredVersionText() {

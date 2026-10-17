@@ -2,39 +2,52 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/standard-conventions_1.yamldef.schema.json",
   "type": "object",
+  "title": "Standard conventions",
   "additionalProperties": false,
   "properties": {
     "IdentifierConventions": {
       "type": "object",
+      "title": "Identifier conventions",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "Regexp": {
             "type": "string",
-            "minLength": 1
+            "title": "Regexp",
+            "minLength": 1,
+            "description": "Regular expression defining the syntax recognized by this named convention."
           }
         },
         "required": [
           "Regexp"
-        ]
-      }
+        ],
+        "title": "Additional Properties",
+        "description": "Definition of one named identifier convention."
+      },
+      "description": "Named identifier conventions whose regular expressions validate or recognize identifiers."
     },
     "VersionConventions": {
       "type": "object",
+      "title": "Version conventions",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "Regexp": {
             "type": "string",
-            "minLength": 1
+            "title": "Regexp",
+            "minLength": 1,
+            "description": "Regular expression defining the syntax recognized by this named convention."
           }
         },
         "required": [
           "Regexp"
-        ]
-      }
+        ],
+        "title": "Additional Properties",
+        "description": "Definition of one named version convention."
+      },
+      "description": "Named version conventions whose regular expressions recognize version components."
     }
   },
   "required": [

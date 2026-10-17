@@ -8,6 +8,12 @@ package eu.algites.lib.data.dataobject;
  * @param schemaUrl optional absolute URL of a published representation
  */
 public record AIcdSchemaIdentity(String schemaId, int schemaVersion, String schemaUrl) {
+    /**
+     * Creates a schema identity instance with the supplied configuration.
+     * @param schemaId schema id supplied to the operation
+     * @param schemaVersion schema version supplied to the operation
+     * @param schemaUrl schema url supplied to the operation
+     */
     public AIcdSchemaIdentity {
         if (schemaId == null || schemaId.isBlank())
             throw new IllegalArgumentException("SchemaId cannot be blank");

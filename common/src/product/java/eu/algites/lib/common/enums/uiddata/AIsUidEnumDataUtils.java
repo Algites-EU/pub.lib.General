@@ -41,12 +41,33 @@ import java.util.regex.Pattern;
  */
 public class AIsUidEnumDataUtils {
 
+	/**
+	 * Separator between parts of a structured UID.
+	 */
 	public static final String UID_PART_SEPARATOR = ":";
+	/**
+	 * Pattern restricting the characters allowed in ordinary UID components.
+	 */
 	public static final Pattern UID_COMMON_PART_PATTERN = Pattern.compile("^[A-Za-z0-9._-]*$");
+	/**
+	 * Pattern requiring a nonempty, valid custom namespace.
+	 */
 	public static final Pattern UID_CUSTOM_NAMESPACE_PART_PATTERN = Pattern.compile("^[A-Za-z0-9._-]+$");
+	/**
+	 * Index of the origin component in a structured UID.
+	 */
 	public static final int ORIGIN_UID_POSITION = 0;
+	/**
+	 * Index of the namespace component in a structured UID.
+	 */
 	public static final int NAMESPACE_UID_POSITION = ORIGIN_UID_POSITION + 1;
+	/**
+	 * Last index occupied by the fixed UID header.
+	 */
 	public static final int LAST_UID_HEADER_PART_POSITION = NAMESPACE_UID_POSITION;
+	/**
+	 * First index available for type-specific UID components.
+	 */
 	public static final int FIRST_UID_SPECIFIC_PART_POSITION = LAST_UID_HEADER_PART_POSITION + 1;
 
 	private AIsUidEnumDataUtils() {}

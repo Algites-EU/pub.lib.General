@@ -37,11 +37,13 @@ public enum AInBuiltinVersionFormat implements AIiVersionFormat {
 		buildFormatPolicy = aBuildFormatPolicy;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String code() {
 		return code;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public AInVersionBuildFormatPolicy buildFormatPolicy() {
 		return buildFormatPolicy;

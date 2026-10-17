@@ -32,9 +32,18 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
     }
 
 
-    /** Immutable pair of global diagnostic defaults, changed atomically at application startup. */
+    /**
+ * Immutable pair of global diagnostic defaults, changed atomically at application startup.
+ * @param profile selected text rendering profile
+ * @param referenceMode selected reference rendering mode
+ */
     public record AIcdDiagnosticSettings(AIiTextFormatProfile profile,
             AInTextOutputObjectReferenceMode referenceMode) {
+        /**
+         * Creates a diagnostic settings instance with the supplied configuration.
+         * @param profile profile supplied to the operation
+         * @param referenceMode reference mode supplied to the operation
+         */
         public AIcdDiagnosticSettings {
             if (profile == null || !profile.isDiagnostic() || referenceMode == null ||
                 !profile.isReferenceModeSupported(referenceMode))
@@ -45,10 +54,18 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
             AIsTextFormatProfiles.XML_DIAGNOSTIC,
             AInTextOutputObjectReferenceMode.REPEATED_OBJECTS);
 
+    /**
+     * Updates the  default diagnostic settings.
+     * @param aSettings settings supplied to the operation
+     */
     public static void set_DefaultDiagnosticSettings(AIcdDiagnosticSettings aSettings) {
         if (aSettings == null) throw new IllegalArgumentException("Settings cannot be null");
         defaultDiagnosticSettings = aSettings;
     }
+    /**
+     * Returns the  default diagnostic settings.
+     * @return the  default diagnostic settings
+     */
     public static AIcdDiagnosticSettings get_DefaultDiagnosticSettings() { return defaultDiagnosticSettings; }
 
     /** Generated setters invoke this method with their schema property name. */
@@ -71,10 +88,19 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
             throw new IllegalStateException("Required field is absent: " + aName);
         return null;
     }
+    /**
+     * Checks whether present field is enabled or present.
+     * @param aName name supplied to the operation
+     * @return the present field
+     */
     protected final boolean isPresent_Field(String aName) {
         requireField(aName);
         return present.contains(aName);
     }
+    /**
+     * Removes an explicitly assigned field value, allowing its default to apply again.
+     * @param aName name supplied to the operation
+     */
     protected final void unset_Field(String aName) {
         requireField(aName);
         values.remove(aName);
@@ -91,7 +117,9 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
     final boolean hasRaw(String aName) { return present.contains(aName); }
     final Object raw(String aName) { return values.get(aName); }
 
+    /** {@inheritDoc} */
     @Override public final Set<String> get_RawNotPresentRequiredFields() { return missing(false); }
+    /** {@inheritDoc} */
     @Override public final Set<String> get_EffectiveNotPresentRequiredFields() { return missing(true); }
     private Set<String> missing(boolean aEffective) {
         Set<String> locMissing = new LinkedHashSet<>();
@@ -101,23 +129,33 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         }
         return Collections.unmodifiableSet(locMissing);
     }
+    /** {@inheritDoc} */
     @Override public final List<AIcdSmartDataValidationIssue> get_RawValuesValidationIssues() {
         return AIcSmartDataGraphSnapshot.capture(this).localIssues(false);
     }
+    /** {@inheritDoc} */
     @Override public final List<AIcdSmartDataValidationIssue> get_EffectiveValuesValidationIssues() {
         return AIcSmartDataGraphSnapshot.capture(this).localIssues(true);
     }
+    /** {@inheritDoc} */
     @Override public final List<AIcdSmartDataValidationIssue> get_DeeplyRawValuesValidationIssues() {
         return AIcSmartDataGraphSnapshot.capture(this).deepIssues(false);
     }
+    /** {@inheritDoc} */
     @Override public final List<AIcdSmartDataValidationIssue> get_DeeplyEffectiveValuesValidationIssues() {
         return AIcSmartDataGraphSnapshot.capture(this).deepIssues(true);
     }
+    /** {@inheritDoc} */
     @Override public final boolean is_ByRawValuesValid() { return get_RawValuesValidationIssues().isEmpty(); }
+    /** {@inheritDoc} */
     @Override public final boolean is_ByEffectiveValuesValid() { return get_EffectiveValuesValidationIssues().isEmpty(); }
+    /** {@inheritDoc} */
     @Override public final boolean is_DeeplyByRawValuesValid() { return get_DeeplyRawValuesValidationIssues().isEmpty(); }
+    /** {@inheritDoc} */
     @Override public final boolean is_DeeplyByEffectiveValuesValid() { return get_DeeplyEffectiveValuesValidationIssues().isEmpty(); }
+    /** {@inheritDoc} */
     @Override public final Set<String> get_DeeplyRawNotPresentRequiredFields() { return deepMissing(false); }
+    /** {@inheritDoc} */
     @Override public final Set<String> get_DeeplyEffectiveNotPresentRequiredFields() { return deepMissing(true); }
     private Set<String> deepMissing(boolean aEffective) {
         Set<String> locResult = new LinkedHashSet<>();
@@ -126,15 +164,19 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         }
         return Collections.unmodifiableSet(locResult);
     }
+    /** {@inheritDoc} */
     @Override public final Map<String, AIidVirtualFieldValue> toMapping_RawValues() {
         return AIcSmartDataVirtualMapper.capture(this, false);
     }
+    /** {@inheritDoc} */
     @Override public final Map<String, AIidVirtualFieldValue> toMapping_EffectiveValues() {
         return AIcSmartDataVirtualMapper.capture(this, true);
     }
+    /** {@inheritDoc} */
     @Override public final String toString_RawValues(AIiTextFormatProfile aProfile, AInTextOutputObjectReferenceMode aMode) {
         return AIcSmartDataGraphRenderer.render(AIcSmartDataGraphSnapshot.capture(this), aProfile, aMode, false);
     }
+    /** {@inheritDoc} */
     @Override public final String toString_EffectiveValues(AIiTextFormatProfile aProfile, AInTextOutputObjectReferenceMode aMode) {
         var locSnapshot = AIcSmartDataGraphSnapshot.capture(this);
         if (aProfile != null && !aProfile.isDiagnostic()) {

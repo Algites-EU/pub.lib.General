@@ -31,6 +31,7 @@ final class AIcSmartDataMetadata {
     }
     record AIcdDescriptor(AIaDataObject schema, List<AIcdField> fields, Map<String, AIcdField> names) { }
     private static final ClassValue<AIcdDescriptor> CACHE = new ClassValue<>() {
+        /** {@inheritDoc} */
         @Override protected AIcdDescriptor computeValue(Class<?> aType) { return scan(aType); }
     };
     static AIcdDescriptor forType(Class<?> aType) { return CACHE.get(aType); }

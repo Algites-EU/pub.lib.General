@@ -1,16 +1,108 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.source-structure-kind" version="1">
-  <xs:simpleType name="source-structure-kind"><xs:restriction base="xs:string">
-      <xs:enumeration value="main_container_name"/>
-      <xs:enumeration value="sub_container_name"/>
-      <xs:enumeration value="field_name"/>
-      <xs:enumeration value="enum_item_name"/>
-      <xs:enumeration value="constant_name"/>
-      <xs:enumeration value="method_name"/>
-      <xs:enumeration value="method_parameter_name"/>
-      <xs:enumeration value="local_variable_name"/>
-      <xs:enumeration value="package_segment_name"/>
-      <xs:enumeration value="file_name_stem"/>
-      <xs:enumeration value="file_name_suffix"/>
-  </xs:restriction></xs:simpleType>
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:algdoc="urn:eu:algites:documentation:1" targetNamespace="eu.algites.lib.naming.convention.source-structure-kind" version="1">
+  <xs:annotation>
+    <xs:appinfo>
+      <algdoc:title>Source structure kind</algdoc:title>
+    </xs:appinfo>
+    <xs:documentation>Structural name roles independent of source and target languages.</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="urn:eu:algites:documentation:1" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/common/documentation/algites-documentation_1.xsd"/>
+  <xs:simpleType name="source-structure-kind">
+    <xs:annotation>
+      <xs:appinfo>
+        <algdoc:title>Source structure kind</algdoc:title>
+      </xs:appinfo>
+      <xs:documentation>Structural name roles independent of source and target languages.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="main_container_name">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Main container name</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Name of the primary class, interface or other generated container.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sub_container_name">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Subcontainer name</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Name of a nested or subordinate container.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="field_name">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Field name</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Name assigned to a data field or property.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="enum_item_name">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Enumeration item name</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Name assigned to one constant of an enumeration.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="constant_name">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Constant name</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Name assigned to a constant declaration.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="method_name">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Method name</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Name assigned to a callable method.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="method_parameter_name">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Method parameter name</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Name assigned to a parameter in a method signature.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="local_variable_name">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Local variable name</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Name assigned to a variable local to a method or block.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="package_segment_name">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Package segment name</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Name of one hierarchical package segment.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="file_name_stem">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>File name stem</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>File name portion preceding its suffix or extension.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="file_name_suffix">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>File name suffix</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>File name suffix or extension used by the naming convention.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
 </xs:schema>

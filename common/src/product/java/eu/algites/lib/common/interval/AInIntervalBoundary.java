@@ -20,8 +20,17 @@ import eu.algites.lib.common.enums.AIiEnumItem;
  * @date 26.01.26 15:36
  */
 public enum AInIntervalBoundary implements AIiEnumItem {
+	/**
+	 * Exclusive interval endpoint; the boundary value is not included.
+	 */
 	OPEN("open", false, true, "(", ")"),
+	/**
+	 * Inclusive interval endpoint; the boundary value is included.
+	 */
 	CLOSED("closed", false, false, "[", "]"),
+	/**
+	 * Missing interval endpoint; no boundary value is imposed.
+	 */
 	UNBOUNDED("unbounded", true, true, "(*", "*)");
 
 	private final String code;
@@ -63,6 +72,7 @@ public enum AInIntervalBoundary implements AIiEnumItem {
 		rightBoundaryStringRepresentation = aRightBoundaryStringRepresentation;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String code() {
 		return code;

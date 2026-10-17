@@ -22,6 +22,9 @@ public class AIcUidEnumDataRegistry implements AIiUidEnumDataRegistry {
 	private final IdentityHashMap<AIiUidEnumDataType<?, ?>, Map<String, AIcRegistryEntry>> entriesByDataType
 			= new IdentityHashMap<>();
 
+	/**
+	 * Creates a uid enum data registry instance.
+	 */
 	protected AIcUidEnumDataRegistry() {
 	}
 
@@ -33,6 +36,7 @@ public class AIcUidEnumDataRegistry implements AIiUidEnumDataRegistry {
 		return INSTANCE;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@SafeVarargs
 	@SuppressWarnings("unchecked")
@@ -89,6 +93,7 @@ public class AIcUidEnumDataRegistry implements AIiUidEnumDataRegistry {
 		return locRegisteredItems;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@SafeVarargs
 	public final <DT extends AIiUidEnumDataType<?, ?>, T extends AIiUidEnumData<?, ?, DT>> List<T> releaseData(
@@ -123,6 +128,7 @@ public class AIcUidEnumDataRegistry implements AIiUidEnumDataRegistry {
 		return locReleasedItems;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@SuppressWarnings("unchecked")
 	public final <DT extends AIiUidEnumDataType<?, ?>, T extends AIiUidEnumData<?, ?, DT>> List<T> releaseData(
@@ -157,6 +163,7 @@ public class AIcUidEnumDataRegistry implements AIiUidEnumDataRegistry {
 		return locReleasedItems;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@SuppressWarnings("unchecked")
 	public final <DT extends AIiUidEnumDataType<?, ?>, T extends AIiUidEnumData<?, ?, DT>> Optional<T> findByUid(
@@ -188,6 +195,7 @@ public class AIcUidEnumDataRegistry implements AIiUidEnumDataRegistry {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public final <DT extends AIiUidEnumDataType<?, ?>, T extends AIiUidEnumData<?, ?, DT>> T getOrThrow(
 			final DT aDataType,
@@ -203,6 +211,7 @@ public class AIcUidEnumDataRegistry implements AIiUidEnumDataRegistry {
 		return locItem.get();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@SuppressWarnings("unchecked")
 	public final <DT extends AIiUidEnumDataType<?, ?>, T extends AIiUidEnumData<?, ?, DT>> List<T> items(

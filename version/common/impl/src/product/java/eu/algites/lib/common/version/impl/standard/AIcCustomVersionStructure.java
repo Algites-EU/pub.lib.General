@@ -36,6 +36,13 @@ public final class AIcCustomVersionStructure implements AIiVersionStructure, Ser
 	@Nonnull
 	private final AInVersionBuildComparisonPolicy buildComparisonPolicy;
 
+	/**
+	 * Creates a custom version structure instance with the supplied configuration.
+	 * @param aCode code supplied to the operation
+	 * @param aVersionBeforeBuild version before build supplied to the operation
+	 * @param aBuildDelimiter build delimiter supplied to the operation
+	 * @param aBuildComparisonPolicy build comparison policy supplied to the operation
+	 */
 	public AIcCustomVersionStructure(
 			@Nonnull final String aCode,
 			final boolean aVersionBeforeBuild,
@@ -52,23 +59,27 @@ public final class AIcCustomVersionStructure implements AIiVersionStructure, Ser
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String code() {
 		return code;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean versionBeforeBuild() {
 		return versionBeforeBuild;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String buildDelimiter() {
 		return buildDelimiter;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AInVersionBuildComparisonPolicy buildComparisonPolicy() {

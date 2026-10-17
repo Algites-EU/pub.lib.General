@@ -39,6 +39,7 @@ public enum AInRenderingOutputBuiltinFormat implements AIiRenderingOutputFormat 
 	 */
 	JSON;
 
+	/** {@inheritDoc} */
 	@Override
 	public String code() {
 		return name();

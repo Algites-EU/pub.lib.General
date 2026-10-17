@@ -29,6 +29,7 @@ public class AIcDocumentationText
         text = Objects.requireNonNull(aText, "Parameter aText must not be null.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getText() {
         return text;

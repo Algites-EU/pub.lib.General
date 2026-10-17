@@ -86,28 +86,33 @@ public class AIcInterval<T extends Comparable> implements AIiInterval<T>, Serial
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AInIntervalBoundary getLeftBoundary() {
 		return leftBoundary;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public T getLeftValue() {
 		return leftValue;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AInIntervalBoundary getRightBoundary() {
 		return rightBoundary;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public T getRightValue() {
 		return rightValue;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean equals(final Object aOther) {
 		if (this == aOther) {
@@ -123,11 +128,13 @@ public class AIcInterval<T extends Comparable> implements AIiInterval<T>, Serial
 				&& Objects.equals(rightValue, locOther.getRightValue());
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public int hashCode() {
 		return Objects.hash(leftBoundary, leftValue, rightBoundary, rightValue);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return AIsIntervalUtils.toStringRepresentation(this);

@@ -9,11 +9,21 @@ import jakarta.annotation.Nullable;
 public final class AIcVersionRequirementParser {
 	private AIcVersionRequirementParser() { /* utility class */ }
 
+	/**
+	 * Parses minimum into its structured representation.
+	 * @param aExpression expression supplied to the operation
+	 * @return the parse minimum
+	 */
 	@Nonnull
 	public static AIiVersionBound parseMinimum(@Nonnull final String aExpression) {
 		return parseBoundary(aExpression, true);
 	}
 
+	/**
+	 * Parses maximum into its structured representation.
+	 * @param aExpression expression supplied to the operation
+	 * @return the parse maximum
+	 */
 	@Nonnull
 	public static AIiVersionBound parseMaximum(@Nonnull final String aExpression) {
 		return parseBoundary(aExpression, false);

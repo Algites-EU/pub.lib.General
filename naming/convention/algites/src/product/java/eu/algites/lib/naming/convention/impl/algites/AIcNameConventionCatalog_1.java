@@ -30,7 +30,11 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
     private final Map<String, JsonNode> identifierConventions = new LinkedHashMap<>();
     private final Map<String, JsonNode> versionConventions = new LinkedHashMap<>();
 
-    /** One recognized filename and its extracted named capture values. */
+    /**
+ * One recognized filename and its extracted named capture values.
+ * @param conventionName name of the matching naming convention
+ * @param variables values extracted from named captures in the matched name
+ */
     public record AIcdNameMatch(String conventionName, Map<String, String> variables) { }
 
     /** Reads the catalog and resolves its optional standard-conventions sibling document. */

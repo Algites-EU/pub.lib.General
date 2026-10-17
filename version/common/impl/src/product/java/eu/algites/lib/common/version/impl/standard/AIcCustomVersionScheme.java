@@ -49,6 +49,14 @@ public final class AIcCustomVersionScheme implements AIiVersionScheme, Serializa
 	@NotNull
 	private final AIiVersionCodec versionCodec;
 
+	/**
+	 * Creates a custom version scheme instance with the supplied configuration.
+	 * @param aCode code supplied to the operation
+	 * @param aVersionComparator version comparator supplied to the operation
+	 * @param aVersionStructure version structure supplied to the operation
+	 * @param aVersionFormat version format supplied to the operation
+	 * @param aVersionCodec version codec supplied to the operation
+	 */
 	public AIcCustomVersionScheme(
 			@Nonnull final String aCode,
 			@Nonnull final AIiVersionComparator aVersionComparator,
@@ -66,6 +74,13 @@ public final class AIcCustomVersionScheme implements AIiVersionScheme, Serializa
 		versionCodec = aVersionCodec;
 	}
 
+	/**
+	 * Creates a custom version scheme instance with the supplied configuration.
+	 * @param aCode code supplied to the operation
+	 * @param aVersionComparator version comparator supplied to the operation
+	 * @param aVersionStructure version structure supplied to the operation
+	 * @param aVersionFormat version format supplied to the operation
+	 */
 	public AIcCustomVersionScheme(
 			@Nonnull final String aCode,
 			@Nonnull final AIiVersionComparator aVersionComparator,
@@ -75,30 +90,35 @@ public final class AIcCustomVersionScheme implements AIiVersionScheme, Serializa
 		this(aCode, aVersionComparator, aVersionStructure, aVersionFormat, AIcDefaultVersionCodec.INSTANCE);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String code() {
 		return code;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AIiVersionComparator versionComparator() {
 		return versionComparator;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AIiVersionStructure versionStructure() {
 		return versionStructure;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AIiVersionFormat versionFormat() {
 		return versionFormat;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@NotNull public AIiVersionCodec versionCodec() {
 		return versionCodec;

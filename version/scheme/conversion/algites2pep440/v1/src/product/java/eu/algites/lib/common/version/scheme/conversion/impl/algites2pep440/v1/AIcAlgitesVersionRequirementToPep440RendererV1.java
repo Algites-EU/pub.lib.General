@@ -12,6 +12,11 @@ import java.util.Objects;
 public final class AIcAlgitesVersionRequirementToPep440RendererV1 {
 	private AIcAlgitesVersionRequirementToPep440RendererV1() { /* utility class */ }
 
+	/**
+	 * Renders  into the requested external representation.
+	 * @param aRequirement version requirement to process
+	 * @return the render
+	 */
 	@Nonnull
 	public static Map<AInPythonBuildPhase, String> render(@Nonnull final AIiVersionRequirement aRequirement) {
 		Objects.requireNonNull(aRequirement, "version requirement must not be null");

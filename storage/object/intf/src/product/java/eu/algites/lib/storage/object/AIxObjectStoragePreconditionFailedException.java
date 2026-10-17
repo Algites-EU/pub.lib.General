@@ -14,10 +14,19 @@ public class AIxObjectStoragePreconditionFailedException extends IOException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates a object storage precondition failed exception instance with the supplied configuration.
+     * @param aMessage message text describing the failure
+     */
     public AIxObjectStoragePreconditionFailedException(String aMessage) {
         super(aMessage);
     }
 
+    /**
+     * Creates a object storage precondition failed exception instance with the supplied configuration.
+     * @param aMessage message text describing the failure
+     * @param aCause underlying cause of the failure
+     */
     public AIxObjectStoragePreconditionFailedException(String aMessage, Throwable aCause) {
         super(aMessage, aCause);
     }

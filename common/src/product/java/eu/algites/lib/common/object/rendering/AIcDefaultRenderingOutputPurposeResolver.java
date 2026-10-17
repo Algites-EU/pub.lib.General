@@ -18,6 +18,7 @@ package eu.algites.lib.common.object.rendering;
  * @date 12.01.26 6:19
  */
 public class AIcDefaultRenderingOutputPurposeResolver implements AIiRenderingOutputPurposeResolver {
+	/** {@inheritDoc} */
 	@Override
 	public AIiRenderingOutputPurpose resolvePurpose() {
 		return AIsRenderingOutputUtils.usedRenderingOutputPurpose();

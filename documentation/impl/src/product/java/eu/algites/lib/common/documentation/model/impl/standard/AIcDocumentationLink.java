@@ -39,16 +39,19 @@ public class AIcDocumentationLink
         title = Objects.requireNonNull(aTitle, "Parameter aTitle must not be null.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getLabel() {
         return label;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getTarget() {
         return target;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getTitle() {
         return title;

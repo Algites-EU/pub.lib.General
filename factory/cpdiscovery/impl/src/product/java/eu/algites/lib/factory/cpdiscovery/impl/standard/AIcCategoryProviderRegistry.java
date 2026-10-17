@@ -33,6 +33,9 @@ import java.util.concurrent.locks.ReentrantLock;
  * A removed source may still be referenced by a lookup already in progress.
  */
 public final class AIcCategoryProviderRegistry implements AIiCategoryProviderRegistry {
+    /**
+     * Classpath resource containing default category-to-provider registrations.
+     */
     public static final String DEFAULTS_RESOURCE =
         "META-INF/algites/category-provider-defaults.properties";
 
@@ -51,6 +54,7 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
     private final Map<ClassLoader, Contribution> classLoaders = new IdentityHashMap<>();
     private final Map<ModuleLayer, Contribution> moduleLayers = new IdentityHashMap<>();
 
+    /** {@inheritDoc} */
     @Override
     public void registerClassLoaderFactories(ClassLoader aClassLoader) {
         Objects.requireNonNull(aClassLoader, "classLoader");
@@ -67,6 +71,7 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         } finally { writeLock.unlock(); }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void unregisterClassLoaderFactories(ClassLoader aClassLoader) {
         Objects.requireNonNull(aClassLoader, "classLoader");
@@ -82,6 +87,7 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         } finally { writeLock.unlock(); }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void registerModuleLayerFactories(ModuleLayer aLayer) {
         Objects.requireNonNull(aLayer, "moduleLayer");
@@ -98,6 +104,7 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         } finally { writeLock.unlock(); }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void unregisterModuleLayerFactories(ModuleLayer aLayer) {
         Objects.requireNonNull(aLayer, "moduleLayer");
@@ -113,12 +120,14 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         } finally { writeLock.unlock(); }
     }
 
+    /** {@inheritDoc} */
     @Override
     public <I, C> I getInstance(Class<? extends AIiCategoryProviderFactory<I, C>> aFactoryType,
                                 String aCategory, C aContext) {
         return getInstance(aFactoryType, aCategory, null, aContext);
     }
 
+    /** {@inheritDoc} */
     @Override
     public <I, C> I getInstance(Class<? extends AIiCategoryProviderFactory<I, C>> aFactoryType,
                                 String aCategory, String aProviderId, C aContext) {
@@ -218,6 +227,7 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
 
     private static Map<String, String> loadProperties(InputStream input) throws IOException {
         Properties properties = new Properties() {
+            /** {@inheritDoc} */
             @Override
             public synchronized Object put(Object key, Object value) {
                 if (containsKey(key))

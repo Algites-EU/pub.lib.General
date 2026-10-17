@@ -21,7 +21,21 @@ import java.util.Set;
 
 /** Internal identity-preserving snapshot shared by validators and text renderers. */
 final class AIcSmartDataGraphSnapshot {
-    enum AInNodeKind { NULL, SCALAR, OPAQUE, SMART, SEQUENCE, MAPPING }
+    /** Categories used to classify nodes within a Smart Data Object graph snapshot. */
+    enum AInNodeKind {
+        /** Null-valued graph node. */
+        NULL,
+        /** Scalar value that does not require graph traversal. */
+        SCALAR,
+        /** Opaque value excluded from recursive field traversal. */
+        OPAQUE,
+        /** Nested Smart Data Object node. */
+        SMART,
+        /** Ordered collection node. */
+        SEQUENCE,
+        /** Key/value mapping node. */
+        MAPPING
+    }
 
     static final class AIcNode {
         final AInNodeKind kind;
@@ -128,7 +142,7 @@ final class AIcSmartDataGraphSnapshot {
     List<AIcdSmartDataValidationIssue> deepIssues(boolean aEffective) {
         List<AIcdSmartDataValidationIssue> locIssues = new ArrayList<>();
         Set<AIcNode> locVisited = Collections.newSetFromMap(new IdentityHashMap<>());
-        deep(root, "", aEffective, locIssues, locVisited);
+        deep(root, "", aEffective, locIssues, locVisited, null, null, null);
         return List.copyOf(locIssues);
     }
 
@@ -140,42 +154,51 @@ final class AIcSmartDataGraphSnapshot {
             String locPath = aPath.isEmpty() ? locField.name() : aPath + "." + locField.name();
             if (!locField.present && locDefinition.presenceRequired() &&
                     (!aEffective || !locField.descriptor.hasDefault())) {
-                aIssues.add(new AIcdSmartDataValidationIssue(locPath, "REQUIRED_ABSENT", "Required property is not present"));
+                aIssues.add(new AIcdSmartDataValidationIssue(locPath, "REQUIRED_ABSENT", "Required property is not present",
+                        locField.descriptor.getter().getDeclaringClass(), locField.name(), locDefinition.description()));
                 continue;
             }
             if (!locField.present && (!aEffective || !locField.descriptor.hasDefault())) continue;
             AIcNode locValue = fieldValue(locField, aEffective);
             if (locValue.kind == AInNodeKind.NULL && !locDefinition.allowsNull()) {
-                aIssues.add(new AIcdSmartDataValidationIssue(locPath, "NULL_FORBIDDEN", "Null value is not permitted"));
+                aIssues.add(new AIcdSmartDataValidationIssue(locPath, "NULL_FORBIDDEN", "Null value is not permitted",
+                        locField.descriptor.getter().getDeclaringClass(), locField.name(), locDefinition.description()));
             } else if (locValue.kind != AInNodeKind.NULL && !locField.descriptor.getter().getReturnType().isInstance(locValue.original)) {
-                aIssues.add(new AIcdSmartDataValidationIssue(locPath, "WRONG_TYPE", "Property value is not assignable to its getter type"));
+                aIssues.add(new AIcdSmartDataValidationIssue(locPath, "WRONG_TYPE", "Property value is not assignable to its getter type",
+                        locField.descriptor.getter().getDeclaringClass(), locField.name(), locDefinition.description()));
             }
         }
     }
 
     private void deep(AIcNode aNode, String aPath, boolean aEffective,
-            List<AIcdSmartDataValidationIssue> aIssues, Set<AIcNode> aVisited) {
+            List<AIcdSmartDataValidationIssue> aIssues, Set<AIcNode> aVisited,
+            Class<?> aFieldOwner, String aFieldName, String aFieldDescription) {
         if (aNode == null || !aVisited.add(aNode)) return;
-        if (aNode.kind != AInNodeKind.SMART && aNode.original instanceof AIiValidatable locValidatable
+        if (aNode.kind != AInNodeKind.SMART && aNode.original instanceof AIiValidatable<?> locValidatable
                 && !locValidatable.isValid()) {
-            aIssues.add(new AIcdSmartDataValidationIssue(aPath, "COLLECTION_INVALID",
-                    locValidatable.getInvalidStateMessage(Locale.ROOT)));
+            for (var locNested : locValidatable.getValidationIssues()) {
+                aIssues.add(new AIcdSmartDataValidationIssue(aPath, "COLLECTION_INVALID",
+                        locNested.getMessage(null), aFieldOwner, aFieldName, aFieldDescription, locNested));
+            }
         }
         if (aNode.kind == AInNodeKind.SMART) {
             validateOwn(aNode, aPath, aEffective, aIssues);
             for (AIcField locField : aNode.fields) {
                 if (!locField.present && (!aEffective || !locField.descriptor.hasDefault())) continue;
                 String locPath = aPath.isEmpty() ? locField.name() : aPath + "." + locField.name();
-                deep(fieldValue(locField, aEffective), locPath, aEffective, aIssues, aVisited);
+                deep(fieldValue(locField, aEffective), locPath, aEffective, aIssues, aVisited,
+                        locField.descriptor.getter().getDeclaringClass(), locField.name(),
+                        locField.descriptor.annotation().description());
             }
         } else if (aNode.kind == AInNodeKind.SEQUENCE) {
             int locIndex = 0;
             for (AIcNode locChild : aNode.elements)
-                deep(locChild, aPath + "[" + locIndex++ + "]", aEffective, aIssues, aVisited);
+                deep(locChild, aPath + "[" + locIndex++ + "]", aEffective, aIssues, aVisited,
+                        aFieldOwner, aFieldName, aFieldDescription);
         } else if (aNode.kind == AInNodeKind.MAPPING) {
             for (var locEntry : aNode.entries.entrySet())
                 deep(locEntry.getValue(), aPath + "[" + String.valueOf(locEntry.getKey().scalar) + "]",
-                        aEffective, aIssues, aVisited);
+                        aEffective, aIssues, aVisited, aFieldOwner, aFieldName, aFieldDescription);
         }
     }
 }

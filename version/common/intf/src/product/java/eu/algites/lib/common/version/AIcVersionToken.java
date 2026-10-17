@@ -23,6 +23,11 @@ public final class AIcVersionToken {
 	@Nonnull
 	private final String text;
 
+	/**
+	 * Creates an individual parsed version token with its category and text.
+	 * @param aTokenType token type supplied to the operation
+	 * @param aText text supplied to the operation
+	 */
 	public AIcVersionToken(@Nonnull final AInVersionTokenType aTokenType, @Nonnull final String aText) {
 		tokenType = Objects.requireNonNull(aTokenType, "Token type must not be null");
 		text = Objects.requireNonNull(aText, "Token text must not be null");
@@ -32,16 +37,25 @@ public final class AIcVersionToken {
 		}
 	}
 
+	/**
+	 * Returns the token type.
+	 * @return the token type
+	 */
 	@Nonnull
 	public AInVersionTokenType getTokenType() {
 		return tokenType;
 	}
 
+	/**
+	 * Returns the text.
+	 * @return the text
+	 */
 	@Nonnull
 	public String getText() {
 		return text;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return tokenType + ":" + text;

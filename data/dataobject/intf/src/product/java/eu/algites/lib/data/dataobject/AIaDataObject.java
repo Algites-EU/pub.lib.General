@@ -22,9 +22,29 @@ public @interface AIaDataObject {
     int schemaVersion() default -1;
     /** Published URL of one schema representation; optional, never the SchemaId. */
     String schemaUrl() default "";
+    /**
+     * Returns the human-readable title of the data object schema.
+     * @return the result of the operation
+     */
     String title() default "";
+    /**
+     * Returns the explanatory description of this declaration.
+     * @return the result of the operation
+     */
     String description() default "";
+    /**
+     * Returns the configured XML local name, independently of its namespace.
+     * @return the result of the operation
+     */
     String xmlLocalName() default "";
+    /**
+     * Returns the XML namespace associated with this schema or field.
+     * @return the result of the operation
+     */
     String xmlNamespace() default "";
+    /**
+     * Returns the schema fingerprint used to identify a particular definition.
+     * @return the result of the operation
+     */
     String fingerprint() default "";
 }

@@ -25,9 +25,21 @@ import org.jetbrains.annotations.Nullable;
  * @date 08.01.26 0:44
  */
 public enum AInVersionQualifierKind {
+	/**
+	 * Snapshot qualifier identifying a development build.
+	 */
 	SNAPSHOT("snapshot"),
+	/**
+	 * Qualifier identifying a prerelease build.
+	 */
 	PRE_RELEASE("pre-release"),
+	/**
+	 * Qualifier identifying a final release.
+	 */
 	RELEASE("release"),
+	/**
+	 * Qualifier identifying a postrelease build.
+	 */
 	POST_RELEASE("post-release"),
 	;
 

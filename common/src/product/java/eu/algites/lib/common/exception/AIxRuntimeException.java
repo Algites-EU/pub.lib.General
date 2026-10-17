@@ -30,12 +30,30 @@ import org.jetbrains.annotations.NotNull;
 public class AIxRuntimeException extends RuntimeException{
 	private final AInRenderingOutputBuiltinPurpose messageOutputPurpose;
 
+	/**
+	 * Creates a runtime exception instance with the supplied configuration.
+	 * @param aMessageSupplier supplier producing the diagnostic message when needed
+	 * @param aCause underlying cause of the failure
+	 * @param aMessageOutputPurpose purpose for rendering the exception message
+	 * @param aRenderingOutputFormat requested output format for the exception message
+	 * @param aLocale locale for presenting the message; null selects technical diagnostics
+	 */
 	public AIxRuntimeException(final Supplier<String> aMessageSupplier, final Throwable aCause, final AInRenderingOutputBuiltinPurpose aMessageOutputPurpose,
 			final AIiRenderingOutputFormat aRenderingOutputFormat, final Locale aLocale) {
 		super(resolveStringOutput(aMessageSupplier, aMessageOutputPurpose, aRenderingOutputFormat, aLocale), aCause);
 		messageOutputPurpose = aMessageOutputPurpose;
 	}
 
+	/**
+	 * Creates a runtime exception instance with the supplied configuration.
+	 * @param aMessageSupplier supplier producing the diagnostic message when needed
+	 * @param aCause underlying cause of the failure
+	 * @param aEnableSuppression whether suppressed exceptions are enabled
+	 * @param aWritableStackTrace whether stack trace collection is enabled
+	 * @param aMessageOutputPurpose purpose for rendering the exception message
+	 * @param aRenderingOutputFormat requested output format for the exception message
+	 * @param aLocale locale for presenting the message; null selects technical diagnostics
+	 */
 	public AIxRuntimeException(
 			final Supplier<String> aMessageSupplier,
 			final Throwable aCause,
@@ -47,6 +65,13 @@ public class AIxRuntimeException extends RuntimeException{
 		messageOutputPurpose = aMessageOutputPurpose;
 	}
 
+	/**
+	 * Creates a runtime exception instance with the supplied configuration.
+	 * @param aMessageSupplier supplier producing the diagnostic message when needed
+	 * @param aMessageOutputPurpose purpose for rendering the exception message
+	 * @param aRenderingOutputFormat requested output format for the exception message
+	 * @param aLocale locale for presenting the message; null selects technical diagnostics
+	 */
 	public AIxRuntimeException(@NotNull final Supplier<String> aMessageSupplier, AInRenderingOutputBuiltinPurpose aMessageOutputPurpose,
 			final AIiRenderingOutputFormat aRenderingOutputFormat, final Locale aLocale) {
 		super(resolveStringOutput(aMessageSupplier, aMessageOutputPurpose, aRenderingOutputFormat, aLocale));

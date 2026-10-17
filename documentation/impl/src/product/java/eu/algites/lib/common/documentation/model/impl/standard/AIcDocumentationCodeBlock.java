@@ -34,11 +34,13 @@ public class AIcDocumentationCodeBlock
         code = Objects.requireNonNull(aCode, "Parameter aCode must not be null.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getLanguageId() {
         return languageId;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getCode() {
         return code;

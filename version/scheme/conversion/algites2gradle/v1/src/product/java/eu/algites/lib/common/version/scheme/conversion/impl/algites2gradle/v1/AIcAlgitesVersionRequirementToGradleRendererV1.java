@@ -17,6 +17,11 @@ public final class AIcAlgitesVersionRequirementToGradleRendererV1 {
 
 	private AIcAlgitesVersionRequirementToGradleRendererV1() { /* utility class */ }
 
+	/**
+	 * Renders  into the requested external representation.
+	 * @param aRequirement version requirement to process
+	 * @return the render
+	 */
 	@Nonnull
 	public static AIrGradleVersionConstraint render(@Nonnull final AIiVersionRequirement aRequirement) {
 		Objects.requireNonNull(aRequirement, "version requirement must not be null");

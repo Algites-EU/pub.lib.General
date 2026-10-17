@@ -13,10 +13,19 @@ import java.util.function.Supplier;
  */
 public class AIxEnumDataRegistryIllegalOperationException extends AIxRuntimeException {
 
+	/**
+	 * Creates a enum data registry illegal operation exception instance with the supplied configuration.
+	 * @param aMessageSupplier supplier producing the diagnostic message when needed
+	 */
 	public AIxEnumDataRegistryIllegalOperationException(final Supplier<String> aMessageSupplier) {
 		super(aMessageSupplier, null, null, null);
 	}
 
+	/**
+	 * Creates a enum data registry illegal operation exception instance with the supplied configuration.
+	 * @param aMessageSupplier supplier producing the diagnostic message when needed
+	 * @param aCause underlying cause of the failure
+	 */
 	public AIxEnumDataRegistryIllegalOperationException(final Supplier<String> aMessageSupplier, final Throwable aCause) {
 		super(aMessageSupplier, aCause, null, null, null);
 	}

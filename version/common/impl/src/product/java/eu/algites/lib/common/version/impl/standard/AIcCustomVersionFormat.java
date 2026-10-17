@@ -40,6 +40,11 @@ public final class AIcCustomVersionFormat implements AIiVersionFormat, Serializa
 	@Nonnull
 	private final String qualifierTokenDelimiter;
 
+	/**
+	 * Creates a custom version format instance with the supplied configuration.
+	 * @param aCode code supplied to the operation
+	 * @param aBuildFormatPolicy build format policy supplied to the operation
+	 */
 	public AIcCustomVersionFormat(
 			@Nonnull final String aCode,
 			@Nonnull final AInVersionBuildFormatPolicy aBuildFormatPolicy
@@ -47,6 +52,14 @@ public final class AIcCustomVersionFormat implements AIiVersionFormat, Serializa
 		this(aCode, aBuildFormatPolicy, "build", "-", ".");
 	}
 
+	/**
+	 * Creates a custom version format instance with the supplied configuration.
+	 * @param aCode code supplied to the operation
+	 * @param aBuildFormatPolicy build format policy supplied to the operation
+	 * @param aMappedBuildPrefix mapped build prefix supplied to the operation
+	 * @param aQualifierDelimiter qualifier delimiter supplied to the operation
+	 * @param aQualifierTokenDelimiter qualifier token delimiter supplied to the operation
+	 */
 	public AIcCustomVersionFormat(
 			@Nonnull final String aCode,
 			@Nonnull final AInVersionBuildFormatPolicy aBuildFormatPolicy,
@@ -65,30 +78,35 @@ public final class AIcCustomVersionFormat implements AIiVersionFormat, Serializa
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String code() {
 		return code;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AInVersionBuildFormatPolicy buildFormatPolicy() {
 		return buildFormatPolicy;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String mappedBuildPrefix() {
 		return mappedBuildPrefix;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String qualifierDelimiter() {
 		return qualifierDelimiter;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String qualifierTokenDelimiter() {

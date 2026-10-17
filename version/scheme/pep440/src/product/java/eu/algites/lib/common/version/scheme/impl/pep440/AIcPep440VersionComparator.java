@@ -15,6 +15,7 @@ public final class AIcPep440VersionComparator implements AIiVersionComparator {
 			"^(?:(\\d+)!)?(\\d+(?:\\.\\d+)*)(?:(a|b|rc)(\\d+))?(?:\\.post(\\d+))?(?:\\.dev(\\d+))?(?:\\+.*)?$",
 			Pattern.CASE_INSENSITIVE);
 
+	/** {@inheritDoc} */
 	@Override
 	public int compare(final AIcVersion aLeft, final AIcVersion aRight) {
 		AIrParts locLeft = parse(aLeft.getOriginalText());

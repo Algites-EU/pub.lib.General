@@ -25,7 +25,9 @@ class CommonPythonParityTest(unittest.TestCase):
         for java_file in java_root.rglob('*.java'):
             class_name = java_file.stem
             import re
-            stem = class_name[:3].lower() + '_' + re.sub(r'(?<=[a-z0-9])(?=[A-Z])', '_', class_name[3:]).lower()
+            prefix_length = 4 if class_name.startswith('AIcd') else 3
+            stem = class_name[:prefix_length].lower() + '_' + re.sub(
+                r'(?<=[a-z0-9])(?=[A-Z])', '_', class_name[prefix_length:]).lower()
             relative = java_file.parent.relative_to(java_root)
             self.assertTrue((python_root / relative / f'{stem}.py').is_file(), f'Missing Python mirror: {java_file}')
 

@@ -28,22 +28,26 @@ public abstract class AIcDocumentationElement implements AIiDocumentationElement
         elementId = Objects.requireNonNull(aElementId, "Parameter aElementId must not be null.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getElementId() {
         return elementId;
     }
 
+    /** {@inheritDoc} */
     @Override
     public Map<String, String> getMetadata() {
         return Collections.unmodifiableMap(metadata);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getMetadataValue(String aKey) {
         Objects.requireNonNull(aKey, "Parameter aKey must not be null.");
         return metadata.get(aKey);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void putMetadataValue(String aKey, String aValue) {
         Objects.requireNonNull(aKey, "Parameter aKey must not be null.");
@@ -51,6 +55,7 @@ public abstract class AIcDocumentationElement implements AIiDocumentationElement
         metadata.put(aKey, aValue);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void removeMetadataValue(String aKey) {
         Objects.requireNonNull(aKey, "Parameter aKey must not be null.");

@@ -18,6 +18,13 @@ public final class AIcAlgitesVersionV1 implements AIiAlgitesVersionV1 {
 	@Nullable
 	private final Long qualifierSequence;
 
+	/**
+	 * Creates a algites version v1 instance with the supplied configuration.
+	 * @param aReleaseLineVersion release-line identifier
+	 * @param aRevision revision number within the release line
+	 * @param aQualifierKind qualifier kind supplied to the operation
+	 * @param aQualifierSequence qualifier sequence supplied to the operation
+	 */
 	public AIcAlgitesVersionV1(
 			@Nonnull final String aReleaseLineVersion,
 			final int aRevision,
@@ -42,29 +49,34 @@ public final class AIcAlgitesVersionV1 implements AIiAlgitesVersionV1 {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String releaseLineVersion() {
 		return releaseLineVersion;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public int revision() {
 		return revision;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AInAlgitesVersionQualifierKindV1 qualifierKind() {
 		return qualifierKind;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nullable
 	public Long qualifierSequence() {
 		return qualifierSequence;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public String baseVersionText() {

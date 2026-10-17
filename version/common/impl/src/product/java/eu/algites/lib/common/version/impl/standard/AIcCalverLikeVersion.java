@@ -24,10 +24,15 @@ public final class AIcCalverLikeVersion extends AIcVersion {
 	@Serial
 	private static final long serialVersionUID = 2L;
 
+	/**
+	 * Creates a calver like version instance with the supplied configuration.
+	 * @param aOriginalText original unparsed version text
+	 */
 	public AIcCalverLikeVersion(@NotNull final String aOriginalText) {
 		super(aOriginalText);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected AIiVersionScheme getHandlingMode() {
 		return AInBuiltinVersionScheme.CALVER_DEFAULT;

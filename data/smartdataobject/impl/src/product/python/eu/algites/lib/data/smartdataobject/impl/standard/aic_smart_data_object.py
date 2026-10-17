@@ -116,7 +116,8 @@ class _Snapshot:
     def issues(self, effective: bool, deep: bool) -> list[AIcdSmartDataValidationIssue]:
         issues: list[AIcdSmartDataValidationIssue] = []
         visited: set[_Node] = set()
-        def traverse(node: _Node, path: str) -> None:
+        def traverse(node: _Node, path: str, owner_type: type | None = None,
+                     field_name: str | None = None, field_description: str | None = None) -> None:
             if node in visited:
                 return
             visited.add(node)
@@ -124,26 +125,28 @@ class _Snapshot:
                 for f in node.fields:
                     name = f'{path}.{f.descriptor.name}' if path else f.descriptor.name
                     if not f.present and f.descriptor.presence_required and (not effective or not f.descriptor.default_factory):
-                        issues.append(AIcdSmartDataValidationIssue(name, 'REQUIRED_ABSENT', 'Required property is absent'))
+                        issues.append(AIcdSmartDataValidationIssue(name, 'REQUIRED_ABSENT', 'Required property is absent', type(node.obj), f.descriptor.name, f.descriptor.description))
                         continue
                     if not f.present and (not effective or not f.descriptor.default_factory):
                         continue
                     value = self.value(f, effective)
                     if value.kind == 'null' and not f.descriptor.allows_null:
-                        issues.append(AIcdSmartDataValidationIssue(name, 'NULL_FORBIDDEN', 'Null is not allowed'))
+                        issues.append(AIcdSmartDataValidationIssue(name, 'NULL_FORBIDDEN', 'Null is not allowed', type(node.obj), f.descriptor.name, f.descriptor.description))
                     elif value.kind != 'null' and f.descriptor.expected_type and not isinstance(value.obj, f.descriptor.expected_type):
-                        issues.append(AIcdSmartDataValidationIssue(name, 'WRONG_TYPE', 'Type is incompatible'))
+                        issues.append(AIcdSmartDataValidationIssue(name, 'WRONG_TYPE', 'Type is incompatible', type(node.obj), f.descriptor.name, f.descriptor.description))
                     if deep:
-                        traverse(value, name)
+                        traverse(value, name, type(node.obj), f.descriptor.name, f.descriptor.description)
             elif deep and node.kind == 'list':
                 if isinstance(node.obj, AIiValidatable) and not node.obj.isValid():
-                    issues.append(AIcdSmartDataValidationIssue(path, 'COLLECTION_INVALID',
-                                                                node.obj.getInvalidStateMessage('en')))
+                    for nested in node.obj.getValidationIssues():
+                        issues.append(AIcdSmartDataValidationIssue(path, 'COLLECTION_INVALID',
+                                                                  nested.getMessage(None), owner_type,
+                                                                  field_name, field_description, nested))
                 for i, v in enumerate(node.children):
-                    traverse(v, f'{path}[{i}]')
+                    traverse(v, f'{path}[{i}]', owner_type, field_name, field_description)
             elif deep and node.kind == 'map':
                 for k, v in node.entries:
-                    traverse(v, f'{path}[{k.value}]')
+                    traverse(v, f'{path}[{k.value}]', owner_type, field_name, field_description)
         traverse(self.root, '')
         return issues
 

@@ -11,7 +11,9 @@ class AIaFieldLabel:
     Apply to a getter as a decorator, or attach in dataclass field metadata
     (metadata={'AIaFieldLabel': AIaFieldLabel(...)}) / __field_labels__.
     """
+    DEFAULT_ROLE_CODE = "field.name"
     label: str = ''
+    roleCode: str = DEFAULT_ROLE_CODE
     labels: tuple[Entry, ...] = ()  # type: ignore[name-defined]
     labelResolver: type | None = None
     purpose: Purpose = Purpose.DEFAULT
@@ -30,6 +32,7 @@ class AIaFieldLabel:
     @dataclass(frozen=True)
     class Entry:
         label: str
+        roleCode: str = "field.name"
         purpose: Purpose = Purpose.DEFAULT
         purposeCode: str = ''
         format: Format = Format.DEFAULT

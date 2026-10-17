@@ -2,51 +2,68 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/name-conventions_1.jsondef.schema.json",
   "type": "object",
+  "title": "Name conventions",
   "additionalProperties": false,
   "properties": {
     "StandardConventionsFile": {
-      "type": "string"
+      "type": "string",
+      "title": "Standard conventions file",
+      "description": "Relative path to the file containing shared identifier and version convention definitions."
     },
     "IdentifierConventions": {
       "type": "object",
+      "title": "Identifier conventions",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "Regexp": {
             "type": "string",
-            "minLength": 1
+            "title": "Regexp",
+            "minLength": 1,
+            "description": "Regular expression defining the syntax recognized by this named convention."
           }
         },
         "required": [
           "Regexp"
-        ]
-      }
+        ],
+        "title": "Additional Properties",
+        "description": "Definition of one named identifier convention."
+      },
+      "description": "Named identifier conventions whose regular expressions validate or recognize identifiers."
     },
     "VersionConventions": {
       "type": "object",
+      "title": "Version conventions",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "Regexp": {
             "type": "string",
-            "minLength": 1
+            "title": "Regexp",
+            "minLength": 1,
+            "description": "Regular expression defining the syntax recognized by this named convention."
           }
         },
         "required": [
           "Regexp"
-        ]
-      }
+        ],
+        "title": "Additional Properties",
+        "description": "Definition of one named version convention."
+      },
+      "description": "Named version conventions whose regular expressions recognize version components."
     },
     "NameFragments": {
       "type": "object",
+      "title": "Name fragments",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "Segments": {
             "type": "array",
+            "title": "Segments",
             "minItems": 1,
             "items": {
               "oneOf": [
@@ -56,12 +73,16 @@
                   "properties": {
                     "Ref": {
                       "type": "string",
-                      "minLength": 1
+                      "title": "Ref",
+                      "minLength": 1,
+                      "description": "Name of another defined fragment or composition to include at this position."
                     }
                   },
                   "required": [
                     "Ref"
-                  ]
+                  ],
+                  "title": "Reference segment",
+                  "description": "Segment referencing a previously defined named fragment or composition."
                 },
                 {
                   "type": "object",
@@ -73,45 +94,89 @@
                         "identifier",
                         "version",
                         "variable"
+                      ],
+                      "title": "Kind",
+                      "description": "Determines how the segment value is interpreted during name construction.",
+                      "oneOf": [
+                        {
+                          "const": "constant_string",
+                          "title": "Constant string",
+                          "description": "A literal text segment emitted without a lookup."
+                        },
+                        {
+                          "const": "identifier",
+                          "title": "Identifier",
+                          "description": "A segment derived from an identifier, optionally using an identifier convention."
+                        },
+                        {
+                          "const": "version",
+                          "title": "Version",
+                          "description": "A segment representing a version according to a version convention."
+                        },
+                        {
+                          "const": "variable",
+                          "title": "Variable",
+                          "description": "A segment resolved from a named variable in the generation context."
+                        }
                       ]
                     },
                     "Value": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "Value",
+                      "description": "Literal or resolved value emitted by the segment, according to its kind."
                     },
                     "Convention": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "Convention",
+                      "description": "Identifier or version convention used to validate or format this segment."
                     },
                     "CustomConventionRegexp": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "Custom convention regexp",
+                      "description": "Custom regular expression used instead of a named convention."
                     },
                     "Name": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "Name",
+                      "description": "Symbolic name of the variable or source value referenced by this segment."
                     },
                     "Regexp": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "Regexp",
+                      "description": "Regular expression defining the syntax recognized by this named convention."
                     }
                   },
                   "required": [
                     "Kind"
-                  ]
+                  ],
+                  "title": "Inline segment",
+                  "description": "Inline segment definition with its kind and optional parameters."
                 }
-              ]
-            }
+              ],
+              "title": "Items",
+              "description": "One segment, expressed either as a reference or as an inline segment definition."
+            },
+            "description": "Ordered segments that make up this fragment or name composition."
           }
         },
         "required": [
           "Segments"
-        ]
-      }
+        ],
+        "title": "Additional Properties",
+        "description": "Definition of one named reusable name fragment."
+      },
+      "description": "Reusable named sequences of text, identifier, version or variable segments."
     },
     "NameCompositions": {
       "type": "object",
+      "title": "Name compositions",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "Segments": {
             "type": "array",
+            "title": "Segments",
             "minItems": 1,
             "items": {
               "oneOf": [
@@ -121,12 +186,16 @@
                   "properties": {
                     "Ref": {
                       "type": "string",
-                      "minLength": 1
+                      "title": "Ref",
+                      "minLength": 1,
+                      "description": "Name of another defined fragment or composition to include at this position."
                     }
                   },
                   "required": [
                     "Ref"
-                  ]
+                  ],
+                  "title": "Reference segment",
+                  "description": "Segment referencing a previously defined named fragment or composition."
                 },
                 {
                   "type": "object",
@@ -138,61 +207,115 @@
                         "identifier",
                         "version",
                         "variable"
+                      ],
+                      "title": "Kind",
+                      "description": "Determines how the segment value is interpreted during name construction.",
+                      "oneOf": [
+                        {
+                          "const": "constant_string",
+                          "title": "Constant string",
+                          "description": "A literal text segment emitted without a lookup."
+                        },
+                        {
+                          "const": "identifier",
+                          "title": "Identifier",
+                          "description": "A segment derived from an identifier, optionally using an identifier convention."
+                        },
+                        {
+                          "const": "version",
+                          "title": "Version",
+                          "description": "A segment representing a version according to a version convention."
+                        },
+                        {
+                          "const": "variable",
+                          "title": "Variable",
+                          "description": "A segment resolved from a named variable in the generation context."
+                        }
                       ]
                     },
                     "Value": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "Value",
+                      "description": "Literal or resolved value emitted by the segment, according to its kind."
                     },
                     "Convention": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "Convention",
+                      "description": "Identifier or version convention used to validate or format this segment."
                     },
                     "CustomConventionRegexp": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "Custom convention regexp",
+                      "description": "Custom regular expression used instead of a named convention."
                     },
                     "Name": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "Name",
+                      "description": "Symbolic name of the variable or source value referenced by this segment."
                     },
                     "Regexp": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "Regexp",
+                      "description": "Regular expression defining the syntax recognized by this named convention."
                     }
                   },
                   "required": [
                     "Kind"
-                  ]
+                  ],
+                  "title": "Inline segment",
+                  "description": "Inline segment definition with its kind and optional parameters."
                 }
-              ]
-            }
+              ],
+              "title": "Items",
+              "description": "One segment, expressed either as a reference or as an inline segment definition."
+            },
+            "description": "Ordered segments that make up this fragment or name composition."
           }
         },
         "required": [
           "Segments"
-        ]
-      }
+        ],
+        "title": "Additional Properties",
+        "description": "Definition of one named name composition."
+      },
+      "description": "Named compositions that combine reusable fragments into full names."
     },
     "NameConventions": {
       "type": "object",
+      "title": "Name conventions",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "ContainerStructureType": {
-            "$ref": "container-structure-type_1.jsondef.schema.json"
+            "$ref": "container-structure-type_1.jsondef.schema.json",
+            "title": "Container structure type",
+            "description": "Category of the owning structure for which this naming profile applies."
           },
           "StructureNaming": {
             "type": "object",
+            "title": "Structure naming",
             "propertyNames": {
-              "$ref": "source-structure-kind_1.jsondef.schema.json"
+              "$ref": "source-structure-kind_1.jsondef.schema.json",
+              "title": "Property Names",
+              "description": "Structural role supported as a key in the naming rules map."
             },
             "additionalProperties": {
-              "type": "string"
-            }
+              "type": "string",
+              "title": "Additional Properties",
+              "description": "Reference to a fragment or composition used to name the selected source role."
+            },
+            "description": "Mapping from structural name roles to fragment or composition names."
           }
         },
         "required": [
           "ContainerStructureType",
           "StructureNaming"
-        ]
-      }
+        ],
+        "title": "Additional Properties",
+        "description": "Naming configuration for one category of owning container."
+      },
+      "description": "Naming rules for supported container structures and their contained source elements."
     }
   },
   "required": [

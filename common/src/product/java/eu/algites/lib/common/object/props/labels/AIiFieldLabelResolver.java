@@ -33,7 +33,15 @@ public interface AIiFieldLabelResolver {
 	 * @param aOutputLocale
 	 * @return label or null => fallback
 	 */
-	String resolveLabel(Class<?> aOwnerClass, String aFieldName, AIiRenderingOutputPurpose aOutputPurpose,
-			final AIiRenderingOutputFormat aOutputFormat,
-			final Locale aOutputLocale);
+    String resolveLabel(Class<?> aOwnerClass, String aFieldName, AIiRenderingOutputPurpose aOutputPurpose,
+            AIiRenderingOutputFormat aOutputFormat, Locale aOutputLocale);
+
+    /** Role-aware extension; old resolvers remain compatible for field titles. */
+    default String resolveLabel(Class<?> aOwnerClass, String aFieldName, String aRoleCode,
+            AIiRenderingOutputPurpose aOutputPurpose, AIiRenderingOutputFormat aOutputFormat,
+            Locale aOutputLocale) {
+        return AIaFieldLabel.DEFAULT_ROLE_CODE.equals(aRoleCode)
+                ? resolveLabel(aOwnerClass, aFieldName, aOutputPurpose, aOutputFormat, aOutputLocale)
+                : null;
+    }
 }

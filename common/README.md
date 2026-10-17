@@ -60,3 +60,22 @@ compatibility in Python rather than silently corrected. Python exposes
 Python's `findByUid()` uses `None` rather than Java `Optional.empty()`.
 Java annotations have Python decorator/metadata equivalents; naturally, Python
 reflection does not model Java records and interfaces identically.
+
+## Generic validation issues and locale semantics
+
+`AIiValidatable<T extends AIiValidationIssue>` exposes typed structured issues
+via `getValidationIssues()`; `isValid()` and `getInvalidStateMessage(Locale)`
+remain available. `AIiValidationIssue` exposes a stable diagnostic `getCode()`,
+`getPath()`, `getMessage(Locale)` and extensible related-text topics via
+`getRelatedTopicText(String, Locale)`. Unknown topic identifiers return `null`.
+
+**Locale is deliberately not implicit:** passing Java `null` / Python `None`
+requests low-level technical diagnostics, independent of the host locale.
+An explicit supported locale uses the requested translation; unsupported
+non-null locales fall back to **English**, not to the JVM/Python system locale.
+An unset or unresolvable related-text topic is still `null` and is not a
+localization fallback. Python represents locales as strings such as `cs-CZ`.
+
+`AIcBoundedList` returns `AIcdBoundedListValidationIssue` values carrying the
+actual and boundary sizes and the stable `MIN_ITEMS` / `MAX_ITEMS` codes.
+The low-level `getMessage(null)` contains this structured cardinality data.

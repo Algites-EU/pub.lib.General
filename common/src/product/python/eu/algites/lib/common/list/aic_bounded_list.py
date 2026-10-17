@@ -3,9 +3,10 @@ from collections.abc import Iterable, MutableSequence, Callable
 from eu.algites.lib.common.interval.ais_interval_utils import AIsIntervalUtils
 from eu.algites.lib.common.list.ain_bounds_mutation_policy import AInBoundsMutationPolicy
 from eu.algites.lib.common.validation.aii_validatable import AIiValidatable
+from eu.algites.lib.common.list.aicd_bounded_list_validation_issue import AIcdBoundedListValidationIssue
 T = __import__('typing').TypeVar('T')
 
-class AIcBoundedList(MutableSequence[T], AIiValidatable):
+class AIcBoundedList(MutableSequence[T], AIiValidatable[AIcdBoundedListValidationIssue]):
     """Bounded mutable list. Every size change is transactional; callbacks edit a detached copy.
 
     Constructor accepts (min_size, max_size[, policy]) or (AIiInterval[, policy]).
@@ -98,13 +99,13 @@ class AIcBoundedList(MutableSequence[T], AIiValidatable):
         return len(self) != count
     def clear(self) -> None: self.modifyAtomically(lambda items: items.clear())
     def isValid(self) -> bool: return self._below(len(self)) == 0 and self._above(len(self)) == 0
+    def getValidationIssues(self) -> list[AIcdBoundedListValidationIssue]:
+        if self._below(len(self)):
+            return [AIcdBoundedListValidationIssue('MIN_ITEMS', len(self), self._min_size)]
+        if self._above(len(self)):
+            return [AIcdBoundedListValidationIssue('MAX_ITEMS', len(self), self._max_size)]
+        return []
+
     def getInvalidStateMessage(self, aLocale: str | None) -> str:
-        if self.isValid(): return ''
-        cs = str(aLocale or '').lower().startswith('cs')
-        n = len(self)
-        if self._below(n):
-            return (f'Seznam musí obsahovat alespoň {self._min_size} položek; aktuálně obsahuje {n}.' if cs else
-                    f'List must contain at least {self._min_size} items; current size is {n}.')
-        return (f'Seznam smí obsahovat nejvýše {self._max_size} položek; aktuálně obsahuje {n}.' if cs else
-                f'List must contain at most {self._max_size} items; current size is {n}.')
+        return super().getInvalidStateMessage(aLocale)
     def __repr__(self): return f'AIcBoundedList({self._min_size}, {self._max_size}, {self._policy!r}): {self._values!r}'

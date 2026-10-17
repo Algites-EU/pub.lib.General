@@ -29,11 +29,13 @@ public class AIcDocumentationTableRow
         super(aElementId);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<AIiDocumentationTableCell> getCells() {
         return Collections.unmodifiableList(cells);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addCell(AIiDocumentationTableCell aCell) {
         cells.add(Objects.requireNonNull(aCell, "Parameter aCell must not be null."));

@@ -22,16 +22,19 @@ final class AIcImmutableJournalSnapshot<E extends AIiJournalEntry>
         entries = List.copyOf(locEntries);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<AIiJournalBatch<E>> getBatches() {
         return batches;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<E> getEntries() {
         return entries;
     }
 
+    /** {@inheritDoc} */
     @Override
     public AIiJournalSnapshot<E> snapshot() {
         return this;

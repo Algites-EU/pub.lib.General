@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:algdoc="urn:eu:algites:documentation:1"
+           targetNamespace="urn:eu:algites:documentation:1"
+           elementFormDefault="qualified" version="1">
+  <xs:annotation>
+    <xs:appinfo><algdoc:title>Algites documentation metadata</algdoc:title></xs:appinfo>
+    <xs:documentation>Documentation metadata vocabulary shared by Algites XMLDEFS schemas.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="title" type="xs:string">
+    <xs:annotation>
+      <xs:appinfo><algdoc:title>Title</algdoc:title></xs:appinfo>
+      <xs:documentation>Default human-readable title for a schema component.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

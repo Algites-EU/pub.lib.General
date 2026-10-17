@@ -54,6 +54,9 @@ public enum AInBuiltinVersionScheme implements AIiVersionSchemeData {
 			AInBuiltinVersionFormat.OMIT_BUILD
 	),
 
+	/**
+	 * Maven-style version interpretation ignoring build metadata in comparisons.
+	 */
 	MAVEN_BUILD_METADATA_IGNORED(
 			"maven-build-metadata-ignored",
 			new AIcMavenLikeVersionComparator(),
@@ -72,6 +75,9 @@ public enum AInBuiltinVersionScheme implements AIiVersionSchemeData {
 			AInBuiltinVersionFormat.EMIT_BUILD
 	),
 
+	/**
+	 * Semantic-version variant placing build information before release ordering.
+	 */
 	SEMVER_BUILD_FIRST(
 			"semver-build-first",
 			new AIcSemverLikeVersionComparator(),
@@ -79,6 +85,9 @@ public enum AInBuiltinVersionScheme implements AIiVersionSchemeData {
 			AInBuiltinVersionFormat.EMIT_BUILD
 	),
 
+	/**
+	 * Semantic-version variant comparing build metadata when sorting.
+	 */
 	SEMVER_BUILD_ORDERED(
 			"semver-build-ordered",
 			new AIcSemverLikeVersionComparator(),
@@ -122,51 +131,61 @@ public enum AInBuiltinVersionScheme implements AIiVersionSchemeData {
 				AIiVersionSchemeDataUidRecord.RECORD_SPECIFIC_PARTS_METADATA);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String code() {
 		return code;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public AIiVersionComparator versionComparator() {
 		return versionComparator;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public AIiVersionStructure versionStructure() {
 		return versionStructure;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public AIiVersionFormat versionFormat() {
 		return versionFormat;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public @NotNull AIiVersionCodec versionCodec() {
 		return versionCodec;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public AIiVersionSchemeDataType getDataType() {
 		return DATA_TYPE;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String uid() {
 		return uid;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public AInUidEnumDataOrigin origin() {
 		return AInUidEnumDataOrigin.BUILTIN;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String namespace() {
 		return "";
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public String schemeCode() {
 		return code();

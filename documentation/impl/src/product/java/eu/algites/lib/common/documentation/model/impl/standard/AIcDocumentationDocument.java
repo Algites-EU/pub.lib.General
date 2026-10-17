@@ -34,11 +34,13 @@ public class AIcDocumentationDocument
         documentDescription = Objects.requireNonNull(aDocumentDescription, "Parameter aDocumentDescription must not be null.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getDocumentTitle() {
         return documentTitle;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getDocumentDescription() {
         return documentDescription;

@@ -16,6 +16,9 @@ import eu.algites.lib.common.version.AInBuiltinVersionStructure;
  */
 public final class AIcGradleVersionScheme {
 
+	/**
+	 * Shared immutable instance of the gradle version scheme implementation.
+	 */
 	public static final AIiVersionScheme INSTANCE = new AIcCustomVersionScheme(
 			"gradle",
 			new AIcMavenLikeVersionComparator(),

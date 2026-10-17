@@ -38,6 +38,7 @@ public final class AIcInMemoryJournal<E extends AIiJournalEntry, X extends Excep
     private final Queue<Runnable> deliveryQueue = new ArrayDeque<>();
     private boolean delivering;
 
+    /** {@inheritDoc} */
     @Override
     public AIiJournalSnapshot<E> snapshot() {
         writeLock.lock();
@@ -48,27 +49,32 @@ public final class AIcInMemoryJournal<E extends AIiJournalEntry, X extends Excep
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<? extends AIiJournalBatch<E>> getBatches() {
         return snapshot().getBatches();
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<? extends E> getEntries() {
         return snapshot().getEntries();
     }
 
+    /** {@inheritDoc} */
     @Override
     @SafeVarargs
     public final AIiJournalAppendResult<E> append(E... aEntries) throws X {
         return appendList(Arrays.asList(Objects.requireNonNull(aEntries)));
     }
 
+    /** {@inheritDoc} */
     @Override
     public AIiJournalAppendResult<E> append(Supplier<? extends E[]> aEntries) throws X {
         return append(Objects.requireNonNull(aEntries).get());
     }
 
+    /** {@inheritDoc} */
     @Override
     public AIiJournalAppendResult<E> appendList(List<? extends E> aEntries) throws X {
         Objects.requireNonNull(aEntries);
@@ -80,12 +86,14 @@ public final class AIcInMemoryJournal<E extends AIiJournalEntry, X extends Excep
         return appendInternal(List.of(locBatch), null);
     }
 
+    /** {@inheritDoc} */
     @Override
     public AIiJournalAppendResult<E> appendList(
             Supplier<? extends List<? extends E>> aEntries) throws X {
         return appendList(Objects.requireNonNull(aEntries).get());
     }
 
+    /** {@inheritDoc} */
     @Override
     @SafeVarargs
     public final AIiJournalAppendResult<E> appendSupplied(
@@ -93,6 +101,7 @@ public final class AIcInMemoryJournal<E extends AIiJournalEntry, X extends Excep
         return appendSupplied(Arrays.asList(Objects.requireNonNull(aEntries)));
     }
 
+    /** {@inheritDoc} */
     @Override
     public AIiJournalAppendResult<E> appendSupplied(
             List<? extends Supplier<? extends E>> aEntries) throws X {
@@ -105,6 +114,7 @@ public final class AIcInMemoryJournal<E extends AIiJournalEntry, X extends Excep
         return appendList(locEntries);
     }
 
+    /** {@inheritDoc} */
     @Override
     public AIiJournalAppendResult<E> appendJournal(AIiJournalSnapshot<? extends E> aSource) throws X {
         Objects.requireNonNull(aSource);
@@ -120,12 +130,14 @@ public final class AIcInMemoryJournal<E extends AIiJournalEntry, X extends Excep
         return appendInternal(locBatches, locSource);
     }
 
+    /** {@inheritDoc} */
     @Override
     public AIiJournalAppendResult<E> appendJournal(
             Supplier<? extends AIiJournalSnapshot<? extends E>> aSource) throws X {
         return appendJournal(Objects.requireNonNull(aSource).get());
     }
 
+    /** {@inheritDoc} */
     @Override
     public AIiJournalSubscription addListener(AIiJournalListener<E, X> aListener) {
         AIiJournalListener<E, X> locListener = Objects.requireNonNull(aListener);

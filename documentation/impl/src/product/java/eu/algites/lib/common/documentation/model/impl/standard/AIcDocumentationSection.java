@@ -34,11 +34,13 @@ public class AIcDocumentationSection
         sectionDescription = Objects.requireNonNull(aSectionDescription, "Parameter aSectionDescription must not be null.");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getSectionTitle() {
         return sectionTitle;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getSectionDescription() {
         return sectionDescription;

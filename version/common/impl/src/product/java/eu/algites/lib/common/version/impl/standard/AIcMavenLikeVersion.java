@@ -24,10 +24,15 @@ public final class AIcMavenLikeVersion extends AIcVersion {
 	@Serial
 	private static final long serialVersionUID = 2L;
 
+	/**
+	 * Creates a maven like version instance with the supplied configuration.
+	 * @param aOriginalText original unparsed version text
+	 */
 	public AIcMavenLikeVersion(@NotNull final String aOriginalText) {
 		super(aOriginalText);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected AIiVersionScheme getHandlingMode() {
 		return AInBuiltinVersionScheme.MAVEN_DEFAULT;

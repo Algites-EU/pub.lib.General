@@ -23,11 +23,17 @@ public record AIrVersionSchemeTextParts(
 		@Nonnull String buildText
 ) implements AIiVersionSchemeTextParts {
 
+	/**
+	 * Creates a version scheme text parts instance with the supplied configuration.
+	 * @param versionText version text supplied to the operation
+	 * @param buildText build text supplied to the operation
+	 */
 	public AIrVersionSchemeTextParts {
 		Objects.requireNonNull(versionText, "versionText must not be null");
 		Objects.requireNonNull(buildText, "buildText must not be null");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean hasBuild() {
 		return !buildText.isEmpty();

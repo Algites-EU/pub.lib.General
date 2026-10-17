@@ -19,6 +19,12 @@ public final class AIsVersionRequirementNormalizer {
 		/* utility class */
 	}
 
+	/**
+	 * Normalizes  to the canonical representation.
+	 * @param aRequirement version requirement to process
+	 * @param aScheme version scheme controlling comparisons and formatting
+	 * @return the result of the operation
+	 */
 	@Nonnull
 	public static AIrVersionRequirementNormalization normalize(
 			@Nonnull final AIiVersionRequirement aRequirement,

@@ -9,6 +9,7 @@ import jakarta.annotation.Nonnull;
 
 /** Converts Algites version scheme v1 into Maven publication-version syntax. */
 public final class AIcAlgitesToMavenVersionConverterV1 implements AIiVersionConverter<AIiAlgitesVersionV1, AIrMavenVersionRequirement> {
+	/** {@inheritDoc} */
 	@Override
 	@Nonnull
 	public AIrVersionConversionResult<AIrMavenVersionRequirement> convert(@Nonnull final AIiAlgitesVersionV1 aSource) {

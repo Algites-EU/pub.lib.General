@@ -40,6 +40,7 @@ public enum AInRenderingOutputBuiltinPurpose implements AIiRenderingOutputPurpos
 	 */
 	DEBUG;
 
+	/** {@inheritDoc} */
 	@Override
 	public String code() {
 		return name();
