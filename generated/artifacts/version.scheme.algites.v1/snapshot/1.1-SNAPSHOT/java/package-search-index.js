@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"eu.algites.lib.common.version.scheme.algites.v1"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"eu.algites.lib.common.version.scheme.algites.v1"},{"l":"eu.algites.lib.common.version.scheme.impl.algites.v1"}];updateSearchResults();

@@ -1,0 +1,53 @@
+python.eu.algites.lib.factory.cpdiscovery.impl.standard.aic_category_provider_registry
+======================================================================================
+
+.. py:module:: python.eu.algites.lib.factory.cpdiscovery.impl.standard.aic_category_provider_registry
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.factory.cpdiscovery.impl.standard.aic_category_provider_registry.AIcCategoryProviderRegistry
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcCategoryProviderRegistry
+
+   Bases: :py:obj:`eu.algites.lib.factory.cpdiscovery.aii_category_provider_registry.AIiCategoryProviderRegistry`
+
+
+   Atomic category/provider factory catalog over Python distribution entry points.
+
+
+   .. py:attribute:: ENTRY_POINT_GROUP
+      :value: 'eu.algites.lib.factory.cpdiscovery.factories'
+
+
+
+   .. py:attribute:: DEFAULTS_METADATA_FILENAME
+      :value: 'catprov-defaults.properties'
+
+
+
+   .. py:method:: register_factories(source_id: str, factories: tuple[eu.algites.lib.factory.cpdiscovery.aii_category_provider_factory.AIiCategoryProviderFactory, Ellipsis], defaults: dict[str, str] | None = None) -> None
+
+      Explicit registration also supports uninstalled development environments.
+
+
+
+   .. py:method:: unregister_factories(source_id: str) -> None
+
+
+   .. py:method:: register_entry_point_factories() -> None
+
+
+   .. py:method:: unregister_entry_point_factories() -> None
+
+
+   .. py:method:: get_instance(factory_type: type, category: str, context: Any, provider_id: str | None = None) -> Any
+
+

@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"eu.algites.lib.data.smartdataobject"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"eu.algites.lib.data.smartdataobject.impl.standard"}];updateSearchResults();

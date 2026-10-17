@@ -1,0 +1,45 @@
+python.eu.algites.lib.text.format.aicd_text_format_profile
+==========================================================
+
+.. py:module:: python.eu.algites.lib.text.format.aicd_text_format_profile
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.text.format.aicd_text_format_profile.AIcdTextFormatProfile
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcdTextFormatProfile
+
+   Immutable serializable profile descriptor.
+
+
+   .. py:attribute:: id
+      :type:  str
+
+
+   .. py:attribute:: format_type
+      :type:  eu.algites.lib.text.format.ain_text_format_type.AInTextFormatType
+
+
+   .. py:attribute:: reference_encoding
+      :type:  eu.algites.lib.text.format.ain_text_reference_encoding.AInTextReferenceEncoding
+
+
+   .. py:attribute:: diagnostic
+      :type:  bool
+
+
+   .. py:attribute:: supported_modes
+      :type:  frozenset[eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode]
+
+
+   .. py:method:: is_reference_mode_supported(mode: eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode) -> bool
+
+

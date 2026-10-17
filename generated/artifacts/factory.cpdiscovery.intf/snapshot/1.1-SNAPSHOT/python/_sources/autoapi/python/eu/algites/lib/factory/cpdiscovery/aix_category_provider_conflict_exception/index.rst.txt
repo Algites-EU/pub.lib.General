@@ -1,0 +1,25 @@
+python.eu.algites.lib.factory.cpdiscovery.aix_category_provider_conflict_exception
+==================================================================================
+
+.. py:module:: python.eu.algites.lib.factory.cpdiscovery.aix_category_provider_conflict_exception
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.factory.cpdiscovery.aix_category_provider_conflict_exception.AIxCategoryProviderConflictException
+
+
+Module Contents
+---------------
+
+.. py:class:: AIxCategoryProviderConflictException
+
+   Bases: :py:obj:`eu.algites.lib.factory.cpdiscovery.aix_category_provider_discovery_exception.AIxCategoryProviderDiscoveryException`
+
+
+   Conflicting provider identity or default configuration.
+
+

@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"eu.algites.lib.factory.cpdiscovery.impl.standard","l":"AIcCategoryProviderRegistry"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>python.eu.algites.lib.text.format.ain_text_output_object_reference_mode &#8212; text.format  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../../../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../../../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-python.eu.algites.lib.text.format.ain_text_output_object_reference_mode">
+<span id="python-eu-algites-lib-text-format-ain-text-output-object-reference-mode"></span><h1>python.eu.algites.lib.text.format.ain_text_output_object_reference_mode<a class="headerlink" href="#module-python.eu.algites.lib.text.format.ain_text_output_object_reference_mode" title="Link to this heading">¶</a></h1>
+<p>Reference policies for the text rendering of cyclic or shared SDO graphs.</p>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode" title="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AInTextOutputObjectReferenceMode</span></code></a></p></td>
+<td><p>Choose whether a format references object instances or emits values inline.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.</span></span><span class="sig-name descname"><span class="pre">AInTextOutputObjectReferenceMode</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Choose whether a format references object instances or emits values inline.</p>
+<p>These values do not select a schema identity and a text profile may reject
+unsupported policies. Virtual mappings always preserve object identity.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.NO_REFERENCES">
+<span class="sig-name descname"><span class="pre">NO_REFERENCES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NO_REFERENCES'</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.NO_REFERENCES" title="Link to this definition">¶</a></dt>
+<dd><p>Always inline values; shared identity is lost and cycles cannot be encoded.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.ALL_OBJECTS">
+<span class="sig-name descname"><span class="pre">ALL_OBJECTS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ALL_OBJECTS'</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.ALL_OBJECTS" title="Link to this definition">¶</a></dt>
+<dd><p>Assign a reference identifier to every eligible object, even unique ones.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.CYCLIC_REFERENCES_ONLY">
+<span class="sig-name descname"><span class="pre">CYCLIC_REFERENCES_ONLY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CYCLIC_REFERENCES_ONLY'</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.CYCLIC_REFERENCES_ONLY" title="Link to this definition">¶</a></dt>
+<dd><p>Use references to break cycles, but not necessarily to preserve all sharing.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.REPEATED_OBJECTS">
+<span class="sig-name descname"><span class="pre">REPEATED_OBJECTS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'REPEATED_OBJECTS'</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.REPEATED_OBJECTS" title="Link to this definition">¶</a></dt>
+<dd><p>Represent shared objects and cycles as references preserving their identity.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.OPTIMIZED_TEXT_OUTPUT_SIZE">
+<span class="sig-name descname"><span class="pre">OPTIMIZED_TEXT_OUTPUT_SIZE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OPTIMIZED_TEXT_OUTPUT_SIZE'</span></span><a class="headerlink" href="#python.eu.algites.lib.text.format.ain_text_output_object_reference_mode.AInTextOutputObjectReferenceMode.OPTIMIZED_TEXT_OUTPUT_SIZE" title="Link to this definition">¶</a></dt>
+<dd><p>Choose references by text-size savings while still representing cycles.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../../../../../index.html">text.format</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../../index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../../../../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../../../../../../../_sources/autoapi/python/eu/algites/lib/text/format/ain_text_output_object_reference_mode/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

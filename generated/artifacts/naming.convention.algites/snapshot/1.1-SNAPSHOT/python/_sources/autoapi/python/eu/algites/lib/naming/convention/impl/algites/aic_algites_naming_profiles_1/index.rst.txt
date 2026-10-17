@@ -1,0 +1,32 @@
+python.eu.algites.lib.naming.convention.impl.algites.aic_algites_naming_profiles_1
+==================================================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.impl.algites.aic_algites_naming_profiles_1
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.impl.algites.aic_algites_naming_profiles_1.AIcAlgitesNamingProfiles_1
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcAlgitesNamingProfiles_1
+
+   Resolves declarative naming conventions from YAML, with no hardcoded naming rules.
+
+
+   .. py:method:: java_profile() -> eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1.AIcNameConventionCatalog_1
+      :staticmethod:
+
+
+
+   .. py:method:: python_profile() -> eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1.AIcNameConventionCatalog_1
+      :staticmethod:
+
+
+

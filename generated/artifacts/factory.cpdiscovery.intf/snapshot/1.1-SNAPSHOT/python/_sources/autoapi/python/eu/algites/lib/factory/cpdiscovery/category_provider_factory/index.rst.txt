@@ -1,0 +1,22 @@
+python.eu.algites.lib.factory.cpdiscovery.category_provider_factory
+===================================================================
+
+.. py:module:: python.eu.algites.lib.factory.cpdiscovery.category_provider_factory
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.factory.cpdiscovery.category_provider_factory.category_provider_factory
+
+
+Module Contents
+---------------
+
+.. py:function:: category_provider_factory(*, provider_id: str, categories: tuple[str, Ellipsis])
+
+   Attach the same provider/category metadata expressed by the Java annotation.
+
+

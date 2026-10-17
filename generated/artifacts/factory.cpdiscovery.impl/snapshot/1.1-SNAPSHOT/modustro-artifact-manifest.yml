@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: factory.cpdiscovery.impl
+  ArtifactCoordinateId: pub.lib.General_factory.cpdiscovery.impl
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: factory/cpdiscovery/impl
+  StructureKind: artifact
+  Name: "Category Provider Discovery standard implementation"
+  Description: "Atomic provider discovery catalog using Java ServiceLoader/JPMS and Python entry points."
+SourceMetadata:
+  DescriptorHierarchy:

@@ -1,0 +1,25 @@
+python.eu.algites.lib.factory.cpdiscovery.aix_category_provider_unavailable_exception
+=====================================================================================
+
+.. py:module:: python.eu.algites.lib.factory.cpdiscovery.aix_category_provider_unavailable_exception
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.factory.cpdiscovery.aix_category_provider_unavailable_exception.AIxCategoryProviderUnavailableException
+
+
+Module Contents
+---------------
+
+.. py:class:: AIxCategoryProviderUnavailableException
+
+   Bases: :py:obj:`eu.algites.lib.factory.cpdiscovery.aix_category_provider_discovery_exception.AIxCategoryProviderDiscoveryException`
+
+
+   No unambiguous matching provider is registered.
+
+

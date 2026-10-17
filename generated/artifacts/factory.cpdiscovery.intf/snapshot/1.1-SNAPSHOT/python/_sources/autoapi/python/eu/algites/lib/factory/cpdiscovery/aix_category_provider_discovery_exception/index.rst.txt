@@ -1,0 +1,25 @@
+python.eu.algites.lib.factory.cpdiscovery.aix_category_provider_discovery_exception
+===================================================================================
+
+.. py:module:: python.eu.algites.lib.factory.cpdiscovery.aix_category_provider_discovery_exception
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.factory.cpdiscovery.aix_category_provider_discovery_exception.AIxCategoryProviderDiscoveryException
+
+
+Module Contents
+---------------
+
+.. py:exception:: AIxCategoryProviderDiscoveryException
+
+   Bases: :py:obj:`RuntimeError`
+
+
+   Provider discovery or creation failed.
+
+

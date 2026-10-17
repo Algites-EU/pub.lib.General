@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: text.format
+  ArtifactCoordinateId: pub.lib.General_text.format
+  GroupId: eu.algites.lib.text
+  Version: 1.1-SNAPSHOT
+  SourcePath: text/format
+  StructureKind: artifact
+  Name: "Text format contracts and implementations"
+  Description: "General text format contracts, graph reference policies, immutable descriptors and escaping helpers."
+SourceMetadata:
+  DescriptorHierarchy:

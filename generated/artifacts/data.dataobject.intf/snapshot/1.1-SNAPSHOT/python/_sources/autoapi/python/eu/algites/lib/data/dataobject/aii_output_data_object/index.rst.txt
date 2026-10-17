@@ -22,7 +22,7 @@ Module Contents
 
 .. py:class:: AIiOutputDataObject
 
-   Bases: :py:obj:`python.eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject`
+   Bases: :py:obj:`eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject`
 
 
    Marker for data objects allowed as facade or component outputs.

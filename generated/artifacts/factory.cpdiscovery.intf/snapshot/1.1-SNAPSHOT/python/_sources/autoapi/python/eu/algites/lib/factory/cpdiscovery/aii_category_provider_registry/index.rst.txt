@@ -1,0 +1,41 @@
+python.eu.algites.lib.factory.cpdiscovery.aii_category_provider_registry
+========================================================================
+
+.. py:module:: python.eu.algites.lib.factory.cpdiscovery.aii_category_provider_registry
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.factory.cpdiscovery.aii_category_provider_registry.AIiCategoryProviderRegistry
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiCategoryProviderRegistry
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   Helper class that provides a standard way to create an ABC using
+   inheritance.
+
+
+   .. py:method:: get_instance(factory_type: type, category: str, context: Any, provider_id: str | None = None) -> Any
+      :abstractmethod:
+
+
+
+   .. py:method:: register_entry_point_factories() -> None
+      :abstractmethod:
+
+
+
+   .. py:method:: unregister_entry_point_factories() -> None
+      :abstractmethod:
+
+
+

@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: factory.cpdiscovery.intf
+  ArtifactCoordinateId: pub.lib.General_factory.cpdiscovery.intf
+  GroupId: eu.algites.lib.common
+  Version: 1.1-SNAPSHOT
+  SourcePath: factory/cpdiscovery/intf
+  StructureKind: artifact
+  Name: "Category Provider Discovery contracts"
+  Description: "Technology-neutral provider-category factory discovery and selection contracts."
+SourceMetadata:
+  DescriptorHierarchy:
