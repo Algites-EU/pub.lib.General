@@ -9,6 +9,9 @@ Artifact:
 Dependencies:
   - DependencyKind: modustro
     Items:
+      - GroupId: eu.algites.lib.common
+        ArtifactId: pub.lib.General_common
+        Usages: [product_api]
       - GroupId: eu.algites.lib.data
         ArtifactId: pub.lib.General_data.dataobject.intf
         Usages: [product_api]

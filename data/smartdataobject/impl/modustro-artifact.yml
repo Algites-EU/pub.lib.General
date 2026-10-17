@@ -9,6 +9,9 @@ Artifact:
 Dependencies:
   - DependencyKind: modustro
     Items:
+      - GroupId: eu.algites.lib.common
+        ArtifactId: pub.lib.General_common
+        Usages: [product_implementation]
       - GroupId: eu.algites.lib.data
         ArtifactId: pub.lib.General_data.smartdataobject.intf
         Usages: [product_api]
@@ -26,4 +29,12 @@ Dependencies:
         VersionRequirement:
           Minimum: ">=7.0.0"
           Maximum: "<8.0.0"
+          MaximumStrict: true
+  - DependencyKind: python
+    Items:
+      - ArtifactId: pytest
+        Usages: [develop_implementation]
+        VersionRequirement:
+          Minimum: ">=8.0"
+          Maximum: "<10.0"
           MaximumStrict: true

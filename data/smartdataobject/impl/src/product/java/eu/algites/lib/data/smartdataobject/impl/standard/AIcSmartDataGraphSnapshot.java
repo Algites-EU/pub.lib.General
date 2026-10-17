@@ -5,6 +5,8 @@ import eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue;
 import eu.algites.lib.data.dataobject.AIaDataObject;
 import eu.algites.lib.data.dataobject.AIaDataObjectField;
 import eu.algites.lib.data.dataobject.AIiDataObject;
+import eu.algites.lib.common.validation.AIiValidatable;
+import java.util.Locale;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
@@ -154,6 +156,11 @@ final class AIcSmartDataGraphSnapshot {
     private void deep(AIcNode aNode, String aPath, boolean aEffective,
             List<AIcdSmartDataValidationIssue> aIssues, Set<AIcNode> aVisited) {
         if (aNode == null || !aVisited.add(aNode)) return;
+        if (aNode.kind != AInNodeKind.SMART && aNode.original instanceof AIiValidatable locValidatable
+                && !locValidatable.isValid()) {
+            aIssues.add(new AIcdSmartDataValidationIssue(aPath, "COLLECTION_INVALID",
+                    locValidatable.getInvalidStateMessage(Locale.ROOT)));
+        }
         if (aNode.kind == AInNodeKind.SMART) {
             validateOwn(aNode, aPath, aEffective, aIssues);
             for (AIcField locField : aNode.fields) {

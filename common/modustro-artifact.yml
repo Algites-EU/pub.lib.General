@@ -3,7 +3,7 @@
 $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
 
 Artifact:
-  TechnologyKinds: [java]
+  TechnologyKinds: [java, python]
   Name: General purpose modules and utilities
   Description: General-purpose support Open source utilities shared across Algites artifacts and repositories.
 
@@ -32,3 +32,11 @@ Dependencies:
     - product_compile_only_api
     VersionRequirement:
       Exact: 26.0.2
+- DependencyKind: python
+  Items:
+  - ArtifactId: pytest
+    Usages: [develop_implementation]
+    VersionRequirement:
+      Minimum: ">=8.0"
+      Maximum: "<10.0"
+      MaximumStrict: true

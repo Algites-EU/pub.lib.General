@@ -1,0 +1,3 @@
+from typing import Protocol
+class AIiFieldLabelResolver(Protocol):
+    def resolveLabel(self, aOwnerClass: type, aFieldName: str, aOutputPurpose, aOutputFormat, aOutputLocale) -> str | None: ...

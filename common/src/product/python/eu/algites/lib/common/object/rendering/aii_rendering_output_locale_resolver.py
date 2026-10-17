@@ -1,0 +1,3 @@
+from typing import Protocol
+class AIiRenderingOutputLocaleResolver(Protocol):
+    def resolveLocale(self) -> str: ...

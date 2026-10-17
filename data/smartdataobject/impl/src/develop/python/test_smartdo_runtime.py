@@ -159,3 +159,26 @@ def test_smartdo_non_present_read_policy():
     import pytest
     with pytest.raises(ValueError, match='Required property is absent'):
         instance.getStrict()
+
+
+def test_generic_validatable_bounded_list_deep_integration():
+    from eu.algites.lib.common.list.aic_bounded_list import AIcBoundedList
+    from eu.algites.lib.common.validation.aii_validatable import AIiValidatable
+    from eu.algites.lib.data.dataobject.aicd_data_object_field import AIcdDataObjectField
+
+    class AIcgdContainer(AIcSmartDataObject):
+        __data_object_fields__ = (AIcdDataObjectField('Names', presence_required=True),)
+        def getNames(self): return self.get_EffectiveField('Names')
+        def setNames(self, values): self.set_RawField('Names', values)
+
+    container = AIcgdContainer()
+    items = AIcBoundedList(2, 5)
+    container.setNames(items)
+    assert isinstance(container, AIiValidatable)
+    assert not container.isValid()
+    issue = container.get_DeeplyEffectiveValuesValidationIssues()
+    assert any(e.path == 'Names' and e.code == 'COLLECTION_INVALID' for e in issue)
+    assert 'Names' in container.getInvalidStateMessage('cs_CZ')
+    items.addAll(['one', 'two'])
+    assert container.isValid()
+    assert container.getInvalidStateMessage('cs_CZ') == ''

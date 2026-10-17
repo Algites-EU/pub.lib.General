@@ -1,7 +1,8 @@
 """Smart Data Object runtime. Internal graph nodes are deliberately private."""
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Mapping, MutableSequence
+from eu.algites.lib.common.validation.aii_validatable import AIiValidatable
 from dataclasses import dataclass, field
 from decimal import Decimal
 from enum import Enum
@@ -82,7 +83,7 @@ class _Snapshot:
             raise ValueError('Snapshot too large')
         kind = ('smart' if isinstance(obj, AIiDataObject) else
                 'map' if isinstance(obj, Mapping) else
-                'list' if isinstance(obj, (tuple, list, set)) else
+                'list' if isinstance(obj, (tuple, list, set, MutableSequence)) else
                 'scalar' if isinstance(obj, (str, int, float, bool, Decimal, Enum)) else 'opaque')
         node = _Node(kind, obj, str(obj) if kind == 'opaque' else obj)
         self.registry[key] = node
@@ -135,6 +136,9 @@ class _Snapshot:
                     if deep:
                         traverse(value, name)
             elif deep and node.kind == 'list':
+                if isinstance(node.obj, AIiValidatable) and not node.obj.isValid():
+                    issues.append(AIcdSmartDataValidationIssue(path, 'COLLECTION_INVALID',
+                                                                node.obj.getInvalidStateMessage('en')))
                 for i, v in enumerate(node.children):
                     traverse(v, f'{path}[{i}]')
             elif deep and node.kind == 'map':
