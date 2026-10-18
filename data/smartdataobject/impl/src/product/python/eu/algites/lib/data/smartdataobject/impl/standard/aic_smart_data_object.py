@@ -13,6 +13,8 @@ import xml.etree.ElementTree as ET
 from eu.algites.lib.data.smartdataobject.aii_smart_data_object import AIiSmartDataObject
 from eu.algites.lib.data.smartdataobject.aiid_virtual_field_value import AIidVirtualFieldValue
 from eu.algites.lib.data.dataobject.aii_data_object import AIiDataObject
+from eu.algites.lib.data.dataobject.ain_field_presence_kind import AInFieldPresenceKind
+from eu.algites.lib.data.dataobject.open_choice_types import permits as open_choice_permits
 from eu.algites.lib.data.smartdataobject.aix_smart_data_validation_exception import AIxSmartDataValidationException
 from eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue import AIcdSmartDataValidationIssue
 from eu.algites.lib.text.format.ais_text_format_profiles import AIsTextFormatProfiles
@@ -25,13 +27,27 @@ from eu.algites.lib.text.format.ain_text_output_object_reference_mode import AIn
 def _data_object_fields(cls: type) -> dict[str, Any]:
     """Collect normalized metadata without requiring methods on the data-object marker."""
     descriptors: dict[str, Any] = {}
+    owners: dict[str, type] = {}
     for base in reversed(cls.__mro__):
         for descriptor in base.__dict__.get('__data_object_fields__', ()):
             previous = descriptors.get(descriptor.name)
             if previous is not None and previous != descriptor:
-                raise ValueError('Conflicting inherited field: ' + descriptor.name)
+                owner = owners[descriptor.name]
+                if not issubclass(base, owner):
+                    raise ValueError('Conflicting unrelated inherited field: ' + descriptor.name)
+                _validate_field_restriction(previous, descriptor)
             descriptors[descriptor.name] = descriptor
+            owners[descriptor.name] = base
     return descriptors
+
+def _validate_field_restriction(parent: Any, child: Any) -> None:
+    """A derived field may narrow, but cannot widen, inherited presence or nullability."""
+    if parent.presence == AInFieldPresenceKind.REQUIRED and child.presence != AInFieldPresenceKind.REQUIRED or \
+       parent.presence == AInFieldPresenceKind.FORBIDDEN and child.presence != AInFieldPresenceKind.FORBIDDEN:
+        raise ValueError('Invalid inherited presence restriction: ' + child.name)
+    if not parent.allows_null and child.allows_null:
+        raise ValueError('Restriction cannot introduce null: ' + child.name)
+
 
 def _json_text(value: Any) -> str:
     """JSON encoder preserving Decimal/BigInteger numeric lexemes exactly."""
@@ -124,7 +140,10 @@ class _Snapshot:
             if node.kind == 'smart':
                 for f in node.fields:
                     name = f'{path}.{f.descriptor.name}' if path else f.descriptor.name
-                    if not f.present and f.descriptor.presence_required and (not effective or not f.descriptor.default_factory):
+                    if f.present and f.descriptor.presence == AInFieldPresenceKind.FORBIDDEN:
+                        issues.append(AIcdSmartDataValidationIssue(name, 'FORBIDDEN_PRESENT', 'Forbidden property is present', type(node.obj), f.descriptor.name, f.descriptor.description))
+                        continue
+                    if not f.present and f.descriptor.presence == AInFieldPresenceKind.REQUIRED and (not effective or not f.descriptor.default_factory):
                         issues.append(AIcdSmartDataValidationIssue(name, 'REQUIRED_ABSENT', 'Required property is absent', type(node.obj), f.descriptor.name, f.descriptor.description))
                         continue
                     if not f.present and (not effective or not f.descriptor.default_factory):
@@ -307,10 +326,12 @@ class _Renderer:
 
     def as_xml(self) -> str:
         def visit(node: _Node, parent: ET.Element | None, name: str | None) -> ET.Element:
-            tag = name or (getattr(type(node.obj), '__xml_local_name__', '') or
-                           type(node.obj).__name__ if node.kind == 'smart' else 'Value')
+            tag = name or ((getattr(type(node.obj), '__local_name__', '') or
+                            getattr(type(node.obj), '__xml_local_name__', '') or
+                            type(node.obj).__name__) if node.kind == 'smart' else 'Value')
             if parent is None and not self.profile.diagnostic and node.kind == 'smart':
-                namespace = getattr(type(node.obj), '__xml_namespace__', '')
+                namespace = (getattr(type(node.obj), '__namespace__', '') or
+                             getattr(type(node.obj), '__xml_namespace__', ''))
                 if namespace:
                     tag = '{' + namespace + '}' + tag
             element = ET.SubElement(parent, tag) if parent is not None else ET.Element(tag)
@@ -339,9 +360,9 @@ class _Renderer:
                         if not fld.present and not self.profile.diagnostic and \
                                 (not self.effective or not fld.descriptor.default_factory):
                             continue
-                        name = fld.descriptor.xml_local_name or fld.descriptor.name
-                        if not self.profile.diagnostic and fld.descriptor.xml_namespace:
-                            name = '{' + fld.descriptor.xml_namespace + '}' + name
+                        name = fld.descriptor.local_name or fld.descriptor.name
+                        if not self.profile.diagnostic and fld.descriptor.namespace:
+                            name = '{' + fld.descriptor.namespace + '}' + name
                         if fld.descriptor.xml_attribute and not self.profile.diagnostic:
                             value = self.snapshot.value(fld, self.effective)
                             if value.kind != 'null':
@@ -453,11 +474,16 @@ class AIcSmartDataObject(AIiSmartDataObject):
     @classmethod
     def _fields(cls) -> dict[str, Any]:
         data: dict[str, Any] = {}
+        owners: dict[str, type] = {}
         for base in reversed(cls.__mro__):
             for fld in base.__dict__.get('__data_object_fields__', ()):
                 if fld.name in data and data[fld.name] != fld:
-                    raise ValueError('Conflicting inherited field: ' + fld.name)
+                    owner = owners[fld.name]
+                    if not issubclass(base, owner):
+                        raise ValueError('Conflicting unrelated inherited field: ' + fld.name)
+                    _validate_field_restriction(data[fld.name], fld)
                 data[fld.name] = fld
+                owners[fld.name] = base
         return data
 
     def __init__(self, aMapping: Mapping[str, AIidVirtualFieldValue] | None = None):
@@ -559,23 +585,33 @@ class AIcSmartDataObject(AIiSmartDataObject):
             raise ValueError('Unknown SmartData property: ' + name) from None
 
     def set_RawField(self, name: str, value: Any) -> None:
-        self._check(name)
+        definition = self._check(name)
+        self._require_allowed(definition)
+        if definition.open_choice and value is not None and (definition.expected_type is None or
+                not open_choice_permits(value, definition.expected_type)):
+            raise ValueError('Unauthorized OpenChoice alternative for ' + name)
         self._values[name] = value
         self._present.add(name)
 
     def get_RawField(self, name: str) -> Any:
-        self._check(name)
+        self._require_allowed(self._check(name))
         return self._values.get(name)
 
     def get_EffectiveField(self, name: str) -> Any:
         definition = self._check(name)
+        self._require_allowed(definition)
         if name in self._present:
             return self._values[name]
         if definition.default_factory:
             return definition.default_factory()
-        if definition.presence_required and not self._allow_non_present_read(name, definition):
+        if definition.presence == AInFieldPresenceKind.REQUIRED and not self._allow_non_present_read(name, definition):
             raise ValueError('Required property is absent: ' + name)
         return None
+
+    @staticmethod
+    def _require_allowed(definition: Any) -> None:
+        if definition.presence == AInFieldPresenceKind.FORBIDDEN:
+            raise ValueError('Field is forbidden by derived schema: ' + definition.name)
 
     def _allow_non_present_read(self, name: str, definition: Any) -> bool:
         getter_name = definition.getter_name or 'get' + name
@@ -609,9 +645,9 @@ class AIcSmartDataObject(AIiSmartDataObject):
     def is_DeeplyByRawValuesValid(self): return not self.get_DeeplyRawValuesValidationIssues()
     def is_DeeplyByEffectiveValuesValid(self): return not self.get_DeeplyEffectiveValuesValidationIssues()
     def get_RawNotPresentRequiredFields(self):
-        return {d.name for d in self._fields().values() if d.presence_required and d.name not in self._present}
+        return {d.name for d in self._fields().values() if d.presence == AInFieldPresenceKind.REQUIRED and d.name not in self._present}
     def get_EffectiveNotPresentRequiredFields(self):
-        return {d.name for d in self._fields().values() if d.presence_required and d.name not in self._present and not d.default_factory}
+        return {d.name for d in self._fields().values() if d.presence == AInFieldPresenceKind.REQUIRED and d.name not in self._present and not d.default_factory}
     def get_DeeplyRawNotPresentRequiredFields(self):
         return {e.path for e in self.get_DeeplyRawValuesValidationIssues() if e.code == 'REQUIRED_ABSENT'}
     def get_DeeplyEffectiveNotPresentRequiredFields(self):

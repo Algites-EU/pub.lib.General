@@ -2,6 +2,8 @@ package eu.algites.lib.data.smartdataobject.impl.standard;
 
 
 import eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue;
+import eu.algites.lib.data.dataobject.AInFieldPresenceKind;
+import eu.algites.lib.data.dataobject.AIsOpenChoiceTypes;
 import eu.algites.lib.data.smartdataobject.AIiSmartDataObject;
 import eu.algites.lib.data.smartdataobject.AIidVirtualFieldValue;
 import eu.algites.lib.data.smartdataobject.AIxSmartDataValidationException;
@@ -70,21 +72,27 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
 
     /** Generated setters invoke this method with their schema property name. */
     protected final void set_RawField(String aName, Object aValue) {
-        requireField(aName);
+        var locField = requireField(aName);
+        requireAllowed(locField);
+        if (locField.annotation().openChoice() && aValue != null &&
+                !AIsOpenChoiceTypes.permits(aValue, locField.getter().getReturnType()))
+            throw new IllegalArgumentException("Unauthorized OpenChoice alternative for " + aName +
+                    ": " + aValue.getClass().getName());
         values.put(aName, aValue);
         present.add(aName);
     }
     /** Generated raw getters invoke this method and cast to the declared object type. */
     protected final Object get_RawField(String aName) {
-        requireField(aName);
+        requireAllowed(requireField(aName));
         return values.get(aName);
     }
     /** Generated effective getters invoke this method and cast to the declared object type. */
     protected final Object get_EffectiveField(String aName) {
         var locField = requireField(aName);
+        requireAllowed(locField);
         if (present.contains(aName)) return values.get(aName);
         if (locField.hasDefault()) return locField.createDefault();
-        if (locField.annotation().presenceRequired() && !locField.allowNonPresentRead())
+        if (locField.annotation().presence() == AInFieldPresenceKind.REQUIRED && !locField.allowNonPresentRead())
             throw new IllegalStateException("Required field is absent: " + aName);
         return null;
     }
@@ -106,6 +114,11 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         values.remove(aName);
         present.remove(aName);
     }
+    private static void requireAllowed(AIcSmartDataMetadata.AIcdField aField) {
+        if (aField.annotation().presence() == AInFieldPresenceKind.FORBIDDEN)
+            throw new IllegalStateException("Field is forbidden by derived schema: " + aField.name());
+    }
+
     private AIcSmartDataMetadata.AIcdField requireField(String aName) {
         var locField = metadata().names().get(aName);
         if (locField == null) throw new IllegalArgumentException("Unknown SmartData field: " + aName);
@@ -124,7 +137,7 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
     private Set<String> missing(boolean aEffective) {
         Set<String> locMissing = new LinkedHashSet<>();
         for (var locField : metadata().fields()) {
-            if (locField.annotation().presenceRequired() && !hasRaw(locField.name()) &&
+            if (locField.annotation().presence() == AInFieldPresenceKind.REQUIRED && !hasRaw(locField.name()) &&
                     !(aEffective && locField.hasDefault())) locMissing.add(locField.name());
         }
         return Collections.unmodifiableSet(locMissing);

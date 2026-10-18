@@ -8,6 +8,7 @@ import eu.algites.lib.data.smartdataobject.AIidVirtualFieldValue;
 import eu.algites.lib.data.smartdataobject.AIxSmartDataValidationException;
 import eu.algites.lib.data.dataobject.AIaDataObject;
 import eu.algites.lib.data.dataobject.AIaDataObjectField;
+import eu.algites.lib.data.dataobject.AInFieldPresenceKind;
 import eu.algites.lib.data.dataobject.AIiDataObject;
 
 import eu.algites.lib.text.format.AInTextOutputObjectReferenceMode;
@@ -21,17 +22,17 @@ import org.testng.annotations.Test;
 public final class AItcSmartDataObjectTest {
     @AIaDataObject(schemaId = "test-options", schemaVersion = 1, fingerprint = "xyz456")
     public interface AIigOptions extends AIiDataObject {
-        @AIaDataObjectField(name = "Host", presenceRequired = true)
+        @AIaDataObjectField(name = "Host", presence = AInFieldPresenceKind.REQUIRED)
         String getHost();
-        @AIaDataObjectField(name = "Secure", presenceRequired = true)
+        @AIaDataObjectField(name = "Secure", presence = AInFieldPresenceKind.REQUIRED)
         Boolean getSecure();
     }
     @AIaDataObject(schemaId = "test-settings", schemaVersion = 1, fingerprint = "abc123",
-            xmlLocalName = "Settings", xmlNamespace = "urn:settings")
+            localName = "Settings", namespace = "urn:settings")
     public interface AIigDemo extends AIiDataObject {
-        @AIaDataObjectField(name = "Name", presenceRequired = true, xmlNamespace = "urn:field")
+        @AIaDataObjectField(name = "Name", presence = AInFieldPresenceKind.REQUIRED, namespace = "urn:field")
         String getName();
-        @AIaDataObjectField(name = "Port", presenceRequired = true, defaultFactoryMethod = "defaultPort")
+        @AIaDataObjectField(name = "Port", presence = AInFieldPresenceKind.REQUIRED, defaultFactoryMethod = "defaultPort")
         Integer getPort();
         @AIaDataObjectField(name = "Child", allowsNull = true)
         AIigDemo getChild();
@@ -91,12 +92,12 @@ public final class AItcSmartDataObjectTest {
     @AIaDataObject(schemaId = "test-read-policy", schemaVersion = 1)
     @AIaSmartDataObject(allowNonPresentRead = true)
     public interface AIigReadPolicy extends AIiDataObject {
-        @AIaDataObjectField(presenceRequired = true)
+        @AIaDataObjectField(presence = AInFieldPresenceKind.REQUIRED)
         String getOptionalRead();
-        @AIaDataObjectField(name = "StrictRead", presenceRequired = true)
+        @AIaDataObjectField(name = "StrictRead", presence = AInFieldPresenceKind.REQUIRED)
         @AIaSmartDataObjectField(allowNonPresentRead = false)
         String getStrictRead();
-        @AIaDataObjectField(name = "DefaultRead", presenceRequired = true,
+        @AIaDataObjectField(name = "DefaultRead", presence = AInFieldPresenceKind.REQUIRED,
                 defaultFactoryMethod = "defaultRead")
         String getDefaultRead();
         static String defaultRead() { return "default"; }

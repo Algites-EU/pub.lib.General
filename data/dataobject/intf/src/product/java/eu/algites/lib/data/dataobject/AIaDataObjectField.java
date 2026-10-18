@@ -20,10 +20,10 @@ public @interface AIaDataObjectField {
      */
     String description() default "";
     /**
-     * Reports whether a value must be present for this field.
+     * Declares whether the field is required, optional or forbidden on this contract.
      * @return the result of the operation
      */
-    boolean presenceRequired() default false;
+    AInFieldPresenceKind presence() default AInFieldPresenceKind.ALLOWED;
     /**
      * Declares whether the field accepts an explicit null value.
      * @return the result of the operation
@@ -32,18 +32,20 @@ public @interface AIaDataObjectField {
     /** Name of a public static zero-argument factory on the getter's declaring interface. */
     String defaultFactoryMethod() default "";
     /**
-     * Returns the configured XML local name, independently of its namespace.
+     * Returns the representation-local name (XML QName local part where applicable).
      * @return the result of the operation
      */
-    String xmlLocalName() default "";
+    String localName() default "";
     /**
-     * Returns the XML namespace associated with this schema or field.
+     * Returns the representation namespace or qualified schema scope.
      * @return the result of the operation
      */
-    String xmlNamespace() default "";
+    String namespace() default "";
     /**
      * Reports whether the field is represented as an XML attribute.
      * @return the result of the operation
      */
     boolean xmlAttribute() default false;
+    /** Verify explicit, transitively declared OpenChoice participation on assignment. */
+    boolean openChoice() default false;
 }

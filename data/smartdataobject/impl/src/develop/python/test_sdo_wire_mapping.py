@@ -1,3 +1,4 @@
+from eu.algites.lib.data.dataobject.ain_field_presence_kind import AInFieldPresenceKind
 """Framework-neutral mapping for generated SmartDataObject values."""
 import pytest
 from eu.algites.lib.data.dataobject.aicd_data_object_field import AIcdDataObjectField
@@ -5,7 +6,7 @@ from eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object imp
 
 
 class AIcgdExample(AIcSmartDataObject):
-    __data_object_fields__ = (AIcdDataObjectField('Name', presence_required=True,
+    __data_object_fields__ = (AIcdDataObjectField('Name', presence=AInFieldPresenceKind.REQUIRED,
                                                   getter_name='getName'),)
 
 

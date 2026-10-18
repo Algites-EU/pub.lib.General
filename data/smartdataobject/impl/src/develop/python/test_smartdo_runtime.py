@@ -1,3 +1,4 @@
+from eu.algites.lib.data.dataobject.ain_field_presence_kind import AInFieldPresenceKind
 """Cross-feature Python runtime integration checks (no external test framework required)."""
 import json
 import pytest
@@ -11,8 +12,8 @@ from eu.algites.lib.text.format.ain_text_output_object_reference_mode import AIn
 class AIcgdDemo(AIcSmartDataObject):
     __schema_fingerprint__ = 'abc123'
     __data_object_fields__ = (
-        AIcdDataObjectField('Name', presence_required=True, expected_type=str),
-        AIcdDataObjectField('Port', presence_required=True, default_factory=lambda: 8080, expected_type=int),
+        AIcdDataObjectField('Name', presence=AInFieldPresenceKind.REQUIRED, expected_type=str),
+        AIcdDataObjectField('Port', presence=AInFieldPresenceKind.REQUIRED, default_factory=lambda: 8080, expected_type=int),
         AIcdDataObjectField('Child', allows_null=True),
     )
 
@@ -79,8 +80,8 @@ def test_read_only_structured_default_is_serialized_not_stringified():
 
     class AIigOptions(AIiDataObject):
         __data_object_fields__ = (
-            AIcdDataObjectField('Host', presence_required=True, expected_type=str),
-            AIcdDataObjectField('Secure', presence_required=True, expected_type=bool),
+            AIcdDataObjectField('Host', presence=AInFieldPresenceKind.REQUIRED, expected_type=str),
+            AIcdDataObjectField('Secure', presence=AInFieldPresenceKind.REQUIRED, expected_type=bool),
         )
         def getHost(self): return 'localhost'
         def getSecure(self): return True
@@ -118,7 +119,7 @@ def test_xml_namespaced_fields_and_raw_document():
         __xml_local_name__ = 'Settings'
         __xml_namespace__ = 'urn:settings'
         __data_object_fields__ = (
-            AIcdDataObjectField('Name', presence_required=True, xml_namespace='urn:field'),)
+            AIcdDataObjectField('Name', presence=AInFieldPresenceKind.REQUIRED, namespace='urn:field'),)
     obj = AIcgdXml()
     obj.set_RawField('Name', 'A&B')
     xml = obj.toString_EffectiveValues(F.XML_XSD, M.NO_REFERENCES)
@@ -135,9 +136,9 @@ def test_smartdo_non_present_read_policy():
     @smart_data_object(allow_non_present_read=True)
     class AIigExample:
         __data_object_fields__ = (
-            AIcdDataObjectField('Value', presence_required=True, getter_name='getValue'),
-            AIcdDataObjectField('Strict', presence_required=True, getter_name='getStrict'),
-            AIcdDataObjectField('Default', presence_required=True,
+            AIcdDataObjectField('Value', presence=AInFieldPresenceKind.REQUIRED, getter_name='getValue'),
+            AIcdDataObjectField('Strict', presence=AInFieldPresenceKind.REQUIRED, getter_name='getStrict'),
+            AIcdDataObjectField('Default', presence=AInFieldPresenceKind.REQUIRED,
                                 default_factory=lambda: 'default', getter_name='getDefault'),
         )
         def getValue(self): raise NotImplementedError
@@ -167,7 +168,7 @@ def test_generic_validatable_bounded_list_deep_integration():
     from eu.algites.lib.data.dataobject.aicd_data_object_field import AIcdDataObjectField
 
     class AIcgdContainer(AIcSmartDataObject):
-        __data_object_fields__ = (AIcdDataObjectField('Names', presence_required=True),)
+        __data_object_fields__ = (AIcdDataObjectField('Names', presence=AInFieldPresenceKind.REQUIRED),)
         def getNames(self): return self.get_EffectiveField('Names')
         def setNames(self, values): self.set_RawField('Names', values)
 

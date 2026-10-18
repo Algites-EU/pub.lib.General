@@ -6,6 +6,7 @@ import eu.algites.lib.data.smartdataobject.AIaSmartDataObjectField;
 import eu.algites.lib.data.dataobject.AIaDataObject;
 import eu.algites.lib.data.dataobject.AIaDataObjectField;
 import eu.algites.lib.data.dataobject.AIiDataObject;
+import eu.algites.lib.data.dataobject.AInFieldPresenceKind;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -67,17 +68,39 @@ final class AIcSmartDataMetadata {
                 if (locAllowNonPresentRead && locGetter.getReturnType().isPrimitive())
                     throw new IllegalArgumentException("A primitive SmartData getter cannot return null: " + locGetter);
                 var locField = new AIcdField(locName, locAnnotation, locGetter, locFactory, locAllowNonPresentRead);
-                AIcdField locBefore = locFields.putIfAbsent(locName, locField);
-                if (locBefore != null && (!locBefore.getter().getReturnType().equals(locGetter.getReturnType()) ||
-                    !locBefore.annotation().equals(locAnnotation) ||
-                    locBefore.allowNonPresentRead() != locAllowNonPresentRead))
-                    throw new IllegalArgumentException("Conflicting inherited SmartData field: " + locName);
+                AIcdField locBefore = locFields.get(locName);
+                if (locBefore == null) {
+                    locFields.put(locName, locField);
+                } else if (locGetter.getDeclaringClass().isAssignableFrom(locBefore.getter().getDeclaringClass())) {
+                    validateRestriction(locField, locBefore);
+                } else if (locBefore.getter().getDeclaringClass().isAssignableFrom(locGetter.getDeclaringClass())) {
+                    validateRestriction(locBefore, locField);
+                    locFields.put(locName, locField);
+                } else if (!locBefore.getter().getReturnType().equals(locGetter.getReturnType()) ||
+                        !locBefore.annotation().equals(locAnnotation) ||
+                        locBefore.allowNonPresentRead() != locAllowNonPresentRead) {
+                    throw new IllegalArgumentException("Conflicting unrelated inherited SmartData field: " + locName);
+                }
             }
         }
         if (locFields.isEmpty()) throw new IllegalArgumentException("No annotated read-only SmartData contract: " + aType);
         return new AIcdDescriptor(locSchema, List.copyOf(locFields.values()),
                 Collections.unmodifiableMap(new LinkedHashMap<>(locFields)));
     }
+    private static void validateRestriction(AIcdField aBase, AIcdField aDerived) {
+        var locParent = aBase.annotation();
+        var locChild = aDerived.annotation();
+        if (locParent.presence() == AInFieldPresenceKind.REQUIRED &&
+                locChild.presence() != AInFieldPresenceKind.REQUIRED ||
+            locParent.presence() == AInFieldPresenceKind.FORBIDDEN &&
+                locChild.presence() != AInFieldPresenceKind.FORBIDDEN)
+            throw new IllegalArgumentException("Invalid presence restriction for " + aDerived.name());
+        if (!locParent.allowsNull() && locChild.allowsNull())
+            throw new IllegalArgumentException("Restriction cannot introduce null for " + aDerived.name());
+        if (!aBase.getter().getReturnType().isAssignableFrom(aDerived.getter().getReturnType()))
+            throw new IllegalArgumentException("Incompatible derived field return type: " + aDerived.name());
+    }
+
     private static String derivedFieldName(Method aGetter) {
         String locMethod = aGetter.getName();
         if (!locMethod.startsWith("get") || locMethod.length() <= 3 || !Character.isUpperCase(locMethod.charAt(3)))

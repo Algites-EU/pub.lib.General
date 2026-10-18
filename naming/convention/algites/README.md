@@ -25,3 +25,14 @@ roots (or use `AIcNameConventionCatalog_1.load(path)` for a user-supplied YAML
 file). The runtime never searches repository parents or depends on the repository
 layout. Python namespace package paths below those roots are the same as when
 running from a wheel.
+
+
+XML global element synthetic contracts use new `*-xml-element-intf` and
+`*-xml-element-class` naming profiles for all preexisting interface/class
+roles. `xml-element-marker` is `_xe` for generated Java and Python class
+names; Python filename composites use `xml-element-file-marker` (`_xe_`)
+after the already-underscored `aiig_`/`aicgd_` technical file prefix,
+producing `aiig__xe_payment_1.py`. Existing names for non-XML types remain
+unchanged. Every recognizer must reject ambiguously matching user-supplied
+compositions; users of custom naming profiles are responsible for constructing
+uniquely reversible patterns.

@@ -4,6 +4,7 @@ package eu.algites.lib.data.smartdataobject.impl.standard;
 import eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue;
 import eu.algites.lib.data.dataobject.AIaDataObject;
 import eu.algites.lib.data.dataobject.AIaDataObjectField;
+import eu.algites.lib.data.dataobject.AInFieldPresenceKind;
 import eu.algites.lib.data.dataobject.AIiDataObject;
 import eu.algites.lib.common.validation.AIiValidatable;
 import java.util.Locale;
@@ -152,7 +153,12 @@ final class AIcSmartDataGraphSnapshot {
         for (AIcField locField : aNode.fields) {
             var locDefinition = locField.descriptor.annotation();
             String locPath = aPath.isEmpty() ? locField.name() : aPath + "." + locField.name();
-            if (!locField.present && locDefinition.presenceRequired() &&
+            if (locField.present && locDefinition.presence() == AInFieldPresenceKind.FORBIDDEN) {
+                aIssues.add(new AIcdSmartDataValidationIssue(locPath, "FORBIDDEN_PRESENT", "Forbidden property is present",
+                        locField.descriptor.getter().getDeclaringClass(), locField.name(), locDefinition.description()));
+                continue;
+            }
+            if (!locField.present && locDefinition.presence() == AInFieldPresenceKind.REQUIRED &&
                     (!aEffective || !locField.descriptor.hasDefault())) {
                 aIssues.add(new AIcdSmartDataValidationIssue(locPath, "REQUIRED_ABSENT", "Required property is not present",
                         locField.descriptor.getter().getDeclaringClass(), locField.name(), locDefinition.description()));

@@ -282,3 +282,21 @@ variable required by the target composition. The formatting engine validates
 all values against their target regexes. A regex specifies recognition, but
 arbitrary conversions of the **identifier** still require a supported lexical
 format (e.g. `lower_snake_case` to `upper_camel_case`).
+
+
+## Data contract and naming evolution (Builder 1.1 transition)
+
+The general `data/dataobject/intf` contract now owns the normalized three-state
+`AInFieldPresenceKind` (required/allowed/forbidden), unified representation
+`namespace`/`localName`, and direct repeatable `@AIaOpenChoiceTypeOf` edges.
+`data/smartdataobject/impl` enforces derived-field restrictions and explicit
+OpenChoice participation at mutation boundaries. Python equivalents are
+provided with the same semantics. This is an API migration: Defs and SDO
+generators and existing source annotations must be migrated together.
+
+The naming convention catalogs in `naming/convention/algites` now define 16
+additional XML-element-specific interface/class roles for both Java and
+Python (48 each). Read the naming documentation for the `_xe` / `__xe_`
+markers and requirements for unambiguous custom profiles. Recursive canonical
+schema datatypes and Defs/SDO emission policies belong to the generators,
+not to the general DataObject API; they must be implemented downstream.

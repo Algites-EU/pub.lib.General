@@ -15,7 +15,7 @@ The SmartDO-only `@AIaSmartDataObject(allowNonPresentRead = true)` sets a
 read-policy default for the annotated read-only contract. The optional
 `@AIaSmartDataObjectField(allowNonPresentRead = false/true)` on an annotated
 getter overrides the interface-level default, including explicit `false`.
-These annotations do not change `AIaDataObjectField.presenceRequired`,
+These annotations do not change `AIaDataObjectField.presence`,
 validation, explicit presence, raw reads, or default-factory precedence.
 An absent required field without a default returns `null` only when the policy
 permits it. Primitive Java getters cannot opt in because they cannot return
@@ -85,3 +85,22 @@ locale. Unsupported non-null locales fall back to English. Missing related
 text topics return `null`. Deep SDO validation retains the owning field's
 metadata when reporting nested `AIiValidatable` collection issues, and keeps
 technical `path` values independent of localized labels.
+
+## Derived fields and controlled open-choice values
+
+Java and Python SmartDataObject implementations select the nearest declared
+field descriptor when a derived contract redeclares an inherited getter.
+Presence may only narrow: `ALLOWED` → `REQUIRED` or `FORBIDDEN`; existing
+`REQUIRED` and `FORBIDDEN` states may not be widened. For `FORBIDDEN`, raw and
+effective reads and raw assignments throw immediately. Raw validation also
+reports `FORBIDDEN_PRESENT` if an invalid instance somehow contains a forbidden
+value. `from_mapping` / generated map construction must not bypass setters.
+When `openChoice = true` / `open_choice = True` is declared, setting a non-null
+value checks the field's declared getter type and its explicit transitive
+`AIaOpenChoiceTypeOf` / Python `open_choice_type_of` edges.
+
+OpenChoice authorization is cached per Java `Class` and does not require
+reflective private-member access or opening JPMS packages. The Python resolver
+uses a memoized class-keyed lookup. These guards are a convenience and data
+validation rule, not an adversarial-code security boundary. Other mutable
+collection APIs must use the same validation when introduced by generators.

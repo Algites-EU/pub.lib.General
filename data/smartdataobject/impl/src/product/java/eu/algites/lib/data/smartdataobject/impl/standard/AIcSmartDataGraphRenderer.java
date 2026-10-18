@@ -337,8 +337,8 @@ final class AIcSmartDataGraphRenderer {
         if (!aSeen.add(aNode)) return;
         if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SMART) {
             var locSchema = AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema();
-            if (locSchema != null) addNamespace(locSchema.xmlNamespace());
-            for (var locField : aNode.fields) addNamespace(locField.descriptor.annotation().xmlNamespace());
+            if (locSchema != null) addNamespace(locSchema.namespace());
+            for (var locField : aNode.fields) addNamespace(locField.descriptor.annotation().namespace());
         }
         for (var locChild : children(aNode)) collectNamespaces(locChild, aSeen);
     }
@@ -357,15 +357,15 @@ final class AIcSmartDataGraphRenderer {
             String aName, boolean aInsideField) {
         String locName = aName == null ? aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SMART
                 ? AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema() != null &&
-                  !AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema().xmlLocalName().isBlank()
-                  ? AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema().xmlLocalName()
+                  !AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema().localName().isBlank()
+                  ? AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema().localName()
                   : aNode.original.getClass().getSimpleName() : "Value" : aName;
         if (!locName.matches("([A-Za-z_][A-Za-z0-9_.-]*:)?[A-Za-z_][A-Za-z0-9_.-]*"))
             throw new IllegalArgumentException("Invalid XML local name: " + locName);
         Integer locRef = referenceOrRegister(aNode);
         if (aName == null && aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SMART && !profile.isDiagnostic()) {
             var locSchema = AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema();
-            if (locSchema != null) locName = qname(locName, locSchema.xmlNamespace());
+            if (locSchema != null) locName = qname(locName, locSchema.namespace());
         }
         aOut.append("  ".repeat(aDepth)).append('<').append(locName);
         if (aDepth == 0 && !profile.isDiagnostic()) {
@@ -404,9 +404,9 @@ final class AIcSmartDataGraphRenderer {
                             if (locValue.isComposite()) throw new IllegalArgumentException("XML attribute must be scalar");
                             if (locValue.kind != AIcSmartDataGraphSnapshot.AInNodeKind.NULL)
                                 aOut.append(' ').append(qname(
-                                        locField.descriptor.annotation().xmlLocalName().isBlank() ?
-                                        locField.name() : locField.descriptor.annotation().xmlLocalName(),
-                                        locField.descriptor.annotation().xmlNamespace()))
+                                        locField.descriptor.annotation().localName().isBlank() ?
+                                        locField.name() : locField.descriptor.annotation().localName(),
+                                        locField.descriptor.annotation().namespace()))
                                         .append("=\"").append(xmlEscape(String.valueOf(locValue.scalar))).append('"');
                         }
                     }
@@ -415,8 +415,8 @@ final class AIcSmartDataGraphRenderer {
                 for (var locField : aNode.fields) {
                     if (locField.descriptor.annotation().xmlAttribute() && !profile.isDiagnostic()) continue;
                     if (!locField.present && !profile.isDiagnostic() && (!effective || !locField.descriptor.hasDefault())) continue;
-                    String locFieldName = locField.descriptor.annotation().xmlLocalName().isBlank()
-                            ? locField.name() : locField.descriptor.annotation().xmlLocalName();
+                    String locFieldName = locField.descriptor.annotation().localName().isBlank()
+                            ? locField.name() : locField.descriptor.annotation().localName();
                     if (profile.isDiagnostic()) {
                         aOut.append("  ".repeat(aDepth + 1)).append('<').append(locFieldName)
                             .append(" present=\"").append(locField.present).append('"');
@@ -427,7 +427,7 @@ final class AIcSmartDataGraphRenderer {
                             aOut.append("  ".repeat(aDepth + 1)).append("</").append(locFieldName).append(">\n");
                         }
                     } else xml(snapshot.fieldValue(locField, effective), aOut, aDepth + 1,
-                            qname(locFieldName, locField.descriptor.annotation().xmlNamespace()), true);
+                            qname(locFieldName, locField.descriptor.annotation().namespace()), true);
                 }
             } else if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SEQUENCE) {
                 aOut.append(">\n");

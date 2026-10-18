@@ -26,7 +26,7 @@ def test_name_match_is_in_its_own_public_type_module():
 
 def test_all_java_combinations_and_distinct_filename_classification():
     cat = catalog('java')
-    assert len(cat.names) == 32
+    assert len(cat.names) == 48
     for name in cat.names:
         fields = {'identifier': 'Customer', 'version': '2'}
         value = cat.format(name, 'file_name_stem', fields) + cat.format(name, 'file_name_suffix', fields)
@@ -39,7 +39,7 @@ def test_all_java_combinations_and_distinct_filename_classification():
 
 def test_all_python_combinations_and_distinct_filename_classification():
     cat = catalog('python')
-    assert len(cat.names) == 32
+    assert len(cat.names) == 48
     for name in cat.names:
         fields = {'identifier': 'customer', 'version': '2'}
         value = cat.format(name, 'file_name_stem', fields) + cat.format(name, 'file_name_suffix', fields)
@@ -213,8 +213,8 @@ def test_standard_catalog_uses_python_import_roots_independent_of_checkout(tmp_p
     unrelated.mkdir()
     code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1 "
             "import AIcNameConventionCatalog_1; "
-            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 32; "
-            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 32")
+            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 48; "
+            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 48")
     env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(config_root))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
 
@@ -237,8 +237,24 @@ def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
     unrelated.mkdir()
     code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1 "
             "import AIcNameConventionCatalog_1; "
-            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 32; "
-            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 32; "
+            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 48; "
+            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 48; "
             "assert len(AIcNameConventionCatalog_1.load_resource('algites-yamldef-name-conventions.yml').names) == 2")
     env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(stage))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
+
+
+def test_xml_element_marker_is_distinct_in_java_and_python():
+    java, python = catalog('java'), catalog('python')
+    assert java.recognize_filename('AIig_xePayment_1.java').convention_name == 'algites-java-gen-xml-element-intf-versioned'
+    assert java.recognize_filename('AIigd_xePayment_1.java').convention_name == 'algites-java-gen-data-xml-element-intf-versioned'
+    assert java.recognize_filename('AIcgd_xePayment_1.java').convention_name == 'algites-java-gen-data-xml-element-class-versioned'
+    assert python.recognize_filename('aiig__xe_payment_1.py').convention_name == 'algites-python-gen-xml-element-intf-versioned'
+    assert python.recognize_filename('aiigd__xe_payment_1.py').convention_name == 'algites-python-gen-data-xml-element-intf-versioned'
+    assert python.recognize_filename('aicgd__xe_payment_1.py').convention_name == 'algites-python-gen-data-xml-element-class-versioned'
+    assert java.recognize_filename('AIigXePayment_1.java').convention_name == 'algites-java-gen-intf-versioned'
+    assert python.recognize_filename('aiig_xe_payment_1.py').convention_name == 'algites-python-gen-intf-versioned'
+    assert java.parse('algites-java-gen-xml-element-intf-versioned', 'main_container_name',
+                      'AIig_xePayment_1')['identifier'] == 'Payment'
+    assert python.parse('algites-python-gen-xml-element-intf-versioned', 'file_name_stem',
+                        'aiig__xe_payment_1')['identifier'] == 'payment'

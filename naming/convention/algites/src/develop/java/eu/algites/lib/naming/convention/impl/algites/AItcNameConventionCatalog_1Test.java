@@ -14,7 +14,7 @@ public final class AItcNameConventionCatalog_1Test {
     @Test
     public void AIcAllJavaProfilesAndAmbiguities() throws Exception {
         AIcNameConventionCatalog_1 locCatalog = AIcNameConventionCatalog_1.loadResource("algites-java-name-conventions.yml");
-        Assert.assertEquals(locCatalog.names().size(), 32);
+        Assert.assertEquals(locCatalog.names().size(), 48);
         for (String locName : locCatalog.names()) {
             Map<String, String> locVars = Map.of("identifier", "Customer", "version", "2");
             String locFilename = locCatalog.format(locName, "file_name_stem", locVars, null)
@@ -25,14 +25,22 @@ public final class AItcNameConventionCatalog_1Test {
                 "algites-java-gen-intf-versioned");
         Assert.assertEquals(locCatalog.recognizeFilename("AIigdCustomer_1.java", null).conventionName(),
                 "algites-java-gen-data-intf-versioned");
+        Assert.assertEquals(locCatalog.recognizeFilename("AIig_xePayment_1.java", null).conventionName(),
+                "algites-java-gen-xml-element-intf-versioned");
+        Assert.assertEquals(locCatalog.recognizeFilename("AIigXePayment_1.java", null).conventionName(),
+                "algites-java-gen-intf-versioned");
     }
 
     /** All Python convention names are interpreted natively by the JVM, without Python execution. */
     @Test
     public void AIcPythonCatalogOnJava() throws Exception {
         AIcNameConventionCatalog_1 locCatalog = AIcNameConventionCatalog_1.loadResource("algites-python-name-conventions.yml");
-        Assert.assertEquals(locCatalog.names().size(), 32);
+        Assert.assertEquals(locCatalog.names().size(), 48);
         Assert.assertEquals(locCatalog.recognizeFilename("aiig_customer_1.py", null).conventionName(),
+                "algites-python-gen-intf-versioned");
+        Assert.assertEquals(locCatalog.recognizeFilename("aiig__xe_payment_1.py", null).conventionName(),
+                "algites-python-gen-xml-element-intf-versioned");
+        Assert.assertEquals(locCatalog.recognizeFilename("aiig_xe_payment_1.py", null).conventionName(),
                 "algites-python-gen-intf-versioned");
     }
 
