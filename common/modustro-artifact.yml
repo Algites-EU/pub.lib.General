@@ -15,6 +15,9 @@ Dependencies:
   - GroupId: eu.algites.lib.common
     ArtifactId: pub.lib.General_factory.cpdiscovery.intf
     Usages: [product_api]
+  - GroupId: eu.algites.lib.common
+    ArtifactId: pub.lib.General_factory.cpdiscovery.impl
+    Usages: [develop_implementation]
 - DependencyKind: java
   Items:
   - GroupId: org.testng

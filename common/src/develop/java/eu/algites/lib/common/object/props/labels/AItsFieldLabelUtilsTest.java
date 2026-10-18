@@ -2,11 +2,15 @@ package eu.algites.lib.common.object.props.labels;
 
 import eu.algites.lib.common.object.rendering.AIiRenderingOutputFormat;
 import eu.algites.lib.common.object.rendering.AIiRenderingOutputPurpose;
-import eu.algites.lib.common.object.rendering.AIiRenderingOutputPurposeResolver;
 import eu.algites.lib.common.object.rendering.AInRenderingOutputBuiltinFormat;
 import eu.algites.lib.common.object.rendering.AInRenderingOutputBuiltinPurpose;
 
+import eu.algites.lib.common.object.rendering.AIiRenderingOutputPurposeResolverFactory;
+import eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition;
+import eu.algites.lib.factory.cpdiscovery.AIiCategoryProviderFactory;
+
 import java.util.Locale;
+import java.util.ServiceLoader;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -50,6 +54,26 @@ public class AItsFieldLabelUtilsTest {
 
 		Assert.assertEquals(locLabel, "myProperty", "Without annotation the field name must be returned");
 	}
+
+    /**
+     * Verifies that both test-only factories are registered as Java services. The
+     * integration tests below additionally exercise their resolution through CPDiscovery.
+     */
+    @Test
+    public void testResolverFactoriesAvailableThroughServiceLoader() {
+        boolean locLabelFactoryFound = false;
+        boolean locPurposeFactoryFound = false;
+        for (AIiCategoryProviderFactory<?, ?> locFactory : ServiceLoader.load(AIiCategoryProviderFactory.class)) {
+            if (locFactory instanceof AIcTestFieldLabelResolverFactory) {
+                locLabelFactoryFound = true;
+            }
+            if (locFactory instanceof AIcTestRenderingOutputPurposeResolverFactory) {
+                locPurposeFactoryFound = true;
+            }
+        }
+        Assert.assertTrue(locLabelFactoryFound, "Test field-label factory must be discoverable by ServiceLoader");
+        Assert.assertTrue(locPurposeFactoryFound, "Test purpose factory must be discoverable by ServiceLoader");
+    }
 
 	@Test
 	public void testFindLabelUsesLabelResolverIfPresent() {
@@ -124,13 +148,19 @@ public class AItsFieldLabelUtilsTest {
 	}
 
 	private static final class AIcTestLabelResolver {
-		@AIaFieldLabel(labelResolver = AIcConstantLabelResolver.class)
+		@AIaFieldLabel(labelResolver = @AIaCategoryProviderFactoryDefinition(
+                        factoryClass = AIiFieldLabelResolverFactory.class,
+                        factoryCategory = "test-field-label",
+                        factoryProviderId = "algites-field-label-test"))
 		private String myProperty;
 	}
 
 	private static final class AIcTestModeResolverWithMapping {
 		@AIaFieldLabel(
-				purposeResolver = AIcUserPurposeResolver.class,
+				purposeResolver = @AIaCategoryProviderFactoryDefinition(
+                        factoryClass = AIiRenderingOutputPurposeResolverFactory.class,
+                        factoryCategory = "test-purpose",
+                        factoryProviderId = "algites-purpose-test"),
 				labels = {
 						@AIaFieldLabel.Entry(purpose = AInRenderingOutputBuiltinPurpose.USER, label = "MyUserPropertyLabel"),
 						@AIaFieldLabel.Entry(purpose = AInRenderingOutputBuiltinPurpose.SYSTEM, label = "MySystemPropertyLabel")
@@ -165,7 +195,10 @@ public class AItsFieldLabelUtilsTest {
 
 	private static final class AIcTestInvalidAnnotation {
 		@AIaFieldLabel(
-				labelResolver = AIcConstantLabelResolver.class,
+				labelResolver = @AIaCategoryProviderFactoryDefinition(
+                        factoryClass = AIiFieldLabelResolverFactory.class,
+                        factoryCategory = "test-field-label",
+                        factoryProviderId = "algites-field-label-test"),
 				labels = {
 						@AIaFieldLabel.Entry(purpose = AInRenderingOutputBuiltinPurpose.USER, label = "MyUserPropertyLabel")
 				}
@@ -173,21 +206,6 @@ public class AItsFieldLabelUtilsTest {
 		private String myProperty;
 	}
 
-	public static final class AIcConstantLabelResolver implements AIiFieldLabelResolver {
-		@Override
-		public String resolveLabel(Class<?> aOwnerClass, String aFieldName, AIiRenderingOutputPurpose aOutputPurpose,
-				final AIiRenderingOutputFormat aOutputFormat,
-				final Locale aOutputLocale) {
-			return "ResolvedLabel";
-		}
-	}
-
-	public static final class AIcUserPurposeResolver implements AIiRenderingOutputPurposeResolver {
-		@Override
-		public AIiRenderingOutputPurpose resolvePurpose() {
-			return AInRenderingOutputBuiltinPurpose.USER;
-		}
-	}
 
 
 	@Test
