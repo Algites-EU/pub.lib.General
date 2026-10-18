@@ -111,8 +111,8 @@ public final class AItcNameConventionCatalog_1Test {
     /** Standard runtime catalogs are loadable from the compiled artifact classpath. */
     @Test
     public void AIcStandardCatalogResourceAvailable() throws Exception {
-        Assert.assertEquals(AIcNameConventionCatalog_1.standard("java").names().size(), 32);
-        Assert.assertEquals(AIcNameConventionCatalog_1.standard("python").names().size(), 32);
+        Assert.assertEquals(AIcNameConventionCatalog_1.standard("java").names().size(), 48);
+        Assert.assertEquals(AIcNameConventionCatalog_1.standard("python").names().size(), 48);
     }
 
     /** User-defined captures are extracted and reordered entirely through the example YAML catalogs. */
