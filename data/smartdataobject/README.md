@@ -3,8 +3,8 @@
 - `data/smartdataobject/intf` defines the SmartDataObject technical API; it extends the *general* `AIiDataObject` marker from `data/dataobject/intf`.
 - `data/smartdataobject/impl` provides `AIcSmartDataObject`, validation, raw/presence state and diagnostic or transferable serialization.
 - Runtime graph snapshot and renderer classes remain implementation-private.
-- The `AIig...` read-only generated contract extends `AIiDataObject` and carries `AIaDataObject` and `AIaDataObjectField` from `data/dataobject/intf`.
-- The default mutable generated `AIigd...` interface extends the read-only contract plus `AIiSmartDataObject`. The default `AIcgd...` implementation extends `AIcSmartDataObject`. The generated class prefix is the **naming profile's rule**, not a fixed SmartDataObject requirement.
+- The `AIig...` read-only generated contract extends the matching technology-specific `AIi*DataObject` marker (which extends `AIiDataObject`) and carries `AIaDataObject` and `AIaDataObjectField` from `data/dataobject/intf`.
+- The default mutable generated `AIigd...` interface extends the read-only contract plus the matching `AIi*SmartDataObject` technology marker (which extends `AIiSmartDataObject`). The default `AIcgd...` implementation extends `AIcSmartDataObject`. The generated class prefix is the **naming profile's rule**, not a fixed SmartDataObject requirement.
 - In Python, contracts carry `__data_object_fields__` and optional `__data_object__`. An anonymous Java read-only contract object, or equivalent Python object, can serve as a structured default.
 
 Serializer scope: XML/XSD output supports simple namespace-qualified nodes but not the entire XSD content model. Normal JSON schema-compatible output refuses cycles; reference-preserving JSON uses its own encoding. See tests for supported cases.
@@ -99,3 +99,25 @@ XML substitution is represented by generated Java/Python element interface
 inheritance; no OpenChoice authorization annotations or runtime registry exist.
 A field assignment still enforces its declared value type. Other mutable
 collection APIs must obey the same type and presence restrictions.
+
+## Technology-specific SmartDataObject markers
+
+The `xmldefs`, `jsondefs`, and `yamldefs` API packages define
+`AIiXmlSmartDataObject`, `AIiJsonSmartDataObject`, and `AIiYamlSmartDataObject`
+for Java and Python. Each extends **both** the shared `AIiSmartDataObject`
+interface and the matching read-only `AIi*DataObject` marker. This allows a
+schema-generated mutable contract to remain assignable to both generic runtime
+SmartDataObject code and the appropriate schema technology. The `impl.xmldefs`, `impl.jsondefs`, and `impl.yamldefs` packages now provide
+`AIcXmlSmartDataObject`, `AIcJsonSmartDataObject`, and `AIcYamlSmartDataObject`,
+each extending the shared runtime base `AIcSmartDataObject` and implementing
+the matching technology interface. These technology bases currently introduce
+no additional state, validation, or serialization behavior; they establish
+a stable extension point for generated classes.
+
+A downstream generator should make its read-only contract extend the matching
+`AIi*DataObject`, its mutable contract extend both the read-only contract and
+the matching `AIi*SmartDataObject`, and its generated concrete class extend
+the appropriate `AIc*SmartDataObject` technology-specific implementation class. The XML type/element inheritance
+required for `substitutionGroup` is orthogonal and remains in the read-only
+contract graph. Defs/SDO generators in `pub.tool.General` have not been changed
+by this library update.

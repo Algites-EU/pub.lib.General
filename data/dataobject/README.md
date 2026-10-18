@@ -17,3 +17,13 @@ interfaces inheriting both their XML type `_x` interface and their substitution
 head `_xe` interface. No OpenChoice annotations, runtime role registry or special
 runtime assignment check are used. XML schema legality is decided by Defs Codegen,
 not by this core data-object marker library.
+
+## Technology-specific contract markers
+
+The `xmldefs`, `jsondefs`, and `yamldefs` packages define
+`AIiXmlDataObject`, `AIiJsonDataObject`, and `AIiYamlDataObject` respectively
+in both Java and Python. Generated read-only contracts extend the matching
+technology marker, which in turn extends `AIiDataObject`. These markers are
+source-definition identities, not serialization, validation, or runtime adapters.
+Mutable contracts additionally inherit the matching technology-specific
+SmartDataObject marker described in `data/smartdataobject/README.md`.
