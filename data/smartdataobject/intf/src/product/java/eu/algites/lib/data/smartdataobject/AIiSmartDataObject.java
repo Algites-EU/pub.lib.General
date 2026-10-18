@@ -1,6 +1,7 @@
 package eu.algites.lib.data.smartdataobject;
 
 import eu.algites.lib.data.dataobject.AIiDataObject;
+import eu.algites.lib.common.object.props.labels.AIaFieldLabel;
 import eu.algites.lib.common.validation.AIiValidatable;
 import eu.algites.lib.text.format.AIiTextFormatProfile;
 import eu.algites.lib.text.format.AInTextOutputObjectReferenceMode;
@@ -11,18 +12,6 @@ import java.util.Set;
 
 /** Public mutable data-object state, presence, validation and textual output contract. */
 public interface AIiSmartDataObject extends AIiDataObject, AIiValidatable<AIiSdoValidationIssue> {
-    /**
-     * Role identifying the stable, unlocalized system name of an SDO field.
-     */
-    String FIELD_SYSTEM_NAME = AIiSdoValidationIssue.FIELD_SYSTEM_NAME;
-    /**
-     * Role identifying the localized display name of an SDO field.
-     */
-    String FIELD_LOCALIZED_NAME = AIiSdoValidationIssue.FIELD_LOCALIZED_NAME;
-    /**
-     * Role identifying the localized explanatory description of an SDO field.
-     */
-    String FIELD_LOCALIZED_DESCRIPTION = AIiSdoValidationIssue.FIELD_LOCALIZED_DESCRIPTION;
 
     /** {@inheritDoc} */
     @Override

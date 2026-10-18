@@ -155,23 +155,39 @@ final class AIcSmartDataGraphSnapshot {
             String locPath = aPath.isEmpty() ? locField.name() : aPath + "." + locField.name();
             if (locField.present && locDefinition.presence() == AInFieldPresenceKind.FORBIDDEN) {
                 aIssues.add(new AIcdSmartDataValidationIssue(locPath, "FORBIDDEN_PRESENT", "Forbidden property is present",
-                        locField.descriptor.getter().getDeclaringClass(), locField.name(), locDefinition.description()));
+                        locField.descriptor.getter().getDeclaringClass(), locField.name(), eu.algites.lib.common.object.props.labels.AIsFieldLabelUtils.findLabel(
+                            locField.descriptor.getter().getDeclaringClass(),
+                            Character.toLowerCase(locField.name().charAt(0)) + locField.name().substring(1),
+                            null, null, null,
+                            eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_DESCRIPTION)));
                 continue;
             }
             if (!locField.present && locDefinition.presence() == AInFieldPresenceKind.REQUIRED &&
                     (!aEffective || !locField.descriptor.hasDefault())) {
                 aIssues.add(new AIcdSmartDataValidationIssue(locPath, "REQUIRED_ABSENT", "Required property is not present",
-                        locField.descriptor.getter().getDeclaringClass(), locField.name(), locDefinition.description()));
+                        locField.descriptor.getter().getDeclaringClass(), locField.name(), eu.algites.lib.common.object.props.labels.AIsFieldLabelUtils.findLabel(
+                            locField.descriptor.getter().getDeclaringClass(),
+                            Character.toLowerCase(locField.name().charAt(0)) + locField.name().substring(1),
+                            null, null, null,
+                            eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_DESCRIPTION)));
                 continue;
             }
             if (!locField.present && (!aEffective || !locField.descriptor.hasDefault())) continue;
             AIcNode locValue = fieldValue(locField, aEffective);
             if (locValue.kind == AInNodeKind.NULL && !locDefinition.allowsNull()) {
                 aIssues.add(new AIcdSmartDataValidationIssue(locPath, "NULL_FORBIDDEN", "Null value is not permitted",
-                        locField.descriptor.getter().getDeclaringClass(), locField.name(), locDefinition.description()));
+                        locField.descriptor.getter().getDeclaringClass(), locField.name(), eu.algites.lib.common.object.props.labels.AIsFieldLabelUtils.findLabel(
+                            locField.descriptor.getter().getDeclaringClass(),
+                            Character.toLowerCase(locField.name().charAt(0)) + locField.name().substring(1),
+                            null, null, null,
+                            eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_DESCRIPTION)));
             } else if (locValue.kind != AInNodeKind.NULL && !locField.descriptor.getter().getReturnType().isInstance(locValue.original)) {
                 aIssues.add(new AIcdSmartDataValidationIssue(locPath, "WRONG_TYPE", "Property value is not assignable to its getter type",
-                        locField.descriptor.getter().getDeclaringClass(), locField.name(), locDefinition.description()));
+                        locField.descriptor.getter().getDeclaringClass(), locField.name(), eu.algites.lib.common.object.props.labels.AIsFieldLabelUtils.findLabel(
+                            locField.descriptor.getter().getDeclaringClass(),
+                            Character.toLowerCase(locField.name().charAt(0)) + locField.name().substring(1),
+                            null, null, null,
+                            eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_DESCRIPTION)));
             }
         }
     }
@@ -194,7 +210,11 @@ final class AIcSmartDataGraphSnapshot {
                 String locPath = aPath.isEmpty() ? locField.name() : aPath + "." + locField.name();
                 deep(fieldValue(locField, aEffective), locPath, aEffective, aIssues, aVisited,
                         locField.descriptor.getter().getDeclaringClass(), locField.name(),
-                        locField.descriptor.annotation().description());
+                        eu.algites.lib.common.object.props.labels.AIsFieldLabelUtils.findLabel(
+                                locField.descriptor.getter().getDeclaringClass(),
+                                Character.toLowerCase(locField.name().charAt(0)) + locField.name().substring(1),
+                                null, null, null,
+                                eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_DESCRIPTION));
             }
         } else if (aNode.kind == AInNodeKind.SEQUENCE) {
             int locIndex = 0;

@@ -3,7 +3,6 @@ package eu.algites.lib.data.smartdataobject.impl.standard;
 
 import eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue;
 import eu.algites.lib.data.dataobject.AInFieldPresenceKind;
-import eu.algites.lib.data.dataobject.AIsOpenChoiceTypes;
 import eu.algites.lib.data.smartdataobject.AIiSmartDataObject;
 import eu.algites.lib.data.smartdataobject.AIidVirtualFieldValue;
 import eu.algites.lib.data.smartdataobject.AIxSmartDataValidationException;
@@ -74,10 +73,8 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
     protected final void set_RawField(String aName, Object aValue) {
         var locField = requireField(aName);
         requireAllowed(locField);
-        if (locField.annotation().openChoice() && aValue != null &&
-                !AIsOpenChoiceTypes.permits(aValue, locField.getter().getReturnType()))
-            throw new IllegalArgumentException("Unauthorized OpenChoice alternative for " + aName +
-                    ": " + aValue.getClass().getName());
+        if (aValue != null && !locField.getter().getReturnType().isInstance(aValue))
+            throw new IllegalArgumentException("Incompatible field value for " + aName + ": " + aValue.getClass());
         values.put(aName, aValue);
         present.add(aName);
     }

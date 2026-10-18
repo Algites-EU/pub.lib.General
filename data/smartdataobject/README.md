@@ -75,8 +75,8 @@ from multiple inherited interfaces can recreate a missing concrete type.
 Its generic validity delegates to the existing deeply-effective validation;
 all existing local/deep and raw/effective methods remain available.
 `AIiSdoValidationIssue` extends the general issue interface with related-text
-roles `FIELD_SYSTEM_NAME`, `FIELD_LOCALIZED_NAME`, and `FIELD_LOCALIZED_DESCRIPTION` (string topic
-identifiers, not a closed enum). `getFieldName()`, `getFieldTitle(Locale)` and
+roles `AIaFieldLabel.FIELD_NAME`, `AIaFieldLabel.FIELD_TITLE`, and
+`AIaFieldLabel.FIELD_DESCRIPTION` (string topic identifiers, not a closed enum). `getFieldName()`, `getFieldTitle(Locale)` and
 `getFieldDescription(Locale)` are convenience methods.
 
 A null locale means technical, untranslated field names, source descriptions
@@ -86,7 +86,7 @@ text topics return `null`. Deep SDO validation retains the owning field's
 metadata when reporting nested `AIiValidatable` collection issues, and keeps
 technical `path` values independent of localized labels.
 
-## Derived fields and controlled open-choice values
+## Derived fields and XML substitution
 
 Java and Python SmartDataObject implementations select the nearest declared
 field descriptor when a derived contract redeclares an inherited getter.
@@ -95,12 +95,7 @@ Presence may only narrow: `ALLOWED` → `REQUIRED` or `FORBIDDEN`; existing
 effective reads and raw assignments throw immediately. Raw validation also
 reports `FORBIDDEN_PRESENT` if an invalid instance somehow contains a forbidden
 value. `from_mapping` / generated map construction must not bypass setters.
-When `openChoice = true` / `open_choice = True` is declared, setting a non-null
-value checks the field's declared getter type and its explicit transitive
-`AIaOpenChoiceTypeOf` / Python `open_choice_type_of` edges.
-
-OpenChoice authorization is cached per Java `Class` and does not require
-reflective private-member access or opening JPMS packages. The Python resolver
-uses a memoized class-keyed lookup. These guards are a convenience and data
-validation rule, not an adversarial-code security boundary. Other mutable
-collection APIs must use the same validation when introduced by generators.
+XML substitution is represented by generated Java/Python element interface
+inheritance; no OpenChoice authorization annotations or runtime registry exist.
+A field assignment still enforces its declared value type. Other mutable
+collection APIs must obey the same type and presence restrictions.

@@ -8,6 +8,12 @@ import eu.algites.lib.data.smartdataobject.AIidVirtualFieldValue;
 import eu.algites.lib.data.smartdataobject.AIxSmartDataValidationException;
 import eu.algites.lib.data.dataobject.AIaDataObject;
 import eu.algites.lib.data.dataobject.AIaDataObjectField;
+import eu.algites.lib.data.dataobject.AIaFieldDefault;
+import eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition;
+import eu.algites.lib.data.dataobject.AIiFieldDefaultValueResolverFactory;
+import eu.algites.lib.data.dataobject.xmldefs.*;
+import eu.algites.lib.factory.cpdiscovery.AIsCategoryProviderDiscovery;
+import eu.algites.lib.factory.cpdiscovery.impl.standard.AIcCategoryProviderRegistry;
 import eu.algites.lib.data.dataobject.AInFieldPresenceKind;
 import eu.algites.lib.data.dataobject.AIiDataObject;
 
@@ -20,31 +26,37 @@ import org.testng.annotations.Test;
 
 /** TestNG coverage for SmartDataObject runtime and serialization. */
 public final class AItcSmartDataObjectTest {
+    /** Registers the development-only provider before runtime default resolution. */
+    @org.testng.annotations.BeforeClass
+    public void configureFactoryDiscovery() {
+        AIcCategoryProviderRegistry locRegistry = new AIcCategoryProviderRegistry();
+        locRegistry.registerClassLoaderFactories(getClass().getClassLoader());
+        AIsCategoryProviderDiscovery.setRegistry(locRegistry);
+    }
+
     @AIaDataObject(schemaId = "test-options", schemaVersion = 1, fingerprint = "xyz456")
     public interface AIigOptions extends AIiDataObject {
-        @AIaDataObjectField(name = "Host", presence = AInFieldPresenceKind.REQUIRED)
+        @AIaDataObjectField(fieldName = "Host", presence = AInFieldPresenceKind.REQUIRED)
         String getHost();
-        @AIaDataObjectField(name = "Secure", presence = AInFieldPresenceKind.REQUIRED)
+        @AIaDataObjectField(fieldName = "Secure", presence = AInFieldPresenceKind.REQUIRED)
         Boolean getSecure();
     }
-    @AIaDataObject(schemaId = "test-settings", schemaVersion = 1, fingerprint = "abc123",
-            localName = "Settings", namespace = "urn:settings")
-    public interface AIigDemo extends AIiDataObject {
-        @AIaDataObjectField(name = "Name", presence = AInFieldPresenceKind.REQUIRED, namespace = "urn:field")
+    @AIaDataObject(schemaId = "test-settings", schemaVersion = 1, fingerprint = "abc123")
+    @AIaXmlDataObject(namespaceLocalName = "Settings", namespace = "urn:settings", definitionKind = AInXmlObjectDefinitionKind.ELEMENT)
+    public interface AIigDemo extends AIiXmlDataObject {
+        @AIaXmlDataObjectField(namespace = "urn:field")
+        @AIaDataObjectField(fieldName = "Name", presence = AInFieldPresenceKind.REQUIRED)
         String getName();
-        @AIaDataObjectField(name = "Port", presence = AInFieldPresenceKind.REQUIRED, defaultFactoryMethod = "defaultPort")
+        @AIaDataObjectField(fieldName = "Port", presence = AInFieldPresenceKind.REQUIRED, allowsNull = false)
+        @AIaFieldDefault(defaultValueResolver = @AIaCategoryProviderFactoryDefinition(
+                factoryClass = AIiFieldDefaultValueResolverFactory.class, factoryProviderId = "test-values"))
         Integer getPort();
-        @AIaDataObjectField(name = "Child", allowsNull = true)
+        @AIaDataObjectField(fieldName = "Child", allowsNull = true)
         AIigDemo getChild();
-        @AIaDataObjectField(name = "Options", defaultFactoryMethod = "defaultOptions")
+        @AIaDataObjectField(fieldName = "Options")
+        @AIaFieldDefault(defaultValueResolver = @AIaCategoryProviderFactoryDefinition(
+                factoryClass = AIiFieldDefaultValueResolverFactory.class, factoryProviderId = "test-values"))
         AIigOptions getOptions();
-        static Integer defaultPort() { return 8080; }
-        static AIigOptions defaultOptions() {
-            return new AIigOptions() {
-                @Override public String getHost() { return "localhost"; }
-                @Override public Boolean getSecure() { return Boolean.TRUE; }
-            };
-        }
     }
     public interface AIigdDemo extends AIigDemo, AIiSmartDataObject {
         void setName(String aName);
@@ -94,13 +106,13 @@ public final class AItcSmartDataObjectTest {
     public interface AIigReadPolicy extends AIiDataObject {
         @AIaDataObjectField(presence = AInFieldPresenceKind.REQUIRED)
         String getOptionalRead();
-        @AIaDataObjectField(name = "StrictRead", presence = AInFieldPresenceKind.REQUIRED)
+        @AIaDataObjectField(fieldName = "StrictRead", presence = AInFieldPresenceKind.REQUIRED)
         @AIaSmartDataObjectField(allowNonPresentRead = false)
         String getStrictRead();
-        @AIaDataObjectField(name = "DefaultRead", presence = AInFieldPresenceKind.REQUIRED,
-                defaultFactoryMethod = "defaultRead")
+        @AIaDataObjectField(fieldName = "DefaultRead", presence = AInFieldPresenceKind.REQUIRED)
+        @AIaFieldDefault(defaultValueResolver = @AIaCategoryProviderFactoryDefinition(
+                factoryClass = AIiFieldDefaultValueResolverFactory.class, factoryProviderId = "test-values"))
         String getDefaultRead();
-        static String defaultRead() { return "default"; }
     }
     public static final class AIcgdReadPolicy extends AIcSmartDataObject implements AIigReadPolicy {
         public String getOptionalRead() { return (String) get_EffectiveField("OptionalRead"); }

@@ -54,23 +54,23 @@ public record AIcdSmartDataValidationIssue(
     /** {@inheritDoc} */
     @Override public String getRelatedTopicText(String aTopicId, Locale aLocale) {
         String locSystemName = propertyName != null ? propertyName : trailingName(path);
-        if (FIELD_SYSTEM_NAME.equals(aTopicId)) return locSystemName;
-        if (FIELD_LOCALIZED_NAME.equals(aTopicId)) {
+        if (eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_NAME.equals(aTopicId)) return locSystemName;
+        if (eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_TITLE.equals(aTopicId)) {
             if (aLocale == null) return locSystemName;
             if (ownerType == null || locSystemName == null) return locSystemName;
             String locProperty = getterPropertyName(locSystemName);
             String locLabel = AIsFieldLabelUtils.findLabel(ownerType, locProperty,
                     AInRenderingOutputBuiltinPurpose.USER, AInRenderingOutputBuiltinFormat.PLAIN_TEXT,
-                    aLocale, FIELD_LOCALIZED_NAME);
+                    aLocale, eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_TITLE);
             return locLabel == null || locLabel.isBlank() || locProperty.equals(locLabel)
                     ? locSystemName : locLabel;
         }
-        if (FIELD_LOCALIZED_DESCRIPTION.equals(aTopicId)) {
+        if (eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_DESCRIPTION.equals(aTopicId)) {
             if (aLocale == null) return fieldDescription;
             if (ownerType != null && locSystemName != null) {
                 String locLabel = AIsFieldLabelUtils.findLabel(ownerType, getterPropertyName(locSystemName),
                         AInRenderingOutputBuiltinPurpose.USER, AInRenderingOutputBuiltinFormat.PLAIN_TEXT,
-                        aLocale, FIELD_LOCALIZED_DESCRIPTION);
+                        aLocale, eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_DESCRIPTION);
                 if (locLabel != null && !locLabel.isBlank()) return locLabel;
             }
             return fieldDescription == null || fieldDescription.isBlank() ? null : fieldDescription;

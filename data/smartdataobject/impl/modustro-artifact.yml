@@ -10,13 +10,13 @@ Dependencies:
   - DependencyKind: modustro
     Items:
       - GroupId: eu.algites.lib.common
+        ArtifactId: pub.lib.General_factory.cpdiscovery.impl
+        Usages: [product_implementation]
+      - GroupId: eu.algites.lib.common
         ArtifactId: pub.lib.General_common
         Usages: [product_implementation]
       - GroupId: eu.algites.lib.data
         ArtifactId: pub.lib.General_data.smartdataobject.intf
-        Usages: [product_api]
-      - GroupId: eu.algites.lib.text
-        ArtifactId: pub.lib.General_text.format
         Usages: [product_api]
       - GroupId: eu.algites.lib.text
         ArtifactId: pub.lib.General_text.format

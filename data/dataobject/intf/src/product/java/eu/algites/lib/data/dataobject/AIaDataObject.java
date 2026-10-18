@@ -33,24 +33,15 @@ public @interface AIaDataObject {
      */
     String description() default "";
     /**
-     * Returns the representation-local name for this declaration.
-     * @return the result of the operation
-     */
-    String localName() default "";
-    /**
-     * Returns the representation namespace for this declaration.
-     * @return the result of the operation
-     */
-    String namespace() default "";
-    /**
      * Returns the schema fingerprint used to identify a particular definition.
      * @return the result of the operation
      */
     String fingerprint() default "";
     /**
      * Original read-only contract represented by a generated mutable or adapter contract.
-     * The default means this interface is itself the domain contract. Substitution
-     * authorization is evaluated on the source contract, not on its implementation shell.
+     * The default means this interface is itself the domain contract. Generated adapters
+     * use this relationship for source-schema identity, independently of XML substitution,
+     * which is represented by generated type inheritance.
      * @return source contract type or void when this declaration is the source
      */
     Class<?> sourceContract() default void.class;

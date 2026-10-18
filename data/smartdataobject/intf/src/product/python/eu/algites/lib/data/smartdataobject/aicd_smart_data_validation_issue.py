@@ -1,4 +1,5 @@
 from __future__ import annotations
+from eu.algites.lib.common.object.props.labels.aia_field_label import AIaFieldLabel
 from dataclasses import dataclass
 from eu.algites.lib.data.smartdataobject.aii_sdo_validation_issue import AIiSdoValidationIssue
 from eu.algites.lib.common.validation.aii_validation_issue import AIiValidationIssue
@@ -34,18 +35,18 @@ class AIcdSmartDataValidationIssue(AIiSdoValidationIssue):
 
     def getRelatedTopicText(self, aTopicId: str, aLocale: str | None) -> str | None:
         name = self.propertyName or self.path.rsplit('.', 1)[-1].split('[', 1)[0] or None
-        if aTopicId == self.FIELD_SYSTEM_NAME: return name
+        if aTopicId == AIaFieldLabel.FIELD_NAME: return name
         if aLocale is None:
-            if aTopicId == self.FIELD_LOCALIZED_NAME: return name
-            if aTopicId == self.FIELD_LOCALIZED_DESCRIPTION: return self.fieldDescription
-        if aTopicId in (self.FIELD_LOCALIZED_NAME, self.FIELD_LOCALIZED_DESCRIPTION):
+            if aTopicId == AIaFieldLabel.FIELD_TITLE: return name
+            if aTopicId == AIaFieldLabel.FIELD_DESCRIPTION: return self.fieldDescription
+        if aTopicId in (AIaFieldLabel.FIELD_TITLE, AIaFieldLabel.FIELD_DESCRIPTION):
             label = None
             if self.ownerType is not None and name:
                 prop = name[0].lower()+name[1:]
                 label = AIsFieldLabelUtils.findLabel(self.ownerType, prop,
                          AInRenderingOutputBuiltinPurpose.USER, AInRenderingOutputBuiltinFormat.PLAIN_TEXT,
                          aLocale, aTopicId)
-            if aTopicId == self.FIELD_LOCALIZED_NAME:
+            if aTopicId == AIaFieldLabel.FIELD_TITLE:
                 return name if not label or (name and label == name[0].lower()+name[1:]) else label
             return label or self.fieldDescription or None
         return (self.nestedIssue.getRelatedTopicText(aTopicId, aLocale) if self.nestedIssue else None)

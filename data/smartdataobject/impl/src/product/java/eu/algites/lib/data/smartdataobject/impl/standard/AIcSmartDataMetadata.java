@@ -5,12 +5,16 @@ import eu.algites.lib.data.smartdataobject.AIaSmartDataObject;
 import eu.algites.lib.data.smartdataobject.AIaSmartDataObjectField;
 import eu.algites.lib.data.dataobject.AIaDataObject;
 import eu.algites.lib.data.dataobject.AIaDataObjectField;
+import eu.algites.lib.data.dataobject.AIaFieldDefault;
+import eu.algites.lib.data.dataobject.AIiFieldDefaultValueResolverFactory;
+import eu.algites.lib.data.dataobject.AIiFieldDefaultValueResolver;
+import eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObject;
+import eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObjectField;
+import eu.algites.lib.factory.cpdiscovery.AIsCategoryProviderDiscovery;
 import eu.algites.lib.data.dataobject.AIiDataObject;
 import eu.algites.lib.data.dataobject.AInFieldPresenceKind;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -20,17 +24,24 @@ import java.util.Objects;
 
 /** Package-private schema metadata resolver, cached by implementation class. */
 final class AIcSmartDataMetadata {
-    record AIcdField(String name, AIaDataObjectField annotation, Method getter, Method defaultFactory, boolean allowNonPresentRead) {
+    record AIcdField(String name, AIaDataObjectField annotation, AIaXmlDataObjectField xml,
+            Method getter, AIiFieldDefaultValueResolver defaultResolver, boolean allowNonPresentRead) {
         Object createDefault() {
-            if (defaultFactory == null) return null;
-            try { return defaultFactory.invoke(null); }
-            catch (IllegalAccessException | InvocationTargetException aException) {
-                throw new IllegalStateException("Default factory failed for " + name, aException);
-            }
+            if (defaultResolver == null) return null;
+            Object locValue = defaultResolver.resolveDefault(getter.getDeclaringClass(), getter);
+            if (locValue != null && !getter.getReturnType().isInstance(locValue))
+                throw new IllegalStateException("Default resolver returned incompatible type for " + name);
+            return locValue;
         }
-        boolean hasDefault() { return defaultFactory != null; }
+        boolean hasDefault() { return defaultResolver != null; }
+        boolean isXmlAttribute() {
+            return xml != null && xml.valueKind() == eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ATTRIBUTE;
+        }
+        String xmlLocalName() { return xml == null || xml.namespaceLocalName().isBlank() ? name : xml.namespaceLocalName(); }
+        String xmlNamespace() { return xml == null ? "" : xml.namespace(); }
     }
-    record AIcdDescriptor(AIaDataObject schema, List<AIcdField> fields, Map<String, AIcdField> names) { }
+    record AIcdDescriptor(AIaDataObject schema, AIaXmlDataObject xmlSchema,
+            List<AIcdField> fields, Map<String, AIcdField> names) { }
     private static final ClassValue<AIcdDescriptor> CACHE = new ClassValue<>() {
         /** {@inheritDoc} */
         @Override protected AIcdDescriptor computeValue(Class<?> aType) { return scan(aType); }
@@ -42,24 +53,24 @@ final class AIcSmartDataMetadata {
         List<Class<?>> locTypes = new ArrayList<>();
         collect(aType, locTypes);
         AIaDataObject locSchema = null;
+        AIaXmlDataObject locXmlSchema = null;
         for (Class<?> locType : locTypes) {
             AIaDataObject locFoundSchema = locType.getDeclaredAnnotation(AIaDataObject.class);
             if (locFoundSchema != null && locSchema == null) locSchema = locFoundSchema;
+            AIaXmlDataObject locFoundXmlSchema = locType.getDeclaredAnnotation(AIaXmlDataObject.class);
+            if (locFoundXmlSchema != null && locXmlSchema == null) locXmlSchema = locFoundXmlSchema;
             for (Method locGetter : locType.getDeclaredMethods()) {
                 AIaDataObjectField locAnnotation = locGetter.getDeclaredAnnotation(AIaDataObjectField.class);
                 if (locAnnotation == null) continue;
                 if (locGetter.getParameterCount() != 0 || locGetter.getReturnType() == void.class)
                     throw new IllegalArgumentException("SmartData field must annotate a zero-argument getter: " + locGetter);
-                Method locFactory = null;
-                if (!locAnnotation.defaultFactoryMethod().isBlank()) {
-                    try { locFactory = locType.getMethod(locAnnotation.defaultFactoryMethod()); }
-                    catch (NoSuchMethodException aException) {
-                        throw new IllegalArgumentException("Missing static default factory: " + locGetter, aException);
-                    }
-                    if (!Modifier.isStatic(locFactory.getModifiers()) || !locGetter.getReturnType().isAssignableFrom(locFactory.getReturnType()))
-                        throw new IllegalArgumentException("Invalid default factory: " + locFactory);
-                }
-                String locName = locAnnotation.name().isBlank() ? derivedFieldName(locGetter) : locAnnotation.name();
+                AIaFieldDefault locDefault = locGetter.getDeclaredAnnotation(AIaFieldDefault.class);
+                AIiFieldDefaultValueResolver locResolver = locDefault == null ? null :
+                        AIsCategoryProviderDiscovery.getInstance(locDefault.defaultValueResolver(),
+                            AIiFieldDefaultValueResolverFactory.class, "default", null);
+                String locName = locAnnotation.fieldName().isBlank() ? derivedFieldName(locGetter)
+                        : locAnnotation.fieldName();
+                AIaXmlDataObjectField locXmlField = locGetter.getDeclaredAnnotation(AIaXmlDataObjectField.class);
                 AIaSmartDataObjectField locFieldPolicy = locGetter.getDeclaredAnnotation(AIaSmartDataObjectField.class);
                 AIaSmartDataObject locTypePolicy = locType.getDeclaredAnnotation(AIaSmartDataObject.class);
                 boolean locAllowNonPresentRead = locFieldPolicy != null
@@ -67,7 +78,7 @@ final class AIcSmartDataMetadata {
                         : locTypePolicy != null && locTypePolicy.allowNonPresentRead();
                 if (locAllowNonPresentRead && locGetter.getReturnType().isPrimitive())
                     throw new IllegalArgumentException("A primitive SmartData getter cannot return null: " + locGetter);
-                var locField = new AIcdField(locName, locAnnotation, locGetter, locFactory, locAllowNonPresentRead);
+                var locField = new AIcdField(locName, locAnnotation, locXmlField, locGetter, locResolver, locAllowNonPresentRead);
                 AIcdField locBefore = locFields.get(locName);
                 if (locBefore == null) {
                     locFields.put(locName, locField);
@@ -84,7 +95,7 @@ final class AIcSmartDataMetadata {
             }
         }
         if (locFields.isEmpty()) throw new IllegalArgumentException("No annotated read-only SmartData contract: " + aType);
-        return new AIcdDescriptor(locSchema, List.copyOf(locFields.values()),
+        return new AIcdDescriptor(locSchema, locXmlSchema, List.copyOf(locFields.values()),
                 Collections.unmodifiableMap(new LinkedHashMap<>(locFields)));
     }
     private static void validateRestriction(AIcdField aBase, AIcdField aDerived) {

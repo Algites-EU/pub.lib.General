@@ -286,13 +286,22 @@ format (e.g. `lower_snake_case` to `upper_camel_case`).
 
 ## Data contract and naming evolution (Builder 1.1 transition)
 
-The general `data/dataobject/intf` contract now owns the normalized three-state
-`AInFieldPresenceKind` (required/allowed/forbidden), unified representation
-`namespace`/`localName`, and direct repeatable `@AIaOpenChoiceTypeOf` edges.
-`data/smartdataobject/impl` enforces derived-field restrictions and explicit
-OpenChoice participation at mutation boundaries. Python equivalents are
-provided with the same semantics. This is an API migration: Defs and SDO
-generators and existing source annotations must be migrated together.
+The general `data/dataobject/intf` contract defines the schema-neutral
+`AIaDataObjectField` (`fieldName`, `presence`, `allowsNull`) and optional
+`AIaFieldDefault` backed by `CategoryProviderDiscovery`. Human-readable field
+names, titles and descriptions are resolved through `AIaFieldLabel` and its
+specialized provider factories.
+
+XML Schema identity and wire representation belong to the separate
+`data.dataobject.xmldefs` package: `AIaXmlDataObject` distinguishes types from
+global elements, and `AIaXmlDataObjectField` specifies QName and element/attribute
+representation. Substitution groups are expressed through interface inheritance:
+a generated element interface (`_xe`) extends its XML type interface (`_x`) and,
+when substitution is legal, the substituted head element interface (`_xe`).
+There are no Open Choice annotations or runtime substitution registries.
+The shared SmartDataObject implementation enforces derived-field restrictions.
+Python contracts expose equivalent semantics. This is a breaking API migration;
+Defs/SDO generators and existing annotations must be updated together.
 
 The naming convention catalogs in `naming/convention/algites` now define 16
 additional XML-element-specific interface/class roles for both Java and

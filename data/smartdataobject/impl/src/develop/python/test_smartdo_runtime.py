@@ -13,7 +13,7 @@ class AIcgdDemo(AIcSmartDataObject):
     __schema_fingerprint__ = 'abc123'
     __data_object_fields__ = (
         AIcdDataObjectField('Name', presence=AInFieldPresenceKind.REQUIRED, expected_type=str),
-        AIcdDataObjectField('Port', presence=AInFieldPresenceKind.REQUIRED, default_factory=lambda: 8080, expected_type=int),
+        AIcdDataObjectField('Port', presence=AInFieldPresenceKind.REQUIRED, allows_null=False, default_value_resolver=lambda: 8080, expected_type=int),
         AIcdDataObjectField('Child', allows_null=True),
     )
 
@@ -87,7 +87,7 @@ def test_read_only_structured_default_is_serialized_not_stringified():
         def getSecure(self): return True
 
     class AIcgdWithDefault(AIcSmartDataObject):
-        __data_object_fields__ = (AIcdDataObjectField('Options', default_factory=AIigOptions),)
+        __data_object_fields__ = (AIcdDataObjectField('Options', default_value_resolver=AIigOptions),)
         def getOptions(self): return self.get_EffectiveField('Options')
 
     dto = AIcgdWithDefault()
@@ -115,11 +115,15 @@ def test_yaml_native_cycles_are_parseable():
 
 def test_xml_namespaced_fields_and_raw_document():
     import xml.etree.ElementTree as ET
+    from eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object import AIaXmlDataObject
+    from eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object_field import AIaXmlDataObjectField
+    from eu.algites.lib.data.dataobject.xmldefs.ain_xml_object_definition_kind import AInXmlObjectDefinitionKind
     class AIcgdXml(AIcSmartDataObject):
-        __xml_local_name__ = 'Settings'
-        __xml_namespace__ = 'urn:settings'
+        __xml_data_object__ = AIaXmlDataObject(AInXmlObjectDefinitionKind.ELEMENT,
+                                              'urn:settings', 'Settings')
+        __xml_data_object_fields__ = {'Name': AIaXmlDataObjectField(namespace='urn:field')}
         __data_object_fields__ = (
-            AIcdDataObjectField('Name', presence=AInFieldPresenceKind.REQUIRED, namespace='urn:field'),)
+            AIcdDataObjectField('Name', presence=AInFieldPresenceKind.REQUIRED),)
     obj = AIcgdXml()
     obj.set_RawField('Name', 'A&B')
     xml = obj.toString_EffectiveValues(F.XML_XSD, M.NO_REFERENCES)
@@ -139,7 +143,7 @@ def test_smartdo_non_present_read_policy():
             AIcdDataObjectField('Value', presence=AInFieldPresenceKind.REQUIRED, getter_name='getValue'),
             AIcdDataObjectField('Strict', presence=AInFieldPresenceKind.REQUIRED, getter_name='getStrict'),
             AIcdDataObjectField('Default', presence=AInFieldPresenceKind.REQUIRED,
-                                default_factory=lambda: 'default', getter_name='getDefault'),
+                                default_value_resolver=lambda: 'default', getter_name='getDefault'),
         )
         def getValue(self): raise NotImplementedError
         @smart_data_object_field(allow_non_present_read=False)

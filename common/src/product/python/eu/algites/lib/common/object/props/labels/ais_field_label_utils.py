@@ -2,6 +2,11 @@ from __future__ import annotations
 from dataclasses import fields, is_dataclass
 from functools import lru_cache
 from eu.algites.lib.common.object.props.labels.aia_field_label import AIaFieldLabel
+from eu.algites.lib.factory.cpdiscovery.ais_category_provider_discovery import AIsCategoryProviderDiscovery
+from eu.algites.lib.common.object.props.labels.aii_field_label_resolver_factory import AIiFieldLabelResolverFactory
+from eu.algites.lib.common.object.rendering.aii_rendering_output_purpose_resolver_factory import AIiRenderingOutputPurposeResolverFactory
+from eu.algites.lib.common.object.rendering.aii_rendering_output_format_resolver_factory import AIiRenderingOutputFormatResolverFactory
+from eu.algites.lib.common.object.rendering.aii_rendering_output_locale_resolver_factory import AIiRenderingOutputLocaleResolverFactory
 from eu.algites.lib.common.object.rendering.ais_rendering_output_utils import AIsRenderingOutputUtils as State
 from eu.algites.lib.common.object.rendering.ain_rendering_output_builtin_format import AInRenderingOutputBuiltinFormat as Format
 from eu.algites.lib.common.object.rendering.ain_rendering_output_builtin_purpose import AInRenderingOutputBuiltinPurpose as Purpose
@@ -38,10 +43,10 @@ class AIsFieldLabelUtils:
         return custom or None
 
     @staticmethod
-    def _resolver(cls):
-        if cls is None: return None
-        try: return cls()
-        except (TypeError,ValueError): return None
+    def _resolver(definition, factory_type):
+        if definition is None:
+            return None
+        return AIsCategoryProviderDiscovery.get_instance(definition, factory_type, 'default')
 
     @staticmethod
     def findLabel(aOwnerClass: type, aPropertyName: str,
@@ -51,10 +56,10 @@ class AIsFieldLabelUtils:
         is_default_role = aRoleCode == AIaFieldLabel.DEFAULT_ROLE_CODE
         if ann is None: return aPropertyName if is_default_role else None
         if ann.labels and ann.labelResolver: raise ValueError('Choose only one of labels/labelResolver')
-        purpose=aRenderingOutputPurpose or (r.resolvePurpose() if (r:=AIsFieldLabelUtils._resolver(ann.purposeResolver)) else None) or State.usedRenderingOutputPurpose()
-        fmt=aRenderingOutputFormat or (r.resolveFormat() if (r:=AIsFieldLabelUtils._resolver(ann.formatResolver)) else None) or State.usedRenderingOutputFormat()
-        locale=aRenderingOutputLocale or (r.resolveLocale() if (r:=AIsFieldLabelUtils._resolver(ann.localeResolver)) else None) or State.usedRenderingOutputLocale()
-        resolver=AIsFieldLabelUtils._resolver(ann.labelResolver)
+        purpose=aRenderingOutputPurpose or (r.resolvePurpose() if (r:=AIsFieldLabelUtils._resolver(ann.purposeResolver, AIiRenderingOutputPurposeResolverFactory)) else None) or State.usedRenderingOutputPurpose()
+        fmt=aRenderingOutputFormat or (r.resolveFormat() if (r:=AIsFieldLabelUtils._resolver(ann.formatResolver, AIiRenderingOutputFormatResolverFactory)) else None) or State.usedRenderingOutputFormat()
+        locale=aRenderingOutputLocale or (r.resolveLocale() if (r:=AIsFieldLabelUtils._resolver(ann.localeResolver, AIiRenderingOutputLocaleResolverFactory)) else None) or State.usedRenderingOutputLocale()
+        resolver=AIsFieldLabelUtils._resolver(ann.labelResolver, AIiFieldLabelResolverFactory)
         if resolver is not None:
             if hasattr(resolver, 'resolveLabelForRole'):
                 result=resolver.resolveLabelForRole(aOwnerClass,aPropertyName,aRoleCode,purpose,fmt,locale)

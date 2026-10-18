@@ -5,47 +5,35 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/** Normalized field metadata attached to a read-only data contract getter. */
+/**
+ * Describes an individual property in a read-only structured data-object contract.
+ * Schema-specific metadata such as XML QName and XML attribute/element kind belongs
+ * to schema-specific annotations, and human-readable text belongs to {@code AIaFieldLabel}.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface AIaDataObjectField {
     /**
-     * Returns the original, stable field name used by the data schema.
-     * @return the result of the operation
+     * Stable unlocalized field identifier independent of its presentation and wire QName.
+     * An empty string derives the name from the Java getter.
+     *
+     * @return schema field identifier or empty for getter-derived naming
      */
-    String name() default "";
+    String fieldName() default "";
+
     /**
-     * Returns the explanatory description of this declaration.
-     * @return the result of the operation
-     */
-    String description() default "";
-    /**
-     * Declares whether the field is required, optional or forbidden on this contract.
-     * @return the result of the operation
+     * Presence restriction enforced by data-object implementations. REQUIRED requires an
+     * explicit or effective value, ALLOWED permits absence, and FORBIDDEN rejects assignment.
+     *
+     * @return field presence policy; ALLOWED by default
      */
     AInFieldPresenceKind presence() default AInFieldPresenceKind.ALLOWED;
+
     /**
-     * Declares whether the field accepts an explicit null value.
-     * @return the result of the operation
+     * Whether explicitly assigned {@code null} is permitted, independently of absence.
+     * A derived contract may narrow this permission but cannot widen a prohibition.
+     *
+     * @return true unless nullability is explicitly forbidden
      */
-    boolean allowsNull() default false;
-    /** Name of a public static zero-argument factory on the getter's declaring interface. */
-    String defaultFactoryMethod() default "";
-    /**
-     * Returns the representation-local name (XML QName local part where applicable).
-     * @return the result of the operation
-     */
-    String localName() default "";
-    /**
-     * Returns the representation namespace or qualified schema scope.
-     * @return the result of the operation
-     */
-    String namespace() default "";
-    /**
-     * Reports whether the field is represented as an XML attribute.
-     * @return the result of the operation
-     */
-    boolean xmlAttribute() default false;
-    /** Verify explicit, transitively declared OpenChoice participation on assignment. */
-    boolean openChoice() default false;
+    boolean allowsNull() default true;
 }

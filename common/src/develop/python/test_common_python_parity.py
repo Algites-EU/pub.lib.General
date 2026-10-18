@@ -108,6 +108,24 @@ class CommonPythonParityTest(unittest.TestCase):
         self.assertIs(registry.findByUid(data_type,value),item)
         self.assertEqual(registry.releaseData(item),[item])
 
+    def test_label_resolver_via_category_provider_discovery(self):
+        from eu.algites.lib.factory.cpdiscovery.impl.standard.aic_category_provider_registry import AIcCategoryProviderRegistry
+        from eu.algites.lib.factory.cpdiscovery.ais_category_provider_discovery import AIsCategoryProviderDiscovery
+        from eu.algites.lib.factory.cpdiscovery.aia_category_provider_factory_definition import AIaCategoryProviderFactoryDefinition
+        from eu.algites.lib.common.object.props.labels.aii_field_label_resolver_factory import AIiFieldLabelResolverFactory
+        from eu.algites.lib.common.object.props.labels.aic_standard_field_label_resolver_factory import AIcStandardFieldLabelResolverFactory
+        registry = AIcCategoryProviderRegistry()
+        registry.register_factories('standard', (AIcStandardFieldLabelResolverFactory(),))
+        AIsCategoryProviderDiscovery.set_registry(registry)
+        try:
+            class Contract:
+                @AIaFieldLabel(label='Fallback', labelResolver=AIaCategoryProviderFactoryDefinition(
+                    AIiFieldLabelResolverFactory, factory_provider_id='algites-standard'))
+                def getName(self): return None
+            self.assertEqual(AIsFieldLabelUtils.findLabel(Contract, 'name'), 'Fallback')
+        finally:
+            AIsCategoryProviderDiscovery.set_registry(None)
+
     def test_label_precedence(self):
         class Test:
             @AIaFieldLabel(labels=(AIaFieldLabel.Entry(label='Localized',purpose=Purpose.USER),))

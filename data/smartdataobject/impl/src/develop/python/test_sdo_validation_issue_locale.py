@@ -15,9 +15,9 @@ def test_sdo_topics_locale_contract():
     issue = AIcdSmartDataValidationIssue('User.Password', 'REQUIRED_ABSENT',
                                           'Required property is absent', Contract,
                                           'Password', 'Technical password field')
-    assert AIiSmartDataObject.FIELD_LOCALIZED_NAME == 'field.name'
-    assert AIiSmartDataObject.FIELD_LOCALIZED_DESCRIPTION == 'field.description'
-    assert issue.getRelatedTopicText(AIiSmartDataObject.FIELD_LOCALIZED_NAME, 'cs-CZ') == 'Heslo'
+    assert AIaFieldLabel.FIELD_TITLE == 'field.name'
+    assert AIaFieldLabel.FIELD_DESCRIPTION == 'field.description'
+    assert issue.getRelatedTopicText(AIaFieldLabel.FIELD_TITLE, 'cs-CZ') == 'Heslo'
     assert issue.getFieldName() == 'Password'
     assert issue.getFieldTitle(None) == 'Password'
     assert issue.getFieldTitle('cs-CZ') == 'Heslo'

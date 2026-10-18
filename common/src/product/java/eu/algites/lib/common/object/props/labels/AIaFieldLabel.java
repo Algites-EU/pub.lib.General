@@ -1,11 +1,12 @@
 package eu.algites.lib.common.object.props.labels;
 
-import eu.algites.lib.common.object.rendering.AIiRenderingOutputFormatResolver;
-import eu.algites.lib.common.object.rendering.AIiRenderingOutputLocaleResolver;
-import eu.algites.lib.common.object.rendering.AIiRenderingOutputPurposeResolver;
+import eu.algites.lib.common.object.rendering.AIiRenderingOutputFormatResolverFactory;
+import eu.algites.lib.common.object.rendering.AIiRenderingOutputLocaleResolverFactory;
+import eu.algites.lib.common.object.rendering.AIiRenderingOutputPurposeResolverFactory;
 import eu.algites.lib.common.object.rendering.AInRenderingOutputBuiltinFormat;
 import eu.algites.lib.common.object.rendering.AInRenderingOutputBuiltinPurpose;
 
+import eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -13,13 +14,15 @@ import java.lang.annotation.Target;
 import java.util.Locale;
 
 /**
- * <p>
- * Title: {@link AIaFieldLabel}
- * </p>
- * <p>
- * Description: Annotation for the custom field labeling used
- *    for the evaluation what label should be used for the field.
- * </p>
+ * Declares semantic labels for fields, record components and getters.
+ *
+ * <p>Role codes distinguish stable field names, display titles and explanatory
+ * descriptions, independently of rendering purpose, format and locale. A simple
+ * {@link #label()} supplies the default text for {@link #roleCode()}; {@link #labels()}
+ * supplies additional role/locale/purpose/format variants. Resolver factories use
+ * {@code CategoryProviderDiscovery} and are selected by specialized factory SPI,
+ * category and optional provider ID, never by reflective resolver constructors.
+ * An empty category <em>and</em> provider ID leave an optional resolver disabled.</p>
  * <p>
  * Copyright: Copyright (c) 2026 Artur Linhart, Algites
  * </p>
@@ -33,127 +36,169 @@ import java.util.Locale;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.RECORD_COMPONENT})
 public @interface AIaFieldLabel {
-    /** Default role used by pre-existing field title annotations. */
-    String DEFAULT_ROLE_CODE = "field.name";
+    /** Stable unlocalized schema/property identifier role. */
+    String FIELD_NAME = "field.systemName";
+    /** Human-readable title role, independently localized for diagnostics and rendering. */
+    String FIELD_TITLE = "field.name";
+    /** Human-readable explanatory description role. */
+    String FIELD_DESCRIPTION = "field.description";
 
-    /** The semantic role of the primary label (not a rendering purpose). */
+    /** Default human-readable label role is the field title. */
+    String DEFAULT_ROLE_CODE = FIELD_TITLE;
+
+    /**
+     * Semantic field-text role of the primary literal label. This is not a rendering
+     * purpose and does not change locale or presentation format selection.
+     *
+     * @return the title role unless explicitly overridden
+     */
     String roleCode() default DEFAULT_ROLE_CODE;
 
 
 
 	/* --- LABEL axis --- */
 
-	/**
-	 * Hard label definition (single label purpose)
-	 * @return hard labe definition
-	 */
+    /**
+     * Literal fallback text for the primary {@link #roleCode()}.
+     * An empty value means no literal fallback; additional texts can be provided
+     * by {@link #labels()} with independent role/purpose/format/locale variants.
+     *
+     * @return literal primary label, or empty when absent
+     */
 	String label() default "";
 
-	/**
-	 * Mapping, according to purpose
-	 * @return mapping, according to purpose
-	 */
+    /**
+     * Explicit alternatives resolved according to semantic role and rendering axes.
+     * Specifying entries and an active label resolver together is unsupported.
+     *
+     * @return zero or more configured label entries
+     */
 	Entry[] labels() default {};
 
-	/**
-	 * Resolver, used for the resolution of the labels.
-	 * In the case with label resolver, the explicit labels assigned are ignored but are
-	 * only resolved the value from the label resolver.
-	 * @return label resolver used
-	 */
-	Class<? extends AIiFieldLabelResolver> labelResolver() default NoLabelResolver.class;
+    /**
+     * CPDiscovery factory selection for dynamic label text. An empty category and
+     * provider ID mean no resolver is requested; when enabled, {@link #labels()}
+     * must not contain literal alternatives.
+     *
+     * @return specialized label resolver factory definition
+     */
+	AIaCategoryProviderFactoryDefinition labelResolver() default
+            @AIaCategoryProviderFactoryDefinition(factoryClass = AIiFieldLabelResolverFactory.class);
 
 	/* --- MODE axis --- */
 
 
-	/**
-	 * Returns the built-in rendering purpose associated with this label.
-	 * @return the result of the operation
-	 */
+    /**
+     * Built-in purpose used when caller and purpose resolver do not override it.
+     *
+     * @return the built-in rendering purpose (DEFAULT by default)
+     */
 	AInRenderingOutputBuiltinPurpose purpose() default AInRenderingOutputBuiltinPurpose.DEFAULT; /* nice enum selection in iDE */
-	/**
-	 * Returns an optional custom rendering purpose code.
-	 * @return the result of the operation
-	 */
+    /**
+     * Alternative custom purpose code when the built-in purpose is insufficient.
+     *
+     * @return custom purpose code or empty when unspecified
+     */
 	String purposeCode() default ""; /* for custom purposes without  enums */
-	/**
-	 * Returns the resolver used to select the rendering purpose.
-	 * @return the result of the operation
-	 */
-	Class<? extends AIiRenderingOutputPurposeResolver> purposeResolver() default NoPurposeResolver.class;
+    /**
+     * Optional CPDiscovery factory for dynamic purpose selection.
+     * Category/provider left empty disable dynamic resolution.
+     *
+     * @return specialized purpose resolver factory definition
+     */
+	AIaCategoryProviderFactoryDefinition purposeResolver() default
+            @AIaCategoryProviderFactoryDefinition(factoryClass = AIiRenderingOutputPurposeResolverFactory.class);
 
-	/**
-	 * Formats  using the configured formatting rules.
-	 * @return the format
-	 */
+    /**
+     * Built-in output format associated with this annotation.
+     *
+     * @return built-in format or DEFAULT for ambient configuration
+     */
 	AInRenderingOutputBuiltinFormat format() default AInRenderingOutputBuiltinFormat.DEFAULT; /* nice enum selection in iDE */
-	/**
-	 * Formats code using the configured formatting rules.
-	 * @return the format code
-	 */
+    /**
+     * Optional custom format code, independently of the semantic field role.
+     *
+     * @return format code or empty for no custom format
+     */
 	String formatCode() default ""; /* for custom formats without  enums */
-	/**
-	 * Formats resolver using the configured formatting rules.
-	 * @return the format resolver
-	 */
-	Class<? extends AIiRenderingOutputFormatResolver> formatResolver() default NoFormatResolver.class;
+    /**
+     * Optional CPDiscovery factory for choosing a dynamic rendering format.
+     * Empty category/provider disable dynamic resolution.
+     *
+     * @return specialized format resolver factory definition
+     */
+	AIaCategoryProviderFactoryDefinition formatResolver() default
+            @AIaCategoryProviderFactoryDefinition(factoryClass = AIiRenderingOutputFormatResolverFactory.class);
 
-	/**
-	 * Returns the explicitly configured locale code, or an empty value for the default.
-	 * @return the result of the operation
-	 */
+    /**
+     * Explicit output locale language tag, independent of the primary field name.
+     *
+     * @return configured locale code or empty for ambient locale selection
+     */
 	String localeCode() default ""; /* for custom locales without  enums */
-	/**
-	 * Returns the resolver used to determine the effective output locale.
-	 * @return the result of the operation
-	 */
-	Class<? extends AIiRenderingOutputLocaleResolver> localeResolver() default NoLocaleResolver.class;
+    /**
+     * Optional CPDiscovery factory for dynamic locale selection.
+     * Empty category/provider disable dynamic resolution.
+     *
+     * @return specialized locale resolver factory definition
+     */
+	AIaCategoryProviderFactoryDefinition localeResolver() default
+            @AIaCategoryProviderFactoryDefinition(factoryClass = AIiRenderingOutputLocaleResolverFactory.class);
 	
+    /**
+     * One explicit text alternative for a semantic field role and rendering axes.
+     * The locale and format may be omitted to provide less-specific fallbacks.
+     */
     @interface Entry {
-        /** Field text role, independently of purpose, format and locale. */
+        /**
+         * Role identifying the kind of field text represented by this entry.
+         *
+         * @return title role unless another semantic role is specified
+         */
         String roleCode() default DEFAULT_ROLE_CODE;
 
 
-		/**
-		 * Mode of the label if the default {@link AInRenderingOutputBuiltinPurpose} is sufficient to be used.
-		 * @return purpose of the label
-		 */
+        /**
+         * Built-in rendering purpose matched by this text entry.
+         *
+         * @return built-in purpose, DEFAULT when not restricted
+         */
 		AInRenderingOutputBuiltinPurpose purpose() default AInRenderingOutputBuiltinPurpose.DEFAULT;
 
-		/**
-		 * Mode of the label if the default {@link AInRenderingOutputBuiltinPurpose} is not sufficient.
-		 * @return custom purpose code of the label
-		 */
+        /**
+         * Optional custom purpose code for alternatives not covered by built-in purposes.
+         *
+         * @return custom purpose code or empty for no custom purpose
+         */
 		String purposeCode() default "";
 
-		/**
-		 * Mode of the label if the default {@link AInRenderingOutputBuiltinFormat} is sufficient to be used.
-		 * @return format of the label
-		 */
+        /**
+         * Built-in output format matched by this text entry.
+         *
+         * @return built-in format, DEFAULT when unrestricted
+         */
 		AInRenderingOutputBuiltinFormat format() default AInRenderingOutputBuiltinFormat.DEFAULT;
 
-		/**
-		 * Mode of the label if the default {@link AInRenderingOutputBuiltinFormat} is not sufficient.
-		 * @return custom format code of the label
-		 */
+        /**
+         * Optional custom output format identifier for this text alternative.
+         *
+         * @return custom format code or empty for no custom format
+         */
 		String formatCode() default "";
 
-		/**
-		 * Mode of the label if the default {@link Locale} is not sufficient.
-		 * @return custom locale code of the label
-		 */
+        /**
+         * Locale language tag for this entry. Empty means a locale-neutral fallback.
+         *
+         * @return language tag or empty for any locale
+         */
 		String localeCode() default "";
 
-		/**
-		 * Label value oif the label resolver is not used, otherwise ignored
-		 * @return label value
-		 */
+        /**
+         * Literal text used when the role, purpose, format and locale match this entry.
+         *
+         * @return explicit label text
+         */
 		String label();
 	}
 
-	abstract class NoLabelResolver implements AIiFieldLabelResolver {}
-	abstract class NoPurposeResolver implements AIiRenderingOutputPurposeResolver {}
-	abstract class NoFormatResolver implements AIiRenderingOutputFormatResolver {}
-	abstract class NoLocaleResolver implements AIiRenderingOutputLocaleResolver {}
 }
-

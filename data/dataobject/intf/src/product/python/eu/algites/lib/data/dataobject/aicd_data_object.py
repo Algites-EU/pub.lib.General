@@ -9,7 +9,5 @@ class AIcdDataObject:
     schema_url: str = ''
     title: str = ''
     description: str = ''
-    local_name: str = ''
-    namespace: str = ''
     fingerprint: str = ''
     source_contract: type | None = None

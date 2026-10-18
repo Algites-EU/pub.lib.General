@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 public class AItcSdoValidationLocaleTest {
     @AIaDataObject(schemaId = "test.Locale", schemaVersion = 1)
     public interface AIigDemo {
-        @AIaDataObjectField(name = "Password", description = "Technical password field")
+        @AIaDataObjectField(fieldName = "Password")
         @AIaFieldLabel(label = "Password", labels = {
                 @AIaFieldLabel.Entry(roleCode = "field.name", localeCode = "cs", label = "Heslo"),
                 @AIaFieldLabel.Entry(roleCode = "field.description", label = "Password to access the system")
@@ -24,13 +24,29 @@ public class AItcSdoValidationLocaleTest {
         String getPassword();
     }
 
+    /** Factory-selected label resolver uses CPDiscovery without constructor reflection. */
+    public interface AIigFactoryLabeled {
+        @AIaFieldLabel(label = "Fallback", labelResolver =
+                @eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition(
+                    factoryClass = eu.algites.lib.common.object.props.labels.AIiFieldLabelResolverFactory.class,
+                    factoryProviderId = "algites-standard"))
+        String getName();
+    }
+
+    /** Confirms that the specialized factory SPI resolves through the configured registry. */
+    @Test
+    public void testFieldLabelFactoryDiscovery() {
+        Assert.assertEquals(eu.algites.lib.common.object.props.labels.AIsFieldLabelUtils.findLabel(
+                AIigFactoryLabeled.class, "name"), "Fallback");
+    }
+
     @Test
     public void testRelatedTopicLocales() {
         var locIssue = new AIcdSmartDataValidationIssue("User.Password", "REQUIRED_ABSENT",
                 "Required property is absent", AIigDemo.class, "Password", "Technical password field");
-        Assert.assertEquals(AIiSmartDataObject.FIELD_LOCALIZED_NAME, "field.name");
-        Assert.assertEquals(AIiSmartDataObject.FIELD_LOCALIZED_DESCRIPTION, "field.description");
-        Assert.assertEquals(locIssue.getRelatedTopicText(AIiSmartDataObject.FIELD_LOCALIZED_NAME, Locale.forLanguageTag("cs-CZ")), "Heslo");
+        Assert.assertEquals(AIaFieldLabel.FIELD_TITLE, "field.name");
+        Assert.assertEquals(AIaFieldLabel.FIELD_DESCRIPTION, "field.description");
+        Assert.assertEquals(locIssue.getRelatedTopicText(AIaFieldLabel.FIELD_TITLE, Locale.forLanguageTag("cs-CZ")), "Heslo");
         Assert.assertEquals(locIssue.getFieldName(), "Password");
         Assert.assertEquals(locIssue.getFieldTitle(null), "Password");
         Assert.assertEquals(locIssue.getFieldTitle(Locale.forLanguageTag("cs-CZ")), "Heslo");

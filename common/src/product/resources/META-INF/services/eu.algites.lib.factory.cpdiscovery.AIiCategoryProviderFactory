@@ -1,0 +1,4 @@
+eu.algites.lib.common.object.props.labels.AIcStandardFieldLabelResolverFactory
+eu.algites.lib.common.object.rendering.AIcStandardRenderingOutputPurposeResolverFactory
+eu.algites.lib.common.object.rendering.AIcStandardRenderingOutputFormatResolverFactory
+eu.algites.lib.common.object.rendering.AIcStandardRenderingOutputLocaleResolverFactory

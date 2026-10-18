@@ -1,16 +1,14 @@
 from __future__ import annotations
+from eu.algites.lib.common.object.props.labels.aia_field_label import AIaFieldLabel
 from eu.algites.lib.common.validation.aii_validation_issue import AIiValidationIssue
 
 class AIiSdoValidationIssue(AIiValidationIssue):
-    FIELD_SYSTEM_NAME = 'field.systemName'
-    FIELD_LOCALIZED_NAME = 'field.name'
-    FIELD_LOCALIZED_DESCRIPTION = 'field.description'
 
     def getFieldName(self) -> str | None:
-        return self.getRelatedTopicText(self.FIELD_SYSTEM_NAME, None)
+        return self.getRelatedTopicText(AIaFieldLabel.FIELD_NAME, None)
 
     def getFieldTitle(self, aLocale: str | None) -> str | None:
-        return self.getRelatedTopicText(self.FIELD_LOCALIZED_NAME, aLocale)
+        return self.getRelatedTopicText(AIaFieldLabel.FIELD_TITLE, aLocale)
 
     def getFieldDescription(self, aLocale: str | None) -> str | None:
-        return self.getRelatedTopicText(self.FIELD_LOCALIZED_DESCRIPTION, aLocale)
+        return self.getRelatedTopicText(AIaFieldLabel.FIELD_DESCRIPTION, aLocale)

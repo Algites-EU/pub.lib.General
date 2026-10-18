@@ -2,24 +2,20 @@ package eu.algites.lib.data.smartdataobject.impl.standard;
 
 import eu.algites.lib.data.dataobject.AIaDataObject;
 import eu.algites.lib.data.dataobject.AIaDataObjectField;
-import eu.algites.lib.data.dataobject.AIaOpenChoiceTypeOf;
 import eu.algites.lib.data.dataobject.AIiDataObject;
 import eu.algites.lib.data.dataobject.AInFieldPresenceKind;
-import eu.algites.lib.data.dataobject.AIsOpenChoiceTypes;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-/** Checks explicit transitive substitutions and derived field-presence restrictions. */
+/** Checks ordinary interface inheritance and derived field-presence restrictions. */
 public final class AItcChoiceAndPresenceTest {
     @AIaDataObject
     public interface AIigPayment extends AIiDataObject { }
 
     @AIaDataObject
-    @AIaOpenChoiceTypeOf(AIigPayment.class)
     public interface AIigCryptoPayment extends AIigPayment { }
 
     @AIaDataObject
-    @AIaOpenChoiceTypeOf(AIigCryptoPayment.class)
     public interface AIigTokenPayment extends AIigCryptoPayment { }
 
     @AIaDataObject
@@ -37,14 +33,14 @@ public final class AItcChoiceAndPresenceTest {
 
     @AIaDataObject
     public interface AIigBase extends AIiDataObject {
-        @AIaDataObjectField(name = "Reference")
+        @AIaDataObjectField(fieldName = "Reference")
         String getReference();
     }
 
     @AIaDataObject
     public interface AIigRestricted extends AIigBase {
         @Override
-        @AIaDataObjectField(name = "Reference", presence = AInFieldPresenceKind.FORBIDDEN)
+        @AIaDataObjectField(fieldName = "Reference", presence = AInFieldPresenceKind.FORBIDDEN)
         String getReference();
     }
 
@@ -56,7 +52,7 @@ public final class AItcChoiceAndPresenceTest {
 
     @AIaDataObject
     public interface AIigOwner extends AIiDataObject {
-        @AIaDataObjectField(name = "Payment", openChoice = true)
+        @AIaDataObjectField(fieldName = "Payment")
         AIigPayment getPayment();
     }
 
@@ -65,17 +61,13 @@ public final class AItcChoiceAndPresenceTest {
         public void setPayment(AIigPayment aPayment) { set_RawField("Payment", aPayment); }
     }
 
-    /** Compile-time Java subtyping plus runtime explicitly authorized OpenChoice edges. */
-    @Test public void AIcOpenChoiceTransitivityAndEnforcement() {
-        Assert.assertTrue(AIsOpenChoiceTypes.allowedHeads(AIigTokenPayment.class).contains(AIigPayment.class));
-        Assert.assertTrue(AIsOpenChoiceTypes.permits(new AIcdTokenPayment(), AIigPayment.class));
-        Assert.assertTrue(AIsOpenChoiceTypes.permits(new AIcgdRealisticTokenPayment(), AIigPayment.class));
-        Assert.assertFalse(AIsOpenChoiceTypes.permits(new AIcdUnregisteredPayment(), AIigPayment.class));
-        Assert.assertFalse(AIsOpenChoiceTypes.permits(new AIcdUnregisteredTokenExtension(), AIigPayment.class));
+    /** Substitution relationships use Java interfaces rather than runtime OpenChoice metadata. */
+    @Test public void AIcXmlElementSubstitutionByInheritance() {
+        Assert.assertTrue(AIigPayment.class.isAssignableFrom(AIigTokenPayment.class));
+        Assert.assertTrue(AIigPayment.class.isAssignableFrom(AIigUnregisteredPayment.class));
         AIcgdOwner locOwner = new AIcgdOwner();
         locOwner.setPayment(new AIcdTokenPayment());
-        Assert.expectThrows(IllegalArgumentException.class,
-                () -> locOwner.setPayment(new AIcdUnregisteredPayment()));
+        locOwner.setPayment(new AIcdUnregisteredPayment());
     }
 
     /** Narrowed field may not be read, assigned or introduced via public SDO API. */

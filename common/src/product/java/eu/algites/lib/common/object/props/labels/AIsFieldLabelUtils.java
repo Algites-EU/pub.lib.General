@@ -1,6 +1,13 @@
 package eu.algites.lib.common.object.props.labels;
 
+import eu.algites.lib.factory.cpdiscovery.AIiCategoryProviderResolutionContext;
+
 import eu.algites.lib.common.object.rendering.AIiRenderingOutputFormat;
+import eu.algites.lib.common.object.rendering.AIiRenderingOutputFormatResolverFactory;
+import eu.algites.lib.common.object.rendering.AIiRenderingOutputLocaleResolverFactory;
+import eu.algites.lib.common.object.rendering.AIiRenderingOutputPurposeResolverFactory;
+import eu.algites.lib.factory.cpdiscovery.AIsCategoryProviderDiscovery;
+import eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition;
 import eu.algites.lib.common.object.rendering.AIiRenderingOutputFormatResolver;
 import eu.algites.lib.common.object.rendering.AIiRenderingOutputLocaleResolver;
 import eu.algites.lib.common.object.rendering.AIiRenderingOutputPurpose;
@@ -332,49 +339,33 @@ private record AIcFieldMetaNode(
 	}
 
 
-	private static AIiFieldLabelResolver instantiateLabelResolverIfAny(AIaFieldLabel ann) {
-		Class<? extends AIiFieldLabelResolver> locResolverClass = ann.labelResolver();
-		if (locResolverClass == null || locResolverClass == AIaFieldLabel.NoLabelResolver.class) {
-			return null;
-		}
-		return newInstanceOrNull(locResolverClass);
-	}
+    private static AIiFieldLabelResolver instantiateLabelResolverIfAny(AIaFieldLabel aAnnotation) {
+        return resolver(aAnnotation.labelResolver(), AIiFieldLabelResolverFactory.class);
+    }
 
-	private static AIiRenderingOutputPurposeResolver instantiatePurposeResolverIfAny(AIaFieldLabel ann) {
-		Class<? extends AIiRenderingOutputPurposeResolver> locResolverClass = ann.purposeResolver();
-		if (locResolverClass == null || locResolverClass == AIaFieldLabel.NoPurposeResolver.class) {
-			return null;
-		}
-		return newInstanceOrNull(locResolverClass);
-	}
+    private static AIiRenderingOutputPurposeResolver instantiatePurposeResolverIfAny(AIaFieldLabel aAnnotation) {
+        return resolver(aAnnotation.purposeResolver(), AIiRenderingOutputPurposeResolverFactory.class);
+    }
 
-	private static AIiRenderingOutputFormatResolver instantiateFormatResolverIfAny(AIaFieldLabel ann) {
-		Class<? extends AIiRenderingOutputFormatResolver> locResolverClass = ann.formatResolver();
-		if (locResolverClass == null || locResolverClass == AIaFieldLabel.NoFormatResolver.class) {
-			return null;
-		}
-		return newInstanceOrNull(locResolverClass);
-	}
+    private static AIiRenderingOutputFormatResolver instantiateFormatResolverIfAny(AIaFieldLabel aAnnotation) {
+        return resolver(aAnnotation.formatResolver(), AIiRenderingOutputFormatResolverFactory.class);
+    }
 
-	private static AIiRenderingOutputLocaleResolver instantiateLocaleResolverIfAny(AIaFieldLabel ann) {
-		Class<? extends AIiRenderingOutputLocaleResolver> locResolverClass = ann.localeResolver();
-		if (locResolverClass == null || locResolverClass == AIaFieldLabel.NoLocaleResolver.class) {
-			return null;
-		}
-		return newInstanceOrNull(locResolverClass);
-	}
+    private static AIiRenderingOutputLocaleResolver instantiateLocaleResolverIfAny(AIaFieldLabel aAnnotation) {
+        return resolver(aAnnotation.localeResolver(), AIiRenderingOutputLocaleResolverFactory.class);
+    }
 
-	private static <T> T newInstanceOrNull(Class<? extends T> cls) {
-		try {
-			return cls.getDeclaredConstructor().newInstance();
-		} catch (ReflectiveOperationException ex) {
-			return null;
-		}
-	}
+    private static <T> T resolver(AIaCategoryProviderFactoryDefinition aSelection,
+            Class<? extends eu.algites.lib.factory.cpdiscovery.AIiCategoryProviderFactory<T, eu.algites.lib.factory.cpdiscovery.AIiCategoryProviderResolutionContext>> aFactory) {
+        if (aSelection.factoryCategory().isBlank() && aSelection.factoryProviderId().isBlank())
+            return null;
+        return AIsCategoryProviderDiscovery.getInstance(aSelection, aFactory, "default", null);
+    }
 
 	private static void validate(AIaFieldLabel aFieldLabelAnnotation, String aElementDescription) {
 		boolean locHasLabels = aFieldLabelAnnotation.labels().length > 0;
-		boolean locHasLabelResolver = aFieldLabelAnnotation.labelResolver() != AIaFieldLabel.NoLabelResolver.class;
+		boolean locHasLabelResolver = !(aFieldLabelAnnotation.labelResolver().factoryProviderId().isBlank()
+                && aFieldLabelAnnotation.labelResolver().factoryCategory().isBlank());
 
 		int locLabelChoices = (locHasLabels ? 1 : 0) + (locHasLabelResolver ? 1 : 0);
 		if (locLabelChoices > 1) {
@@ -383,7 +374,8 @@ private record AIcFieldMetaNode(
 			);
 		}
 
-		boolean locHasModeResolver = aFieldLabelAnnotation.purposeResolver() != AIaFieldLabel.NoPurposeResolver.class;
+		boolean locHasModeResolver = !(aFieldLabelAnnotation.purposeResolver().factoryProviderId().isBlank()
+                && aFieldLabelAnnotation.purposeResolver().factoryCategory().isBlank());
 		if (locHasModeResolver && locHasLabels) {
 			/*
 			 * This is allowed: purposeResolver selects active purpose, labels map purpose->label.

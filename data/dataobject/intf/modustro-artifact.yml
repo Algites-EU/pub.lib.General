@@ -5,3 +5,10 @@ Artifact:
   TechnologyKinds: [java, python]
   Name: General data object contracts
   Description: Framework-neutral data object markers and normalized contract metadata.
+
+Dependencies:
+  - DependencyKind: modustro
+    Items:
+      - GroupId: eu.algites.lib.common
+        ArtifactId: pub.lib.General_factory.cpdiscovery.intf
+        Usages: [product_api]

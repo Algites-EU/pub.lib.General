@@ -10,9 +10,6 @@ from eu.algites.lib.text.format.aii_text_format_profile import AIiTextFormatProf
 from eu.algites.lib.text.format.ain_text_output_object_reference_mode import AInTextOutputObjectReferenceMode
 
 class AIiSmartDataObject(AIiDataObject, AIiValidatable[AIiSdoValidationIssue]):
-    FIELD_SYSTEM_NAME = AIiSdoValidationIssue.FIELD_SYSTEM_NAME
-    FIELD_LOCALIZED_NAME = AIiSdoValidationIssue.FIELD_LOCALIZED_NAME
-    FIELD_LOCALIZED_DESCRIPTION = AIiSdoValidationIssue.FIELD_LOCALIZED_DESCRIPTION
 
     def getValidationIssues(self) -> list[AIiSdoValidationIssue]:
         return self.get_DeeplyEffectiveValuesValidationIssues()

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping, MutableSequence
 from eu.algites.lib.common.validation.aii_validatable import AIiValidatable
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from decimal import Decimal
 from enum import Enum
 from json import dumps
@@ -14,7 +14,12 @@ from eu.algites.lib.data.smartdataobject.aii_smart_data_object import AIiSmartDa
 from eu.algites.lib.data.smartdataobject.aiid_virtual_field_value import AIidVirtualFieldValue
 from eu.algites.lib.data.dataobject.aii_data_object import AIiDataObject
 from eu.algites.lib.data.dataobject.ain_field_presence_kind import AInFieldPresenceKind
-from eu.algites.lib.data.dataobject.open_choice_types import permits as open_choice_permits
+from eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind import AInXmlValueKind
+from eu.algites.lib.common.object.props.labels.ais_field_label_utils import AIsFieldLabelUtils
+from eu.algites.lib.common.object.props.labels.aia_field_label import AIaFieldLabel
+from eu.algites.lib.data.dataobject.aia_field_default import AIaFieldDefault
+from eu.algites.lib.data.dataobject.aii_field_default_value_resolver_factory import AIiFieldDefaultValueResolverFactory
+from eu.algites.lib.factory.cpdiscovery.ais_category_provider_discovery import AIsCategoryProviderDiscovery
 from eu.algites.lib.data.smartdataobject.aix_smart_data_validation_exception import AIxSmartDataValidationException
 from eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue import AIcdSmartDataValidationIssue
 from eu.algites.lib.text.format.ais_text_format_profiles import AIsTextFormatProfiles
@@ -24,12 +29,35 @@ from eu.algites.lib.text.format.ain_text_output_object_reference_mode import AIn
 
 
 
+def _resolve_field_descriptor_default(owner: type, descriptor: Any) -> Any:
+    """Attach only an explicit, typed CPDiscovery default resolver to this field.
+
+    Annotation-backed defaults and an inline schema descriptor default are mutually
+    exclusive, just as explicit raw presence and an effective default are distinct.
+    """
+    getter_name = descriptor.getter_name or 'get' + descriptor.name
+    getter = owner.__dict__.get(getter_name)
+    annotation = getattr(getter, '__field_default__', None)
+    if annotation is None:
+        annotation = owner.__dict__.get('__field_defaults__', {}).get(descriptor.name)
+    if annotation is None:
+        return descriptor
+    if not isinstance(annotation, AIaFieldDefault):
+        raise TypeError('Invalid field default annotation for ' + descriptor.name)
+    if descriptor.default_value_resolver is not None:
+        raise ValueError('Conflicting inline and provider field defaults for ' + descriptor.name)
+    resolver = AIsCategoryProviderDiscovery.get_instance(
+        annotation.default_value_resolver, AIiFieldDefaultValueResolverFactory, 'default')
+    return replace(descriptor, default_value_resolver=lambda: resolver.resolve_default(owner, getter_name))
+
+
 def _data_object_fields(cls: type) -> dict[str, Any]:
     """Collect normalized metadata without requiring methods on the data-object marker."""
     descriptors: dict[str, Any] = {}
     owners: dict[str, type] = {}
     for base in reversed(cls.__mro__):
-        for descriptor in base.__dict__.get('__data_object_fields__', ()):
+        for declared in base.__dict__.get('__data_object_fields__', ()):
+            descriptor = _resolve_field_descriptor_default(base, declared)
             previous = descriptors.get(descriptor.name)
             if previous is not None and previous != descriptor:
                 owner = owners[descriptor.name]
@@ -76,6 +104,7 @@ class _Node:
 @dataclass(eq=False)
 class _Field:
     descriptor: Any
+    xml: Any
     present: bool
     raw: _Node
     effective: _Node | None = None
@@ -104,6 +133,9 @@ class _Snapshot:
         node = _Node(kind, obj, str(obj) if kind == 'opaque' else obj)
         self.registry[key] = node
         if kind == 'smart':
+            xml_fields = getattr(type(obj), '__xml_data_object_fields__', {})
+            if not isinstance(xml_fields, Mapping):
+                raise TypeError('__xml_data_object_fields__ must map field names to XML metadata')
             for desc in _data_object_fields(type(obj)).values():
                 present = desc.name in obj._present if isinstance(obj, AIcSmartDataObject) else True
                 if present:
@@ -114,7 +146,8 @@ class _Snapshot:
                         value = getattr(obj, getter)()
                 else:
                     value = None
-                node.fields.append(_Field(desc, present, self.build(value) if present else self.nil))
+                node.fields.append(_Field(desc, xml_fields.get(desc.name), present,
+                                          self.build(value) if present else self.nil))
         elif kind == 'map':
             node.entries = [(self.build(k), self.build(v)) for k, v in obj.items()]
         elif kind == 'list':
@@ -126,7 +159,7 @@ class _Snapshot:
             return fld.raw
         if not fld.resolved:
             fld.resolved = True
-            fld.effective = self.build(fld.descriptor.default_factory()) if fld.descriptor.default_factory else self.nil
+            fld.effective = self.build(fld.descriptor.default_value_resolver()) if fld.descriptor.default_value_resolver else self.nil
         return fld.effective
 
     def issues(self, effective: bool, deep: bool) -> list[AIcdSmartDataValidationIssue]:
@@ -141,20 +174,25 @@ class _Snapshot:
                 for f in node.fields:
                     name = f'{path}.{f.descriptor.name}' if path else f.descriptor.name
                     if f.present and f.descriptor.presence == AInFieldPresenceKind.FORBIDDEN:
-                        issues.append(AIcdSmartDataValidationIssue(name, 'FORBIDDEN_PRESENT', 'Forbidden property is present', type(node.obj), f.descriptor.name, f.descriptor.description))
+                        issues.append(AIcdSmartDataValidationIssue(name, 'FORBIDDEN_PRESENT', 'Forbidden property is present', type(node.obj), f.descriptor.name, AIsFieldLabelUtils.findLabel(type(node.obj), f.descriptor.name[:1].lower() + f.descriptor.name[1:],
+                        aRoleCode=AIaFieldLabel.FIELD_DESCRIPTION)))
                         continue
-                    if not f.present and f.descriptor.presence == AInFieldPresenceKind.REQUIRED and (not effective or not f.descriptor.default_factory):
-                        issues.append(AIcdSmartDataValidationIssue(name, 'REQUIRED_ABSENT', 'Required property is absent', type(node.obj), f.descriptor.name, f.descriptor.description))
+                    if not f.present and f.descriptor.presence == AInFieldPresenceKind.REQUIRED and (not effective or not f.descriptor.default_value_resolver):
+                        issues.append(AIcdSmartDataValidationIssue(name, 'REQUIRED_ABSENT', 'Required property is absent', type(node.obj), f.descriptor.name, AIsFieldLabelUtils.findLabel(type(node.obj), f.descriptor.name[:1].lower() + f.descriptor.name[1:],
+                        aRoleCode=AIaFieldLabel.FIELD_DESCRIPTION)))
                         continue
-                    if not f.present and (not effective or not f.descriptor.default_factory):
+                    if not f.present and (not effective or not f.descriptor.default_value_resolver):
                         continue
                     value = self.value(f, effective)
                     if value.kind == 'null' and not f.descriptor.allows_null:
-                        issues.append(AIcdSmartDataValidationIssue(name, 'NULL_FORBIDDEN', 'Null is not allowed', type(node.obj), f.descriptor.name, f.descriptor.description))
+                        issues.append(AIcdSmartDataValidationIssue(name, 'NULL_FORBIDDEN', 'Null is not allowed', type(node.obj), f.descriptor.name, AIsFieldLabelUtils.findLabel(type(node.obj), f.descriptor.name[:1].lower() + f.descriptor.name[1:],
+                        aRoleCode=AIaFieldLabel.FIELD_DESCRIPTION)))
                     elif value.kind != 'null' and f.descriptor.expected_type and not isinstance(value.obj, f.descriptor.expected_type):
-                        issues.append(AIcdSmartDataValidationIssue(name, 'WRONG_TYPE', 'Type is incompatible', type(node.obj), f.descriptor.name, f.descriptor.description))
+                        issues.append(AIcdSmartDataValidationIssue(name, 'WRONG_TYPE', 'Type is incompatible', type(node.obj), f.descriptor.name, AIsFieldLabelUtils.findLabel(type(node.obj), f.descriptor.name[:1].lower() + f.descriptor.name[1:],
+                        aRoleCode=AIaFieldLabel.FIELD_DESCRIPTION)))
                     if deep:
-                        traverse(value, name, type(node.obj), f.descriptor.name, f.descriptor.description)
+                        traverse(value, name, type(node.obj), f.descriptor.name, AIsFieldLabelUtils.findLabel(type(node.obj), f.descriptor.name[:1].lower() + f.descriptor.name[1:],
+                        aRoleCode=AIaFieldLabel.FIELD_DESCRIPTION))
             elif deep and node.kind == 'list':
                 if isinstance(node.obj, AIiValidatable) and not node.obj.isValid():
                     for nested in node.obj.getValidationIssues():
@@ -186,7 +224,7 @@ class _Renderer:
     def kids(self, node: _Node) -> list[_Node]:
         if node.kind == 'smart':
             return [self.snapshot.value(f, self.effective) for f in node.fields
-                    if f.present or self.effective and f.descriptor.default_factory]
+                    if f.present or self.effective and f.descriptor.default_value_resolver]
         if node.kind == 'list':
             return node.children
         if node.kind == 'map':
@@ -228,10 +266,10 @@ class _Renderer:
             size = 2
             for f in node.fields:
                 if not f.present and not self.profile.diagnostic and \
-                        (not self.effective or not f.descriptor.default_factory):
+                        (not self.effective or not f.descriptor.default_value_resolver):
                     continue
                 size += len(dumps(f.descriptor.name)) + 2
-                if f.present or self.effective and f.descriptor.default_factory:
+                if f.present or self.effective and f.descriptor.default_value_resolver:
                     size += self.approximate_size(self.snapshot.value(f, self.effective), path)
                 if self.profile.diagnostic:
                     size += 20
@@ -298,10 +336,10 @@ class _Renderer:
             else:
                 data = {}
                 for fld in node.fields:
-                    if not fld.present and not self.profile.diagnostic and (not self.effective or not fld.descriptor.default_factory):
+                    if not fld.present and not self.profile.diagnostic and (not self.effective or not fld.descriptor.default_value_resolver):
                         continue
                     val = self.as_data(self.snapshot.value(fld, self.effective)) if \
-                        fld.present or self.effective and fld.descriptor.default_factory else None
+                        fld.present or self.effective and fld.descriptor.default_value_resolver else None
                     data[fld.descriptor.name] = ({'present': fld.present, **({'value': val} if fld.present else {})}
                                                  if self.profile.diagnostic else val)
                 if self.profile.diagnostic:
@@ -326,14 +364,11 @@ class _Renderer:
 
     def as_xml(self) -> str:
         def visit(node: _Node, parent: ET.Element | None, name: str | None) -> ET.Element:
-            tag = name or ((getattr(type(node.obj), '__local_name__', '') or
-                            getattr(type(node.obj), '__xml_local_name__', '') or
-                            type(node.obj).__name__) if node.kind == 'smart' else 'Value')
-            if parent is None and not self.profile.diagnostic and node.kind == 'smart':
-                namespace = (getattr(type(node.obj), '__namespace__', '') or
-                             getattr(type(node.obj), '__xml_namespace__', ''))
-                if namespace:
-                    tag = '{' + namespace + '}' + tag
+            xml_schema = getattr(type(node.obj), '__xml_data_object__', None)
+            tag = name or (xml_schema.namespace_local_name if xml_schema and
+                           xml_schema.namespace_local_name else type(node.obj).__name__)
+            if xml_schema and xml_schema.namespace and not self.profile.diagnostic and name is None:
+                tag = '{' + xml_schema.namespace + '}' + tag
             element = ET.SubElement(parent, tag) if parent is not None else ET.Element(tag)
             ref = self.ref(node)
             if ref is not None:
@@ -358,12 +393,13 @@ class _Renderer:
                             element.set('schemaHash', fingerprint)
                     for fld in node.fields:
                         if not fld.present and not self.profile.diagnostic and \
-                                (not self.effective or not fld.descriptor.default_factory):
+                                (not self.effective or not fld.descriptor.default_value_resolver):
                             continue
-                        name = fld.descriptor.local_name or fld.descriptor.name
-                        if not self.profile.diagnostic and fld.descriptor.namespace:
-                            name = '{' + fld.descriptor.namespace + '}' + name
-                        if fld.descriptor.xml_attribute and not self.profile.diagnostic:
+                        name = (fld.xml.namespace_local_name if fld.xml and fld.xml.namespace_local_name
+                                else fld.descriptor.name)
+                        if not self.profile.diagnostic and fld.xml and fld.xml.namespace:
+                            name = '{' + fld.xml.namespace + '}' + name
+                        if fld.xml and fld.xml.value_kind == AInXmlValueKind.ATTRIBUTE and not self.profile.diagnostic:
                             value = self.snapshot.value(fld, self.effective)
                             if value.kind != 'null':
                                 if value.kind not in ('scalar', 'opaque'):
@@ -412,7 +448,7 @@ class _Renderer:
                     fields = []
                     for f in node.fields:
                         if not f.present and not self.profile.diagnostic and \
-                                (not self.effective or not f.descriptor.default_factory):
+                                (not self.effective or not f.descriptor.default_value_resolver):
                             continue
                         fields.append(f)
                     if self.profile.diagnostic:
@@ -476,7 +512,8 @@ class AIcSmartDataObject(AIiSmartDataObject):
         data: dict[str, Any] = {}
         owners: dict[str, type] = {}
         for base in reversed(cls.__mro__):
-            for fld in base.__dict__.get('__data_object_fields__', ()):
+            for declared in base.__dict__.get('__data_object_fields__', ()):
+                fld = _resolve_field_descriptor_default(base, declared)
                 if fld.name in data and data[fld.name] != fld:
                     owner = owners[fld.name]
                     if not issubclass(base, owner):
@@ -553,7 +590,7 @@ class AIcSmartDataObject(AIiSmartDataObject):
                 fields: dict[str, AIidVirtualFieldValue] = {}
                 wrapper.value_representation = fields
                 for fld in node.fields:
-                    if fld.present or (effective and fld.descriptor.default_factory):
+                    if fld.present or (effective and fld.descriptor.default_value_resolver):
                         fields[fld.descriptor.name] = convert(snapshot.value(fld, effective))
             elif node.kind == 'list':
                 contents: list[AIidVirtualFieldValue] = []
@@ -587,9 +624,8 @@ class AIcSmartDataObject(AIiSmartDataObject):
     def set_RawField(self, name: str, value: Any) -> None:
         definition = self._check(name)
         self._require_allowed(definition)
-        if definition.open_choice and value is not None and (definition.expected_type is None or
-                not open_choice_permits(value, definition.expected_type)):
-            raise ValueError('Unauthorized OpenChoice alternative for ' + name)
+        if value is not None and definition.expected_type is not None and not isinstance(value, definition.expected_type):
+            raise ValueError('Incompatible field value type: ' + name)
         self._values[name] = value
         self._present.add(name)
 
@@ -602,8 +638,8 @@ class AIcSmartDataObject(AIiSmartDataObject):
         self._require_allowed(definition)
         if name in self._present:
             return self._values[name]
-        if definition.default_factory:
-            return definition.default_factory()
+        if definition.default_value_resolver:
+            return definition.default_value_resolver()
         if definition.presence == AInFieldPresenceKind.REQUIRED and not self._allow_non_present_read(name, definition):
             raise ValueError('Required property is absent: ' + name)
         return None
@@ -647,7 +683,7 @@ class AIcSmartDataObject(AIiSmartDataObject):
     def get_RawNotPresentRequiredFields(self):
         return {d.name for d in self._fields().values() if d.presence == AInFieldPresenceKind.REQUIRED and d.name not in self._present}
     def get_EffectiveNotPresentRequiredFields(self):
-        return {d.name for d in self._fields().values() if d.presence == AInFieldPresenceKind.REQUIRED and d.name not in self._present and not d.default_factory}
+        return {d.name for d in self._fields().values() if d.presence == AInFieldPresenceKind.REQUIRED and d.name not in self._present and not d.default_value_resolver}
     def get_DeeplyRawNotPresentRequiredFields(self):
         return {e.path for e in self.get_DeeplyRawValuesValidationIssues() if e.code == 'REQUIRED_ABSENT'}
     def get_DeeplyEffectiveNotPresentRequiredFields(self):

@@ -10,6 +10,11 @@ Artifact:
 
 
 Dependencies:
+- DependencyKind: modustro
+  Items:
+  - GroupId: eu.algites.lib.common
+    ArtifactId: pub.lib.General_factory.cpdiscovery.intf
+    Usages: [product_api]
 - DependencyKind: java
   Items:
   - GroupId: org.testng
