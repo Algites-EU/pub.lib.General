@@ -1,0 +1,47 @@
+python.eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object_field
+=======================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object_field
+
+.. autoapi-nested-parse::
+
+   XML QName and element/attribute metadata for a common data-object field.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object_field.AIaXmlDataObjectField
+
+
+Module Contents
+---------------
+
+.. py:class:: AIaXmlDataObjectField
+
+   XML-specific QName and wire representation; never owns a field identifier.
+
+   A Python contract associates a field name with this metadata by using the
+   ``__xml_data_object_fields__`` mapping on the contract class. The annotation
+   itself describes only the XML wire representation, as in the Java API.
+
+
+   .. py:attribute:: namespace
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: namespace_local_name
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: value_kind
+      :type:  python.eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind.AInXmlValueKind
+
+

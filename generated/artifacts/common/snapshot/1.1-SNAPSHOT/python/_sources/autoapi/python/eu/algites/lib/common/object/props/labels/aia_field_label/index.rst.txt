@@ -23,6 +23,21 @@ Module Contents
    (metadata={'AIaFieldLabel': AIaFieldLabel(...)}) / __field_labels__.
 
 
+   .. py:attribute:: FIELD_NAME
+      :value: 'field.systemName'
+
+
+
+   .. py:attribute:: FIELD_TITLE
+      :value: 'field.name'
+
+
+
+   .. py:attribute:: FIELD_DESCRIPTION
+      :value: 'field.description'
+
+
+
    .. py:attribute:: DEFAULT_ROLE_CODE
       :value: 'field.name'
 
@@ -47,7 +62,7 @@ Module Contents
 
 
    .. py:attribute:: labelResolver
-      :type:  type | None
+      :type:  eu.algites.lib.factory.cpdiscovery.aia_category_provider_factory_definition.AIaCategoryProviderFactoryDefinition | None
       :value: None
 
 
@@ -63,7 +78,7 @@ Module Contents
 
 
    .. py:attribute:: purposeResolver
-      :type:  type | None
+      :type:  eu.algites.lib.factory.cpdiscovery.aia_category_provider_factory_definition.AIaCategoryProviderFactoryDefinition | None
       :value: None
 
 
@@ -79,7 +94,7 @@ Module Contents
 
 
    .. py:attribute:: formatResolver
-      :type:  type | None
+      :type:  eu.algites.lib.factory.cpdiscovery.aia_category_provider_factory_definition.AIaCategoryProviderFactoryDefinition | None
       :value: None
 
 
@@ -91,7 +106,7 @@ Module Contents
 
 
    .. py:attribute:: localeResolver
-      :type:  type | None
+      :type:  eu.algites.lib.factory.cpdiscovery.aia_category_provider_factory_definition.AIaCategoryProviderFactoryDefinition | None
       :value: None
 
 
@@ -133,17 +148,5 @@ Module Contents
          :value: ''
 
 
-
-
-   .. py:class:: NoLabelResolver
-
-
-   .. py:class:: NoPurposeResolver
-
-
-   .. py:class:: NoFormatResolver
-
-
-   .. py:class:: NoLocaleResolver
 
 

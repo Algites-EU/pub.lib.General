@@ -1,0 +1,39 @@
+python.eu.algites.lib.common.object.rendering.aic_standard_rendering_output_format_resolver_factory
+===================================================================================================
+
+.. py:module:: python.eu.algites.lib.common.object.rendering.aic_standard_rendering_output_format_resolver_factory
+
+.. autoapi-nested-parse::
+
+   Standard service provider for the RenderingOutputFormatResolver factory SPI.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.object.rendering.aic_standard_rendering_output_format_resolver_factory.AIcStandardRenderingOutputFormatResolverFactory
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcStandardRenderingOutputFormatResolverFactory
+
+   Bases: :py:obj:`python.eu.algites.lib.common.object.rendering.aii_rendering_output_format_resolver_factory.AIiRenderingOutputFormatResolverFactory`
+
+
+   Stateless standard factory; pluggable through CategoryProviderDiscovery.
+
+
+   .. py:method:: get_implementation_interface_type()
+
+
+   .. py:method:: get_context_interface_type()
+
+
+   .. py:method:: create_instance(category, context)
+
+

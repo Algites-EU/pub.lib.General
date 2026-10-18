@@ -1,0 +1,30 @@
+python.eu.algites.lib.data.smartdataobject.xmldefs.aii_xml_smart_data_object
+============================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.xmldefs.aii_xml_smart_data_object
+
+.. autoapi-nested-parse::
+
+   Mutable SmartDataObject contract for XML Schema definitions.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.xmldefs.aii_xml_smart_data_object.AIiXmlSmartDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiXmlSmartDataObject
+
+   Bases: :py:obj:`eu.algites.lib.data.smartdataobject.aii_smart_data_object.AIiSmartDataObject`, :py:obj:`eu.algites.lib.data.dataobject.xmldefs.aii_xml_data_object.AIiXmlDataObject`
+
+
+   Combine the shared mutable API with the XML Schema source marker.
+
+

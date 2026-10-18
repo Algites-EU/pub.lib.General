@@ -1,0 +1,40 @@
+python.eu.algites.lib.data.dataobject.xmldefs.ain_xml_object_definition_kind
+============================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.xmldefs.ain_xml_object_definition_kind
+
+.. autoapi-nested-parse::
+
+   XML Schema declaration kinds.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.xmldefs.ain_xml_object_definition_kind.AInXmlObjectDefinitionKind
+
+
+Module Contents
+---------------
+
+.. py:class:: AInXmlObjectDefinitionKind
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   Separate schema types from globally substitutable XML element identities.
+
+
+   .. py:attribute:: TYPE
+      :value: 'type'
+
+
+
+   .. py:attribute:: ELEMENT
+      :value: 'element'
+
+
+

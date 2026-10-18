@@ -1,0 +1,30 @@
+python.eu.algites.lib.data.dataobject.yamldefs.aii_yaml_data_object
+===================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.yamldefs.aii_yaml_data_object
+
+.. autoapi-nested-parse::
+
+   Read-only marker for contracts originating from YAML definitions.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.yamldefs.aii_yaml_data_object.AIiYamlDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiYamlDataObject
+
+   Bases: :py:obj:`eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject`
+
+
+   Identify YAML definitions contracts without requiring mutable or wire-specific behavior.
+
+

@@ -27,6 +27,7 @@ loadScripts(document, 'script');</script>
 <div class="top-nav" id="navbar-top">
 <div class="skip-nav"><a href="#skip-navbar-top" title="Skip navigation links">Skip navigation links</a></div>
 <ul id="navbar-top-firstrow" class="nav-list" title="Navigation">
+<li><a href="../../../../../index.html">Overview</a></li>
 <li><a href="package-summary.html">Package</a></li>
 <li class="nav-bar-cell1-rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
@@ -111,20 +112,15 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">Positive SchemaVersion; -1 denotes an incomplete handwritten source contract.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#title()" class="member-name-link">title</a></code></div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;</code></div>
+<div class="col-second odd-row-color"><code><a href="#sourceContract()" class="member-name-link">sourceContract</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Returns the human-readable title of the data object schema.</div>
+<div class="block">Original read-only contract represented by a generated mutable or adapter contract.</div>
 </div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#xmlLocalName()" class="member-name-link">xmlLocalName</a></code></div>
+<div class="col-second even-row-color"><code><a href="#title()" class="member-name-link">title</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Returns the configured XML local name, independently of its namespace.</div>
-</div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#xmlNamespace()" class="member-name-link">xmlNamespace</a></code></div>
-<div class="col-last odd-row-color">
-<div class="block">Returns the XML namespace associated with this schema or field.</div>
+<div class="block">Returns the human-readable title of the data object schema.</div>
 </div>
 </div>
 </section>
@@ -202,36 +198,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="xmlLocalName()">
-<h3>xmlLocalName</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">xmlLocalName</span></div>
-<div class="block">Returns the configured XML local name, independently of its namespace.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the result of the operation</dd>
-</dl>
-<dl class="notes">
-<dt>Default:</dt>
-<dd>""</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="xmlNamespace()">
-<h3>xmlNamespace</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">xmlNamespace</span></div>
-<div class="block">Returns the XML namespace associated with this schema or field.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the result of the operation</dd>
-</dl>
-<dl class="notes">
-<dt>Default:</dt>
-<dd>""</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="fingerprint()">
 <h3>fingerprint</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">fingerprint</span></div>
@@ -243,6 +209,24 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>""</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="sourceContract()">
+<h3>sourceContract</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;</span>&nbsp;<span class="element-name">sourceContract</span></div>
+<div class="block">Original read-only contract represented by a generated mutable or adapter contract.
+ The default means this interface is itself the domain contract. Generated adapters
+ use this relationship for source-schema identity, independently of XML substitution,
+ which is represented by generated type inheritance.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>source contract type or void when this declaration is the source</dd>
+</dl>
+<dl class="notes">
+<dt>Default:</dt>
+<dd>void.class</dd>
 </dl>
 </section>
 </li>

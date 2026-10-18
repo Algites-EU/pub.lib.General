@@ -69,13 +69,15 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/Retention.html" title="class or interface in java.lang.annotation" class="external-link">@Retention</a>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/RetentionPolicy.html#RUNTIME" title="class or interface in java.lang.annotation" class="external-link">RUNTIME</a>)
 <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/Target.html" title="class or interface in java.lang.annotation" class="external-link">@Target</a>({<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/ElementType.html#FIELD" title="class or interface in java.lang.annotation" class="external-link">FIELD</a>,<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/ElementType.html#METHOD" title="class or interface in java.lang.annotation" class="external-link">METHOD</a>,<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/ElementType.html#RECORD_COMPONENT" title="class or interface in java.lang.annotation" class="external-link">RECORD_COMPONENT</a>})
 </span><span class="modifiers">public @interface </span><span class="element-name type-name-label">AIaFieldLabel</span></div>
-<div class="block"><p>
- Title: <a href="AIaFieldLabel.html" title="annotation interface in eu.algites.lib.common.object.props.labels"><code>AIaFieldLabel</code></a>
- </p>
- <p>
- Description: Annotation for the custom field labeling used
-    for the evaluation what label should be used for the field.
- </p>
+<div class="block">Declares semantic labels for fields, record components and getters.
+
+ <p>Role codes distinguish stable field names, display titles and explanatory
+ descriptions, independently of rendering purpose, format and locale. A simple
+ <a href="#label()"><code>label()</code></a> supplies the default text for <a href="#roleCode()"><code>roleCode()</code></a>; <a href="#labels()"><code>labels()</code></a>
+ supplies additional role/locale/purpose/format variants. Resolver factories use
+ <code>CategoryProviderDiscovery</code> and are selected by specialized factory SPI,
+ category and optional provider ID, never by reflective resolver constructors.
+ An empty category <em>and</em> provider ID leave an optional resolver disabled.</p>
  <p>
  Copyright: Copyright (c) 2026 Artur Linhart, Algites
  </p>
@@ -100,19 +102,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static @interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="AIaFieldLabel.Entry.html" class="type-name-link" title="annotation interface in eu.algites.lib.common.object.props.labels">AIaFieldLabel.Entry</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="AIaFieldLabel.NoFormatResolver.html" class="type-name-link" title="class in eu.algites.lib.common.object.props.labels">AIaFieldLabel.NoFormatResolver</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>static class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="AIaFieldLabel.NoLabelResolver.html" class="type-name-link" title="class in eu.algites.lib.common.object.props.labels">AIaFieldLabel.NoLabelResolver</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static class&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="AIaFieldLabel.NoLocaleResolver.html" class="type-name-link" title="class in eu.algites.lib.common.object.props.labels">AIaFieldLabel.NoLocaleResolver</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>static class&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="AIaFieldLabel.NoPurposeResolver.html" class="type-name-link" title="class in eu.algites.lib.common.object.props.labels">AIaFieldLabel.NoPurposeResolver</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">One explicit text alternative for a semantic field role and rendering axes.</div>
+</div>
 </div>
 </section>
 </li>
@@ -128,62 +120,62 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code><a href="../../rendering/AInRenderingOutputBuiltinFormat.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinFormat</a></code></div>
 <div class="col-second even-row-color"><code><a href="#format()" class="member-name-link">format</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Formats  using the configured formatting rules.</div>
+<div class="block">Built-in output format associated with this annotation.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#formatCode()" class="member-name-link">formatCode</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Formats code using the configured formatting rules.</div>
+<div class="block">Optional custom format code, independently of the semantic field role.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputFormatResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputFormatResolver</a>&gt;</code></div>
+<div class="col-first even-row-color"><code>eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition</code></div>
 <div class="col-second even-row-color"><code><a href="#formatResolver()" class="member-name-link">formatResolver</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Formats resolver using the configured formatting rules.</div>
+<div class="block">Optional CPDiscovery factory for choosing a dynamic rendering format.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#label()" class="member-name-link">label</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Hard label definition (single label purpose)</div>
+<div class="block">Literal fallback text for the primary <a href="#roleCode()"><code>roleCode()</code></a>.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="AIiFieldLabelResolver.html" title="interface in eu.algites.lib.common.object.props.labels">AIiFieldLabelResolver</a>&gt;</code></div>
+<div class="col-first even-row-color"><code>eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition</code></div>
 <div class="col-second even-row-color"><code><a href="#labelResolver()" class="member-name-link">labelResolver</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Resolver, used for the resolution of the labels.</div>
+<div class="block">CPDiscovery factory selection for dynamic label text.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="AIaFieldLabel.Entry.html" title="annotation interface in eu.algites.lib.common.object.props.labels">AIaFieldLabel.Entry</a>[]</code></div>
 <div class="col-second odd-row-color"><code><a href="#labels()" class="member-name-link">labels</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Mapping, according to purpose</div>
+<div class="block">Explicit alternatives resolved according to semantic role and rendering axes.</div>
 </div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#localeCode()" class="member-name-link">localeCode</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Returns the explicitly configured locale code, or an empty value for the default.</div>
+<div class="block">Explicit output locale language tag, independent of the primary field name.</div>
 </div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputLocaleResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputLocaleResolver</a>&gt;</code></div>
+<div class="col-first odd-row-color"><code>eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition</code></div>
 <div class="col-second odd-row-color"><code><a href="#localeResolver()" class="member-name-link">localeResolver</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Returns the resolver used to determine the effective output locale.</div>
+<div class="block">Optional CPDiscovery factory for dynamic locale selection.</div>
 </div>
 <div class="col-first even-row-color"><code><a href="../../rendering/AInRenderingOutputBuiltinPurpose.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinPurpose</a></code></div>
 <div class="col-second even-row-color"><code><a href="#purpose()" class="member-name-link">purpose</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Returns the built-in rendering purpose associated with this label.</div>
+<div class="block">Built-in purpose used when caller and purpose resolver do not override it.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#purposeCode()" class="member-name-link">purposeCode</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Returns an optional custom rendering purpose code.</div>
+<div class="block">Alternative custom purpose code when the built-in purpose is insufficient.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputPurposeResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputPurposeResolver</a>&gt;</code></div>
+<div class="col-first even-row-color"><code>eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition</code></div>
 <div class="col-second even-row-color"><code><a href="#purposeResolver()" class="member-name-link">purposeResolver</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Returns the resolver used to select the rendering purpose.</div>
+<div class="block">Optional CPDiscovery factory for dynamic purpose selection.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#roleCode()" class="member-name-link">roleCode</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">The semantic role of the primary label (not a rendering purpose).</div>
+<div class="block">Semantic field-text role of the primary literal label.</div>
 </div>
 </div>
 </section>
@@ -200,7 +192,22 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#DEFAULT_ROLE_CODE" class="member-name-link">DEFAULT_ROLE_CODE</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Default role used by pre-existing field title annotations.</div>
+<div class="block">Default human-readable label role is the field title.</div>
+</div>
+<div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#FIELD_DESCRIPTION" class="member-name-link">FIELD_DESCRIPTION</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">Human-readable explanatory description role.</div>
+</div>
+<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#FIELD_NAME" class="member-name-link">FIELD_NAME</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Stable unlocalized schema/property identifier role.</div>
+</div>
+<div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#FIELD_TITLE" class="member-name-link">FIELD_TITLE</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">Human-readable title role, independently localized for diagnostics and rendering.</div>
 </div>
 </div>
 </section>
@@ -215,10 +222,55 @@ loadScripts(document, 'script');</script>
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="FIELD_NAME">
+<h3>FIELD_NAME</h3>
+<div class="member-signature"><span class="modifiers">static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">FIELD_NAME</span></div>
+<div class="block">Stable unlocalized schema/property identifier role.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../../../../../constant-values.html#eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_NAME">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="FIELD_TITLE">
+<h3>FIELD_TITLE</h3>
+<div class="member-signature"><span class="modifiers">static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">FIELD_TITLE</span></div>
+<div class="block">Human-readable title role, independently localized for diagnostics and rendering.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../../../../../constant-values.html#eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_TITLE">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="FIELD_DESCRIPTION">
+<h3>FIELD_DESCRIPTION</h3>
+<div class="member-signature"><span class="modifiers">static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">FIELD_DESCRIPTION</span></div>
+<div class="block">Human-readable explanatory description role.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../../../../../constant-values.html#eu.algites.lib.common.object.props.labels.AIaFieldLabel.FIELD_DESCRIPTION">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="DEFAULT_ROLE_CODE">
 <h3>DEFAULT_ROLE_CODE</h3>
 <div class="member-signature"><span class="modifiers">static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">DEFAULT_ROLE_CODE</span></div>
-<div class="block">Default role used by pre-existing field title annotations.</div>
+<div class="block">Default human-readable label role is the field title.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -241,7 +293,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="roleCode()">
 <h3>roleCode</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">roleCode</span></div>
-<div class="block">The semantic role of the primary label (not a rendering purpose).</div>
+<div class="block">Semantic field-text role of the primary literal label. This is not a rendering
+ purpose and does not change locale or presentation format selection.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the title role unless explicitly overridden</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>"field.name"</dd>
@@ -252,10 +309,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="label()">
 <h3>label</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">label</span></div>
-<div class="block">Hard label definition (single label purpose)</div>
+<div class="block">Literal fallback text for the primary <a href="#roleCode()"><code>roleCode()</code></a>.
+ An empty value means no literal fallback; additional texts can be provided
+ by <a href="#labels()"><code>labels()</code></a> with independent role/purpose/format/locale variants.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>hard labe definition</dd>
+<dd>literal primary label, or empty when absent</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -267,10 +326,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="labels()">
 <h3>labels</h3>
 <div class="member-signature"><span class="return-type"><a href="AIaFieldLabel.Entry.html" title="annotation interface in eu.algites.lib.common.object.props.labels">AIaFieldLabel.Entry</a>[]</span>&nbsp;<span class="element-name">labels</span></div>
-<div class="block">Mapping, according to purpose</div>
+<div class="block">Explicit alternatives resolved according to semantic role and rendering axes.
+ Specifying entries and an active label resolver together is unsupported.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>mapping, according to purpose</dd>
+<dd>zero or more configured label entries</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -281,17 +341,17 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="labelResolver()">
 <h3>labelResolver</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="AIiFieldLabelResolver.html" title="interface in eu.algites.lib.common.object.props.labels">AIiFieldLabelResolver</a>&gt;</span>&nbsp;<span class="element-name">labelResolver</span></div>
-<div class="block">Resolver, used for the resolution of the labels.
- In the case with label resolver, the explicit labels assigned are ignored but are
- only resolved the value from the label resolver.</div>
+<div class="member-signature"><span class="return-type">eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition</span>&nbsp;<span class="element-name">labelResolver</span></div>
+<div class="block">CPDiscovery factory selection for dynamic label text. An empty category and
+ provider ID mean no resolver is requested; when enabled, <a href="#labels()"><code>labels()</code></a>
+ must not contain literal alternatives.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>label resolver used</dd>
+<dd>specialized label resolver factory definition</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
-<dd>eu.algites.lib.common.object.props.labels.AIaFieldLabel.NoLabelResolver.class</dd>
+<dd>@eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition(factoryClass=eu.algites.lib.common.object.props.labels.AIiFieldLabelResolverFactory.class)</dd>
 </dl>
 </section>
 </li>
@@ -299,10 +359,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="purpose()">
 <h3>purpose</h3>
 <div class="member-signature"><span class="return-type"><a href="../../rendering/AInRenderingOutputBuiltinPurpose.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinPurpose</a></span>&nbsp;<span class="element-name">purpose</span></div>
-<div class="block">Returns the built-in rendering purpose associated with this label.</div>
+<div class="block">Built-in purpose used when caller and purpose resolver do not override it.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the result of the operation</dd>
+<dd>the built-in rendering purpose (DEFAULT by default)</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -314,10 +374,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="purposeCode()">
 <h3>purposeCode</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">purposeCode</span></div>
-<div class="block">Returns an optional custom rendering purpose code.</div>
+<div class="block">Alternative custom purpose code when the built-in purpose is insufficient.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the result of the operation</dd>
+<dd>custom purpose code or empty when unspecified</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -328,15 +388,16 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="purposeResolver()">
 <h3>purposeResolver</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputPurposeResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputPurposeResolver</a>&gt;</span>&nbsp;<span class="element-name">purposeResolver</span></div>
-<div class="block">Returns the resolver used to select the rendering purpose.</div>
+<div class="member-signature"><span class="return-type">eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition</span>&nbsp;<span class="element-name">purposeResolver</span></div>
+<div class="block">Optional CPDiscovery factory for dynamic purpose selection.
+ Category/provider left empty disable dynamic resolution.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the result of the operation</dd>
+<dd>specialized purpose resolver factory definition</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
-<dd>eu.algites.lib.common.object.props.labels.AIaFieldLabel.NoPurposeResolver.class</dd>
+<dd>@eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition(factoryClass=eu.algites.lib.common.object.rendering.AIiRenderingOutputPurposeResolverFactory.class)</dd>
 </dl>
 </section>
 </li>
@@ -344,10 +405,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="format()">
 <h3>format</h3>
 <div class="member-signature"><span class="return-type"><a href="../../rendering/AInRenderingOutputBuiltinFormat.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinFormat</a></span>&nbsp;<span class="element-name">format</span></div>
-<div class="block">Formats  using the configured formatting rules.</div>
+<div class="block">Built-in output format associated with this annotation.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the format</dd>
+<dd>built-in format or DEFAULT for ambient configuration</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -359,10 +420,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="formatCode()">
 <h3>formatCode</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">formatCode</span></div>
-<div class="block">Formats code using the configured formatting rules.</div>
+<div class="block">Optional custom format code, independently of the semantic field role.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the format code</dd>
+<dd>format code or empty for no custom format</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -373,15 +434,16 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="formatResolver()">
 <h3>formatResolver</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputFormatResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputFormatResolver</a>&gt;</span>&nbsp;<span class="element-name">formatResolver</span></div>
-<div class="block">Formats resolver using the configured formatting rules.</div>
+<div class="member-signature"><span class="return-type">eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition</span>&nbsp;<span class="element-name">formatResolver</span></div>
+<div class="block">Optional CPDiscovery factory for choosing a dynamic rendering format.
+ Empty category/provider disable dynamic resolution.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the format resolver</dd>
+<dd>specialized format resolver factory definition</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
-<dd>eu.algites.lib.common.object.props.labels.AIaFieldLabel.NoFormatResolver.class</dd>
+<dd>@eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition(factoryClass=eu.algites.lib.common.object.rendering.AIiRenderingOutputFormatResolverFactory.class)</dd>
 </dl>
 </section>
 </li>
@@ -389,10 +451,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="localeCode()">
 <h3>localeCode</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">localeCode</span></div>
-<div class="block">Returns the explicitly configured locale code, or an empty value for the default.</div>
+<div class="block">Explicit output locale language tag, independent of the primary field name.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the result of the operation</dd>
+<dd>configured locale code or empty for ambient locale selection</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -403,15 +465,16 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="localeResolver()">
 <h3>localeResolver</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../../rendering/AIiRenderingOutputLocaleResolver.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputLocaleResolver</a>&gt;</span>&nbsp;<span class="element-name">localeResolver</span></div>
-<div class="block">Returns the resolver used to determine the effective output locale.</div>
+<div class="member-signature"><span class="return-type">eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition</span>&nbsp;<span class="element-name">localeResolver</span></div>
+<div class="block">Optional CPDiscovery factory for dynamic locale selection.
+ Empty category/provider disable dynamic resolution.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the result of the operation</dd>
+<dd>specialized locale resolver factory definition</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
-<dd>eu.algites.lib.common.object.props.labels.AIaFieldLabel.NoLocaleResolver.class</dd>
+<dd>@eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition(factoryClass=eu.algites.lib.common.object.rendering.AIiRenderingOutputLocaleResolverFactory.class)</dd>
 </dl>
 </section>
 </li>

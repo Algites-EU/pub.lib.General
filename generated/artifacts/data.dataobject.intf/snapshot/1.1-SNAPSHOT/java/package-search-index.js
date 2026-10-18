@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"eu.algites.lib.data.dataobject"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"eu.algites.lib.data.dataobject"},{"l":"eu.algites.lib.data.dataobject.jsondefs"},{"l":"eu.algites.lib.data.dataobject.xmldefs"},{"l":"eu.algites.lib.data.dataobject.yamldefs"}];updateSearchResults();

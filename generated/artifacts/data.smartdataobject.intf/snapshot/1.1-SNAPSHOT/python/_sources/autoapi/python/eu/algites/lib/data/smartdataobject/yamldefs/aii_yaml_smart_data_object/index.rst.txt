@@ -1,0 +1,30 @@
+python.eu.algites.lib.data.smartdataobject.yamldefs.aii_yaml_smart_data_object
+==============================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.yamldefs.aii_yaml_smart_data_object
+
+.. autoapi-nested-parse::
+
+   Mutable SmartDataObject contract for YAML definitions definitions.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.yamldefs.aii_yaml_smart_data_object.AIiYamlSmartDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiYamlSmartDataObject
+
+   Bases: :py:obj:`eu.algites.lib.data.smartdataobject.aii_smart_data_object.AIiSmartDataObject`, :py:obj:`eu.algites.lib.data.dataobject.yamldefs.aii_yaml_data_object.AIiYamlDataObject`
+
+
+   Combine the shared mutable API with the YAML definitions source marker.
+
+

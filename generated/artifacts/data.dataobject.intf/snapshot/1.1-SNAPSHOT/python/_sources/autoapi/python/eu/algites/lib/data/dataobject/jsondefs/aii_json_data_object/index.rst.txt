@@ -1,0 +1,30 @@
+python.eu.algites.lib.data.dataobject.jsondefs.aii_json_data_object
+===================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.jsondefs.aii_json_data_object
+
+.. autoapi-nested-parse::
+
+   Read-only marker for contracts originating from JSON Schema.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.jsondefs.aii_json_data_object.AIiJsonDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiJsonDataObject
+
+   Bases: :py:obj:`eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject`
+
+
+   Identify JSON Schema contracts without requiring mutable or wire-specific behavior.
+
+

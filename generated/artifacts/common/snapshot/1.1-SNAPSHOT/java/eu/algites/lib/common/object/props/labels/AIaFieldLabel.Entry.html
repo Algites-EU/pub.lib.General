@@ -71,6 +71,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public static @interface </span><span class="element-name type-name-label">AIaFieldLabel.Entry</span></div>
+<div class="block">One explicit text alternative for a semantic field role and rendering axes.
+ The locale and format may be omitted to provide less-specific fallbacks.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -86,7 +88,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#label()" class="member-name-link">label</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Label value oif the label resolver is not used, otherwise ignored</div>
+<div class="block">Literal text used when the role, purpose, format and locale match this entry.</div>
 </div>
 </div>
 </section>
@@ -103,32 +105,32 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code><a href="../../rendering/AInRenderingOutputBuiltinFormat.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinFormat</a></code></div>
 <div class="col-second even-row-color"><code><a href="#format()" class="member-name-link">format</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Mode of the label if the default <a href="../../rendering/AInRenderingOutputBuiltinFormat.html" title="enum class in eu.algites.lib.common.object.rendering"><code>AInRenderingOutputBuiltinFormat</code></a> is sufficient to be used.</div>
+<div class="block">Built-in output format matched by this text entry.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#formatCode()" class="member-name-link">formatCode</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Mode of the label if the default <a href="../../rendering/AInRenderingOutputBuiltinFormat.html" title="enum class in eu.algites.lib.common.object.rendering"><code>AInRenderingOutputBuiltinFormat</code></a> is not sufficient.</div>
+<div class="block">Optional custom output format identifier for this text alternative.</div>
 </div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#localeCode()" class="member-name-link">localeCode</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Mode of the label if the default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Locale.html" title="class or interface in java.util" class="external-link"><code>Locale</code></a> is not sufficient.</div>
+<div class="block">Locale language tag for this entry.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="../../rendering/AInRenderingOutputBuiltinPurpose.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinPurpose</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#purpose()" class="member-name-link">purpose</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Mode of the label if the default <a href="../../rendering/AInRenderingOutputBuiltinPurpose.html" title="enum class in eu.algites.lib.common.object.rendering"><code>AInRenderingOutputBuiltinPurpose</code></a> is sufficient to be used.</div>
+<div class="block">Built-in rendering purpose matched by this text entry.</div>
 </div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#purposeCode()" class="member-name-link">purposeCode</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Mode of the label if the default <a href="../../rendering/AInRenderingOutputBuiltinPurpose.html" title="enum class in eu.algites.lib.common.object.rendering"><code>AInRenderingOutputBuiltinPurpose</code></a> is not sufficient.</div>
+<div class="block">Optional custom purpose code for alternatives not covered by built-in purposes.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#roleCode()" class="member-name-link">roleCode</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Field text role, independently of purpose, format and locale.</div>
+<div class="block">Role identifying the kind of field text represented by this entry.</div>
 </div>
 </div>
 </section>
@@ -146,10 +148,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="label()">
 <h3>label</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">label</span></div>
-<div class="block">Label value oif the label resolver is not used, otherwise ignored</div>
+<div class="block">Literal text used when the role, purpose, format and locale match this entry.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>label value</dd>
+<dd>explicit label text</dd>
 </dl>
 </section>
 </li>
@@ -164,7 +166,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="roleCode()">
 <h3>roleCode</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">roleCode</span></div>
-<div class="block">Field text role, independently of purpose, format and locale.</div>
+<div class="block">Role identifying the kind of field text represented by this entry.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>title role unless another semantic role is specified</dd>
+</dl>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>"field.name"</dd>
@@ -175,10 +181,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="purpose()">
 <h3>purpose</h3>
 <div class="member-signature"><span class="return-type"><a href="../../rendering/AInRenderingOutputBuiltinPurpose.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinPurpose</a></span>&nbsp;<span class="element-name">purpose</span></div>
-<div class="block">Mode of the label if the default <a href="../../rendering/AInRenderingOutputBuiltinPurpose.html" title="enum class in eu.algites.lib.common.object.rendering"><code>AInRenderingOutputBuiltinPurpose</code></a> is sufficient to be used.</div>
+<div class="block">Built-in rendering purpose matched by this text entry.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>purpose of the label</dd>
+<dd>built-in purpose, DEFAULT when not restricted</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -190,10 +196,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="purposeCode()">
 <h3>purposeCode</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">purposeCode</span></div>
-<div class="block">Mode of the label if the default <a href="../../rendering/AInRenderingOutputBuiltinPurpose.html" title="enum class in eu.algites.lib.common.object.rendering"><code>AInRenderingOutputBuiltinPurpose</code></a> is not sufficient.</div>
+<div class="block">Optional custom purpose code for alternatives not covered by built-in purposes.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>custom purpose code of the label</dd>
+<dd>custom purpose code or empty for no custom purpose</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -205,10 +211,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="format()">
 <h3>format</h3>
 <div class="member-signature"><span class="return-type"><a href="../../rendering/AInRenderingOutputBuiltinFormat.html" title="enum class in eu.algites.lib.common.object.rendering">AInRenderingOutputBuiltinFormat</a></span>&nbsp;<span class="element-name">format</span></div>
-<div class="block">Mode of the label if the default <a href="../../rendering/AInRenderingOutputBuiltinFormat.html" title="enum class in eu.algites.lib.common.object.rendering"><code>AInRenderingOutputBuiltinFormat</code></a> is sufficient to be used.</div>
+<div class="block">Built-in output format matched by this text entry.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>format of the label</dd>
+<dd>built-in format, DEFAULT when unrestricted</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -220,10 +226,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="formatCode()">
 <h3>formatCode</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">formatCode</span></div>
-<div class="block">Mode of the label if the default <a href="../../rendering/AInRenderingOutputBuiltinFormat.html" title="enum class in eu.algites.lib.common.object.rendering"><code>AInRenderingOutputBuiltinFormat</code></a> is not sufficient.</div>
+<div class="block">Optional custom output format identifier for this text alternative.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>custom format code of the label</dd>
+<dd>custom format code or empty for no custom format</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -235,10 +241,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="localeCode()">
 <h3>localeCode</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">localeCode</span></div>
-<div class="block">Mode of the label if the default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Locale.html" title="class or interface in java.util" class="external-link"><code>Locale</code></a> is not sufficient.</div>
+<div class="block">Locale language tag for this entry. Empty means a locale-neutral fallback.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>custom locale code of the label</dd>
+<dd>language tag or empty for any locale</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>

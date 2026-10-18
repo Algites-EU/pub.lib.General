@@ -1,0 +1,43 @@
+python.eu.algites.lib.factory.cpdiscovery.aia_category_provider_factory_definition
+==================================================================================
+
+.. py:module:: python.eu.algites.lib.factory.cpdiscovery.aia_category_provider_factory_definition
+
+.. autoapi-nested-parse::
+
+   Annotation-equivalent immutable definition of CPDiscovery factory selection.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.factory.cpdiscovery.aia_category_provider_factory_definition.AIaCategoryProviderFactoryDefinition
+
+
+Module Contents
+---------------
+
+.. py:class:: AIaCategoryProviderFactoryDefinition
+
+   Lookup by specialized factory SPI, category and optional provider identifier.
+
+
+   .. py:attribute:: factory_class
+      :type:  type
+
+
+   .. py:attribute:: factory_category
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: factory_provider_id
+      :type:  str
+      :value: ''
+
+
+

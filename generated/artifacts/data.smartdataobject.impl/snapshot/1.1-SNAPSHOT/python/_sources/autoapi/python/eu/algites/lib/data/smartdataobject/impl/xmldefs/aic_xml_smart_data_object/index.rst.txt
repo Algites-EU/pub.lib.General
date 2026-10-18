@@ -1,0 +1,33 @@
+python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object
+=================================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object
+
+.. autoapi-nested-parse::
+
+   Reusable mutable foundation for objects generated from XML Schema definitions.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object.AIcXmlSmartDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcXmlSmartDataObject
+
+   Bases: :py:obj:`eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object.AIcSmartDataObject`, :py:obj:`eu.algites.lib.data.smartdataobject.xmldefs.aii_xml_smart_data_object.AIiXmlSmartDataObject`
+
+
+   Preserve the XML Schema implementation lineage with the shared SDO runtime.
+
+   Concrete generated subclasses supply schema fields, accessors and metadata.
+   No source-technology-specific operations are introduced by this base yet.
+
+

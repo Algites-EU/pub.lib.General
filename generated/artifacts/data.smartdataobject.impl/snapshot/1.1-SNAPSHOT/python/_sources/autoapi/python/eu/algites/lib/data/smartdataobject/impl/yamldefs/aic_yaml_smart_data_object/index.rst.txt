@@ -1,0 +1,33 @@
+python.eu.algites.lib.data.smartdataobject.impl.yamldefs.aic_yaml_smart_data_object
+===================================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.impl.yamldefs.aic_yaml_smart_data_object
+
+.. autoapi-nested-parse::
+
+   Reusable mutable foundation for objects generated from YAML definitions definitions.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.impl.yamldefs.aic_yaml_smart_data_object.AIcYamlSmartDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcYamlSmartDataObject
+
+   Bases: :py:obj:`eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object.AIcSmartDataObject`, :py:obj:`eu.algites.lib.data.smartdataobject.yamldefs.aii_yaml_smart_data_object.AIiYamlSmartDataObject`
+
+
+   Preserve the YAML definitions implementation lineage with the shared SDO runtime.
+
+   Concrete generated subclasses supply schema fields, accessors and metadata.
+   No source-technology-specific operations are introduced by this base yet.
+
+

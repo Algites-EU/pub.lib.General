@@ -1,0 +1,30 @@
+python.eu.algites.lib.data.dataobject.xmldefs.aii_xml_data_object
+=================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.xmldefs.aii_xml_data_object
+
+.. autoapi-nested-parse::
+
+   Marker for XML Schema type and element contracts.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.xmldefs.aii_xml_data_object.AIiXmlDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiXmlDataObject
+
+   Bases: :py:obj:`eu.algites.lib.data.dataobject.aii_data_object.AIiDataObject`
+
+
+   XML contract marker; substitution is described by ordinary class inheritance.
+
+

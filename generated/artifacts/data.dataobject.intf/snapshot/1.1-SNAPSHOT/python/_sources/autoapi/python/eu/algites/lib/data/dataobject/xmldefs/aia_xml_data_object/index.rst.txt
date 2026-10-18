@@ -1,0 +1,43 @@
+python.eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object
+=================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object
+
+.. autoapi-nested-parse::
+
+   XML QName identity of a type or global element contract.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object.AIaXmlDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIaXmlDataObject
+
+   XML declaration QName independent of common schema ID and Python type name.
+
+
+   .. py:attribute:: definition_kind
+      :type:  python.eu.algites.lib.data.dataobject.xmldefs.ain_xml_object_definition_kind.AInXmlObjectDefinitionKind
+
+
+   .. py:attribute:: namespace
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: namespace_local_name
+      :type:  str
+      :value: ''
+
+
+

@@ -3,6 +3,11 @@ python.eu.algites.lib.data.dataobject.aicd_data_object_field
 
 .. py:module:: python.eu.algites.lib.data.dataobject.aicd_data_object_field
 
+.. autoapi-nested-parse::
+
+   Schema-neutral normalized data-object field metadata.
+
+
 
 Classes
 -------
@@ -17,52 +22,30 @@ Module Contents
 
 .. py:class:: AIcdDataObjectField
 
-   Normalized field descriptor independent of SmartDataObject implementations.
+   Field identifier, presence and nullability independent of schema wire format.
+
+   ``default_value_resolver`` is a callable compatibility interface used by
+   non-annotation Python contracts; generated contracts may use AIaFieldDefault
+   and the CategoryProviderDiscovery factory selection instead.
 
 
-   .. py:attribute:: name
+   .. py:attribute:: field_name
       :type:  str
 
 
-   .. py:attribute:: description
-      :type:  str
-      :value: ''
-
-
-
-   .. py:attribute:: presence_required
-      :type:  bool
-      :value: False
-
+   .. py:attribute:: presence
+      :type:  python.eu.algites.lib.data.dataobject.ain_field_presence_kind.AInFieldPresenceKind
 
 
    .. py:attribute:: allows_null
       :type:  bool
-      :value: False
+      :value: True
 
 
 
-   .. py:attribute:: default_factory
+   .. py:attribute:: default_value_resolver
       :type:  Callable[[], Any] | None
       :value: None
-
-
-
-   .. py:attribute:: xml_local_name
-      :type:  str
-      :value: ''
-
-
-
-   .. py:attribute:: xml_namespace
-      :type:  str
-      :value: ''
-
-
-
-   .. py:attribute:: xml_attribute
-      :type:  bool
-      :value: False
 
 
 
@@ -76,5 +59,12 @@ Module Contents
       :type:  str
       :value: ''
 
+
+
+   .. py:property:: name
+      :type: str
+
+
+      Normalized internal field name, retained for SmartDataObject runtime callers.
 
 

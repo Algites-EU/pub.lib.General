@@ -1,0 +1,39 @@
+python.eu.algites.lib.common.object.props.labels.aic_standard_field_label_resolver_factory
+==========================================================================================
+
+.. py:module:: python.eu.algites.lib.common.object.props.labels.aic_standard_field_label_resolver_factory
+
+.. autoapi-nested-parse::
+
+   Standard service provider for the FieldLabelResolver factory SPI.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.object.props.labels.aic_standard_field_label_resolver_factory.AIcStandardFieldLabelResolverFactory
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcStandardFieldLabelResolverFactory
+
+   Bases: :py:obj:`python.eu.algites.lib.common.object.props.labels.aii_field_label_resolver_factory.AIiFieldLabelResolverFactory`
+
+
+   Stateless standard factory; pluggable through CategoryProviderDiscovery.
+
+
+   .. py:method:: get_implementation_interface_type()
+
+
+   .. py:method:: get_context_interface_type()
+
+
+   .. py:method:: create_instance(category, context)
+
+

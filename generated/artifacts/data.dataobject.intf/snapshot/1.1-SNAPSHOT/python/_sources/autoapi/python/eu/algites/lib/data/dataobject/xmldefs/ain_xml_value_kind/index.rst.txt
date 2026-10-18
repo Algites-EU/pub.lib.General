@@ -1,0 +1,40 @@
+python.eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind
+================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind
+
+.. autoapi-nested-parse::
+
+   XML wire representations for schema field getters.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind.AInXmlValueKind
+
+
+Module Contents
+---------------
+
+.. py:class:: AInXmlValueKind
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   A field is a child element by default or a scalar attribute when selected.
+
+
+   .. py:attribute:: ELEMENT
+      :value: 'element'
+
+
+
+   .. py:attribute:: ATTRIBUTE
+      :value: 'attribute'
+
+
+

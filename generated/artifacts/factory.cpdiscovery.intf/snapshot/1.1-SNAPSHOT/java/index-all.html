@@ -48,12 +48,16 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/factory/cpdiscovery/AIaCategoryProviderFactory.html" class="type-name-link" title="annotation interface in eu.algites.lib.factory.cpdiscovery">AIaCategoryProviderFactory</a> - Annotation Interface in <a href="eu/algites/lib/factory/cpdiscovery/package-summary.html">eu.algites.lib.factory.cpdiscovery</a></dt>
 <dd>
 <div class="block">Declares provider identity and the categories served by an implementation factory.</div>
+</dd>
+<dt><a href="eu/algites/lib/factory/cpdiscovery/AIaCategoryProviderFactoryDefinition.html" class="type-name-link" title="annotation interface in eu.algites.lib.factory.cpdiscovery">AIaCategoryProviderFactoryDefinition</a> - Annotation Interface in <a href="eu/algites/lib/factory/cpdiscovery/package-summary.html">eu.algites.lib.factory.cpdiscovery</a></dt>
+<dd>
+<div class="block">Identifies a configured factory selection on another annotation member.</div>
 </dd>
 <dt><a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderFactory.html" class="type-name-link" title="interface in eu.algites.lib.factory.cpdiscovery">AIiCategoryProviderFactory</a>&lt;<a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderFactory.html" title="type parameter in AIiCategoryProviderFactory">I</a>,<wbr><a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderFactory.html" title="type parameter in AIiCategoryProviderFactory">C</a>&gt; - Interface in <a href="eu/algites/lib/factory/cpdiscovery/package-summary.html">eu.algites.lib.factory.cpdiscovery</a></dt>
 <dd>
@@ -62,6 +66,15 @@ loadScripts(document, 'script');</script>
 <dt><a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderRegistry.html" class="type-name-link" title="interface in eu.algites.lib.factory.cpdiscovery">AIiCategoryProviderRegistry</a> - Interface in <a href="eu/algites/lib/factory/cpdiscovery/package-summary.html">eu.algites.lib.factory.cpdiscovery</a></dt>
 <dd>
 <div class="block">Atomic catalog of factory implementations discovered from explicitly registered scopes.</div>
+</dd>
+<dt><a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderResolutionContext.html" class="type-name-link" title="interface in eu.algites.lib.factory.cpdiscovery">AIiCategoryProviderResolutionContext</a> - Interface in <a href="eu/algites/lib/factory/cpdiscovery/package-summary.html">eu.algites.lib.factory.cpdiscovery</a></dt>
+<dd>
+<div class="block">Optional context supplied to specialized category-provider factories.</div>
+</dd>
+<dt><a href="eu/algites/lib/factory/cpdiscovery/AIsCategoryProviderDiscovery.html" class="type-name-link" title="class in eu.algites.lib.factory.cpdiscovery">AIsCategoryProviderDiscovery</a> - Class in <a href="eu/algites/lib/factory/cpdiscovery/package-summary.html">eu.algites.lib.factory.cpdiscovery</a></dt>
+<dd>
+<div class="block">Entry point for resolving annotation-declared provider factories through a single
+ explicitly configured, or service-discovered, <a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderRegistry.html" title="interface in eu.algites.lib.factory.cpdiscovery"><code>AIiCategoryProviderRegistry</code></a>.</div>
 </dd>
 <dt><a href="eu/algites/lib/factory/cpdiscovery/AIxCategoryProviderConflictException.html" class="type-name-link" title="class in eu.algites.lib.factory.cpdiscovery">AIxCategoryProviderConflictException</a> - Exception in <a href="eu/algites/lib/factory/cpdiscovery/package-summary.html">eu.algites.lib.factory.cpdiscovery</a></dt>
 <dd>
@@ -116,6 +129,21 @@ loadScripts(document, 'script');</script>
 <dt><a href="eu/algites/lib/factory/cpdiscovery/package-summary.html">eu.algites.lib.factory.cpdiscovery</a> - package eu.algites.lib.factory.cpdiscovery</dt>
 <dd>&nbsp;</dd>
 </dl>
+<h2 class="title" id="I:F">F</h2>
+<dl class="index">
+<dt><a href="eu/algites/lib/factory/cpdiscovery/AIaCategoryProviderFactoryDefinition.html#factoryCategory()" class="member-name-link">factoryCategory()</a> - Element in annotation interface eu.algites.lib.factory.cpdiscovery.<a href="eu/algites/lib/factory/cpdiscovery/AIaCategoryProviderFactoryDefinition.html" title="annotation interface in eu.algites.lib.factory.cpdiscovery">AIaCategoryProviderFactoryDefinition</a></dt>
+<dd>
+<div class="block">Optional category override; empty selects the consuming resolver's default category.</div>
+</dd>
+<dt><a href="eu/algites/lib/factory/cpdiscovery/AIaCategoryProviderFactoryDefinition.html#factoryClass()" class="member-name-link">factoryClass()</a> - Element in annotation interface eu.algites.lib.factory.cpdiscovery.<a href="eu/algites/lib/factory/cpdiscovery/AIaCategoryProviderFactoryDefinition.html" title="annotation interface in eu.algites.lib.factory.cpdiscovery">AIaCategoryProviderFactoryDefinition</a></dt>
+<dd>
+<div class="block">Specialized <a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderFactory.html" title="interface in eu.algites.lib.factory.cpdiscovery"><code>AIiCategoryProviderFactory</code></a> interface implemented by discovered factories.</div>
+</dd>
+<dt><a href="eu/algites/lib/factory/cpdiscovery/AIaCategoryProviderFactoryDefinition.html#factoryProviderId()" class="member-name-link">factoryProviderId()</a> - Element in annotation interface eu.algites.lib.factory.cpdiscovery.<a href="eu/algites/lib/factory/cpdiscovery/AIaCategoryProviderFactoryDefinition.html" title="annotation interface in eu.algites.lib.factory.cpdiscovery">AIaCategoryProviderFactoryDefinition</a></dt>
+<dd>
+<div class="block">Optional explicit factory provider; empty allows a registry default or unique provider.</div>
+</dd>
+</dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderFactory.html#getContextInterfaceType()" class="member-name-link">getContextInterfaceType()</a> - Method in interface eu.algites.lib.factory.cpdiscovery.<a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderFactory.html" title="interface in eu.algites.lib.factory.cpdiscovery">AIiCategoryProviderFactory</a></dt>
@@ -126,6 +154,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the implementation interface type.</div>
 </dd>
+<dt><a href="eu/algites/lib/factory/cpdiscovery/AIsCategoryProviderDiscovery.html#getInstance(eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition,java.lang.Class,java.lang.String,C)" class="member-name-link">getInstance(AIaCategoryProviderFactoryDefinition, Class&lt;? extends AIiCategoryProviderFactory&lt;I, C&gt;&gt;, String, C)</a> - Static method in class eu.algites.lib.factory.cpdiscovery.<a href="eu/algites/lib/factory/cpdiscovery/AIsCategoryProviderDiscovery.html" title="class in eu.algites.lib.factory.cpdiscovery">AIsCategoryProviderDiscovery</a></dt>
+<dd>
+<div class="block">Creates an implementation using the annotation-defined specialized factory and
+ the registry's category/provider resolution.</div>
+</dd>
 <dt><a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderRegistry.html#getInstance(java.lang.Class,java.lang.String,C)" class="member-name-link">getInstance(Class&lt;? extends AIiCategoryProviderFactory&lt;I, C&gt;&gt;, String, C)</a> - Method in interface eu.algites.lib.factory.cpdiscovery.<a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderRegistry.html" title="interface in eu.algites.lib.factory.cpdiscovery">AIiCategoryProviderRegistry</a></dt>
 <dd>
 <div class="block">Returns the instance.</div>
@@ -133,6 +166,11 @@ loadScripts(document, 'script');</script>
 <dt><a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderRegistry.html#getInstance(java.lang.Class,java.lang.String,java.lang.String,C)" class="member-name-link">getInstance(Class&lt;? extends AIiCategoryProviderFactory&lt;I, C&gt;&gt;, String, String, C)</a> - Method in interface eu.algites.lib.factory.cpdiscovery.<a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderRegistry.html" title="interface in eu.algites.lib.factory.cpdiscovery">AIiCategoryProviderRegistry</a></dt>
 <dd>
 <div class="block">Returns the instance.</div>
+</dd>
+<dt><a href="eu/algites/lib/factory/cpdiscovery/AIsCategoryProviderDiscovery.html#getRegistry()" class="member-name-link">getRegistry()</a> - Static method in class eu.algites.lib.factory.cpdiscovery.<a href="eu/algites/lib/factory/cpdiscovery/AIsCategoryProviderDiscovery.html" title="class in eu.algites.lib.factory.cpdiscovery">AIsCategoryProviderDiscovery</a></dt>
+<dd>
+<div class="block">Returns the application registry; when none is explicitly installed, discovers one
+ through ServiceLoader and registers the current context classloader as a factory scope.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:P">P</h2>
@@ -153,6 +191,14 @@ loadScripts(document, 'script');</script>
 <div class="block">Registers module layer factories in the corresponding registry.</div>
 </dd>
 </dl>
+<h2 class="title" id="I:S">S</h2>
+<dl class="index">
+<dt><a href="eu/algites/lib/factory/cpdiscovery/AIsCategoryProviderDiscovery.html#setRegistry(eu.algites.lib.factory.cpdiscovery.AIiCategoryProviderRegistry)" class="member-name-link">setRegistry(AIiCategoryProviderRegistry)</a> - Static method in class eu.algites.lib.factory.cpdiscovery.<a href="eu/algites/lib/factory/cpdiscovery/AIsCategoryProviderDiscovery.html" title="class in eu.algites.lib.factory.cpdiscovery">AIsCategoryProviderDiscovery</a></dt>
+<dd>
+<div class="block">Installs the application-scoped registry, for instance after registering the desired
+ module layers or classloaders.</div>
+</dd>
+</dl>
 <h2 class="title" id="I:U">U</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderRegistry.html#unregisterClassLoaderFactories(java.lang.ClassLoader)" class="member-name-link">unregisterClassLoaderFactories(ClassLoader)</a> - Method in interface eu.algites.lib.factory.cpdiscovery.<a href="eu/algites/lib/factory/cpdiscovery/AIiCategoryProviderRegistry.html" title="interface in eu.algites.lib.factory.cpdiscovery">AIiCategoryProviderRegistry</a></dt>
@@ -164,7 +210,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Removes factories registered through the specified module layer.</div>
 </dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
 </div>
 </div>
 </body>

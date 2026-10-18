@@ -1,0 +1,30 @@
+python.eu.algites.lib.data.smartdataobject.jsondefs.aii_json_smart_data_object
+==============================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.jsondefs.aii_json_smart_data_object
+
+.. autoapi-nested-parse::
+
+   Mutable SmartDataObject contract for JSON Schema definitions.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.jsondefs.aii_json_smart_data_object.AIiJsonSmartDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiJsonSmartDataObject
+
+   Bases: :py:obj:`eu.algites.lib.data.smartdataobject.aii_smart_data_object.AIiSmartDataObject`, :py:obj:`eu.algites.lib.data.dataobject.jsondefs.aii_json_data_object.AIiJsonDataObject`
+
+
+   Combine the shared mutable API with the JSON Schema source marker.
+
+

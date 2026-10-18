@@ -1,0 +1,33 @@
+python.eu.algites.lib.data.smartdataobject.impl.jsondefs.aic_json_smart_data_object
+===================================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.impl.jsondefs.aic_json_smart_data_object
+
+.. autoapi-nested-parse::
+
+   Reusable mutable foundation for objects generated from JSON Schema definitions.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.impl.jsondefs.aic_json_smart_data_object.AIcJsonSmartDataObject
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcJsonSmartDataObject
+
+   Bases: :py:obj:`eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object.AIcSmartDataObject`, :py:obj:`eu.algites.lib.data.smartdataobject.jsondefs.aii_json_smart_data_object.AIiJsonSmartDataObject`
+
+
+   Preserve the JSON Schema implementation lineage with the shared SDO runtime.
+
+   Concrete generated subclasses supply schema fields, accessors and metadata.
+   No source-technology-specific operations are introduced by this base yet.
+
+

@@ -1,0 +1,43 @@
+python.eu.algites.lib.factory.cpdiscovery.ais_category_provider_discovery
+=========================================================================
+
+.. py:module:: python.eu.algites.lib.factory.cpdiscovery.ais_category_provider_discovery
+
+.. autoapi-nested-parse::
+
+   Configurable registry bridge for annotation-selected factories.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.factory.cpdiscovery.ais_category_provider_discovery.AIsCategoryProviderDiscovery
+
+
+Module Contents
+---------------
+
+.. py:class:: AIsCategoryProviderDiscovery
+
+   Selects specialized resolver providers through an application-installed registry.
+
+
+   .. py:method:: set_registry(registry)
+      :classmethod:
+
+
+      Install a registry with discovered/registered application providers, or clear it.
+
+
+
+   .. py:method:: get_instance(definition: python.eu.algites.lib.factory.cpdiscovery.aia_category_provider_factory_definition.AIaCategoryProviderFactoryDefinition, expected_factory_class: type, default_category: str, context=None)
+      :classmethod:
+
+
+      Resolve an annotation selection; fail on missing or mismatched factories.
+
+
+

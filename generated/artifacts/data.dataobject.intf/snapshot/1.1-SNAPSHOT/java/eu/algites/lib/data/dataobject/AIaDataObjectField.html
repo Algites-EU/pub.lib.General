@@ -27,6 +27,7 @@ loadScripts(document, 'script');</script>
 <div class="top-nav" id="navbar-top">
 <div class="skip-nav"><a href="#skip-navbar-top" title="Skip navigation links">Skip navigation links</a></div>
 <ul id="navbar-top-firstrow" class="nav-list" title="Navigation">
+<li><a href="../../../../../index.html">Overview</a></li>
 <li><a href="package-summary.html">Package</a></li>
 <li class="nav-bar-cell1-rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
@@ -68,7 +69,9 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/Retention.html" title="class or interface in java.lang.annotation" class="external-link">@Retention</a>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/RetentionPolicy.html#RUNTIME" title="class or interface in java.lang.annotation" class="external-link">RUNTIME</a>)
 <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/Target.html" title="class or interface in java.lang.annotation" class="external-link">@Target</a>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/ElementType.html#METHOD" title="class or interface in java.lang.annotation" class="external-link">METHOD</a>)
 </span><span class="modifiers">public @interface </span><span class="element-name type-name-label">AIaDataObjectField</span></div>
-<div class="block">Normalized field metadata attached to a read-only data contract getter.</div>
+<div class="block">Describes an individual property in a read-only structured data-object contract.
+ Schema-specific metadata such as XML QName and XML attribute/element kind belongs
+ to schema-specific annotations, and human-readable text belongs to <code>AIaFieldLabel</code>.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -84,42 +87,17 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>boolean</code></div>
 <div class="col-second even-row-color"><code><a href="#allowsNull()" class="member-name-link">allowsNull</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Declares whether the field accepts an explicit null value.</div>
+<div class="block">Whether explicitly assigned <code>null</code> is permitted, independently of absence.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#defaultFactoryMethod()" class="member-name-link">defaultFactoryMethod</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#fieldName()" class="member-name-link">fieldName</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Name of a public static zero-argument factory on the getter's declaring interface.</div>
+<div class="block">Stable unlocalized field identifier independent of its presentation and wire QName.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#description()" class="member-name-link">description</a></code></div>
+<div class="col-first even-row-color"><code><a href="AInFieldPresenceKind.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldPresenceKind</a></code></div>
+<div class="col-second even-row-color"><code><a href="#presence()" class="member-name-link">presence</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Returns the explanatory description of this declaration.</div>
-</div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#name()" class="member-name-link">name</a></code></div>
-<div class="col-last odd-row-color">
-<div class="block">Returns the original, stable field name used by the data schema.</div>
-</div>
-<div class="col-first even-row-color"><code>boolean</code></div>
-<div class="col-second even-row-color"><code><a href="#presenceRequired()" class="member-name-link">presenceRequired</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">Reports whether a value must be present for this field.</div>
-</div>
-<div class="col-first odd-row-color"><code>boolean</code></div>
-<div class="col-second odd-row-color"><code><a href="#xmlAttribute()" class="member-name-link">xmlAttribute</a></code></div>
-<div class="col-last odd-row-color">
-<div class="block">Reports whether the field is represented as an XML attribute.</div>
-</div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#xmlLocalName()" class="member-name-link">xmlLocalName</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">Returns the configured XML local name, independently of its namespace.</div>
-</div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#xmlNamespace()" class="member-name-link">xmlNamespace</a></code></div>
-<div class="col-last odd-row-color">
-<div class="block">Returns the XML namespace associated with this schema or field.</div>
+<div class="block">Presence restriction enforced by data-object implementations.</div>
 </div>
 </div>
 </section>
@@ -134,13 +112,14 @@ loadScripts(document, 'script');</script>
 <h2>Element Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="name()">
-<h3>name</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">name</span></div>
-<div class="block">Returns the original, stable field name used by the data schema.</div>
+<section class="detail" id="fieldName()">
+<h3>fieldName</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">fieldName</span></div>
+<div class="block">Stable unlocalized field identifier independent of its presentation and wire QName.
+ An empty string derives the name from the Java getter.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the result of the operation</dd>
+<dd>schema field identifier or empty for getter-derived naming</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
@@ -149,32 +128,18 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="description()">
-<h3>description</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">description</span></div>
-<div class="block">Returns the explanatory description of this declaration.</div>
+<section class="detail" id="presence()">
+<h3>presence</h3>
+<div class="member-signature"><span class="return-type"><a href="AInFieldPresenceKind.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldPresenceKind</a></span>&nbsp;<span class="element-name">presence</span></div>
+<div class="block">Presence restriction enforced by data-object implementations. REQUIRED requires an
+ explicit or effective value, ALLOWED permits absence, and FORBIDDEN rejects assignment.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the result of the operation</dd>
+<dd>field presence policy; ALLOWED by default</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
-<dd>""</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="presenceRequired()">
-<h3>presenceRequired</h3>
-<div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">presenceRequired</span></div>
-<div class="block">Reports whether a value must be present for this field.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the result of the operation</dd>
-</dl>
-<dl class="notes">
-<dt>Default:</dt>
-<dd>false</dd>
+<dd>ALLOWED</dd>
 </dl>
 </section>
 </li>
@@ -182,70 +147,15 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="allowsNull()">
 <h3>allowsNull</h3>
 <div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">allowsNull</span></div>
-<div class="block">Declares whether the field accepts an explicit null value.</div>
+<div class="block">Whether explicitly assigned <code>null</code> is permitted, independently of absence.
+ A derived contract may narrow this permission but cannot widen a prohibition.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the result of the operation</dd>
+<dd>true unless nullability is explicitly forbidden</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
-<dd>false</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="defaultFactoryMethod()">
-<h3>defaultFactoryMethod</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">defaultFactoryMethod</span></div>
-<div class="block">Name of a public static zero-argument factory on the getter's declaring interface.</div>
-<dl class="notes">
-<dt>Default:</dt>
-<dd>""</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="xmlLocalName()">
-<h3>xmlLocalName</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">xmlLocalName</span></div>
-<div class="block">Returns the configured XML local name, independently of its namespace.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the result of the operation</dd>
-</dl>
-<dl class="notes">
-<dt>Default:</dt>
-<dd>""</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="xmlNamespace()">
-<h3>xmlNamespace</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">xmlNamespace</span></div>
-<div class="block">Returns the XML namespace associated with this schema or field.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the result of the operation</dd>
-</dl>
-<dl class="notes">
-<dt>Default:</dt>
-<dd>""</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="xmlAttribute()">
-<h3>xmlAttribute</h3>
-<div class="member-signature"><span class="return-type">boolean</span>&nbsp;<span class="element-name">xmlAttribute</span></div>
-<div class="block">Reports whether the field is represented as an XML attribute.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the result of the operation</dd>
-</dl>
-<dl class="notes">
-<dt>Default:</dt>
-<dd>false</dd>
+<dd>true</dd>
 </dl>
 </section>
 </li>

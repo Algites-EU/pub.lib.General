@@ -1,0 +1,27 @@
+python.eu.algites.lib.factory.cpdiscovery.aii_category_provider_resolution_context
+==================================================================================
+
+.. py:module:: python.eu.algites.lib.factory.cpdiscovery.aii_category_provider_resolution_context
+
+.. autoapi-nested-parse::
+
+   Optional specialized resolver factory context marker.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.factory.cpdiscovery.aii_category_provider_resolution_context.AIiCategoryProviderResolutionContext
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiCategoryProviderResolutionContext
+
+   Marker for provider contexts; absent resolution context is represented by None.
+
+

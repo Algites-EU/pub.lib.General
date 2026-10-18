@@ -1,0 +1,33 @@
+python.eu.algites.lib.data.dataobject.aii_field_default_value_resolver
+======================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.aii_field_default_value_resolver
+
+.. autoapi-nested-parse::
+
+   Default field value interface.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.aii_field_default_value_resolver.AIiFieldDefaultValueResolver
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiFieldDefaultValueResolver
+
+   Bases: :py:obj:`Protocol`
+
+
+   Resolves a default without modifying field raw presence.
+
+
+   .. py:method:: resolve_default(owner_class: type, getter_name: str) -> Any
+
+

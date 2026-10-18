@@ -1,0 +1,30 @@
+python.eu.algites.lib.common.object.props.labels.aii_field_label_resolver_factory
+=================================================================================
+
+.. py:module:: python.eu.algites.lib.common.object.props.labels.aii_field_label_resolver_factory
+
+.. autoapi-nested-parse::
+
+   Dedicated CPDiscovery resolver factory interface.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.common.object.props.labels.aii_field_label_resolver_factory.AIiFieldLabelResolverFactory
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiFieldLabelResolverFactory
+
+   Bases: :py:obj:`eu.algites.lib.factory.cpdiscovery.aii_category_provider_factory.AIiCategoryProviderFactory`, :py:obj:`abc.ABC`
+
+
+   Typed resolver provider factory selected by annotation metadata.
+
+

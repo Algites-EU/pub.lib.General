@@ -1,1 +1,4 @@
 eu.algites.lib.data.dataobject
+eu.algites.lib.data.dataobject.jsondefs
+eu.algites.lib.data.dataobject.xmldefs
+eu.algites.lib.data.dataobject.yamldefs

@@ -55,21 +55,15 @@ Module Contents
 
 
 
-   .. py:attribute:: xml_local_name
-      :type:  str
-      :value: ''
-
-
-
-   .. py:attribute:: xml_namespace
-      :type:  str
-      :value: ''
-
-
-
    .. py:attribute:: fingerprint
       :type:  str
       :value: ''
+
+
+
+   .. py:attribute:: source_contract
+      :type:  type | None
+      :value: None
 
 
 

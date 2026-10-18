@@ -71,10 +71,6 @@ loadScripts(document, 'script');</script>
 <h1 title="Interface AIiFieldLabelResolver" class="title">Interface AIiFieldLabelResolver</h1>
 </div>
 <section class="class-description" id="class-description">
-<dl class="notes">
-<dt>All Known Implementing Classes:</dt>
-<dd><code><a href="AIaFieldLabel.NoLabelResolver.html" title="class in eu.algites.lib.common.object.props.labels">AIaFieldLabel.NoLabelResolver</a></code></dd>
-</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">AIiFieldLabelResolver</span></div>
 <div class="block"><p>
@@ -114,7 +110,7 @@ loadScripts(document, 'script');</script>
  <a href="../../rendering/AIiRenderingOutputFormat.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputFormat</a>&nbsp;aOutputFormat,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Locale.html" title="class or interface in java.util" class="external-link">Locale</a>&nbsp;aOutputLocale)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Performs the class property label resolution</div>
+<div class="block">Resolves the ordinary field title using the selected rendering axes.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#resolveLabel(java.lang.Class,java.lang.String,java.lang.String,eu.algites.lib.common.object.rendering.AIiRenderingOutputPurpose,eu.algites.lib.common.object.rendering.AIiRenderingOutputFormat,java.util.Locale)" class="member-name-link">resolveLabel</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;&nbsp;aOwnerClass,
@@ -124,7 +120,7 @@ loadScripts(document, 'script');</script>
  <a href="../../rendering/AIiRenderingOutputFormat.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputFormat</a>&nbsp;aOutputFormat,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Locale.html" title="class or interface in java.util" class="external-link">Locale</a>&nbsp;aOutputLocale)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block">Role-aware extension; old resolvers remain compatible for field titles.</div>
+<div class="block">Resolves a selected semantic text role.</div>
 </div>
 </div>
 </div>
@@ -148,16 +144,17 @@ loadScripts(document, 'script');</script>
  <a href="../../rendering/AIiRenderingOutputPurpose.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputPurpose</a>&nbsp;aOutputPurpose,
  <a href="../../rendering/AIiRenderingOutputFormat.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputFormat</a>&nbsp;aOutputFormat,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Locale.html" title="class or interface in java.util" class="external-link">Locale</a>&nbsp;aOutputLocale)</span></div>
-<div class="block">Performs the class property label resolution</div>
+<div class="block">Resolves the ordinary field title using the selected rendering axes.
+ Returning null or blank allows a declared literal or property-name fallback.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>aOwnerClass</code> - </dd>
-<dd><code>aFieldName</code> - </dd>
-<dd><code>aOutputPurpose</code> - </dd>
-<dd><code>aOutputFormat</code> - </dd>
-<dd><code>aOutputLocale</code> - </dd>
+<dd><code>aOwnerClass</code> - class declaring the field or getter</dd>
+<dd><code>aFieldName</code> - Java property name to resolve</dd>
+<dd><code>aOutputPurpose</code> - effective output purpose</dd>
+<dd><code>aOutputFormat</code> - effective output format</dd>
+<dd><code>aOutputLocale</code> - effective locale</dd>
 <dt>Returns:</dt>
-<dd>label or null => fallback</dd>
+<dd>resolved text or null to permit fallback</dd>
 </dl>
 </section>
 </li>
@@ -170,7 +167,19 @@ loadScripts(document, 'script');</script>
  <a href="../../rendering/AIiRenderingOutputPurpose.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputPurpose</a>&nbsp;aOutputPurpose,
  <a href="../../rendering/AIiRenderingOutputFormat.html" title="interface in eu.algites.lib.common.object.rendering">AIiRenderingOutputFormat</a>&nbsp;aOutputFormat,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Locale.html" title="class or interface in java.util" class="external-link">Locale</a>&nbsp;aOutputLocale)</span></div>
-<div class="block">Role-aware extension; old resolvers remain compatible for field titles.</div>
+<div class="block">Resolves a selected semantic text role. Legacy implementations without role
+ support are applied only to <a href="AIaFieldLabel.html#FIELD_TITLE"><code>AIaFieldLabel.FIELD_TITLE</code></a>.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aOwnerClass</code> - class declaring the property</dd>
+<dd><code>aFieldName</code> - property name</dd>
+<dd><code>aRoleCode</code> - desired semantic text role</dd>
+<dd><code>aOutputPurpose</code> - effective rendering purpose</dd>
+<dd><code>aOutputFormat</code> - effective rendering format</dd>
+<dd><code>aOutputLocale</code> - effective locale</dd>
+<dt>Returns:</dt>
+<dd>dynamic text or null when this resolver does not support the role</dd>
+</dl>
 </section>
 </li>
 </ul>

@@ -34,12 +34,13 @@
             
   <section id="module-python.eu.algites.lib.data.dataobject.aicd_data_object_field">
 <span id="python-eu-algites-lib-data-dataobject-aicd-data-object-field"></span><h1>python.eu.algites.lib.data.dataobject.aicd_data_object_field<a class="headerlink" href="#module-python.eu.algites.lib.data.dataobject.aicd_data_object_field" title="Link to this heading">¶</a></h1>
+<p>Schema-neutral normalized data-object field metadata.</p>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField" title="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AIcdDataObjectField</span></code></a></p></td>
-<td><p>Normalized field descriptor independent of SmartDataObject implementations.</p></td>
+<td><p>Field identifier, presence and nullability independent of schema wire format.</p></td>
 </tr>
 </tbody>
 </table>
@@ -49,45 +50,28 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.data.dataobject.aicd_data_object_field.</span></span><span class="sig-name descname"><span class="pre">AIcdDataObjectField</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField" title="Link to this definition">¶</a></dt>
-<dd><p>Normalized field descriptor independent of SmartDataObject implementations.</p>
+<dd><p>Field identifier, presence and nullability independent of schema wire format.</p>
+<p><code class="docutils literal notranslate"><span class="pre">default_value_resolver</span></code> is a callable compatibility interface used by
+non-annotation Python contracts; generated contracts may use AIaFieldDefault
+and the CategoryProviderDiscovery factory selection instead.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.name" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.field_name">
+<span class="sig-name descname"><span class="pre">field_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.field_name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.description">
-<span class="sig-name descname"><span class="pre">description</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.description" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.presence_required">
-<span class="sig-name descname"><span class="pre">presence_required</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.presence_required" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.presence">
+<span class="sig-name descname"><span class="pre">presence</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../ain_field_presence_kind/index.html#python.eu.algites.lib.data.dataobject.ain_field_presence_kind.AInFieldPresenceKind" title="python.eu.algites.lib.data.dataobject.ain_field_presence_kind.AInFieldPresenceKind"><span class="pre">python.eu.algites.lib.data.dataobject.ain_field_presence_kind.AInFieldPresenceKind</span></a></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.presence" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.allows_null">
-<span class="sig-name descname"><span class="pre">allows_null</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.allows_null" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">allows_null</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.allows_null" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.default_factory">
-<span class="sig-name descname"><span class="pre">default_factory</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.default_factory" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.xml_local_name">
-<span class="sig-name descname"><span class="pre">xml_local_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.xml_local_name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.xml_namespace">
-<span class="sig-name descname"><span class="pre">xml_namespace</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.xml_namespace" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.xml_attribute">
-<span class="sig-name descname"><span class="pre">xml_attribute</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.xml_attribute" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.default_value_resolver">
+<span class="sig-name descname"><span class="pre">default_value_resolver</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.default_value_resolver" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -99,6 +83,12 @@
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.getter_name">
 <span class="sig-name descname"><span class="pre">getter_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.getter_name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.name">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object_field.AIcdDataObjectField.name" title="Link to this definition">¶</a></dt>
+<dd><p>Normalized internal field name, retained for SmartDataObject runtime callers.</p>
+</dd></dl>
 
 </dd></dl>
 

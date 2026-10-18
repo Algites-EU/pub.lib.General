@@ -1,0 +1,30 @@
+python.eu.algites.lib.data.dataobject.aii_field_default_value_resolver_factory
+==============================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.aii_field_default_value_resolver_factory
+
+.. autoapi-nested-parse::
+
+   Specialized CPDiscovery SPI for field default resolvers.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.aii_field_default_value_resolver_factory.AIiFieldDefaultValueResolverFactory
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiFieldDefaultValueResolverFactory
+
+   Bases: :py:obj:`eu.algites.lib.factory.cpdiscovery.aii_category_provider_factory.AIiCategoryProviderFactory`, :py:obj:`abc.ABC`
+
+
+   Factory category for constructing default value resolvers.
+
+
