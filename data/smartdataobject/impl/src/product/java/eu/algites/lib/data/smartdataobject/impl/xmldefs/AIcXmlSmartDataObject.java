@@ -39,4 +39,24 @@ public abstract class AIcXmlSmartDataObject extends AIcSmartDataObject implement
     protected AIcXmlSmartDataObject(Map<String, AIidVirtualFieldValue> aMapping) {
         super(aMapping);
     }
+    /**
+     * Reads a canonical XML document using schema QNames rather than element order.
+     *
+     * <p>Nested implementation classes can be provided explicitly using dot-separated
+     * field paths. If a getter already returns a concrete XML SmartDataObject subtype,
+     * it can be instantiated without an explicit mapping.
+     *
+     * @param aXml complete XML document to parse
+     * @param aType concrete generated root type, with an accessible empty constructor
+     * @param aNestedTypes concrete nested implementations indexed by field paths
+     * @param <T> concrete XML SmartDataObject result type
+     * @return the populated typed XML document
+     * @throws IllegalArgumentException when the document or its schema mapping is invalid
+     */
+    public static <T extends AIcXmlSmartDataObject> T fromXml(String aXml, Class<T> aType,
+            Map<String, Class<? extends AIcXmlSmartDataObject>> aNestedTypes) {
+        return eu.algites.lib.data.smartdataobject.impl.standard.AIcXmlSmartDataObjectParser
+                .fromXml(aXml, aType, aNestedTypes);
+    }
+
 }

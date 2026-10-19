@@ -110,9 +110,9 @@ schema-generated mutable contract to remain assignable to both generic runtime
 SmartDataObject code and the appropriate schema technology. The `impl.xmldefs`, `impl.jsondefs`, and `impl.yamldefs` packages now provide
 `AIcXmlSmartDataObject`, `AIcJsonSmartDataObject`, and `AIcYamlSmartDataObject`,
 each extending the shared runtime base `AIcSmartDataObject` and implementing
-the matching technology interface. These technology bases currently introduce
-no additional state, validation, or serialization behavior; they establish
-a stable extension point for generated classes.
+the matching technology interface. The XML technology base now also supports
+QName-aware canonical XML deserialization. The JSON/YAML technology bases
+remain extension points without additional format-specific behavior.
 
 A downstream generator should make its read-only contract extend the matching
 `AIi*DataObject`, its mutable contract extend both the read-only contract and
@@ -121,3 +121,36 @@ the appropriate `AIc*SmartDataObject` technology-specific implementation class. 
 required for `substitutionGroup` is orthogonal and remains in the read-only
 contract graph. Defs/SDO generators in `pub.tool.General` are independently versioned and
 need to be synchronized with the technology-specific API in this library.
+
+
+## Canonical QName-aware XML input
+
+The XML technology bases support input of XML elements and attributes using their
+expanded `{namespaceURI}localName` identity, not the input document's prefix or
+child ordering. The operation creates **concrete typed** SmartDataObject instances,
+including repeated sibling elements and nested objects. Repeating fields preserve
+the relative order of their own XML element occurrences.
+
+- **Java:** `AIcXmlSmartDataObject.fromXml(xml, GeneratedClass.class, nestedTypes)`
+  accepts a map of generated concrete implementation types indexed by field paths
+  such as `Address` or `Address.City`; concrete getter types are inferred when
+  possible. A zero-argument constructor is required on instantiated classes.
+- **Python:** `GeneratedClass.from_xml(xml, nested_types)` uses optional
+  `__xml_field_types__` and `__xml_repeated_fields__` declarations. Repetition
+  is also inferred when a field's expected type is `list`. Nested overrides
+  can be provided by dot-qualified field paths.
+
+Unknown QNames, ambiguous field definitions, repeated scalar elements, invalid
+lexical values, unsupported scalar types and unexpected mixed content fail
+explicitly instead of being discarded. DTDs and external entities are disabled.
+The input parser checks ordinary SmartDataObject presence and type validation;
+it does **not** replace a validating XML Schema processor. Complex particles,
+full XSD facets, wildcard validation and substitution-group resolution require
+independent support from the schema generator/validator. The structure of those
+constructs must not be silently projected onto ordinary fields.
+
+`pub.tool.General` must emit the nested type and repetition metadata when it
+generates XML concrete SmartDataObject classes. Without that metadata, nested
+interface-typed fields cannot automatically select a concrete class, and a
+single occurrence of an untyped repeating field cannot always be distinguished
+from an ordinary scalar field.
