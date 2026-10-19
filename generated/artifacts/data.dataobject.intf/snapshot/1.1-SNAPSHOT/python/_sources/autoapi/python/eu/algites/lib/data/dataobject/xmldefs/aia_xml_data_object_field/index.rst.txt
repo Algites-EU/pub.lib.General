@@ -51,3 +51,15 @@ Module Contents
 
 
 
+   .. py:attribute:: min_occurs
+      :type:  int
+      :value: -1
+
+
+
+   .. py:attribute:: max_occurs
+      :type:  int
+      :value: -1
+
+
+
