@@ -5,7 +5,7 @@ python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_objec
 
 .. autoapi-nested-parse::
 
-   Reusable mutable foundation for objects generated from XML Schema definitions.
+   Reusable mutable foundation for XML Schema generated SmartDataObjects.
 
 
 
@@ -25,9 +25,31 @@ Module Contents
    Bases: :py:obj:`eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object.AIcSmartDataObject`, :py:obj:`eu.algites.lib.data.smartdataobject.xmldefs.aii_xml_smart_data_object.AIiXmlSmartDataObject`
 
 
-   Preserve the XML Schema implementation lineage with the shared SDO runtime.
+   Mutable XML Schema object with namespace-aware, order-tolerant parsing.
 
-   Concrete generated subclasses supply schema fields, accessors and metadata.
-   No source-technology-specific operations are introduced by this base yet.
+   Generated types can declare ``__xml_field_types__`` mapping field names to
+   concrete nested SmartDataObject classes, plus ``__xml_repeated_fields__`` for
+   fields with ``maxOccurs`` greater than one. Both mappings are inherited.
+   Unknown attributes/elements, duplicate non-repeating QNames, unexpected
+   mixed content and unsupported nested types are rejected rather than lost.
+
+
+   .. py:method:: from_xml(aXml: str, aNestedTypes: collections.abc.Mapping[str, type] | None = None)
+      :classmethod:
+
+
+      Create a concrete typed object from XML without enforcing child order.
+
+      XML element and attribute identities use expanded QNames. Repeated
+      siblings preserve document order within their own field. Typed nested
+      objects must be declared on the class or supplied through ``aNestedTypes``.
+      The standard SmartDataObject validation runs after population.
+
+      :param aXml: XML document containing exactly one document element
+      :param aNestedTypes: optional field-to-concrete-class overrides for this level
+      :return: the populated generated SmartDataObject subtype
+      :raises ValueError: for unknown, duplicated, or structurally invalid content
+      :raises TypeError: if no safe conversion exists for a field
+
 
 

@@ -15,7 +15,11 @@
 <script type="text/javascript" src="../../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var pathtoroot = "../../../../../../../";
+<script type="text/javascript">var evenRowColor = "even-row-color";
+var oddRowColor = "odd-row-color";
+var tableTab = "table-tab";
+var activeTableTab = "active-table-tab";
+var pathtoroot = "../../../../../../../";
 loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -48,7 +52,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method-detail">Method</a></li>
 </ul>
 </div>
 <div class="nav-list-search"><label for="search-input">SEARCH:</label>
@@ -129,6 +133,23 @@ implements eu.algites.lib.data.smartdataobject.xmldefs.AIiXmlSmartDataObject</sp
 <li>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
+<div id="method-summary-table">
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Method</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="AIcXmlSmartDataObject.html" title="class in eu.algites.lib.data.smartdataobject.impl.xmldefs">AIcXmlSmartDataObject</a>&gt;<br>T</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#fromXml(java.lang.String,java.lang.Class,java.util.Map)" class="member-name-link">fromXml</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aXml,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;aType,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="AIcXmlSmartDataObject.html" title="class in eu.algites.lib.data.smartdataobject.impl.xmldefs">AIcXmlSmartDataObject</a>&gt;&gt;&nbsp;aNestedTypes)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Reads a canonical XML document using schema QNames rather than element order.</div>
+</div>
+</div>
+</div>
+</div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-eu.algites.lib.data.smartdataobject.impl.standard.AIcSmartDataObject">Methods inherited from class&nbsp;eu.algites.lib.data.smartdataobject.impl.standard.<a href="../standard/AIcSmartDataObject.html" title="class in eu.algites.lib.data.smartdataobject.impl.standard">AIcSmartDataObject</a></h3>
 <code><a href="../standard/AIcSmartDataObject.html#get_DeeplyEffectiveNotPresentRequiredFields()">get_DeeplyEffectiveNotPresentRequiredFields</a>, <a href="../standard/AIcSmartDataObject.html#get_DeeplyEffectiveValuesValidationIssues()">get_DeeplyEffectiveValuesValidationIssues</a>, <a href="../standard/AIcSmartDataObject.html#get_DeeplyRawNotPresentRequiredFields()">get_DeeplyRawNotPresentRequiredFields</a>, <a href="../standard/AIcSmartDataObject.html#get_DeeplyRawValuesValidationIssues()">get_DeeplyRawValuesValidationIssues</a>, <a href="../standard/AIcSmartDataObject.html#get_DefaultDiagnosticSettings()">get_DefaultDiagnosticSettings</a>, <a href="../standard/AIcSmartDataObject.html#get_EffectiveField(java.lang.String)">get_EffectiveField</a>, <a href="../standard/AIcSmartDataObject.html#get_EffectiveNotPresentRequiredFields()">get_EffectiveNotPresentRequiredFields</a>, <a href="../standard/AIcSmartDataObject.html#get_EffectiveValuesValidationIssues()">get_EffectiveValuesValidationIssues</a>, <a href="../standard/AIcSmartDataObject.html#get_RawField(java.lang.String)">get_RawField</a>, <a href="../standard/AIcSmartDataObject.html#get_RawNotPresentRequiredFields()">get_RawNotPresentRequiredFields</a>, <a href="../standard/AIcSmartDataObject.html#get_RawValuesValidationIssues()">get_RawValuesValidationIssues</a>, <a href="../standard/AIcSmartDataObject.html#is_ByEffectiveValuesValid()">is_ByEffectiveValuesValid</a>, <a href="../standard/AIcSmartDataObject.html#is_ByRawValuesValid()">is_ByRawValuesValid</a>, <a href="../standard/AIcSmartDataObject.html#is_DeeplyByEffectiveValuesValid()">is_DeeplyByEffectiveValuesValid</a>, <a href="../standard/AIcSmartDataObject.html#is_DeeplyByRawValuesValid()">is_DeeplyByRawValuesValid</a>, <a href="../standard/AIcSmartDataObject.html#isPresent_Field(java.lang.String)">isPresent_Field</a>, <a href="../standard/AIcSmartDataObject.html#set_DefaultDiagnosticSettings(eu.algites.lib.data.smartdataobject.impl.standard.AIcSmartDataObject.AIcdDiagnosticSettings)">set_DefaultDiagnosticSettings</a>, <a href="../standard/AIcSmartDataObject.html#set_RawField(java.lang.String,java.lang.Object)">set_RawField</a>, <a href="../standard/AIcSmartDataObject.html#toMapping_EffectiveValues()">toMapping_EffectiveValues</a>, <a href="../standard/AIcSmartDataObject.html#toMapping_RawValues()">toMapping_RawValues</a>, <a href="../standard/AIcSmartDataObject.html#toString()">toString</a>, <a href="../standard/AIcSmartDataObject.html#toString_EffectiveValues(eu.algites.lib.text.format.AIiTextFormatProfile,eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)">toString_EffectiveValues</a>, <a href="../standard/AIcSmartDataObject.html#toString_RawValues(eu.algites.lib.text.format.AIiTextFormatProfile,eu.algites.lib.text.format.AInTextOutputObjectReferenceMode)">toString_RawValues</a>, <a href="../standard/AIcSmartDataObject.html#unset_Field(java.lang.String)">unset_Field</a></code></div>
@@ -169,6 +190,39 @@ implements eu.algites.lib.data.smartdataobject.xmldefs.AIiXmlSmartDataObject</sp
 <dt>Parameters:</dt>
 <dd><code>aMapping</code> - typed field graph to populate; must satisfy the shared runtime
                  mapping preconditions</dd>
+</dl>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<!-- ============ METHOD DETAIL ========== -->
+<li>
+<section class="method-details" id="method-detail">
+<h2>Method Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="fromXml(java.lang.String,java.lang.Class,java.util.Map)">
+<h3>fromXml</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T extends <a href="AIcXmlSmartDataObject.html" title="class in eu.algites.lib.data.smartdataobject.impl.xmldefs">AIcXmlSmartDataObject</a>&gt;</span>&nbsp;<span class="return-type">T</span>&nbsp;<span class="element-name">fromXml</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aXml,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;aType,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="AIcXmlSmartDataObject.html" title="class in eu.algites.lib.data.smartdataobject.impl.xmldefs">AIcXmlSmartDataObject</a>&gt;&gt;&nbsp;aNestedTypes)</span></div>
+<div class="block">Reads a canonical XML document using schema QNames rather than element order.
+
+ <p>Nested implementation classes can be provided explicitly using dot-separated
+ field paths. If a getter already returns a concrete XML SmartDataObject subtype,
+ it can be instantiated without an explicit mapping.</div>
+<dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>T</code> - concrete XML SmartDataObject result type</dd>
+<dt>Parameters:</dt>
+<dd><code>aXml</code> - complete XML document to parse</dd>
+<dd><code>aType</code> - concrete generated root type, with an accessible empty constructor</dd>
+<dd><code>aNestedTypes</code> - concrete nested implementations indexed by field paths</dd>
+<dt>Returns:</dt>
+<dd>the populated typed XML document</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - when the document or its schema mapping is invalid</dd>
 </dl>
 </section>
 </li>

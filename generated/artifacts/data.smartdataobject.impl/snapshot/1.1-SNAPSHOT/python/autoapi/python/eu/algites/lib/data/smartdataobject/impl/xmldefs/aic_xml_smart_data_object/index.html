@@ -34,13 +34,13 @@
             
   <section id="module-python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object">
 <span id="python-eu-algites-lib-data-smartdataobject-impl-xmldefs-aic-xml-smart-data-object"></span><h1>python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object<a class="headerlink" href="#module-python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object" title="Link to this heading">¶</a></h1>
-<p>Reusable mutable foundation for objects generated from XML Schema definitions.</p>
+<p>Reusable mutable foundation for XML Schema generated SmartDataObjects.</p>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object.AIcXmlSmartDataObject" title="python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object.AIcXmlSmartDataObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AIcXmlSmartDataObject</span></code></a></p></td>
-<td><p>Preserve the XML Schema implementation lineage with the shared SDO runtime.</p></td>
+<td><p>Mutable XML Schema object with namespace-aware, order-tolerant parsing.</p></td>
 </tr>
 </tbody>
 </table>
@@ -51,9 +51,39 @@
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object.AIcXmlSmartDataObject">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object.</span></span><span class="sig-name descname"><span class="pre">AIcXmlSmartDataObject</span></span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object.AIcXmlSmartDataObject" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object.AIcSmartDataObject</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">eu.algites.lib.data.smartdataobject.xmldefs.aii_xml_smart_data_object.AIiXmlSmartDataObject</span></code></p>
-<p>Preserve the XML Schema implementation lineage with the shared SDO runtime.</p>
-<p>Concrete generated subclasses supply schema fields, accessors and metadata.
-No source-technology-specific operations are introduced by this base yet.</p>
+<p>Mutable XML Schema object with namespace-aware, order-tolerant parsing.</p>
+<p>Generated types can declare <code class="docutils literal notranslate"><span class="pre">__xml_field_types__</span></code> mapping field names to
+concrete nested SmartDataObject classes, plus <code class="docutils literal notranslate"><span class="pre">__xml_repeated_fields__</span></code> for
+fields with <code class="docutils literal notranslate"><span class="pre">maxOccurs</span></code> greater than one. Both mappings are inherited.
+Unknown attributes/elements, duplicate non-repeating QNames, unexpected
+mixed content and unsupported nested types are rejected rather than lost.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object.AIcXmlSmartDataObject.from_xml">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aXml</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aNestedTypes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">type</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#python.eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object.AIcXmlSmartDataObject.from_xml" title="Link to this definition">¶</a></dt>
+<dd><p>Create a concrete typed object from XML without enforcing child order.</p>
+<p>XML element and attribute identities use expanded QNames. Repeated
+siblings preserve document order within their own field. Typed nested
+objects must be declared on the class or supplied through <code class="docutils literal notranslate"><span class="pre">aNestedTypes</span></code>.
+The standard SmartDataObject validation runs after population.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aXml</strong> – XML document containing exactly one document element</p></li>
+<li><p><strong>aNestedTypes</strong> – optional field-to-concrete-class overrides for this level</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the populated generated SmartDataObject subtype</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – for unknown, duplicated, or structurally invalid content</p></li>
+<li><p><strong>TypeError</strong> – if no safe conversion exists for a field</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
