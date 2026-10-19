@@ -135,6 +135,8 @@ public final class AIcXmlSmartDataObjectParser {
                     !locNil.getValue().equals("true") && !locNil.getValue().equals("1"))
                 throw new IllegalArgumentException("Invalid xsi:nil lexical value");
             if (locNil != null && (locNil.getValue().equals("true") || locNil.getValue().equals("1"))) {
+                if (!locField.annotation().allowsNull())
+                    throw new IllegalArgumentException("Non-nillable XML element: " + locFieldPath);
                 if (hasChildren(locElement) || hasText(locElement) || otherAttributes(locElement))
                     throw new IllegalArgumentException("Nil XML element has content or other attributes");
                 locValue = null;
@@ -162,6 +164,18 @@ public final class AIcXmlSmartDataObjectParser {
             }
         }
         for (var locField : locMetadata.fields()) {
+            var locXml = locField.xml();
+            if (locXml != null && (locXml.minOccurs() >= 0 || locXml.maxOccurs() >= 0)) {
+                Object locValue = locValues.get(locField.name());
+                int locCount = locValue instanceof List<?> locList ? locList.size()
+                        : locValues.containsKey(locField.name()) ? 1 : 0;
+                if (locXml.minOccurs() >= 0 && locCount < locXml.minOccurs())
+                    throw new IllegalArgumentException("XML field '" + locField.name() + "' has "
+                            + locCount + " occurrences; minimum is " + locXml.minOccurs());
+                if (locXml.maxOccurs() >= 0 && locCount > locXml.maxOccurs())
+                    throw new IllegalArgumentException("XML field '" + locField.name() + "' has "
+                            + locCount + " occurrences; maximum is " + locXml.maxOccurs());
+            }
             if (List.class.isAssignableFrom(locField.getter().getReturnType()))
                 locValues.putIfAbsent(locField.name(), new ArrayList<>());
         }

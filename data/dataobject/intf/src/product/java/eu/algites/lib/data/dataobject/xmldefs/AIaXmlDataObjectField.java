@@ -43,4 +43,21 @@ public @interface AIaXmlDataObjectField {
      * @return schema position or {@code -1} when unspecified
      */
     int order() default -1;
+
+    /**
+     * Minimum number of XML wire occurrences. Negative means the schema has not
+     * supplied an occurrence bound, not an implicit requirement. Attributes have
+     * cardinality zero or one; generated contracts include their exact bounds.
+     *
+     * @return minimum XML occurrence count, or {@code -1} when unspecified
+     */
+    int minOccurs() default -1;
+
+    /**
+     * Maximum number of XML wire occurrences. {@code -1} means unspecified or
+     * unbounded; a nonnegative value is an enforceable wire limit.
+     *
+     * @return maximum XML occurrence count, or {@code -1} without a finite limit
+     */
+    int maxOccurs() default -1;
 }

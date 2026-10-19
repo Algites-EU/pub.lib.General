@@ -138,4 +138,49 @@ public final class AItcXmlQNameDeserializationTest {
             AIcXmlSmartDataObject.fromXml("<!DOCTYPE Order [<!ENTITY x 'value'>]>"
                     + "<Order xmlns='urn:orders'/>", AIcOrder.class, Map.of()));
     }
+
+    /** XML contract with explicit wire minima and maxima for scalar and collection elements. */
+    @AIaXmlDataObject(namespace = "urn:bounded", namespaceLocalName = "Root")
+    public interface AIiBoundedXml extends AIiXmlDataObject {
+        /** One mandatory scalar occurrence. */
+        @AIaDataObjectField(fieldName = "Required")
+        @AIaXmlDataObjectField(namespace = "urn:bounded", namespaceLocalName = "Required",
+                minOccurs = 1, maxOccurs = 1)
+        String getRequired();
+
+        /** One or two XML siblings with identical expanded QName. */
+        @AIaDataObjectField(fieldName = "Entry")
+        @AIaXmlDataObjectField(namespace = "urn:bounded", namespaceLocalName = "Entry",
+                minOccurs = 1, maxOccurs = 2)
+        List<String> getEntry();
+    }
+
+    /** Concrete mutable holder for bounded XML declarations. */
+    public static final class AIcBoundedXml extends AIcXmlSmartDataObject implements AIiBoundedXml {
+        /** Initializes the holder before XML fields are populated. */
+        public AIcBoundedXml() { super(); }
+        /** {@inheritDoc} */
+        @Override public String getRequired() { return (String) get_EffectiveField("Required"); }
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override public List<String> getEntry() { return (List<String>) get_EffectiveField("Entry"); }
+    }
+
+    /** Both scalar and repeated XML fields must satisfy generated cardinality declarations. */
+    @Test
+    public void AIcXmlOccurrenceBoundsRejectMissingAndExcessValues() {
+        String locValid = "<Root xmlns='urn:bounded'><Entry>A</Entry>"
+                + "<Required>X</Required><Entry>B</Entry></Root>";
+        AIcBoundedXml locValue = AIcXmlSmartDataObject.fromXml(locValid, AIcBoundedXml.class, Map.of());
+        Assert.assertEquals(locValue.getRequired(), "X");
+        Assert.assertEquals(locValue.getEntry(), List.of("A", "B"));
+        Assert.expectThrows(IllegalArgumentException.class, () -> AIcXmlSmartDataObject.fromXml(
+                "<Root xmlns='urn:bounded'><Entry>A</Entry></Root>", AIcBoundedXml.class, Map.of()));
+        Assert.expectThrows(IllegalArgumentException.class, () -> AIcXmlSmartDataObject.fromXml(
+                "<Root xmlns='urn:bounded'><Required>X</Required></Root>", AIcBoundedXml.class, Map.of()));
+        Assert.expectThrows(IllegalArgumentException.class, () -> AIcXmlSmartDataObject.fromXml(
+                "<Root xmlns='urn:bounded'><Required>X</Required><Entry>A</Entry>"
+                + "<Entry>B</Entry><Entry>C</Entry></Root>", AIcBoundedXml.class, Map.of()));
+    }
+
 }

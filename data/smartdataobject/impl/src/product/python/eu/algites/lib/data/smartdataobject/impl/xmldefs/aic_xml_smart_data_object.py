@@ -164,6 +164,8 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
             if nil is not None and nil not in ('true', '1', 'false', '0'):
                 raise ValueError('Invalid xsi:nil value: ' + repr(nil))
             if nil in ('true', '1'):
+                if not descriptor.allows_null:
+                    raise ValueError('Non-nillable XML element: ' + field_name)
                 if len(child) or child.text and child.text.strip() or len(child.attrib) != 1:
                     raise ValueError('Nil XML element cannot have a value: ' + field_name)
                 value = None
@@ -184,6 +186,16 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
                 raise ValueError('Duplicate non-repeating XML element: ' + field_name)
             else:
                 values[field_name] = value
+        for name, descriptor in descriptors.items():
+            xml = xml_metadata.get(name)
+            if xml is None or xml.min_occurs < 0 and xml.max_occurs < 0:
+                continue
+            value = values.get(name)
+            count = len(value) if name in repeated and isinstance(value, list) else int(name in values)
+            if xml.min_occurs >= 0 and count < xml.min_occurs:
+                raise ValueError(f'XML field {name!r} has {count} occurrences; minimum is {xml.min_occurs}')
+            if xml.max_occurs >= 0 and count > xml.max_occurs:
+                raise ValueError(f'XML field {name!r} has {count} occurrences; maximum is {xml.max_occurs}')
         for name in repeated:
             if name not in values:
                 values[name] = []

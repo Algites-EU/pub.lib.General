@@ -98,3 +98,42 @@ def test_missing_repeated_field_is_empty_list():
 def test_rejects_unsafe_or_ambiguous_xml(xml, reason):
     with pytest.raises((ValueError, TypeError), match=reason):
         AIcgdOrder.from_xml(xml)
+
+
+class AIcgdBoundedXml(AIcXmlSmartDataObject):
+    """Runtime fixture for exact XML occurrence limits independent of field presence."""
+    __xml_data_object__ = AIaXmlDataObject(namespace='urn:bounded', namespace_local_name='Root')
+    __data_object_fields__ = (
+        AIcdDataObjectField('Required', expected_type=str),
+        AIcdDataObjectField('Entry', expected_type=list),
+    )
+    __xml_data_object_fields__ = {
+        'Required': AIaXmlDataObjectField(namespace='urn:bounded', namespace_local_name='Required',
+                                          min_occurs=1, max_occurs=1),
+        'Entry': AIaXmlDataObjectField(namespace='urn:bounded', namespace_local_name='Entry',
+                                       min_occurs=1, max_occurs=2),
+    }
+    __xml_repeated_fields__ = ('Entry',)
+
+
+def test_xml_parser_enforces_wire_cardinalities():
+    """A required XML node and a bounded sibling list must respect their source XSD interval."""
+    good = '<Root xmlns="urn:bounded"><Entry>A</Entry><Required>X</Required><Entry>B</Entry></Root>'
+    result = AIcgdBoundedXml.from_xml(good)
+    assert result.get_RawField('Required') == 'X'
+    assert result.get_RawField('Entry') == ['A', 'B']
+    with pytest.raises(ValueError, match='Required.*minimum'):
+        AIcgdBoundedXml.from_xml('<Root xmlns="urn:bounded"><Entry>A</Entry></Root>')
+    with pytest.raises(ValueError, match='Entry.*minimum'):
+        AIcgdBoundedXml.from_xml('<Root xmlns="urn:bounded"><Required>X</Required></Root>')
+    with pytest.raises(ValueError, match='Entry.*maximum'):
+        AIcgdBoundedXml.from_xml('<Root xmlns="urn:bounded"><Required>X</Required>'
+            '<Entry>A</Entry><Entry>B</Entry><Entry>C</Entry></Root>')
+
+
+def test_xml_occurrence_metadata_rejects_invalid_intervals():
+    """Generated wire intervals must not contain negative or inverted finite bounds."""
+    with pytest.raises(ValueError, match='min_occurs exceeds max_occurs'):
+        AIaXmlDataObjectField(min_occurs=2, max_occurs=1)
+    with pytest.raises(ValueError, match='bound'):
+        AIaXmlDataObjectField(min_occurs=-2)

@@ -14,3 +14,12 @@ class AIaXmlDataObjectField:
     namespace_local_name: str = ''
     value_kind: AInXmlValueKind = AInXmlValueKind.ELEMENT
     order: int = -1
+    min_occurs: int = -1
+    max_occurs: int = -1
+
+    def __post_init__(self):
+        """Reject negative finite maxima and inverted XML occurrence ranges."""
+        if self.min_occurs < -1 or self.max_occurs < -1:
+            raise ValueError('Invalid XML occurrence bound')
+        if self.min_occurs >= 0 and self.max_occurs >= 0 and self.min_occurs > self.max_occurs:
+            raise ValueError('XML min_occurs exceeds max_occurs')
