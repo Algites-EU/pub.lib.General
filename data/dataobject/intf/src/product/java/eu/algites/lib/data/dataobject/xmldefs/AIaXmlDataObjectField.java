@@ -33,4 +33,14 @@ public @interface AIaXmlDataObjectField {
      * @return XML element or attribute representation
      */
     AInXmlValueKind valueKind() default AInXmlValueKind.ELEMENT;
+
+    /**
+     * Zero-based position in the declaring XML content model. A negative value
+     * means that no schema order was supplied, as with manually written
+     * contracts. The order is applied within each declaring interface so
+     * inherited base fields precede locally declared derived fields.
+     *
+     * @return schema position or {@code -1} when unspecified
+     */
+    int order() default -1;
 }

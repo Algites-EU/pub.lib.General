@@ -59,7 +59,21 @@ final class AIcSmartDataMetadata {
             if (locFoundSchema != null && locSchema == null) locSchema = locFoundSchema;
             AIaXmlDataObject locFoundXmlSchema = locType.getDeclaredAnnotation(AIaXmlDataObject.class);
             if (locFoundXmlSchema != null && locXmlSchema == null) locXmlSchema = locFoundXmlSchema;
-            for (Method locGetter : locType.getDeclaredMethods()) {
+            Method[] locMethods = locType.getDeclaredMethods();
+            /* Java reflection does not guarantee declaration order. Generated XML
+             * contracts carry an explicit order on each declaring interface;
+             * sorting per interface also keeps inherited fields before extensions. */
+            if (java.util.Arrays.stream(locMethods).anyMatch(aMethod -> {
+                AIaXmlDataObjectField locXml = aMethod.getDeclaredAnnotation(AIaXmlDataObjectField.class);
+                return locXml != null && locXml.order() >= 0;
+            })) {
+                java.util.Arrays.sort(locMethods, java.util.Comparator
+                        .comparingInt((Method aMethod) -> {
+                            AIaXmlDataObjectField locXml = aMethod.getDeclaredAnnotation(AIaXmlDataObjectField.class);
+                            return locXml == null || locXml.order() < 0 ? Integer.MAX_VALUE : locXml.order();
+                        }).thenComparing(Method::getName));
+            }
+            for (Method locGetter : locMethods) {
                 AIaDataObjectField locAnnotation = locGetter.getDeclaredAnnotation(AIaDataObjectField.class);
                 if (locAnnotation == null) continue;
                 if (locGetter.getParameterCount() != 0 || locGetter.getReturnType() == void.class)

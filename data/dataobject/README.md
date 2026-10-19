@@ -10,6 +10,12 @@ Effective defaults do not make raw fields present and never replace explicit nul
 XML metadata is separate, in `eu.algites.lib.data.dataobject.xmldefs` and the
 Python `xmldefs` package. `AIaXmlDataObject` represents XML types or global
 elements; `AIaXmlDataObjectField` marks XML QNames and ELEMENT/ATTRIBUTE fields.
+Its optional `order` (default `-1`) is the zero-based declaration position
+within the XML type. Generated XML contracts provide this position explicitly;
+the Java SmartDataObject metadata scanner sorts annotated getters by position
+within each declaring contract, because reflection order is unspecified. Python
+metadata retains the same position and maintains declaration order. Strict XSD
+validation of sequence ordering is separate from tolerant QName-based parsing.
 The shared DataObject APIs do not carry XML namespace or attribute flags.
 
 XML substitution-group relationships are declared through generated `_xe`

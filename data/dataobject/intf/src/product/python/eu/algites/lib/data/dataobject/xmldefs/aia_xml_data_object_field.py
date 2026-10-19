@@ -13,3 +13,4 @@ class AIaXmlDataObjectField:
     namespace: str = ''
     namespace_local_name: str = ''
     value_kind: AInXmlValueKind = AInXmlValueKind.ELEMENT
+    order: int = -1

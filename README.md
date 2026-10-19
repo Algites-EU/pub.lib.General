@@ -294,8 +294,10 @@ specialized provider factories.
 
 XML Schema identity and wire representation belong to the separate
 `data.dataobject.xmldefs` package: `AIaXmlDataObject` distinguishes types from
-global elements, and `AIaXmlDataObjectField` specifies QName and element/attribute
-representation. Substitution groups are expressed through interface inheritance:
+global elements, and `AIaXmlDataObjectField` specifies QName, element/attribute
+representation and optional zero-based schema field order. This order is used
+to stabilize Java XML serialization independently of reflection method order;
+strict XSD sequence validation is a separate concern. Substitution groups are expressed through interface inheritance:
 a generated element interface (`_xe`) extends its XML type interface (`_x`) and,
 when substitution is legal, the substituted head element interface (`_xe`).
 There are no Open Choice annotations or runtime substitution registries.
