@@ -94,9 +94,14 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">Local part of the field's XML QName, or empty for its common field name.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="AInXmlValueKind.html" title="enum class in eu.algites.lib.data.dataobject.xmldefs">AInXmlValueKind</a></code></div>
-<div class="col-second even-row-color"><code><a href="#valueKind()" class="member-name-link">valueKind</a></code></div>
+<div class="col-first even-row-color"><code>int</code></div>
+<div class="col-second even-row-color"><code><a href="#order()" class="member-name-link">order</a></code></div>
 <div class="col-last even-row-color">
+<div class="block">Zero-based position in the declaring XML content model.</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="AInXmlValueKind.html" title="enum class in eu.algites.lib.data.dataobject.xmldefs">AInXmlValueKind</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#valueKind()" class="member-name-link">valueKind</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">XML wire kind; ELEMENT is the default, ATTRIBUTE requires a scalar value.</div>
 </div>
 </div>
@@ -153,6 +158,24 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>ELEMENT</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="order()">
+<h3>order</h3>
+<div class="member-signature"><span class="return-type">int</span>&nbsp;<span class="element-name">order</span></div>
+<div class="block">Zero-based position in the declaring XML content model. A negative value
+ means that no schema order was supplied, as with manually written
+ contracts. The order is applied within each declaring interface so
+ inherited base fields precede locally declared derived fields.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>schema position or <code>-1</code> when unspecified</dd>
+</dl>
+<dl class="notes">
+<dt>Default:</dt>
+<dd>-1</dd>
 </dl>
 </section>
 </li>

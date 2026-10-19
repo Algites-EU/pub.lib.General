@@ -45,3 +45,9 @@ Module Contents
       :type:  python.eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind.AInXmlValueKind
 
 
+   .. py:attribute:: order
+      :type:  int
+      :value: -1
+
+
+
