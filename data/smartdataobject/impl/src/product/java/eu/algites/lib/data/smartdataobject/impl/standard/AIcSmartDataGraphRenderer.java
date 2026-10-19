@@ -388,7 +388,7 @@ final class AIcSmartDataGraphRenderer {
             if (!aNode.isComposite()) {
                 if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.OPAQUE && !profile.isDiagnostic())
                     throw new IllegalArgumentException("Unsupported opaque canonical XML value");
-                aOut.append('>').append(xmlEscape(String.valueOf(aNode.scalar))).append("</").append(locName).append(">\n");
+                aOut.append('>').append(xmlEscape(profile.isDiagnostic() ? String.valueOf(aNode.scalar) : xmlScalarText(aNode.scalar))).append("</").append(locName).append(">\n");
                 return;
             }
             if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SMART) {
@@ -406,7 +406,7 @@ final class AIcSmartDataGraphRenderer {
                                 aOut.append(' ').append(qname(
                                         locField.descriptor.xmlLocalName(),
                                         locField.descriptor.xmlNamespace()))
-                                        .append("=\"").append(xmlEscape(String.valueOf(locValue.scalar))).append('"');
+                                        .append("=\"").append(xmlEscape(xmlScalarText(locValue.scalar))).append('"');
                         }
                     }
                 }
@@ -424,8 +424,16 @@ final class AIcSmartDataGraphRenderer {
                             xml(snapshot.fieldValue(locField, effective), aOut, aDepth + 2, "Value", true);
                             aOut.append("  ".repeat(aDepth + 1)).append("</").append(locFieldName).append(">\n");
                         }
-                    } else xml(snapshot.fieldValue(locField, effective), aOut, aDepth + 1,
-                            qname(locFieldName, locField.descriptor.xmlNamespace()), true);
+                    } else {
+                        var locValue = snapshot.fieldValue(locField, effective);
+                        String locQName = qname(locFieldName, locField.descriptor.xmlNamespace());
+                        /* XSD maxOccurs represents repeated sibling elements, not a
+                         * single wrapper element containing artificial Item children. */
+                        if (locValue.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SEQUENCE) {
+                            for (var locItem : locValue.elements)
+                                xml(locItem, aOut, aDepth + 1, locQName, true);
+                        } else xml(locValue, aOut, aDepth + 1, locQName, true);
+                    }
                 }
             } else if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SEQUENCE) {
                 aOut.append(">\n");
@@ -442,6 +450,28 @@ final class AIcSmartDataGraphRenderer {
             aOut.append("  ".repeat(aDepth)).append("</").append(locName).append(">\n");
         } finally { active.remove(aNode); }
     }
+    /** Return a canonical XML Schema lexical scalar, including generated enum wire values. */
+    private static String xmlScalarText(Object aValue) {
+        if (aValue instanceof Enum<?> locEnum) {
+            try {
+                var locWireMethod = locEnum.getDeclaringClass().getMethod("wireValue");
+                if (locWireMethod.getReturnType() != String.class)
+                    throw new IllegalArgumentException("Enum wireValue must return String: "
+                            + locEnum.getDeclaringClass().getName());
+                String locWire = (String) locWireMethod.invoke(locEnum);
+                if (locWire == null)
+                    throw new IllegalArgumentException("Null enum wireValue: " + locEnum.getDeclaringClass().getName());
+                return locWire;
+            } catch (NoSuchMethodException locNoWireMethod) {
+                /* Handwritten enums without canonical wire metadata use their identifier. */
+                return locEnum.name();
+            } catch (ReflectiveOperationException locFailure) {
+                throw new IllegalStateException("Cannot access enum XML wireValue", locFailure);
+            }
+        }
+        return String.valueOf(aValue);
+    }
+
     private static String xmlEscape(String aValue) {
         return AIsTextFormatEscapes.xmlText(aValue);
     }

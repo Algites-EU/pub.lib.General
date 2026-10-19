@@ -77,6 +77,19 @@ def _validate_field_restriction(parent: Any, child: Any) -> None:
         raise ValueError('Restriction cannot introduce null: ' + child.name)
 
 
+def _xml_lexical(value: Any) -> str:
+    """Render XSD-compatible booleans and enumerated wire values.
+
+    In particular, Python's ``str(True)`` and default ``str(Enum)`` are not
+    valid XML Schema lexical representations of their underlying values.
+    """
+    if isinstance(value, Enum):
+        value = value.value
+    if isinstance(value, bool):
+        return 'true' if value else 'false'
+    return str(value)
+
+
 def _json_text(value: Any) -> str:
     """JSON encoder preserving Decimal/BigInteger numeric lexemes exactly."""
     if isinstance(value, Decimal):
@@ -385,7 +398,7 @@ class _Renderer:
                 if node.kind in ('scalar', 'opaque'):
                     if node.kind == 'opaque' and not self.profile.diagnostic:
                         raise TypeError('Unsupported opaque canonical XML value')
-                    element.text = str(node.value)
+                    element.text = _xml_lexical(node.value)
                 elif node.kind == 'smart':
                     if self.profile.diagnostic:
                         fingerprint = getattr(type(node.obj), '__schema_fingerprint__', '')
@@ -404,13 +417,20 @@ class _Renderer:
                             if value.kind != 'null':
                                 if value.kind not in ('scalar', 'opaque'):
                                     raise ValueError('XML attribute must be scalar')
-                                element.set(name, str(value.value))
+                                element.set(name, _xml_lexical(value.value))
                         elif self.profile.diagnostic:
                             child = ET.SubElement(element, name, present=str(fld.present).lower())
                             if fld.present:
                                 visit(self.snapshot.value(fld, self.effective), child, 'Value')
                         else:
-                            visit(self.snapshot.value(fld, self.effective), element, name)
+                            value = self.snapshot.value(fld, self.effective)
+                            # XSD maxOccurs creates sibling elements with the same QName.
+                            # The Item wrapper is reserved for diagnostic collection output.
+                            if value.kind == 'list':
+                                for item in value.children:
+                                    visit(item, element, name)
+                            else:
+                                visit(value, element, name)
                 elif node.kind == 'list':
                     for child in node.children:
                         visit(child, element, 'Item')
