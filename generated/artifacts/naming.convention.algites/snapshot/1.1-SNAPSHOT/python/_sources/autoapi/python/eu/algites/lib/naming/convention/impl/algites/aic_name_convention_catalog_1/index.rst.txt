@@ -44,6 +44,17 @@ Module Contents
 
 
 
+   .. py:method:: load_many(sources) -> AIcNameConventionCatalog_1
+      :classmethod:
+
+
+      Load an ordered set of file/resource catalogs without permitting conflicting IDs.
+
+      An identifier defined identically in multiple files is shared. Distinct definitions
+      of one identifier are always an error; file order never grants precedence.
+
+
+
    .. py:method:: standard(technology: str) -> AIcNameConventionCatalog_1
       :classmethod:
 
@@ -82,6 +93,12 @@ Module Contents
 
 
    .. py:method:: clean(root: str | pathlib.Path, allowed: set[str]) -> tuple[pathlib.Path, Ellipsis]
+
+
+   .. py:method:: identifier_convention(profile_name: str, structure: str) -> str | None
+
+      Return the declared identifier conversion kind of one naming structure.
+
 
 
    .. py:method:: format(profile_name: str, structure: str, variables: Mapping[str, str], source_convention: str | None = None) -> str

@@ -98,24 +98,24 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the schema fingerprint used to identify a particular definition.</div>
 </div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#schemaId()" class="member-name-link">schemaId</a></code></div>
+<div class="col-second even-row-color"><code><a href="#namingConvention()" class="member-name-link">namingConvention</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Unversioned logical SchemaId; empty only on incomplete handwritten source contracts.</div>
+<div class="block">Identifies the naming convention used for the annotated contract's own type name.</div>
 </div>
 <div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#schemaUrl()" class="member-name-link">schemaUrl</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#schemaId()" class="member-name-link">schemaId</a></code></div>
 <div class="col-last odd-row-color">
+<div class="block">Unversioned logical SchemaId; empty only on incomplete handwritten source contracts.</div>
+</div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#schemaUrl()" class="member-name-link">schemaUrl</a></code></div>
+<div class="col-last even-row-color">
 <div class="block">Published URL of one schema representation; optional, never the SchemaId.</div>
 </div>
-<div class="col-first even-row-color"><code>int</code></div>
-<div class="col-second even-row-color"><code><a href="#schemaVersion()" class="member-name-link">schemaVersion</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">Positive SchemaVersion; -1 denotes an incomplete handwritten source contract.</div>
-</div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;</code></div>
-<div class="col-second odd-row-color"><code><a href="#sourceContract()" class="member-name-link">sourceContract</a></code></div>
+<div class="col-first odd-row-color"><code>int</code></div>
+<div class="col-second odd-row-color"><code><a href="#schemaVersion()" class="member-name-link">schemaVersion</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Original read-only contract represented by a generated mutable or adapter contract.</div>
+<div class="block">Positive SchemaVersion; -1 denotes an incomplete handwritten source contract.</div>
 </div>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#title()" class="member-name-link">title</a></code></div>
@@ -213,20 +213,21 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="sourceContract()">
-<h3>sourceContract</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;</span>&nbsp;<span class="element-name">sourceContract</span></div>
-<div class="block">Original read-only contract represented by a generated mutable or adapter contract.
- The default means this interface is itself the domain contract. Generated adapters
- use this relationship for source-schema identity, independently of XML substitution,
- which is represented by generated type inheritance.</div>
+<section class="detail" id="namingConvention()">
+<h3>namingConvention</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">namingConvention</span></div>
+<div class="block">Identifies the naming convention used for the annotated contract's own type name.
+
+ <p>The value is an opaque catalog identifier. Its syntax and versioning policy
+ belong to the owner of the naming catalog, not to this annotation or the generators.
+ Empty indicates a manually authored contract without an explicit naming convention.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>source contract type or void when this declaration is the source</dd>
+<dd>the exact naming convention identifier, or an empty string when unspecified</dd>
 </dl>
 <dl class="notes">
 <dt>Default:</dt>
-<dd>void.class</dd>
+<dd>""</dd>
 </dl>
 </section>
 </li>

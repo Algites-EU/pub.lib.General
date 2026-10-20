@@ -61,9 +61,9 @@ Module Contents
 
 
 
-   .. py:attribute:: source_contract
-      :type:  type | None
-      :value: None
+   .. py:attribute:: naming_convention
+      :type:  str
+      :value: ''
 
 
 

@@ -154,10 +154,21 @@ implements eu.algites.lib.naming.convention.AIiNameConventionCatalog</span></div
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Formats values through a composition; validates each interpolated value against its regex.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#load(java.nio.file.Path)" class="member-name-link">load</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;aPath)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#identifierConvention(java.lang.String,java.lang.String)" class="member-name-link">identifierConvention</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aRole,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aStructure)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Reports the lexical convention of the first identifier in a configured structure.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#load(java.nio.file.Path)" class="member-name-link">load</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;aPath)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Reads the catalog and resolves its optional standard-conventions sibling document.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#loadAll(java.util.List)" class="member-name-link">loadAll</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;aSources)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Combines external and classpath-packaged naming catalogs into a single lookup.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#loadResource(java.lang.String)" class="member-name-link">loadResource</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aFilename)</code></div>
@@ -189,10 +200,20 @@ implements eu.algites.lib.naming.convention.AIiNameConventionCatalog</span></div
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Recognizes a complete filename.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#standard(java.lang.String)" class="member-name-link">standard</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aTechnology)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#selectedRole(java.lang.String)" class="member-name-link">selectedRole</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aRole)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Resolves a semantic codegen role using its configured naming identifier.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#standard(java.lang.String)" class="member-name-link">standard</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aTechnology)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Loads the standard Algites catalog from its packaged YAML resources.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withRoles(java.util.Map)" class="member-name-link">withRoles</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;aRoles)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Binds semantic generation roles to exact identifiers without altering their definitions.</div>
 </div>
 </div>
 </div>
@@ -237,6 +258,28 @@ implements eu.algites.lib.naming.convention.AIiNameConventionCatalog</span></div
 </section>
 </li>
 <li>
+<section class="detail" id="loadAll(java.util.List)">
+<h3>loadAll</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></span>&nbsp;<span class="element-name">loadAll</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;aSources)</span>
+                                          throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
+<div class="block">Combines external and classpath-packaged naming catalogs into a single lookup.
+
+ <p>Repeated identical definitions are intentionally deduplicated; conflicting
+ definitions cannot override each other based on the order of source files.
+ The <code>resource:</code> prefix selects a YAML resource packaged inside the
+ naming-conventions artifact, independently of the current working directory.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aSources</code> - catalog locations, in lookup order; at least one is required</dd>
+<dt>Returns:</dt>
+<dd>one resolved naming catalog covering all supplied definitions</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - if a source cannot be read or is not valid YAML</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if identifiers have conflicting definitions</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="standard(java.lang.String)">
 <h3>standard</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></span>&nbsp;<span class="element-name">standard</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aTechnology)</span>
@@ -245,6 +288,49 @@ implements eu.algites.lib.naming.convention.AIiNameConventionCatalog</span></div
 <dl class="notes">
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="withRoles(java.util.Map)">
+<h3>withRoles</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></span>&nbsp;<span class="element-name">withRoles</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;aRoles)</span></div>
+<div class="block">Binds semantic generation roles to exact identifiers without altering their definitions.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aRoles</code> - role-to-convention mapping; an absent role stays disabled</dd>
+<dt>Returns:</dt>
+<dd>a catalog view carrying the requested role bindings</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="selectedRole(java.lang.String)">
+<h3>selectedRole</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">selectedRole</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aRole)</span></div>
+<div class="block">Resolves a semantic codegen role using its configured naming identifier.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aRole</code> - semantic role, such as <code>xmldefs_type</code></dd>
+<dt>Returns:</dt>
+<dd>selected naming convention identifier</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if this role is not configured</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="identifierConvention(java.lang.String,java.lang.String)">
+<h3>identifierConvention</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">identifierConvention</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aRole,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aStructure)</span></div>
+<div class="block">Reports the lexical convention of the first identifier in a configured structure.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aRole</code> - exact naming profile identifier</dd>
+<dd><code>aStructure</code> - structural name to inspect</dd>
+<dt>Returns:</dt>
+<dd>identifier convention ID, or <code>null</code> for a custom regexp / no identifier</dd>
 </dl>
 </section>
 </li>
