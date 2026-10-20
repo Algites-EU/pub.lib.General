@@ -38,11 +38,13 @@ public @interface AIaDataObject {
      */
     String fingerprint() default "";
     /**
-     * Original read-only contract represented by a generated mutable or adapter contract.
-     * The default means this interface is itself the domain contract. Generated adapters
-     * use this relationship for source-schema identity, independently of XML substitution,
-     * which is represented by generated type inheritance.
-     * @return source contract type or void when this declaration is the source
+     * Identifies the naming convention used for the annotated contract's own type name.
+     *
+     * <p>The value is an opaque catalog identifier. Its syntax and versioning policy
+     * belong to the owner of the naming catalog, not to this annotation or the generators.
+     * Empty indicates a manually authored contract without an explicit naming convention.
+     *
+     * @return the exact naming convention identifier, or an empty string when unspecified
      */
-    Class<?> sourceContract() default void.class;
+    String namingConvention() default "";
 }

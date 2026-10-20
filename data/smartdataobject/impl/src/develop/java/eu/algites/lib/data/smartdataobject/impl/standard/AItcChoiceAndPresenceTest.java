@@ -21,7 +21,7 @@ public final class AItcChoiceAndPresenceTest {
     @AIaDataObject
     public interface AIigUnregisteredPayment extends AIigPayment { }
 
-    @AIaDataObject(sourceContract = AIigTokenPayment.class)
+    @AIaDataObject()
     public interface AIigdTokenPayment extends AIigTokenPayment { }
     public record AIcgdRealisticTokenPayment() implements AIigdTokenPayment { }
 

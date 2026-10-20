@@ -10,4 +10,4 @@ class AIcdDataObject:
     title: str = ''
     description: str = ''
     fingerprint: str = ''
-    source_contract: type | None = None
+    naming_convention: str = ''

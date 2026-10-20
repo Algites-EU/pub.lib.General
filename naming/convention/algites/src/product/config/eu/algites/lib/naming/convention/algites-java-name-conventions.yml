@@ -2,43 +2,43 @@
 # $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 NameFragments:
-  xml-element-marker:
+  xml-element-marker_1:
     Segments:
     - Kind: constant_string
       Value: _xe
-  method-parameter-prefix:
+  java-method-parameter-prefix_1:
     Segments:
     - Kind: constant_string
       Value: a
-  local-variable-prefix:
+  java-local-variable-prefix_1:
     Segments:
     - Kind: constant_string
       Value: loc
-  algites-prefix:
+  algites-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
-  generated-marker:
+  generated-marker_1:
     Segments:
     - Kind: constant_string
       Value: g
-  data-marker:
+  data-marker_1:
     Segments:
     - Kind: constant_string
       Value: d
-  version-suffix:
+  version-suffix_1:
     Segments:
     - Kind: constant_string
       Value: _
     - Kind: version
-      Convention: positive_integer
-  intf-prefix:
+      Convention: positive_integer_1
+  intf-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
     - Kind: constant_string
       Value: i
-  intf-data-prefix:
+  intf-data-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
@@ -46,7 +46,7 @@ NameFragments:
       Value: i
     - Kind: constant_string
       Value: d
-  intf-generated-prefix:
+  intf-generated-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
@@ -54,7 +54,7 @@ NameFragments:
       Value: i
     - Kind: constant_string
       Value: g
-  intf-generated-data-prefix:
+  intf-generated-data-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
@@ -64,13 +64,13 @@ NameFragments:
       Value: g
     - Kind: constant_string
       Value: d
-  class-prefix:
+  class-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
     - Kind: constant_string
       Value: c
-  class-data-prefix:
+  class-data-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
@@ -78,7 +78,7 @@ NameFragments:
       Value: c
     - Kind: constant_string
       Value: d
-  class-generated-prefix:
+  class-generated-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
@@ -86,7 +86,7 @@ NameFragments:
       Value: c
     - Kind: constant_string
       Value: g
-  class-generated-data-prefix:
+  class-generated-data-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
@@ -96,13 +96,13 @@ NameFragments:
       Value: g
     - Kind: constant_string
       Value: d
-  enum-prefix:
+  enum-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
     - Kind: constant_string
       Value: n
-  enum-generated-prefix:
+  enum-generated-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
@@ -110,13 +110,13 @@ NameFragments:
       Value: n
     - Kind: constant_string
       Value: g
-  ann-prefix:
+  ann-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
     - Kind: constant_string
       Value: a
-  ann-generated-prefix:
+  ann-generated-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
@@ -124,13 +124,13 @@ NameFragments:
       Value: a
     - Kind: constant_string
       Value: g
-  exc-prefix:
+  exc-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
     - Kind: constant_string
       Value: x
-  exc-generated-prefix:
+  exc-generated-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
@@ -138,13 +138,13 @@ NameFragments:
       Value: x
     - Kind: constant_string
       Value: g
-  rb-prefix:
+  rb-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
     - Kind: constant_string
       Value: r
-  rb-generated-prefix:
+  rb-generated-prefix_1:
     Segments:
     - Kind: constant_string
       Value: AI
@@ -152,1135 +152,1363 @@ NameFragments:
       Value: r
     - Kind: constant_string
       Value: g
+  xml-type-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _x
+  json-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _j
+  yaml-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _y
 NameCompositions:
-  algites-java-intf:
+  algites-java-intf_1:
     Segments:
-    - Ref: intf-prefix
+    - Ref: intf-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-intf-file:
+      Convention: upper_camel_case_1
+  algites-java-intf-file_1:
     Segments:
-    - Ref: algites-java-intf
-  algites-java-intf-versioned:
+    - Ref: algites-java-intf_1
+  algites-java-intf-versioned_1:
     Segments:
-    - Ref: intf-prefix
+    - Ref: intf-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-intf-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-intf-versioned-file_1:
     Segments:
-    - Ref: algites-java-intf-versioned
-  algites-java-data-intf:
+    - Ref: algites-java-intf-versioned_1
+  algites-java-data-intf_1:
     Segments:
-    - Ref: intf-data-prefix
+    - Ref: intf-data-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-data-intf-file:
+      Convention: upper_camel_case_1
+  algites-java-data-intf-file_1:
     Segments:
-    - Ref: algites-java-data-intf
-  algites-java-data-intf-versioned:
+    - Ref: algites-java-data-intf_1
+  algites-java-data-intf-versioned_1:
     Segments:
-    - Ref: intf-data-prefix
+    - Ref: intf-data-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-data-intf-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-data-intf-versioned-file_1:
     Segments:
-    - Ref: algites-java-data-intf-versioned
-  algites-java-gen-intf:
+    - Ref: algites-java-data-intf-versioned_1
+  algites-java-gen-intf_1:
     Segments:
-    - Ref: intf-generated-prefix
+    - Ref: intf-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-intf-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-intf-file_1:
     Segments:
-    - Ref: algites-java-gen-intf
-  algites-java-gen-intf-versioned:
+    - Ref: algites-java-gen-intf_1
+  algites-java-gen-intf-versioned_1:
     Segments:
-    - Ref: intf-generated-prefix
+    - Ref: intf-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-intf-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-intf-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-intf-versioned
-  algites-java-gen-data-intf:
+    - Ref: algites-java-gen-intf-versioned_1
+  algites-java-gen-data-intf_1:
     Segments:
-    - Ref: intf-generated-data-prefix
+    - Ref: intf-generated-data-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-data-intf-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-data-intf-file_1:
     Segments:
-    - Ref: algites-java-gen-data-intf
-  algites-java-gen-data-intf-versioned:
+    - Ref: algites-java-gen-data-intf_1
+  algites-java-gen-data-intf-versioned_1:
     Segments:
-    - Ref: intf-generated-data-prefix
+    - Ref: intf-generated-data-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-data-intf-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-data-intf-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-data-intf-versioned
-  algites-java-class:
+    - Ref: algites-java-gen-data-intf-versioned_1
+  algites-java-class_1:
     Segments:
-    - Ref: class-prefix
+    - Ref: class-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-class-file:
+      Convention: upper_camel_case_1
+  algites-java-class-file_1:
     Segments:
-    - Ref: algites-java-class
-  algites-java-class-versioned:
+    - Ref: algites-java-class_1
+  algites-java-class-versioned_1:
     Segments:
-    - Ref: class-prefix
+    - Ref: class-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-class-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-class-versioned-file_1:
     Segments:
-    - Ref: algites-java-class-versioned
-  algites-java-data-class:
+    - Ref: algites-java-class-versioned_1
+  algites-java-data-class_1:
     Segments:
-    - Ref: class-data-prefix
+    - Ref: class-data-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-data-class-file:
+      Convention: upper_camel_case_1
+  algites-java-data-class-file_1:
     Segments:
-    - Ref: algites-java-data-class
-  algites-java-data-class-versioned:
+    - Ref: algites-java-data-class_1
+  algites-java-data-class-versioned_1:
     Segments:
-    - Ref: class-data-prefix
+    - Ref: class-data-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-data-class-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-data-class-versioned-file_1:
     Segments:
-    - Ref: algites-java-data-class-versioned
-  algites-java-gen-class:
+    - Ref: algites-java-data-class-versioned_1
+  algites-java-gen-class_1:
     Segments:
-    - Ref: class-generated-prefix
+    - Ref: class-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-class-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-class-file_1:
     Segments:
-    - Ref: algites-java-gen-class
-  algites-java-gen-class-versioned:
+    - Ref: algites-java-gen-class_1
+  algites-java-gen-class-versioned_1:
     Segments:
-    - Ref: class-generated-prefix
+    - Ref: class-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-class-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-class-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-class-versioned
-  algites-java-gen-data-class:
+    - Ref: algites-java-gen-class-versioned_1
+  algites-java-gen-data-class_1:
     Segments:
-    - Ref: class-generated-data-prefix
+    - Ref: class-generated-data-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-data-class-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-data-class-file_1:
     Segments:
-    - Ref: algites-java-gen-data-class
-  algites-java-gen-data-class-versioned:
+    - Ref: algites-java-gen-data-class_1
+  algites-java-gen-data-class-versioned_1:
     Segments:
-    - Ref: class-generated-data-prefix
+    - Ref: class-generated-data-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-data-class-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-data-class-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-data-class-versioned
-  algites-java-enum:
+    - Ref: algites-java-gen-data-class-versioned_1
+  algites-java-enum_1:
     Segments:
-    - Ref: enum-prefix
+    - Ref: enum-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-enum-file:
+      Convention: upper_camel_case_1
+  algites-java-enum-file_1:
     Segments:
-    - Ref: algites-java-enum
-  algites-java-enum-versioned:
+    - Ref: algites-java-enum_1
+  algites-java-enum-versioned_1:
     Segments:
-    - Ref: enum-prefix
+    - Ref: enum-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-enum-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-enum-versioned-file_1:
     Segments:
-    - Ref: algites-java-enum-versioned
-  algites-java-gen-enum:
+    - Ref: algites-java-enum-versioned_1
+  algites-java-gen-enum_1:
     Segments:
-    - Ref: enum-generated-prefix
+    - Ref: enum-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-enum-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-enum-file_1:
     Segments:
-    - Ref: algites-java-gen-enum
-  algites-java-gen-enum-versioned:
+    - Ref: algites-java-gen-enum_1
+  algites-java-gen-enum-versioned_1:
     Segments:
-    - Ref: enum-generated-prefix
+    - Ref: enum-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-enum-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-enum-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-enum-versioned
-  algites-java-ann:
+    - Ref: algites-java-gen-enum-versioned_1
+  algites-java-ann_1:
     Segments:
-    - Ref: ann-prefix
+    - Ref: ann-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-ann-file:
+      Convention: upper_camel_case_1
+  algites-java-ann-file_1:
     Segments:
-    - Ref: algites-java-ann
-  algites-java-ann-versioned:
+    - Ref: algites-java-ann_1
+  algites-java-ann-versioned_1:
     Segments:
-    - Ref: ann-prefix
+    - Ref: ann-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-ann-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-ann-versioned-file_1:
     Segments:
-    - Ref: algites-java-ann-versioned
-  algites-java-gen-ann:
+    - Ref: algites-java-ann-versioned_1
+  algites-java-gen-ann_1:
     Segments:
-    - Ref: ann-generated-prefix
+    - Ref: ann-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-ann-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-ann-file_1:
     Segments:
-    - Ref: algites-java-gen-ann
-  algites-java-gen-ann-versioned:
+    - Ref: algites-java-gen-ann_1
+  algites-java-gen-ann-versioned_1:
     Segments:
-    - Ref: ann-generated-prefix
+    - Ref: ann-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-ann-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-ann-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-ann-versioned
-  algites-java-exc:
+    - Ref: algites-java-gen-ann-versioned_1
+  algites-java-exc_1:
     Segments:
-    - Ref: exc-prefix
+    - Ref: exc-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-exc-file:
+      Convention: upper_camel_case_1
+  algites-java-exc-file_1:
     Segments:
-    - Ref: algites-java-exc
-  algites-java-exc-versioned:
+    - Ref: algites-java-exc_1
+  algites-java-exc-versioned_1:
     Segments:
-    - Ref: exc-prefix
+    - Ref: exc-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-exc-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-exc-versioned-file_1:
     Segments:
-    - Ref: algites-java-exc-versioned
-  algites-java-gen-exc:
+    - Ref: algites-java-exc-versioned_1
+  algites-java-gen-exc_1:
     Segments:
-    - Ref: exc-generated-prefix
+    - Ref: exc-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-exc-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-exc-file_1:
     Segments:
-    - Ref: algites-java-gen-exc
-  algites-java-gen-exc-versioned:
+    - Ref: algites-java-gen-exc_1
+  algites-java-gen-exc-versioned_1:
     Segments:
-    - Ref: exc-generated-prefix
+    - Ref: exc-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-exc-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-exc-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-exc-versioned
-  algites-java-rb:
+    - Ref: algites-java-gen-exc-versioned_1
+  algites-java-rb_1:
     Segments:
-    - Ref: rb-prefix
+    - Ref: rb-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-rb-file:
+      Convention: upper_camel_case_1
+  algites-java-rb-file_1:
     Segments:
-    - Ref: algites-java-rb
-  algites-java-rb-versioned:
+    - Ref: algites-java-rb_1
+  algites-java-rb-versioned_1:
     Segments:
-    - Ref: rb-prefix
+    - Ref: rb-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-rb-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-rb-versioned-file_1:
     Segments:
-    - Ref: algites-java-rb-versioned
-  algites-java-gen-rb:
+    - Ref: algites-java-rb-versioned_1
+  algites-java-gen-rb_1:
     Segments:
-    - Ref: rb-generated-prefix
+    - Ref: rb-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-rb-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-rb-file_1:
     Segments:
-    - Ref: algites-java-gen-rb
-  algites-java-gen-rb-versioned:
+    - Ref: algites-java-gen-rb_1
+  algites-java-gen-rb-versioned_1:
     Segments:
-    - Ref: rb-generated-prefix
+    - Ref: rb-generated-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-rb-versioned-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-rb-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-rb-versioned
-  source-extension:
+    - Ref: algites-java-gen-rb-versioned_1
+  java-source-extension_1:
     Segments:
     - Kind: constant_string
       Value: .java
-  field-name:
+  java-field-name_1:
     Segments:
     - Kind: identifier
-      Convention: lower_camel_case
-  method-name:
+      Convention: lower_camel_case_1
+  java-method-name_1:
     Segments:
     - Kind: identifier
-      Convention: lower_camel_case
-  parameter-name:
+      Convention: lower_camel_case_1
+  java-parameter-name_1:
     Segments:
-    - Ref: method-parameter-prefix
+    - Ref: java-method-parameter-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  local-variable-name:
+      Convention: upper_camel_case_1
+  java-local-variable-name_1:
     Segments:
-    - Ref: local-variable-prefix
+    - Ref: java-local-variable-prefix_1
     - Kind: identifier
-      Convention: upper_camel_case
-  package-segment-name:
-    Segments:
-    - Kind: identifier
-      Convention: lower_snake_case
-  enum-item-name:
+      Convention: upper_camel_case_1
+  package-segment-name_1:
     Segments:
     - Kind: identifier
-      Convention: upper_snake_case
-  constant-name:
+      Convention: lower_snake_case_1
+  enum-item-name_1:
     Segments:
     - Kind: identifier
-      Convention: upper_snake_case
-  algites-java-xml-element-intf:
+      Convention: upper_snake_case_1
+  constant-name_1:
     Segments:
-    - Ref: intf-prefix
-    - Ref: xml-element-marker
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-xml-element-intf-file:
+      Convention: upper_snake_case_1
+  algites-java-xml-element-intf_1:
     Segments:
-    - Ref: algites-java-xml-element-intf
-  algites-java-xml-element-intf-versioned:
-    Segments:
-    - Ref: intf-prefix
-    - Ref: xml-element-marker
+    - Ref: intf-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-xml-element-intf-versioned-file:
+      Convention: upper_camel_case_1
+  algites-java-xml-element-intf-file_1:
     Segments:
-    - Ref: algites-java-xml-element-intf-versioned
-  algites-java-data-xml-element-intf:
+    - Ref: algites-java-xml-element-intf_1
+  algites-java-xml-element-intf-versioned_1:
     Segments:
-    - Ref: intf-data-prefix
-    - Ref: xml-element-marker
+    - Ref: intf-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-data-xml-element-intf-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-xml-element-intf-versioned-file_1:
     Segments:
-    - Ref: algites-java-data-xml-element-intf
-  algites-java-data-xml-element-intf-versioned:
+    - Ref: algites-java-xml-element-intf-versioned_1
+  algites-java-data-xml-element-intf_1:
     Segments:
-    - Ref: intf-data-prefix
-    - Ref: xml-element-marker
+    - Ref: intf-data-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-data-xml-element-intf-versioned-file:
+      Convention: upper_camel_case_1
+  algites-java-data-xml-element-intf-file_1:
     Segments:
-    - Ref: algites-java-data-xml-element-intf-versioned
-  algites-java-gen-xml-element-intf:
+    - Ref: algites-java-data-xml-element-intf_1
+  algites-java-data-xml-element-intf-versioned_1:
     Segments:
-    - Ref: intf-generated-prefix
-    - Ref: xml-element-marker
+    - Ref: intf-data-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-xml-element-intf-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-data-xml-element-intf-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-xml-element-intf
-  algites-java-gen-xml-element-intf-versioned:
+    - Ref: algites-java-data-xml-element-intf-versioned_1
+  algites-java-gen-xml-element-intf_1:
     Segments:
-    - Ref: intf-generated-prefix
-    - Ref: xml-element-marker
+    - Ref: intf-generated-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-xml-element-intf-versioned-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-xml-element-intf-file_1:
     Segments:
-    - Ref: algites-java-gen-xml-element-intf-versioned
-  algites-java-gen-data-xml-element-intf:
+    - Ref: algites-java-gen-xml-element-intf_1
+  algites-java-gen-xml-element-intf-versioned_1:
     Segments:
-    - Ref: intf-generated-data-prefix
-    - Ref: xml-element-marker
+    - Ref: intf-generated-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-data-xml-element-intf-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-xml-element-intf-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-data-xml-element-intf
-  algites-java-gen-data-xml-element-intf-versioned:
+    - Ref: algites-java-gen-xml-element-intf-versioned_1
+  algites-java-gen-data-xml-element-intf_1:
     Segments:
-    - Ref: intf-generated-data-prefix
-    - Ref: xml-element-marker
+    - Ref: intf-generated-data-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-data-xml-element-intf-versioned-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-data-xml-element-intf-file_1:
     Segments:
-    - Ref: algites-java-gen-data-xml-element-intf-versioned
-  algites-java-xml-element-class:
+    - Ref: algites-java-gen-data-xml-element-intf_1
+  algites-java-gen-data-xml-element-intf-versioned_1:
     Segments:
-    - Ref: class-prefix
-    - Ref: xml-element-marker
+    - Ref: intf-generated-data-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-xml-element-class-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-data-xml-element-intf-versioned-file_1:
     Segments:
-    - Ref: algites-java-xml-element-class
-  algites-java-xml-element-class-versioned:
+    - Ref: algites-java-gen-data-xml-element-intf-versioned_1
+  algites-java-xml-element-class_1:
     Segments:
-    - Ref: class-prefix
-    - Ref: xml-element-marker
+    - Ref: class-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-xml-element-class-versioned-file:
+      Convention: upper_camel_case_1
+  algites-java-xml-element-class-file_1:
     Segments:
-    - Ref: algites-java-xml-element-class-versioned
-  algites-java-data-xml-element-class:
+    - Ref: algites-java-xml-element-class_1
+  algites-java-xml-element-class-versioned_1:
     Segments:
-    - Ref: class-data-prefix
-    - Ref: xml-element-marker
+    - Ref: class-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-data-xml-element-class-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-xml-element-class-versioned-file_1:
     Segments:
-    - Ref: algites-java-data-xml-element-class
-  algites-java-data-xml-element-class-versioned:
+    - Ref: algites-java-xml-element-class-versioned_1
+  algites-java-data-xml-element-class_1:
     Segments:
-    - Ref: class-data-prefix
-    - Ref: xml-element-marker
+    - Ref: class-data-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-data-xml-element-class-versioned-file:
+      Convention: upper_camel_case_1
+  algites-java-data-xml-element-class-file_1:
     Segments:
-    - Ref: algites-java-data-xml-element-class-versioned
-  algites-java-gen-xml-element-class:
+    - Ref: algites-java-data-xml-element-class_1
+  algites-java-data-xml-element-class-versioned_1:
     Segments:
-    - Ref: class-generated-prefix
-    - Ref: xml-element-marker
+    - Ref: class-data-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-xml-element-class-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-data-xml-element-class-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-xml-element-class
-  algites-java-gen-xml-element-class-versioned:
+    - Ref: algites-java-data-xml-element-class-versioned_1
+  algites-java-gen-xml-element-class_1:
     Segments:
-    - Ref: class-generated-prefix
-    - Ref: xml-element-marker
+    - Ref: class-generated-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-xml-element-class-versioned-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-xml-element-class-file_1:
     Segments:
-    - Ref: algites-java-gen-xml-element-class-versioned
-  algites-java-gen-data-xml-element-class:
+    - Ref: algites-java-gen-xml-element-class_1
+  algites-java-gen-xml-element-class-versioned_1:
     Segments:
-    - Ref: class-generated-data-prefix
-    - Ref: xml-element-marker
+    - Ref: class-generated-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-  algites-java-gen-data-xml-element-class-file:
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-xml-element-class-versioned-file_1:
     Segments:
-    - Ref: algites-java-gen-data-xml-element-class
-  algites-java-gen-data-xml-element-class-versioned:
+    - Ref: algites-java-gen-xml-element-class-versioned_1
+  algites-java-gen-data-xml-element-class_1:
     Segments:
-    - Ref: class-generated-data-prefix
-    - Ref: xml-element-marker
+    - Ref: class-generated-data-prefix_1
+    - Ref: xml-element-marker_1
     - Kind: identifier
-      Convention: upper_camel_case
-    - Ref: version-suffix
-  algites-java-gen-data-xml-element-class-versioned-file:
+      Convention: upper_camel_case_1
+  algites-java-gen-data-xml-element-class-file_1:
     Segments:
-    - Ref: algites-java-gen-data-xml-element-class-versioned
+    - Ref: algites-java-gen-data-xml-element-class_1
+  algites-java-gen-data-xml-element-class-versioned_1:
+    Segments:
+    - Ref: class-generated-data-prefix_1
+    - Ref: xml-element-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-data-xml-element-class-versioned-file_1:
+    Segments:
+    - Ref: algites-java-gen-data-xml-element-class-versioned_1
+  algites-java-gen-xml-type-intf-versioned_1:
+    Segments:
+    - Ref: intf-generated-prefix_1
+    - Ref: xml-type-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-xml-type-intf-versioned-file_1:
+    Segments:
+    - Ref: algites-java-gen-xml-type-intf-versioned_1
+  algites-java-gen-data-xml-type-intf-versioned_1:
+    Segments:
+    - Ref: intf-generated-data-prefix_1
+    - Ref: xml-type-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-data-xml-type-intf-versioned-file_1:
+    Segments:
+    - Ref: algites-java-gen-data-xml-type-intf-versioned_1
+  algites-java-gen-data-xml-type-class-versioned_1:
+    Segments:
+    - Ref: class-generated-data-prefix_1
+    - Ref: xml-type-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-data-xml-type-class-versioned-file_1:
+    Segments:
+    - Ref: algites-java-gen-data-xml-type-class-versioned_1
+  algites-java-gen-json-intf-versioned_1:
+    Segments:
+    - Ref: intf-generated-prefix_1
+    - Ref: json-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-json-intf-versioned-file_1:
+    Segments:
+    - Ref: algites-java-gen-json-intf-versioned_1
+  algites-java-gen-data-json-intf-versioned_1:
+    Segments:
+    - Ref: intf-generated-data-prefix_1
+    - Ref: json-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-data-json-intf-versioned-file_1:
+    Segments:
+    - Ref: algites-java-gen-data-json-intf-versioned_1
+  algites-java-gen-data-json-class-versioned_1:
+    Segments:
+    - Ref: class-generated-data-prefix_1
+    - Ref: json-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-data-json-class-versioned-file_1:
+    Segments:
+    - Ref: algites-java-gen-data-json-class-versioned_1
+  algites-java-gen-yaml-intf-versioned_1:
+    Segments:
+    - Ref: intf-generated-prefix_1
+    - Ref: yaml-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-yaml-intf-versioned-file_1:
+    Segments:
+    - Ref: algites-java-gen-yaml-intf-versioned_1
+  algites-java-gen-data-yaml-intf-versioned_1:
+    Segments:
+    - Ref: intf-generated-data-prefix_1
+    - Ref: yaml-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-data-yaml-intf-versioned-file_1:
+    Segments:
+    - Ref: algites-java-gen-data-yaml-intf-versioned_1
+  algites-java-gen-data-yaml-class-versioned_1:
+    Segments:
+    - Ref: class-generated-data-prefix_1
+    - Ref: yaml-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Ref: version-suffix_1
+  algites-java-gen-data-yaml-class-versioned-file_1:
+    Segments:
+    - Ref: algites-java-gen-data-yaml-class-versioned_1
 NameConventions:
-  algites-java-intf:
+  algites-java-intf_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-intf
-      sub_container_name: algites-java-intf
-      file_name_stem: algites-java-intf-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-intf-versioned:
+      main_container_name: algites-java-intf_1
+      sub_container_name: algites-java-intf_1
+      file_name_stem: algites-java-intf-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-intf-versioned_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-intf-versioned
-      sub_container_name: algites-java-intf-versioned
-      file_name_stem: algites-java-intf-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-data-intf:
+      main_container_name: algites-java-intf-versioned_1
+      sub_container_name: algites-java-intf-versioned_1
+      file_name_stem: algites-java-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-data-intf_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-data-intf
-      sub_container_name: algites-java-data-intf
-      file_name_stem: algites-java-data-intf-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-data-intf-versioned:
+      main_container_name: algites-java-data-intf_1
+      sub_container_name: algites-java-data-intf_1
+      file_name_stem: algites-java-data-intf-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-data-intf-versioned_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-data-intf-versioned
-      sub_container_name: algites-java-data-intf-versioned
-      file_name_stem: algites-java-data-intf-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-intf:
+      main_container_name: algites-java-data-intf-versioned_1
+      sub_container_name: algites-java-data-intf-versioned_1
+      file_name_stem: algites-java-data-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-intf_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-gen-intf
-      sub_container_name: algites-java-gen-intf
-      file_name_stem: algites-java-gen-intf-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-intf-versioned:
+      main_container_name: algites-java-gen-intf_1
+      sub_container_name: algites-java-gen-intf_1
+      file_name_stem: algites-java-gen-intf-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-intf-versioned_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-gen-intf-versioned
-      sub_container_name: algites-java-gen-intf-versioned
-      file_name_stem: algites-java-gen-intf-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-data-intf:
+      main_container_name: algites-java-gen-intf-versioned_1
+      sub_container_name: algites-java-gen-intf-versioned_1
+      file_name_stem: algites-java-gen-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-intf_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-gen-data-intf
-      sub_container_name: algites-java-gen-data-intf
-      file_name_stem: algites-java-gen-data-intf-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-data-intf-versioned:
+      main_container_name: algites-java-gen-data-intf_1
+      sub_container_name: algites-java-gen-data-intf_1
+      file_name_stem: algites-java-gen-data-intf-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-intf-versioned_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-gen-data-intf-versioned
-      sub_container_name: algites-java-gen-data-intf-versioned
-      file_name_stem: algites-java-gen-data-intf-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-class:
+      main_container_name: algites-java-gen-data-intf-versioned_1
+      sub_container_name: algites-java-gen-data-intf-versioned_1
+      file_name_stem: algites-java-gen-data-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-class_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-class
-      sub_container_name: algites-java-class
-      file_name_stem: algites-java-class-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-class-versioned:
+      main_container_name: algites-java-class_1
+      sub_container_name: algites-java-class_1
+      file_name_stem: algites-java-class-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-class-versioned_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-class-versioned
-      sub_container_name: algites-java-class-versioned
-      file_name_stem: algites-java-class-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-data-class:
+      main_container_name: algites-java-class-versioned_1
+      sub_container_name: algites-java-class-versioned_1
+      file_name_stem: algites-java-class-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-data-class_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-data-class
-      sub_container_name: algites-java-data-class
-      file_name_stem: algites-java-data-class-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-data-class-versioned:
+      main_container_name: algites-java-data-class_1
+      sub_container_name: algites-java-data-class_1
+      file_name_stem: algites-java-data-class-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-data-class-versioned_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-data-class-versioned
-      sub_container_name: algites-java-data-class-versioned
-      file_name_stem: algites-java-data-class-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-class:
+      main_container_name: algites-java-data-class-versioned_1
+      sub_container_name: algites-java-data-class-versioned_1
+      file_name_stem: algites-java-data-class-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-class_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-gen-class
-      sub_container_name: algites-java-gen-class
-      file_name_stem: algites-java-gen-class-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-class-versioned:
+      main_container_name: algites-java-gen-class_1
+      sub_container_name: algites-java-gen-class_1
+      file_name_stem: algites-java-gen-class-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-class-versioned_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-gen-class-versioned
-      sub_container_name: algites-java-gen-class-versioned
-      file_name_stem: algites-java-gen-class-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-data-class:
+      main_container_name: algites-java-gen-class-versioned_1
+      sub_container_name: algites-java-gen-class-versioned_1
+      file_name_stem: algites-java-gen-class-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-class_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-gen-data-class
-      sub_container_name: algites-java-gen-data-class
-      file_name_stem: algites-java-gen-data-class-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-data-class-versioned:
+      main_container_name: algites-java-gen-data-class_1
+      sub_container_name: algites-java-gen-data-class_1
+      file_name_stem: algites-java-gen-data-class-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-class-versioned_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-gen-data-class-versioned
-      sub_container_name: algites-java-gen-data-class-versioned
-      file_name_stem: algites-java-gen-data-class-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-enum:
+      main_container_name: algites-java-gen-data-class-versioned_1
+      sub_container_name: algites-java-gen-data-class-versioned_1
+      file_name_stem: algites-java-gen-data-class-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-enum_1:
     ContainerStructureType: enum
     StructureNaming:
-      main_container_name: algites-java-enum
-      sub_container_name: algites-java-enum
-      file_name_stem: algites-java-enum-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-enum-versioned:
+      main_container_name: algites-java-enum_1
+      sub_container_name: algites-java-enum_1
+      file_name_stem: algites-java-enum-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-enum-versioned_1:
     ContainerStructureType: enum
     StructureNaming:
-      main_container_name: algites-java-enum-versioned
-      sub_container_name: algites-java-enum-versioned
-      file_name_stem: algites-java-enum-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-enum:
+      main_container_name: algites-java-enum-versioned_1
+      sub_container_name: algites-java-enum-versioned_1
+      file_name_stem: algites-java-enum-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-enum_1:
     ContainerStructureType: enum
     StructureNaming:
-      main_container_name: algites-java-gen-enum
-      sub_container_name: algites-java-gen-enum
-      file_name_stem: algites-java-gen-enum-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-enum-versioned:
+      main_container_name: algites-java-gen-enum_1
+      sub_container_name: algites-java-gen-enum_1
+      file_name_stem: algites-java-gen-enum-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-enum-versioned_1:
     ContainerStructureType: enum
     StructureNaming:
-      main_container_name: algites-java-gen-enum-versioned
-      sub_container_name: algites-java-gen-enum-versioned
-      file_name_stem: algites-java-gen-enum-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-ann:
+      main_container_name: algites-java-gen-enum-versioned_1
+      sub_container_name: algites-java-gen-enum-versioned_1
+      file_name_stem: algites-java-gen-enum-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-ann_1:
     ContainerStructureType: annotation
     StructureNaming:
-      main_container_name: algites-java-ann
-      sub_container_name: algites-java-ann
-      file_name_stem: algites-java-ann-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-ann-versioned:
+      main_container_name: algites-java-ann_1
+      sub_container_name: algites-java-ann_1
+      file_name_stem: algites-java-ann-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-ann-versioned_1:
     ContainerStructureType: annotation
     StructureNaming:
-      main_container_name: algites-java-ann-versioned
-      sub_container_name: algites-java-ann-versioned
-      file_name_stem: algites-java-ann-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-ann:
+      main_container_name: algites-java-ann-versioned_1
+      sub_container_name: algites-java-ann-versioned_1
+      file_name_stem: algites-java-ann-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-ann_1:
     ContainerStructureType: annotation
     StructureNaming:
-      main_container_name: algites-java-gen-ann
-      sub_container_name: algites-java-gen-ann
-      file_name_stem: algites-java-gen-ann-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-ann-versioned:
+      main_container_name: algites-java-gen-ann_1
+      sub_container_name: algites-java-gen-ann_1
+      file_name_stem: algites-java-gen-ann-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-ann-versioned_1:
     ContainerStructureType: annotation
     StructureNaming:
-      main_container_name: algites-java-gen-ann-versioned
-      sub_container_name: algites-java-gen-ann-versioned
-      file_name_stem: algites-java-gen-ann-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-exc:
+      main_container_name: algites-java-gen-ann-versioned_1
+      sub_container_name: algites-java-gen-ann-versioned_1
+      file_name_stem: algites-java-gen-ann-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-exc_1:
     ContainerStructureType: exception
     StructureNaming:
-      main_container_name: algites-java-exc
-      sub_container_name: algites-java-exc
-      file_name_stem: algites-java-exc-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-exc-versioned:
+      main_container_name: algites-java-exc_1
+      sub_container_name: algites-java-exc_1
+      file_name_stem: algites-java-exc-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-exc-versioned_1:
     ContainerStructureType: exception
     StructureNaming:
-      main_container_name: algites-java-exc-versioned
-      sub_container_name: algites-java-exc-versioned
-      file_name_stem: algites-java-exc-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-exc:
+      main_container_name: algites-java-exc-versioned_1
+      sub_container_name: algites-java-exc-versioned_1
+      file_name_stem: algites-java-exc-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-exc_1:
     ContainerStructureType: exception
     StructureNaming:
-      main_container_name: algites-java-gen-exc
-      sub_container_name: algites-java-gen-exc
-      file_name_stem: algites-java-gen-exc-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-exc-versioned:
+      main_container_name: algites-java-gen-exc_1
+      sub_container_name: algites-java-gen-exc_1
+      file_name_stem: algites-java-gen-exc-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-exc-versioned_1:
     ContainerStructureType: exception
     StructureNaming:
-      main_container_name: algites-java-gen-exc-versioned
-      sub_container_name: algites-java-gen-exc-versioned
-      file_name_stem: algites-java-gen-exc-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-rb:
+      main_container_name: algites-java-gen-exc-versioned_1
+      sub_container_name: algites-java-gen-exc-versioned_1
+      file_name_stem: algites-java-gen-exc-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-rb_1:
     ContainerStructureType: resource_bundle
     StructureNaming:
-      main_container_name: algites-java-rb
-      sub_container_name: algites-java-rb
-      file_name_stem: algites-java-rb-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-rb-versioned:
+      main_container_name: algites-java-rb_1
+      sub_container_name: algites-java-rb_1
+      file_name_stem: algites-java-rb-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-rb-versioned_1:
     ContainerStructureType: resource_bundle
     StructureNaming:
-      main_container_name: algites-java-rb-versioned
-      sub_container_name: algites-java-rb-versioned
-      file_name_stem: algites-java-rb-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-rb:
+      main_container_name: algites-java-rb-versioned_1
+      sub_container_name: algites-java-rb-versioned_1
+      file_name_stem: algites-java-rb-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-rb_1:
     ContainerStructureType: resource_bundle
     StructureNaming:
-      main_container_name: algites-java-gen-rb
-      sub_container_name: algites-java-gen-rb
-      file_name_stem: algites-java-gen-rb-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-rb-versioned:
+      main_container_name: algites-java-gen-rb_1
+      sub_container_name: algites-java-gen-rb_1
+      file_name_stem: algites-java-gen-rb-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-rb-versioned_1:
     ContainerStructureType: resource_bundle
     StructureNaming:
-      main_container_name: algites-java-gen-rb-versioned
-      sub_container_name: algites-java-gen-rb-versioned
-      file_name_stem: algites-java-gen-rb-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-xml-element-intf:
+      main_container_name: algites-java-gen-rb-versioned_1
+      sub_container_name: algites-java-gen-rb-versioned_1
+      file_name_stem: algites-java-gen-rb-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-xml-element-intf_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-xml-element-intf
-      sub_container_name: algites-java-xml-element-intf
-      file_name_stem: algites-java-xml-element-intf-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-xml-element-intf-versioned:
+      main_container_name: algites-java-xml-element-intf_1
+      sub_container_name: algites-java-xml-element-intf_1
+      file_name_stem: algites-java-xml-element-intf-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-xml-element-intf-versioned_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-xml-element-intf-versioned
-      sub_container_name: algites-java-xml-element-intf-versioned
-      file_name_stem: algites-java-xml-element-intf-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-data-xml-element-intf:
+      main_container_name: algites-java-xml-element-intf-versioned_1
+      sub_container_name: algites-java-xml-element-intf-versioned_1
+      file_name_stem: algites-java-xml-element-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-data-xml-element-intf_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-data-xml-element-intf
-      sub_container_name: algites-java-data-xml-element-intf
-      file_name_stem: algites-java-data-xml-element-intf-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-data-xml-element-intf-versioned:
+      main_container_name: algites-java-data-xml-element-intf_1
+      sub_container_name: algites-java-data-xml-element-intf_1
+      file_name_stem: algites-java-data-xml-element-intf-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-data-xml-element-intf-versioned_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-data-xml-element-intf-versioned
-      sub_container_name: algites-java-data-xml-element-intf-versioned
-      file_name_stem: algites-java-data-xml-element-intf-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-xml-element-intf:
+      main_container_name: algites-java-data-xml-element-intf-versioned_1
+      sub_container_name: algites-java-data-xml-element-intf-versioned_1
+      file_name_stem: algites-java-data-xml-element-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-xml-element-intf_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-gen-xml-element-intf
-      sub_container_name: algites-java-gen-xml-element-intf
-      file_name_stem: algites-java-gen-xml-element-intf-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-xml-element-intf-versioned:
+      main_container_name: algites-java-gen-xml-element-intf_1
+      sub_container_name: algites-java-gen-xml-element-intf_1
+      file_name_stem: algites-java-gen-xml-element-intf-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-xml-element-intf-versioned_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-gen-xml-element-intf-versioned
-      sub_container_name: algites-java-gen-xml-element-intf-versioned
-      file_name_stem: algites-java-gen-xml-element-intf-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-data-xml-element-intf:
+      main_container_name: algites-java-gen-xml-element-intf-versioned_1
+      sub_container_name: algites-java-gen-xml-element-intf-versioned_1
+      file_name_stem: algites-java-gen-xml-element-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-xml-element-intf_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-gen-data-xml-element-intf
-      sub_container_name: algites-java-gen-data-xml-element-intf
-      file_name_stem: algites-java-gen-data-xml-element-intf-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-data-xml-element-intf-versioned:
+      main_container_name: algites-java-gen-data-xml-element-intf_1
+      sub_container_name: algites-java-gen-data-xml-element-intf_1
+      file_name_stem: algites-java-gen-data-xml-element-intf-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-xml-element-intf-versioned_1:
     ContainerStructureType: interface
     StructureNaming:
-      main_container_name: algites-java-gen-data-xml-element-intf-versioned
-      sub_container_name: algites-java-gen-data-xml-element-intf-versioned
-      file_name_stem: algites-java-gen-data-xml-element-intf-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-xml-element-class:
+      main_container_name: algites-java-gen-data-xml-element-intf-versioned_1
+      sub_container_name: algites-java-gen-data-xml-element-intf-versioned_1
+      file_name_stem: algites-java-gen-data-xml-element-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-xml-element-class_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-xml-element-class
-      sub_container_name: algites-java-xml-element-class
-      file_name_stem: algites-java-xml-element-class-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-xml-element-class-versioned:
+      main_container_name: algites-java-xml-element-class_1
+      sub_container_name: algites-java-xml-element-class_1
+      file_name_stem: algites-java-xml-element-class-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-xml-element-class-versioned_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-xml-element-class-versioned
-      sub_container_name: algites-java-xml-element-class-versioned
-      file_name_stem: algites-java-xml-element-class-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-data-xml-element-class:
+      main_container_name: algites-java-xml-element-class-versioned_1
+      sub_container_name: algites-java-xml-element-class-versioned_1
+      file_name_stem: algites-java-xml-element-class-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-data-xml-element-class_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-data-xml-element-class
-      sub_container_name: algites-java-data-xml-element-class
-      file_name_stem: algites-java-data-xml-element-class-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-data-xml-element-class-versioned:
+      main_container_name: algites-java-data-xml-element-class_1
+      sub_container_name: algites-java-data-xml-element-class_1
+      file_name_stem: algites-java-data-xml-element-class-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-data-xml-element-class-versioned_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-data-xml-element-class-versioned
-      sub_container_name: algites-java-data-xml-element-class-versioned
-      file_name_stem: algites-java-data-xml-element-class-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-xml-element-class:
+      main_container_name: algites-java-data-xml-element-class-versioned_1
+      sub_container_name: algites-java-data-xml-element-class-versioned_1
+      file_name_stem: algites-java-data-xml-element-class-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-xml-element-class_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-gen-xml-element-class
-      sub_container_name: algites-java-gen-xml-element-class
-      file_name_stem: algites-java-gen-xml-element-class-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-xml-element-class-versioned:
+      main_container_name: algites-java-gen-xml-element-class_1
+      sub_container_name: algites-java-gen-xml-element-class_1
+      file_name_stem: algites-java-gen-xml-element-class-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-xml-element-class-versioned_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-gen-xml-element-class-versioned
-      sub_container_name: algites-java-gen-xml-element-class-versioned
-      file_name_stem: algites-java-gen-xml-element-class-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-data-xml-element-class:
+      main_container_name: algites-java-gen-xml-element-class-versioned_1
+      sub_container_name: algites-java-gen-xml-element-class-versioned_1
+      file_name_stem: algites-java-gen-xml-element-class-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-xml-element-class_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-gen-data-xml-element-class
-      sub_container_name: algites-java-gen-data-xml-element-class
-      file_name_stem: algites-java-gen-data-xml-element-class-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
-  algites-java-gen-data-xml-element-class-versioned:
+      main_container_name: algites-java-gen-data-xml-element-class_1
+      sub_container_name: algites-java-gen-data-xml-element-class_1
+      file_name_stem: algites-java-gen-data-xml-element-class-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-xml-element-class-versioned_1:
     ContainerStructureType: class
     StructureNaming:
-      main_container_name: algites-java-gen-data-xml-element-class-versioned
-      sub_container_name: algites-java-gen-data-xml-element-class-versioned
-      file_name_stem: algites-java-gen-data-xml-element-class-versioned-file
-      file_name_suffix: source-extension
-      field_name: field-name
-      method_name: method-name
-      method_parameter_name: parameter-name
-      local_variable_name: local-variable-name
-      package_segment_name: package-segment-name
-      enum_item_name: enum-item-name
-      constant_name: constant-name
+      main_container_name: algites-java-gen-data-xml-element-class-versioned_1
+      sub_container_name: algites-java-gen-data-xml-element-class-versioned_1
+      file_name_stem: algites-java-gen-data-xml-element-class-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-xml-type-intf-versioned_1:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-java-gen-xml-type-intf-versioned_1
+      sub_container_name: algites-java-gen-xml-type-intf-versioned_1
+      file_name_stem: algites-java-gen-xml-type-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-xml-type-intf-versioned_1:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-java-gen-data-xml-type-intf-versioned_1
+      sub_container_name: algites-java-gen-data-xml-type-intf-versioned_1
+      file_name_stem: algites-java-gen-data-xml-type-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-xml-type-class-versioned_1:
+    ContainerStructureType: class
+    StructureNaming:
+      main_container_name: algites-java-gen-data-xml-type-class-versioned_1
+      sub_container_name: algites-java-gen-data-xml-type-class-versioned_1
+      file_name_stem: algites-java-gen-data-xml-type-class-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-json-intf-versioned_1:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-java-gen-json-intf-versioned_1
+      sub_container_name: algites-java-gen-json-intf-versioned_1
+      file_name_stem: algites-java-gen-json-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-json-intf-versioned_1:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-java-gen-data-json-intf-versioned_1
+      sub_container_name: algites-java-gen-data-json-intf-versioned_1
+      file_name_stem: algites-java-gen-data-json-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-json-class-versioned_1:
+    ContainerStructureType: class
+    StructureNaming:
+      main_container_name: algites-java-gen-data-json-class-versioned_1
+      sub_container_name: algites-java-gen-data-json-class-versioned_1
+      file_name_stem: algites-java-gen-data-json-class-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-yaml-intf-versioned_1:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-java-gen-yaml-intf-versioned_1
+      sub_container_name: algites-java-gen-yaml-intf-versioned_1
+      file_name_stem: algites-java-gen-yaml-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-yaml-intf-versioned_1:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-java-gen-data-yaml-intf-versioned_1
+      sub_container_name: algites-java-gen-data-yaml-intf-versioned_1
+      file_name_stem: algites-java-gen-data-yaml-intf-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-yaml-class-versioned_1:
+    ContainerStructureType: class
+    StructureNaming:
+      main_container_name: algites-java-gen-data-yaml-class-versioned_1
+      sub_container_name: algites-java-gen-data-yaml-class-versioned_1
+      file_name_stem: algites-java-gen-data-yaml-class-versioned-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1

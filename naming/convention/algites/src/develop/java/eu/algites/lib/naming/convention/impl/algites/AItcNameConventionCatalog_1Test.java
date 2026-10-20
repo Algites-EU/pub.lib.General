@@ -14,7 +14,7 @@ public final class AItcNameConventionCatalog_1Test {
     @Test
     public void AIcAllJavaProfilesAndAmbiguities() throws Exception {
         AIcNameConventionCatalog_1 locCatalog = AIcNameConventionCatalog_1.loadResource("algites-java-name-conventions.yml");
-        Assert.assertEquals(locCatalog.names().size(), 48);
+        Assert.assertEquals(locCatalog.names().size(), 57);
         for (String locName : locCatalog.names()) {
             Map<String, String> locVars = Map.of("identifier", "Customer", "version", "2");
             String locFilename = locCatalog.format(locName, "file_name_stem", locVars, null)
@@ -22,26 +22,26 @@ public final class AItcNameConventionCatalog_1Test {
             Assert.assertEquals(locCatalog.recognizeFilename(locFilename, null).conventionName(), locName);
         }
         Assert.assertEquals(locCatalog.recognizeFilename("AIigCustomer_1.java", null).conventionName(),
-                "algites-java-gen-intf-versioned");
+                "algites-java-gen-intf-versioned_1");
         Assert.assertEquals(locCatalog.recognizeFilename("AIigdCustomer_1.java", null).conventionName(),
-                "algites-java-gen-data-intf-versioned");
+                "algites-java-gen-data-intf-versioned_1");
         Assert.assertEquals(locCatalog.recognizeFilename("AIig_xePayment_1.java", null).conventionName(),
-                "algites-java-gen-xml-element-intf-versioned");
+                "algites-java-gen-xml-element-intf-versioned_1");
         Assert.assertEquals(locCatalog.recognizeFilename("AIigXePayment_1.java", null).conventionName(),
-                "algites-java-gen-intf-versioned");
+                "algites-java-gen-intf-versioned_1");
     }
 
     /** All Python convention names are interpreted natively by the JVM, without Python execution. */
     @Test
     public void AIcPythonCatalogOnJava() throws Exception {
         AIcNameConventionCatalog_1 locCatalog = AIcNameConventionCatalog_1.loadResource("algites-python-name-conventions.yml");
-        Assert.assertEquals(locCatalog.names().size(), 48);
+        Assert.assertEquals(locCatalog.names().size(), 57);
         Assert.assertEquals(locCatalog.recognizeFilename("aiig_customer_1.py", null).conventionName(),
-                "algites-python-gen-intf-versioned");
+                "algites-python-gen-intf-versioned_1");
         Assert.assertEquals(locCatalog.recognizeFilename("aiig__xe_payment_1.py", null).conventionName(),
-                "algites-python-gen-xml-element-intf-versioned");
+                "algites-python-gen-xml-element-intf-versioned_1");
         Assert.assertEquals(locCatalog.recognizeFilename("aiig_xe_payment_1.py", null).conventionName(),
-                "algites-python-gen-intf-versioned");
+                "algites-python-gen-intf-versioned_1");
     }
 
     /** Cleanup removes only matching generated output files across package subdirectories. */
@@ -53,7 +53,7 @@ public final class AItcNameConventionCatalog_1Test {
             Path locNested = Files.createDirectories(locRoot.resolve("eu/algites/test"));
             for (String locName : new String[]{"AIigCustomer_1.java", "AIigdCustomer_1.java", "AIcgdCustomer_1.java"})
                 Files.writeString(locNested.resolve(locName), "test");
-            var locDeleted = locCatalog.clean(locRoot, Set.of("algites-java-gen-intf-versioned"));
+            var locDeleted = locCatalog.clean(locRoot, Set.of("algites-java-gen-intf-versioned_1"));
             Assert.assertEquals(locDeleted.size(), 1);
             Assert.assertFalse(Files.exists(locNested.resolve("AIigCustomer_1.java")));
             Assert.assertTrue(Files.exists(locNested.resolve("AIigdCustomer_1.java")));
@@ -69,12 +69,12 @@ public final class AItcNameConventionCatalog_1Test {
     public void AIcNativeRenderingUsesYaml() throws Exception {
         AIcNameConventionCatalog_1 locCatalog = AIcNameConventionCatalog_1.loadResource("algites-java-name-conventions.yml");
         Map<String, String> locValues = Map.of("identifier", "customer", "version", "1");
-        Assert.assertEquals(locCatalog.format("algites-java-gen-intf-versioned", "main_container_name",
-                locValues, "lower_kebab_case"), "AIigCustomer_1");
-        Assert.assertEquals(locCatalog.format("algites-java-gen-data-class-versioned", "main_container_name",
-                locValues, "lower_kebab_case"), "AIcgdCustomer_1");
-        Assert.assertEquals(locCatalog.format("algites-java-gen-enum-versioned", "main_container_name",
-                locValues, "lower_kebab_case"), "AIngCustomer_1");
+        Assert.assertEquals(locCatalog.format("algites-java-gen-intf-versioned_1", "main_container_name",
+                locValues, "lower_kebab_case_1"), "AIigCustomer_1");
+        Assert.assertEquals(locCatalog.format("algites-java-gen-data-class-versioned_1", "main_container_name",
+                locValues, "lower_kebab_case_1"), "AIcgdCustomer_1");
+        Assert.assertEquals(locCatalog.format("algites-java-gen-enum-versioned_1", "main_container_name",
+                locValues, "lower_kebab_case_1"), "AIngCustomer_1");
     }
 
     /** Complete filenames have exactly one suffix and all profiles share parameter/local rules. */
@@ -86,7 +86,7 @@ public final class AItcNameConventionCatalog_1Test {
             String locIdentifier = locJava ? "CustomerAddress" : "customer_address";
             String locParameter = locJava ? "aCustomerAddress" : "a_customer_address";
             String locLocal = locJava ? "locCustomerAddress" : "loc_customer_address";
-            String locSourceConvention = locJava ? "upper_camel_case" : "lower_snake_case";
+            String locSourceConvention = locJava ? "upper_camel_case_1" : "lower_snake_case_1";
             String locExtension = locJava ? ".java" : ".py";
             for (String locRole : locCatalog.names()) {
                 Map<String, String> locNames = Map.of("identifier", locIdentifier, "version", "12");
@@ -111,8 +111,8 @@ public final class AItcNameConventionCatalog_1Test {
     /** Standard runtime catalogs are loadable from the compiled artifact classpath. */
     @Test
     public void AIcStandardCatalogResourceAvailable() throws Exception {
-        Assert.assertEquals(AIcNameConventionCatalog_1.standard("java").names().size(), 48);
-        Assert.assertEquals(AIcNameConventionCatalog_1.standard("python").names().size(), 48);
+        Assert.assertEquals(AIcNameConventionCatalog_1.standard("java").names().size(), 57);
+        Assert.assertEquals(AIcNameConventionCatalog_1.standard("python").names().size(), 57);
     }
 
     /** User-defined captures are extracted and reordered entirely through the example YAML catalogs. */
@@ -130,8 +130,8 @@ public final class AItcNameConventionCatalog_1Test {
         Assert.assertEquals(locMatch.variables().get("major"), "2");
         Assert.assertEquals(locMatch.variables().get("minor"), "7");
         String locOutputStem = locSource.convert(locInput.substring(0, locInput.length() - ".demo.schema".length()),
-                "example-input", locTarget, "example-output", "file_name_stem");
-        String locOutput = locOutputStem + locTarget.format("example-output", "file_name_suffix",
+                "example-input_1", locTarget, "example-output_1", "file_name_stem");
+        String locOutput = locOutputStem + locTarget.format("example-output_1", "file_name_suffix",
                 locMatch.variables(), null);
         Assert.assertEquals(locOutput, "AIigCustomerAddress__beta__7-2__eu_west.java");
         Assert.assertEquals(locTarget.recognizeFilename(locOutput, null).variables().get("region"), "eu_west");

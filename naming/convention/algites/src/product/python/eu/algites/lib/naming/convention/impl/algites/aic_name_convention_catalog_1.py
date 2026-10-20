@@ -89,6 +89,28 @@ class AIcNameConventionCatalog_1:
         )
 
     @classmethod
+    def load_many(cls, sources) -> AIcNameConventionCatalog_1:
+        """Load an ordered set of file/resource catalogs without permitting conflicting IDs.
+
+        An identifier defined identically in multiple files is shared. Distinct definitions
+        of one identifier are always an error; file order never grants precedence.
+        """
+        merged = {section: {} for section in (
+            'IdentifierConventions', 'VersionConventions', 'NameFragments',
+            'NameCompositions', 'NameConventions')}
+        if not sources:
+            raise ValueError('At least one naming convention catalog is required')
+        for source in sources:
+            value = str(source)
+            catalog = cls.load_resource(value.removeprefix('resource:')) if value.startswith('resource:') else cls.load(value)
+            for section, definitions in merged.items():
+                for name, definition in catalog._config.get(section, {}).items():
+                    if name in definitions and definitions[name] != definition:
+                        raise ValueError(f'Conflicting naming definition {section}/{name!r} in {source}')
+                    definitions[name] = definition
+        return cls(merged)
+
+    @classmethod
     def standard(cls, technology: str) -> AIcNameConventionCatalog_1:
         """Load an artifact-packaged catalog; independent of checkout and version context."""
         if technology not in ('java', 'python'):
@@ -194,6 +216,13 @@ class AIcNameConventionCatalog_1:
                 deleted.append(path)
         return tuple(deleted)
 
+    def identifier_convention(self, profile_name: str, structure: str) -> str | None:
+        """Return the declared identifier conversion kind of one naming structure."""
+        for segment in self.segments(profile_name, structure):
+            if segment.get('Kind') == 'identifier':
+                return segment.get('Convention')
+        return None
+
     def format(self, profile_name: str, structure: str, variables: Mapping[str, str],
                source_convention: str | None = None) -> str:
         parts = []
@@ -220,31 +249,31 @@ class AIcNameConventionCatalog_1:
     def convert_identifier(value: str, source: str, target: str) -> str:
         if source == target:
             return value
-        if source.endswith('_snake_case'):
+        if source.endswith('_snake_case_1'):
             words = value.split('_')
-        elif source.endswith('_kebab_case'):
+        elif source.endswith('_kebab_case_1'):
             words = value.split('-')
-        elif source.endswith('_camel_case'):
+        elif source.endswith('_camel_case_1'):
             words = _CAMEL_BOUNDARY.split(value)
-        elif source in ('all_lower', 'all_upper'):
+        elif source in ('all_lower_1', 'all_upper_1'):
             words = [value]
         else:
             raise ValueError('Custom identifier convention cannot automatically convert: ' + source)
         words = [word.lower() for word in words]
-        if target == 'all_lower':
+        if target == 'all_lower_1':
             return ''.join(words)
-        if target == 'all_upper':
+        if target == 'all_upper_1':
             return ''.join(words).upper()
-        if target == 'lower_snake_case':
+        if target == 'lower_snake_case_1':
             return '_'.join(words)
-        if target == 'upper_snake_case':
+        if target == 'upper_snake_case_1':
             return '_'.join(words).upper()
-        if target == 'lower_kebab_case':
+        if target == 'lower_kebab_case_1':
             return '-'.join(words)
-        if target == 'upper_kebab_case':
+        if target == 'upper_kebab_case_1':
             return '-'.join(words).upper()
-        if target in ('lower_camel_case', 'upper_camel_case'):
-            return (words[0] if target == 'lower_camel_case' else words[0].capitalize()) + ''.join(w.capitalize() for w in words[1:])
+        if target in ('lower_camel_case_1', 'upper_camel_case_1'):
+            return (words[0] if target == 'lower_camel_case_1' else words[0].capitalize()) + ''.join(w.capitalize() for w in words[1:])
         raise ValueError('Unsupported formatter: ' + target)
 
     def convert(self, value: str, source_profile: str, target_catalog: AIcNameConventionCatalog_1,

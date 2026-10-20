@@ -2,54 +2,54 @@
 # $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 NameCompositions:
-  schema-name:
+  schema-name_1:
     Segments:
     - Kind: identifier
-      Convention: upper_camel_case
-  schema-stem:
+      Convention: upper_camel_case_1
+  schema-stem_1:
     Segments:
     - Kind: identifier
-      Convention: lower_kebab_case
-  schema-stem-versioned:
+      Convention: lower_kebab_case_1
+  schema-stem-versioned_1:
     Segments:
     - Kind: identifier
-      Convention: lower_kebab_case
+      Convention: lower_kebab_case_1
     - Kind: constant_string
       Value: _
     - Kind: version
-      Convention: positive_integer
-  schema-enum-item:
+      Convention: positive_integer_1
+  schema-enum-item_1:
     Segments:
     - Kind: identifier
-      Convention: lower_snake_case
-  schema-suffix:
+      Convention: lower_snake_case_1
+  jsondefs-schema-suffix_1:
     Segments:
     - Kind: constant_string
       Value: .jsondef.schema.json
-  schema-property:
+  schema-property_1:
     Segments:
     - Kind: identifier
-      Convention: upper_camel_case
-  schema-package:
+      Convention: upper_camel_case_1
+  schema-package_1:
     Segments:
     - Kind: identifier
-      Convention: lower_snake_case
+      Convention: lower_snake_case_1
 NameConventions:
-  algites-jsondef-schema:
+  algites-jsondef-schema_1:
     ContainerStructureType: object
     StructureNaming:
-      main_container_name: schema-name
-      file_name_stem: schema-stem
-      file_name_suffix: schema-suffix
-      enum_item_name: schema-enum-item
-      field_name: schema-property
-      package_segment_name: schema-package
-  algites-jsondef-schema-versioned:
+      main_container_name: schema-name_1
+      file_name_stem: schema-stem_1
+      file_name_suffix: jsondefs-schema-suffix_1
+      enum_item_name: schema-enum-item_1
+      field_name: schema-property_1
+      package_segment_name: schema-package_1
+  algites-jsondef-schema-versioned_1:
     ContainerStructureType: object
     StructureNaming:
-      main_container_name: schema-name
-      file_name_stem: schema-stem-versioned
-      file_name_suffix: schema-suffix
-      enum_item_name: schema-enum-item
-      field_name: schema-property
-      package_segment_name: schema-package
+      main_container_name: schema-name_1
+      file_name_stem: schema-stem-versioned_1
+      file_name_suffix: jsondefs-schema-suffix_1
+      enum_item_name: schema-enum-item_1
+      field_name: schema-property_1
+      package_segment_name: schema-package_1

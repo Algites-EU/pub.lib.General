@@ -19,33 +19,33 @@ def test_name_match_is_in_its_own_public_type_module():
 
     catalog_match = catalog('java').recognize_filename('AIigCustomer_1.java')
     assert isinstance(catalog_match, AIcdNameMatch)
-    assert catalog_match.convention_name == 'algites-java-gen-intf-versioned'
+    assert catalog_match.convention_name == 'algites-java-gen-intf-versioned_1'
     assert catalog_match.variables['identifier'] == 'Customer'
     assert AIcdNameMatch.__module__.endswith('.aicd_name_match')
 
 
 def test_all_java_combinations_and_distinct_filename_classification():
     cat = catalog('java')
-    assert len(cat.names) == 48
+    assert len(cat.names) == 57
     for name in cat.names:
         fields = {'identifier': 'Customer', 'version': '2'}
         value = cat.format(name, 'file_name_stem', fields) + cat.format(name, 'file_name_suffix', fields)
         found = cat.recognize_filename(value)
         assert found is not None and found.convention_name == name, (name, value, found)
-    assert cat.recognize_filename('AIcgdCustomer_2.java').convention_name == 'algites-java-gen-data-class-versioned'
-    assert cat.recognize_filename('AIigCustomer_2.java').convention_name == 'algites-java-gen-intf-versioned'
-    assert cat.recognize_filename('AIigdCustomer_2.java').convention_name == 'algites-java-gen-data-intf-versioned'
+    assert cat.recognize_filename('AIcgdCustomer_2.java').convention_name == 'algites-java-gen-data-class-versioned_1'
+    assert cat.recognize_filename('AIigCustomer_2.java').convention_name == 'algites-java-gen-intf-versioned_1'
+    assert cat.recognize_filename('AIigdCustomer_2.java').convention_name == 'algites-java-gen-data-intf-versioned_1'
 
 
 def test_all_python_combinations_and_distinct_filename_classification():
     cat = catalog('python')
-    assert len(cat.names) == 48
+    assert len(cat.names) == 57
     for name in cat.names:
         fields = {'identifier': 'customer', 'version': '2'}
         value = cat.format(name, 'file_name_stem', fields) + cat.format(name, 'file_name_suffix', fields)
         found = cat.recognize_filename(value)
         assert found is not None and found.convention_name == name, (name, value, found)
-    assert cat.recognize_filename('aiig_customer_2.py').convention_name == 'algites-python-gen-intf-versioned'
+    assert cat.recognize_filename('aiig_customer_2.py').convention_name == 'algites-python-gen-intf-versioned_1'
 
 
 @pytest.mark.parametrize('kind,extension', [('yamldef','.yamldef.schema.json'),('jsondef','.jsondef.schema.json'),('xmldef','.xsd')])
@@ -53,15 +53,15 @@ def test_schema_formats(kind, extension):
     cat = catalog(kind)
     assert len(cat.names) == 2
     found = cat.recognize_filename('customer-address_2' + extension)
-    assert found is not None and found.convention_name == f'algites-{kind}-schema-versioned'
+    assert found is not None and found.convention_name == f'algites-{kind}-schema-versioned_1'
     assert cat.recognize_filename('customer-address_2' + extension + '.bak') is None
 
 
 def test_conversion():
     source = catalog('yamldef')
     target = catalog('java')
-    assert source.convert('customer-address', 'algites-yamldef-schema', target,
-        'algites-java-gen-intf', 'main_container_name', 'file_name_stem') == 'AIigCustomerAddress'
+    assert source.convert('customer-address', 'algites-yamldef-schema_1', target,
+        'algites-java-gen-intf_1', 'main_container_name', 'file_name_stem') == 'AIigCustomerAddress'
 
 
 def test_clean_only_owned_outputs(tmp_path):
@@ -70,7 +70,7 @@ def test_clean_only_owned_outputs(tmp_path):
     root.mkdir(parents=True)
     for name in ('AIigCustomer_1.java','AIigdCustomer_1.java','AIcgdCustomer_1.java','Handwritten.java'):
         (root/name).write_text('dummy')
-    deleted = cat.clean(tmp_path / 'java.gen', {'algites-java-gen-intf-versioned'})
+    deleted = cat.clean(tmp_path / 'java.gen', {'algites-java-gen-intf-versioned_1'})
     assert [p.name for p in deleted] == ['AIigCustomer_1.java']
     assert (root/'AIigdCustomer_1.java').exists() and (root/'AIcgdCustomer_1.java').exists()
 
@@ -78,9 +78,9 @@ def test_clean_only_owned_outputs(tmp_path):
 def test_ambiguous_file_names_rejected():
     import yaml
     root = yaml.safe_load((ROOT/'algites-java-name-conventions.yml').read_text())
-    root['IdentifierConventions'] = {'upper_camel_case': {'Regexp': '(?<identifier>[A-Z][A-Za-z0-9]*)'}}
+    root['IdentifierConventions'] = {'upper_camel_case_1': {'Regexp': '(?<identifier>[A-Z][A-Za-z0-9]*)'}}
     # Deliberately duplicate a profile and require a clear ambiguity error.
-    root['NameConventions']['duplicate'] = root['NameConventions']['algites-java-gen-intf-versioned']
+    root['NameConventions']['duplicate'] = root['NameConventions']['algites-java-gen-intf-versioned_1']
     with pytest.raises(ValueError, match='Ambiguous'):
         cat = AIcNameConventionCatalog_1({**root, 'IdentifierConventions': {**yaml.safe_load((ROOT/'standard-conventions.yml').read_text())['IdentifierConventions']}, 'VersionConventions':yaml.safe_load((ROOT/'standard-conventions.yml').read_text())['VersionConventions']})
         cat.recognize_filename('AIigCustomer_1.java')
@@ -89,18 +89,18 @@ def test_ambiguous_file_names_rejected():
 def test_custom_version_named_variables_can_be_recomposed():
     """Input 1.0 can become _1_0 without a generator-specific version algorithm."""
     identifiers = {
-        'lower_snake_case': {'Regexp': '(?<identifier>[a-z][a-z0-9]*(?:_[a-z][a-z0-9]*)*)'},
-        'upper_camel_case': {'Regexp': '(?<identifier>[A-Z][a-z0-9]*(?:[A-Z][a-z0-9]*)*)'},
+        'lower_snake_case_1': {'Regexp': '(?<identifier>[a-z][a-z0-9]*(?:_[a-z][a-z0-9]*)*)'},
+        'upper_camel_case_1': {'Regexp': '(?<identifier>[A-Z][a-z0-9]*(?:[A-Z][a-z0-9]*)*)'},
     }
     source = AIcNameConventionCatalog_1({
         'IdentifierConventions': identifiers,
-        'VersionConventions': {'major_minor': {'Regexp':
+        'VersionConventions': {'major_minor_1': {'Regexp':
             r'(?<version>(?<major>0|[1-9][0-9]*)\.(?<minor>0|[1-9][0-9]*))'}},
         'NameCompositions': {
             'source': {'Segments': [
-                {'Kind': 'identifier', 'Convention': 'lower_snake_case'},
+                {'Kind': 'identifier', 'Convention': 'lower_snake_case_1'},
                 {'Kind': 'constant_string', 'Value': '_'},
-                {'Kind': 'version', 'Convention': 'major_minor'}]},
+                {'Kind': 'version', 'Convention': 'major_minor_1'}]},
             'suffix': {'Segments': [{'Kind': 'constant_string', 'Value': '.schema'}]},
         },
         'NameConventions': {'source-format': {'ContainerStructureType': 'object', 'StructureNaming': {
@@ -111,7 +111,7 @@ def test_custom_version_named_variables_can_be_recomposed():
         'NameCompositions': {
             'target': {'Segments': [
                 {'Kind': 'constant_string', 'Value': 'AIig'},
-                {'Kind': 'identifier', 'Convention': 'upper_camel_case'},
+                {'Kind': 'identifier', 'Convention': 'upper_camel_case_1'},
                 {'Kind': 'constant_string', 'Value': '_'},
                 {'Kind': 'variable', 'Name': 'major', 'Regexp': '[0-9]+'},
                 {'Kind': 'constant_string', 'Value': '_'},
@@ -143,7 +143,7 @@ def test_all_naming_catalogs_exist_under_product_config():
 def test_common_method_and_local_naming_for_all_profiles(language, expected_parameter, expected_local):
     cat = catalog(language)
     for profile in cat.names:
-        source = 'upper_camel_case' if language == 'java' else 'lower_snake_case'
+        source = 'upper_camel_case_1' if language == 'java' else 'lower_snake_case_1'
         identifier = 'CustomerAddress' if language == 'java' else 'customer_address'
         values = {'identifier': identifier}
         for structure, expected in (('method_parameter_name', expected_parameter),
@@ -178,7 +178,7 @@ def test_yaml_example_reorders_user_variables_and_major_minor_versions():
     input_filename = 'customer_address--eu_west--beta--2.7.demo.schema'
     input_match = source.recognize_filename(input_filename)
     assert input_match is not None
-    assert input_match.convention_name == 'example-input'
+    assert input_match.convention_name == 'example-input_1'
     assert input_match.variables == {
         'identifier': 'customer_address',
         'region': 'eu_west',
@@ -188,8 +188,8 @@ def test_yaml_example_reorders_user_variables_and_major_minor_versions():
         'minor': '7',
     }
     output_stem = source.convert(input_filename.removesuffix('.demo.schema'),
-        'example-input', target, 'example-output', 'file_name_stem')
-    output_filename = output_stem + target.format('example-output', 'file_name_suffix', input_match.variables)
+        'example-input_1', target, 'example-output_1', 'file_name_stem')
+    output_filename = output_stem + target.format('example-output_1', 'file_name_suffix', input_match.variables)
     assert output_filename == 'AIigCustomerAddress__beta__7-2__eu_west.java'
     output_match = target.recognize_filename(output_filename)
     assert output_match is not None
@@ -213,8 +213,8 @@ def test_standard_catalog_uses_python_import_roots_independent_of_checkout(tmp_p
     unrelated.mkdir()
     code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1 "
             "import AIcNameConventionCatalog_1; "
-            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 48; "
-            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 48")
+            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 57; "
+            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 57")
     env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(config_root))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
 
@@ -237,8 +237,8 @@ def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
     unrelated.mkdir()
     code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1 "
             "import AIcNameConventionCatalog_1; "
-            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 48; "
-            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 48; "
+            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 57; "
+            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 57; "
             "assert len(AIcNameConventionCatalog_1.load_resource('algites-yamldef-name-conventions.yml').names) == 2")
     env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(stage))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
@@ -246,15 +246,15 @@ def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
 
 def test_xml_element_marker_is_distinct_in_java_and_python():
     java, python = catalog('java'), catalog('python')
-    assert java.recognize_filename('AIig_xePayment_1.java').convention_name == 'algites-java-gen-xml-element-intf-versioned'
-    assert java.recognize_filename('AIigd_xePayment_1.java').convention_name == 'algites-java-gen-data-xml-element-intf-versioned'
-    assert java.recognize_filename('AIcgd_xePayment_1.java').convention_name == 'algites-java-gen-data-xml-element-class-versioned'
-    assert python.recognize_filename('aiig__xe_payment_1.py').convention_name == 'algites-python-gen-xml-element-intf-versioned'
-    assert python.recognize_filename('aiigd__xe_payment_1.py').convention_name == 'algites-python-gen-data-xml-element-intf-versioned'
-    assert python.recognize_filename('aicgd__xe_payment_1.py').convention_name == 'algites-python-gen-data-xml-element-class-versioned'
-    assert java.recognize_filename('AIigXePayment_1.java').convention_name == 'algites-java-gen-intf-versioned'
-    assert python.recognize_filename('aiig_xe_payment_1.py').convention_name == 'algites-python-gen-intf-versioned'
-    assert java.parse('algites-java-gen-xml-element-intf-versioned', 'main_container_name',
+    assert java.recognize_filename('AIig_xePayment_1.java').convention_name == 'algites-java-gen-xml-element-intf-versioned_1'
+    assert java.recognize_filename('AIigd_xePayment_1.java').convention_name == 'algites-java-gen-data-xml-element-intf-versioned_1'
+    assert java.recognize_filename('AIcgd_xePayment_1.java').convention_name == 'algites-java-gen-data-xml-element-class-versioned_1'
+    assert python.recognize_filename('aiig__xe_payment_1.py').convention_name == 'algites-python-gen-xml-element-intf-versioned_1'
+    assert python.recognize_filename('aiigd__xe_payment_1.py').convention_name == 'algites-python-gen-data-xml-element-intf-versioned_1'
+    assert python.recognize_filename('aicgd__xe_payment_1.py').convention_name == 'algites-python-gen-data-xml-element-class-versioned_1'
+    assert java.recognize_filename('AIigXePayment_1.java').convention_name == 'algites-java-gen-intf-versioned_1'
+    assert python.recognize_filename('aiig_xe_payment_1.py').convention_name == 'algites-python-gen-intf-versioned_1'
+    assert java.parse('algites-java-gen-xml-element-intf-versioned_1', 'main_container_name',
                       'AIig_xePayment_1')['identifier'] == 'Payment'
-    assert python.parse('algites-python-gen-xml-element-intf-versioned', 'file_name_stem',
+    assert python.parse('algites-python-gen-xml-element-intf-versioned_1', 'file_name_stem',
                         'aiig__xe_payment_1')['identifier'] == 'payment'

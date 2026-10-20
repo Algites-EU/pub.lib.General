@@ -269,8 +269,8 @@ target = AIcNameConventionCatalog_1.load(root / 'example-output.yml')
 filename = 'customer_address--eu_west--beta--2.7.demo.schema'
 parsed = source.recognize_filename(filename)
 stem = source.convert(filename.removesuffix('.demo.schema'),
-                      'example-input', target, 'example-output', 'file_name_stem')
-result = stem + target.format('example-output', 'file_name_suffix', parsed.variables)
+                      'example-input_1', target, 'example-output_1', 'file_name_stem')
+result = stem + target.format('example-output_1', 'file_name_suffix', parsed.variables)
 assert result == 'AIigCustomerAddress__beta__7-2__eu_west.java'
 ```
 

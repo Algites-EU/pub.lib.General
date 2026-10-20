@@ -29,6 +29,7 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
     private final Map<String, Pattern> filePatterns = new LinkedHashMap<>();
     private final Map<String, JsonNode> identifierConventions = new LinkedHashMap<>();
     private final Map<String, JsonNode> versionConventions = new LinkedHashMap<>();
+    private final Map<String, String> roleBindings;
 
     /**
  * One recognized filename and its extracted named capture values.
@@ -73,6 +74,62 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
         }
     }
 
+    /**
+     * Combines external and classpath-packaged naming catalogs into a single lookup.
+     *
+     * <p>Repeated identical definitions are intentionally deduplicated; conflicting
+     * definitions cannot override each other based on the order of source files.
+     * The {@code resource:} prefix selects a YAML resource packaged inside the
+     * naming-conventions artifact, independently of the current working directory.
+     *
+     * @param aSources catalog locations, in lookup order; at least one is required
+     * @return one resolved naming catalog covering all supplied definitions
+     * @throws IOException if a source cannot be read or is not valid YAML
+     * @throws IllegalArgumentException if identifiers have conflicting definitions
+     */
+    public static AIcNameConventionCatalog_1 loadAll(List<String> aSources) throws IOException {
+        if (aSources == null || aSources.isEmpty())
+            throw new IllegalArgumentException("At least one naming catalog is required");
+        var locMerged = MAPPER.createObjectNode();
+        for (String locSection : List.of("IdentifierConventions", "VersionConventions", "NameFragments",
+                "NameCompositions", "NameConventions")) locMerged.putObject(locSection);
+        for (String locSource : aSources) {
+            AIcNameConventionCatalog_1 locCatalog = locSource.startsWith("resource:")
+                    ? loadResource(locSource.substring("resource:".length()))
+                    : load(Path.of(locSource));
+            for (String locSection : List.of("IdentifierConventions", "VersionConventions", "NameFragments",
+                    "NameCompositions", "NameConventions")) {
+                JsonNode locEntries = locCatalog.document.path(locSection);
+                var locTarget = (com.fasterxml.jackson.databind.node.ObjectNode) locMerged.path(locSection);
+                if (locSection.equals("IdentifierConventions") || locSection.equals("VersionConventions")) {
+                    /* A source catalog already imports its standard identifier definitions. */
+                    locEntries = MAPPER.createObjectNode();
+                }
+                final JsonNode locDefinitions = locEntries;
+                locDefinitions.fields().forEachRemaining(locEntry -> {
+                    JsonNode locOld = locTarget.get(locEntry.getKey());
+                    if (locOld != null && !locOld.equals(locEntry.getValue()))
+                        throw new IllegalArgumentException("Conflicting naming definition "
+                                + locSection + "/" + locEntry.getKey() + " in " + locSource);
+                    locTarget.set(locEntry.getKey(), locEntry.getValue().deepCopy());
+                });
+            }
+            for (String locSection : List.of("IdentifierConventions", "VersionConventions")) {
+                var locTarget = (com.fasterxml.jackson.databind.node.ObjectNode) locMerged.path(locSection);
+                Map<String, JsonNode> locEntries = locSection.equals("IdentifierConventions")
+                        ? locCatalog.identifierConventions : locCatalog.versionConventions;
+                locEntries.forEach((locName, locDefinition) -> {
+                    JsonNode locOld = locTarget.get(locName);
+                    if (locOld != null && !locOld.equals(locDefinition))
+                        throw new IllegalArgumentException("Conflicting naming definition "
+                                + locSection + "/" + locName + " in " + locSource);
+                    locTarget.set(locName, locDefinition.deepCopy());
+                });
+            }
+        }
+        return new AIcNameConventionCatalog_1(locMerged, MAPPER.createObjectNode());
+    }
+
     /** Loads the standard Algites catalog from its packaged YAML resources. */
     public static AIcNameConventionCatalog_1 standard(String aTechnology) throws IOException {
         if (!aTechnology.equals("java") && !aTechnology.equals("python"))
@@ -81,10 +138,59 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
     }
 
     private AIcNameConventionCatalog_1(JsonNode aDocument, JsonNode aStandard) {
+        roleBindings = Map.of();
         document = aDocument;
         mergeConventions(identifierConventions, aStandard.path("IdentifierConventions"), aDocument.path("IdentifierConventions"));
         mergeConventions(versionConventions, aStandard.path("VersionConventions"), aDocument.path("VersionConventions"));
         aDocument.path("NameConventions").fieldNames().forEachRemaining(aName -> filePatterns.put(aName, filenamePattern(aName)));
+    }
+
+    private AIcNameConventionCatalog_1(AIcNameConventionCatalog_1 aSource, Map<String, String> aRoles) {
+        document = aSource.document;
+        filePatterns.putAll(aSource.filePatterns);
+        identifierConventions.putAll(aSource.identifierConventions);
+        versionConventions.putAll(aSource.versionConventions);
+        roleBindings = Map.copyOf(aRoles);
+        for (String locName : roleBindings.values()) {
+            if (!filePatterns.containsKey(locName))
+                throw new IllegalArgumentException("Unknown naming convention selected for role: " + locName);
+        }
+    }
+
+    /**
+     * Binds semantic generation roles to exact identifiers without altering their definitions.
+     * @param aRoles role-to-convention mapping; an absent role stays disabled
+     * @return a catalog view carrying the requested role bindings
+     */
+    public AIcNameConventionCatalog_1 withRoles(Map<String, String> aRoles) {
+        return new AIcNameConventionCatalog_1(this, aRoles);
+    }
+
+    /**
+     * Resolves a semantic codegen role using its configured naming identifier.
+     * @param aRole semantic role, such as {@code xmldefs_type}
+     * @return selected naming convention identifier
+     * @throws IllegalArgumentException if this role is not configured
+     */
+    public String selectedRole(String aRole) {
+        String locSelected = roleBindings.get(aRole);
+        if (locSelected == null)
+            throw new IllegalArgumentException("No naming convention configured for " + aRole);
+        return locSelected;
+    }
+
+    /**
+     * Reports the lexical convention of the first identifier in a configured structure.
+     * @param aRole exact naming profile identifier
+     * @param aStructure structural name to inspect
+     * @return identifier convention ID, or {@code null} for a custom regexp / no identifier
+     */
+    public String identifierConvention(String aRole, String aStructure) {
+        for (JsonNode locSegment : structureSegments(aRole, aStructure)) {
+            if (locSegment.path("Kind").asText().equals("identifier"))
+                return locSegment.has("Convention") ? locSegment.get("Convention").asText() : null;
+        }
+        return null;
     }
 
     private static void mergeConventions(Map<String, JsonNode> aResult, JsonNode aBase, JsonNode aLocal) {
@@ -272,25 +378,25 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
     public static String convertIdentifier(String aValue, String aSource, String aTarget) {
         if (aSource.equals(aTarget)) return aValue;
         String[] locWords;
-        if (aSource.endsWith("_snake_case")) locWords = aValue.split("_");
-        else if (aSource.endsWith("_kebab_case")) locWords = aValue.split("-");
-        else if (aSource.endsWith("_camel_case")) locWords = CAMEL_BOUNDARY.split(aValue);
-        else if (aSource.equals("all_lower") || aSource.equals("all_upper")) locWords = new String[]{aValue};
+        if (aSource.endsWith("_snake_case_1")) locWords = aValue.split("_");
+        else if (aSource.endsWith("_kebab_case_1")) locWords = aValue.split("-");
+        else if (aSource.endsWith("_camel_case_1")) locWords = CAMEL_BOUNDARY.split(aValue);
+        else if (aSource.equals("all_lower_1") || aSource.equals("all_upper_1")) locWords = new String[]{aValue};
         else throw new IllegalArgumentException("Custom regex cannot automatically format: " + aSource);
         List<String> locLower = new ArrayList<>();
         for (String locWord : locWords) locLower.add(locWord.toLowerCase(Locale.ROOT));
         return switch (aTarget) {
-            case "lower_snake_case" -> String.join("_", locLower);
-            case "upper_snake_case" -> String.join("_", locLower).toUpperCase(Locale.ROOT);
-            case "lower_kebab_case" -> String.join("-", locLower);
-            case "upper_kebab_case" -> String.join("-", locLower).toUpperCase(Locale.ROOT);
-            case "all_lower" -> String.join("", locLower);
-            case "all_upper" -> String.join("", locLower).toUpperCase(Locale.ROOT);
-            case "lower_camel_case", "upper_camel_case" -> {
+            case "lower_snake_case_1" -> String.join("_", locLower);
+            case "upper_snake_case_1" -> String.join("_", locLower).toUpperCase(Locale.ROOT);
+            case "lower_kebab_case_1" -> String.join("-", locLower);
+            case "upper_kebab_case_1" -> String.join("-", locLower).toUpperCase(Locale.ROOT);
+            case "all_lower_1" -> String.join("", locLower);
+            case "all_upper_1" -> String.join("", locLower).toUpperCase(Locale.ROOT);
+            case "lower_camel_case_1", "upper_camel_case_1" -> {
                 StringBuilder locBuilder = new StringBuilder();
                 for (int i = 0; i < locLower.size(); i++) {
                     String locWord = locLower.get(i);
-                    if (i == 0 && aTarget.equals("lower_camel_case")) locBuilder.append(locWord);
+                    if (i == 0 && aTarget.equals("lower_camel_case_1")) locBuilder.append(locWord);
                     else locBuilder.append(Character.toUpperCase(locWord.charAt(0))).append(locWord.substring(1));
                 }
                 yield locBuilder.toString();
