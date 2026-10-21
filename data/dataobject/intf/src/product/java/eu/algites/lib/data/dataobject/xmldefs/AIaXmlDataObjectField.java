@@ -60,4 +60,23 @@ public @interface AIaXmlDataObjectField {
      * @return maximum XML occurrence count, or {@code -1} without a finite limit
      */
     int maxOccurs() default -1;
+
+    /**
+     * Namespace selection of an {@code xs:any} particle. Values are the XSD
+     * namespace expressions ({@code ##any}, {@code ##other}, {@code ##local},
+     * {@code ##targetNamespace} or a space-separated sequence of URIs).
+     * The empty default denotes an ordinary named XML field.
+     *
+     * @return original namespace constraint of the wildcard
+     */
+    String wildcardNamespace() default "";
+
+    /**
+     * XSD processContents policy of an XML wildcard. {@code lax} and
+     * {@code skip} retain the complete fragment; {@code strict} requires
+     * an external schema-aware validator before claiming schema validity.
+     *
+     * @return original processContents policy, or the XSD default
+     */
+    String wildcardProcessContents() default "strict";
 }

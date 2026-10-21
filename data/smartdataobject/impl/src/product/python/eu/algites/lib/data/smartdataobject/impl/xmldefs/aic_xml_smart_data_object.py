@@ -8,6 +8,7 @@ from enum import Enum
 import xml.etree.ElementTree as ET
 
 from eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind import AInXmlValueKind
+from eu.algites.lib.data.dataobject.xmldefs.aic_xml_wildcard_fragment import AIcXmlWildcardFragment, xml_wildcard_class
 from eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object import AIcSmartDataObject
 from eu.algites.lib.data.smartdataobject.xmldefs.aii_xml_smart_data_object import AIiXmlSmartDataObject
 
@@ -66,6 +67,18 @@ def _scalar(text: str, target: type | None) -> object:
     raise TypeError('XML field needs a supported scalar or explicit nested SmartDataObject type: ' + repr(target))
 
 
+def _wildcard_matches(qname: str, namespace_constraint: str, target_namespace: str) -> bool:
+    """Apply an XSD xs:any namespace expression to an expanded element QName."""
+    namespace = qname[1:].split('}', 1)[0] if qname.startswith('{') else ''
+    for token in namespace_constraint.split():
+        if (token == '##any' or token == '##local' and not namespace
+                or token == '##targetNamespace' and namespace == target_namespace
+                or token == '##other' and bool(namespace) and namespace != target_namespace
+                or token == namespace):
+            return True
+    return False
+
+
 class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
     """Mutable XML Schema object with namespace-aware, order-tolerant parsing.
 
@@ -78,6 +91,28 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
 
     __xml_field_types__: dict[str, type] = {}
     __xml_repeated_fields__: tuple[str, ...] = ()
+
+    @classmethod
+    def _wildcard_contract(cls, field_name: str) -> type:
+        """Resolve the inherited annotation of the generated xs:any getter."""
+        from typing import get_args, get_origin, get_type_hints
+        from eu.algites.lib.data.dataobject.xmldefs.aii_xml_data_object import AIiXmlDataObject
+        from eu.algites.lib.data.dataobject.xmldefs.aii_xml_data_object_namespace import AIiXmlDataObjectNamespace
+        for base in cls.__mro__:
+            if field_name not in base.__dict__.get('__annotations__', {}):
+                continue
+            try:
+                shape = get_type_hints(base).get(field_name)
+            except (NameError, TypeError):
+                continue
+            if shape is None:
+                continue
+            args = get_args(shape)
+            if args and get_origin(shape) in (tuple, list):
+                shape = args[0]
+            if isinstance(shape, type) and issubclass(shape, AIiXmlDataObject):
+                return shape
+        return AIiXmlDataObject
 
     @classmethod
     def from_xml(cls, aXml: str, aNestedTypes: Mapping[str, type] | None = None):
@@ -128,8 +163,14 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
         repeated = _repeated_metadata(cls)
         by_element: dict[str, str] = {}
         by_attribute: dict[str, str] = {}
+        wildcards: list[tuple[str, object]] = []
         for name, descriptor in descriptors.items():
             xml = xml_metadata.get(name)
+            if xml and bool(xml.wildcard_namespace):
+                wildcards.append((name, xml))
+                if descriptor.expected_type is list:
+                    repeated.add(name)
+                continue
             qname = _qname(xml.namespace if xml else '',
                            (xml.namespace_local_name if xml and xml.namespace_local_name else name))
             lookup = by_attribute if xml and xml.value_kind == AInXmlValueKind.ATTRIBUTE else by_element
@@ -156,10 +197,30 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
         for child in element:
             field_name = by_element.get(child.tag)
             if field_name is None:
-                raise ValueError('Unknown XML element: ' + repr(child.tag))
+                matches = [(name, xml) for name, xml in wildcards
+                    if _wildcard_matches(child.tag, xml.wildcard_namespace, xml.namespace)]
+                if len(matches) > 1:
+                    raise ValueError('Ambiguous XML wildcard match: ' + repr(child.tag))
+                if not matches:
+                    raise ValueError('Unknown XML element: ' + repr(child.tag))
+                field_name = matches[0][0]
             descriptor = descriptors[field_name]
             field_path = aPath + '.' + field_name if aPath else field_name
             target = nested_types.get(field_path) or nested_types.get(field_name)
+            wildcard = xml_metadata.get(field_name)
+            if wildcard and bool(wildcard.wildcard_namespace):
+                # Store an entire standalone XML subtree, including its attributes,
+                # nested elements and namespace declarations, not merely text.
+                fragment = ET.tostring(child, encoding='unicode')
+                namespace_contract = cls._wildcard_contract(field_name)
+                value = xml_wildcard_class(namespace_contract)(fragment)
+                if field_name in repeated:
+                    values.setdefault(field_name, []).append(value)
+                elif field_name in values:
+                    raise ValueError('Duplicate non-repeating XML wildcard: ' + field_name)
+                else:
+                    values[field_name] = value
+                continue
             nil = child.attrib.get(_qname(_XML_SCHEMA_INSTANCE, 'nil'))
             if nil is not None and nil not in ('true', '1', 'false', '0'):
                 raise ValueError('Invalid xsi:nil value: ' + repr(nil))

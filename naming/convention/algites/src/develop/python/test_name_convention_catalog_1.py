@@ -26,7 +26,7 @@ def test_name_match_is_in_its_own_public_type_module():
 
 def test_all_java_combinations_and_distinct_filename_classification():
     cat = catalog('java')
-    assert len(cat.names) == 57
+    assert len(cat.names) == 59
     for name in cat.names:
         fields = {'identifier': 'Customer', 'version': '2'}
         value = cat.format(name, 'file_name_stem', fields) + cat.format(name, 'file_name_suffix', fields)
@@ -39,7 +39,7 @@ def test_all_java_combinations_and_distinct_filename_classification():
 
 def test_all_python_combinations_and_distinct_filename_classification():
     cat = catalog('python')
-    assert len(cat.names) == 57
+    assert len(cat.names) == 59
     for name in cat.names:
         fields = {'identifier': 'customer', 'version': '2'}
         value = cat.format(name, 'file_name_stem', fields) + cat.format(name, 'file_name_suffix', fields)
@@ -55,6 +55,17 @@ def test_schema_formats(kind, extension):
     found = cat.recognize_filename('customer-address_2' + extension)
     assert found is not None and found.convention_name == f'algites-{kind}-schema-versioned_1'
     assert cat.recognize_filename('customer-address_2' + extension + '.bak') is None
+
+
+@pytest.mark.parametrize('language', ['java', 'python'])
+def test_generic_constant_naming_has_no_schema_field_specific_prefix(language):
+    """A constant is an identifier, not implicitly a schema-field binding."""
+    names = catalog(language)
+    assert names.composition('constant-name_1') == (
+        {'Kind': 'identifier', 'Convention': 'upper_snake_case_1'},)
+    profile = f'algites-{language}-gen-intf-versioned_1'
+    assert names.format(profile, 'constant_name',
+                        {'identifier': 'customer_id'}, 'lower_snake_case_1') == 'CUSTOMER_ID'
 
 
 def test_conversion():
@@ -213,8 +224,8 @@ def test_standard_catalog_uses_python_import_roots_independent_of_checkout(tmp_p
     unrelated.mkdir()
     code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1 "
             "import AIcNameConventionCatalog_1; "
-            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 57; "
-            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 57")
+            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 59; "
+            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 59")
     env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(config_root))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
 
@@ -237,8 +248,8 @@ def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
     unrelated.mkdir()
     code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1 "
             "import AIcNameConventionCatalog_1; "
-            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 57; "
-            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 57; "
+            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 59; "
+            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 59; "
             "assert len(AIcNameConventionCatalog_1.load_resource('algites-yamldef-name-conventions.yml').names) == 2")
     env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(stage))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
@@ -258,3 +269,34 @@ def test_xml_element_marker_is_distinct_in_java_and_python():
                       'AIig_xePayment_1')['identifier'] == 'Payment'
     assert python.parse('algites-python-gen-xml-element-intf-versioned_1', 'file_name_stem',
                         'aiig__xe_payment_1')['identifier'] == 'payment'
+
+
+@pytest.mark.parametrize('language,source_identifier,source_style', [
+    ('java', 'CustomerAddress', 'upper_camel_case_1'),
+    ('python', 'customer_address', 'lower_snake_case_1'),
+])
+def test_all_profiles_have_independently_composed_getters_and_setters(language, source_identifier, source_style):
+    """The two new StructureNaming elements must work identically in every profile."""
+    from copy import deepcopy
+
+    original = catalog(language)
+    for profile in original.names:
+        getter = original.format(profile, 'getter_method_name',
+                                 {'identifier': source_identifier}, source_style)
+        setter = original.format(profile, 'setter_method_name',
+                                 {'identifier': source_identifier}, source_style)
+        assert getter == 'getCustomerAddress', (language, profile, getter)
+        assert setter == 'setCustomerAddress', (language, profile, setter)
+        assert original.matches(profile, 'getter_method_name', getter)
+        assert original.matches(profile, 'setter_method_name', setter)
+
+    # A custom profile may change both method syntaxes without touching codegen.
+    modified = deepcopy(original._config)
+    modified['NameCompositions'][f'{language}-getter-method-name_1']['Segments'][0]['Value'] = 'read'
+    modified['NameCompositions'][f'{language}-setter-method-name_1']['Segments'][0]['Value'] = 'write'
+    custom = AIcNameConventionCatalog_1(modified)
+    for profile in custom.names:
+        assert custom.format(profile, 'getter_method_name',
+                             {'identifier': source_identifier}, source_style) == 'readCustomerAddress'
+        assert custom.format(profile, 'setter_method_name',
+                             {'identifier': source_identifier}, source_style) == 'writeCustomerAddress'

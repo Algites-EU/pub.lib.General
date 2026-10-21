@@ -6,6 +6,7 @@ import eu.algites.lib.data.dataobject.AIaDataObject;
 import eu.algites.lib.data.dataobject.AIaDataObjectField;
 import eu.algites.lib.data.dataobject.AInFieldPresenceKind;
 import eu.algites.lib.data.dataobject.AIiDataObject;
+import eu.algites.lib.data.dataobject.xmldefs.AIiXmlWildcardFragment;
 import eu.algites.lib.common.validation.AIiValidatable;
 import java.util.Locale;
 
@@ -85,13 +86,15 @@ final class AIcSmartDataGraphSnapshot {
         if (locExisting != null) return locExisting;
         if (identity.size() >= MAX_NODES) throw new IllegalStateException("SmartData graph node limit exceeded");
         AInNodeKind locKind;
-        if (aValue instanceof AIiDataObject) locKind = AInNodeKind.SMART;
+        if (aValue instanceof AIiXmlWildcardFragment) locKind = AInNodeKind.SCALAR;
+        else if (aValue instanceof AIiDataObject) locKind = AInNodeKind.SMART;
         else if (aValue instanceof Map<?, ?>) locKind = AInNodeKind.MAPPING;
         else if (aValue instanceof Iterable<?> || aValue.getClass().isArray()) locKind = AInNodeKind.SEQUENCE;
         else if (aValue instanceof String || aValue instanceof Number || aValue instanceof Boolean ||
                 aValue instanceof Character || aValue instanceof Enum<?>) locKind = AInNodeKind.SCALAR;
         else locKind = AInNodeKind.OPAQUE;
-        Object locText = locKind == AInNodeKind.OPAQUE ? String.valueOf(aValue) : aValue;
+        Object locText = aValue instanceof AIiXmlWildcardFragment locXml
+                ? locXml.xmlFragment() : locKind == AInNodeKind.OPAQUE ? String.valueOf(aValue) : aValue;
         AIcNode locNode = new AIcNode(locKind, aValue, locText);
         identity.put(aValue, locNode);
         if (locKind == AInNodeKind.SMART) {

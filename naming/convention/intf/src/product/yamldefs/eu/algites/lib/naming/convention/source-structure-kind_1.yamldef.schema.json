@@ -10,6 +10,8 @@
     "enum_item_name",
     "constant_name",
     "method_name",
+    "getter_method_name",
+    "setter_method_name",
     "method_parameter_name",
     "local_variable_name",
     "package_segment_name",
@@ -52,6 +54,16 @@
       "const": "method_name",
       "title": "Method name",
       "description": "Name assigned to a callable method."
+    },
+    {
+      "const": "getter_method_name",
+      "title": "Getter method name",
+      "description": "Name assigned to a method that reads a field value."
+    },
+    {
+      "const": "setter_method_name",
+      "title": "Setter method name",
+      "description": "Name assigned to a method that writes a field value."
     },
     {
       "const": "method_parameter_name",

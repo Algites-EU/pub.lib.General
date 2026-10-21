@@ -2,6 +2,14 @@
 # $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 NameFragments:
+  xml-data-object-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: XmlDataObject
+  xml-namespace-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _xn
   xml-element-marker_1:
     Segments:
     - Kind: constant_string
@@ -449,6 +457,18 @@ NameCompositions:
     Segments:
     - Kind: identifier
       Convention: lower_camel_case_1
+  java-getter-method-name_1:
+    Segments:
+    - Kind: constant_string
+      Value: get
+    - Kind: identifier
+      Convention: upper_camel_case_1
+  java-setter-method-name_1:
+    Segments:
+    - Kind: constant_string
+      Value: set
+    - Kind: identifier
+      Convention: upper_camel_case_1
   java-parameter-name_1:
     Segments:
     - Ref: java-method-parameter-prefix_1
@@ -713,7 +733,59 @@ NameCompositions:
   algites-java-gen-data-yaml-class-versioned-file_1:
     Segments:
     - Ref: algites-java-gen-data-yaml-class-versioned_1
+  algites-java-gen-xml-namespace-intf_1:
+    Segments:
+    - Ref: intf-generated-prefix_1
+    - Ref: xml-namespace-marker_1
+    - Ref: xml-data-object-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+  algites-java-gen-xml-namespace-intf-file_1:
+    Segments:
+    - Ref: algites-java-gen-xml-namespace-intf_1
+  algites-java-gen-data-xml-namespace-intf_1:
+    Segments:
+    - Ref: intf-generated-data-prefix_1
+    - Ref: xml-namespace-marker_1
+    - Ref: xml-data-object-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+  algites-java-gen-data-xml-namespace-intf-file_1:
+    Segments:
+    - Ref: algites-java-gen-data-xml-namespace-intf_1
 NameConventions:
+  algites-java-gen-xml-namespace-intf_1:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-java-gen-xml-namespace-intf_1
+      sub_container_name: algites-java-gen-xml-namespace-intf_1
+      file_name_stem: algites-java-gen-xml-namespace-intf-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-java-gen-data-xml-namespace-intf_1:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-java-gen-data-xml-namespace-intf_1
+      sub_container_name: algites-java-gen-data-xml-namespace-intf_1
+      file_name_stem: algites-java-gen-data-xml-namespace-intf-file_1
+      file_name_suffix: java-source-extension_1
+      field_name: java-field-name_1
+      method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
+      method_parameter_name: java-parameter-name_1
+      local_variable_name: java-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
   algites-java-intf_1:
     ContainerStructureType: interface
     StructureNaming:
@@ -723,6 +795,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -737,6 +811,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -751,6 +827,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -765,6 +843,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -779,6 +859,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -793,6 +875,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -807,6 +891,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -821,6 +907,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -835,6 +923,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -849,6 +939,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -863,6 +955,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -877,6 +971,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -891,6 +987,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -905,6 +1003,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -919,6 +1019,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -933,6 +1035,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -947,6 +1051,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -961,6 +1067,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -975,6 +1083,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -989,6 +1099,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1003,6 +1115,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1017,6 +1131,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1031,6 +1147,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1045,6 +1163,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1059,6 +1179,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1073,6 +1195,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1087,6 +1211,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1101,6 +1227,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1115,6 +1243,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1129,6 +1259,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1143,6 +1275,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1157,6 +1291,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1171,6 +1307,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1185,6 +1323,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1199,6 +1339,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1213,6 +1355,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1227,6 +1371,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1241,6 +1387,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1255,6 +1403,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1269,6 +1419,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1283,6 +1435,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1297,6 +1451,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1311,6 +1467,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1325,6 +1483,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1339,6 +1499,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1353,6 +1515,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1367,6 +1531,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1381,6 +1547,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1395,6 +1563,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1409,6 +1579,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1423,6 +1595,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1437,6 +1611,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1451,6 +1627,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1465,6 +1643,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1479,6 +1659,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1493,6 +1675,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1507,6 +1691,8 @@ NameConventions:
       file_name_suffix: java-source-extension_1
       field_name: java-field-name_1
       method_name: java-method-name_1
+      getter_method_name: java-getter-method-name_1
+      setter_method_name: java-setter-method-name_1
       method_parameter_name: java-parameter-name_1
       local_variable_name: java-local-variable-name_1
       package_segment_name: package-segment-name_1

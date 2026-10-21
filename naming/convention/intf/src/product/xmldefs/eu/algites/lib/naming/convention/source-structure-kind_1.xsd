@@ -63,6 +63,22 @@
           <xs:documentation>Name assigned to a callable method.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
+      <xs:enumeration value="getter_method_name">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Getter method name</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Name assigned to a method that reads a field value.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="setter_method_name">
+        <xs:annotation>
+          <xs:appinfo>
+            <algdoc:title>Setter method name</algdoc:title>
+          </xs:appinfo>
+          <xs:documentation>Name assigned to a method that writes a field value.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
       <xs:enumeration value="method_parameter_name">
         <xs:annotation>
           <xs:appinfo>

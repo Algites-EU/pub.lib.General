@@ -6,6 +6,10 @@ import java.io.StringReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Proxy;
+import java.lang.reflect.WildcardType;
+import eu.algites.lib.data.dataobject.xmldefs.AIiXmlDataObject;
+import eu.algites.lib.data.dataobject.xmldefs.AIiXmlWildcardFragment;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -16,6 +20,11 @@ import java.util.Map;
 import java.util.Objects;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.StringWriter;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -83,6 +92,65 @@ public final class AIcXmlSmartDataObjectParser {
         }
     }
 
+    /** Match xs:any namespace tokens against an expanded XML QName. */
+    private static boolean wildcardMatches(Element aElement, String aRule, String aTargetNamespace) {
+        String locNamespace = aElement.getNamespaceURI() == null ? "" : aElement.getNamespaceURI();
+        for (String locToken : aRule.trim().split("\\s+")) {
+            if (locToken.equals("##any")
+                    || locToken.equals("##local") && locNamespace.isEmpty()
+                    || locToken.equals("##targetNamespace") && locNamespace.equals(aTargetNamespace)
+                    || locToken.equals("##other") && !locNamespace.isEmpty()
+                            && !locNamespace.equals(aTargetNamespace)
+                    || locToken.equals(locNamespace)) return true;
+        }
+        return false;
+    }
+
+    /** Retain a complete, standalone XML subtree using secure JAXP transformation. */
+    private static String xmlFragment(Element aElement) {
+        try {
+            var locFactory = TransformerFactory.newInstance();
+            locFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            locFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            locFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            var locTransformer = locFactory.newTransformer();
+            locTransformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            StringWriter locWriter = new StringWriter();
+            locTransformer.transform(new DOMSource(aElement), new StreamResult(locWriter));
+            return locWriter.toString();
+        } catch (javax.xml.transform.TransformerException aFailure) {
+            throw new IllegalArgumentException("Cannot serialize XML wildcard subtree", aFailure);
+        }
+    }
+
+    /** Safely normalize a manually supplied XML fragment before emitting it unescaped. */
+    static String verifiedWildcardFragment(String aFragment, String aConstraint, String aTargetNamespace) {
+        Objects.requireNonNull(aFragment, "XML wildcard fragment must not be null");
+        if (aFragment.length() > 8_000_000 || aFragment.toUpperCase(java.util.Locale.ROOT).contains("<!DOCTYPE")
+                || aFragment.toUpperCase(java.util.Locale.ROOT).contains("<!ENTITY"))
+            throw new IllegalArgumentException("Unsafe XML wildcard fragment");
+        try {
+            var locFactory = DocumentBuilderFactory.newInstance();
+            locFactory.setNamespaceAware(true);
+            locFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            locFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            locFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            locFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            locFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            locFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            locFactory.setXIncludeAware(false);
+            locFactory.setExpandEntityReferences(false);
+            Element locRoot = locFactory.newDocumentBuilder()
+                    .parse(new InputSource(new StringReader(aFragment))).getDocumentElement();
+            if (!wildcardMatches(locRoot, aConstraint, aTargetNamespace))
+                throw new IllegalArgumentException("XML wildcard namespace not permitted");
+            return xmlFragment(locRoot);
+        } catch (javax.xml.parsers.ParserConfigurationException |
+                org.xml.sax.SAXException | java.io.IOException aFailure) {
+            throw new IllegalArgumentException("Invalid or unsafe XML wildcard fragment", aFailure);
+        }
+    }
+
     private static <T extends AIcXmlSmartDataObject> T parse(
             Element aRoot, Class<T> aType,
             Map<String, Class<? extends AIcXmlSmartDataObject>> aNestedTypes,
@@ -100,7 +168,12 @@ public final class AIcXmlSmartDataObjectParser {
 
         Map<String, AIcSmartDataMetadata.AIcdField> locElements = new HashMap<>();
         Map<String, AIcSmartDataMetadata.AIcdField> locAttributes = new HashMap<>();
+        List<AIcSmartDataMetadata.AIcdField> locWildcards = new ArrayList<>();
         for (var locField : locMetadata.fields()) {
+            if (locField.xml() != null && !locField.xml().wildcardNamespace().isBlank()) {
+                locWildcards.add(locField);
+                continue;
+            }
             String locQName = expanded(locField.xmlNamespace(), locField.xmlLocalName());
             var locMap = locField.isXmlAttribute() ? locAttributes : locElements;
             if (locMap.putIfAbsent(locQName, locField) != null)
@@ -124,12 +197,36 @@ public final class AIcXmlSmartDataObjectParser {
             if (!(locChild instanceof Element locElement)) continue;
             String locQName = expanded(locElement);
             var locField = locElements.get(locQName);
+            if (locField == null) {
+                for (var locCandidate : locWildcards) {
+                    if (wildcardMatches(locElement, locCandidate.xml().wildcardNamespace(),
+                            locCandidate.xml().namespace())) {
+                        if (locField != null)
+                            throw new IllegalArgumentException("Ambiguous XML wildcard: " + locQName);
+                        locField = locCandidate;
+                    }
+                }
+            }
             if (locField == null) throw new IllegalArgumentException("Unknown XML element: " + locQName);
             String locFieldPath = aPath.isEmpty() ? locField.name() : aPath + "." + locField.name();
             Class<?> locValueType = locField.getter().getReturnType();
             boolean locRepeated = List.class.isAssignableFrom(locValueType);
             if (locRepeated) locValueType = elementClass(locField.getter().getGenericReturnType());
             Object locValue;
+            if (locField.xml() != null && !locField.xml().wildcardNamespace().isBlank()) {
+                locValue = wildcardObject(xmlFragment(locElement), locValueType);
+                if (locRepeated) {
+                    @SuppressWarnings("unchecked")
+                    List<Object> locList = (List<Object>) locValues.computeIfAbsent(
+                            locField.name(), k -> new ArrayList<>());
+                    locList.add(locValue);
+                } else {
+                    if (locValues.containsKey(locField.name()))
+                        throw new IllegalArgumentException("Duplicate non-repeating XML wildcard");
+                    locValues.put(locField.name(), locValue);
+                }
+                continue;
+            }
             var locNil = locElement.getAttributeNodeNS(XSI, "nil");
             if (locNil != null && !locNil.getValue().equals("false") && !locNil.getValue().equals("0") &&
                     !locNil.getValue().equals("true") && !locNil.getValue().equals("1"))
@@ -218,9 +315,46 @@ public final class AIcXmlSmartDataObjectParser {
         return false;
     }
 
+    /** Build a read-only XML object also implementing the namespace-specific generated contract. */
+    private static AIiXmlWildcardFragment wildcardObject(String fragment, Class<?> requestedType) {
+        if (!requestedType.isInterface() || !AIiXmlDataObject.class.isAssignableFrom(requestedType)) {
+            if (requestedType == String.class || requestedType == Object.class)
+                return wildcardProxy(fragment, AIiXmlDataObject.class);
+            throw new IllegalArgumentException("XML wildcard getter must declare an XML data object interface: "
+                    + requestedType.getName());
+        }
+        return wildcardProxy(fragment, requestedType);
+    }
+
+    /** Preserve XML subtrees behind an interface proxy without inventing schema fields. */
+    private static AIiXmlWildcardFragment wildcardProxy(String fragment, Class<?> requestedType) {
+        Class<?>[] interfaces = requestedType.isAssignableFrom(AIiXmlWildcardFragment.class)
+                ? new Class<?>[] {AIiXmlWildcardFragment.class}
+                : new Class<?>[] {requestedType, AIiXmlWildcardFragment.class};
+        return (AIiXmlWildcardFragment) Proxy.newProxyInstance(
+                requestedType.getClassLoader(), interfaces, (proxy, method, args) -> {
+                    if (method.getName().equals("xmlFragment") && method.getParameterCount() == 0)
+                        return fragment;
+                    if (method.getDeclaringClass() == Object.class) {
+                        return switch (method.getName()) {
+                            case "toString" -> fragment;
+                            case "hashCode" -> System.identityHashCode(proxy);
+                            case "equals" -> proxy == args[0];
+                            default -> throw new UnsupportedOperationException(method.toString());
+                        };
+                    }
+                    throw new UnsupportedOperationException(
+                            "Unbound XML wildcard has no generated field getter: " + method.getName());
+                });
+    }
+
     private static Class<?> elementClass(Type aType) {
-        if (aType instanceof ParameterizedType locType && locType.getActualTypeArguments().length == 1 &&
-                locType.getActualTypeArguments()[0] instanceof Class<?> locClass) return locClass;
+        if (aType instanceof ParameterizedType locType && locType.getActualTypeArguments().length == 1) {
+            Type member = locType.getActualTypeArguments()[0];
+            if (member instanceof Class<?> locClass) return locClass;
+            if (member instanceof WildcardType locWildcard && locWildcard.getUpperBounds().length == 1
+                    && locWildcard.getUpperBounds()[0] instanceof Class<?> locClass) return locClass;
+        }
         return String.class;
     }
 

@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 from eu.algites.lib.data.smartdataobject.aii_smart_data_object import AIiSmartDataObject
 from eu.algites.lib.data.smartdataobject.aiid_virtual_field_value import AIidVirtualFieldValue
 from eu.algites.lib.data.dataobject.aii_data_object import AIiDataObject
+from eu.algites.lib.data.dataobject.xmldefs.aic_xml_wildcard_fragment import AIcXmlWildcardFragment
 from eu.algites.lib.data.dataobject.ain_field_presence_kind import AInFieldPresenceKind
 from eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind import AInXmlValueKind
 from eu.algites.lib.common.object.props.labels.ais_field_label_utils import AIsFieldLabelUtils
@@ -139,11 +140,13 @@ class _Snapshot:
             return self.registry[key]
         if len(self.registry) >= 50000:
             raise ValueError('Snapshot too large')
-        kind = ('smart' if isinstance(obj, AIiDataObject) else
+        kind = ('scalar' if isinstance(obj, AIcXmlWildcardFragment) else
+                'smart' if isinstance(obj, AIiDataObject) else
                 'map' if isinstance(obj, Mapping) else
                 'list' if isinstance(obj, (tuple, list, set, MutableSequence)) else
                 'scalar' if isinstance(obj, (str, int, float, bool, Decimal, Enum)) else 'opaque')
-        node = _Node(kind, obj, str(obj) if kind == 'opaque' else obj)
+        node = _Node(kind, obj, obj.xml_fragment if isinstance(obj, AIcXmlWildcardFragment)
+                     else str(obj) if kind == 'opaque' else obj)
         self.registry[key] = node
         if kind == 'smart':
             xml_fields = getattr(type(obj), '__xml_data_object_fields__', {})
@@ -424,6 +427,26 @@ class _Renderer:
                                 visit(self.snapshot.value(fld, self.effective), child, 'Value')
                         else:
                             value = self.snapshot.value(fld, self.effective)
+                            if fld.xml and bool(fld.xml.wildcard_namespace):
+                                fragments = (value.children if value.kind == 'list' else (value,))
+                                for fragment in fragments:
+                                    if fragment.kind != 'scalar' or not isinstance(fragment.value, str):
+                                        raise TypeError('XML wildcard requires a serialized XML element string')
+                                    if ('<!DOCTYPE' in fragment.value.upper()
+                                            or '<!ENTITY' in fragment.value.upper()):
+                                        raise ValueError('DTD or entity in XML wildcard fragment')
+                                    parsed = ET.fromstring(fragment.value)
+                                    constraint = fld.xml.wildcard_namespace.split()
+                                    namespace = parsed.tag[1:].split('}', 1)[0] if parsed.tag.startswith('{') else ''
+                                    accepted = any(token == '##any' or
+                                        token == '##other' and bool(namespace) and namespace != fld.xml.namespace or
+                                        token == '##local' and not namespace or
+                                        token == '##targetNamespace' and namespace == fld.xml.namespace or
+                                        token == namespace for token in constraint)
+                                    if not accepted:
+                                        raise ValueError('XML wildcard namespace is not permitted: ' + parsed.tag)
+                                    element.append(parsed)
+                                continue
                             # XSD maxOccurs creates sibling elements with the same QName.
                             # The Item wrapper is reserved for diagnostic collection output.
                             if value.kind == 'list':

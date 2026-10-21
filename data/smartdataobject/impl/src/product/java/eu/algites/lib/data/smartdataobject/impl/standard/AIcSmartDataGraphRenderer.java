@@ -426,6 +426,20 @@ final class AIcSmartDataGraphRenderer {
                         }
                     } else {
                         var locValue = snapshot.fieldValue(locField, effective);
+                        if (locField.descriptor.xml() != null && !locField.descriptor.xml().wildcardNamespace().isBlank()) {
+                            var locItems = locValue.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SEQUENCE
+                                    ? locValue.elements : java.util.List.of(locValue);
+                            for (var locItem : locItems) {
+                                if (locItem.kind != AIcSmartDataGraphSnapshot.AInNodeKind.SCALAR
+                                        || !(locItem.scalar instanceof String locFragment))
+                                    throw new IllegalArgumentException("XML wildcard requires an XML fragment string");
+                                aOut.append("  ".repeat(aDepth + 1)).append(
+                                        AIcXmlSmartDataObjectParser.verifiedWildcardFragment(locFragment,
+                                                locField.descriptor.xml().wildcardNamespace(),
+                                                locField.descriptor.xml().namespace())).append('\n');
+                            }
+                            continue;
+                        }
                         String locQName = qname(locFieldName, locField.descriptor.xmlNamespace());
                         /* XSD maxOccurs represents repeated sibling elements, not a
                          * single wrapper element containing artificial Item children. */

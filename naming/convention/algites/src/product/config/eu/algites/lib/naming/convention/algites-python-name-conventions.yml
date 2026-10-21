@@ -2,6 +2,22 @@
 # $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 NameFragments:
+  xml-data-object-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: XmlDataObject
+  xml-data-object-file-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: xml_data_object_
+  xml-namespace-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _xn
+  xml-namespace-file-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _xn_
   xml-element-marker_1:
     Segments:
     - Kind: constant_string
@@ -609,6 +625,18 @@ NameCompositions:
     Segments:
     - Kind: identifier
       Convention: lower_snake_case_1
+  python-getter-method-name_1:
+    Segments:
+    - Kind: constant_string
+      Value: get
+    - Kind: identifier
+      Convention: upper_camel_case_1
+  python-setter-method-name_1:
+    Segments:
+    - Kind: constant_string
+      Value: set
+    - Kind: identifier
+      Convention: upper_camel_case_1
   python-parameter-name_1:
     Segments:
     - Ref: python-method-parameter-prefix_1
@@ -965,7 +993,67 @@ NameCompositions:
     - Kind: identifier
       Convention: lower_snake_case_1
     - Ref: version-suffix_1
+  algites-python-gen-xml-namespace-intf_1:
+    Segments:
+    - Ref: intf-generated-prefix_1
+    - Ref: xml-namespace-marker_1
+    - Ref: xml-data-object-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+  algites-python-gen-xml-namespace-intf-file_1:
+    Segments:
+    - Ref: intf-generated-prefix-file_1
+    - Ref: xml-namespace-file-marker_1
+    - Ref: xml-data-object-file-marker_1
+    - Kind: identifier
+      Convention: lower_snake_case_1
+  algites-python-gen-data-xml-namespace-intf_1:
+    Segments:
+    - Ref: intf-generated-data-prefix_1
+    - Ref: xml-namespace-marker_1
+    - Ref: xml-data-object-marker_1
+    - Kind: identifier
+      Convention: upper_camel_case_1
+  algites-python-gen-data-xml-namespace-intf-file_1:
+    Segments:
+    - Ref: intf-generated-data-prefix-file_1
+    - Ref: xml-namespace-file-marker_1
+    - Ref: xml-data-object-file-marker_1
+    - Kind: identifier
+      Convention: lower_snake_case_1
 NameConventions:
+  algites-python-gen-xml-namespace-intf_1:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-python-gen-xml-namespace-intf_1
+      sub_container_name: algites-python-gen-xml-namespace-intf_1
+      file_name_stem: algites-python-gen-xml-namespace-intf-file_1
+      file_name_suffix: python-source-extension_1
+      field_name: python-field-name_1
+      method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
+      method_parameter_name: python-parameter-name_1
+      local_variable_name: python-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
+  algites-python-gen-data-xml-namespace-intf_1:
+    ContainerStructureType: interface
+    StructureNaming:
+      main_container_name: algites-python-gen-data-xml-namespace-intf_1
+      sub_container_name: algites-python-gen-data-xml-namespace-intf_1
+      file_name_stem: algites-python-gen-data-xml-namespace-intf-file_1
+      file_name_suffix: python-source-extension_1
+      field_name: python-field-name_1
+      method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
+      method_parameter_name: python-parameter-name_1
+      local_variable_name: python-local-variable-name_1
+      package_segment_name: package-segment-name_1
+      enum_item_name: enum-item-name_1
+      constant_name: constant-name_1
   algites-python-intf_1:
     ContainerStructureType: interface
     StructureNaming:
@@ -975,6 +1063,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -989,6 +1079,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1003,6 +1095,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1017,6 +1111,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1031,6 +1127,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1045,6 +1143,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1059,6 +1159,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1073,6 +1175,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1087,6 +1191,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1101,6 +1207,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1115,6 +1223,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1129,6 +1239,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1143,6 +1255,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1157,6 +1271,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1171,6 +1287,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1185,6 +1303,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1199,6 +1319,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1213,6 +1335,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1227,6 +1351,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1241,6 +1367,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1255,6 +1383,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1269,6 +1399,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1283,6 +1415,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1297,6 +1431,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1311,6 +1447,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1325,6 +1463,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1339,6 +1479,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1353,6 +1495,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1367,6 +1511,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1381,6 +1527,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1395,6 +1543,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1409,6 +1559,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1423,6 +1575,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1437,6 +1591,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1451,6 +1607,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1465,6 +1623,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1479,6 +1639,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1493,6 +1655,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1507,6 +1671,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1521,6 +1687,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1535,6 +1703,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1549,6 +1719,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1563,6 +1735,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1577,6 +1751,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1591,6 +1767,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1605,6 +1783,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1619,6 +1799,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1633,6 +1815,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1647,6 +1831,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1661,6 +1847,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1675,6 +1863,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1689,6 +1879,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1703,6 +1895,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1717,6 +1911,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1731,6 +1927,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1745,6 +1943,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
@@ -1759,6 +1959,8 @@ NameConventions:
       file_name_suffix: python-source-extension_1
       field_name: python-field-name_1
       method_name: python-method-name_1
+      getter_method_name: python-getter-method-name_1
+      setter_method_name: python-setter-method-name_1
       method_parameter_name: python-parameter-name_1
       local_variable_name: python-local-variable-name_1
       package_segment_name: package-segment-name_1
