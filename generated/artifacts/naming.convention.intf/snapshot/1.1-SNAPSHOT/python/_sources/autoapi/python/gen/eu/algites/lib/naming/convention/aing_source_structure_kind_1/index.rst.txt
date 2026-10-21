@@ -31,6 +31,8 @@ Module Contents
        ENUM_ITEM_NAME: Name assigned to one constant of an enumeration.
        CONSTANT_NAME: Name assigned to a constant declaration.
        METHOD_NAME: Name assigned to a callable method.
+       GETTER_METHOD_NAME: Name assigned to a method that reads a field value.
+       SETTER_METHOD_NAME: Name assigned to a method that writes a field value.
        METHOD_PARAMETER_NAME: Name assigned to a parameter in a method signature.
        LOCAL_VARIABLE_NAME: Name assigned to a variable local to a method or block.
        PACKAGE_SEGMENT_NAME: Name of one hierarchical package segment.
@@ -65,6 +67,16 @@ Module Contents
 
    .. py:attribute:: METHOD_NAME
       :value: 'method_name'
+
+
+
+   .. py:attribute:: GETTER_METHOD_NAME
+      :value: 'getter_method_name'
+
+
+
+   .. py:attribute:: SETTER_METHOD_NAME
+      :value: 'setter_method_name'
 
 
 

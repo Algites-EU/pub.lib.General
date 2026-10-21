@@ -1,0 +1,30 @@
+python.eu.algites.lib.data.dataobject.xmldefs.aii_xml_data_object_namespace
+===========================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.xmldefs.aii_xml_data_object_namespace
+
+.. autoapi-nested-parse::
+
+   Common ancestor of generated XML namespace-specific data-object interfaces.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.xmldefs.aii_xml_data_object_namespace.AIiXmlDataObjectNamespace
+
+
+Module Contents
+---------------
+
+.. py:class:: AIiXmlDataObjectNamespace
+
+   Bases: :py:obj:`python.eu.algites.lib.data.dataobject.xmldefs.aii_xml_data_object.AIiXmlDataObject`
+
+
+   Marker for XML namespace identity; JSON and YAML have no such marker.
+
+

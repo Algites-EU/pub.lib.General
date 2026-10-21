@@ -63,3 +63,15 @@ Module Contents
 
 
 
+   .. py:attribute:: wildcard_namespace
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: wildcard_process_contents
+      :type:  str
+      :value: 'strict'
+
+
+

@@ -1,0 +1,46 @@
+python.eu.algites.lib.data.dataobject.xmldefs.aic_xml_wildcard_fragment
+=======================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.xmldefs.aic_xml_wildcard_fragment
+
+.. autoapi-nested-parse::
+
+   Unbound xs:any element modeled as an XML data object, not a primitive string.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.xmldefs.aic_xml_wildcard_fragment.AIcXmlWildcardFragment
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.xmldefs.aic_xml_wildcard_fragment.xml_wildcard_class
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcXmlWildcardFragment(xml_fragment: str)
+
+   Bases: :py:obj:`python.eu.algites.lib.data.dataobject.xmldefs.aii_xml_data_object.AIiXmlDataObject`
+
+
+   Retain the complete namespace-aware subtree of an unbound XML element.
+
+
+   .. py:attribute:: xml_fragment
+
+
+.. py:function:: xml_wildcard_class(namespace_marker: type) -> type[AIcXmlWildcardFragment]
+
+   Build a concrete XML fragment implementing its generated namespace marker.
+
+

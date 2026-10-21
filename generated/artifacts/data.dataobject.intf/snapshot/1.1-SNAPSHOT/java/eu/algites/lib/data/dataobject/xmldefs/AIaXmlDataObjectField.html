@@ -114,6 +114,16 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">XML wire kind; ELEMENT is the default, ATTRIBUTE requires a scalar value.</div>
 </div>
+<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color"><code><a href="#wildcardNamespace()" class="member-name-link">wildcardNamespace</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">Namespace selection of an <code>xs:any</code> particle.</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#wildcardProcessContents()" class="member-name-link">wildcardProcessContents</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">XSD processContents policy of an XML wildcard.</div>
+</div>
 </div>
 </section>
 </li>
@@ -219,6 +229,41 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>-1</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="wildcardNamespace()">
+<h3>wildcardNamespace</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">wildcardNamespace</span></div>
+<div class="block">Namespace selection of an <code>xs:any</code> particle. Values are the XSD
+ namespace expressions (<code>##any</code>, <code>##other</code>, <code>##local</code>,
+ <code>##targetNamespace</code> or a space-separated sequence of URIs).
+ The empty default denotes an ordinary named XML field.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>original namespace constraint of the wildcard</dd>
+</dl>
+<dl class="notes">
+<dt>Default:</dt>
+<dd>""</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="wildcardProcessContents()">
+<h3>wildcardProcessContents</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">wildcardProcessContents</span></div>
+<div class="block">XSD processContents policy of an XML wildcard. <code>lax</code> and
+ <code>skip</code> retain the complete fragment; <code>strict</code> requires
+ an external schema-aware validator before claiming schema validity.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>original processContents policy, or the XSD default</dd>
+</dl>
+<dl class="notes">
+<dt>Default:</dt>
+<dd>"strict"</dd>
 </dl>
 </section>
 </li>
