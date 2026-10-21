@@ -14,7 +14,7 @@ public final class AItcNameConventionCatalog_1Test {
     @Test
     public void AIcAllJavaProfilesAndAmbiguities() throws Exception {
         AIcNameConventionCatalog_1 locCatalog = AIcNameConventionCatalog_1.loadResource("algites-java-name-conventions.yml");
-        Assert.assertEquals(locCatalog.names().size(), 57);
+        Assert.assertEquals(locCatalog.names().size(), 59);
         for (String locName : locCatalog.names()) {
             Map<String, String> locVars = Map.of("identifier", "Customer", "version", "2");
             String locFilename = locCatalog.format(locName, "file_name_stem", locVars, null)
@@ -35,7 +35,7 @@ public final class AItcNameConventionCatalog_1Test {
     @Test
     public void AIcPythonCatalogOnJava() throws Exception {
         AIcNameConventionCatalog_1 locCatalog = AIcNameConventionCatalog_1.loadResource("algites-python-name-conventions.yml");
-        Assert.assertEquals(locCatalog.names().size(), 57);
+        Assert.assertEquals(locCatalog.names().size(), 59);
         Assert.assertEquals(locCatalog.recognizeFilename("aiig_customer_1.py", null).conventionName(),
                 "algites-python-gen-intf-versioned_1");
         Assert.assertEquals(locCatalog.recognizeFilename("aiig__xe_payment_1.py", null).conventionName(),
@@ -111,8 +111,8 @@ public final class AItcNameConventionCatalog_1Test {
     /** Standard runtime catalogs are loadable from the compiled artifact classpath. */
     @Test
     public void AIcStandardCatalogResourceAvailable() throws Exception {
-        Assert.assertEquals(AIcNameConventionCatalog_1.standard("java").names().size(), 57);
-        Assert.assertEquals(AIcNameConventionCatalog_1.standard("python").names().size(), 57);
+        Assert.assertEquals(AIcNameConventionCatalog_1.standard("java").names().size(), 59);
+        Assert.assertEquals(AIcNameConventionCatalog_1.standard("python").names().size(), 59);
     }
 
     /** User-defined captures are extracted and reordered entirely through the example YAML catalogs. */
