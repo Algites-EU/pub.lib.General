@@ -99,6 +99,11 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color">
 <div class="block">Presence restriction enforced by data-object implementations.</div>
 </div>
+<div class="col-first odd-row-color"><code><a href="AInFieldSetterInheritancePolicy.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldSetterInheritancePolicy</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#setterInheritancePolicy()" class="member-name-link">setterInheritancePolicy</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">Declares the inherited setter parameter-type strategy for this field.</div>
+</div>
 </div>
 </section>
 </li>
@@ -156,6 +161,27 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>true</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setterInheritancePolicy()">
+<h3>setterInheritancePolicy</h3>
+<div class="member-signature"><span class="return-type"><a href="AInFieldSetterInheritancePolicy.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldSetterInheritancePolicy</a></span>&nbsp;<span class="element-name">setterInheritancePolicy</span></div>
+<div class="block">Declares the inherited setter parameter-type strategy for this field.
+
+ <p><code>DEFAULT</code> delegates to the containing data object or configured generator default. A resolved
+ generated contract records an effective strategy independent of the
+ generating build's environment. A fixed strategy does not prevent Java
+ method inheritance; it prevents unsafe type narrowing in descendants.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the setter parameter inheritance strategy, or <code>DEFAULT</code>
+         when this declaration leaves the selection to its context</dd>
+</dl>
+<dl class="notes">
+<dt>Default:</dt>
+<dd>DEFAULT</dd>
 </dl>
 </section>
 </li>

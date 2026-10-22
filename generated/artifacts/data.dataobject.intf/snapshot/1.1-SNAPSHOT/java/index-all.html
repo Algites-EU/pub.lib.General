@@ -49,7 +49,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="eu/algites/lib/data/dataobject/AIaDataObject.html" class="type-name-link" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObject</a> - Annotation Interface in <a href="eu/algites/lib/data/dataobject/package-summary.html">eu.algites.lib.data.dataobject</a></dt>
@@ -124,6 +124,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Permitted states for an object field, independently of nullability and cardinality.</div>
 </dd>
+<dt><a href="eu/algites/lib/data/dataobject/AInFieldSetterInheritancePolicy.html" class="type-name-link" title="enum class in eu.algites.lib.data.dataobject">AInFieldSetterInheritancePolicy</a> - Enum Class in <a href="eu/algites/lib/data/dataobject/package-summary.html">eu.algites.lib.data.dataobject</a></dt>
+<dd>
+<div class="block">Controls whether a generated mutable setter's value type remains open to
+ compile-time specialization in independently generated descendant contracts.</div>
+</dd>
 <dt><a href="eu/algites/lib/data/dataobject/xmldefs/AInXmlObjectDefinitionKind.html" class="type-name-link" title="enum class in eu.algites.lib.data.dataobject.xmldefs">AInXmlObjectDefinitionKind</a> - Enum Class in <a href="eu/algites/lib/data/dataobject/xmldefs/package-summary.html">eu.algites.lib.data.dataobject.xmldefs</a></dt>
 <dd>
 <div class="block">Kinds of XML Schema declarations represented by generated XML data-object contracts.</div>
@@ -147,6 +152,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
+<dt><a href="eu/algites/lib/data/dataobject/AInFieldSetterInheritancePolicy.html#DEFAULT" class="member-name-link">DEFAULT</a> - Enum constant in enum class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AInFieldSetterInheritancePolicy.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldSetterInheritancePolicy</a></dt>
+<dd>
+<div class="block">Defer to the containing contract or the configured generation defaults.</div>
+</dd>
 <dt><a href="eu/algites/lib/data/dataobject/AIaFieldDefault.html#defaultValueResolver()" class="member-name-link">defaultValueResolver()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaFieldDefault.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaFieldDefault</a></dt>
 <dd>
 <div class="block">Factory selection for the resolver responsible for the annotated field.</div>
@@ -203,6 +212,17 @@ loadScripts(document, 'script');</script>
 <dt><a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html" title="class in eu.algites.lib.data.dataobject">AIcdSchemaIdentity</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
+</dd>
+</dl>
+<h2 class="title" id="I:I">I</h2>
+<dl class="index">
+<dt><a href="eu/algites/lib/data/dataobject/AInFieldSetterInheritancePolicy.html#INHERIT_AS_FIXED_PARAMETER" class="member-name-link">INHERIT_AS_FIXED_PARAMETER</a> - Enum constant in enum class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AInFieldSetterInheritancePolicy.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldSetterInheritancePolicy</a></dt>
+<dd>
+<div class="block">Inherit the setter's fixed value type without permitting incompatible narrowing.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AInFieldSetterInheritancePolicy.html#INHERIT_AS_GENERIC_PARAMETER" class="member-name-link">INHERIT_AS_GENERIC_PARAMETER</a> - Enum constant in enum class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AInFieldSetterInheritancePolicy.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldSetterInheritancePolicy</a></dt>
+<dd>
+<div class="block">Preserve an interface-level type variable so descendants can narrow writable values.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
@@ -290,6 +310,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <a href="./eu/algites/lib/data/dataobject/AIcdSchemaIdentity.html#param-schemaVersion"><code>schemaVersion</code></a> record component.</div>
 </dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIaDataObject.html#setterInheritancePolicy()" class="member-name-link">setterInheritancePolicy()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaDataObject.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObject</a></dt>
+<dd>
+<div class="block">Declares the inherited setter parameter-type strategy for this data object.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AIaDataObjectField.html#setterInheritancePolicy()" class="member-name-link">setterInheritancePolicy()</a> - Element in annotation interface eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AIaDataObjectField.html" title="annotation interface in eu.algites.lib.data.dataobject">AIaDataObjectField</a></dt>
+<dd>
+<div class="block">Declares the inherited setter parameter-type strategy for this field.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:T">T</h2>
 <dl class="index">
@@ -316,6 +344,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the enum constant of this class with the specified name.</div>
 </dd>
+<dt><a href="eu/algites/lib/data/dataobject/AInFieldSetterInheritancePolicy.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AInFieldSetterInheritancePolicy.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldSetterInheritancePolicy</a></dt>
+<dd>
+<div class="block">Returns the enum constant of this class with the specified name.</div>
+</dd>
 <dt><a href="eu/algites/lib/data/dataobject/xmldefs/AInXmlObjectDefinitionKind.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class eu.algites.lib.data.dataobject.xmldefs.<a href="eu/algites/lib/data/dataobject/xmldefs/AInXmlObjectDefinitionKind.html" title="enum class in eu.algites.lib.data.dataobject.xmldefs">AInXmlObjectDefinitionKind</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this class with the specified name.</div>
@@ -325,6 +357,11 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns the enum constant of this class with the specified name.</div>
 </dd>
 <dt><a href="eu/algites/lib/data/dataobject/AInFieldPresenceKind.html#values()" class="member-name-link">values()</a> - Static method in enum class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AInFieldPresenceKind.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldPresenceKind</a></dt>
+<dd>
+<div class="block">Returns an array containing the constants of this enum class, in
+the order they are declared.</div>
+</dd>
+<dt><a href="eu/algites/lib/data/dataobject/AInFieldSetterInheritancePolicy.html#values()" class="member-name-link">values()</a> - Static method in enum class eu.algites.lib.data.dataobject.<a href="eu/algites/lib/data/dataobject/AInFieldSetterInheritancePolicy.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldSetterInheritancePolicy</a></dt>
 <dd>
 <div class="block">Returns an array containing the constants of this enum class, in
 the order they are declared.</div>
@@ -362,7 +399,7 @@ the order they are declared.</div>
 <div class="block">Returns the complete, single-element XML subtree for lossless round trips.</div>
 </dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<a href="#I:X">X</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
 </div>
 </div>
 </body>

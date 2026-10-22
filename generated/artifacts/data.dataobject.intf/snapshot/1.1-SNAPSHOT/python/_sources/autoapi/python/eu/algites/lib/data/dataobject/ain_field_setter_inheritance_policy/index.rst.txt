@@ -1,0 +1,48 @@
+python.eu.algites.lib.data.dataobject.ain_field_setter_inheritance_policy
+=========================================================================
+
+.. py:module:: python.eu.algites.lib.data.dataobject.ain_field_setter_inheritance_policy
+
+.. autoapi-nested-parse::
+
+   Policy for inherited mutable setter parameter typing.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.dataobject.ain_field_setter_inheritance_policy.AInFieldSetterInheritancePolicy
+
+
+Module Contents
+---------------
+
+.. py:class:: AInFieldSetterInheritancePolicy
+
+   Bases: :py:obj:`str`, :py:obj:`enum.Enum`
+
+
+   Select fixed or generically refinable setter parameter types.
+
+   DEFAULT delegates to the containing contract or generator configuration;
+   generated read contracts retain the effective choice for other artifacts.
+
+
+   .. py:attribute:: DEFAULT
+      :value: 'DEFAULT'
+
+
+
+   .. py:attribute:: INHERIT_AS_GENERIC_PARAMETER
+      :value: 'INHERIT_AS_GENERIC_PARAMETER'
+
+
+
+   .. py:attribute:: INHERIT_AS_FIXED_PARAMETER
+      :value: 'INHERIT_AS_FIXED_PARAMETER'
+
+
+

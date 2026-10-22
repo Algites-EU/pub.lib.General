@@ -117,9 +117,14 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">
 <div class="block">Positive SchemaVersion; -1 denotes an incomplete handwritten source contract.</div>
 </div>
-<div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#title()" class="member-name-link">title</a></code></div>
+<div class="col-first even-row-color"><code><a href="AInFieldSetterInheritancePolicy.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldSetterInheritancePolicy</a></code></div>
+<div class="col-second even-row-color"><code><a href="#setterInheritancePolicy()" class="member-name-link">setterInheritancePolicy</a></code></div>
 <div class="col-last even-row-color">
+<div class="block">Declares the inherited setter parameter-type strategy for this data object.</div>
+</div>
+<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#title()" class="member-name-link">title</a></code></div>
+<div class="col-last odd-row-color">
 <div class="block">Returns the human-readable title of the data object schema.</div>
 </div>
 </div>
@@ -228,6 +233,27 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Default:</dt>
 <dd>""</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setterInheritancePolicy()">
+<h3>setterInheritancePolicy</h3>
+<div class="member-signature"><span class="return-type"><a href="AInFieldSetterInheritancePolicy.html" title="enum class in eu.algites.lib.data.dataobject">AInFieldSetterInheritancePolicy</a></span>&nbsp;<span class="element-name">setterInheritancePolicy</span></div>
+<div class="block">Declares the inherited setter parameter-type strategy for this data object.
+
+ <p><code>DEFAULT</code> delegates to the configured generator default. A resolved
+ generated contract records an effective strategy independent of the
+ generating build's environment. A fixed strategy does not prevent Java
+ method inheritance; it prevents unsafe type narrowing in descendants.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the setter parameter inheritance strategy, or <code>DEFAULT</code>
+         when this declaration leaves the selection to its context</dd>
+</dl>
+<dl class="notes">
+<dt>Default:</dt>
+<dd>DEFAULT</dd>
 </dl>
 </section>
 </li>
