@@ -1,5 +1,6 @@
 """Metadata for a normalized data object contract."""
 from dataclasses import dataclass
+from .ain_field_setter_inheritance_policy import AInFieldSetterInheritancePolicy
 
 @dataclass(frozen=True, slots=True)
 class AIcdDataObject:
@@ -11,3 +12,4 @@ class AIcdDataObject:
     description: str = ''
     fingerprint: str = ''
     naming_convention: str = ''
+    setter_inheritance_policy: AInFieldSetterInheritancePolicy = AInFieldSetterInheritancePolicy.DEFAULT

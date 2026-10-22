@@ -36,4 +36,19 @@ public @interface AIaDataObjectField {
      * @return true unless nullability is explicitly forbidden
      */
     boolean allowsNull() default true;
+
+    /**
+     * Declares the inherited setter parameter-type strategy for this field.
+     *
+     * <p>{@code DEFAULT} delegates to the containing data object or configured generator default. A resolved
+     * generated contract records an effective strategy independent of the
+     * generating build's environment. A fixed strategy does not prevent Java
+     * method inheritance; it prevents unsafe type narrowing in descendants.
+     *
+     * @return the setter parameter inheritance strategy, or {@code DEFAULT}
+     *         when this declaration leaves the selection to its context
+     */
+    AInFieldSetterInheritancePolicy setterInheritancePolicy()
+            default AInFieldSetterInheritancePolicy.DEFAULT;
+
 }

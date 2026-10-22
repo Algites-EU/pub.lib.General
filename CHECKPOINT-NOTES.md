@@ -64,3 +64,11 @@ Changed:
 
 Added: none.
 Removed: none.
+
+## Corrected file timestamps
+
+- Repackaged: 2026-10-21 13:54:11 CEST
+- Refreshed `mtime` for the four-assertion update in `naming/convention/algites/src/develop/java/eu/algites/lib/naming/convention/impl/algites/AItcNameConventionCatalog_1Test.java`.
+- Expected naming profile count was corrected from 57 to 59 in four Java assertions. The file length remained identical (9171 bytes), causing timestamp/size-only comparison to overlook it.
+- Source content of all other repository files is unchanged.
+- Removed files: none.

@@ -1,5 +1,6 @@
 """Schema-neutral normalized data-object field metadata."""
 from dataclasses import dataclass
+from .ain_field_setter_inheritance_policy import AInFieldSetterInheritancePolicy
 from typing import Callable, Any
 from .ain_field_presence_kind import AInFieldPresenceKind
 
@@ -18,6 +19,7 @@ class AIcdDataObjectField:
     default_value_resolver: Callable[[], Any] | None = None
     expected_type: type | None = None
     getter_name: str = ''
+    setter_inheritance_policy: AInFieldSetterInheritancePolicy = AInFieldSetterInheritancePolicy.DEFAULT
 
     @property
     def name(self) -> str:

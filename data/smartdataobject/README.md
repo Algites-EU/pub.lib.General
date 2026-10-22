@@ -154,3 +154,21 @@ generates XML concrete SmartDataObject classes. Without that metadata, nested
 interface-typed fields cannot automatically select a concrete class, and a
 single occurrence of an untyped repeating field cannot always be distinguished
 from an ordinary scalar field.
+
+### Setter parameter inheritance policy (1.1)
+
+`data/dataobject/intf` defines
+`AInFieldSetterInheritancePolicy` and the same
+`setterInheritancePolicy` member on the Java `AIaDataObject` and
+`AIaDataObjectField` annotations. Their Python `AIcdDataObject` and
+`AIcdDataObjectField` counterparts expose `setter_inheritance_policy`.
+`DEFAULT` delegates to configured Defs generation defaults;
+`INHERIT_AS_GENERIC_PARAMETER` preserves a writable type variable across
+future subclasses, while `INHERIT_AS_FIXED_PARAMETER` retains the
+inherited setter's published parameter type and forbids incompatible
+read-getter narrowing in the writable hierarchy. This policy is structural
+metadata of a public contract, not a mutable runtime setting.
+
+The schema-neutral SDO runtime still consumes values through the normal raw
+field access methods. Generation of generic mutable API signatures, parent
+inheritance and concrete implementations belongs to `pub.tool.General`.
