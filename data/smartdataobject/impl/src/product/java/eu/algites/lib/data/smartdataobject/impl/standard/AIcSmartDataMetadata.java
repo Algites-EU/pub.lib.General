@@ -74,6 +74,11 @@ final class AIcSmartDataMetadata {
                         }).thenComparing(Method::getName));
             }
             for (Method locGetter : locMethods) {
+                /* Covariant overrides produce synthetic bridge getters. Javac copies
+                 * runtime method annotations onto these bridge declarations, whose
+                 * erased return types are not independent field restrictions.
+                 * Only the real getter may contribute contract metadata. */
+                if (locGetter.isBridge() || locGetter.isSynthetic()) continue;
                 AIaDataObjectField locAnnotation = locGetter.getDeclaredAnnotation(AIaDataObjectField.class);
                 if (locAnnotation == null) continue;
                 if (locGetter.getParameterCount() != 0 || locGetter.getReturnType() == void.class)
