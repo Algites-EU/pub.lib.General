@@ -27,9 +27,11 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
     private static final Pattern CAMEL_BOUNDARY = Pattern.compile("(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])");
     private final JsonNode document;
     private final Map<String, Pattern> filePatterns = new LinkedHashMap<>();
+    private final Map<String, JsonNode> generatedMethodProfiles = new LinkedHashMap<>();
     private final Map<String, JsonNode> identifierConventions = new LinkedHashMap<>();
     private final Map<String, JsonNode> versionConventions = new LinkedHashMap<>();
     private final Map<String, String> roleBindings;
+    private final String generatedMethodProfile;
 
     /**
  * One recognized filename and its extracted named capture values.
@@ -93,6 +95,8 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
         var locMerged = MAPPER.createObjectNode();
         for (String locSection : List.of("IdentifierConventions", "VersionConventions", "NameFragments",
                 "NameCompositions", "NameConventions")) locMerged.putObject(locSection);
+        locMerged.putObject("GeneratedDataObjectMethodNameConventions").putObject("NameConventions");
+        locMerged.putObject("SourceStructureNameConventions").putObject("NameConventions");
         for (String locSource : aSources) {
             AIcNameConventionCatalog_1 locCatalog = locSource.startsWith("resource:")
                     ? loadResource(locSource.substring("resource:".length()))
@@ -114,6 +118,27 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
                     locTarget.set(locEntry.getKey(), locEntry.getValue().deepCopy());
                 });
             }
+            var locSourceTarget = (com.fasterxml.jackson.databind.node.ObjectNode) locMerged
+                    .path("SourceStructureNameConventions").path("NameConventions");
+            locCatalog.document.path("SourceStructureNameConventions").path("NameConventions")
+                    .fields().forEachRemaining(locEntry -> {
+                        JsonNode locOld = locSourceTarget.get(locEntry.getKey());
+                        if (locOld != null && !locOld.equals(locEntry.getValue()))
+                            throw new IllegalArgumentException("Conflicting source naming definition "
+                                    + locEntry.getKey() + " in " + locSource);
+                        locSourceTarget.set(locEntry.getKey(), locEntry.getValue().deepCopy());
+                    });
+            var locMethods = (com.fasterxml.jackson.databind.node.ObjectNode) locMerged
+                    .path("GeneratedDataObjectMethodNameConventions").path("NameConventions");
+            JsonNode locMethodEntries = locCatalog.document
+                    .path("GeneratedDataObjectMethodNameConventions").path("NameConventions");
+            locMethodEntries.fields().forEachRemaining(locEntry -> {
+                JsonNode locOld = locMethods.get(locEntry.getKey());
+                if (locOld != null && !locOld.equals(locEntry.getValue()))
+                    throw new IllegalArgumentException("Conflicting generated method naming definition "
+                            + locEntry.getKey() + " in " + locSource);
+                locMethods.set(locEntry.getKey(), locEntry.getValue().deepCopy());
+            });
             for (String locSection : List.of("IdentifierConventions", "VersionConventions")) {
                 var locTarget = (com.fasterxml.jackson.databind.node.ObjectNode) locMerged.path(locSection);
                 Map<String, JsonNode> locEntries = locSection.equals("IdentifierConventions")
@@ -139,23 +164,67 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
 
     private AIcNameConventionCatalog_1(JsonNode aDocument, JsonNode aStandard) {
         roleBindings = Map.of();
+        generatedMethodProfile = null;
         document = aDocument;
         mergeConventions(identifierConventions, aStandard.path("IdentifierConventions"), aDocument.path("IdentifierConventions"));
         mergeConventions(versionConventions, aStandard.path("VersionConventions"), aDocument.path("VersionConventions"));
-        aDocument.path("NameConventions").fieldNames().forEachRemaining(aName -> filePatterns.put(aName, filenamePattern(aName)));
+        JsonNode locLegacyProfiles = aDocument.path("NameConventions");
+        JsonNode locSourceProfiles = aDocument.path("SourceStructureNameConventions").path("NameConventions");
+        locLegacyProfiles.fields().forEachRemaining(aItem -> filePatterns.put(aItem.getKey(), filenamePattern(aItem.getKey())));
+        locSourceProfiles.fields().forEachRemaining(aItem -> {
+            if (filePatterns.containsKey(aItem.getKey()) && !locLegacyProfiles.path(aItem.getKey()).equals(aItem.getValue()))
+                throw new IllegalArgumentException("Conflicting source naming profile: " + aItem.getKey());
+            filePatterns.put(aItem.getKey(), filenamePattern(aItem.getKey()));
+        });
+        aDocument.path("GeneratedDataObjectMethodNameConventions").path("NameConventions")
+                .fields().forEachRemaining(aItem -> {
+                    if (filePatterns.containsKey(aItem.getKey()))
+                        throw new IllegalArgumentException("Generated-method and source profiles share ID: " + aItem.getKey());
+                    generatedMethodProfiles.put(aItem.getKey(), aItem.getValue());
+                });
     }
 
     private AIcNameConventionCatalog_1(AIcNameConventionCatalog_1 aSource, Map<String, String> aRoles) {
         document = aSource.document;
         filePatterns.putAll(aSource.filePatterns);
+        generatedMethodProfiles.putAll(aSource.generatedMethodProfiles);
         identifierConventions.putAll(aSource.identifierConventions);
         versionConventions.putAll(aSource.versionConventions);
         roleBindings = Map.copyOf(aRoles);
+        generatedMethodProfile = aSource.generatedMethodProfile;
         for (String locName : roleBindings.values()) {
             if (!filePatterns.containsKey(locName))
                 throw new IllegalArgumentException("Unknown naming convention selected for role: " + locName);
         }
     }
+
+    private AIcNameConventionCatalog_1(AIcNameConventionCatalog_1 aSource, String aMethodProfile) {
+        document = aSource.document;
+        filePatterns.putAll(aSource.filePatterns);
+        generatedMethodProfiles.putAll(aSource.generatedMethodProfiles);
+        identifierConventions.putAll(aSource.identifierConventions);
+        versionConventions.putAll(aSource.versionConventions);
+        roleBindings = aSource.roleBindings;
+        if (!generatedMethodProfiles.containsKey(aMethodProfile))
+            throw new IllegalArgumentException("Unknown generated method naming profile: " + aMethodProfile);
+        generatedMethodProfile = aMethodProfile;
+    }
+
+    /**
+     * Selects the same explicit DO/SDO method naming profile for all field-specific methods.
+     * @param aMethodProfile ID under GeneratedDataObjectMethodNameConventions.NameConventions
+     * @return immutable catalog view sharing every parsed composition and source profile
+     * @throws IllegalArgumentException when the method profile is unavailable
+     */
+    public AIcNameConventionCatalog_1 withGeneratedMethodProfile(String aMethodProfile) {
+        return new AIcNameConventionCatalog_1(this, aMethodProfile);
+    }
+
+    /**
+     * Returns the selected method-profile identifier, if any.
+     * @return exact profile ID or null when source-structure naming alone is configured
+     */
+    public String generatedMethodProfile() { return generatedMethodProfile; }
 
     /**
      * Binds semantic generation roles to exact identifiers without altering their definitions.
@@ -204,14 +273,25 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
     /** Returns the configured profile identifiers in stable YAML order. */
     public Set<String> names() { return Collections.unmodifiableSet(filePatterns.keySet()); }
 
+    /**
+     * Names of generated DataObject method profiles, which do not participate in filename recognition.
+     * @return configured method-profile identifiers in deterministic document order
+     */
+    public Set<String> generatedMethodNames() {
+        return Collections.unmodifiableSet(generatedMethodProfiles.keySet());
+    }
+
     /** Returns the structural kind declared by the profile. */
     public String containerStructureType(String aProfile) {
-        return document.path("NameConventions").path(aProfile).path("ContainerStructureType").asText();
+        return profile(aProfile).path("ContainerStructureType").asText();
     }
 
     private JsonNode profile(String aName) {
-        JsonNode locProfile = document.path("NameConventions").path(aName);
-        if (locProfile.isMissingNode()) throw new IllegalArgumentException("Unknown naming profile: " + aName);
+        JsonNode locProfile = document.path("SourceStructureNameConventions").path("NameConventions").path(aName);
+        if (locProfile.isMissingNode()) locProfile = document.path("NameConventions").path(aName);
+        if (locProfile.isMissingNode()) locProfile = generatedMethodProfiles.get(aName);
+        if (locProfile == null || locProfile.isMissingNode())
+            throw new IllegalArgumentException("Unknown naming profile: " + aName);
         return locProfile;
     }
 
@@ -235,7 +315,16 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
     }
 
     private List<JsonNode> structureSegments(String aProfile, String aStructure) {
-        JsonNode locValue = profile(aProfile).path("StructureNaming").path(aStructure);
+        String locProfile = aProfile;
+        String locStructure = aStructure;
+        if (generatedMethodProfile != null && aStructure.equals("getter_method_name")) {
+            locProfile = generatedMethodProfile;
+            locStructure = "standard_getter_name";
+        } else if (generatedMethodProfile != null && aStructure.equals("setter_method_name")) {
+            locProfile = generatedMethodProfile;
+            locStructure = "standard_setter_name";
+        }
+        JsonNode locValue = profile(locProfile).path("StructureNaming").path(locStructure);
         if (!locValue.isTextual()) throw new IllegalArgumentException("Missing structure naming " + aStructure + " in " + aProfile);
         return segments(locValue.asText());
     }

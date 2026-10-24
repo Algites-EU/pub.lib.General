@@ -1,5 +1,6 @@
 """Smart Data Object runtime. Internal graph nodes are deliberately private."""
 from __future__ import annotations
+from eu.algites.lib.data.smartdataobject.ain_sdo_field_value_loading_mode import AInSdoFieldValueLoadingMode
 
 from collections.abc import Mapping, MutableSequence
 from eu.algites.lib.common.validation.aii_validatable import AIiValidatable
@@ -589,7 +590,7 @@ class AIcSmartDataObject(AIiSmartDataObject):
         result = cls()
         for name, value in aValue.items():
             result.set_RawField(name, value)
-        problems = result.get_RawValuesValidationIssues()
+        problems = result._getValidationIssues(AInSdoFieldValueLoadingMode.RAW_VALUES)
         if problems:
             raise AIxSmartDataValidationException(problems)
         return result
@@ -650,13 +651,11 @@ class AIcSmartDataObject(AIiSmartDataObject):
 
         return convert(snapshot.root).getValueRepresentation()
 
-    def toMapping_RawValues(self) -> Mapping[str, AIidVirtualFieldValue]:
-        """Return a typed identity-preserving graph containing only raw fields."""
-        return self._typed_graph(False)
+    def _toMapping(self, aMode: AInSdoFieldValueLoadingMode) -> Mapping[str, AIidVirtualFieldValue]:
+        if not isinstance(aMode, AInSdoFieldValueLoadingMode):
+            raise TypeError('Expected AInSdoFieldValueLoadingMode')
+        return self._typed_graph(aMode is AInSdoFieldValueLoadingMode.EFFECTIVE_VALUES)
 
-    def toMapping_EffectiveValues(self) -> Mapping[str, AIidVirtualFieldValue]:
-        """Return a typed identity-preserving graph including effective defaults."""
-        return self._typed_graph(True)
 
     def _check(self, name: str) -> Any:
         try:
@@ -715,12 +714,14 @@ class AIcSmartDataObject(AIiSmartDataObject):
     def _issues(self, effective: bool, deep: bool) -> list[AIcdSmartDataValidationIssue]:
         return _Snapshot(self).issues(effective, deep)
 
-    def get_RawValuesValidationIssues(self): return self._issues(False, False)
-    def get_EffectiveValuesValidationIssues(self): return self._issues(True, False)
+    def _getValidationIssues(self, aMode: AInSdoFieldValueLoadingMode):
+        if not isinstance(aMode, AInSdoFieldValueLoadingMode):
+            raise TypeError('Expected AInSdoFieldValueLoadingMode')
+        return self._issues(aMode is AInSdoFieldValueLoadingMode.EFFECTIVE_VALUES, False)
     def get_DeeplyRawValuesValidationIssues(self): return self._issues(False, True)
     def get_DeeplyEffectiveValuesValidationIssues(self): return self._issues(True, True)
-    def is_ByRawValuesValid(self): return not self.get_RawValuesValidationIssues()
-    def is_ByEffectiveValuesValid(self): return not self.get_EffectiveValuesValidationIssues()
+    def is_ByRawValuesValid(self): return not self._getValidationIssues(AInSdoFieldValueLoadingMode.RAW_VALUES)
+    def is_ByEffectiveValuesValid(self): return not self._getValidationIssues(AInSdoFieldValueLoadingMode.EFFECTIVE_VALUES)
     def is_DeeplyByRawValuesValid(self): return not self.get_DeeplyRawValuesValidationIssues()
     def is_DeeplyByEffectiveValuesValid(self): return not self.get_DeeplyEffectiveValuesValidationIssues()
     def get_RawNotPresentRequiredFields(self):

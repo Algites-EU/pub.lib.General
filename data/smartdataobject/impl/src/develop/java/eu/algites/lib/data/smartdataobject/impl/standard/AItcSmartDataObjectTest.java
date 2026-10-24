@@ -194,7 +194,7 @@ public final class AItcSmartDataObjectTest {
         locB.setName("B");
         locA.setChild(locB);
         locB.setChild(locA);
-        Map<String, AIidVirtualFieldValue> locVirtual = locA.toMapping_RawValues();
+        Map<String, AIidVirtualFieldValue> locVirtual = locA._toMapping(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode.RAW_VALUES);
         verify(locVirtual.get("Child").getValueClass() == AIcgdDemo.class,
                 "typed node must preserve the concrete implementation class");
         var locMappedB = locVirtual.get("Child").getValueRepresentation();

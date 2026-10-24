@@ -1,5 +1,6 @@
 """Regression tests for graph-preserving virtual SmartDataObject mappings."""
 from __future__ import annotations
+from eu.algites.lib.data.smartdataobject.ain_sdo_field_value_loading_mode import AInSdoFieldValueLoadingMode
 
 import pytest
 
@@ -44,7 +45,7 @@ def test_virtual_mapping_preserves_polymorphic_identity_and_cycles():
     same_list = [shared]
     holder.set_RawField('Extras', [same_list, same_list])
 
-    mapping = holder.toMapping_RawValues()
+    mapping = holder._toMapping(AInSdoFieldValueLoadingMode.RAW_VALUES)
     assert all(isinstance(v, AIidVirtualFieldValue) for v in mapping.values())
     assert mapping['First'].getValueClass() is AIcgdD
     assert mapping['First'] is mapping['Second']
@@ -62,9 +63,9 @@ def test_virtual_mapping_preserves_polymorphic_identity_and_cycles():
 
 def test_virtual_mapping_preserves_absent_vs_explicit_null():
     value = AIcgdD()
-    assert 'Friend' not in value.toMapping_RawValues()
+    assert 'Friend' not in value._toMapping(AInSdoFieldValueLoadingMode.RAW_VALUES)
     value.set_RawField('Friend', None)
-    mapping = value.toMapping_RawValues()
+    mapping = value._toMapping(AInSdoFieldValueLoadingMode.RAW_VALUES)
     assert mapping['Friend'].getValueRepresentation() is None
     loaded = AIsSmartDataObjectFactory.from_mapping(AIcgdD, mapping)
     assert loaded.isPresent_Field('Friend')
@@ -74,10 +75,22 @@ def test_virtual_mapping_preserves_absent_vs_explicit_null():
 def test_factory_context_is_cleaned_after_failed_mapping():
     value = AIcgdD()
     value.set_RawField('Name', 'ok')
-    mapping = value.toMapping_RawValues()
+    mapping = value._toMapping(AInSdoFieldValueLoadingMode.RAW_VALUES)
     mapping['Unknown'] = mapping['Name']
     with pytest.raises(ValueError, match='Unknown DataObject field'):
         AIsSmartDataObjectFactory.from_mapping(AIcgdD, mapping)
     mapping.pop('Unknown')
     restored = AIsSmartDataObjectFactory.from_mapping(AIcgdD, mapping)
     assert restored.get_RawField('Name') == 'ok'
+
+
+def test_explicit_field_value_loading_mode_required_for_mapping_and_validation():
+    value = AIcgdD()
+    assert 'Friend' not in value._toMapping(AInSdoFieldValueLoadingMode.RAW_VALUES)
+    assert 'Friend' not in value._toMapping(AInSdoFieldValueLoadingMode.EFFECTIVE_VALUES)
+    assert value._getValidationIssues(AInSdoFieldValueLoadingMode.RAW_VALUES) == []
+    assert value._getValidationIssues(AInSdoFieldValueLoadingMode.EFFECTIVE_VALUES) == []
+    with pytest.raises(TypeError):
+        value._toMapping(None)
+    with pytest.raises(TypeError):
+        value._getValidationIssues(None)

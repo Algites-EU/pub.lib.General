@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.source-structure-name-conventions" version="1" xmlns:common="eu.algites.lib.naming.convention.common-naming-conventions">
+  <xs:annotation>
+    <xs:documentation>Source naming profiles: common tools plus SourceStructureNameConventions.NameConventions.</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="eu.algites.lib.naming.convention.common-naming-conventions" schemaLocation="common-naming-conventions_1.xsd" />
+  <xs:complexType name="source-structure-name-conventions">
+    <xs:complexContent>
+      <xs:extension base="common:common-naming-conventions">
+        <xs:sequence>
+          <xs:element name="SourceStructureNameConventions">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="NameConventions" type="xs:anyType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

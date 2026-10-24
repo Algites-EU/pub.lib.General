@@ -311,3 +311,13 @@ Python (48 each). Read the naming documentation for the `_xe` / `__xe_`
 markers and requirements for unambiguous custom profiles. Recursive canonical
 schema datatypes and Defs/SDO emission policies belong to the generators,
 not to the general DataObject API; they must be implemented downstream.
+
+## Local manual Cloudsmith bootstrap
+
+For a standalone native Java/Python release without GitHub Actions or the Modustro Builder, use
+`bash devtools/bootstrap.sh --prepare-only` to compile and verify every product, then
+`bash devtools/bootstrap.sh --upload` to prepare afresh and publish them in one authenticated
+Cloudsmith session. The bootstrap has a fast `--plan-only` dry run. See
+[`devtools/bootstrap/README.md`](devtools/bootstrap/README.md) for prerequisites, manifests,
+repo/version options and limitations.
+

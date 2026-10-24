@@ -37,8 +37,8 @@ text format profiles for reference-preserving serialization.
 The lossless in-process representation is **not** the legacy plain wire mapping.
 The read-only `AIig` contract declares fields; the generated `AIigd` mutable
 contract carries a complete schema identity, and its `AIcgd` implementation
-stores raw values and explicit presence. Calling `toMapping_RawValues()` or
-`toMapping_EffectiveValues()` builds a detached graph of typed field wrappers.
+stores raw values and explicit presence. Calling `_toMapping(RAW_VALUES)` or
+`_toMapping(EFFECTIVE_VALUES)` builds a detached graph of typed field wrappers.
 Every field value is an `AIidVirtualFieldValue` exposing a concrete
 `getValueClass()` and `getValueRepresentation()`; SDO representations are
 `Map<String, AIidVirtualFieldValue>` / Python mappings with matching keys.

@@ -1,5 +1,5 @@
-# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json
-# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 NameFragments:
   xml-data-object-marker_1:
@@ -1021,948 +1021,949 @@ NameCompositions:
     - Ref: xml-data-object-file-marker_1
     - Kind: identifier
       Convention: lower_snake_case_1
-NameConventions:
-  algites-python-gen-xml-namespace-intf_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-xml-namespace-intf_1
-      sub_container_name: algites-python-gen-xml-namespace-intf_1
-      file_name_stem: algites-python-gen-xml-namespace-intf-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-xml-namespace-intf_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-data-xml-namespace-intf_1
-      sub_container_name: algites-python-gen-data-xml-namespace-intf_1
-      file_name_stem: algites-python-gen-data-xml-namespace-intf-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-intf_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-intf_1
-      sub_container_name: algites-python-intf_1
-      file_name_stem: algites-python-intf-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-intf-versioned_1
-      sub_container_name: algites-python-intf-versioned_1
-      file_name_stem: algites-python-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-data-intf_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-data-intf_1
-      sub_container_name: algites-python-data-intf_1
-      file_name_stem: algites-python-data-intf-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-data-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-data-intf-versioned_1
-      sub_container_name: algites-python-data-intf-versioned_1
-      file_name_stem: algites-python-data-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-intf_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-intf_1
-      sub_container_name: algites-python-gen-intf_1
-      file_name_stem: algites-python-gen-intf-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-intf-versioned_1
-      sub_container_name: algites-python-gen-intf-versioned_1
-      file_name_stem: algites-python-gen-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-intf_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-data-intf_1
-      sub_container_name: algites-python-gen-data-intf_1
-      file_name_stem: algites-python-gen-data-intf-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-data-intf-versioned_1
-      sub_container_name: algites-python-gen-data-intf-versioned_1
-      file_name_stem: algites-python-gen-data-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-class_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-class_1
-      sub_container_name: algites-python-class_1
-      file_name_stem: algites-python-class-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-class-versioned_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-class-versioned_1
-      sub_container_name: algites-python-class-versioned_1
-      file_name_stem: algites-python-class-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-data-class_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-data-class_1
-      sub_container_name: algites-python-data-class_1
-      file_name_stem: algites-python-data-class-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-data-class-versioned_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-data-class-versioned_1
-      sub_container_name: algites-python-data-class-versioned_1
-      file_name_stem: algites-python-data-class-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-class_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-gen-class_1
-      sub_container_name: algites-python-gen-class_1
-      file_name_stem: algites-python-gen-class-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-class-versioned_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-gen-class-versioned_1
-      sub_container_name: algites-python-gen-class-versioned_1
-      file_name_stem: algites-python-gen-class-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-class_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-gen-data-class_1
-      sub_container_name: algites-python-gen-data-class_1
-      file_name_stem: algites-python-gen-data-class-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-class-versioned_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-gen-data-class-versioned_1
-      sub_container_name: algites-python-gen-data-class-versioned_1
-      file_name_stem: algites-python-gen-data-class-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-enum_1:
-    ContainerStructureType: enum
-    StructureNaming:
-      main_container_name: algites-python-enum_1
-      sub_container_name: algites-python-enum_1
-      file_name_stem: algites-python-enum-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-enum-versioned_1:
-    ContainerStructureType: enum
-    StructureNaming:
-      main_container_name: algites-python-enum-versioned_1
-      sub_container_name: algites-python-enum-versioned_1
-      file_name_stem: algites-python-enum-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-enum_1:
-    ContainerStructureType: enum
-    StructureNaming:
-      main_container_name: algites-python-gen-enum_1
-      sub_container_name: algites-python-gen-enum_1
-      file_name_stem: algites-python-gen-enum-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-enum-versioned_1:
-    ContainerStructureType: enum
-    StructureNaming:
-      main_container_name: algites-python-gen-enum-versioned_1
-      sub_container_name: algites-python-gen-enum-versioned_1
-      file_name_stem: algites-python-gen-enum-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-ann_1:
-    ContainerStructureType: annotation
-    StructureNaming:
-      main_container_name: algites-python-ann_1
-      sub_container_name: algites-python-ann_1
-      file_name_stem: algites-python-ann-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-ann-versioned_1:
-    ContainerStructureType: annotation
-    StructureNaming:
-      main_container_name: algites-python-ann-versioned_1
-      sub_container_name: algites-python-ann-versioned_1
-      file_name_stem: algites-python-ann-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-ann_1:
-    ContainerStructureType: annotation
-    StructureNaming:
-      main_container_name: algites-python-gen-ann_1
-      sub_container_name: algites-python-gen-ann_1
-      file_name_stem: algites-python-gen-ann-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-ann-versioned_1:
-    ContainerStructureType: annotation
-    StructureNaming:
-      main_container_name: algites-python-gen-ann-versioned_1
-      sub_container_name: algites-python-gen-ann-versioned_1
-      file_name_stem: algites-python-gen-ann-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-exc_1:
-    ContainerStructureType: exception
-    StructureNaming:
-      main_container_name: algites-python-exc_1
-      sub_container_name: algites-python-exc_1
-      file_name_stem: algites-python-exc-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-exc-versioned_1:
-    ContainerStructureType: exception
-    StructureNaming:
-      main_container_name: algites-python-exc-versioned_1
-      sub_container_name: algites-python-exc-versioned_1
-      file_name_stem: algites-python-exc-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-exc_1:
-    ContainerStructureType: exception
-    StructureNaming:
-      main_container_name: algites-python-gen-exc_1
-      sub_container_name: algites-python-gen-exc_1
-      file_name_stem: algites-python-gen-exc-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-exc-versioned_1:
-    ContainerStructureType: exception
-    StructureNaming:
-      main_container_name: algites-python-gen-exc-versioned_1
-      sub_container_name: algites-python-gen-exc-versioned_1
-      file_name_stem: algites-python-gen-exc-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-rb_1:
-    ContainerStructureType: resource_bundle
-    StructureNaming:
-      main_container_name: algites-python-rb_1
-      sub_container_name: algites-python-rb_1
-      file_name_stem: algites-python-rb-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-rb-versioned_1:
-    ContainerStructureType: resource_bundle
-    StructureNaming:
-      main_container_name: algites-python-rb-versioned_1
-      sub_container_name: algites-python-rb-versioned_1
-      file_name_stem: algites-python-rb-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-rb_1:
-    ContainerStructureType: resource_bundle
-    StructureNaming:
-      main_container_name: algites-python-gen-rb_1
-      sub_container_name: algites-python-gen-rb_1
-      file_name_stem: algites-python-gen-rb-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-rb-versioned_1:
-    ContainerStructureType: resource_bundle
-    StructureNaming:
-      main_container_name: algites-python-gen-rb-versioned_1
-      sub_container_name: algites-python-gen-rb-versioned_1
-      file_name_stem: algites-python-gen-rb-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-xml-element-intf_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-xml-element-intf_1
-      sub_container_name: algites-python-xml-element-intf_1
-      file_name_stem: algites-python-xml-element-intf-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-xml-element-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-xml-element-intf-versioned_1
-      sub_container_name: algites-python-xml-element-intf-versioned_1
-      file_name_stem: algites-python-xml-element-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-data-xml-element-intf_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-data-xml-element-intf_1
-      sub_container_name: algites-python-data-xml-element-intf_1
-      file_name_stem: algites-python-data-xml-element-intf-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-data-xml-element-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-data-xml-element-intf-versioned_1
-      sub_container_name: algites-python-data-xml-element-intf-versioned_1
-      file_name_stem: algites-python-data-xml-element-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-xml-element-intf_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-xml-element-intf_1
-      sub_container_name: algites-python-gen-xml-element-intf_1
-      file_name_stem: algites-python-gen-xml-element-intf-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-xml-element-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-xml-element-intf-versioned_1
-      sub_container_name: algites-python-gen-xml-element-intf-versioned_1
-      file_name_stem: algites-python-gen-xml-element-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-xml-element-intf_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-data-xml-element-intf_1
-      sub_container_name: algites-python-gen-data-xml-element-intf_1
-      file_name_stem: algites-python-gen-data-xml-element-intf-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-xml-element-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-data-xml-element-intf-versioned_1
-      sub_container_name: algites-python-gen-data-xml-element-intf-versioned_1
-      file_name_stem: algites-python-gen-data-xml-element-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-xml-element-class_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-xml-element-class_1
-      sub_container_name: algites-python-xml-element-class_1
-      file_name_stem: algites-python-xml-element-class-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-xml-element-class-versioned_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-xml-element-class-versioned_1
-      sub_container_name: algites-python-xml-element-class-versioned_1
-      file_name_stem: algites-python-xml-element-class-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-data-xml-element-class_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-data-xml-element-class_1
-      sub_container_name: algites-python-data-xml-element-class_1
-      file_name_stem: algites-python-data-xml-element-class-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-data-xml-element-class-versioned_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-data-xml-element-class-versioned_1
-      sub_container_name: algites-python-data-xml-element-class-versioned_1
-      file_name_stem: algites-python-data-xml-element-class-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-xml-element-class_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-gen-xml-element-class_1
-      sub_container_name: algites-python-gen-xml-element-class_1
-      file_name_stem: algites-python-gen-xml-element-class-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-xml-element-class-versioned_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-gen-xml-element-class-versioned_1
-      sub_container_name: algites-python-gen-xml-element-class-versioned_1
-      file_name_stem: algites-python-gen-xml-element-class-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-xml-element-class_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-gen-data-xml-element-class_1
-      sub_container_name: algites-python-gen-data-xml-element-class_1
-      file_name_stem: algites-python-gen-data-xml-element-class-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-xml-element-class-versioned_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-gen-data-xml-element-class-versioned_1
-      sub_container_name: algites-python-gen-data-xml-element-class-versioned_1
-      file_name_stem: algites-python-gen-data-xml-element-class-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-xml-type-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-xml-type-intf-versioned_1
-      sub_container_name: algites-python-gen-xml-type-intf-versioned_1
-      file_name_stem: algites-python-gen-xml-type-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-xml-type-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-data-xml-type-intf-versioned_1
-      sub_container_name: algites-python-gen-data-xml-type-intf-versioned_1
-      file_name_stem: algites-python-gen-data-xml-type-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-xml-type-class-versioned_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-gen-data-xml-type-class-versioned_1
-      sub_container_name: algites-python-gen-data-xml-type-class-versioned_1
-      file_name_stem: algites-python-gen-data-xml-type-class-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-json-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-json-intf-versioned_1
-      sub_container_name: algites-python-gen-json-intf-versioned_1
-      file_name_stem: algites-python-gen-json-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-json-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-data-json-intf-versioned_1
-      sub_container_name: algites-python-gen-data-json-intf-versioned_1
-      file_name_stem: algites-python-gen-data-json-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-json-class-versioned_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-gen-data-json-class-versioned_1
-      sub_container_name: algites-python-gen-data-json-class-versioned_1
-      file_name_stem: algites-python-gen-data-json-class-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-yaml-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-yaml-intf-versioned_1
-      sub_container_name: algites-python-gen-yaml-intf-versioned_1
-      file_name_stem: algites-python-gen-yaml-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-yaml-intf-versioned_1:
-    ContainerStructureType: interface
-    StructureNaming:
-      main_container_name: algites-python-gen-data-yaml-intf-versioned_1
-      sub_container_name: algites-python-gen-data-yaml-intf-versioned_1
-      file_name_stem: algites-python-gen-data-yaml-intf-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
-  algites-python-gen-data-yaml-class-versioned_1:
-    ContainerStructureType: class
-    StructureNaming:
-      main_container_name: algites-python-gen-data-yaml-class-versioned_1
-      sub_container_name: algites-python-gen-data-yaml-class-versioned_1
-      file_name_stem: algites-python-gen-data-yaml-class-versioned-file_1
-      file_name_suffix: python-source-extension_1
-      field_name: python-field-name_1
-      method_name: python-method-name_1
-      getter_method_name: python-getter-method-name_1
-      setter_method_name: python-setter-method-name_1
-      method_parameter_name: python-parameter-name_1
-      local_variable_name: python-local-variable-name_1
-      package_segment_name: package-segment-name_1
-      enum_item_name: enum-item-name_1
-      constant_name: constant-name_1
+SourceStructureNameConventions:
+  NameConventions:
+    algites-python-gen-xml-namespace-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-xml-namespace-intf_1
+        sub_container_name: algites-python-gen-xml-namespace-intf_1
+        file_name_stem: algites-python-gen-xml-namespace-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-xml-namespace-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-data-xml-namespace-intf_1
+        sub_container_name: algites-python-gen-data-xml-namespace-intf_1
+        file_name_stem: algites-python-gen-data-xml-namespace-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-intf_1
+        sub_container_name: algites-python-intf_1
+        file_name_stem: algites-python-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-intf-versioned_1
+        sub_container_name: algites-python-intf-versioned_1
+        file_name_stem: algites-python-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-data-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-data-intf_1
+        sub_container_name: algites-python-data-intf_1
+        file_name_stem: algites-python-data-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-data-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-data-intf-versioned_1
+        sub_container_name: algites-python-data-intf-versioned_1
+        file_name_stem: algites-python-data-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-intf_1
+        sub_container_name: algites-python-gen-intf_1
+        file_name_stem: algites-python-gen-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-intf-versioned_1
+        sub_container_name: algites-python-gen-intf-versioned_1
+        file_name_stem: algites-python-gen-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-data-intf_1
+        sub_container_name: algites-python-gen-data-intf_1
+        file_name_stem: algites-python-gen-data-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-data-intf-versioned_1
+        sub_container_name: algites-python-gen-data-intf-versioned_1
+        file_name_stem: algites-python-gen-data-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-class_1
+        sub_container_name: algites-python-class_1
+        file_name_stem: algites-python-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-class-versioned_1
+        sub_container_name: algites-python-class-versioned_1
+        file_name_stem: algites-python-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-data-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-data-class_1
+        sub_container_name: algites-python-data-class_1
+        file_name_stem: algites-python-data-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-data-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-data-class-versioned_1
+        sub_container_name: algites-python-data-class-versioned_1
+        file_name_stem: algites-python-data-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-gen-class_1
+        sub_container_name: algites-python-gen-class_1
+        file_name_stem: algites-python-gen-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-gen-class-versioned_1
+        sub_container_name: algites-python-gen-class-versioned_1
+        file_name_stem: algites-python-gen-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-gen-data-class_1
+        sub_container_name: algites-python-gen-data-class_1
+        file_name_stem: algites-python-gen-data-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-gen-data-class-versioned_1
+        sub_container_name: algites-python-gen-data-class-versioned_1
+        file_name_stem: algites-python-gen-data-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-enum_1:
+      ContainerStructureType: enum
+      StructureNaming:
+        main_container_name: algites-python-enum_1
+        sub_container_name: algites-python-enum_1
+        file_name_stem: algites-python-enum-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-enum-versioned_1:
+      ContainerStructureType: enum
+      StructureNaming:
+        main_container_name: algites-python-enum-versioned_1
+        sub_container_name: algites-python-enum-versioned_1
+        file_name_stem: algites-python-enum-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-enum_1:
+      ContainerStructureType: enum
+      StructureNaming:
+        main_container_name: algites-python-gen-enum_1
+        sub_container_name: algites-python-gen-enum_1
+        file_name_stem: algites-python-gen-enum-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-enum-versioned_1:
+      ContainerStructureType: enum
+      StructureNaming:
+        main_container_name: algites-python-gen-enum-versioned_1
+        sub_container_name: algites-python-gen-enum-versioned_1
+        file_name_stem: algites-python-gen-enum-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-ann_1:
+      ContainerStructureType: annotation
+      StructureNaming:
+        main_container_name: algites-python-ann_1
+        sub_container_name: algites-python-ann_1
+        file_name_stem: algites-python-ann-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-ann-versioned_1:
+      ContainerStructureType: annotation
+      StructureNaming:
+        main_container_name: algites-python-ann-versioned_1
+        sub_container_name: algites-python-ann-versioned_1
+        file_name_stem: algites-python-ann-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-ann_1:
+      ContainerStructureType: annotation
+      StructureNaming:
+        main_container_name: algites-python-gen-ann_1
+        sub_container_name: algites-python-gen-ann_1
+        file_name_stem: algites-python-gen-ann-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-ann-versioned_1:
+      ContainerStructureType: annotation
+      StructureNaming:
+        main_container_name: algites-python-gen-ann-versioned_1
+        sub_container_name: algites-python-gen-ann-versioned_1
+        file_name_stem: algites-python-gen-ann-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-exc_1:
+      ContainerStructureType: exception
+      StructureNaming:
+        main_container_name: algites-python-exc_1
+        sub_container_name: algites-python-exc_1
+        file_name_stem: algites-python-exc-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-exc-versioned_1:
+      ContainerStructureType: exception
+      StructureNaming:
+        main_container_name: algites-python-exc-versioned_1
+        sub_container_name: algites-python-exc-versioned_1
+        file_name_stem: algites-python-exc-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-exc_1:
+      ContainerStructureType: exception
+      StructureNaming:
+        main_container_name: algites-python-gen-exc_1
+        sub_container_name: algites-python-gen-exc_1
+        file_name_stem: algites-python-gen-exc-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-exc-versioned_1:
+      ContainerStructureType: exception
+      StructureNaming:
+        main_container_name: algites-python-gen-exc-versioned_1
+        sub_container_name: algites-python-gen-exc-versioned_1
+        file_name_stem: algites-python-gen-exc-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-rb_1:
+      ContainerStructureType: resource_bundle
+      StructureNaming:
+        main_container_name: algites-python-rb_1
+        sub_container_name: algites-python-rb_1
+        file_name_stem: algites-python-rb-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-rb-versioned_1:
+      ContainerStructureType: resource_bundle
+      StructureNaming:
+        main_container_name: algites-python-rb-versioned_1
+        sub_container_name: algites-python-rb-versioned_1
+        file_name_stem: algites-python-rb-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-rb_1:
+      ContainerStructureType: resource_bundle
+      StructureNaming:
+        main_container_name: algites-python-gen-rb_1
+        sub_container_name: algites-python-gen-rb_1
+        file_name_stem: algites-python-gen-rb-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-rb-versioned_1:
+      ContainerStructureType: resource_bundle
+      StructureNaming:
+        main_container_name: algites-python-gen-rb-versioned_1
+        sub_container_name: algites-python-gen-rb-versioned_1
+        file_name_stem: algites-python-gen-rb-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-xml-element-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-xml-element-intf_1
+        sub_container_name: algites-python-xml-element-intf_1
+        file_name_stem: algites-python-xml-element-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-xml-element-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-xml-element-intf-versioned_1
+        sub_container_name: algites-python-xml-element-intf-versioned_1
+        file_name_stem: algites-python-xml-element-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-data-xml-element-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-data-xml-element-intf_1
+        sub_container_name: algites-python-data-xml-element-intf_1
+        file_name_stem: algites-python-data-xml-element-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-data-xml-element-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-data-xml-element-intf-versioned_1
+        sub_container_name: algites-python-data-xml-element-intf-versioned_1
+        file_name_stem: algites-python-data-xml-element-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-xml-element-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-xml-element-intf_1
+        sub_container_name: algites-python-gen-xml-element-intf_1
+        file_name_stem: algites-python-gen-xml-element-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-xml-element-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-xml-element-intf-versioned_1
+        sub_container_name: algites-python-gen-xml-element-intf-versioned_1
+        file_name_stem: algites-python-gen-xml-element-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-xml-element-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-data-xml-element-intf_1
+        sub_container_name: algites-python-gen-data-xml-element-intf_1
+        file_name_stem: algites-python-gen-data-xml-element-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-xml-element-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-data-xml-element-intf-versioned_1
+        sub_container_name: algites-python-gen-data-xml-element-intf-versioned_1
+        file_name_stem: algites-python-gen-data-xml-element-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-xml-element-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-xml-element-class_1
+        sub_container_name: algites-python-xml-element-class_1
+        file_name_stem: algites-python-xml-element-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-xml-element-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-xml-element-class-versioned_1
+        sub_container_name: algites-python-xml-element-class-versioned_1
+        file_name_stem: algites-python-xml-element-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-data-xml-element-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-data-xml-element-class_1
+        sub_container_name: algites-python-data-xml-element-class_1
+        file_name_stem: algites-python-data-xml-element-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-data-xml-element-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-data-xml-element-class-versioned_1
+        sub_container_name: algites-python-data-xml-element-class-versioned_1
+        file_name_stem: algites-python-data-xml-element-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-xml-element-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-gen-xml-element-class_1
+        sub_container_name: algites-python-gen-xml-element-class_1
+        file_name_stem: algites-python-gen-xml-element-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-xml-element-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-gen-xml-element-class-versioned_1
+        sub_container_name: algites-python-gen-xml-element-class-versioned_1
+        file_name_stem: algites-python-gen-xml-element-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-xml-element-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-gen-data-xml-element-class_1
+        sub_container_name: algites-python-gen-data-xml-element-class_1
+        file_name_stem: algites-python-gen-data-xml-element-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-xml-element-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-gen-data-xml-element-class-versioned_1
+        sub_container_name: algites-python-gen-data-xml-element-class-versioned_1
+        file_name_stem: algites-python-gen-data-xml-element-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-xml-type-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-xml-type-intf-versioned_1
+        sub_container_name: algites-python-gen-xml-type-intf-versioned_1
+        file_name_stem: algites-python-gen-xml-type-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-xml-type-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-data-xml-type-intf-versioned_1
+        sub_container_name: algites-python-gen-data-xml-type-intf-versioned_1
+        file_name_stem: algites-python-gen-data-xml-type-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-xml-type-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-gen-data-xml-type-class-versioned_1
+        sub_container_name: algites-python-gen-data-xml-type-class-versioned_1
+        file_name_stem: algites-python-gen-data-xml-type-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-json-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-json-intf-versioned_1
+        sub_container_name: algites-python-gen-json-intf-versioned_1
+        file_name_stem: algites-python-gen-json-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-json-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-data-json-intf-versioned_1
+        sub_container_name: algites-python-gen-data-json-intf-versioned_1
+        file_name_stem: algites-python-gen-data-json-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-json-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-gen-data-json-class-versioned_1
+        sub_container_name: algites-python-gen-data-json-class-versioned_1
+        file_name_stem: algites-python-gen-data-json-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-yaml-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-yaml-intf-versioned_1
+        sub_container_name: algites-python-gen-yaml-intf-versioned_1
+        file_name_stem: algites-python-gen-yaml-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-yaml-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: algites-python-gen-data-yaml-intf-versioned_1
+        sub_container_name: algites-python-gen-data-yaml-intf-versioned_1
+        file_name_stem: algites-python-gen-data-yaml-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    algites-python-gen-data-yaml-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: algites-python-gen-data-yaml-class-versioned_1
+        sub_container_name: algites-python-gen-data-yaml-class-versioned_1
+        file_name_stem: algites-python-gen-data-yaml-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1

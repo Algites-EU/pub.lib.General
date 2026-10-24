@@ -91,7 +91,7 @@ def test_ambiguous_file_names_rejected():
     root = yaml.safe_load((ROOT/'algites-java-name-conventions.yml').read_text())
     root['IdentifierConventions'] = {'upper_camel_case_1': {'Regexp': '(?<identifier>[A-Z][A-Za-z0-9]*)'}}
     # Deliberately duplicate a profile and require a clear ambiguity error.
-    root['NameConventions']['duplicate'] = root['NameConventions']['algites-java-gen-intf-versioned_1']
+    root['SourceStructureNameConventions']['NameConventions']['duplicate'] = root['SourceStructureNameConventions']['NameConventions']['algites-java-gen-intf-versioned_1']
     with pytest.raises(ValueError, match='Ambiguous'):
         cat = AIcNameConventionCatalog_1({**root, 'IdentifierConventions': {**yaml.safe_load((ROOT/'standard-conventions.yml').read_text())['IdentifierConventions']}, 'VersionConventions':yaml.safe_load((ROOT/'standard-conventions.yml').read_text())['VersionConventions']})
         cat.recognize_filename('AIigCustomer_1.java')

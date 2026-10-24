@@ -1,6 +1,7 @@
 """Reusable mutable foundation for XML Schema generated SmartDataObjects."""
 
 from __future__ import annotations
+from eu.algites.lib.data.smartdataobject.ain_sdo_field_value_loading_mode import AInSdoFieldValueLoadingMode
 
 from collections.abc import Mapping
 from decimal import Decimal
@@ -263,7 +264,7 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
         instance = cls()
         for name, value in values.items():
             instance.set_RawField(name, value)
-        issues = instance.get_RawValuesValidationIssues()
+        issues = instance._getValidationIssues(AInSdoFieldValueLoadingMode.RAW_VALUES)
         if issues:
             from eu.algites.lib.data.smartdataobject.aix_smart_data_validation_exception import AIxSmartDataValidationException
             raise AIxSmartDataValidationException(issues)

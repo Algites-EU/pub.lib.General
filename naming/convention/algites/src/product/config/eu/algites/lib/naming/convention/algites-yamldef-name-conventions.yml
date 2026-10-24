@@ -1,5 +1,5 @@
-# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json
-# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/name-conventions_1.yamldef.schema.json
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 NameCompositions:
   schema-name_1:
@@ -34,22 +34,23 @@ NameCompositions:
     Segments:
     - Kind: identifier
       Convention: lower_snake_case_1
-NameConventions:
-  algites-yamldef-schema_1:
-    ContainerStructureType: object
-    StructureNaming:
-      main_container_name: schema-name_1
-      file_name_stem: schema-stem_1
-      file_name_suffix: yamldefs-schema-suffix_1
-      enum_item_name: schema-enum-item_1
-      field_name: schema-property_1
-      package_segment_name: schema-package_1
-  algites-yamldef-schema-versioned_1:
-    ContainerStructureType: object
-    StructureNaming:
-      main_container_name: schema-name_1
-      file_name_stem: schema-stem-versioned_1
-      file_name_suffix: yamldefs-schema-suffix_1
-      enum_item_name: schema-enum-item_1
-      field_name: schema-property_1
-      package_segment_name: schema-package_1
+SourceStructureNameConventions:
+  NameConventions:
+    algites-yamldef-schema_1:
+      ContainerStructureType: object
+      StructureNaming:
+        main_container_name: schema-name_1
+        file_name_stem: schema-stem_1
+        file_name_suffix: yamldefs-schema-suffix_1
+        enum_item_name: schema-enum-item_1
+        field_name: schema-property_1
+        package_segment_name: schema-package_1
+    algites-yamldef-schema-versioned_1:
+      ContainerStructureType: object
+      StructureNaming:
+        main_container_name: schema-name_1
+        file_name_stem: schema-stem-versioned_1
+        file_name_suffix: yamldefs-schema-suffix_1
+        enum_item_name: schema-enum-item_1
+        field_name: schema-property_1
+        package_segment_name: schema-package_1

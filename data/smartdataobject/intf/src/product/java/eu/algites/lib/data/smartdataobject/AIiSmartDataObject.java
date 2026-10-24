@@ -1,6 +1,7 @@
 package eu.algites.lib.data.smartdataobject;
 
 import eu.algites.lib.data.dataobject.AIiDataObject;
+import java.util.Objects;
 import eu.algites.lib.common.object.props.labels.AIaFieldLabel;
 import eu.algites.lib.common.validation.AIiValidatable;
 import eu.algites.lib.text.format.AIiTextFormatProfile;
@@ -75,15 +76,13 @@ public interface AIiSmartDataObject extends AIiDataObject, AIiValidatable<AIiSdo
      */
     Set<String> get_DeeplyEffectiveNotPresentRequiredFields();
     /**
-     * Returns the  raw values validation issues.
-     * @return the  raw values validation issues
+     * Validates locally stored fields using the explicitly chosen view of raw or effective values.
+     * Does not change field presence or materialize defaults in the underlying object.
+     * @param aMode mandatory selection of the field value loading semantics
+     * @return local structural and field validity issues
+     * @throws NullPointerException if aMode is null
      */
-    List<AIcdSmartDataValidationIssue> get_RawValuesValidationIssues();
-    /**
-     * Returns the  effective values validation issues.
-     * @return the  effective values validation issues
-     */
-    List<AIcdSmartDataValidationIssue> get_EffectiveValuesValidationIssues();
+    List<AIcdSmartDataValidationIssue> _getValidationIssues(AInSdoFieldValueLoadingMode aMode);
     /**
      * Returns the  deeply raw values validation issues.
      * @return the  deeply raw values validation issues
@@ -94,10 +93,13 @@ public interface AIiSmartDataObject extends AIiDataObject, AIiValidatable<AIiSdo
      * @return the  deeply effective values validation issues
      */
     List<AIcdSmartDataValidationIssue> get_DeeplyEffectiveValuesValidationIssues();
-    /** Capture the present raw field values as an identity-preserving typed mapping. */
-    Map<String, AIidVirtualFieldValue> toMapping_RawValues();
-    /** Capture effective values, including defaults, as an identity-preserving typed mapping. */
-    Map<String, AIidVirtualFieldValue> toMapping_EffectiveValues();
+    /**
+     * Snapshot typed field values according to an explicit loading mode.
+     * @param aMode mandatory raw/effective value selection
+     * @return identity-preserving typed virtual mapping
+     * @throws NullPointerException if aMode is null
+     */
+    Map<String, AIidVirtualFieldValue> _toMapping(AInSdoFieldValueLoadingMode aMode);
     /**
      * Renders directly stored field values without applying defaults.
      * @param aProfile profile supplied to the operation

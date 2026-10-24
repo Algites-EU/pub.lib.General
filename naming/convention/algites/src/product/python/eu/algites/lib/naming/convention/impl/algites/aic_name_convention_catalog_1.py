@@ -24,7 +24,15 @@ class AIcNameConventionCatalog_1:
         self._config = dict(config)
         self._fragments = config.get('NameFragments', {})
         self._compositions = config.get('NameCompositions', {})
-        self._conventions = config.get('NameConventions', {})
+        self._conventions = dict(config.get('NameConventions', {}))
+        for name, definition in config.get('SourceStructureNameConventions', {}).get('NameConventions', {}).items():
+            if name in self._conventions and self._conventions[name] != definition:
+                raise ValueError(f'Conflicting source naming profile: {name}')
+            self._conventions[name] = definition
+        self._generated_methods = dict(config.get('GeneratedDataObjectMethodNameConventions', {}).get('NameConventions', {}))
+        self._generated_method_profile = None
+        if set(self._generated_methods) & set(self._conventions):
+            raise ValueError('Source and generated-method naming profile IDs overlap')
         self._identifiers = config.get('IdentifierConventions', {})
         self._versions = config.get('VersionConventions', {})
         self._expanded: dict[str, tuple[dict, ...]] = {}
@@ -97,7 +105,8 @@ class AIcNameConventionCatalog_1:
         """
         merged = {section: {} for section in (
             'IdentifierConventions', 'VersionConventions', 'NameFragments',
-            'NameCompositions', 'NameConventions')}
+            'NameCompositions', 'NameConventions', 'SourceStructureNameConventions',
+            'GeneratedDataObjectMethodNameConventions')}
         if not sources:
             raise ValueError('At least one naming convention catalog is required')
         for source in sources:
@@ -105,9 +114,16 @@ class AIcNameConventionCatalog_1:
             catalog = cls.load_resource(value.removeprefix('resource:')) if value.startswith('resource:') else cls.load(value)
             for section, definitions in merged.items():
                 for name, definition in catalog._config.get(section, {}).items():
-                    if name in definitions and definitions[name] != definition:
-                        raise ValueError(f'Conflicting naming definition {section}/{name!r} in {source}')
-                    definitions[name] = definition
+                    if section in ('SourceStructureNameConventions', 'GeneratedDataObjectMethodNameConventions') and name == 'NameConventions':
+                        profiles = definitions.setdefault(name, {})
+                        for profile_name, profile_definition in definition.items():
+                            if profile_name in profiles and profiles[profile_name] != profile_definition:
+                                raise ValueError(f'Conflicting naming definition {section}/NameConventions/{profile_name!r} in {source}')
+                            profiles[profile_name] = profile_definition
+                    else:
+                        if name in definitions and definitions[name] != definition:
+                            raise ValueError(f'Conflicting naming definition {section}/{name!r} in {source}')
+                        definitions[name] = definition
         return cls(merged)
 
     @classmethod
@@ -121,8 +137,17 @@ class AIcNameConventionCatalog_1:
     def names(self) -> tuple[str, ...]:
         return tuple(self._conventions)
 
+    @property
+    def generated_method_names(self) -> tuple[str, ...]:
+        """Profiles used for generated DO/SDO methods, not for identifying files."""
+        return tuple(self._generated_methods)
+
     def profile(self, name: str) -> Mapping[str, Any]:
-        return self._conventions[name]
+        return self._conventions[name] if name in self._conventions else (self._generated_methods[name] if name in self._generated_methods else self._missing_profile(name))
+
+    @staticmethod
+    def _missing_profile(name: str):
+        raise KeyError(f'Unknown naming profile: {name}')
 
     def composition(self, name: str) -> tuple[dict, ...]:
         if name not in self._expanded:
@@ -152,8 +177,20 @@ class AIcNameConventionCatalog_1:
                 results.append(dict(segment))
         return tuple(results)
 
+    def with_generated_method_profile(self, profile: str):
+        """Select one generated DO/SDO method profile while preserving source naming profiles."""
+        if profile not in self._generated_methods:
+            raise ValueError(f'Unknown generated DataObject method naming profile: {profile}')
+        result = AIcNameConventionCatalog_1(self._config)
+        result._generated_method_profile = profile
+        return result
+
     def segments(self, profile_name: str, structure: str) -> tuple[dict, ...]:
-        reference = self._conventions[profile_name]['StructureNaming'][structure]
+        if self._generated_method_profile and structure in ('getter_method_name', 'setter_method_name'):
+            profile_name = self._generated_method_profile
+            structure = ('standard_getter_name' if structure == 'getter_method_name'
+                         else 'standard_setter_name')
+        reference = self.profile(profile_name)['StructureNaming'][structure]
         return self.composition(reference)
 
     def _segment_pattern(self, segment: dict) -> str:

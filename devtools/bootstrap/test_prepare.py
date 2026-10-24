@@ -1,0 +1,74 @@
+"""Offline regression coverage for standalone Modustro library publication."""
+from __future__ import annotations
+
+import importlib.util
+import json
+from pathlib import Path
+import tempfile
+import xml.etree.ElementTree as ET
+
+import pytest
+import yaml
+
+ROOT = Path(__file__).resolve().parents[2]
+SPEC = importlib.util.spec_from_file_location('general_bootstrap_prepare', Path(__file__).with_name('prepare.py'))
+BOOT = importlib.util.module_from_spec(SPEC)
+assert SPEC and SPEC.loader
+SPEC.loader.exec_module(BOOT)
+
+
+def test_declared_module_graph_is_complete():
+    records = BOOT.module_records(ROOT, '1.1-SNAPSHOT', '1.1.dev20261024000000')
+    assert sum(item['java'] for item in records) == 31
+    assert sum(item['python'] for item in records) == 9
+    assert any(item['groupId'] == 'eu.algites.lib.naming' for item in records)
+    assert any(item['groupId'] == 'eu.algites.lib.data' for item in records)
+    for module in records:
+        assert all(d['kind'] != 'external' or 'testng' not in d['coordinate'] for d in module['dependencies'])
+        assert all(not d.startswith('pytest') for d in module['pythonDependencies'])
+
+
+def test_full_gradle_graph_has_all_native_products(tmp_path):
+    records = BOOT.module_records(ROOT, '1.1-SNAPSHOT', '1.1.dev20261024000000')
+    BOOT.stage_gradle(ROOT, tmp_path, records, '1.1-SNAPSHOT')
+    modules = json.loads((tmp_path / 'gradle' / 'modules.json').read_text())
+    assert len(modules) == 31
+    assert 'maven-repository' in (tmp_path / 'gradle' / 'build.gradle').read_text()
+    assert 'java.gen' in (tmp_path / 'gradle' / 'build.gradle').read_text()
+    assert 'xmldefs' in (tmp_path / 'gradle' / 'build.gradle').read_text()
+    assert any(any(d['kind'] == 'project' for d in module['dependencies']) for module in modules)
+
+
+def test_python_stage_preserves_shared_source_configuration_and_schemas(tmp_path):
+    records = BOOT.module_records(ROOT, '1.1-SNAPSHOT', '1.1.dev20261024000000')
+    module = next(item for item in records if item['path'] == 'naming/convention/algites')
+    package = BOOT.stage_one_python(ROOT, tmp_path, module, '1.1.dev20261024000000')
+    assert any((package / 'src').rglob('*.yml'))
+    assert any((package / 'src').rglob('*.py'))
+    assert (package / 'pyproject.toml').exists()
+    assert '.dev20261024000000' in (package / 'pyproject.toml').read_text()
+
+
+def test_xsd_new_naming_definitions_and_publish_metadata():
+    expected = [
+        ROOT / 'naming/convention/intf/src/product/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd',
+        ROOT / 'naming/convention/intf/src/product/xmldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.xsd',
+    ]
+    for xsd in expected:
+        assert xsd.is_file()
+        assert xsd.with_suffix('.xsd.meta.yml').exists()
+        parsed = ET.parse(xsd)
+        assert parsed.getroot().tag.endswith('schema')
+        publication = yaml.safe_load(xsd.with_suffix('.xsd.meta.yml').read_text())
+        assert publication['GlobalPublicationPathId'].endswith(xsd.name)
+    assert 'SourceStructureNameConventions' in expected[1].read_text()
+    assert 'common-naming-conventions_1.xsd' in expected[1].read_text()
+
+
+def test_python_snapshot_requires_fresh_version():
+    result = BOOT.python_version('1.1-SNAPSHOT', None)
+    assert result.startswith('1.1.dev')
+    assert result != '1.1'
+    assert BOOT.python_version('1.1-SNAPSHOT', '1.1.dev12') == '1.1.dev12'
+    with pytest.raises(ValueError):
+        BOOT.python_version('1.1-SNAPSHOT', 'invalid')

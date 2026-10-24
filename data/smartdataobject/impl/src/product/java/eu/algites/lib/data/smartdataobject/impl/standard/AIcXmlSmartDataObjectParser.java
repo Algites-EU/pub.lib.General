@@ -278,7 +278,7 @@ public final class AIcXmlSmartDataObjectParser {
         }
         T locObject = instantiate(aType);
         for (var locValue : locValues.entrySet()) locObject.set_RawField(locValue.getKey(), locValue.getValue());
-        var locIssues = locObject.get_RawValuesValidationIssues();
+        var locIssues = locObject._getValidationIssues(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode.RAW_VALUES);
         if (!locIssues.isEmpty()) throw new AIxSmartDataValidationException(locIssues);
         return locObject;
     }

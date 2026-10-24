@@ -4,6 +4,7 @@ package eu.algites.lib.data.smartdataobject.impl.standard;
 import eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue;
 import eu.algites.lib.data.dataobject.AInFieldPresenceKind;
 import eu.algites.lib.data.smartdataobject.AIiSmartDataObject;
+import eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode;
 import eu.algites.lib.data.smartdataobject.AIidVirtualFieldValue;
 import eu.algites.lib.data.smartdataobject.AIxSmartDataValidationException;
 import eu.algites.lib.text.format.AIiTextFormatProfile;
@@ -140,12 +141,9 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         return Collections.unmodifiableSet(locMissing);
     }
     /** {@inheritDoc} */
-    @Override public final List<AIcdSmartDataValidationIssue> get_RawValuesValidationIssues() {
-        return AIcSmartDataGraphSnapshot.capture(this).localIssues(false);
-    }
-    /** {@inheritDoc} */
-    @Override public final List<AIcdSmartDataValidationIssue> get_EffectiveValuesValidationIssues() {
-        return AIcSmartDataGraphSnapshot.capture(this).localIssues(true);
+    @Override public final List<AIcdSmartDataValidationIssue> _getValidationIssues(AInSdoFieldValueLoadingMode aMode) {
+        return AIcSmartDataGraphSnapshot.capture(this).localIssues(
+                java.util.Objects.requireNonNull(aMode, "field value loading mode") == AInSdoFieldValueLoadingMode.EFFECTIVE_VALUES);
     }
     /** {@inheritDoc} */
     @Override public final List<AIcdSmartDataValidationIssue> get_DeeplyRawValuesValidationIssues() {
@@ -156,9 +154,9 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         return AIcSmartDataGraphSnapshot.capture(this).deepIssues(true);
     }
     /** {@inheritDoc} */
-    @Override public final boolean is_ByRawValuesValid() { return get_RawValuesValidationIssues().isEmpty(); }
+    @Override public final boolean is_ByRawValuesValid() { return _getValidationIssues(AInSdoFieldValueLoadingMode.RAW_VALUES).isEmpty(); }
     /** {@inheritDoc} */
-    @Override public final boolean is_ByEffectiveValuesValid() { return get_EffectiveValuesValidationIssues().isEmpty(); }
+    @Override public final boolean is_ByEffectiveValuesValid() { return _getValidationIssues(AInSdoFieldValueLoadingMode.EFFECTIVE_VALUES).isEmpty(); }
     /** {@inheritDoc} */
     @Override public final boolean is_DeeplyByRawValuesValid() { return get_DeeplyRawValuesValidationIssues().isEmpty(); }
     /** {@inheritDoc} */
@@ -175,12 +173,9 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         return Collections.unmodifiableSet(locResult);
     }
     /** {@inheritDoc} */
-    @Override public final Map<String, AIidVirtualFieldValue> toMapping_RawValues() {
-        return AIcSmartDataVirtualMapper.capture(this, false);
-    }
-    /** {@inheritDoc} */
-    @Override public final Map<String, AIidVirtualFieldValue> toMapping_EffectiveValues() {
-        return AIcSmartDataVirtualMapper.capture(this, true);
+    @Override public final Map<String, AIidVirtualFieldValue> _toMapping(AInSdoFieldValueLoadingMode aMode) {
+        return AIcSmartDataVirtualMapper.capture(this,
+                java.util.Objects.requireNonNull(aMode, "field value loading mode") == AInSdoFieldValueLoadingMode.EFFECTIVE_VALUES);
     }
     /** {@inheritDoc} */
     @Override public final String toString_RawValues(AIiTextFormatProfile aProfile, AInTextOutputObjectReferenceMode aMode) {

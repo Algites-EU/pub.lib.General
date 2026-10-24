@@ -1,0 +1,342 @@
+#!/usr/bin/env python3
+"""Stage all Modustro native modules for a standalone pub.lib.General publication.
+
+This helper does not invoke the Modustro Builder and never contacts Cloudsmith.
+It reads the repository's native artifact descriptors and generates a separate
+Gradle Maven publishing project and independent Python distribution workspaces.
+"""
+from __future__ import annotations
+
+import argparse
+from datetime import datetime, timezone
+import email
+import json
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+import tarfile
+import xml.etree.ElementTree as ET
+import zipfile
+
+import yaml
+
+SOURCES = ('src/product/python', 'src/product/python.gen', 'src/product/config', 'src/product/resources',
+           'src/product/xmldefs', 'src/product/yamldefs', 'src/product/jsondefs')
+IGNORED = {'__pycache__', '.pytest_cache', 'build', 'node_modules', '.mypy_cache'}
+EXPECTED_JAVA = 31
+EXPECTED_PYTHON = 9
+JAVA_FIXED_VERSIONS = {
+    'com.fasterxml.jackson.core:jackson-databind': '2.18.3',
+    'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml': '2.18.3',
+    'com.fasterxml.jackson.core:jackson-annotations': '2.18.3',
+}
+
+
+def artifact_id(path: Path) -> str:
+    return 'pub.lib.General_' + '.'.join(path.parts)
+
+
+def python_name(identifier: str) -> str:
+    return 'eu-algites-' + re.sub('[^a-z0-9]+', '-', identifier.lower()).strip('-')
+
+
+def python_version(java_version: str, override: str | None) -> str:
+    if override:
+        value = override
+    elif java_version.endswith('-SNAPSHOT'):
+        # Cloudsmith snapshots must not reuse the previous wheel's immutable name.
+        value = java_version.removesuffix('-SNAPSHOT') + '.dev' + datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')
+    else:
+        value = java_version
+    if not re.fullmatch(r'\d+(?:\.\d+)*(?:\.dev\d+)?', value):
+        raise ValueError(f'Invalid Python package version {value!r}')
+    return value
+
+
+def read_yaml(path: Path) -> dict:
+    with path.open(encoding='utf-8') as stream:
+        return yaml.safe_load(stream) or {}
+
+
+def inferred_group(repository: Path, module: Path) -> str:
+    # Modustro artifact-set group IDs override the nearest enclosing ancestor.
+    root = module
+    while root != repository:
+        descriptor = root / 'modustro-artifact-set.yml'
+        if descriptor.is_file():
+            group = read_yaml(descriptor).get('GroupId')
+            if group:
+                return str(group)
+        root = root.parent
+    return str(read_yaml(repository / 'modustro-source-repository.yml')['GroupId'])
+
+
+def spec(requirement: dict | None, version: str) -> str:
+    requirement = requirement or {}
+    if 'Exact' in requirement:
+        exact = str(requirement['Exact'])
+        if exact.endswith('-SNAPSHOT'):
+            prefix = exact.removesuffix('-SNAPSHOT')
+            return f'>={prefix}.dev0,<{prefix}a0'
+        return f'=={exact}'
+    result = []
+    for key, comparator in (('Minimum', '>='), ('Maximum', '<=')):
+        if key not in requirement:
+            continue
+        raw = str(requirement[key])
+        if raw.startswith(('>=', '<=', '==', '>', '<')):
+            result.append(raw)
+        else:
+            op = '<' if key == 'Maximum' and requirement.get('MaximumStrict') else comparator
+            result.append(op + raw)
+    if result:
+        return ','.join(result)
+    return spec({'Exact': version}, version)
+
+
+def java_version(name: str, requirement: dict | None) -> str:
+    req = requirement or {}
+    if 'Exact' in req:
+        return str(req['Exact'])
+    if name in JAVA_FIXED_VERSIONS:
+        return JAVA_FIXED_VERSIONS[name]
+    if 'Minimum' in req:
+        return str(req['Minimum']).removeprefix('>=')
+    raise ValueError(f'Cannot select a concrete Java dependency version for {name}: {req}')
+
+
+def module_records(repository: Path, release: str, py_release: str) -> list[dict]:
+    records = []
+    for path in sorted(repository.rglob('modustro-artifact.yml')):
+        # No build output or virtual environment may become a source artifact.
+        relative = path.parent.relative_to(repository)
+        if any(part in IGNORED or part.startswith('.') for part in relative.parts):
+            continue
+        doc = read_yaml(path)
+        kinds = doc.get('Artifact', {}).get('TechnologyKinds', [])
+        if 'java' not in kinds and 'python' not in kinds:
+            continue
+        identifier = artifact_id(relative)
+        dependencies = []
+        python_deps = []
+        for dep_group in doc.get('Dependencies') or []:
+            kind = dep_group.get('DependencyKind')
+            for item in dep_group.get('Items') or []:
+                usages = item.get('Usages') or []
+                if not any(str(u).startswith('product_') for u in usages):
+                    continue
+                dep_id = str(item['ArtifactId'])
+                if kind == 'modustro':
+                    configuration = 'api' if 'product_api' in usages else 'implementation'
+                    dependencies.append({'kind': 'project', 'artifactId': dep_id, 'configuration': configuration,
+                                         'groupId': str(item.get('GroupId') or ''), 'version': release})
+                    # Python dependencies must follow same source revision as the sibling modules.
+                    if 'python' in kinds:
+                        python_deps.append(python_name(dep_id) + '==' + py_release)
+                elif kind == 'java' and 'java' in kinds:
+                    name = str(item['GroupId']) + ':' + dep_id
+                    config = ('compileOnlyApi' if 'product_compile_only_api' in usages else
+                              'compileOnly' if 'product_compile_only_implementation' in usages else
+                              'api' if 'product_api' in usages else 'implementation')
+                    dependencies.append({'kind': 'external', 'coordinate': name + ':' + java_version(name, item.get('VersionRequirement')),
+                                         'configuration': config})
+                elif kind == 'python' and 'python' in kinds:
+                    python_deps.append(dep_id.replace('_', '-') + spec(item.get('VersionRequirement'), py_release))
+        records.append({
+            'path': relative.as_posix(), 'artifactId': identifier, 'groupId': inferred_group(repository, path.parent),
+            'name': str(doc['Artifact'].get('Name', identifier)),
+            'description': str(doc['Artifact'].get('Description', identifier)),
+            'java': 'java' in kinds, 'python': 'python' in kinds,
+            'dependencies': dependencies, 'pythonDependencies': list(dict.fromkeys(python_deps)),
+        })
+    if len([v for v in records if v['java']]) != EXPECTED_JAVA or len([v for v in records if v['python']]) != EXPECTED_PYTHON:
+        raise ValueError(f'Unexpected native module count: {sum(v["java"] for v in records)} Java, '
+                         f'{sum(v["python"] for v in records)} Python; expected {EXPECTED_JAVA}/{EXPECTED_PYTHON}')
+    lookup = {v['artifactId']: v for v in records}
+    for record in records:
+        for dep in record['dependencies']:
+            if dep['kind'] != 'project':
+                continue
+            other = lookup.get(dep['artifactId'])
+            if not other or not other['java']:
+                raise ValueError(f'Missing Java dependency for {record["artifactId"]}: {dep["artifactId"]}')
+            if dep['groupId'] and dep['groupId'] != other['groupId']:
+                raise ValueError(f'Group ID mismatch for {dep["artifactId"]}: descriptor says '
+                                 f'{dep["groupId"]}, module is {other["groupId"]}')
+        for package in record['pythonDependencies']:
+            prefix = package.split('==')[0]
+            # If it is an internal reference, it must really be a Python product.
+            if prefix.startswith('eu-algites-pub-lib-general-'):
+                other = next((v for v in records if python_name(v['artifactId']) == prefix), None)
+                if not other or not other['python']:
+                    raise ValueError(f'Invalid Python dependency of {record["artifactId"]}: {package}')
+    return records
+
+
+def stage_gradle(repository: Path, work: Path, records: list[dict], version: str) -> None:
+    stage = work / 'gradle'
+    stage.mkdir(parents=True, exist_ok=True)
+    java_modules = [r for r in records if r['java']]
+    for number, record in enumerate(java_modules, 1):
+        record['gradleProject'] = 'native%03d' % number
+    ids = {r['artifactId']: r['gradleProject'] for r in java_modules}
+    modules = [{'project': r['gradleProject'], 'groupId': r['groupId'], 'artifactId': r['artifactId'],
+                'dependencies': [{'kind': d['kind'], 'configuration': d['configuration'],
+                                  'target': ids[d['artifactId']] if d['kind'] == 'project' else d['coordinate']}
+                                 for d in r['dependencies']]}
+               for r in java_modules]
+    (stage / 'modules.json').write_text(json.dumps(modules, indent=2), encoding='utf-8')
+    lines = ["rootProject.name = 'algites-general-native-bootstrap'"]
+    for r in java_modules:
+        # JSON encoded paths are valid Groovy double-quoted string literals.
+        lines.append('include(' + json.dumps(':' + r['gradleProject']) + ')')
+        lines.append('project(' + json.dumps(':' + r['gradleProject']) + ').projectDir = file(' +
+                     json.dumps(str(repository / r['path'])) + ')')
+    (stage / 'settings.gradle').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+    build = '''import groovy.json.JsonSlurper\n\ndef manifest = new JsonSlurper().parse(new File(rootProject.projectDir, 'modules.json'))\ndef configByProject = manifest.collectEntries { [(it.project): it] }\ndef outputRoot = new File(System.getenv('MODUSTRO_GENERAL_BOOTSTRAP_OUTPUT') ?: rootProject.projectDir)\nlayout.buildDirectory.set(new File(outputRoot, 'gradle-build/root'))\nsubprojects { project ->\n    def config = configByProject[project.name]\n    if (config == null) throw new GradleException("Missing bootstrap configuration: ${project.name}")\n    project.layout.buildDirectory.set(new File(outputRoot, 'gradle-build/modules/' + project.name))\n    apply plugin: 'java-library'\n    apply plugin: 'maven-publish'\n    group = config.groupId\n    version = System.getenv('MODUSTRO_GENERAL_BOOTSTRAP_VERSION') ?: '1.1-SNAPSHOT'\n    repositories {\n        mavenCentral()\n        maven { url = uri('https://dl.cloudsmith.io/public/algites/java-snapshots-pub/maven/') }\n    }\n    java { withSourcesJar() }\n    tasks.withType(JavaCompile).configureEach { options.release = 17 }\n    sourceSets {\n        main {\n            java.srcDirs = ['src/product/java', 'src/product/java.gen']\n            resources.srcDirs = ['src/product/config', 'src/product/resources',\n                                 'src/product/jsondefs', 'src/product/yamldefs', 'src/product/xmldefs']\n        }\n    }\n    dependencies {\n        config.dependencies.each { d ->\n            if (d.kind == 'project') {\n                add(d.configuration, rootProject.project(':' + d.target))\n            } else {\n                add(d.configuration, d.target)\n            }\n        }\n    }\n    publishing {\n        publications {\n            mavenJava(MavenPublication) {\n                from components.java\n                artifactId = config.artifactId\n            }\n        }\n        repositories {\n            maven { name = 'Bootstrap'; url = uri(new File(outputRoot, 'maven-repository')) }\n        }\n    }\n}\n'''
+    (stage / 'build.gradle').write_text(build, encoding='utf-8')
+    (stage / 'release-version.txt').write_text(version + '\n', encoding='utf-8')
+
+
+def stage_one_python(repository: Path, work: Path, record: dict, release: str) -> Path:
+    package = work / 'python-projects' / record['artifactId'].replace('.', '-')
+    source_target = package / 'src'
+    source_target.mkdir(parents=True, exist_ok=True)
+    native_source = repository / record['path']
+    for subdir in SOURCES:
+        source = native_source / subdir
+        if not source.is_dir():
+            continue
+        for file in sorted(source.rglob('*')):
+            if not file.is_file() or file.suffix in ('.pyc', '.pyo') or any(p in IGNORED for p in file.parts):
+                continue
+            dst = source_target / file.relative_to(source)
+            if dst.exists():
+                if dst.read_bytes() != file.read_bytes():
+                    raise ValueError(f'Conflicting resource {dst}')
+                continue
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(file, dst)
+    if not list(source_target.rglob('*.py')):
+        raise ValueError(f'Empty Python product for {record["artifactId"]}')
+    license_file = repository / 'LICENSE'
+    if license_file.is_file():
+        shutil.copy2(license_file, package / 'LICENSE')
+    toml = ('[build-system]\nrequires = ["setuptools>=69", "wheel"]\n'
+            'build-backend = "setuptools.build_meta"\n\n'
+            '[project]\nname = ' + json.dumps(python_name(record['artifactId'])) + '\n'
+            'version = ' + json.dumps(release) + '\n'
+            'description = ' + json.dumps(record['description']) + '\n'
+            'requires-python = ">=3.11"\n'
+            'dependencies = ' + json.dumps(record['pythonDependencies']) + '\n\n'
+            '[tool.setuptools.packages.find]\nwhere = ["src"]\nnamespaces = true\n\n'
+            '[tool.setuptools.package-data]\n"*" = ["*.settings", "*.yml", "*.yaml", "*.json", "*.xsd", "*.xml", "*.py"]\n')
+    (package / 'pyproject.toml').write_text(toml, encoding='utf-8')
+    (package / 'MANIFEST.in').write_text('recursive-include src *.py *.settings *.yml *.yaml *.json *.xsd *.xml\n', encoding='utf-8')
+    return package
+
+
+def package_python(repository: Path, work: Path, records: list[dict], release: str, python_command: str) -> None:
+    dist = work / 'python-dist'
+    dist.mkdir(parents=True, exist_ok=True)
+    manifest = []
+    for record in records:
+        if not record['python']:
+            continue
+        package = stage_one_python(repository, work, record, release)
+        # PEP 517 hooks produce both sdist and wheel without installing Modustro.
+        # setuptools/wheel are the only build backend dependencies.
+        command = ('import setuptools.build_meta as m; from pathlib import Path; '
+                   'd = ' + repr(str(dist)) + '; '
+                   'print("SDIST:", m.build_sdist(d)); print("WHEEL:", m.build_wheel(d))')
+        output = subprocess.run([python_command, '-c', command], cwd=package,
+                                text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        if output.returncode:
+            raise RuntimeError(f'Python build failed for {record["artifactId"]}:\n{output.stdout[-10000:]}')
+        sdists = [dist / name.strip() for name in re.findall(r'^SDIST:\s*(.+)$', output.stdout, re.M)]
+        wheels = [dist / name.strip() for name in re.findall(r'^WHEEL:\s*(.+)$', output.stdout, re.M)]
+        if len(sdists) != 1 or len(wheels) != 1:
+            raise RuntimeError(f'Unexpected Python build output for {record["artifactId"]}:\n{output.stdout[-3000:]}')
+        sdist, wheel = sdists[0], wheels[0]
+        verify_python_distribution(record, release, wheel, sdist)
+        manifest.append((str(wheel), str(sdist)))
+        print(f'Python package verified: {record["artifactId"]}', flush=True)
+    (work / 'python-packages.tsv').write_text(''.join('\t'.join(row)+'\n' for row in manifest), encoding='utf-8')
+
+
+def verify_python_distribution(record: dict, release: str, wheel: Path, sdist: Path) -> None:
+    if not wheel.is_file() or not sdist.is_file():
+        raise FileNotFoundError(f'Missing distribution: {wheel}, {sdist}')
+    with zipfile.ZipFile(wheel) as archive:
+        paths = archive.namelist()
+        meta_files = [name for name in paths if name.endswith('.dist-info/METADATA')]
+        if len(meta_files) != 1 or not any(p.endswith('.py') and p.startswith('eu/algites/lib/') for p in paths):
+            raise ValueError(f'Incomplete wheel: {wheel}')
+        metadata = email.message_from_bytes(archive.read(meta_files[0]))
+        norm = lambda name: re.sub('[-_.]+', '-', name).lower()
+        if norm(metadata['Name']) != norm(python_name(record['artifactId'])) or metadata['Version'] != release:
+            raise ValueError(f'Incorrect Python distribution identity/version in {wheel}')
+    with tarfile.open(sdist, 'r:gz') as archive:
+        if not any(path.endswith('/PKG-INFO') for path in archive.getnames()):
+            raise ValueError(f'Source distribution missing PKG-INFO: {sdist}')
+
+
+def verify_maven(work: Path, records: list[dict], release: str) -> None:
+    maven = work / 'maven-repository'
+    rows = []
+    for record in records:
+        if not record['java']:
+            continue
+        directory = maven / record['groupId'].replace('.', '/') / record['artifactId'] / release
+        stem = record['artifactId']+'-'+release
+        jar, pom, module, sources = [directory / (stem + suffix) for suffix in ('.jar','.pom','.module','-sources.jar')]
+        if not all(path.exists() and path.stat().st_size > 0 for path in (jar, pom, module, sources)):
+            raise FileNotFoundError(f'Incomplete Maven publication of {record["artifactId"]}: {directory}')
+        root = ET.parse(pom).getroot()
+        names = {node.tag.rsplit('}',1)[-1]: node.text for node in root if node.tag.rsplit('}',1)[-1] in ('groupId','artifactId','version')}
+        if any(names.get(k) != value for k,value in [('groupId',record['groupId']),('artifactId',record['artifactId']),('version',release)]):
+            raise ValueError(f'Incorrect Maven POM coordinates for {record["artifactId"]}: {names}')
+        with zipfile.ZipFile(jar) as archive:
+            if not any(n.endswith('.class') for n in archive.namelist()):
+                raise ValueError(f'JAR has no compiled Java classes: {jar}')
+        rows.append((str(jar),str(pom),str(module),str(sources)))
+    (work / 'packages.tsv').write_text(''.join('\t'.join(row)+'\n' for row in rows), encoding='utf-8')
+    print(f'Maven publications verified: {len(rows)}',flush=True)
+
+
+def main() -> None:
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('action',choices=('plan','package-python','verify-maven'))
+    parser.add_argument('--repository',type=Path,required=True)
+    parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--version',required=True)
+    parser.add_argument('--python-version')
+    parser.add_argument('--python-executable',default=sys.executable)
+    args=parser.parse_args()
+    repository=args.repository.resolve(strict=True)
+    output=args.output.absolute()
+    output.mkdir(parents=True,exist_ok=True)
+    # Preserve one immutable version for all Python wheels during this invocation.
+    version_file=output / 'python-release.txt'
+    if args.action == 'plan':
+        release=python_version(args.version,args.python_version)
+        version_file.write_text(release+'\n',encoding='utf-8')
+    else:
+        release=version_file.read_text(encoding='utf-8').strip()
+        if args.python_version and args.python_version != release:
+            raise ValueError('Python version changed during bootstrap')
+    records=module_records(repository,args.version,release)
+    (output/'artifacts.json').write_text(json.dumps(records,indent=2),encoding='utf-8')
+    if args.action == 'plan':
+        stage_gradle(repository,output,records,args.version)
+        print(f'Bootstrap plan: {sum(r["java"] for r in records)} Java Maven and '
+              f'{sum(r["python"] for r in records)} Python distributions; release {args.version} / {release}',flush=True)
+    elif args.action=='package-python':
+        package_python(repository,output,records,release,args.python_executable)
+    elif args.action=='verify-maven':
+        verify_maven(output,records,args.version)
+
+if __name__ == '__main__':
+    main()

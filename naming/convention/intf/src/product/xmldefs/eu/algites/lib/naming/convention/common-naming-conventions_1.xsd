@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.common-naming-conventions" version="1">
+  <xs:annotation>
+    <xs:documentation>Reusable tools shared by source-structure and generated DataObject method naming profiles.</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="common-naming-conventions">
+    <xs:sequence>
+      <xs:element name="StandardConventionsFile" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Optional reference to standard identifier/version definitions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IdentifierConventions" minOccurs="0" type="xs:anyType">
+        <xs:annotation>
+          <xs:documentation>Named identifier conventions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VersionConventions" minOccurs="0" type="xs:anyType">
+        <xs:annotation>
+          <xs:documentation>Named version conventions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NameFragments" minOccurs="0" type="xs:anyType">
+        <xs:annotation>
+          <xs:documentation>Reusable fragment definitions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NameCompositions" minOccurs="0" type="xs:anyType">
+        <xs:annotation>
+          <xs:documentation>Reusable name composition definitions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
