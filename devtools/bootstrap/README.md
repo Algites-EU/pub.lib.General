@@ -2,21 +2,58 @@
 
 This bootstrap builds and optionally uploads **all native Java Maven and Python products** from the checked-out source tree without applying the normal Modustro Builder/Gradle settings plugin or running GitHub Actions. It does not regenerate Java/Python Defs/SDO sources; `src/product/java.gen` and `src/product/python.gen` are consumed **read-only**. If those generated sources are stale, regenerate them using the normal Defs/SDO Codegen process first.
 
-## Commands
+## Single-invocation workflow (same as the other Modustro bootstraps)
 
-Run from the `pub.lib.General` repository root:
+From the `pub.lib.General` repository root, **one invocation** normally
+prepares, verifies and uploads all Maven and Python distributions:
+
+```bash
+bash devtools/bootstrap.sh
+```
+
+To compile and stage without any Cloudsmith upload, use the same shared
+environment variable as the other standalone bootstraps:
+
+```bash
+MODUSTRO_BOOTSTRAP_PREPARE_ONLY=1 bash devtools/bootstrap.sh
+```
+
+Planning only (no Gradle build or upload) is an optional diagnostic action:
 
 ```bash
 bash devtools/bootstrap.sh --plan-only
-bash devtools/bootstrap.sh --prepare-only
-bash devtools/bootstrap.sh --upload
 ```
 
-The default without a switch is `--prepare-only`. The legacy safeguard `MODUSTRO_BOOTSTRAP_PREPARE_ONLY=1` prevents upload even when `--upload` is requested.
+The optional `--prepare-only` and `--upload` switches are retained as
+convenience aliases. **They are alternatives, not three steps that must be run
+in sequence.** `--upload` is the default. The environment safeguard
+`MODUSTRO_BOOTSTRAP_PREPARE_ONLY=1` always wins, including over `--upload`.
+
+This matches the default-upload behavior of
+`pub.tool.General/generators/code/bootstrap.sh` and the standalone
+`pub.gov.Algites` bootstraps. Be aware that running without the safeguard
+will publish to Cloudsmith if the build succeeds and authentication is present.
+
+### Shared bootstrap environment variables
+
+| Variable | Meaning |
+| --- | --- |
+| `MODUSTRO_BOOTSTRAP_PREPARE_ONLY=1` | Build and verify, but do not upload |
+| `MODUSTRO_BOOTSTRAP_DEPENDENCY_MODE=remote|local|source` | External dependency repository precedence; default `remote` |
+| `MODUSTRO_BOOTSTRAP_REFRESH_DEPENDENCIES=0|1` | Refresh resolved dependencies; default `1` for `remote`, `0` otherwise |
+| `MODUSTRO_BOOTSTRAP_OUTPUT_DIR` | Optional destination for copies of the preparation manifests |
+| `MODUSTRO_GRADLE_EXECUTABLE` | Override repository Gradle wrapper executable |
+| `ALGITES_PYTHON_EXECUTABLE` | Override Python interpreter |
+
+`remote` prefers published Cloudsmith artifacts, then Maven Central, with
+Maven Local as fallback. `local` and `source` prefer Maven Local. Internal
+`pub.lib.General` dependencies are *always* built from the current source
+checkout as Gradle project dependencies; this bootstrap therefore does not
+require a separate source-preparation phase even in `source` mode.
 
 `--plan-only` requires only Python 3.11+ and PyYAML; it validates the module dependency graph and creates a disposable standalone Gradle project without downloading Gradle or other dependencies. `--prepare-only` additionally requires a JDK 17+ (compilation targets Java 17), Gradle 9.2.1 via the repository wrapper, Python `setuptools` and `wheel`, plus access to repositories needed by declared native dependencies. It compiles/packages all 31 Java Maven artifacts and produces 9 Python wheels with 9 source distributions. **No Cloudsmith credentials are required for preparation.**
 
-`--upload` first prepares and verifies every package, then uploads them to Cloudsmith inside **one** `algites-cloudsmith --session -- bash -c ...` invocation. This resolves the authentication key once rather than querying Secret Service for each file. The upload is a sequence of API operations and is not transactional; a network or authentication error midway may require an operator to retry after inspecting what was published.
+A regular invocation (or explicit `--upload`) first prepares and verifies every package, then uploads them to Cloudsmith inside **one** `algites-cloudsmith --session -- bash -c ...` invocation. This resolves the authentication key once rather than querying Secret Service for each file. The upload is a sequence of API operations and is not transactional; a network or authentication error midway may require an operator to retry after inspecting what was published.
 
 ## Output
 
@@ -41,10 +78,10 @@ Default version is derived from `modustro-source-repository.yml`. For special us
 ```bash
 MODUSTRO_GENERAL_BOOTSTRAP_VERSION=1.1-SNAPSHOT \
 MODUSTRO_GENERAL_BOOTSTRAP_PYTHON_VERSION=1.1.dev202610240001 \
-bash devtools/bootstrap.sh --prepare-only
+MODUSTRO_BOOTSTRAP_PREPARE_ONLY=1 bash devtools/bootstrap.sh
 ```
 
-Overrides: `ALGITES_PYTHON_EXECUTABLE`, `MODUSTRO_GRADLE_EXECUTABLE`, `MODUSTRO_BOOTSTRAP_REFRESH_DEPENDENCIES=1`, `MODUSTRO_GENERAL_BOOTSTRAP_JAVA_REPO` (default `algites/java-snapshots-pub`) and `MODUSTRO_GENERAL_BOOTSTRAP_PYTHON_REPO` (default `algites/python-snapshots-pub`). Maven and Python coordinates are verified before upload.
+Repository overrides: `MODUSTRO_GENERAL_BOOTSTRAP_CLOUDSMITH_REPO` (Java/Maven; default `algites/java-snapshots-pub`) and `MODUSTRO_GENERAL_BOOTSTRAP_PYTHON_CLOUDSMITH_REPO` (Python; default `algites/python-snapshots-pub`). Older aliases `MODUSTRO_GENERAL_BOOTSTRAP_JAVA_REPO` and `MODUSTRO_GENERAL_BOOTSTRAP_PYTHON_REPO` remain supported. The new names take precedence when both forms are set. Maven and Python coordinates are verified before upload.
 
 ## Limitations
 

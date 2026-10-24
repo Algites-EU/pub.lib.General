@@ -2,31 +2,78 @@
 set -euo pipefail
 
 # Standalone pub.lib.General Maven + Python bootstrap. No Modustro Builder.
-# All generated build descriptions, packages and logs live under build/run.
+# Like the other Algites/Modustro bootstraps, one invocation builds and uploads
+# unless MODUSTRO_BOOTSTRAP_PREPARE_ONLY=1 explicitly disables publication.
 locRepo="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
 locHelper="$locRepo/devtools/bootstrap/prepare.py"
-locOutput="$locRepo/build/run/general-bootstrap"
-locJavaRepo="${MODUSTRO_GENERAL_BOOTSTRAP_JAVA_REPO:-algites/java-snapshots-pub}"
-locPythonRepo="${MODUSTRO_GENERAL_BOOTSTRAP_PYTHON_REPO:-algites/python-snapshots-pub}"
+locBuildRoot="$locRepo/build/run/general-bootstrap"
+locJavaRepo="${MODUSTRO_GENERAL_BOOTSTRAP_CLOUDSMITH_REPO:-${MODUSTRO_GENERAL_BOOTSTRAP_JAVA_REPO:-algites/java-snapshots-pub}}"
+locPythonRepo="${MODUSTRO_GENERAL_BOOTSTRAP_PYTHON_CLOUDSMITH_REPO:-${MODUSTRO_GENERAL_BOOTSTRAP_PYTHON_REPO:-algites/python-snapshots-pub}}"
 locPython="${ALGITES_PYTHON_EXECUTABLE:-python3}"
-locMode="${1:---prepare-only}"
 
+locMode="${1:---upload}"
 case "$locMode" in
     --plan-only|--prepare-only|--upload) ;;
-    *) echo "Usage: bash devtools/bootstrap.sh [--plan-only|--prepare-only|--upload]" >&2; exit 2 ;;
+    --help|-h)
+        printf '%s\n' \
+            'Usage: bash devtools/bootstrap.sh [--plan-only|--prepare-only|--upload]' \
+            'Default: build, verify and upload in one invocation.' \
+            'Set MODUSTRO_BOOTSTRAP_PREPARE_ONLY=1 to build and verify without upload.'
+        exit 0 ;;
+    *) echo "Unknown bootstrap option: $locMode" >&2; exit 2 ;;
 esac
-if [[ $# -gt 1 ]]; then echo 'Only one bootstrap mode is permitted' >&2; exit 2; fi
-if [[ "${MODUSTRO_BOOTSTRAP_PREPARE_ONLY:-0}" == 1 && "$locMode" == --upload ]]; then
-    echo 'MODUSTRO_BOOTSTRAP_PREPARE_ONLY=1 forbids uploading' >&2
+if [[ $# -gt 1 ]]; then
+    echo 'Only one optional bootstrap action is permitted' >&2
     exit 2
 fi
+
+locPrepareOnly="${MODUSTRO_BOOTSTRAP_PREPARE_ONLY:-0}"
+case "$locPrepareOnly" in
+    0|1) ;;
+    *) echo "Invalid MODUSTRO_BOOTSTRAP_PREPARE_ONLY='$locPrepareOnly' (0|1)" >&2; exit 2 ;;
+esac
+if [[ "$locMode" == --prepare-only ]]; then
+    locPrepareOnly=1
+fi
+
+# Dependency resolution follows the common bootstrap precedence policy.
+# All pub.lib.General project dependencies are always built from this checkout;
+# source mode therefore has no additional sibling-source preparation step.
+locDependencyMode="${MODUSTRO_BOOTSTRAP_DEPENDENCY_MODE:-remote}"
+case "$locDependencyMode" in
+    remote|local|source) ;;
+    *) echo "Invalid MODUSTRO_BOOTSTRAP_DEPENDENCY_MODE='$locDependencyMode' (remote|local|source)" >&2; exit 2 ;;
+esac
+export MODUSTRO_BOOTSTRAP_DEPENDENCY_MODE="$locDependencyMode"
+locRefreshDependencies="${MODUSTRO_BOOTSTRAP_REFRESH_DEPENDENCIES:-}"
+if [[ -z "$locRefreshDependencies" ]]; then
+    if [[ "$locDependencyMode" == remote ]]; then
+        locRefreshDependencies=1
+    else
+        locRefreshDependencies=0
+    fi
+fi
+case "$locRefreshDependencies" in
+    0|1) ;;
+    *) echo "Invalid MODUSTRO_BOOTSTRAP_REFRESH_DEPENDENCIES='$locRefreshDependencies' (0|1)" >&2; exit 2 ;;
+esac
+export MODUSTRO_BOOTSTRAP_REFRESH_DEPENDENCIES="$locRefreshDependencies"
+echo "Bootstrap dependency mode: $locDependencyMode; refresh published dependencies: $locRefreshDependencies"
+if [[ "$locMode" == --plan-only ]]; then
+    echo 'Bootstrap action: plan only (no build, no upload)'
+elif [[ "$locPrepareOnly" == 1 ]]; then
+    echo 'Bootstrap action: build and prepare only (no upload)'
+else
+    echo 'Bootstrap action: build, verify and upload to Cloudsmith'
+fi
+
 if ! command -v "$locPython" >/dev/null 2>&1; then
     echo "Missing Python interpreter: $locPython" >&2; exit 2
 fi
 if ! "$locPython" -c 'import yaml' >/dev/null 2>&1; then
     echo 'PyYAML is required to interpret modustro-artifact.yml (python -m pip install pyyaml)' >&2; exit 2
 fi
-locDetectedVersion="$($locPython - "$locRepo/modustro-source-repository.yml" <<'PY_VERSION'
+locDetectedVersion="$("$locPython" - "$locRepo/modustro-source-repository.yml" <<'PY_VERSION'
 import sys
 import yaml
 release = yaml.safe_load(open(sys.argv[1], encoding='utf-8'))['Version']
@@ -42,21 +89,22 @@ if [[ "$locMode" != --plan-only ]] && ! "$locPython" -c 'import setuptools, whee
     echo 'Python build backends are required (python -m pip install setuptools wheel)' >&2; exit 2
 fi
 
-# Avoid ever mixing artifacts from different source snapshots or release versions.
+# Never mix artifacts from different source snapshots or versions.
 mkdir -p "$locRepo/build/run"
-if [[ -e "$locOutput" && ! -d "$locOutput" ]]; then
-    echo "Build output path is not a directory: $locOutput" >&2; exit 2
+if [[ -e "$locBuildRoot" && ! -d "$locBuildRoot" ]]; then
+    echo "Build output path is not a directory: $locBuildRoot" >&2; exit 2
 fi
-rm -rf -- "$locOutput"
-mkdir -p "$locOutput"
-locArgs=(--repository "$locRepo" --output "$locOutput" --version "$locVersion")
+rm -rf -- "$locBuildRoot"
+mkdir -p "$locBuildRoot"
+locArgs=(--repository "$locRepo" --output "$locBuildRoot" --version "$locVersion")
 if [[ -n "${MODUSTRO_GENERAL_BOOTSTRAP_PYTHON_VERSION:-}" ]]; then
     locArgs+=(--python-version "$MODUSTRO_GENERAL_BOOTSTRAP_PYTHON_VERSION")
 fi
 export PYTHONDONTWRITEBYTECODE=1
+export PYTEST_ADDOPTS="${PYTEST_ADDOPTS:+${PYTEST_ADDOPTS} }-p no:cacheprovider"
 "$locPython" "$locHelper" plan "${locArgs[@]}"
 if [[ "$locMode" == --plan-only ]]; then
-    echo "Bootstrap plan generated in $locOutput; no build and no upload performed."
+    echo "Bootstrap plan generated in $locBuildRoot; no build and no upload performed."
     exit 0
 fi
 
@@ -64,31 +112,44 @@ locGradle=(bash "$locRepo/gradlew")
 if [[ -n "${MODUSTRO_GRADLE_EXECUTABLE:-}" ]]; then
     locGradle=("${MODUSTRO_GRADLE_EXECUTABLE}")
 fi
-locGradleArgs=(--no-daemon --project-dir "$locOutput/gradle")
-if [[ "${MODUSTRO_BOOTSTRAP_REFRESH_DEPENDENCIES:-0}" == 1 ]]; then
+locGradleArgs=(--no-daemon --project-dir "$locBuildRoot/gradle")
+if [[ "$locRefreshDependencies" == 1 ]]; then
     locGradleArgs+=(--refresh-dependencies)
 fi
-# The build only publishes to a local *staging* Maven repository; never to
-# Maven Local or Cloudsmith as a side effect of a Gradle task.
-MODUSTRO_GENERAL_BOOTSTRAP_OUTPUT="$locOutput" MODUSTRO_GENERAL_BOOTSTRAP_VERSION="$locVersion" \
+# The standalone build publishes only to local staging; never to Maven Local or
+# Cloudsmith as a Gradle side effect.
+MODUSTRO_GENERAL_BOOTSTRAP_OUTPUT="$locBuildRoot" MODUSTRO_GENERAL_BOOTSTRAP_VERSION="$locVersion" \
     "${locGradle[@]}" "${locGradleArgs[@]}" publishAllPublicationsToBootstrapRepository
 
 "$locPython" "$locHelper" verify-maven "${locArgs[@]}"
 "$locPython" "$locHelper" package-python "${locArgs[@]}" --python-executable "$locPython"
-[[ "$(wc -l < "$locOutput/packages.tsv")" == 31 ]] || { echo 'Unexpected Maven manifest size' >&2; exit 1; }
-[[ "$(wc -l < "$locOutput/python-packages.tsv")" == 9 ]] || { echo 'Unexpected Python manifest size' >&2; exit 1; }
+[[ "$(wc -l < "$locBuildRoot/packages.tsv")" == 31 ]] || { echo 'Unexpected Maven manifest size' >&2; exit 1; }
+[[ "$(wc -l < "$locBuildRoot/python-packages.tsv")" == 9 ]] || { echo 'Unexpected Python manifest size' >&2; exit 1; }
 
-echo "Prepared 31 Maven artifacts and 9 Python wheels with their sdists."
-echo "Java manifest: $locOutput/packages.tsv"
-echo "Python manifest: $locOutput/python-packages.tsv"
-if [[ "$locMode" == --prepare-only || "${MODUSTRO_BOOTSTRAP_PREPARE_ONLY:-0}" == 1 ]]; then
+# Same manifest-output override as the other Modustro bootstraps; do not move
+# the real staging area or rebuild for a later --upload invocation.
+locManifestOutput="${MODUSTRO_BOOTSTRAP_OUTPUT_DIR:-$locBuildRoot}"
+mkdir -p "$locManifestOutput"
+if [[ "$locManifestOutput/packages.tsv" != "$locBuildRoot/packages.tsv" ]]; then
+    cp "$locBuildRoot/packages.tsv" "$locManifestOutput/packages.tsv"
+fi
+if [[ "$locManifestOutput/python-packages.tsv" != "$locBuildRoot/python-packages.tsv" ]]; then
+    cp "$locBuildRoot/python-packages.tsv" "$locManifestOutput/python-packages.tsv"
+fi
+if [[ "$locManifestOutput/python-release.txt" != "$locBuildRoot/python-release.txt" ]]; then
+    cp "$locBuildRoot/python-release.txt" "$locManifestOutput/python-release.txt"
+fi
+
+echo 'Prepared 31 Maven artifacts and 9 Python wheels with their sdists.'
+echo "Java manifest: $locManifestOutput/packages.tsv"
+echo "Python manifest: $locManifestOutput/python-packages.tsv"
+if [[ "$locPrepareOnly" == 1 ]]; then
     echo 'Preparation complete. No Cloudsmith upload performed.'
     exit 0
 fi
 
 command -v algites-cloudsmith >/dev/null || { echo 'algites-cloudsmith is required for upload' >&2; exit 2; }
-# Resolve secret only once. The whole publication shares one authenticated
-# session (never run algites-cloudsmith once per artifact).
+# Resolve the credential once for the whole upload batch.
 algites-cloudsmith --session -- bash -c '
     set -euo pipefail
     locJavaRepo="$1"; locJavaManifest="$2"; locPythonRepo="$3"; locPythonManifest="$4"
@@ -106,6 +167,6 @@ algites-cloudsmith --session -- bash -c '
         cloudsmith push python "$locPythonRepo" "$locWheel"
         cloudsmith push python "$locPythonRepo" "$locSdist"
     done < "$locPythonManifest"
-' _ "$locJavaRepo" "$locOutput/packages.tsv" "$locPythonRepo" "$locOutput/python-packages.tsv"
+' _ "$locJavaRepo" "$locBuildRoot/packages.tsv" "$locPythonRepo" "$locBuildRoot/python-packages.tsv"
 
 echo 'Cloudsmith upload finished.'

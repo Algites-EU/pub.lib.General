@@ -39,6 +39,16 @@ def test_full_gradle_graph_has_all_native_products(tmp_path):
     assert any(any(d['kind'] == 'project' for d in module['dependencies']) for module in modules)
 
 
+def test_generated_gradle_respects_shared_dependency_precedence(tmp_path):
+    records = BOOT.module_records(ROOT, '1.1-SNAPSHOT', '1.1.dev20261024000000')
+    BOOT.stage_gradle(ROOT, tmp_path, records, '1.1-SNAPSHOT')
+    gradle = (tmp_path / 'gradle/build.gradle').read_text()
+    assert "MODUSTRO_BOOTSTRAP_DEPENDENCY_MODE" in gradle
+    assert "if (bootstrapMode != 'remote') mavenLocal()" in gradle
+    assert "if (bootstrapMode == 'remote') mavenLocal()" in gradle
+    assert "includeGroupByRegex" in gradle
+
+
 def test_python_stage_preserves_shared_source_configuration_and_schemas(tmp_path):
     records = BOOT.module_records(ROOT, '1.1-SNAPSHOT', '1.1.dev20261024000000')
     module = next(item for item in records if item['path'] == 'naming/convention/algites')
