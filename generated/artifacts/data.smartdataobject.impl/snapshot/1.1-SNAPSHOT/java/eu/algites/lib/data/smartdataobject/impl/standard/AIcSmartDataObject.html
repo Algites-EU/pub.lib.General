@@ -140,6 +140,12 @@ implements eu.algites.lib.data.smartdataobject.AIiSmartDataObject</span></div>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#_getValidationIssues(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode)" class="member-name-link">_getValidationIssues</a><wbr>(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode&nbsp;aMode)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr>eu.algites.lib.data.smartdataobject.AIidVirtualFieldValue&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#_toMapping(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode)" class="member-name-link">_toMapping</a><wbr>(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode&nbsp;aMode)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get_DeeplyEffectiveNotPresentRequiredFields()" class="member-name-link">get_DeeplyEffectiveNotPresentRequiredFields</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
@@ -165,19 +171,13 @@ implements eu.algites.lib.data.smartdataobject.AIiSmartDataObject</span></div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get_EffectiveNotPresentRequiredFields()" class="member-name-link">get_EffectiveNotPresentRequiredFields</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get_EffectiveValuesValidationIssues()" class="member-name-link">get_EffectiveValuesValidationIssues</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get_RawField(java.lang.String)" class="member-name-link">get_RawField</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aName)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get_RawField(java.lang.String)" class="member-name-link">get_RawField</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aName)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Generated raw getters invoke this method and cast to the declared object type.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get_RawNotPresentRequiredFields()" class="member-name-link">get_RawNotPresentRequiredFields</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get_RawValuesValidationIssues()" class="member-name-link">get_RawValuesValidationIssues</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get_RawNotPresentRequiredFields()" class="member-name-link">get_RawNotPresentRequiredFields</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#is_ByEffectiveValuesValid()" class="member-name-link">is_ByEffectiveValuesValid</a>()</code></div>
@@ -207,12 +207,6 @@ implements eu.algites.lib.data.smartdataobject.AIiSmartDataObject</span></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Generated setters invoke this method with their schema property name.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr>eu.algites.lib.data.smartdataobject.AIidVirtualFieldValue&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toMapping_EffectiveValues()" class="member-name-link">toMapping_EffectiveValues</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr>eu.algites.lib.data.smartdataobject.AIidVirtualFieldValue&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toMapping_RawValues()" class="member-name-link">toMapping_RawValues</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"></div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -363,22 +357,12 @@ implements eu.algites.lib.data.smartdataobject.AIiSmartDataObject</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="get_RawValuesValidationIssues()">
-<h3>get_RawValuesValidationIssues</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue&gt;</span>&nbsp;<span class="element-name">get_RawValuesValidationIssues</span>()</div>
+<section class="detail" id="_getValidationIssues(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode)">
+<h3>_getValidationIssues</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue&gt;</span>&nbsp;<span class="element-name">_getValidationIssues</span><wbr><span class="parameters">(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode&nbsp;aMode)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code>get_RawValuesValidationIssues</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.data.smartdataobject.AIiSmartDataObject</code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="get_EffectiveValuesValidationIssues()">
-<h3>get_EffectiveValuesValidationIssues</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue&gt;</span>&nbsp;<span class="element-name">get_EffectiveValuesValidationIssues</span>()</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code>get_EffectiveValuesValidationIssues</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.data.smartdataobject.AIiSmartDataObject</code></dd>
+<dd><code>_getValidationIssues</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.data.smartdataobject.AIiSmartDataObject</code></dd>
 </dl>
 </section>
 </li>
@@ -463,22 +447,12 @@ implements eu.algites.lib.data.smartdataobject.AIiSmartDataObject</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="toMapping_RawValues()">
-<h3>toMapping_RawValues</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr>eu.algites.lib.data.smartdataobject.AIidVirtualFieldValue&gt;</span>&nbsp;<span class="element-name">toMapping_RawValues</span>()</div>
+<section class="detail" id="_toMapping(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode)">
+<h3>_toMapping</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr>eu.algites.lib.data.smartdataobject.AIidVirtualFieldValue&gt;</span>&nbsp;<span class="element-name">_toMapping</span><wbr><span class="parameters">(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode&nbsp;aMode)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code>toMapping_RawValues</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.data.smartdataobject.AIiSmartDataObject</code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="toMapping_EffectiveValues()">
-<h3>toMapping_EffectiveValues</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr>eu.algites.lib.data.smartdataobject.AIidVirtualFieldValue&gt;</span>&nbsp;<span class="element-name">toMapping_EffectiveValues</span>()</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code>toMapping_EffectiveValues</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.data.smartdataobject.AIiSmartDataObject</code></dd>
+<dd><code>_toMapping</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.data.smartdataobject.AIiSmartDataObject</code></dd>
 </dl>
 </section>
 </li>

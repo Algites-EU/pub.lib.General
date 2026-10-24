@@ -1,0 +1,40 @@
+python.eu.algites.lib.data.smartdataobject.ain_sdo_field_value_loading_mode
+===========================================================================
+
+.. py:module:: python.eu.algites.lib.data.smartdataobject.ain_sdo_field_value_loading_mode
+
+.. autoapi-nested-parse::
+
+   Select raw or effective SmartDataObject values without changing stored field presence.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.data.smartdataobject.ain_sdo_field_value_loading_mode.AInSdoFieldValueLoadingMode
+
+
+Module Contents
+---------------
+
+.. py:class:: AInSdoFieldValueLoadingMode
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   Raw values preserve explicit assignments; effective values apply defaults when absent.
+
+
+   .. py:attribute:: RAW_VALUES
+      :value: 'RAW_VALUES'
+
+
+
+   .. py:attribute:: EFFECTIVE_VALUES
+      :value: 'EFFECTIVE_VALUES'
+
+
+

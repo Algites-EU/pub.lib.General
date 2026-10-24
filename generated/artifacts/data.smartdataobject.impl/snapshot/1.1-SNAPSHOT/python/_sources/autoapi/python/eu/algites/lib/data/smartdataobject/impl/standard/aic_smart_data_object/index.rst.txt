@@ -51,18 +51,6 @@ Module Contents
 
 
 
-   .. py:method:: toMapping_RawValues() -> collections.abc.Mapping[str, eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue]
-
-      Return a typed identity-preserving graph containing only raw fields.
-
-
-
-   .. py:method:: toMapping_EffectiveValues() -> collections.abc.Mapping[str, eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue]
-
-      Return a typed identity-preserving graph including effective defaults.
-
-
-
    .. py:method:: set_RawField(name: str, value: Any) -> None
 
 
@@ -76,12 +64,6 @@ Module Contents
 
 
    .. py:method:: unset_Field(name: str) -> None
-
-
-   .. py:method:: get_RawValuesValidationIssues()
-
-
-   .. py:method:: get_EffectiveValuesValidationIssues()
 
 
    .. py:method:: get_DeeplyRawValuesValidationIssues()

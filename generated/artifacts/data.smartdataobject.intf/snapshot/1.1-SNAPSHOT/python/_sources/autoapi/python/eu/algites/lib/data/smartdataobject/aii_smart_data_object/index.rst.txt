@@ -69,32 +69,12 @@ Module Contents
 
 
 
-   .. py:method:: get_RawValuesValidationIssues() -> list[eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue]
-      :abstractmethod:
-
-
-
-   .. py:method:: get_EffectiveValuesValidationIssues() -> list[eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue]
-      :abstractmethod:
-
-
-
    .. py:method:: get_DeeplyRawValuesValidationIssues() -> list[eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue]
       :abstractmethod:
 
 
 
    .. py:method:: get_DeeplyEffectiveValuesValidationIssues() -> list[eu.algites.lib.data.smartdataobject.aicd_smart_data_validation_issue.AIcdSmartDataValidationIssue]
-      :abstractmethod:
-
-
-
-   .. py:method:: toMapping_RawValues() -> Mapping[str, eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue]
-      :abstractmethod:
-
-
-
-   .. py:method:: toMapping_EffectiveValues() -> Mapping[str, eu.algites.lib.data.smartdataobject.aiid_virtual_field_value.AIidVirtualFieldValue]
       :abstractmethod:
 
 

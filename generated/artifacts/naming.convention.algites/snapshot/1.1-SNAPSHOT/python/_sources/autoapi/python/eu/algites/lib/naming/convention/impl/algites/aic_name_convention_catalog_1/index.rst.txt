@@ -68,10 +68,23 @@ Module Contents
 
 
 
+   .. py:property:: generated_method_names
+      :type: tuple[str, Ellipsis]
+
+
+      Profiles used for generated DO/SDO methods, not for identifying files.
+
+
    .. py:method:: profile(name: str) -> Mapping[str, Any]
 
 
    .. py:method:: composition(name: str) -> tuple[dict, Ellipsis]
+
+
+   .. py:method:: with_generated_method_profile(profile: str)
+
+      Select one generated DO/SDO method profile while preserving source naming profiles.
+
 
 
    .. py:method:: segments(profile_name: str, structure: str) -> tuple[dict, Ellipsis]

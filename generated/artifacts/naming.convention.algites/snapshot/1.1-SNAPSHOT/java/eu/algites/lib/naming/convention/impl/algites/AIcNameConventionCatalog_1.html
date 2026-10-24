@@ -154,6 +154,16 @@ implements eu.algites.lib.naming.convention.AIiNameConventionCatalog</span></div
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Formats values through a composition; validates each interpolated value against its regex.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#generatedMethodNames()" class="member-name-link">generatedMethodNames</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Names of generated DataObject method profiles, which do not participate in filename recognition.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#generatedMethodProfile()" class="member-name-link">generatedMethodProfile</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the selected method-profile identifier, if any.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#identifierConvention(java.lang.String,java.lang.String)" class="member-name-link">identifierConvention</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aRole,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aStructure)</code></div>
@@ -211,8 +221,13 @@ implements eu.algites.lib.naming.convention.AIiNameConventionCatalog</span></div
 <div class="block">Loads the standard Algites catalog from its packaged YAML resources.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withRoles(java.util.Map)" class="member-name-link">withRoles</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;aRoles)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withGeneratedMethodProfile(java.lang.String)" class="member-name-link">withGeneratedMethodProfile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aMethodProfile)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Selects the same explicit DO/SDO method naming profile for all field-specific methods.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withRoles(java.util.Map)" class="member-name-link">withRoles</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;aRoles)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Binds semantic generation roles to exact identifiers without altering their definitions.</div>
 </div>
 </div>
@@ -292,6 +307,32 @@ implements eu.algites.lib.naming.convention.AIiNameConventionCatalog</span></div
 </section>
 </li>
 <li>
+<section class="detail" id="withGeneratedMethodProfile(java.lang.String)">
+<h3>withGeneratedMethodProfile</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></span>&nbsp;<span class="element-name">withGeneratedMethodProfile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;aMethodProfile)</span></div>
+<div class="block">Selects the same explicit DO/SDO method naming profile for all field-specific methods.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>aMethodProfile</code> - ID under GeneratedDataObjectMethodNameConventions.NameConventions</dd>
+<dt>Returns:</dt>
+<dd>immutable catalog view sharing every parsed composition and source profile</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - when the method profile is unavailable</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="generatedMethodProfile()">
+<h3>generatedMethodProfile</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">generatedMethodProfile</span>()</div>
+<div class="block">Returns the selected method-profile identifier, if any.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>exact profile ID or null when source-structure naming alone is configured</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="withRoles(java.util.Map)">
 <h3>withRoles</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AIcNameConventionCatalog_1.html" title="class in eu.algites.lib.naming.convention.impl.algites">AIcNameConventionCatalog_1</a></span>&nbsp;<span class="element-name">withRoles</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;aRoles)</span></div>
@@ -342,6 +383,17 @@ implements eu.algites.lib.naming.convention.AIiNameConventionCatalog</span></div
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code>names</code>&nbsp;in interface&nbsp;<code>eu.algites.lib.naming.convention.AIiNameConventionCatalog</code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="generatedMethodNames()">
+<h3>generatedMethodNames</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">generatedMethodNames</span>()</div>
+<div class="block">Names of generated DataObject method profiles, which do not participate in filename recognition.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>configured method-profile identifiers in deterministic document order</dd>
 </dl>
 </section>
 </li>

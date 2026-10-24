@@ -1,0 +1,140 @@
+python.gen.eu.algites.lib.naming.convention.xmldefs.aicgd_common_naming_conventions_1
+=====================================================================================
+
+.. py:module:: python.gen.eu.algites.lib.naming.convention.xmldefs.aicgd_common_naming_conventions_1
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   python.gen.eu.algites.lib.naming.convention.xmldefs.aicgd_common_naming_conventions_1.AIcSchemaTemporalValue
+   python.gen.eu.algites.lib.naming.convention.xmldefs.aicgd_common_naming_conventions_1.AIcSchemaDuration
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.gen.eu.algites.lib.naming.convention.xmldefs.aicgd_common_naming_conventions_1.AIcgdCommonNamingConventions_1
+
+
+Module Contents
+---------------
+
+.. py:data:: AIcSchemaTemporalValue
+
+.. py:data:: AIcSchemaDuration
+
+.. py:class:: AIcgdCommonNamingConventions_1
+
+   Reusable tools shared by source-structure and generated DataObject method naming profiles.
+
+   Generated from canonical definition eu.algites.lib.naming.convention.common-naming-conventions/1. Source: src/product/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd. Do not edit manually.
+
+   .. attribute:: standard_conventions_file
+
+      Optional reference to standard identifier/version definitions.
+
+   .. attribute:: identifier_conventions
+
+      Named identifier conventions.
+
+   .. attribute:: version_conventions
+
+      Named version conventions.
+
+   .. attribute:: name_fragments
+
+      Reusable fragment definitions.
+
+   .. attribute:: name_compositions
+
+      Reusable name composition definitions.
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__STANDARD_CONVENTIONS_FILE
+      :value: 'StandardConventionsFile'
+
+
+      ** ``StandardConventionsFile``
+
+      **Field Description:** Optional reference to standard identifier/version definitions.
+
+      :type: **Field Name
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__IDENTIFIER_CONVENTIONS
+      :value: 'IdentifierConventions'
+
+
+      ** ``IdentifierConventions``
+
+      **Field Description:** Named identifier conventions.
+
+      :type: **Field Name
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__VERSION_CONVENTIONS
+      :value: 'VersionConventions'
+
+
+      ** ``VersionConventions``
+
+      **Field Description:** Named version conventions.
+
+      :type: **Field Name
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__NAME_FRAGMENTS
+      :value: 'NameFragments'
+
+
+      ** ``NameFragments``
+
+      **Field Description:** Reusable fragment definitions.
+
+      :type: **Field Name
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__NAME_COMPOSITIONS
+      :value: 'NameCompositions'
+
+
+      ** ``NameCompositions``
+
+      **Field Description:** Reusable name composition definitions.
+
+      :type: **Field Name
+
+
+   .. py:attribute:: standard_conventions_file
+      :type:  str
+
+
+   .. py:attribute:: identifier_conventions
+      :type:  Any
+
+
+   .. py:attribute:: version_conventions
+      :type:  Any
+
+
+   .. py:attribute:: name_fragments
+      :type:  Any
+
+
+   .. py:attribute:: name_compositions
+      :type:  Any
+
+
+   .. py:method:: from_mapping(value: Mapping[str, object])
+      :classmethod:
+
+
+
+   .. py:method:: to_mapping() -> Mapping[str, object]
+
+
