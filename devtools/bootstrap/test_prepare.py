@@ -5,6 +5,7 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+import zipfile
 import xml.etree.ElementTree as ET
 
 import pytest
@@ -82,3 +83,84 @@ def test_python_snapshot_requires_fresh_version():
     assert BOOT.python_version('1.1-SNAPSHOT', '1.1.dev12') == '1.1.dev12'
     with pytest.raises(ValueError):
         BOOT.python_version('1.1-SNAPSHOT', 'invalid')
+
+
+def _maven_fixture(tmp_path: Path, filename_version: str, *, metadata: bool = False,
+                   snapshot_versions: bool = True) -> tuple[Path, dict]:
+    """Construct a tiny, structurally valid local Maven publication."""
+    record = {'java': True, 'artifactId': 'pub.lib.General_action.execution.common.intf',
+              'groupId': 'eu.algites.lib.common'}
+    release = '1.1-SNAPSHOT'
+    directory = (tmp_path / 'maven-repository/eu/algites/lib/common' /
+                 record['artifactId'] / release)
+    directory.mkdir(parents=True)
+    stem = record['artifactId'] + '-' + filename_version
+    with zipfile.ZipFile(directory / (stem + '.jar'), 'w') as archive:
+        archive.writestr('eu/algites/lib/common/Sample.class', b'class')
+    (directory / (stem + '.pom')).write_text(
+        '<project><modelVersion>4.0.0</modelVersion>'
+        '<groupId>eu.algites.lib.common</groupId>'
+        f'<artifactId>{record["artifactId"]}</artifactId>'
+        '<version>1.1-SNAPSHOT</version></project>', encoding='utf-8')
+    (directory / (stem + '.module')).write_text('{}', encoding='utf-8')
+    with zipfile.ZipFile(directory / (stem + '-sources.jar'), 'w') as archive:
+        archive.writestr('eu/algites/lib/common/Sample.java', b'public class Sample {}')
+    if metadata:
+        snapshot = ('<snapshot><timestamp>20261025.094033</timestamp>'
+                    '<buildNumber>1</buildNumber></snapshot>')
+        versions = ''
+        if snapshot_versions:
+            versions = '<snapshotVersions>' + ''.join(
+                '<snapshotVersion>' + (f'<classifier>{classifier}</classifier>' if classifier else '') +
+                f'<extension>{extension}</extension><value>{filename_version}</value></snapshotVersion>'
+                for extension, classifier in [('jar', ''), ('pom', ''), ('module', ''), ('jar', 'sources')]
+            ) + '</snapshotVersions>'
+        (directory / 'maven-metadata.xml').write_text(
+            '<metadata><groupId>eu.algites.lib.common</groupId>'
+            f'<artifactId>{record["artifactId"]}</artifactId>'
+            '<version>1.1-SNAPSHOT</version><versioning>' + snapshot + versions +
+            '</versioning></metadata>', encoding='utf-8')
+    return directory, record
+
+
+def test_verify_maven_accepts_literal_snapshot_filenames(tmp_path):
+    directory, record = _maven_fixture(tmp_path, '1.1-SNAPSHOT')
+    BOOT.verify_maven(tmp_path, [record], '1.1-SNAPSHOT')
+    files = (tmp_path / 'packages.tsv').read_text().strip().split('\t')
+    assert len(files) == 4
+    assert all(Path(path).is_file() for path in files)
+    assert files[0] == str(directory / (record['artifactId'] + '-1.1-SNAPSHOT.jar'))
+
+
+@pytest.mark.parametrize('snapshot_versions', [True, False])
+def test_verify_maven_accepts_timestamped_snapshot_filenames(tmp_path, snapshot_versions):
+    actual_version = '1.1-20261025.094033-1'
+    directory, record = _maven_fixture(tmp_path, actual_version, metadata=True,
+                                       snapshot_versions=snapshot_versions)
+    BOOT.verify_maven(tmp_path, [record], '1.1-SNAPSHOT')
+    files = (tmp_path / 'packages.tsv').read_text().strip().split('\t')
+    assert len(files) == 4
+    assert all(Path(path).is_file() for path in files)
+    assert files[0] == str(directory / (record['artifactId'] + '-' + actual_version + '.jar'))
+
+
+def test_verify_maven_rejects_missing_timestamped_file(tmp_path):
+    directory, record = _maven_fixture(tmp_path, '1.1-20261025.094033-1', metadata=True)
+    (directory / (record['artifactId'] + '-1.1-20261025.094033-1.module')).unlink()
+    with pytest.raises(FileNotFoundError, match='Incomplete timestamped Maven publication'):
+        BOOT.verify_maven(tmp_path, [record], '1.1-SNAPSHOT')
+
+
+def test_verify_maven_reports_missing_metadata_with_files(tmp_path):
+    _directory, record = _maven_fixture(tmp_path, '1.1-20261025.094033-1')
+    with pytest.raises(FileNotFoundError, match='maven-repository'):
+        BOOT.verify_maven(tmp_path, [record], '1.1-SNAPSHOT')
+
+
+def test_verify_maven_rejects_wrong_snapshot_metadata_identity(tmp_path):
+    directory, record = _maven_fixture(tmp_path, '1.1-20261025.094033-1', metadata=True)
+    metadata = directory / 'maven-metadata.xml'
+    metadata.write_text(metadata.read_text().replace('<version>1.1-SNAPSHOT</version>',
+                                                    '<version>9.9-SNAPSHOT</version>'))
+    with pytest.raises(ValueError, match='snapshot metadata identity'):
+        BOOT.verify_maven(tmp_path, [record], '1.1-SNAPSHOT')

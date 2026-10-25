@@ -283,6 +283,85 @@ def verify_python_distribution(record: dict, release: str, wheel: Path, sdist: P
             raise ValueError(f'Source distribution missing PKG-INFO: {sdist}')
 
 
+def maven_publication_files(directory: Path, artifact_id: str, release: str) -> tuple[Path, Path, Path, Path]:
+    """Locate Gradle-published artifacts, including uniquely timestamped Maven snapshots.
+
+    Maven repository publications of a *-SNAPSHOT version usually write timestamped
+    files inside a directory still named *-SNAPSHOT. Their actual file versions are
+    recorded per extension/classifier in that directory's maven-metadata.xml.
+    Maven-local or older publications can instead use literal *-SNAPSHOT filenames.
+    """
+    def paths_for(version: str) -> tuple[Path, Path, Path, Path]:
+        stem = artifact_id + '-' + version
+        return (directory / (stem + '.jar'), directory / (stem + '.pom'),
+                directory / (stem + '.module'), directory / (stem + '-sources.jar'))
+
+    ordinary = paths_for(release)
+    if all(path.is_file() and path.stat().st_size > 0 for path in ordinary):
+        return ordinary
+
+    metadata_path = directory / 'maven-metadata.xml'
+    if not release.endswith('-SNAPSHOT') or not metadata_path.is_file():
+        existing = sorted(path.name for path in directory.iterdir()) if directory.is_dir() else []
+        raise FileNotFoundError(
+            f'Incomplete Maven publication of {artifact_id} at {directory}; '
+            f'expected {tuple(path.name for path in ordinary)}; existing files: {existing}'
+        )
+
+    metadata = ET.parse(metadata_path).getroot()
+    coordinates = {
+        child.tag.rsplit('}', 1)[-1]: child.text
+        for child in metadata
+        if child.tag.rsplit('}', 1)[-1] in ('groupId', 'artifactId', 'version')
+    }
+    expected_coordinates = {'artifactId': artifact_id, 'version': release}
+    if any(coordinates.get(key) != value for key, value in expected_coordinates.items()):
+        raise ValueError(f'Incorrect Maven snapshot metadata identity at {metadata_path}: {coordinates}')
+
+    def child_named(element: ET.Element, name: str) -> ET.Element | None:
+        return next((child for child in element if child.tag.rsplit('}', 1)[-1] == name), None)
+
+    def child_text(element: ET.Element, name: str) -> str | None:
+        child = child_named(element, name)
+        return child.text if child is not None else None
+
+    versioning = child_named(metadata, 'versioning')
+    snapshot_versions = child_named(versioning, 'snapshotVersions') if versioning is not None else None
+    resolved: dict[tuple[str, str], str] = {}
+    if snapshot_versions is not None:
+        for item in snapshot_versions:
+            if item.tag.rsplit('}', 1)[-1] != 'snapshotVersion':
+                continue
+            extension = child_text(item, 'extension')
+            classifier = child_text(item, 'classifier') or ''
+            value = child_text(item, 'value')
+            if extension and value:
+                key = (extension, classifier)
+                if key in resolved and resolved[key] != value:
+                    raise ValueError(f'Ambiguous Maven snapshot metadata for {key} at {metadata_path}')
+                resolved[key] = value
+
+    # The snapshotVersion list is canonical, but some repository metadata
+    # versions list only the timestamp and build number. Support both formats.
+    snapshot = child_named(versioning, 'snapshot') if versioning is not None else None
+    timestamp = child_text(snapshot, 'timestamp') if snapshot is not None else None
+    build_number = child_text(snapshot, 'buildNumber') if snapshot is not None else None
+    fallback = (release.removesuffix('-SNAPSHOT') + '-' + timestamp + '-' + build_number
+                if timestamp and build_number else None)
+    versions = [resolved.get(key, fallback) for key in
+                (('jar', ''), ('pom', ''), ('module', ''), ('jar', 'sources'))]
+    if any(not version for version in versions):
+        raise ValueError(f'Incomplete Maven snapshot version metadata at {metadata_path}: {resolved}')
+    if len(set(versions)) != 1:
+        raise ValueError(f'Inconsistent Maven snapshot file versions at {metadata_path}: {versions}')
+    actual = paths_for(versions[0])
+    if not all(path.is_file() and path.stat().st_size > 0 for path in actual):
+        existing = sorted(path.name for path in directory.iterdir())
+        raise FileNotFoundError(f'Incomplete timestamped Maven publication of {artifact_id} at {directory}; '
+                                f'expected {[path.name for path in actual]}; existing files: {existing}')
+    return actual
+
+
 def verify_maven(work: Path, records: list[dict], release: str) -> None:
     maven = work / 'maven-repository'
     rows = []
@@ -290,20 +369,20 @@ def verify_maven(work: Path, records: list[dict], release: str) -> None:
         if not record['java']:
             continue
         directory = maven / record['groupId'].replace('.', '/') / record['artifactId'] / release
-        stem = record['artifactId']+'-'+release
-        jar, pom, module, sources = [directory / (stem + suffix) for suffix in ('.jar','.pom','.module','-sources.jar')]
-        if not all(path.exists() and path.stat().st_size > 0 for path in (jar, pom, module, sources)):
-            raise FileNotFoundError(f'Incomplete Maven publication of {record["artifactId"]}: {directory}')
+        jar, pom, module, sources = maven_publication_files(directory, record['artifactId'], release)
         root = ET.parse(pom).getroot()
-        names = {node.tag.rsplit('}',1)[-1]: node.text for node in root if node.tag.rsplit('}',1)[-1] in ('groupId','artifactId','version')}
-        if any(names.get(k) != value for k,value in [('groupId',record['groupId']),('artifactId',record['artifactId']),('version',release)]):
+        names = {node.tag.rsplit('}', 1)[-1]: node.text for node in root
+                 if node.tag.rsplit('}', 1)[-1] in ('groupId', 'artifactId', 'version')}
+        if any(names.get(k) != value for k, value in [('groupId', record['groupId']),
+                                                       ('artifactId', record['artifactId']),
+                                                       ('version', release)]):
             raise ValueError(f'Incorrect Maven POM coordinates for {record["artifactId"]}: {names}')
         with zipfile.ZipFile(jar) as archive:
             if not any(n.endswith('.class') for n in archive.namelist()):
                 raise ValueError(f'JAR has no compiled Java classes: {jar}')
-        rows.append((str(jar),str(pom),str(module),str(sources)))
-    (work / 'packages.tsv').write_text(''.join('\t'.join(row)+'\n' for row in rows), encoding='utf-8')
-    print(f'Maven publications verified: {len(rows)}',flush=True)
+        rows.append((str(jar), str(pom), str(module), str(sources)))
+    (work / 'packages.tsv').write_text(''.join('\t'.join(row) + '\n' for row in rows), encoding='utf-8')
+    print(f'Maven publications verified: {len(rows)}', flush=True)
 
 
 def main() -> None:

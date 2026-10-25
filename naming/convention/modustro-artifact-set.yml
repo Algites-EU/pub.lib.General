@@ -5,3 +5,5 @@ $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs
 ArtifactSet:
   Name: Naming convention model
   Description: Naming convention, naming-policy, and versioned-name policy contracts.
+
+GroupId: eu.algites.lib.naming

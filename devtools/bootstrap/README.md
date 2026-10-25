@@ -71,7 +71,7 @@ build/run/general-bootstrap/
   python-release.txt       # single immutable PEP 440 version for this invocation
 ```
 
-Each run recreates the staging output directory to prevent mixing old and new snapshot versions. The Gradle bootstrap uses module project dependencies from every `modustro-artifact.yml`; Maven group IDs inherit from their nearest `modustro-artifact-set.yml`. External production dependencies use declared versions (or an explicit compatible dependency version when only a range is present). Packaging excludes develop/test dependencies.
+Each run recreates the staging output directory to prevent mixing old and new snapshot versions. Maven snapshot publications can have uniquely timestamped filenames within a `1.1-SNAPSHOT/` directory. The verification step now resolves their filenames through `maven-metadata.xml` (and also accepts literal `-SNAPSHOT` filenames), then records the actual staged paths in `packages.tsv` for Cloudsmith upload. The Gradle bootstrap uses module project dependencies from every `modustro-artifact.yml`; Maven group IDs inherit from their nearest `modustro-artifact-set.yml`. External production dependencies use declared versions (or an explicit compatible dependency version when only a range is present). Packaging excludes develop/test dependencies.
 
 Default version is derived from `modustro-source-repository.yml`. For special use it can be overridden, but a release should normally use the repository-defined version:
 

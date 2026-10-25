@@ -5,6 +5,12 @@
   "title": "Standard conventions",
   "additionalProperties": false,
   "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri",
+      "title": "Document schema URI",
+      "description": "Optional schema URI identifying the schema of this naming conventions document."
+    },
     "IdentifierConventions": {
       "type": "object",
       "title": "Identifier conventions",

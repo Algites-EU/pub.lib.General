@@ -1,5 +1,6 @@
 # yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
 # $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 NameCompositions:
   schema-name_1:
