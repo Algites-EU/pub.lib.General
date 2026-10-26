@@ -42,6 +42,10 @@ Module Contents
 
       Named version conventions whose regular expressions recognize version components.
 
+   .. attribute:: _schema
+
+      Optional schema URI identifying the schema of this naming conventions document.
+
 
    .. py:attribute:: SCHEMA_FIELD_NAME__IDENTIFIER_CONVENTIONS
       :value: 'IdentifierConventions'
@@ -61,6 +65,17 @@ Module Contents
       ** ``VersionConventions``
 
       **Field Description:** Named version conventions whose regular expressions recognize version components.
+
+      :type: **Field Name
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__SCHEMA
+      :value: '$schema'
+
+
+      ** ``$schema``
+
+      **Field Description:** Optional schema URI identifying the schema of this naming conventions document.
 
       :type: **Field Name
 

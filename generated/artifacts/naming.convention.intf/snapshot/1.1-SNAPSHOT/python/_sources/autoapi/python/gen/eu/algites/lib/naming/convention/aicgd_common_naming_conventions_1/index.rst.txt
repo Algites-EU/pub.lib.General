@@ -34,6 +34,10 @@ Module Contents
 
    Generated from canonical definition https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.yamldef.schema.json/1. Source: src/product/yamldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.yamldef.schema.json. Do not edit manually.
 
+   .. attribute:: _schema
+
+      Optional schema URI identifying the schema of this naming conventions document.
+
    .. attribute:: standard_conventions_file
 
       Relative path to the file containing shared identifier and version convention definitions.
@@ -53,6 +57,17 @@ Module Contents
    .. attribute:: name_compositions
 
       Named compositions that combine reusable fragments into full names.
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__SCHEMA
+      :value: '$schema'
+
+
+      ** ``$schema``
+
+      **Field Description:** Optional schema URI identifying the schema of this naming conventions document.
+
+      :type: **Field Name
 
 
    .. py:attribute:: SCHEMA_FIELD_NAME__STANDARD_CONVENTIONS_FILE

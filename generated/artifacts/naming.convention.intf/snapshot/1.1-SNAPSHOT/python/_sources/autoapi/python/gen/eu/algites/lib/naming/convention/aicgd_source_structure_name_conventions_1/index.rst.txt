@@ -38,6 +38,10 @@ Module Contents
 
       Value of canonical property SourceStructureNameConventions.
 
+   .. attribute:: _schema
+
+      Optional schema URI identifying the schema of this naming conventions document.
+
    .. attribute:: standard_conventions_file
 
       Relative path to the file containing shared identifier and version convention definitions.
@@ -64,6 +68,17 @@ Module Contents
 
 
       ** ``SourceStructureNameConventions``
+
+      :type: **Field Name
+
+
+   .. py:attribute:: SCHEMA_FIELD_NAME__SCHEMA
+      :value: '$schema'
+
+
+      ** ``$schema``
+
+      **Field Description:** Optional schema URI identifying the schema of this naming conventions document.
 
       :type: **Field Name
 
