@@ -31,7 +31,7 @@ def test_naming_catalogs_accept_schema_metadata(family: str, suffix: str) -> Non
             continue
         uri = lines[0].partition('=')[2]
         assert lines[1] == f'# $schema: {uri}'
-        assert lines[2] == f'$schemaUrl: {uri}'
+        assert lines[2] == f'$schema: {uri}'
         selected_uri = uri.replace('/yamldefs/', f'/{family}/').replace(
             '.yamldef.schema.json', f'.{suffix}.schema.json')
         assert selected_uri in by_id
@@ -46,8 +46,8 @@ def test_common_naming_schemas_explicitly_define_schema_metadata() -> None:
         path = (_SCHEMAS / family / 'eu/algites/lib/naming/convention' /
                 f'common-naming-conventions_1.{suffix}.schema.json')
         common = json.loads(path.read_text(encoding='utf-8'))
-        assert common['properties']['$schemaUrl']['type'] == 'string'
-        assert common['properties']['$schemaUrl']['format'] == 'uri'
+        assert common['properties']['$schema']['type'] == 'string'
+        assert common['properties']['$schema']['format'] == 'uri'
 
 @pytest.mark.parametrize('family', ['jsondef', 'yamldef', 'xmldef'])
 def test_algites_schema_metadata_mapping(family: str) -> None:
@@ -57,6 +57,6 @@ def test_algites_schema_metadata_mapping(family: str) -> None:
         assert profile['schema_source_schema_url'] == '$id'
         assert profile['schema_source_schema_identifier'] == '$x-algites-schema-id'
         assert profile['schema_source_schema_version'] == '$x-algites-schema-version'
-        assert profile['data_source_schema_url'] == '$schemaUrl'
+        assert profile['data_source_schema_url'] == '$schema'
         assert profile['data_source_schema_identifier'] == ''
         assert profile['data_source_schema_version'] == ''

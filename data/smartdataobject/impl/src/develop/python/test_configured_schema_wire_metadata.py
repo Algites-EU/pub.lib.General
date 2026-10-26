@@ -8,7 +8,7 @@ from eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object imp
 class _SchemaUrlOnly(AIcSmartDataObject):
     __data_object__ = AIcdDataObject(schema_id='sample', schema_version=3,
                                     schema_url='https://example.test/sample.json',
-                                    data_source_schema_url_field='$schemaUrl')
+                                    data_source_schema_url_field='$schema')
     __data_object_fields__ = (AIcdDataObjectField('Name'),)
 
 
@@ -23,10 +23,10 @@ class _ThreeFields(AIcSmartDataObject):
 
 def test_algites_default_emits_url_only_and_checks_input():
     instance = _SchemaUrlOnly.from_mapping({'Name': 'hello'})
-    assert instance.to_mapping() == {'$schemaUrl': 'https://example.test/sample.json', 'Name': 'hello'}
+    assert instance.to_mapping() == {'$schema': 'https://example.test/sample.json', 'Name': 'hello'}
     assert _SchemaUrlOnly.from_mapping(instance.to_mapping()).to_mapping() == instance.to_mapping()
     with pytest.raises(ValueError, match='Schema metadata does not match'):
-        _SchemaUrlOnly.from_mapping({'$schemaUrl': 'https://wrong.test/', 'Name': 'hello'})
+        _SchemaUrlOnly.from_mapping({'$schema': 'https://wrong.test/', 'Name': 'hello'})
 
 
 def test_custom_target_fields_emit_three_metadata_values():
@@ -40,8 +40,8 @@ def test_custom_target_fields_emit_three_metadata_values():
 class _ExplicitSchemaField(AIcSmartDataObject):
     __data_object__ = AIcdDataObject(schema_id='sample', schema_version=3,
                                     schema_url='https://example.test/sample.json',
-                                    data_source_schema_url_field='$schemaUrl')
-    __data_object_fields__ = (AIcdDataObjectField('$schemaUrl'), AIcdDataObjectField('Name'))
+                                    data_source_schema_url_field='$schema')
+    __data_object_fields__ = (AIcdDataObjectField('$schema'), AIcdDataObjectField('Name'))
 
 
 def test_schema_metadata_and_declared_field_are_merged_once_in_wire_outputs():
@@ -49,16 +49,16 @@ def test_schema_metadata_and_declared_field_are_merged_once_in_wire_outputs():
     from eu.algites.lib.text.format.ais_text_format_profiles import AIsTextFormatProfiles
     from eu.algites.lib.text.format.ain_text_output_object_reference_mode import AInTextOutputObjectReferenceMode
     obj = _ExplicitSchemaField.from_mapping({'Name': 'hello'})
-    expected = {'$schemaUrl': 'https://example.test/sample.json', 'Name': 'hello'}
+    expected = {'$schema': 'https://example.test/sample.json', 'Name': 'hello'}
     assert obj.to_mapping() == expected
     text = obj.toString_RawValues(AIsTextFormatProfiles.JSON_STANDARD,
                                   AInTextOutputObjectReferenceMode.NO_REFERENCES)
     assert json.loads(text) == expected
     yaml_text = obj.toString_RawValues(AIsTextFormatProfiles.YAML_STANDARD,
                                        AInTextOutputObjectReferenceMode.NO_REFERENCES)
-    assert yaml_text.count('"$schemaUrl"') == 1
+    assert yaml_text.count('"$schema"') == 1
     assert _ExplicitSchemaField.from_mapping(expected).to_mapping() == expected
-    obj.set_RawField('$schemaUrl', 'https://not-valid.example/')
+    obj.set_RawField('$schema', 'https://not-valid.example/')
     with pytest.raises(ValueError, match='Schema metadata conflicts'):
         obj.to_mapping()
     with pytest.raises(ValueError, match='Schema metadata conflicts'):

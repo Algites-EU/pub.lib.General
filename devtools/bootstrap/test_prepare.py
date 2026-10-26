@@ -20,8 +20,8 @@ SPEC.loader.exec_module(BOOT)
 
 def test_declared_module_graph_is_complete():
     records = BOOT.module_records(ROOT, '1.1-SNAPSHOT', '1.1.dev20261024000000')
-    assert sum(item['java'] for item in records) == 31
-    assert sum(item['python'] for item in records) == 9
+    assert sum(item['java'] for item in records) == 33
+    assert sum(item['python'] for item in records) == 11
     assert any(item['groupId'] == 'eu.algites.lib.naming' for item in records)
     assert any(item['groupId'] == 'eu.algites.lib.data' for item in records)
     for module in records:
@@ -33,7 +33,7 @@ def test_full_gradle_graph_has_all_native_products(tmp_path):
     records = BOOT.module_records(ROOT, '1.1-SNAPSHOT', '1.1.dev20261024000000')
     BOOT.stage_gradle(ROOT, tmp_path, records, '1.1-SNAPSHOT')
     modules = json.loads((tmp_path / 'gradle' / 'modules.json').read_text())
-    assert len(modules) == 31
+    assert len(modules) == 33
     assert 'maven-repository' in (tmp_path / 'gradle' / 'build.gradle').read_text()
     assert 'java.gen' in (tmp_path / 'gradle' / 'build.gradle').read_text()
     assert 'xmldefs' in (tmp_path / 'gradle' / 'build.gradle').read_text()

@@ -31,6 +31,12 @@ class AIcNameConventionCatalog_1:
             self._conventions[name] = definition
             self._validate_schema_metadata(name, definition)
         self._generated_methods = dict(config.get('GeneratedDataObjectMethodNameConventions', {}).get('NameConventions', {}))
+        for name, definition in self._generated_methods.items():
+            self._validate_schema_metadata(name, definition)
+            structures = definition.get('StructureNaming', {})
+            for required in ('standard_getter', 'standard_setter'):
+                if not structures.get(required):
+                    raise ValueError(f'{name}: required generated method role {required} is missing')
         self._generated_method_profile = None
         if set(self._generated_methods) & set(self._conventions):
             raise ValueError('Source and generated-method naming profile IDs overlap')
@@ -57,8 +63,8 @@ class AIcNameConventionCatalog_1:
                 raise ValueError(f'{name}: data_source_schema_{suffix} requires schema_source_schema_{suffix}')
 
     def schema_metadata_fields(self, profile: str) -> dict[str, str]:
-        """Return the six schema metadata field mappings for a source profile."""
-        definition = self._conventions[profile]
+        """Return the six metadata mappings for a source or generated-method profile."""
+        definition = self.profile(profile)
         return {f'{side}_schema_{suffix}': definition.get(f'{side}_schema_{suffix}', '')
                 for side in ('schema_source', 'data_source')
                 for suffix in ('url', 'identifier', 'version')}
@@ -172,6 +178,17 @@ class AIcNameConventionCatalog_1:
     def _missing_profile(name: str):
         raise KeyError(f'Unknown naming profile: {name}')
 
+    def generated_method_reference(self, role: str) -> str | None:
+        """Return the selected composition ID, or None for a disabled optional raw method.
+
+        An omitted/empty raw role explicitly suppresses both its abstract declaration
+        and its concrete implementation.  Callers must not synthesize default names.
+        """
+        if self._generated_method_profile is None:
+            return None
+        return (self._generated_methods[self._generated_method_profile]
+                .get('StructureNaming', {}).get(role) or None)
+
     def composition(self, name: str) -> tuple[dict, ...]:
         if name not in self._expanded:
             self._expanded[name] = self._expand(name, ())
@@ -211,8 +228,8 @@ class AIcNameConventionCatalog_1:
     def segments(self, profile_name: str, structure: str) -> tuple[dict, ...]:
         if self._generated_method_profile and structure in ('getter_method_name', 'setter_method_name'):
             profile_name = self._generated_method_profile
-            structure = ('standard_getter_name' if structure == 'getter_method_name'
-                         else 'standard_setter_name')
+            structure = ('standard_getter' if structure == 'getter_method_name'
+                         else 'standard_setter')
         reference = self.profile(profile_name)['StructureNaming'][structure]
         return self.composition(reference)
 

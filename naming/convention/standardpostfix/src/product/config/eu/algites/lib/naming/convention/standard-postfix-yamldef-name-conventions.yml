@@ -1,0 +1,69 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
+StandardConventionsFile: standard-conventions.yml
+NameCompositions:
+  schema-name_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+  schema-stem_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_kebab_case_1
+  schema-stem-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_kebab_case_1
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  schema-enum-item_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+  yamldefs-schema-suffix_1:
+    Segments:
+    - Kind: constant_string
+      Value: .yamldef.schema.json
+  schema-property_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+  schema-package_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+SourceStructureNameConventions:
+  NameConventions:
+    standard-postfix-yamldef-schema_1:
+      ContainerStructureType: object
+      schema_source_schema_url: $id
+      schema_source_schema_identifier: $x-algites-schema-id
+      schema_source_schema_version: $x-algites-schema-version
+      data_source_schema_url: $schema
+      data_source_schema_identifier: ''
+      data_source_schema_version: ''
+      StructureNaming:
+        main_container_name: schema-name_1
+        file_name_stem: schema-stem_1
+        file_name_suffix: yamldefs-schema-suffix_1
+        enum_item_name: schema-enum-item_1
+        field_name: schema-property_1
+        package_segment_name: schema-package_1
+    standard-postfix-yamldef-schema-versioned_1:
+      ContainerStructureType: object
+      schema_source_schema_url: $id
+      schema_source_schema_identifier: $x-algites-schema-id
+      schema_source_schema_version: $x-algites-schema-version
+      data_source_schema_url: $schema
+      data_source_schema_identifier: ''
+      data_source_schema_version: ''
+      StructureNaming:
+        main_container_name: schema-name_1
+        file_name_stem: schema-stem-versioned_1
+        file_name_suffix: yamldefs-schema-suffix_1
+        enum_item_name: schema-enum-item_1
+        field_name: schema-property_1
+        package_segment_name: schema-package_1

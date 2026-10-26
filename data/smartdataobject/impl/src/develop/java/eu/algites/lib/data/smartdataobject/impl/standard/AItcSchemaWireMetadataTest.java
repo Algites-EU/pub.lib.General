@@ -19,7 +19,7 @@ public final class AItcSchemaWireMetadataTest {
     /** Contract with the Algites default: only the schema URL is serialized. */
     @AIaDataObject(schemaId = "test.contract", schemaVersion = 7,
             schemaUrl = "https://example.invalid/schema_7.jsondef.schema.json",
-            dataSourceSchemaUrlField = "$schemaUrl")
+            dataSourceSchemaUrlField = "$schema")
     public interface AIigUrlOnly extends AIiDataObject {
         /** Return the explicitly present scalar value, if provided. */
         @AIaDataObjectField(fieldName = "Value")
@@ -29,7 +29,7 @@ public final class AItcSchemaWireMetadataTest {
     /** Contract explicitly configured to emit ID and version in addition to the URL. */
     @AIaDataObject(schemaId = "test.contract", schemaVersion = 7,
             schemaUrl = "https://example.invalid/schema_7.jsondef.schema.json",
-            dataSourceSchemaUrlField = "$schemaUrl",
+            dataSourceSchemaUrlField = "$schema",
             dataSourceSchemaIdentifierField = "$schemaId",
             dataSourceSchemaVersionField = "$schemaVersion")
     public interface AIigAllMetadata extends AIiDataObject {
@@ -57,10 +57,10 @@ public final class AItcSchemaWireMetadataTest {
     /** Contract declaring the same system property explicitly as an ordinary field. */
     @AIaDataObject(schemaId = "test.contract", schemaVersion = 7,
             schemaUrl = "https://example.invalid/schema_7.jsondef.schema.json",
-            dataSourceSchemaUrlField = "$schemaUrl")
+            dataSourceSchemaUrlField = "$schema")
     public interface AIigExplicitSchemaUrl extends AIiDataObject {
         /** The schema URL is both declared in the source schema and supplied by metadata. */
-        @AIaDataObjectField(fieldName = "$schemaUrl")
+        @AIaDataObjectField(fieldName = "$schema")
         String getSchemaUrl();
     }
 
@@ -69,9 +69,9 @@ public final class AItcSchemaWireMetadataTest {
         /** Constructs an empty object; its schema URL is supplied by the annotation. */
         public AIcgdExplicitSchemaUrl() { super(); }
         /** {@inheritDoc} */
-        @Override public String getSchemaUrl() { return (String) get_RawField("$schemaUrl"); }
+        @Override public String getSchemaUrl() { return (String) get_RawField("$schema"); }
         /** Sets a manually supplied schema URL for conflict testing. */
-        public void setSchemaUrl(String aValue) { set_RawField("$schemaUrl", aValue); }
+        public void setSchemaUrl(String aValue) { set_RawField("$schema", aValue); }
     }
 
     /** A declared property sharing the configured system field is serialized exactly once. */
@@ -80,8 +80,8 @@ public final class AItcSchemaWireMetadataTest {
         String locUrl = "https://example.invalid/schema_7.jsondef.schema.json";
         String locText = locObject.toString_RawValues(
                 AIsTextFormatProfiles.JSON_STANDARD, AInTextOutputObjectReferenceMode.NO_REFERENCES);
-        assertTrue(locText.contains("\"$schemaUrl\":\"" + locUrl + "\""));
-        assertTrue(locText.indexOf("$schemaUrl") == locText.lastIndexOf("$schemaUrl"));
+        assertTrue(locText.contains("\"$schema\":\"" + locUrl + "\""));
+        assertTrue(locText.indexOf("$schema") == locText.lastIndexOf("$schema"));
         locObject.setSchemaUrl("https://different.invalid/");
         expectThrows(IllegalArgumentException.class, () -> locObject.toString_RawValues(
                 AIsTextFormatProfiles.JSON_STANDARD, AInTextOutputObjectReferenceMode.NO_REFERENCES));
@@ -90,10 +90,10 @@ public final class AItcSchemaWireMetadataTest {
     /** Contract that also declares the system metadata name as an ordinary field. */
     @AIaDataObject(schemaId = "test.contract", schemaVersion = 7,
             schemaUrl = "https://example.invalid/schema_7.jsondef.schema.json",
-            dataSourceSchemaUrlField = "$schemaUrl")
+            dataSourceSchemaUrlField = "$schema")
     public interface AIigDeclaredSchemaProperty extends AIiDataObject {
         /** Return the explicitly stored URL field when one has been assigned. */
-        @AIaDataObjectField(fieldName = "$schemaUrl")
+        @AIaDataObjectField(fieldName = "$schema")
         String getSchemaUrl();
     }
 
@@ -103,14 +103,14 @@ public final class AItcSchemaWireMetadataTest {
         /** Create an initially empty instance. */
         public AIcgdDeclaredSchemaProperty() { super(); }
         /** {@inheritDoc} */
-        @Override public String getSchemaUrl() { return (String) get_RawField("$schemaUrl"); }
+        @Override public String getSchemaUrl() { return (String) get_RawField("$schema"); }
     }
 
     /** Checks that Algites writes only the configured URL, without guessing ID or version keys. */
     @Test public void defaultMappingEmitsOnlySchemaUrl() {
         String locText = new AIcgdUrlOnly().toString_RawValues(
                 AIsTextFormatProfiles.JSON_STANDARD, AInTextOutputObjectReferenceMode.NO_REFERENCES);
-        assertTrue(locText.contains("\"$schemaUrl\":\"https://example.invalid/schema_7.jsondef.schema.json\""));
+        assertTrue(locText.contains("\"$schema\":\"https://example.invalid/schema_7.jsondef.schema.json\""));
         assertFalse(locText.contains("$schemaId"));
         assertFalse(locText.contains("$schemaVersion"));
     }
@@ -118,12 +118,12 @@ public final class AItcSchemaWireMetadataTest {
     /** Validates that a source-declared metadata field is not duplicated or silently overwritten. */
     @Test public void declaredMetadataPropertyMustAgreeWithContract() {
         var locDocument = new AIcgdDeclaredSchemaProperty();
-        String locExpected = "\"$schemaUrl\":\"https://example.invalid/schema_7.jsondef.schema.json\"";
+        String locExpected = "\"$schema\":\"https://example.invalid/schema_7.jsondef.schema.json\"";
         String locText = locDocument.toString_RawValues(
                 AIsTextFormatProfiles.JSON_STANDARD, AInTextOutputObjectReferenceMode.NO_REFERENCES);
         assertTrue(locText.contains(locExpected));
-        assertTrue(locText.indexOf("$schemaUrl") == locText.lastIndexOf("$schemaUrl"));
-        locDocument.set_RawField("$schemaUrl", "https://example.invalid/wrong.json");
+        assertTrue(locText.indexOf("$schema") == locText.lastIndexOf("$schema"));
+        locDocument.set_RawField("$schema", "https://example.invalid/wrong.json");
         expectThrows(IllegalArgumentException.class, () -> locDocument.toString_RawValues(
                 AIsTextFormatProfiles.JSON_STANDARD, AInTextOutputObjectReferenceMode.NO_REFERENCES));
     }
@@ -134,6 +134,6 @@ public final class AItcSchemaWireMetadataTest {
                 AIsTextFormatProfiles.JSON_STANDARD, AInTextOutputObjectReferenceMode.NO_REFERENCES);
         assertTrue(locText.contains("\"$schemaId\":\"test.contract\""));
         assertTrue(locText.contains("\"$schemaVersion\":7"));
-        assertTrue(locText.contains("\"$schemaUrl\":\"https://example.invalid/schema_7.jsondef.schema.json\""));
+        assertTrue(locText.contains("\"$schema\":\"https://example.invalid/schema_7.jsondef.schema.json\""));
     }
 }

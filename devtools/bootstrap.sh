@@ -123,8 +123,8 @@ MODUSTRO_GENERAL_BOOTSTRAP_OUTPUT="$locBuildRoot" MODUSTRO_GENERAL_BOOTSTRAP_VER
 
 "$locPython" "$locHelper" verify-maven "${locArgs[@]}"
 "$locPython" "$locHelper" package-python "${locArgs[@]}" --python-executable "$locPython"
-[[ "$(wc -l < "$locBuildRoot/packages.tsv")" == 31 ]] || { echo 'Unexpected Maven manifest size' >&2; exit 1; }
-[[ "$(wc -l < "$locBuildRoot/python-packages.tsv")" == 9 ]] || { echo 'Unexpected Python manifest size' >&2; exit 1; }
+[[ "$(wc -l < "$locBuildRoot/packages.tsv")" == 33 ]] || { echo 'Unexpected Maven manifest size' >&2; exit 1; }
+[[ "$(wc -l < "$locBuildRoot/python-packages.tsv")" == 11 ]] || { echo 'Unexpected Python manifest size' >&2; exit 1; }
 
 # Same manifest-output override as the other Modustro bootstraps; do not move
 # the real staging area or rebuild for a later --upload invocation.
@@ -140,7 +140,7 @@ if [[ "$locManifestOutput/python-release.txt" != "$locBuildRoot/python-release.t
     cp "$locBuildRoot/python-release.txt" "$locManifestOutput/python-release.txt"
 fi
 
-echo 'Prepared 31 Maven artifacts and 9 Python wheels with their sdists.'
+echo 'Prepared 33 Maven artifacts and 11 Python wheels with their sdists.'
 echo "Java manifest: $locManifestOutput/packages.tsv"
 echo "Python manifest: $locManifestOutput/python-packages.tsv"
 if [[ "$locPrepareOnly" == 1 ]]; then

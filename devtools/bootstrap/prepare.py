@@ -25,8 +25,8 @@ import yaml
 SOURCES = ('src/product/python', 'src/product/python.gen', 'src/product/config', 'src/product/resources',
            'src/product/xmldefs', 'src/product/yamldefs', 'src/product/jsondefs')
 IGNORED = {'__pycache__', '.pytest_cache', 'build', 'node_modules', '.mypy_cache'}
-EXPECTED_JAVA = 31
-EXPECTED_PYTHON = 9
+EXPECTED_JAVA = 33
+EXPECTED_PYTHON = 11
 JAVA_FIXED_VERSIONS = {
     'com.fasterxml.jackson.core:jackson-databind': '2.18.3',
     'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml': '2.18.3',
@@ -379,7 +379,9 @@ def verify_maven(work: Path, records: list[dict], release: str) -> None:
             raise ValueError(f'Incorrect Maven POM coordinates for {record["artifactId"]}: {names}')
         with zipfile.ZipFile(jar) as archive:
             if not any(n.endswith('.class') for n in archive.namelist()):
-                raise ValueError(f'JAR has no compiled Java classes: {jar}')
+                if not record['path'].startswith('naming/convention/standard') or not any(
+                        n.endswith('.yml') for n in archive.namelist()):
+                    raise ValueError(f'JAR has neither compiled classes nor profile resources: {jar}')
         rows.append((str(jar), str(pom), str(module), str(sources)))
     (work / 'packages.tsv').write_text(''.join('\t'.join(row) + '\n' for row in rows), encoding='utf-8')
     print(f'Maven publications verified: {len(rows)}', flush=True)
@@ -393,6 +395,8 @@ def main() -> None:
     parser.add_argument('--version',required=True)
     parser.add_argument('--python-version')
     parser.add_argument('--python-executable',default=sys.executable)
+    parser.add_argument('--profiles-only', action='store_true',
+                        help='Prepare and publish only three naming profiles')
     args=parser.parse_args()
     repository=args.repository.resolve(strict=True)
     output=args.output.absolute()
@@ -407,6 +411,32 @@ def main() -> None:
         if args.python_version and args.python_version != release:
             raise ValueError('Python version changed during bootstrap')
     records=module_records(repository,args.version,release)
+    if args.profiles_only:
+        profile_paths = {f'naming/convention/{name}' for name in
+                         ('algites', 'standardprefix', 'standardpostfix')}
+        selected = [r for r in records if r['path'] in profile_paths]
+        if len(selected) != 3:
+            raise ValueError(f'Expected three naming profiles, found {len(selected)}')
+        selected_ids = {r['artifactId'] for r in selected}
+        for record in selected:
+            deps = []
+            for dep in record['dependencies']:
+                if dep['kind'] == 'project' and dep['artifactId'] not in selected_ids:
+                    deps.append({'kind':'external', 'coordinate':
+                                 f'{dep["groupId"]}:{dep["artifactId"]}:{args.version}',
+                                 'configuration':dep['configuration']})
+                else:
+                    deps.append(dep)
+            record['dependencies'] = deps
+            # Refer to previously published common contracts, not a newly
+            # generated Python dev timestamp which does not yet exist remotely.
+            record['pythonDependencies'] = [
+                req.replace('==' + release,
+                            '>=' + args.version.removesuffix('-SNAPSHOT') + '.dev0,<' +
+                            args.version.removesuffix('-SNAPSHOT') + 'a0')
+                if req.startswith('eu-algites-pub-lib-general-') and '==' + release in req
+                else req for req in record['pythonDependencies']]
+        records = selected
     (output/'artifacts.json').write_text(json.dumps(records,indent=2),encoding='utf-8')
     if args.action == 'plan':
         stage_gradle(repository,output,records,args.version)

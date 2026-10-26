@@ -21,6 +21,6 @@ def test_empty_target_is_valid_and_suppresses_instance_metadata():
     fields = catalog.schema_metadata_fields('algites-jsondef-schema-versioned_1')
     assert fields['schema_source_schema_identifier'] == '$x-algites-schema-id'
     assert fields['schema_source_schema_version'] == '$x-algites-schema-version'
-    assert fields['data_source_schema_url'] == '$schemaUrl'
+    assert fields['data_source_schema_url'] == '$schema'
     assert fields['data_source_schema_identifier'] == ''
     assert fields['data_source_schema_version'] == ''

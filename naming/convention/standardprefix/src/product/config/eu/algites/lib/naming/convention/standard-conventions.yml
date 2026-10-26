@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/standard-conventions_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/standard-conventions_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/standard-conventions_1.yamldef.schema.json
+IdentifierConventions:
+  all_lower_1:
+    Regexp: (?<identifier>[a-z][a-z0-9]*)
+  all_upper_1:
+    Regexp: (?<identifier>[A-Z][A-Z0-9]*)
+  lower_snake_case_1:
+    Regexp: (?<identifier>[a-z][a-z0-9]*(?:_[a-z][a-z0-9]*)*)
+  upper_snake_case_1:
+    Regexp: (?<identifier>[A-Z][A-Z0-9]*(?:_[A-Z][A-Z0-9]*)*)
+  lower_camel_case_1:
+    Regexp: (?<identifier>[a-z][a-z0-9]*(?:[A-Z][a-z0-9]*)*)
+  upper_camel_case_1:
+    Regexp: (?<identifier>[A-Z][a-z0-9]*(?:[A-Z][a-z0-9]*)*)
+  lower_kebab_case_1:
+    Regexp: (?<identifier>[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*)*)
+  upper_kebab_case_1:
+    Regexp: (?<identifier>[A-Z][A-Z0-9]*(?:-[A-Z][A-Z0-9]*)*)
+VersionConventions:
+  positive_integer_1:
+    Regexp: (?<version>[1-9][0-9]*)
+  major_minor_1:
+    Regexp: (?<version>(?<major>0|[1-9][0-9]*)\.(?<minor>0|[1-9][0-9]*))

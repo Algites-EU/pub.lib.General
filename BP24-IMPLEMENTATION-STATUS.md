@@ -5,7 +5,7 @@
 ## Scope of these two source trees
 
 - Algites schema-source metadata names are `$id`, `$x-algites-schema-id`, and `$x-algites-schema-version` (the `$` prefixes are significant).
-- Instance-document metadata defaults to `$schemaUrl`; logical ID and version target names are empty by default.
+- Instance-document metadata defaults to `$schema`; logical ID and version target names are empty by default.
 - Public naming-catalog APIs in Java and Python expose and validate six metadata name mappings. A configured data-document target is invalid if its corresponding schema source field is empty.
 - Java and Python Defs frontends resolve schema metadata using naming catalogs; canonical models carry the schema URL separately from its logical identity, as well as three instance metadata field names.
 - Defs generators emit these annotation fields in Java/Python read contracts. SDO Codegen propagates them to mutable object annotations.

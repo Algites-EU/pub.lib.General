@@ -5,7 +5,7 @@
   "title": "Name conventions",
   "additionalProperties": false,
   "properties": {
-    "$schemaUrl": {
+    "$schema": {
       "type": "string",
       "format": "uri",
       "title": "Document schema URL",

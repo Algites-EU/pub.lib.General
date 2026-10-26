@@ -1,0 +1,2228 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/source-structure-name-conventions_1.yamldef.schema.json
+StandardConventionsFile: standard-conventions.yml
+NameFragments:
+  xml-data-object-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: XmlDataObject
+  xml-data-object-file-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: xml_data_object_
+  xml-namespace-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _xn
+  xml-namespace-file-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _xn_
+  xml-element-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _xe
+  xml-element-file-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _xe_
+  python-method-parameter-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: a_
+  python-local-variable-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: loc_
+  standard-postfix-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+  generated-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: g
+  data-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: d
+  version-suffix_1:
+    Segments:
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  intf-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: i
+  intf-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aii_
+  intf-data-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: i
+    - Kind: constant_string
+      Value: d
+  intf-data-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aiid_
+  intf-generated-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: i
+    - Kind: constant_string
+      Value: g
+  intf-generated-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aiig_
+  intf-generated-data-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: i
+    - Kind: constant_string
+      Value: g
+    - Kind: constant_string
+      Value: d
+  intf-generated-data-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aiigd_
+  class-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: c
+  class-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aic_
+  class-data-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: c
+    - Kind: constant_string
+      Value: d
+  class-data-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aicd_
+  class-generated-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: c
+    - Kind: constant_string
+      Value: g
+  class-generated-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aicg_
+  class-generated-data-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: c
+    - Kind: constant_string
+      Value: g
+    - Kind: constant_string
+      Value: d
+  class-generated-data-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aicgd_
+  enum-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: n
+  enum-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: ain_
+  enum-generated-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: n
+    - Kind: constant_string
+      Value: g
+  enum-generated-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aing_
+  ann-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: a
+  ann-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aia_
+  ann-generated-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: a
+    - Kind: constant_string
+      Value: g
+  ann-generated-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aiag_
+  exc-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: x
+  exc-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aix_
+  exc-generated-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: x
+    - Kind: constant_string
+      Value: g
+  exc-generated-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: aixg_
+  rb-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: r
+  rb-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: air_
+  rb-generated-prefix_1:
+    Segments:
+    - Kind: constant_string
+      Value: AI
+    - Kind: constant_string
+      Value: r
+    - Kind: constant_string
+      Value: g
+  rb-generated-prefix-file_1:
+    Segments:
+    - Kind: constant_string
+      Value: airg_
+  xml-type-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _x
+  json-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _j
+  yaml-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _y
+  xml-type-file-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _x_
+  json-file-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _j_
+  yaml-file-marker_1:
+    Segments:
+    - Kind: constant_string
+      Value: _y_
+NameCompositions:
+  standard-postfix-python-intf_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _Intf
+  standard-postfix-python-intf-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _intf
+  standard-postfix-python-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _Intf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _intf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-data-intf_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _DataIntf
+  standard-postfix-python-data-intf-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _dataintf
+  standard-postfix-python-data-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _DataIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-data-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _dataintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-intf_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenIntf
+  standard-postfix-python-gen-intf-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genintf
+  standard-postfix-python-gen-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-intf_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenDataIntf
+  standard-postfix-python-gen-data-intf-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _gendataintf
+  standard-postfix-python-gen-data-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenDataIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _gendataintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-class_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _Impl
+  standard-postfix-python-class-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _impl
+  standard-postfix-python-class-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _Impl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-class-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _impl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-data-class_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _DataImpl
+  standard-postfix-python-data-class-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _dataimpl
+  standard-postfix-python-data-class-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _DataImpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-data-class-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _dataimpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-class_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenImpl
+  standard-postfix-python-gen-class-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genimpl
+  standard-postfix-python-gen-class-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenImpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-class-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genimpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-class_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenDataImpl
+  standard-postfix-python-gen-data-class-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _gendataimpl
+  standard-postfix-python-gen-data-class-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenDataImpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-class-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _gendataimpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-enum_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _Enum
+  standard-postfix-python-enum-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _enum
+  standard-postfix-python-enum-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _Enum
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-enum-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _enum
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-enum_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenEnum
+  standard-postfix-python-gen-enum-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genenum
+  standard-postfix-python-gen-enum-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenEnum
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-enum-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genenum
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-ann_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _Annotation
+  standard-postfix-python-ann-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _annotation
+  standard-postfix-python-ann-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _Annotation
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-ann-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _annotation
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-ann_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenAnnotation
+  standard-postfix-python-gen-ann-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genannotation
+  standard-postfix-python-gen-ann-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenAnnotation
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-ann-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genannotation
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-exc_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _Exception
+  standard-postfix-python-exc-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _exception
+  standard-postfix-python-exc-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _Exception
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-exc-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _exception
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-exc_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenException
+  standard-postfix-python-gen-exc-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genexception
+  standard-postfix-python-gen-exc-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenException
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-exc-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genexception
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-rb_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _ResourceBundle
+  standard-postfix-python-rb-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _resourcebundle
+  standard-postfix-python-rb-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _ResourceBundle
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-rb-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _resourcebundle
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-rb_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenResourceBundle
+  standard-postfix-python-gen-rb-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genresourcebundle
+  standard-postfix-python-gen-rb-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenResourceBundle
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-rb-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genresourcebundle
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  python-source-extension_1:
+    Segments:
+    - Kind: constant_string
+      Value: .py
+  python-field-name_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+  python-method-name_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+  python-getter-method-name_1:
+    Segments:
+    - Kind: constant_string
+      Value: get
+    - Kind: identifier
+      Convention: upper_camel_case_1
+  python-setter-method-name_1:
+    Segments:
+    - Kind: constant_string
+      Value: set
+    - Kind: identifier
+      Convention: upper_camel_case_1
+  python-parameter-name_1:
+    Segments:
+    - Ref: python-method-parameter-prefix_1
+    - Kind: identifier
+      Convention: lower_snake_case_1
+  python-local-variable-name_1:
+    Segments:
+    - Ref: python-local-variable-prefix_1
+    - Kind: identifier
+      Convention: lower_snake_case_1
+  package-segment-name_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+  enum-item-name_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_snake_case_1
+  constant-name_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_snake_case_1
+  standard-postfix-python-xml-element-intf_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _XmlElementIntf
+  standard-postfix-python-xml-element-intf-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _xmlelementintf
+  standard-postfix-python-xml-element-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _XmlElementIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-xml-element-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _xmlelementintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-data-xml-element-intf_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _XmlElementDataIntf
+  standard-postfix-python-data-xml-element-intf-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _xmlelementdataintf
+  standard-postfix-python-data-xml-element-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _XmlElementDataIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-data-xml-element-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _xmlelementdataintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-xml-element-intf_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlElementIntf
+  standard-postfix-python-gen-xml-element-intf-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmlelementintf
+  standard-postfix-python-gen-xml-element-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlElementIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-xml-element-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmlelementintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-xml-element-intf_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlElementDataIntf
+  standard-postfix-python-gen-data-xml-element-intf-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmlelementdataintf
+  standard-postfix-python-gen-data-xml-element-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlElementDataIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-xml-element-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmlelementdataintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-xml-element-class_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _XmlElementImpl
+  standard-postfix-python-xml-element-class-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _xmlelementimpl
+  standard-postfix-python-xml-element-class-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _XmlElementImpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-xml-element-class-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _xmlelementimpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-data-xml-element-class_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _XmlElementDataImpl
+  standard-postfix-python-data-xml-element-class-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _xmlelementdataimpl
+  standard-postfix-python-data-xml-element-class-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _XmlElementDataImpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-data-xml-element-class-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _xmlelementdataimpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-xml-element-class_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlElementImpl
+  standard-postfix-python-gen-xml-element-class-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmlelementimpl
+  standard-postfix-python-gen-xml-element-class-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlElementImpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-xml-element-class-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmlelementimpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-xml-element-class_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlElementDataImpl
+  standard-postfix-python-gen-data-xml-element-class-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmlelementdataimpl
+  standard-postfix-python-gen-data-xml-element-class-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlElementDataImpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-xml-element-class-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmlelementdataimpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-xml-type-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-xml-type-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmlintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-xml-type-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlDataIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-xml-type-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmldataintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-xml-type-class-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlDataImpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-xml-type-class-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmldataimpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-json-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenJsonIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-json-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genjsonintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-json-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenJsonDataIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-json-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genjsondataintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-json-class-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenJsonDataImpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-json-class-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genjsondataimpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-yaml-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenYamlIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-yaml-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genyamlintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-yaml-intf-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenYamlDataIntf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-yaml-intf-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genyamldataintf
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-yaml-class-versioned_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenYamlDataImpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-data-yaml-class-versioned-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genyamldataimpl
+    - Kind: constant_string
+      Value: _
+    - Kind: version
+      Convention: positive_integer_1
+  standard-postfix-python-gen-xml-namespace-intf_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlNamespaceIntf
+  standard-postfix-python-gen-xml-namespace-intf-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmlnamespaceintf
+  standard-postfix-python-gen-data-xml-namespace-intf_1:
+    Segments:
+    - Kind: identifier
+      Convention: upper_camel_case_1
+    - Kind: constant_string
+      Value: _GenXmlNamespaceDataIntf
+  standard-postfix-python-gen-data-xml-namespace-intf-file_1:
+    Segments:
+    - Kind: identifier
+      Convention: lower_snake_case_1
+    - Kind: constant_string
+      Value: _genxmlnamespacedataintf
+SourceStructureNameConventions:
+  NameConventions:
+    standard-postfix-python-gen-xml-namespace-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-xml-namespace-intf_1
+        sub_container_name: standard-postfix-python-gen-xml-namespace-intf_1
+        file_name_stem: standard-postfix-python-gen-xml-namespace-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-xml-namespace-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-xml-namespace-intf_1
+        sub_container_name: standard-postfix-python-gen-data-xml-namespace-intf_1
+        file_name_stem: standard-postfix-python-gen-data-xml-namespace-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-intf_1
+        sub_container_name: standard-postfix-python-intf_1
+        file_name_stem: standard-postfix-python-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-intf-versioned_1
+        sub_container_name: standard-postfix-python-intf-versioned_1
+        file_name_stem: standard-postfix-python-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-data-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-data-intf_1
+        sub_container_name: standard-postfix-python-data-intf_1
+        file_name_stem: standard-postfix-python-data-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-data-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-data-intf-versioned_1
+        sub_container_name: standard-postfix-python-data-intf-versioned_1
+        file_name_stem: standard-postfix-python-data-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-intf_1
+        sub_container_name: standard-postfix-python-gen-intf_1
+        file_name_stem: standard-postfix-python-gen-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-intf-versioned_1
+        sub_container_name: standard-postfix-python-gen-intf-versioned_1
+        file_name_stem: standard-postfix-python-gen-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-intf_1
+        sub_container_name: standard-postfix-python-gen-data-intf_1
+        file_name_stem: standard-postfix-python-gen-data-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-intf-versioned_1
+        sub_container_name: standard-postfix-python-gen-data-intf-versioned_1
+        file_name_stem: standard-postfix-python-gen-data-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-class_1
+        sub_container_name: standard-postfix-python-class_1
+        file_name_stem: standard-postfix-python-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-class-versioned_1
+        sub_container_name: standard-postfix-python-class-versioned_1
+        file_name_stem: standard-postfix-python-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-data-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-data-class_1
+        sub_container_name: standard-postfix-python-data-class_1
+        file_name_stem: standard-postfix-python-data-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-data-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-data-class-versioned_1
+        sub_container_name: standard-postfix-python-data-class-versioned_1
+        file_name_stem: standard-postfix-python-data-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-class_1
+        sub_container_name: standard-postfix-python-gen-class_1
+        file_name_stem: standard-postfix-python-gen-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-class-versioned_1
+        sub_container_name: standard-postfix-python-gen-class-versioned_1
+        file_name_stem: standard-postfix-python-gen-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-class_1
+        sub_container_name: standard-postfix-python-gen-data-class_1
+        file_name_stem: standard-postfix-python-gen-data-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-class-versioned_1
+        sub_container_name: standard-postfix-python-gen-data-class-versioned_1
+        file_name_stem: standard-postfix-python-gen-data-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-enum_1:
+      ContainerStructureType: enum
+      StructureNaming:
+        main_container_name: standard-postfix-python-enum_1
+        sub_container_name: standard-postfix-python-enum_1
+        file_name_stem: standard-postfix-python-enum-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-enum-versioned_1:
+      ContainerStructureType: enum
+      StructureNaming:
+        main_container_name: standard-postfix-python-enum-versioned_1
+        sub_container_name: standard-postfix-python-enum-versioned_1
+        file_name_stem: standard-postfix-python-enum-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-enum_1:
+      ContainerStructureType: enum
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-enum_1
+        sub_container_name: standard-postfix-python-gen-enum_1
+        file_name_stem: standard-postfix-python-gen-enum-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-enum-versioned_1:
+      ContainerStructureType: enum
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-enum-versioned_1
+        sub_container_name: standard-postfix-python-gen-enum-versioned_1
+        file_name_stem: standard-postfix-python-gen-enum-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-ann_1:
+      ContainerStructureType: annotation
+      StructureNaming:
+        main_container_name: standard-postfix-python-ann_1
+        sub_container_name: standard-postfix-python-ann_1
+        file_name_stem: standard-postfix-python-ann-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-ann-versioned_1:
+      ContainerStructureType: annotation
+      StructureNaming:
+        main_container_name: standard-postfix-python-ann-versioned_1
+        sub_container_name: standard-postfix-python-ann-versioned_1
+        file_name_stem: standard-postfix-python-ann-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-ann_1:
+      ContainerStructureType: annotation
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-ann_1
+        sub_container_name: standard-postfix-python-gen-ann_1
+        file_name_stem: standard-postfix-python-gen-ann-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-ann-versioned_1:
+      ContainerStructureType: annotation
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-ann-versioned_1
+        sub_container_name: standard-postfix-python-gen-ann-versioned_1
+        file_name_stem: standard-postfix-python-gen-ann-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-exc_1:
+      ContainerStructureType: exception
+      StructureNaming:
+        main_container_name: standard-postfix-python-exc_1
+        sub_container_name: standard-postfix-python-exc_1
+        file_name_stem: standard-postfix-python-exc-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-exc-versioned_1:
+      ContainerStructureType: exception
+      StructureNaming:
+        main_container_name: standard-postfix-python-exc-versioned_1
+        sub_container_name: standard-postfix-python-exc-versioned_1
+        file_name_stem: standard-postfix-python-exc-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-exc_1:
+      ContainerStructureType: exception
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-exc_1
+        sub_container_name: standard-postfix-python-gen-exc_1
+        file_name_stem: standard-postfix-python-gen-exc-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-exc-versioned_1:
+      ContainerStructureType: exception
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-exc-versioned_1
+        sub_container_name: standard-postfix-python-gen-exc-versioned_1
+        file_name_stem: standard-postfix-python-gen-exc-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-rb_1:
+      ContainerStructureType: resource_bundle
+      StructureNaming:
+        main_container_name: standard-postfix-python-rb_1
+        sub_container_name: standard-postfix-python-rb_1
+        file_name_stem: standard-postfix-python-rb-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-rb-versioned_1:
+      ContainerStructureType: resource_bundle
+      StructureNaming:
+        main_container_name: standard-postfix-python-rb-versioned_1
+        sub_container_name: standard-postfix-python-rb-versioned_1
+        file_name_stem: standard-postfix-python-rb-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-rb_1:
+      ContainerStructureType: resource_bundle
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-rb_1
+        sub_container_name: standard-postfix-python-gen-rb_1
+        file_name_stem: standard-postfix-python-gen-rb-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-rb-versioned_1:
+      ContainerStructureType: resource_bundle
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-rb-versioned_1
+        sub_container_name: standard-postfix-python-gen-rb-versioned_1
+        file_name_stem: standard-postfix-python-gen-rb-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-xml-element-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-xml-element-intf_1
+        sub_container_name: standard-postfix-python-xml-element-intf_1
+        file_name_stem: standard-postfix-python-xml-element-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-xml-element-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-xml-element-intf-versioned_1
+        sub_container_name: standard-postfix-python-xml-element-intf-versioned_1
+        file_name_stem: standard-postfix-python-xml-element-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-data-xml-element-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-data-xml-element-intf_1
+        sub_container_name: standard-postfix-python-data-xml-element-intf_1
+        file_name_stem: standard-postfix-python-data-xml-element-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-data-xml-element-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-data-xml-element-intf-versioned_1
+        sub_container_name: standard-postfix-python-data-xml-element-intf-versioned_1
+        file_name_stem: standard-postfix-python-data-xml-element-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-xml-element-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-xml-element-intf_1
+        sub_container_name: standard-postfix-python-gen-xml-element-intf_1
+        file_name_stem: standard-postfix-python-gen-xml-element-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-xml-element-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-xml-element-intf-versioned_1
+        sub_container_name: standard-postfix-python-gen-xml-element-intf-versioned_1
+        file_name_stem: standard-postfix-python-gen-xml-element-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-xml-element-intf_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-xml-element-intf_1
+        sub_container_name: standard-postfix-python-gen-data-xml-element-intf_1
+        file_name_stem: standard-postfix-python-gen-data-xml-element-intf-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-xml-element-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-xml-element-intf-versioned_1
+        sub_container_name: standard-postfix-python-gen-data-xml-element-intf-versioned_1
+        file_name_stem: standard-postfix-python-gen-data-xml-element-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-xml-element-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-xml-element-class_1
+        sub_container_name: standard-postfix-python-xml-element-class_1
+        file_name_stem: standard-postfix-python-xml-element-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-xml-element-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-xml-element-class-versioned_1
+        sub_container_name: standard-postfix-python-xml-element-class-versioned_1
+        file_name_stem: standard-postfix-python-xml-element-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-data-xml-element-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-data-xml-element-class_1
+        sub_container_name: standard-postfix-python-data-xml-element-class_1
+        file_name_stem: standard-postfix-python-data-xml-element-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-data-xml-element-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-data-xml-element-class-versioned_1
+        sub_container_name: standard-postfix-python-data-xml-element-class-versioned_1
+        file_name_stem: standard-postfix-python-data-xml-element-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-xml-element-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-xml-element-class_1
+        sub_container_name: standard-postfix-python-gen-xml-element-class_1
+        file_name_stem: standard-postfix-python-gen-xml-element-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-xml-element-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-xml-element-class-versioned_1
+        sub_container_name: standard-postfix-python-gen-xml-element-class-versioned_1
+        file_name_stem: standard-postfix-python-gen-xml-element-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-xml-element-class_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-xml-element-class_1
+        sub_container_name: standard-postfix-python-gen-data-xml-element-class_1
+        file_name_stem: standard-postfix-python-gen-data-xml-element-class-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-xml-element-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-xml-element-class-versioned_1
+        sub_container_name: standard-postfix-python-gen-data-xml-element-class-versioned_1
+        file_name_stem: standard-postfix-python-gen-data-xml-element-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-xml-type-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-xml-type-intf-versioned_1
+        sub_container_name: standard-postfix-python-gen-xml-type-intf-versioned_1
+        file_name_stem: standard-postfix-python-gen-xml-type-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-xml-type-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-xml-type-intf-versioned_1
+        sub_container_name: standard-postfix-python-gen-data-xml-type-intf-versioned_1
+        file_name_stem: standard-postfix-python-gen-data-xml-type-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-xml-type-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-xml-type-class-versioned_1
+        sub_container_name: standard-postfix-python-gen-data-xml-type-class-versioned_1
+        file_name_stem: standard-postfix-python-gen-data-xml-type-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-json-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-json-intf-versioned_1
+        sub_container_name: standard-postfix-python-gen-json-intf-versioned_1
+        file_name_stem: standard-postfix-python-gen-json-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-json-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-json-intf-versioned_1
+        sub_container_name: standard-postfix-python-gen-data-json-intf-versioned_1
+        file_name_stem: standard-postfix-python-gen-data-json-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-json-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-json-class-versioned_1
+        sub_container_name: standard-postfix-python-gen-data-json-class-versioned_1
+        file_name_stem: standard-postfix-python-gen-data-json-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-yaml-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-yaml-intf-versioned_1
+        sub_container_name: standard-postfix-python-gen-yaml-intf-versioned_1
+        file_name_stem: standard-postfix-python-gen-yaml-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-yaml-intf-versioned_1:
+      ContainerStructureType: interface
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-yaml-intf-versioned_1
+        sub_container_name: standard-postfix-python-gen-data-yaml-intf-versioned_1
+        file_name_stem: standard-postfix-python-gen-data-yaml-intf-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1
+    standard-postfix-python-gen-data-yaml-class-versioned_1:
+      ContainerStructureType: class
+      StructureNaming:
+        main_container_name: standard-postfix-python-gen-data-yaml-class-versioned_1
+        sub_container_name: standard-postfix-python-gen-data-yaml-class-versioned_1
+        file_name_stem: standard-postfix-python-gen-data-yaml-class-versioned-file_1
+        file_name_suffix: python-source-extension_1
+        field_name: python-field-name_1
+        method_name: python-method-name_1
+        getter_method_name: python-getter-method-name_1
+        setter_method_name: python-setter-method-name_1
+        method_parameter_name: python-parameter-name_1
+        local_variable_name: python-local-variable-name_1
+        package_segment_name: package-segment-name_1
+        enum_item_name: enum-item-name_1
+        constant_name: constant-name_1

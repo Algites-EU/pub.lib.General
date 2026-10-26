@@ -5,7 +5,7 @@
   "type": "object",
   "description": "Reusable name composition tools. Further profile families may add their own properties.",
   "properties": {
-    "$schemaUrl": {
+    "$schema": {
       "type": "string",
       "format": "uri",
       "title": "Document schema URL",

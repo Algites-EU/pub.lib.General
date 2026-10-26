@@ -181,6 +181,11 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
                 .fields().forEachRemaining(aItem -> {
                     if (filePatterns.containsKey(aItem.getKey()))
                         throw new IllegalArgumentException("Generated-method and source profiles share ID: " + aItem.getKey());
+                    validateSchemaMetadata(aItem.getKey(), aItem.getValue());
+                    for (String locRequired : java.util.List.of("standard_getter", "standard_setter")) {
+                        if (aItem.getValue().path("StructureNaming").path(locRequired).asText("").isBlank())
+                            throw new IllegalArgumentException("Missing generated-method role " + locRequired + " in " + aItem.getKey());
+                    }
                     generatedMethodProfiles.put(aItem.getKey(), aItem.getValue());
                 });
     }
@@ -226,6 +231,22 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
      * @return exact profile ID or null when source-structure naming alone is configured
      */
     public String generatedMethodProfile() { return generatedMethodProfile; }
+
+    /**
+     * Retrieves the composition ID assigned to an optional generated method role.
+     * An absent or blank value explicitly disables that method and must not be
+     * replaced by a generator-specific default. The selected profile must exist.
+     *
+     * @param aRole generated method role, such as {@code raw_getter}
+     * @return the composition ID or {@code null} when the role is disabled or no
+     *         generated-method profile is selected
+     */
+    public String generatedMethodReference(String aRole) {
+        if (generatedMethodProfile == null) return null;
+        JsonNode locValue = generatedMethodProfiles.get(generatedMethodProfile)
+                .path("StructureNaming").path(aRole);
+        return locValue.isTextual() && !locValue.asText().isBlank() ? locValue.asText() : null;
+    }
 
     /**
      * Binds semantic generation roles to exact identifiers without altering their definitions.
@@ -356,10 +377,10 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
         String locStructure = aStructure;
         if (generatedMethodProfile != null && aStructure.equals("getter_method_name")) {
             locProfile = generatedMethodProfile;
-            locStructure = "standard_getter_name";
+            locStructure = "standard_getter";
         } else if (generatedMethodProfile != null && aStructure.equals("setter_method_name")) {
             locProfile = generatedMethodProfile;
-            locStructure = "standard_setter_name";
+            locStructure = "standard_setter";
         }
         JsonNode locValue = profile(locProfile).path("StructureNaming").path(locStructure);
         if (!locValue.isTextual()) throw new IllegalArgumentException("Missing structure naming " + aStructure + " in " + aProfile);

@@ -47,7 +47,7 @@ Three optional target *property names* control inclusion in JSON/YAML instance
 documents: `dataSourceSchemaUrlField`, `dataSourceSchemaIdentifierField`, and
 `dataSourceSchemaVersionField` (snake_case in Python). An empty target suppresses
 emission of the respective metadata, even if its value is known. For Algites,
-only `$schemaUrl` is enabled by default; logical ID and version are retained in
+only `$schema` is enabled by default; logical ID and version are retained in
 contract annotations but not duplicated in the document. The JSON Schema
 keyword `$schema` continues to designate the JSON Schema dialect inside the
 **schema definition** and must not be substituted there.
