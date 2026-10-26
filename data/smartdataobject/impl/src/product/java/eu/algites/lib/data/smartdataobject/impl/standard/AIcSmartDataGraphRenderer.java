@@ -166,6 +166,52 @@ final class AIcSmartDataGraphRenderer {
         return null;
     }
 
+    /**
+     * Return the exact configured instance-document metadata without inferring
+     * logical schema identity from a published URL or Java class name.
+     *
+     * @param aNode annotated smart data object node
+     * @return ordered wire properties enabled by the contract's naming convention
+     */
+    private static Map<String, Object> schemaWireMetadata(AIcSmartDataGraphSnapshot.AIcNode aNode) {
+        var locSchema = AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema();
+        Map<String, Object> locFields = new LinkedHashMap<>();
+        if (locSchema == null) return locFields;
+        if (!locSchema.dataSourceSchemaUrlField().isBlank() && !locSchema.schemaUrl().isBlank())
+            putSchemaMetadata(locFields, locSchema.dataSourceSchemaUrlField(), locSchema.schemaUrl());
+        if (!locSchema.dataSourceSchemaIdentifierField().isBlank() && !locSchema.schemaId().isBlank())
+            putSchemaMetadata(locFields, locSchema.dataSourceSchemaIdentifierField(), locSchema.schemaId());
+        if (!locSchema.dataSourceSchemaVersionField().isBlank() && locSchema.schemaVersion() >= 0)
+            putSchemaMetadata(locFields, locSchema.dataSourceSchemaVersionField(), locSchema.schemaVersion());
+        return locFields;
+    }
+
+    /** Reject ambiguous wire keys rather than silently replacing metadata. */
+    private static void putSchemaMetadata(Map<String, Object> aFields, String aName, Object aValue) {
+        if (aFields.putIfAbsent(aName, aValue) != null)
+            throw new IllegalArgumentException("Duplicate data-document schema metadata property: " + aName);
+    }
+
+    /**
+     * Checks an explicitly declared data field that shares a metadata wire name.
+     * Such fields are serialized only once using the annotation's canonical value.
+     *
+     * @param aField a source field with a matching metadata name
+     * @param aExpected the metadata value supplied by the read contract
+     */
+    private void validateSchemaProperty(AIcSmartDataGraphSnapshot.AIcField aField, Object aExpected) {
+        if (!aField.present) return;
+        var locNode = snapshot.fieldValue(aField, false);
+        Object locActual = switch (locNode.kind) {
+            case NULL -> null;
+            case SCALAR -> locNode.scalar instanceof Character || locNode.scalar instanceof Enum<?>
+                    ? String.valueOf(locNode.scalar) : locNode.scalar;
+            default -> throw new IllegalArgumentException("Schema metadata field must be scalar: " + aField.name());
+        };
+        if (!java.util.Objects.equals(locActual, aExpected))
+            throw new IllegalArgumentException("Schema metadata conflicts with data property: " + aField.name());
+    }
+
     private Object jsonValue(AIcSmartDataGraphSnapshot.AIcNode aNode) {
         Integer locRef = referenceOrRegister(aNode);
         if (locRef != null) {
@@ -199,8 +245,13 @@ final class AIcSmartDataGraphRenderer {
                     locValue = locMap;
                 }
                 case SMART -> {
-                    Map<String, Object> locFields = new LinkedHashMap<>();
+                    Map<String, Object> locFields = profile.isDiagnostic()
+                            ? new LinkedHashMap<>() : schemaWireMetadata(aNode);
                     for (var locField : aNode.fields) {
+                        if (locFields.containsKey(locField.name())) {
+                            validateSchemaProperty(locField, locFields.get(locField.name()));
+                            continue;
+                        }
                         if (!locField.present && !profile.isDiagnostic() &&
                                 (!effective || !locField.descriptor.hasDefault())) continue;
                         Object locFieldValue = locField.present || (effective && locField.descriptor.hasDefault())
@@ -293,7 +344,18 @@ final class AIcSmartDataGraphRenderer {
         active.add(aNode);
         try {
             if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SMART) {
+                Map<String, Object> locMetadata = profile.isDiagnostic()
+                        ? Map.of() : schemaWireMetadata(aNode);
+                for (var locEntry : locMetadata.entrySet()) {
+                    for (var locField : aNode.fields) {
+                        if (locField.name().equals(locEntry.getKey()))
+                            validateSchemaProperty(locField, locEntry.getValue());
+                    }
+                    aOut.append(" ".repeat(aDepth)).append(quote(locEntry.getKey())).append(": ")
+                            .append(jsonText(locEntry.getValue())).append('\n');
+                }
                 for (var locField : aNode.fields) {
+                    if (locMetadata.containsKey(locField.name())) continue;
                     if (!locField.present && !profile.isDiagnostic() && (!effective || !locField.descriptor.hasDefault())) continue;
                     aOut.append(" ".repeat(aDepth)).append(quote(locField.name())).append(':');
                     if (profile.isDiagnostic()) {
@@ -307,7 +369,7 @@ final class AIcSmartDataGraphRenderer {
                         yamlNode(snapshot.fieldValue(locField, effective), aOut, aDepth + 2);
                     }
                 }
-                if (aNode.fields.isEmpty()) aOut.append(" ".repeat(aDepth)).append("{}\n");
+                if (aNode.fields.isEmpty() && locMetadata.isEmpty()) aOut.append(" ".repeat(aDepth)).append("{}\n");
             } else if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SEQUENCE) {
                 if (aNode.elements.isEmpty()) aOut.append(" ".repeat(aDepth)).append("[]\n");
                 for (var locValue : aNode.elements) {

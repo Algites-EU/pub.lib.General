@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/standard-conventions_1.yamldef.schema.json
 # $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/standard-conventions_1.yamldef.schema.json
-$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/standard-conventions_1.yamldef.schema.json
+$schemaUrl: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/standard-conventions_1.yamldef.schema.json
 IdentifierConventions:
   all_lower_1:
     Regexp: (?<identifier>[a-z][a-z0-9]*)

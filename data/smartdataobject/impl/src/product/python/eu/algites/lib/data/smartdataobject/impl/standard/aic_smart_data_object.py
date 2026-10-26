@@ -106,6 +106,29 @@ def _json_text(value: Any) -> str:
     return dumps(value, ensure_ascii=False, separators=(',', ':'), allow_nan=False)
 
 
+def _schema_wire_metadata(owner: type) -> dict[str, str | int]:
+    """Resolve only explicitly enabled data-document schema metadata on this contract.
+
+    Empty target field names are intentionally omitted, and absent values are
+    never fabricated from an unrelated URL or a class name.
+    """
+    schema = next((base.__dict__['__data_object__'] for base in owner.__mro__
+                   if '__data_object__' in base.__dict__), None)
+    if schema is None:
+        return {}
+    values = ((schema.data_source_schema_url_field, schema.schema_url),
+              (schema.data_source_schema_identifier_field, schema.schema_id),
+              (schema.data_source_schema_version_field,
+               schema.schema_version if schema.schema_version >= 0 else None))
+    result = {}
+    for key, value in values:
+        if key and value is not None and value != '':
+            if key in result:
+                raise ValueError('Repeated data-document schema metadata field: ' + key)
+            result[key] = value
+    return result
+
+
 @dataclass(eq=False)
 class _Node:
     kind: str
@@ -351,8 +374,16 @@ class _Renderer:
                     raise ValueError('JSON/YAML map keys must be strings in this profile')
                 data = {k.value: self.as_data(v) for k, v in node.entries}
             else:
-                data = {}
+                data = {} if self.profile.diagnostic else _schema_wire_metadata(type(node.obj))
                 for fld in node.fields:
+                    if fld.descriptor.name in data:
+                        # The configured metadata may also be an explicitly declared
+                        # schema property. Emit it once, and reject contradictory values.
+                        if fld.present:
+                            actual = self.as_data(self.snapshot.value(fld, False))
+                            if actual != data[fld.descriptor.name]:
+                                raise ValueError('Schema metadata conflicts with a data property: ' + fld.descriptor.name)
+                        continue
                     if not fld.present and not self.profile.diagnostic and (not self.effective or not fld.descriptor.default_value_resolver):
                         continue
                     val = self.as_data(self.snapshot.value(fld, self.effective)) if \
@@ -489,12 +520,21 @@ class _Renderer:
             self.active.add(node)
             try:
                 if node.kind == 'smart':
+                    schema_fields = {} if self.profile.diagnostic else _schema_wire_metadata(type(node.obj))
+                    for f in node.fields:
+                        if f.descriptor.name in schema_fields and f.present:
+                            actual = self.as_data(self.snapshot.value(f, False))
+                            if actual != schema_fields[f.descriptor.name]:
+                                raise ValueError('Schema metadata conflicts with a data property: ' + f.descriptor.name)
+                    for schema_key, schema_value in schema_fields.items():
+                        lines.append(' ' * level + dumps(schema_key) + ': ' + _json_text(schema_value))
                     fields = []
                     for f in node.fields:
                         if not f.present and not self.profile.diagnostic and \
                                 (not self.effective or not f.descriptor.default_value_resolver):
                             continue
-                        fields.append(f)
+                        if f.descriptor.name not in schema_fields:
+                            fields.append(f)
                     if self.profile.diagnostic:
                         meta = {'type': type(node.obj).__name__}
                         fingerprint = getattr(type(node.obj), '__schema_fingerprint__', '')
@@ -505,7 +545,7 @@ class _Renderer:
                         lines.append(' ' * level + '"$meta": ' + dumps(meta))
                         lines.append(' ' * level + '"$fields":')
                         level += 2
-                    if not fields:
+                    if not fields and not schema_fields:
                         lines.append(' ' * level + '{}')
                     for f in fields:
                         locKey = ' ' * level + dumps(f.descriptor.name) + ': '
@@ -584,6 +624,16 @@ class AIcSmartDataObject(AIiSmartDataObject):
         if not isinstance(aValue, Mapping):
             raise TypeError('DataObject input must be a mapping')
         fields = cls._fields()
+        wire_metadata = _schema_wire_metadata(cls)
+        for key, expected in wire_metadata.items():
+            if key in aValue and aValue[key] != expected:
+                raise ValueError('Schema metadata does not match declared contract: ' + key)
+        aValue = {key: value for key, value in aValue.items() if key not in wire_metadata or key in fields}
+        # A generated schema may explicitly declare the same system property.
+        # Populate that field with the validated contract value when omitted.
+        for key, expected in wire_metadata.items():
+            if key in fields and key not in aValue:
+                aValue[key] = expected
         unknown = set(aValue) - fields.keys()
         if unknown:
             raise ValueError('Unknown DataObject fields: ' + repr(sorted(unknown)))
@@ -608,8 +658,17 @@ class AIcSmartDataObject(AIiSmartDataObject):
                     raise ValueError('Cannot convert a cyclic SmartDataObject to an inline mapping')
                 visiting.add(identity)
                 try:
-                    return {name: convert(value._values[name]) for name in value._fields()
-                            if name in value._present}
+                    result = _schema_wire_metadata(type(value))
+                    for name in value._fields():
+                        if name not in value._present:
+                            continue
+                        actual = convert(value._values[name])
+                        if name in result:
+                            if actual != result[name]:
+                                raise ValueError('Schema metadata conflicts with a data property: ' + name)
+                        else:
+                            result[name] = actual
+                    return result
                 finally:
                     visiting.remove(identity)
             if isinstance(value, Mapping):

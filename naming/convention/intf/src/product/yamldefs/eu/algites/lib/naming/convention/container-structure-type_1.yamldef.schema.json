@@ -16,8 +16,8 @@
   "x-yamldefs-id": "eu.algites.lib.naming.convention.container-structure-type",
   "x-yamldefs-version": 1,
   "x-yamldefs-name": "container-structure-type",
-  "x-algites-schema-id": "eu.algites.lib.naming.convention.container-structure-type",
-  "x-algites-schema-version": 1,
+  "$x-algites-schema-id": "eu.algites.lib.naming.convention.container-structure-type",
+  "$x-algites-schema-version": 1,
   "oneOf": [
     {
       "const": "object",

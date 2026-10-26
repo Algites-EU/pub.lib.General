@@ -172,6 +172,7 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
         JsonNode locSourceProfiles = aDocument.path("SourceStructureNameConventions").path("NameConventions");
         locLegacyProfiles.fields().forEachRemaining(aItem -> filePatterns.put(aItem.getKey(), filenamePattern(aItem.getKey())));
         locSourceProfiles.fields().forEachRemaining(aItem -> {
+            validateSchemaMetadata(aItem.getKey(), aItem.getValue());
             if (filePatterns.containsKey(aItem.getKey()) && !locLegacyProfiles.path(aItem.getKey()).equals(aItem.getValue()))
                 throw new IllegalArgumentException("Conflicting source naming profile: " + aItem.getKey());
             filePatterns.put(aItem.getKey(), filenamePattern(aItem.getKey()));
@@ -284,6 +285,42 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
     /** Returns the structural kind declared by the profile. */
     public String containerStructureType(String aProfile) {
         return profile(aProfile).path("ContainerStructureType").asText();
+    }
+
+    /**
+     * Returns the schema metadata field name configured for a source naming profile.
+     * An empty result disables extraction or emission of that metadata field.
+     *
+     * @param aProfile source naming profile identifier
+     * @param aSide either {@code schema_source} or {@code data_source}
+     * @param aKind one of {@code url}, {@code identifier}, or {@code version}
+     * @return configured field name, or an empty string when disabled
+     * @throws IllegalArgumentException if a side or kind is unsupported
+     */
+    @Override
+    public String schemaMetadataField(String aProfile, String aSide, String aKind) {
+        if (!(aSide.equals("schema_source") || aSide.equals("data_source")) ||
+                !(aKind.equals("url") || aKind.equals("identifier") || aKind.equals("version")))
+            throw new IllegalArgumentException("Unsupported schema metadata field: " + aSide + "/" + aKind);
+        return profile(aProfile).path(aSide + "_schema_" + aKind).asText("");
+    }
+
+    /**
+     * Rejects an instance-document metadata mapping unless the source schema
+     * explicitly declares the corresponding metadata property.
+     *
+     * @param aName source naming profile identifier for diagnostic messages
+     * @param aProfile parsed source naming profile
+     * @throws IllegalArgumentException when a target has no configured source
+     */
+    private static void validateSchemaMetadata(String aName, JsonNode aProfile) {
+        for (String locKind : List.of("url", "identifier", "version")) {
+            String locSource = aProfile.path("schema_source_schema_" + locKind).asText("");
+            String locTarget = aProfile.path("data_source_schema_" + locKind).asText("");
+            if (!locTarget.isEmpty() && locSource.isEmpty())
+                throw new IllegalArgumentException(aName + ": data_source_schema_" + locKind +
+                        " requires schema_source_schema_" + locKind);
+        }
     }
 
     private JsonNode profile(String aName) {

@@ -16,8 +16,8 @@
   "x-jsondefs-id": "eu.algites.lib.naming.convention.container-structure-type",
   "x-jsondefs-version": 1,
   "x-jsondefs-name": "container-structure-type",
-  "x-algites-schema-id": "eu.algites.lib.naming.convention.container-structure-type",
-  "x-algites-schema-version": 1,
+  "$x-algites-schema-id": "eu.algites.lib.naming.convention.container-structure-type",
+  "$x-algites-schema-version": 1,
   "oneOf": [
     {
       "const": "object",

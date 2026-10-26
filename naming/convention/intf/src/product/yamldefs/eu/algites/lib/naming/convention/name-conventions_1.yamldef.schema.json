@@ -5,11 +5,11 @@
   "title": "Name conventions",
   "additionalProperties": false,
   "properties": {
-    "$schema": {
+    "$schemaUrl": {
       "type": "string",
       "format": "uri",
-      "title": "Document schema URI",
-      "description": "Optional schema URI identifying the schema of this naming conventions document."
+      "title": "Document schema URL",
+      "description": "Optional URL identifying the schema of this naming-convention data document; distinct from the $schema dialect declaration in a JSON Schema definition."
     },
     "StandardConventionsFile": {
       "type": "string",
@@ -332,6 +332,6 @@
   "x-yamldefs-id": "eu.algites.lib.naming.convention.name-conventions",
   "x-yamldefs-version": 1,
   "x-yamldefs-name": "name-conventions",
-  "x-algites-schema-id": "eu.algites.lib.naming.convention.name-conventions",
-  "x-algites-schema-version": 1
+  "$x-algites-schema-id": "eu.algites.lib.naming.convention.name-conventions",
+  "$x-algites-schema-version": 1
 }

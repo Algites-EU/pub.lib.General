@@ -29,6 +29,7 @@ class AIcNameConventionCatalog_1:
             if name in self._conventions and self._conventions[name] != definition:
                 raise ValueError(f'Conflicting source naming profile: {name}')
             self._conventions[name] = definition
+            self._validate_schema_metadata(name, definition)
         self._generated_methods = dict(config.get('GeneratedDataObjectMethodNameConventions', {}).get('NameConventions', {}))
         self._generated_method_profile = None
         if set(self._generated_methods) & set(self._conventions):
@@ -39,6 +40,28 @@ class AIcNameConventionCatalog_1:
         self._patterns: dict[str, re.Pattern] = {}
         for name in self._conventions:
             self.filename_pattern(name)
+
+    @staticmethod
+    def _validate_schema_metadata(name: str, definition: Mapping[str, Any]) -> None:
+        """Reject target metadata fields lacking a corresponding schema source.
+
+        Empty target fields intentionally disable emission; configured target fields
+        must have an explicit source rather than relying on filename heuristics.
+        """
+        for suffix in ('url', 'identifier', 'version'):
+            source = definition.get(f'schema_source_schema_{suffix}', '')
+            target = definition.get(f'data_source_schema_{suffix}', '')
+            if not isinstance(source, str) or not isinstance(target, str):
+                raise ValueError(f'{name}: schema metadata field names must be strings')
+            if target and not source:
+                raise ValueError(f'{name}: data_source_schema_{suffix} requires schema_source_schema_{suffix}')
+
+    def schema_metadata_fields(self, profile: str) -> dict[str, str]:
+        """Return the six schema metadata field mappings for a source profile."""
+        definition = self._conventions[profile]
+        return {f'{side}_schema_{suffix}': definition.get(f'{side}_schema_{suffix}', '')
+                for side in ('schema_source', 'data_source')
+                for suffix in ('url', 'identifier', 'version')}
 
     @classmethod
     def _load_document(cls, filename: str, read_text: Callable[[str], str]) -> AIcNameConventionCatalog_1:

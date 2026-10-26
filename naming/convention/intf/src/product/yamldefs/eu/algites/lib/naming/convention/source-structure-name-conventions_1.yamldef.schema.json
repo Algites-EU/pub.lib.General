@@ -40,6 +40,42 @@
                       "description": "Reference to a fragment or composition used to name the selected source role."
                     },
                     "description": "Mapping from structural name roles to fragment or composition names."
+                  },
+                  "schema_source_schema_url": {
+                    "type": "string",
+                    "title": "Schema source schema url",
+                    "description": "Property in the schema definition that supplies its canonical schema URL; for JSON Schema this is normally $id.",
+                    "default": ""
+                  },
+                  "schema_source_schema_identifier": {
+                    "type": "string",
+                    "title": "Schema source schema identifier",
+                    "description": "Property in the schema definition supplying a stable logical schema identifier independent of the URL. An empty value disables extraction.",
+                    "default": ""
+                  },
+                  "schema_source_schema_version": {
+                    "type": "string",
+                    "title": "Schema source schema version",
+                    "description": "Property in the schema definition supplying the logical schema version. An empty value disables extraction.",
+                    "default": ""
+                  },
+                  "data_source_schema_url": {
+                    "type": "string",
+                    "title": "Data source schema url",
+                    "description": "Property in an instance document containing the schema URL. An empty value suppresses both writing and automatic reading of this metadata.",
+                    "default": ""
+                  },
+                  "data_source_schema_identifier": {
+                    "type": "string",
+                    "title": "Data source schema identifier",
+                    "description": "Property in an instance document containing the logical schema identifier. An empty value suppresses writing and automatic reading. Requires schema_source_schema_identifier.",
+                    "default": ""
+                  },
+                  "data_source_schema_version": {
+                    "type": "string",
+                    "title": "Data source schema version",
+                    "description": "Property in an instance document containing the logical schema version. An empty value suppresses writing and automatic reading. Requires schema_source_schema_version.",
+                    "default": ""
                   }
                 },
                 "required": [

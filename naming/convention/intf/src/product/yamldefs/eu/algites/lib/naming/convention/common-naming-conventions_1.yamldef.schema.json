@@ -5,11 +5,11 @@
   "type": "object",
   "description": "Reusable name composition tools. Further profile families may add their own properties.",
   "properties": {
-    "$schema": {
+    "$schemaUrl": {
       "type": "string",
       "format": "uri",
-      "title": "Document schema URI",
-      "description": "Optional schema URI identifying the schema of this naming conventions document."
+      "title": "Document schema URL",
+      "description": "Optional URL identifying the schema of this naming-convention data document; distinct from the $schema dialect declaration in a JSON Schema definition."
     },
     "StandardConventionsFile": {
       "type": "string",

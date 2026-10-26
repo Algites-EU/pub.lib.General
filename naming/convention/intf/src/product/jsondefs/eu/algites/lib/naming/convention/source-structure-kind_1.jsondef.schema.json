@@ -22,8 +22,8 @@
   "x-jsondefs-id": "eu.algites.lib.naming.convention.source-structure-kind",
   "x-jsondefs-version": 1,
   "x-jsondefs-name": "source-structure-kind",
-  "x-algites-schema-id": "eu.algites.lib.naming.convention.source-structure-kind",
-  "x-algites-schema-version": 1,
+  "$x-algites-schema-id": "eu.algites.lib.naming.convention.source-structure-kind",
+  "$x-algites-schema-version": 1,
   "oneOf": [
     {
       "const": "main_container_name",
