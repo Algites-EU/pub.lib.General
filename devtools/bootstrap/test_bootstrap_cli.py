@@ -52,7 +52,7 @@ if a.action == 'plan':
     (root / 'python-release.txt').write_text('1.1.dev20261024000000\\n')
 elif a.action == 'verify-maven':
     files = []
-    for i in range(33):
+    for i in range(34):
         base = root / f'maven-{i}'
         paths = [Path(str(base) + s) for s in ('.jar', '.pom', '.module', '-sources.jar')]
         for path in paths:
@@ -61,7 +61,7 @@ elif a.action == 'verify-maven':
     (root / 'packages.tsv').write_text('\\n'.join(files) + '\\n')
 elif a.action == 'package-python':
     files = []
-    for i in range(11):
+    for i in range(12):
         paths = [root / f'package-{i}.whl', root / f'package-{i}.tar.gz']
         for path in paths:
             path.write_bytes(b'test')
@@ -123,8 +123,8 @@ def test_default_invocation_prepares_and_uploads_once(fake_repository):
     assert log.count('gradle:') == 1
     assert '--refresh-dependencies' in log
     assert log.count('wrapper:--session -- ') == 1
-    assert log.count('cloudsmith:push maven ') == 33
-    assert log.count('cloudsmith:push python ') == 22
+    assert log.count('cloudsmith:push maven ') == 34
+    assert log.count('cloudsmith:push python ') == 24
 
 
 def test_prepare_only_env_skips_upload_in_single_call(fake_repository):
@@ -163,8 +163,8 @@ def test_local_mode_changes_default_refresh_and_custom_manifest_destination(fake
                                 MODUSTRO_BOOTSTRAP_OUTPUT_DIR=str(manifest_output))
     assert result.returncode == 0, result.stderr
     assert 'gradle:' in log and '--refresh-dependencies' not in log
-    assert len((manifest_output / 'packages.tsv').read_text().splitlines()) == 33
-    assert len((manifest_output / 'python-packages.tsv').read_text().splitlines()) == 11
+    assert len((manifest_output / 'packages.tsv').read_text().splitlines()) == 34
+    assert len((manifest_output / 'python-packages.tsv').read_text().splitlines()) == 12
     assert (manifest_output / 'python-release.txt').is_file()
 
 
@@ -178,8 +178,8 @@ def test_source_mode_refresh_can_be_forced_and_repo_overridden(fake_repository):
     )
     assert result.returncode == 0, result.stderr
     assert '--refresh-dependencies' in log
-    assert log.count('cloudsmith:push maven my-org/java ') == 33
-    assert log.count('cloudsmith:push python my-org/python ') == 22
+    assert log.count('cloudsmith:push maven my-org/java ') == 34
+    assert log.count('cloudsmith:push python my-org/python ') == 24
 
 
 @pytest.mark.parametrize('name,value', [

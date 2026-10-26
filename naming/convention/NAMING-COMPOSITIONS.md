@@ -9,7 +9,7 @@ The new naming catalog is defined by four schema kinds in `intf/src/product/{yam
 
 The schema-derived Java/Python interfaces and enums are in `intf/src/product/java.gen` and `python.gen` (not handwritten `AIcd` DTOs).
 
-The authoritative catalog YAML files reside in `impl/src/product/config/eu/algites/lib/naming/convention/`. They are maintained once in the Modustro `config` resource root. Java exposes them as classpath resources. For Python, Modustro stages them under the naming implementation artifact's isolated resource-package namespace in its wheel; `AIcNameConventionCatalog_1.standard()` and `load_resource()` access them through `importlib.resources`, **not by walking from the Python module into parent directories or the source repository**. In source-checkout development the `src/product/config` directory can instead be added as an explicit Python resource root (`PYTHONPATH`/`sys.path`), alongside `src/product/python` and `src/product/python.gen`. Explicit external catalogs can also be opened with `load(path)`:
+The authoritative catalog YAML files reside in `impl/src/product/config/eu/algites/lib/naming/convention/`. They are maintained once in the Modustro `config` resource root. Java exposes them as classpath resources. For Python, Modustro stages them under the naming implementation artifact's isolated resource-package namespace in its wheel; `AIcNameConventionCatalog.standard()` and `load_resource()` access them through `importlib.resources`, **not by walking from the Python module into parent directories or the source repository**. In source-checkout development the `src/product/config` directory can instead be added as an explicit Python resource root (`PYTHONPATH`/`sys.path`), alongside `src/product/python` and `src/product/python.gen`. Explicit external catalogs can also be opened with `load(path)`:
 
 - `standard-conventions.yml`
 - `algites-java-name-conventions.yml` (59 profiles)
@@ -22,14 +22,14 @@ The full filename is the concatenation of `file_name_stem` and `file_name_suffix
 
 Native catalog APIs:
 
-- Java: `AIcNameConventionCatalog_1.load(Path)`, `names()`, `recognizeFilename(String, Set<String>)`, `matches(...)`, `parse(...)`, `format(...)`, `convert(...)`, `clean(Path, Set<String>)`.
-- Python: `AIcNameConventionCatalog_1.load(Path)`, `load_resource(filename)`, `standard(technology)`, `names`, `recognize_filename(...)`, `matches(...)`, `parse(...)`, `format(...)`, `convert(...)`, `clean(...)`.
+- Java: `AIcNameConventionCatalog.load(Path)`, `names()`, `recognizeFilename(String, Set<String>)`, `matches(...)`, `parse(...)`, `format(...)`, `convert(...)`, `clean(Path, Set<String>)`.
+- Python: `AIcNameConventionCatalog.load(Path)`, `load_resource(filename)`, `standard(technology)`, `names`, `recognize_filename(...)`, `matches(...)`, `parse(...)`, `format(...)`, `convert(...)`, `clean(...)`.
 
 The `allowed` set restricts cleanup ownership to a generator's output roles. `--clean-only` does not need source schemas. Regular generation deliberately cleans old matching outputs before generating new ones. `gradle clean` remains responsible for removing all `*.gen` directories.
 
 ## Migration boundary
 
-The 1.1 code generation pipeline uses `AIiNameConventionCatalog` and native `AIcNameConventionCatalog_1` directly. The old input/output naming profile DTOs and the legacy YAML adaptation layer have been removed; the Java and Python catalogs load shared YAML composition definitions.
+The 1.1 code generation pipeline uses `AIiNameConventionCatalog` and native `AIcNameConventionCatalog` directly. The old input/output naming profile DTOs and the legacy YAML adaptation layer have been removed; the Java and Python catalogs load shared YAML composition definitions.
 
 The XSD variants for configuration-map schemas presently encode their outer named sections only; JSONDEFS/YAMLDEFS schemas provide strict inner validation. Do not claim full cross-format structural equivalence of the configuration XSD variants until the corresponding XML representation is explicitly modeled. Enum XSD representations are complete.
 
@@ -39,7 +39,7 @@ The XSD variants for configuration-map schemas presently encode their outer name
 The old handwritten naming profile DTOs, input/output-kind enums and the
 `naming.conversion`/`naming.validation` artifacts are removed. Name parsing,
 formatting, conversion and validation now use the YAML-backed
-`AIcNameConventionCatalog_1` in Java and Python, exposed through
+`AIcNameConventionCatalog` in Java and Python, exposed through
 `AIiNameConventionCatalog` to Java API consumers.
 
 ## XML element synthetic contract naming

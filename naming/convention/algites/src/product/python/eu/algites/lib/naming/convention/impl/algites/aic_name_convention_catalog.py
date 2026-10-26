@@ -13,7 +13,7 @@ _NAMED_CAPTURE = re.compile(r'\(\?<([A-Za-z][A-Za-z0-9_]*)>')
 _CAMEL_BOUNDARY = re.compile(r'(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])')
 
 
-class AIcNameConventionCatalog_1:
+class AIcNameConventionCatalog:
     """YAML-driven, language-independent name composition engine.
 
     Java-style (?<name>...) captures in YAML are translated to Python's (?P<name>...).
@@ -70,7 +70,7 @@ class AIcNameConventionCatalog_1:
                 for suffix in ('url', 'identifier', 'version')}
 
     @classmethod
-    def _load_document(cls, filename: str, read_text: Callable[[str], str]) -> AIcNameConventionCatalog_1:
+    def _load_document(cls, filename: str, read_text: Callable[[str], str]) -> AIcNameConventionCatalog:
         """Resolve a YAML catalog and its standard sibling using one resource provider."""
         config = yaml.safe_load(read_text(filename))
         if not isinstance(config, dict):
@@ -92,13 +92,13 @@ class AIcNameConventionCatalog_1:
         return cls(config)
 
     @classmethod
-    def load(cls, path: str | Path) -> AIcNameConventionCatalog_1:
+    def load(cls, path: str | Path) -> AIcNameConventionCatalog:
         """Load an explicitly selected external catalog without searching parent directories."""
         path = Path(path)
         return cls._load_document(path.name, lambda name: (path.parent / name).read_text(encoding='utf-8'))
 
     @classmethod
-    def load_resource(cls, filename: str) -> AIcNameConventionCatalog_1:
+    def load_resource(cls, filename: str) -> AIcNameConventionCatalog:
         """Read the resource from the importable Python package or its Modustro resource bundle.
 
         This uses Python package-resource lookup, never the source-repository layout.
@@ -126,7 +126,7 @@ class AIcNameConventionCatalog_1:
         )
 
     @classmethod
-    def load_many(cls, sources) -> AIcNameConventionCatalog_1:
+    def load_many(cls, sources) -> AIcNameConventionCatalog:
         """Load an ordered set of file/resource catalogs without permitting conflicting IDs.
 
         An identifier defined identically in multiple files is shared. Distinct definitions
@@ -156,7 +156,7 @@ class AIcNameConventionCatalog_1:
         return cls(merged)
 
     @classmethod
-    def standard(cls, technology: str) -> AIcNameConventionCatalog_1:
+    def standard(cls, technology: str) -> AIcNameConventionCatalog:
         """Load an artifact-packaged catalog; independent of checkout and version context."""
         if technology not in ('java', 'python'):
             raise ValueError(f'Unsupported naming target: {technology}')
@@ -221,7 +221,7 @@ class AIcNameConventionCatalog_1:
         """Select one generated DO/SDO method profile while preserving source naming profiles."""
         if profile not in self._generated_methods:
             raise ValueError(f'Unknown generated DataObject method naming profile: {profile}')
-        result = AIcNameConventionCatalog_1(self._config)
+        result = AIcNameConventionCatalog(self._config)
         result._generated_method_profile = profile
         return result
 
@@ -353,7 +353,7 @@ class AIcNameConventionCatalog_1:
             return (words[0] if target == 'lower_camel_case_1' else words[0].capitalize()) + ''.join(w.capitalize() for w in words[1:])
         raise ValueError('Unsupported formatter: ' + target)
 
-    def convert(self, value: str, source_profile: str, target_catalog: AIcNameConventionCatalog_1,
+    def convert(self, value: str, source_profile: str, target_catalog: AIcNameConventionCatalog,
                 target_profile: str, structure: str, source_structure: str | None = None) -> str:
         source_structure = source_structure or structure
         vars = self.parse(source_profile, source_structure, value)

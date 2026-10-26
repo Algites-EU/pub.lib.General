@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 
 /** Loads the declarative standard naming catalogs for Java and Python outputs. */
-public final class AIcAlgitesNamingProfiles_1 {
-    private AIcAlgitesNamingProfiles_1() { }
+public final class AIcAlgitesNamingProfiles {
+    private AIcAlgitesNamingProfiles() { }
 
     /** Default Java naming catalog, loaded from YAML resources. */
     public static AIiNameConventionCatalog javaProfile() {
@@ -20,7 +20,7 @@ public final class AIcAlgitesNamingProfiles_1 {
     }
 
     private static AIiNameConventionCatalog standard(String aKind) {
-        try { return AIcNameConventionCatalog_1.standard(aKind); }
+        try { return AIcNameConventionCatalog.standard(aKind); }
         catch (IOException aError) { throw new UncheckedIOException(aError); }
     }
 }

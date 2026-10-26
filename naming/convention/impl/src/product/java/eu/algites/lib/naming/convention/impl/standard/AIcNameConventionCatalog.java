@@ -1,4 +1,4 @@
-package eu.algites.lib.naming.convention.impl.algites;
+package eu.algites.lib.naming.convention.impl.standard;
 
 
 import eu.algites.lib.naming.convention.AIiNameConventionCatalog;
@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /** Resolves YAML naming fragments, matches complete file names and converts names without generator-specific rules. */
-public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalog {
+public final class AIcNameConventionCatalog implements AIiNameConventionCatalog {
     private static final ObjectMapper MAPPER = new ObjectMapper(new YAMLFactory());
     private static final Pattern CAPTURE = Pattern.compile("\\(\\?<([A-Za-z][A-Za-z0-9_]*)>");
     private static final Pattern CAMEL_BOUNDARY = Pattern.compile("(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])");
@@ -41,26 +41,26 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
     public record AIcdNameMatch(String conventionName, Map<String, String> variables) { }
 
     /** Reads the catalog and resolves its optional standard-conventions sibling document. */
-    public static AIcNameConventionCatalog_1 load(Path aPath) throws IOException {
+    public static AIcNameConventionCatalog load(Path aPath) throws IOException {
         Path locPath = aPath.toAbsolutePath().normalize();
         JsonNode locDocument = MAPPER.readTree(locPath.toFile());
         JsonNode locStandard = locDocument.has("StandardConventionsFile")
                 ? MAPPER.readTree(locPath.resolveSibling(locDocument.get("StandardConventionsFile").asText()).toFile())
                 : MAPPER.createObjectNode();
-        return new AIcNameConventionCatalog_1(locDocument, locStandard);
+        return new AIcNameConventionCatalog(locDocument, locStandard);
     }
 
     /**
      * Loads a YAML naming catalog from the artifact classpath, including its standard-conventions sibling.
      * This also works when the artifact is consumed from a JAR rather than a source checkout.
      */
-    public static AIcNameConventionCatalog_1 loadResource(String aFilename) throws IOException {
+    public static AIcNameConventionCatalog loadResource(String aFilename) throws IOException {
         if (aFilename == null || !aFilename.matches("[A-Za-z0-9][A-Za-z0-9_.-]*\\.yml"))
             throw new IllegalArgumentException("Expected a YAML catalog filename: " + aFilename);
         String locDirectory = "eu/algites/lib/naming/convention/";
-        ClassLoader locLoader = AIcNameConventionCatalog_1.class.getClassLoader();
+        ClassLoader locLoader = AIcNameConventionCatalog.class.getClassLoader();
         try (var locCatalog = locLoader.getResourceAsStream(locDirectory + aFilename)) {
-            if (locCatalog == null) throw new IOException("Missing packaged Algites YAML naming catalog: " + locDirectory + aFilename);
+            if (locCatalog == null) throw new IOException("Missing packaged YAML naming catalog: " + locDirectory + aFilename);
             JsonNode locDocument = MAPPER.readTree(locCatalog);
             JsonNode locStandard = MAPPER.createObjectNode();
             if (locDocument.has("StandardConventionsFile")) {
@@ -72,7 +72,7 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
                     locStandard = MAPPER.readTree(locStream);
                 }
             }
-            return new AIcNameConventionCatalog_1(locDocument, locStandard);
+            return new AIcNameConventionCatalog(locDocument, locStandard);
         }
     }
 
@@ -89,7 +89,7 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
      * @throws IOException if a source cannot be read or is not valid YAML
      * @throws IllegalArgumentException if identifiers have conflicting definitions
      */
-    public static AIcNameConventionCatalog_1 loadAll(List<String> aSources) throws IOException {
+    public static AIcNameConventionCatalog loadAll(List<String> aSources) throws IOException {
         if (aSources == null || aSources.isEmpty())
             throw new IllegalArgumentException("At least one naming catalog is required");
         var locMerged = MAPPER.createObjectNode();
@@ -98,7 +98,7 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
         locMerged.putObject("GeneratedDataObjectMethodNameConventions").putObject("NameConventions");
         locMerged.putObject("SourceStructureNameConventions").putObject("NameConventions");
         for (String locSource : aSources) {
-            AIcNameConventionCatalog_1 locCatalog = locSource.startsWith("resource:")
+            AIcNameConventionCatalog locCatalog = locSource.startsWith("resource:")
                     ? loadResource(locSource.substring("resource:".length()))
                     : load(Path.of(locSource));
             for (String locSection : List.of("IdentifierConventions", "VersionConventions", "NameFragments",
@@ -152,17 +152,10 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
                 });
             }
         }
-        return new AIcNameConventionCatalog_1(locMerged, MAPPER.createObjectNode());
+        return new AIcNameConventionCatalog(locMerged, MAPPER.createObjectNode());
     }
 
-    /** Loads the standard Algites catalog from its packaged YAML resources. */
-    public static AIcNameConventionCatalog_1 standard(String aTechnology) throws IOException {
-        if (!aTechnology.equals("java") && !aTechnology.equals("python"))
-            throw new IllegalArgumentException("Unknown standard technology: " + aTechnology);
-        return loadResource("algites-" + aTechnology + "-name-conventions.yml");
-    }
-
-    private AIcNameConventionCatalog_1(JsonNode aDocument, JsonNode aStandard) {
+    private AIcNameConventionCatalog(JsonNode aDocument, JsonNode aStandard) {
         roleBindings = Map.of();
         generatedMethodProfile = null;
         document = aDocument;
@@ -190,7 +183,7 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
                 });
     }
 
-    private AIcNameConventionCatalog_1(AIcNameConventionCatalog_1 aSource, Map<String, String> aRoles) {
+    private AIcNameConventionCatalog(AIcNameConventionCatalog aSource, Map<String, String> aRoles) {
         document = aSource.document;
         filePatterns.putAll(aSource.filePatterns);
         generatedMethodProfiles.putAll(aSource.generatedMethodProfiles);
@@ -204,7 +197,7 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
         }
     }
 
-    private AIcNameConventionCatalog_1(AIcNameConventionCatalog_1 aSource, String aMethodProfile) {
+    private AIcNameConventionCatalog(AIcNameConventionCatalog aSource, String aMethodProfile) {
         document = aSource.document;
         filePatterns.putAll(aSource.filePatterns);
         generatedMethodProfiles.putAll(aSource.generatedMethodProfiles);
@@ -222,8 +215,8 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
      * @return immutable catalog view sharing every parsed composition and source profile
      * @throws IllegalArgumentException when the method profile is unavailable
      */
-    public AIcNameConventionCatalog_1 withGeneratedMethodProfile(String aMethodProfile) {
-        return new AIcNameConventionCatalog_1(this, aMethodProfile);
+    public AIcNameConventionCatalog withGeneratedMethodProfile(String aMethodProfile) {
+        return new AIcNameConventionCatalog(this, aMethodProfile);
     }
 
     /**
@@ -253,8 +246,8 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
      * @param aRoles role-to-convention mapping; an absent role stays disabled
      * @return a catalog view carrying the requested role bindings
      */
-    public AIcNameConventionCatalog_1 withRoles(Map<String, String> aRoles) {
-        return new AIcNameConventionCatalog_1(this, aRoles);
+    public AIcNameConventionCatalog withRoles(Map<String, String> aRoles) {
+        return new AIcNameConventionCatalog(this, aRoles);
     }
 
     /**
@@ -508,7 +501,7 @@ public final class AIcNameConventionCatalog_1 implements AIiNameConventionCatalo
     }
 
     /** Converts the captured identifier according to the two named lexical conventions. */
-    public String convert(String aValue, String aSourceProfile, AIcNameConventionCatalog_1 aTarget,
+    public String convert(String aValue, String aSourceProfile, AIcNameConventionCatalog aTarget,
             String aTargetProfile, String aStructure) {
         Map<String, String> locValues = parse(aSourceProfile, aStructure, aValue);
         String locSource = null;

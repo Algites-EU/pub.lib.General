@@ -261,11 +261,11 @@ catalogs and appending the output's `file_name_suffix` creates
 
 ```python
 from pathlib import Path
-from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1 import AIcNameConventionCatalog_1
+from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog import AIcNameConventionCatalog
 
 root = Path('naming/convention/algites/src/product/config/eu/algites/lib/naming/convention')
-source = AIcNameConventionCatalog_1.load(root / 'example-input.yml')
-target = AIcNameConventionCatalog_1.load(root / 'example-output.yml')
+source = AIcNameConventionCatalog.load(root / 'example-input.yml')
+target = AIcNameConventionCatalog.load(root / 'example-output.yml')
 filename = 'customer_address--eu_west--beta--2.7.demo.schema'
 parsed = source.recognize_filename(filename)
 stem = source.convert(filename.removesuffix('.demo.schema'),

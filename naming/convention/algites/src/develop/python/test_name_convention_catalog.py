@@ -3,14 +3,14 @@ from __future__ import annotations
 from pathlib import Path
 import pytest
 
-from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1 import AIcNameConventionCatalog_1
+from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog import AIcNameConventionCatalog
 
 
 ROOT = Path(__file__).resolve().parents[3] / 'src/product/config/eu/algites/lib/naming/convention'
 
 
-def catalog(language: str) -> AIcNameConventionCatalog_1:
-    return AIcNameConventionCatalog_1.load(ROOT / f'algites-{language}-name-conventions.yml')
+def catalog(language: str) -> AIcNameConventionCatalog:
+    return AIcNameConventionCatalog.load(ROOT / f'algites-{language}-name-conventions.yml')
 
 
 def test_name_match_is_in_its_own_public_type_module():
@@ -93,7 +93,7 @@ def test_ambiguous_file_names_rejected():
     # Deliberately duplicate a profile and require a clear ambiguity error.
     root['SourceStructureNameConventions']['NameConventions']['duplicate'] = root['SourceStructureNameConventions']['NameConventions']['algites-java-gen-intf-versioned_1']
     with pytest.raises(ValueError, match='Ambiguous'):
-        cat = AIcNameConventionCatalog_1({**root, 'IdentifierConventions': {**yaml.safe_load((ROOT/'standard-conventions.yml').read_text())['IdentifierConventions']}, 'VersionConventions':yaml.safe_load((ROOT/'standard-conventions.yml').read_text())['VersionConventions']})
+        cat = AIcNameConventionCatalog({**root, 'IdentifierConventions': {**yaml.safe_load((ROOT/'standard-conventions.yml').read_text())['IdentifierConventions']}, 'VersionConventions':yaml.safe_load((ROOT/'standard-conventions.yml').read_text())['VersionConventions']})
         cat.recognize_filename('AIigCustomer_1.java')
 
 
@@ -103,7 +103,7 @@ def test_custom_version_named_variables_can_be_recomposed():
         'lower_snake_case_1': {'Regexp': '(?<identifier>[a-z][a-z0-9]*(?:_[a-z][a-z0-9]*)*)'},
         'upper_camel_case_1': {'Regexp': '(?<identifier>[A-Z][a-z0-9]*(?:[A-Z][a-z0-9]*)*)'},
     }
-    source = AIcNameConventionCatalog_1({
+    source = AIcNameConventionCatalog({
         'IdentifierConventions': identifiers,
         'VersionConventions': {'major_minor_1': {'Regexp':
             r'(?<version>(?<major>0|[1-9][0-9]*)\.(?<minor>0|[1-9][0-9]*))'}},
@@ -117,7 +117,7 @@ def test_custom_version_named_variables_can_be_recomposed():
         'NameConventions': {'source-format': {'ContainerStructureType': 'object', 'StructureNaming': {
             'file_name_stem': 'source', 'file_name_suffix': 'suffix', 'main_container_name': 'source'}}},
     })
-    target = AIcNameConventionCatalog_1({
+    target = AIcNameConventionCatalog({
         'IdentifierConventions': identifiers,
         'NameCompositions': {
             'target': {'Segments': [
@@ -184,8 +184,8 @@ def test_all_filename_stems_require_exactly_one_full_suffix(language, extension)
 
 def test_yaml_example_reorders_user_variables_and_major_minor_versions():
     """Runnable example-input.yml -> example-output.yml in both packaged distributions."""
-    source = AIcNameConventionCatalog_1.load(ROOT / 'example-input.yml')
-    target = AIcNameConventionCatalog_1.load(ROOT / 'example-output.yml')
+    source = AIcNameConventionCatalog.load(ROOT / 'example-input.yml')
+    target = AIcNameConventionCatalog.load(ROOT / 'example-output.yml')
     input_filename = 'customer_address--eu_west--beta--2.7.demo.schema'
     input_match = source.recognize_filename(input_filename)
     assert input_match is not None
@@ -222,10 +222,10 @@ def test_standard_catalog_uses_python_import_roots_independent_of_checkout(tmp_p
     assert module_root.is_dir() and config_root.is_dir()
     unrelated = tmp_path / 'unrelated-directory'
     unrelated.mkdir()
-    code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1 "
-            "import AIcNameConventionCatalog_1; "
-            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 59; "
-            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 59")
+    code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog "
+            "import AIcNameConventionCatalog; "
+            "assert len(AIcNameConventionCatalog.standard('java').names) == 59; "
+            "assert len(AIcNameConventionCatalog.standard('python').names) == 59")
     env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(config_root))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
 
@@ -246,11 +246,11 @@ def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
         shutil.copy2(item, destination / item.name)
     unrelated = tmp_path / 'outside-repository'
     unrelated.mkdir()
-    code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog_1 "
-            "import AIcNameConventionCatalog_1; "
-            "assert len(AIcNameConventionCatalog_1.standard('java').names) == 59; "
-            "assert len(AIcNameConventionCatalog_1.standard('python').names) == 59; "
-            "assert len(AIcNameConventionCatalog_1.load_resource('algites-yamldef-name-conventions.yml').names) == 2")
+    code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog "
+            "import AIcNameConventionCatalog; "
+            "assert len(AIcNameConventionCatalog.standard('java').names) == 59; "
+            "assert len(AIcNameConventionCatalog.standard('python').names) == 59; "
+            "assert len(AIcNameConventionCatalog.load_resource('algites-yamldef-name-conventions.yml').names) == 2")
     env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(stage))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
 
@@ -294,7 +294,7 @@ def test_all_profiles_have_independently_composed_getters_and_setters(language, 
     modified = deepcopy(original._config)
     modified['NameCompositions'][f'{language}-getter-method-name_1']['Segments'][0]['Value'] = 'read'
     modified['NameCompositions'][f'{language}-setter-method-name_1']['Segments'][0]['Value'] = 'write'
-    custom = AIcNameConventionCatalog_1(modified)
+    custom = AIcNameConventionCatalog(modified)
     for profile in custom.names:
         assert custom.format(profile, 'getter_method_name',
                              {'identifier': source_identifier}, source_style) == 'readCustomerAddress'

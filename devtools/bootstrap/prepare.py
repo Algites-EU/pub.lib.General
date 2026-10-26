@@ -25,8 +25,8 @@ import yaml
 SOURCES = ('src/product/python', 'src/product/python.gen', 'src/product/config', 'src/product/resources',
            'src/product/xmldefs', 'src/product/yamldefs', 'src/product/jsondefs')
 IGNORED = {'__pycache__', '.pytest_cache', 'build', 'node_modules', '.mypy_cache'}
-EXPECTED_JAVA = 33
-EXPECTED_PYTHON = 11
+EXPECTED_JAVA = 34
+EXPECTED_PYTHON = 12
 JAVA_FIXED_VERSIONS = {
     'com.fasterxml.jackson.core:jackson-databind': '2.18.3',
     'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml': '2.18.3',

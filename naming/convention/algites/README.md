@@ -15,13 +15,13 @@ The `src/product/python` and `src/product/python.gen` directories are Python
 import roots, not roots of the surrounding source repository. The configuration
 files live in this artifact's `src/product/config` resource root. On an installed
 Python wheel, Modustro stages this root into the artifact's isolated package
-namespace. `AIcNameConventionCatalog_1.standard("java" / "python")` reads those
+namespace. `AIcNameConventionCatalog.standard("java" / "python")` reads those
 packaged YAML resources using `importlib.resources`, including the referenced
 `standard-conventions.yml` sibling.
 
 For local source-tree execution without an installed wheel, explicitly expose
 `src/product/config` on `PYTHONPATH` along with this artifact's Python source
-roots (or use `AIcNameConventionCatalog_1.load(path)` for a user-supplied YAML
+roots (or use `AIcNameConventionCatalog.load(path)` for a user-supplied YAML
 file). The runtime never searches repository parents or depends on the repository
 layout. Python namespace package paths below those roots are the same as when
 running from a wheel.
