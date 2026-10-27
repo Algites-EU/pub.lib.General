@@ -67,6 +67,7 @@ final class AIcSmartDataGraphSnapshot {
             effectiveResolved = aPresent;
         }
         String name() { return descriptor.name(); }
+        String wireName() { return descriptor.wireName(); }
     }
 
     private static final int MAX_NODES = 50000;

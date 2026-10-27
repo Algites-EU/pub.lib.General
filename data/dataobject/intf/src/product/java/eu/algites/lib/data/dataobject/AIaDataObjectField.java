@@ -14,8 +14,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface AIaDataObjectField {
     /**
-     * Stable unlocalized field identifier independent of its presentation and wire QName.
-     * An empty string derives the name from the Java getter.
+     * Canonical external data-property name (for example a JSON/YAML property), not
+     * the semantic identity of this field. The normalized getter identifier is the
+     * internal SmartDataObject key. An empty string inherits the name of an
+     * overridden getter, otherwise the canonical internal identifier is used.
+     * Two different semantic fields must not share the same effective data name.
      *
      * @return schema field identifier or empty for getter-derived naming
      */

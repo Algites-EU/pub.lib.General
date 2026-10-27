@@ -5,9 +5,27 @@
 - Runtime graph snapshot and renderer classes remain implementation-private.
 - The `AIig...` read-only generated contract extends the matching technology-specific `AIi*DataObject` marker (which extends `AIiDataObject`) and carries `AIaDataObject` and `AIaDataObjectField` from `data/dataobject/intf`.
 - The default mutable generated `AIigd...` interface extends the read-only contract plus the matching `AIi*SmartDataObject` technology marker (which extends `AIiSmartDataObject`). The default `AIcgd...` implementation extends the appropriate XML/JSON/YAML technology-specific `AIc*SmartDataObject` implementation, itself a subclass of `AIcSmartDataObject`. The generated class prefix is the **naming profile's rule**, not a fixed SmartDataObject requirement.
-- In Python, contracts carry `__data_object_fields__` and optional `__data_object__`. An anonymous Java read-only contract object, or equivalent Python object, can serve as a structured default.
+- Python read-only contracts declare field metadata with `@AIaDataObjectField` directly on their getters, and optionally carry `__data_object__`. Legacy `__data_object_fields__` descriptors are accepted for compatibility. An anonymous Java read-only contract object, or equivalent Python object, can serve as a structured default.
 
 Serializer scope: XML/XSD output supports namespace-qualified nodes, XML attributes and repeated `maxOccurs` element siblings using the original QName; empty collections emit no repeated elements. Java and Python both emit XSD lexical boolean values (`true`/`false`) and canonical enum wire values (Java generated enums use `wireValue()`, Python enums use `value`). Collection-style `<Item>` wrappers are restricted to generic/diagnostic collection output, not canonical repeating XML fields. The runtime does **not** yet provide a schema-aware XML decoder accepting elements out of input order. Strict XSD validation, including `xs:sequence` ordering, is a separate operation. Normal JSON schema-compatible output refuses cycles; reference-preserving JSON uses its own encoding. See tests for supported cases.
+
+### Semantic field identity versus external data name
+
+A standard getter `getCustomerId()` defines internal semantic identity
+`CustomerId`. Java and Python SDO generators normalize the getter identifier
+through the explicitly configured naming catalog. This key owns the runtime
+raw values, presence markers and typed virtual mappings. A different
+`fieldName` such as `external_customer_id` remains the external JSON/YAML
+property and is used only by the wire mapping; it never controls generated
+method names. The metadata resolver requires every effective wire name to be
+unique and forbids overriding the parent's external field name with a different
+value. An omitted `fieldName` on an override inherits the parent's value.
+
+Python legacy descriptor-only contracts that do not expose a bound getter
+continue to use their pre-existing field key directly. This compatibility
+route does not establish getter-based identity, and newly generated contracts
+must not use it. XML expanded names (QName and element/attribute kind)
+remain independent from both the semantic ID and plain data property name.
 
 ### SmartDO effective getter policy
 

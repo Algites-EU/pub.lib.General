@@ -20,8 +20,9 @@ class AIcdDataObjectField:
     expected_type: type | None = None
     getter_name: str = ''
     setter_inheritance_policy: AInFieldSetterInheritancePolicy = AInFieldSetterInheritancePolicy.DEFAULT
+    semantic_id: str = ''
 
     @property
     def name(self) -> str:
-        """Normalized internal field name, retained for SmartDataObject runtime callers."""
-        return self.field_name
+        """Normalized internal field identity; wire name is held separately."""
+        return self.semantic_id or self.field_name

@@ -118,7 +118,7 @@ final class AIcSmartDataGraphRenderer {
                 for (var locField : aNode.fields) {
                     if (!locField.present && !profile.isDiagnostic() &&
                             (!effective || !locField.descriptor.hasDefault())) continue;
-                    locSize += quote(locField.name()).length() + 2;
+                    locSize += quote(locField.wireName()).length() + 2;
                     if (locField.present || (effective && locField.descriptor.hasDefault()))
                         locSize += approximateSize(snapshot.fieldValue(locField, effective), aPath);
                     if (profile.isDiagnostic()) locSize += 20;
@@ -248,8 +248,8 @@ final class AIcSmartDataGraphRenderer {
                     Map<String, Object> locFields = profile.isDiagnostic()
                             ? new LinkedHashMap<>() : schemaWireMetadata(aNode);
                     for (var locField : aNode.fields) {
-                        if (locFields.containsKey(locField.name())) {
-                            validateSchemaProperty(locField, locFields.get(locField.name()));
+                        if (locFields.containsKey(locField.wireName())) {
+                            validateSchemaProperty(locField, locFields.get(locField.wireName()));
                             continue;
                         }
                         if (!locField.present && !profile.isDiagnostic() &&
@@ -260,8 +260,8 @@ final class AIcSmartDataGraphRenderer {
                             Map<String, Object> locWrapper = new LinkedHashMap<>();
                             locWrapper.put("present", locField.present);
                             if (locField.present) locWrapper.put("value", locFieldValue);
-                            locFields.put(locField.name(), locWrapper);
-                        } else locFields.put(locField.name(), locFieldValue);
+                            locFields.put(profile.isDiagnostic() ? locField.name() : locField.wireName(), locWrapper);
+                        } else locFields.put(locField.wireName(), locFieldValue);
                     }
                     if (profile.isDiagnostic()) {
                         Map<String, Object> locMeta = new LinkedHashMap<>();
@@ -348,16 +348,16 @@ final class AIcSmartDataGraphRenderer {
                         ? Map.of() : schemaWireMetadata(aNode);
                 for (var locEntry : locMetadata.entrySet()) {
                     for (var locField : aNode.fields) {
-                        if (locField.name().equals(locEntry.getKey()))
+                        if (locField.wireName().equals(locEntry.getKey()))
                             validateSchemaProperty(locField, locEntry.getValue());
                     }
                     aOut.append(" ".repeat(aDepth)).append(quote(locEntry.getKey())).append(": ")
                             .append(jsonText(locEntry.getValue())).append('\n');
                 }
                 for (var locField : aNode.fields) {
-                    if (locMetadata.containsKey(locField.name())) continue;
+                    if (locMetadata.containsKey(locField.wireName())) continue;
                     if (!locField.present && !profile.isDiagnostic() && (!effective || !locField.descriptor.hasDefault())) continue;
-                    aOut.append(" ".repeat(aDepth)).append(quote(locField.name())).append(':');
+                    aOut.append(" ".repeat(aDepth)).append(quote(profile.isDiagnostic() ? locField.name() : locField.wireName())).append(':');
                     if (profile.isDiagnostic()) {
                         aOut.append("\n").append(" ".repeat(aDepth + 2)).append("present: ").append(locField.present).append('\n');
                         if (locField.present) {

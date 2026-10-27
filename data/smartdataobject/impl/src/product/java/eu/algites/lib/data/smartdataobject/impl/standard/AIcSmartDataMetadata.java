@@ -24,7 +24,7 @@ import java.util.Objects;
 
 /** Package-private schema metadata resolver, cached by implementation class. */
 final class AIcSmartDataMetadata {
-    record AIcdField(String name, AIaDataObjectField annotation, AIaXmlDataObjectField xml,
+    record AIcdField(String name, String wireName, AIaDataObjectField annotation, AIaXmlDataObjectField xml,
             Method getter, AIiFieldDefaultValueResolver defaultResolver, boolean allowNonPresentRead) {
         Object createDefault() {
             if (defaultResolver == null) return null;
@@ -37,7 +37,7 @@ final class AIcSmartDataMetadata {
         boolean isXmlAttribute() {
             return xml != null && xml.valueKind() == eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ATTRIBUTE;
         }
-        String xmlLocalName() { return xml == null || xml.namespaceLocalName().isBlank() ? name : xml.namespaceLocalName(); }
+        String xmlLocalName() { return xml == null || xml.namespaceLocalName().isBlank() ? wireName : xml.namespaceLocalName(); }
         String xmlNamespace() { return xml == null ? "" : xml.namespace(); }
     }
     record AIcdDescriptor(AIaDataObject schema, AIaXmlDataObject xmlSchema,
@@ -59,6 +59,9 @@ final class AIcSmartDataMetadata {
             if (locFoundSchema != null && locSchema == null) locSchema = locFoundSchema;
             AIaXmlDataObject locFoundXmlSchema = locType.getDeclaredAnnotation(AIaXmlDataObject.class);
             if (locFoundXmlSchema != null && locXmlSchema == null) locXmlSchema = locFoundXmlSchema;
+        }
+        Collections.reverse(locTypes);
+        for (Class<?> locType : locTypes) {
             Method[] locMethods = locType.getDeclaredMethods();
             /* Java reflection does not guarantee declaration order. Generated XML
              * contracts carry an explicit order on each declaring interface;
@@ -87,8 +90,14 @@ final class AIcSmartDataMetadata {
                 AIiFieldDefaultValueResolver locResolver = locDefault == null ? null :
                         AIsCategoryProviderDiscovery.getInstance(locDefault.defaultValueResolver(),
                             AIiFieldDefaultValueResolverFactory.class, "default", null);
-                String locName = locAnnotation.fieldName().isBlank() ? derivedFieldName(locGetter)
-                        : locAnnotation.fieldName();
+                String locName = derivedFieldName(locGetter);
+                AIcdField locBefore = locFields.get(locName);
+                String locExplicitDataName = locAnnotation.fieldName();
+                if (locBefore != null && !locExplicitDataName.isBlank()
+                        && !locBefore.wireName().equals(locExplicitDataName))
+                    throw new IllegalArgumentException("An overridden field cannot change fieldName: " + locName);
+                String locWireName = locExplicitDataName.isBlank()
+                        ? locBefore == null ? locName : locBefore.wireName() : locExplicitDataName;
                 AIaXmlDataObjectField locXmlField = locGetter.getDeclaredAnnotation(AIaXmlDataObjectField.class);
                 AIaSmartDataObjectField locFieldPolicy = locGetter.getDeclaredAnnotation(AIaSmartDataObjectField.class);
                 AIaSmartDataObject locTypePolicy = locType.getDeclaredAnnotation(AIaSmartDataObject.class);
@@ -97,22 +106,30 @@ final class AIcSmartDataMetadata {
                         : locTypePolicy != null && locTypePolicy.allowNonPresentRead();
                 if (locAllowNonPresentRead && locGetter.getReturnType().isPrimitive())
                     throw new IllegalArgumentException("A primitive SmartData getter cannot return null: " + locGetter);
-                var locField = new AIcdField(locName, locAnnotation, locXmlField, locGetter, locResolver, locAllowNonPresentRead);
-                AIcdField locBefore = locFields.get(locName);
+                var locField = new AIcdField(locName, locWireName, locAnnotation, locXmlField, locGetter,
+                        locResolver, locAllowNonPresentRead);
                 if (locBefore == null) {
                     locFields.put(locName, locField);
-                } else if (locGetter.getDeclaringClass().isAssignableFrom(locBefore.getter().getDeclaringClass())) {
-                    validateRestriction(locField, locBefore);
                 } else if (locBefore.getter().getDeclaringClass().isAssignableFrom(locGetter.getDeclaringClass())) {
                     validateRestriction(locBefore, locField);
                     locFields.put(locName, locField);
-                } else if (!locBefore.getter().getReturnType().equals(locGetter.getReturnType()) ||
-                        !locBefore.annotation().equals(locAnnotation) ||
-                        locBefore.allowNonPresentRead() != locAllowNonPresentRead) {
+                } else if (locGetter.getDeclaringClass().isAssignableFrom(locBefore.getter().getDeclaringClass())) {
+                    validateRestriction(locField, locBefore);
+                } else if (!locBefore.getter().getReturnType().equals(locGetter.getReturnType())
+                        || !locBefore.wireName().equals(locField.wireName())
+                        || !locBefore.annotation().equals(locField.annotation())
+                        || locBefore.allowNonPresentRead() != locAllowNonPresentRead) {
                     throw new IllegalArgumentException("Conflicting unrelated inherited SmartData field: " + locName);
                 }
             }
         }
+        Map<String, String> locByWireName = new LinkedHashMap<>();
+        locFields.forEach((aSemantic, aField) -> {
+            String locPrevious = locByWireName.putIfAbsent(aField.wireName(), aSemantic);
+            if (locPrevious != null && !locPrevious.equals(aSemantic))
+                throw new IllegalArgumentException("Duplicate fieldName '" + aField.wireName()
+                        + "' for semantic fields " + locPrevious + " and " + aSemantic);
+        });
         if (locFields.isEmpty()) throw new IllegalArgumentException("No annotated read-only SmartData contract: " + aType);
         return new AIcdDescriptor(locSchema, locXmlSchema, List.copyOf(locFields.values()),
                 Collections.unmodifiableMap(new LinkedHashMap<>(locFields)));

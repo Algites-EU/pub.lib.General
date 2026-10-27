@@ -24,6 +24,38 @@ head `_xe` interface. No OpenChoice annotations, runtime role registry or specia
 runtime assignment check are used. XML schema legality is decided by Defs Codegen,
 not by this core data-object marker library.
 
+## Canonical field identity and metadata inheritance
+
+The semantic identity of a DataObject/SmartDataObject field is the normalized
+`UpperCamelCase` identifier obtained from its **annotated getter** using its
+explicit input naming convention. For a standard getter `getCustomerId`, the
+identity is `CustomerId`, irrespective of the value of `fieldName`.
+
+`fieldName` is the external data property name for JSON/YAML and related
+schema-facing representations; it is never parsed as a naming convention or
+used to derive generated Java/Python methods. With an omitted `fieldName`, a
+new field defaults to its semantic ID. An overridden getter inherits the
+parent's effective `fieldName` when the annotation value is left blank.
+Explicitly changing that value on an override is forbidden.
+
+Within the complete effective contract, each semantic ID identifies one field
+and each external data name identifies at most one semantic ID. Two different
+getters must not declare the same `fieldName`; use an ordinary delegating
+getter if an alternative convenience accessor is needed.
+
+In Python, `AIaDataObjectField` is a **method decorator** analogous to
+`AIaFieldLabel`: place it on the getter, not in a parallel
+`__data_object_fields__` tuple with a repeated `getter_name`. The older
+`AIcdDataObjectField` tuple model remains a compatibility input for published
+legacy contracts. For those legacy descriptors which have no getter at all,
+the original key is retained rather than claiming that it came from a getter.
+New generated contracts emit method decorators.
+
+SmartDataObject runtime raw methods (`set_RawField`, `get_RawField`, presence
+and unset) use the canonical semantic ID. Serializers and `from_mapping` use
+external field names with an explicit mapping back to semantic IDs; XML uses
+its separate QName metadata. Raw typed graph keys remain semantic IDs.
+
 ## Technology-specific contract markers
 
 The `xmldefs`, `jsondefs`, and `yamldefs` packages define

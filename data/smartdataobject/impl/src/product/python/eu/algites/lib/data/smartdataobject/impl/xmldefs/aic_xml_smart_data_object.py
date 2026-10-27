@@ -157,11 +157,16 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
             raise ValueError('Mixed XML character content is not a DataObject field')
 
         descriptors = cls._fields()
-        xml_metadata = _field_metadata(cls)
-        nested_types = _nested_metadata(cls)
+        wire_to_semantic = {descriptor.field_name: name for name, descriptor in descriptors.items()}
+        raw_xml_metadata = _field_metadata(cls)
+        xml_metadata = {name: raw_xml_metadata.get(descriptor.field_name, raw_xml_metadata.get(name))
+                        for name, descriptor in descriptors.items()}
+        original_nested_types = _nested_metadata(cls)
         if aNestedTypes:
-            nested_types.update(aNestedTypes)
-        repeated = _repeated_metadata(cls)
+            original_nested_types.update(aNestedTypes)
+        nested_types = {wire_to_semantic.get(name, name): target
+                        for name, target in original_nested_types.items()}
+        repeated = {wire_to_semantic.get(name, name) for name in _repeated_metadata(cls)}
         by_element: dict[str, str] = {}
         by_attribute: dict[str, str] = {}
         wildcards: list[tuple[str, object]] = []
@@ -173,7 +178,8 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
                     repeated.add(name)
                 continue
             qname = _qname(xml.namespace if xml else '',
-                           (xml.namespace_local_name if xml and xml.namespace_local_name else name))
+                           (xml.namespace_local_name if xml and xml.namespace_local_name
+                            else descriptor.field_name))
             lookup = by_attribute if xml and xml.value_kind == AInXmlValueKind.ATTRIBUTE else by_element
             if qname in lookup:
                 raise ValueError('Ambiguous XML QName declared by fields ' + lookup[qname] + ' and ' + name)
@@ -213,7 +219,7 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
                 # Store an entire standalone XML subtree, including its attributes,
                 # nested elements and namespace declarations, not merely text.
                 fragment = ET.tostring(child, encoding='unicode')
-                namespace_contract = cls._wildcard_contract(field_name)
+                namespace_contract = cls._wildcard_contract(descriptor.field_name)
                 value = xml_wildcard_class(namespace_contract)(fragment)
                 if field_name in repeated:
                     values.setdefault(field_name, []).append(value)

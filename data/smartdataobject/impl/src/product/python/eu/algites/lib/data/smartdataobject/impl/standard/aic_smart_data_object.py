@@ -31,13 +31,58 @@ from eu.algites.lib.text.format.ain_text_output_object_reference_mode import AIn
 
 
 
+def _canonical_getter_identity(getter_name: str) -> str:
+    """Obtain the canonical Java/Python contract identity from a standard getter.
+
+    Custom source naming must be explicitly resolved by a codegen naming
+    catalog; the SmartData runtime never infers naming from field_name.
+    """
+    import re
+    match = re.fullmatch(r'get([A-Z][A-Za-z0-9]*)', getter_name)
+    if match is None:
+        raise ValueError('Getter needs an explicitly resolved semantic identity: ' + getter_name)
+    return match.group(1)
+
+
+def _declared_fields(owner: type):
+    """Collect direct method decorators and supported legacy field descriptors."""
+    for declared in owner.__dict__.get('__data_object_fields__', ()):
+        yield declared
+    for getter_name, method in owner.__dict__.items():
+        descriptor = getattr(method, '__data_object_field__', None)
+        if descriptor is not None:
+            if descriptor.getter_name != getter_name:
+                raise ValueError('Mismatched annotated getter: ' + getter_name)
+            yield descriptor
+
+
+def _resolve_field_identity(owner: type, descriptor: Any, inherited: Any = None, identity_provider=None):
+    """Bind semantic identity to the getter and inherit omitted wire names."""
+    getter_name = descriptor.getter_name
+    if not getter_name:
+        # Compatibility for historical class-level descriptors. These lack a
+        # bound getter, so their previously persisted key remains unchanged.
+        # New contracts must use the method-bound AIaDataObjectField decorator.
+        semantic_id = descriptor.semantic_id or descriptor.field_name
+        return replace(descriptor, field_name=descriptor.field_name or semantic_id,
+                       semantic_id=semantic_id)
+    resolved_id = (identity_provider(owner, getter_name) if identity_provider is not None
+                   else _canonical_getter_identity(getter_name))
+    semantic_id = descriptor.semantic_id or resolved_id
+    if descriptor.semantic_id and descriptor.semantic_id != resolved_id:
+        raise ValueError('Getter and supplied semantic identity disagree: ' + getter_name)
+    if inherited is not None and descriptor.field_name and descriptor.field_name != inherited.field_name:
+        raise ValueError('Overridden getter changes fieldName: ' + semantic_id)
+    wire_name = descriptor.field_name or (inherited.field_name if inherited is not None else semantic_id)
+    return replace(descriptor, field_name=wire_name, getter_name=getter_name, semantic_id=semantic_id)
+
 def _resolve_field_descriptor_default(owner: type, descriptor: Any) -> Any:
     """Attach only an explicit, typed CPDiscovery default resolver to this field.
 
     Annotation-backed defaults and an inline schema descriptor default are mutually
     exclusive, just as explicit raw presence and an effective default are distinct.
     """
-    getter_name = descriptor.getter_name or 'get' + descriptor.name
+    getter_name = descriptor.getter_name or ('get' + descriptor.name)
     getter = owner.__dict__.get(getter_name)
     annotation = getattr(getter, '__field_default__', None)
     if annotation is None:
@@ -53,21 +98,38 @@ def _resolve_field_descriptor_default(owner: type, descriptor: Any) -> Any:
     return replace(descriptor, default_value_resolver=lambda: resolver.resolve_default(owner, getter_name))
 
 
-def _data_object_fields(cls: type) -> dict[str, Any]:
-    """Collect normalized metadata without requiring methods on the data-object marker."""
+def _data_object_fields(cls: type, identity_provider=None) -> dict[str, Any]:
+    """Resolve inherited fields by getter identity and reject data-name collisions."""
     descriptors: dict[str, Any] = {}
     owners: dict[str, type] = {}
     for base in reversed(cls.__mro__):
-        for declared in base.__dict__.get('__data_object_fields__', ()):
-            descriptor = _resolve_field_descriptor_default(base, declared)
-            previous = descriptors.get(descriptor.name)
+        for declared in _declared_fields(base):
+            identity = (declared.semantic_id or declared.field_name if not declared.getter_name
+                    else declared.semantic_id or (identity_provider(base, declared.getter_name)
+                         if identity_provider is not None else _canonical_getter_identity(declared.getter_name)))
+            previous = descriptors.get(identity)
+            if previous is not None and owners[identity] is base:
+                raise ValueError('Two getters declare the same semantic field: ' + identity)
+            if previous is not None and previous.getter_name and declared.getter_name \
+                    and previous.getter_name != declared.getter_name:
+                raise ValueError('Inherited field changes its source getter: ' + identity)
+            descriptor = _resolve_field_identity(base, declared, previous, identity_provider)
+            descriptor = _resolve_field_descriptor_default(base, descriptor)
             if previous is not None and previous != descriptor:
-                owner = owners[descriptor.name]
+                owner = owners[identity]
                 if not issubclass(base, owner):
-                    raise ValueError('Conflicting unrelated inherited field: ' + descriptor.name)
-                _validate_field_restriction(previous, descriptor)
-            descriptors[descriptor.name] = descriptor
-            owners[descriptor.name] = base
+                    if previous != descriptor:
+                        raise ValueError('Conflicting unrelated inherited semantic field: ' + identity)
+                else:
+                    _validate_field_restriction(previous, descriptor)
+            descriptors[identity] = descriptor
+            owners[identity] = base
+    wire_owners: dict[str, str] = {}
+    for identity, descriptor in descriptors.items():
+        previous = wire_owners.setdefault(descriptor.field_name, identity)
+        if previous != identity:
+            raise ValueError('Duplicate fieldName for unrelated getters: '
+                             + descriptor.field_name + ' (' + previous + ', ' + identity + ')')
     return descriptors
 
 def _validate_field_restriction(parent: Any, child: Any) -> None:
@@ -173,9 +235,12 @@ class _Snapshot:
                      else str(obj) if kind == 'opaque' else obj)
         self.registry[key] = node
         if kind == 'smart':
-            xml_fields = getattr(type(obj), '__xml_data_object_fields__', {})
-            if not isinstance(xml_fields, Mapping):
-                raise TypeError('__xml_data_object_fields__ must map field names to XML metadata')
+            xml_fields = {}
+            for owner in reversed(type(obj).__mro__):
+                declared_xml = owner.__dict__.get('__xml_data_object_fields__', {})
+                if not isinstance(declared_xml, Mapping):
+                    raise TypeError('__xml_data_object_fields__ must map field names to XML metadata')
+                xml_fields.update(declared_xml)
             for desc in _data_object_fields(type(obj)).values():
                 present = desc.name in obj._present if isinstance(obj, AIcSmartDataObject) else True
                 if present:
@@ -186,7 +251,7 @@ class _Snapshot:
                         value = getattr(obj, getter)()
                 else:
                     value = None
-                node.fields.append(_Field(desc, xml_fields.get(desc.name), present,
+                node.fields.append(_Field(desc, xml_fields.get(desc.field_name, xml_fields.get(desc.name)), present,
                                           self.build(value) if present else self.nil))
         elif kind == 'map':
             node.entries = [(self.build(k), self.build(v)) for k, v in obj.items()]
@@ -308,7 +373,7 @@ class _Renderer:
                 if not f.present and not self.profile.diagnostic and \
                         (not self.effective or not f.descriptor.default_value_resolver):
                     continue
-                size += len(dumps(f.descriptor.name)) + 2
+                size += len(dumps(f.descriptor.field_name)) + 2
                 if f.present or self.effective and f.descriptor.default_value_resolver:
                     size += self.approximate_size(self.snapshot.value(f, self.effective), path)
                 if self.profile.diagnostic:
@@ -376,19 +441,19 @@ class _Renderer:
             else:
                 data = {} if self.profile.diagnostic else _schema_wire_metadata(type(node.obj))
                 for fld in node.fields:
-                    if fld.descriptor.name in data:
+                    if fld.descriptor.field_name in data:
                         # The configured metadata may also be an explicitly declared
                         # schema property. Emit it once, and reject contradictory values.
                         if fld.present:
                             actual = self.as_data(self.snapshot.value(fld, False))
-                            if actual != data[fld.descriptor.name]:
+                            if actual != data[fld.descriptor.field_name]:
                                 raise ValueError('Schema metadata conflicts with a data property: ' + fld.descriptor.name)
                         continue
                     if not fld.present and not self.profile.diagnostic and (not self.effective or not fld.descriptor.default_value_resolver):
                         continue
                     val = self.as_data(self.snapshot.value(fld, self.effective)) if \
                         fld.present or self.effective and fld.descriptor.default_value_resolver else None
-                    data[fld.descriptor.name] = ({'present': fld.present, **({'value': val} if fld.present else {})}
+                    data[fld.descriptor.field_name] = ({'present': fld.present, **({'value': val} if fld.present else {})}
                                                  if self.profile.diagnostic else val)
                 if self.profile.diagnostic:
                     meta = {'type': type(node.obj).__name__}
@@ -522,9 +587,9 @@ class _Renderer:
                 if node.kind == 'smart':
                     schema_fields = {} if self.profile.diagnostic else _schema_wire_metadata(type(node.obj))
                     for f in node.fields:
-                        if f.descriptor.name in schema_fields and f.present:
+                        if f.descriptor.field_name in schema_fields and f.present:
                             actual = self.as_data(self.snapshot.value(f, False))
-                            if actual != schema_fields[f.descriptor.name]:
+                            if actual != schema_fields[f.descriptor.field_name]:
                                 raise ValueError('Schema metadata conflicts with a data property: ' + f.descriptor.name)
                     for schema_key, schema_value in schema_fields.items():
                         lines.append(' ' * level + dumps(schema_key) + ': ' + _json_text(schema_value))
@@ -533,7 +598,7 @@ class _Renderer:
                         if not f.present and not self.profile.diagnostic and \
                                 (not self.effective or not f.descriptor.default_value_resolver):
                             continue
-                        if f.descriptor.name not in schema_fields:
+                        if f.descriptor.field_name not in schema_fields:
                             fields.append(f)
                     if self.profile.diagnostic:
                         meta = {'type': type(node.obj).__name__}
@@ -548,7 +613,7 @@ class _Renderer:
                     if not fields and not schema_fields:
                         lines.append(' ' * level + '{}')
                     for f in fields:
-                        locKey = ' ' * level + dumps(f.descriptor.name) + ': '
+                        locKey = ' ' * level + dumps(f.descriptor.field_name) + ': '
                         if self.profile.diagnostic:
                             lines.append(locKey)
                             lines.append(' ' * (level + 2) + 'present: ' + str(f.present).lower())
@@ -593,19 +658,8 @@ class AIcSmartDataObject(AIiSmartDataObject):
 
     @classmethod
     def _fields(cls) -> dict[str, Any]:
-        data: dict[str, Any] = {}
-        owners: dict[str, type] = {}
-        for base in reversed(cls.__mro__):
-            for declared in base.__dict__.get('__data_object_fields__', ()):
-                fld = _resolve_field_descriptor_default(base, declared)
-                if fld.name in data and data[fld.name] != fld:
-                    owner = owners[fld.name]
-                    if not issubclass(base, owner):
-                        raise ValueError('Conflicting unrelated inherited field: ' + fld.name)
-                    _validate_field_restriction(data[fld.name], fld)
-                data[fld.name] = fld
-                owners[fld.name] = base
-        return data
+        """Resolve canonical getter identities and their external data names."""
+        return _data_object_fields(cls)
 
     def __init__(self, aMapping: Mapping[str, AIidVirtualFieldValue] | None = None):
         self._values: dict[str, Any] = {}
@@ -628,18 +682,20 @@ class AIcSmartDataObject(AIiSmartDataObject):
         for key, expected in wire_metadata.items():
             if key in aValue and aValue[key] != expected:
                 raise ValueError('Schema metadata does not match declared contract: ' + key)
-        aValue = {key: value for key, value in aValue.items() if key not in wire_metadata or key in fields}
-        # A generated schema may explicitly declare the same system property.
-        # Populate that field with the validated contract value when omitted.
+        wire_names = {descriptor.field_name: semantic_id
+                      for semantic_id, descriptor in fields.items()}
+        # A system-property field is injected using its declared external name.
+        external = {key: value for key, value in aValue.items()
+                    if key not in wire_metadata or key in wire_names}
         for key, expected in wire_metadata.items():
-            if key in fields and key not in aValue:
-                aValue[key] = expected
-        unknown = set(aValue) - fields.keys()
+            if key in wire_names and key not in external:
+                external[key] = expected
+        unknown = set(external) - wire_names.keys()
         if unknown:
             raise ValueError('Unknown DataObject fields: ' + repr(sorted(unknown)))
         result = cls()
-        for name, value in aValue.items():
-            result.set_RawField(name, value)
+        for data_name, value in external.items():
+            result.set_RawField(wire_names[data_name], value)
         problems = result._getValidationIssues(AInSdoFieldValueLoadingMode.RAW_VALUES)
         if problems:
             raise AIxSmartDataValidationException(problems)
@@ -659,10 +715,11 @@ class AIcSmartDataObject(AIiSmartDataObject):
                 visiting.add(identity)
                 try:
                     result = _schema_wire_metadata(type(value))
-                    for name in value._fields():
-                        if name not in value._present:
+                    for semantic_id, descriptor in value._fields().items():
+                        if semantic_id not in value._present:
                             continue
-                        actual = convert(value._values[name])
+                        name = descriptor.field_name
+                        actual = convert(value._values[semantic_id])
                         if name in result:
                             if actual != result[name]:
                                 raise ValueError('Schema metadata conflicts with a data property: ' + name)
@@ -751,7 +808,7 @@ class AIcSmartDataObject(AIiSmartDataObject):
             raise ValueError('Field is forbidden by derived schema: ' + definition.name)
 
     def _allow_non_present_read(self, name: str, definition: Any) -> bool:
-        getter_name = definition.getter_name or 'get' + name
+        getter_name = definition.getter_name
         for cls in type(self).__mro__:
             getter = cls.__dict__.get(getter_name)
             if getter is not None and hasattr(getter, '__smart_data_object_allow_non_present_read__'):
