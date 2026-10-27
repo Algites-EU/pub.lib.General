@@ -53,9 +53,23 @@ MODUSTRO_GENERAL_BOOTSTRAP_VERSION="$locVersion" \
     "${locGradle[@]}" "${locGradleArgs[@]}" publishAllPublicationsToBootstrapRepository
 "$locPython" "$locHelper" verify-maven "${locArgs[@]}"
 "$locPython" "$locHelper" package-python "${locArgs[@]}" --python-executable "$locPython"
-[[ "$(wc -l < "$locBuildRoot/packages.tsv")" == 3 ]] || { echo 'Expected three Maven profiles' >&2; exit 1; }
-[[ "$(wc -l < "$locBuildRoot/python-packages.tsv")" == 3 ]] || { echo 'Expected three Python profiles' >&2; exit 1; }
-echo "Three Java and three Python naming profiles prepared: $locBuildRoot"
+# Each helper verifies every selected naming profile; the manifests are
+# authoritative for the number of distributions actually prepared.
+locJavaCount="$(wc -l < "$locBuildRoot/packages.tsv")"
+locPythonCount="$(wc -l < "$locBuildRoot/python-packages.tsv")"
+
+# Promote the entire verified staging publication set to Maven Local only after
+# Python distributions are also ready. The upload reads Maven Local bytes.
+locStagedManifest="$locBuildRoot/packages.tsv"
+locStagedJson="$locBuildRoot/staged-publications.json"
+"$locPython" "$locRepository/devtools/bootstrap-maven-stage.py" collect-tsv --tsv "$locStagedManifest" --output "$locStagedJson"
+"$locPython" "$locRepository/devtools/bootstrap-maven-stage.py" promote --manifest "$locStagedJson" --output "$locBuildRoot/local-packages.tsv"
+locVerifyGradle="${MODUSTRO_GRADLE_EXECUTABLE:-$locRepository/gradlew}"
+"$locPython" "$locRepository/devtools/bootstrap-maven-stage.py" verify-gradle --manifest "$locBuildRoot/local-packages.tsv" --gradle "$locVerifyGradle" --work "$locBuildRoot/local-gradle-verification"
+locCloudsmithManifest="$locBuildRoot/local-packages.tsv"
+cp "$locCloudsmithManifest" "$locBuildRoot/packages.tsv"
+
+echo "Prepared $locJavaCount Maven naming profiles and $locPythonCount Python naming profiles (wheel + sdist): $locBuildRoot"
 if [[ "$locAction" == --prepare-only || "${MODUSTRO_BOOTSTRAP_PREPARE_ONLY:-0}" == 1 ]]; then
     exit 0
 fi
@@ -69,4 +83,4 @@ algites-cloudsmith --session -- bash -c '
         cloudsmith push python "$3" "$wheel"
         cloudsmith push python "$3" "$sdist"
     done < "$4"
-' _ "$locJavaRepo" "$locBuildRoot/packages.tsv" "$locPythonRepo" "$locBuildRoot/python-packages.tsv"
+' _ "$locJavaRepo" "$locCloudsmithManifest" "$locPythonRepo" "$locBuildRoot/python-packages.tsv"

@@ -25,8 +25,6 @@ import yaml
 SOURCES = ('src/product/python', 'src/product/python.gen', 'src/product/config', 'src/product/resources',
            'src/product/xmldefs', 'src/product/yamldefs', 'src/product/jsondefs')
 IGNORED = {'__pycache__', '.pytest_cache', 'build', 'node_modules', '.mypy_cache'}
-EXPECTED_JAVA = 34
-EXPECTED_PYTHON = 12
 JAVA_FIXED_VERSIONS = {
     'com.fasterxml.jackson.core:jackson-databind': '2.18.3',
     'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml': '2.18.3',
@@ -151,9 +149,10 @@ def module_records(repository: Path, release: str, py_release: str) -> list[dict
             'java': 'java' in kinds, 'python': 'python' in kinds,
             'dependencies': dependencies, 'pythonDependencies': list(dict.fromkeys(python_deps)),
         })
-    if len([v for v in records if v['java']]) != EXPECTED_JAVA or len([v for v in records if v['python']]) != EXPECTED_PYTHON:
-        raise ValueError(f'Unexpected native module count: {sum(v["java"] for v in records)} Java, '
-                         f'{sum(v["python"] for v in records)} Python; expected {EXPECTED_JAVA}/{EXPECTED_PYTHON}')
+    if not records:
+        raise ValueError('No native Java or Python products declared in modustro-artifact.yml')
+    # Artifact descriptors, rather than a manually maintained number of packages,
+    # determine which native products must be prepared and verified.
     lookup = {v['artifactId']: v for v in records}
     for record in records:
         for dep in record['dependencies']:
@@ -415,8 +414,8 @@ def main() -> None:
         profile_paths = {f'naming/convention/{name}' for name in
                          ('algites', 'standardprefix', 'standardpostfix')}
         selected = [r for r in records if r['path'] in profile_paths]
-        if len(selected) != 3:
-            raise ValueError(f'Expected three naming profiles, found {len(selected)}')
+        if len(selected) != len(profile_paths):
+            raise ValueError(f'Expected {len(profile_paths)} declared naming profiles, found {len(selected)}')
         selected_ids = {r['artifactId'] for r in selected}
         for record in selected:
             deps = []

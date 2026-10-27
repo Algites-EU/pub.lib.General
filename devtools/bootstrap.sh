@@ -123,15 +123,28 @@ MODUSTRO_GENERAL_BOOTSTRAP_OUTPUT="$locBuildRoot" MODUSTRO_GENERAL_BOOTSTRAP_VER
 
 "$locPython" "$locHelper" verify-maven "${locArgs[@]}"
 "$locPython" "$locHelper" package-python "${locArgs[@]}" --python-executable "$locPython"
-[[ "$(wc -l < "$locBuildRoot/packages.tsv")" == 34 ]] || { echo 'Unexpected Maven manifest size' >&2; exit 1; }
-[[ "$(wc -l < "$locBuildRoot/python-packages.tsv")" == 12 ]] || { echo 'Unexpected Python manifest size' >&2; exit 1; }
+# The descriptor-driven verification helpers have checked every selected
+# publication. Count the resulting manifests instead of comparing to constants.
+locJavaCount="$(wc -l < "$locBuildRoot/packages.tsv")"
+locPythonCount="$(wc -l < "$locBuildRoot/python-packages.tsv")"
+
+
+# Promote the entire verified staging publication set to Maven Local only after
+# Python distributions are also ready. The upload reads Maven Local bytes.
+locStagedManifest="$locBuildRoot/packages.tsv"
+locStagedJson="$locBuildRoot/staged-publications.json"
+"$locPython" "$locRepo/devtools/bootstrap-maven-stage.py" collect-tsv --tsv "$locStagedManifest" --output "$locStagedJson"
+"$locPython" "$locRepo/devtools/bootstrap-maven-stage.py" promote --manifest "$locStagedJson" --output "$locBuildRoot/local-packages.tsv"
+locVerifyGradle="${MODUSTRO_GRADLE_EXECUTABLE:-$locRepo/gradlew}"
+"$locPython" "$locRepo/devtools/bootstrap-maven-stage.py" verify-gradle --manifest "$locBuildRoot/local-packages.tsv" --gradle "$locVerifyGradle" --work "$locBuildRoot/local-gradle-verification"
+locCloudsmithManifest="$locBuildRoot/local-packages.tsv"
 
 # Same manifest-output override as the other Modustro bootstraps; do not move
 # the real staging area or rebuild for a later --upload invocation.
 locManifestOutput="${MODUSTRO_BOOTSTRAP_OUTPUT_DIR:-$locBuildRoot}"
 mkdir -p "$locManifestOutput"
-if [[ "$locManifestOutput/packages.tsv" != "$locBuildRoot/packages.tsv" ]]; then
-    cp "$locBuildRoot/packages.tsv" "$locManifestOutput/packages.tsv"
+if [[ "$locManifestOutput/packages.tsv" != "$locCloudsmithManifest" ]]; then
+    cp "$locCloudsmithManifest" "$locManifestOutput/packages.tsv"
 fi
 if [[ "$locManifestOutput/python-packages.tsv" != "$locBuildRoot/python-packages.tsv" ]]; then
     cp "$locBuildRoot/python-packages.tsv" "$locManifestOutput/python-packages.tsv"
@@ -140,7 +153,7 @@ if [[ "$locManifestOutput/python-release.txt" != "$locBuildRoot/python-release.t
     cp "$locBuildRoot/python-release.txt" "$locManifestOutput/python-release.txt"
 fi
 
-echo 'Prepared 34 Maven artifacts and 12 Python wheels with their sdists.'
+echo "Prepared $locJavaCount Maven artifacts and $locPythonCount Python wheels with their sdists (discovered from product descriptors)."
 echo "Java manifest: $locManifestOutput/packages.tsv"
 echo "Python manifest: $locManifestOutput/python-packages.tsv"
 if [[ "$locPrepareOnly" == 1 ]]; then
@@ -167,6 +180,6 @@ algites-cloudsmith --session -- bash -c '
         cloudsmith push python "$locPythonRepo" "$locWheel"
         cloudsmith push python "$locPythonRepo" "$locSdist"
     done < "$locPythonManifest"
-' _ "$locJavaRepo" "$locBuildRoot/packages.tsv" "$locPythonRepo" "$locBuildRoot/python-packages.tsv"
+' _ "$locJavaRepo" "$locCloudsmithManifest" "$locPythonRepo" "$locBuildRoot/python-packages.tsv"
 
 echo 'Cloudsmith upload finished.'

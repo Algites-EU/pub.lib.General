@@ -52,7 +52,7 @@ if a.action == 'plan':
     (root / 'python-release.txt').write_text('1.1.dev20261024000000\\n')
 elif a.action == 'verify-maven':
     files = []
-    for i in range(34):
+    for i in range(int(os.environ.get('TEST_JAVA_COUNT', '34'))):
         base = root / f'maven-{i}'
         paths = [Path(str(base) + s) for s in ('.jar', '.pom', '.module', '-sources.jar')]
         for path in paths:
@@ -61,12 +61,41 @@ elif a.action == 'verify-maven':
     (root / 'packages.tsv').write_text('\\n'.join(files) + '\\n')
 elif a.action == 'package-python':
     files = []
-    for i in range(12):
+    for i in range(int(os.environ.get('TEST_PYTHON_COUNT', '12'))):
         paths = [root / f'package-{i}.whl', root / f'package-{i}.tar.gz']
         for path in paths:
             path.write_bytes(b'test')
         files.append('\\t'.join(map(str, paths)))
     (root / 'python-packages.tsv').write_text('\\n'.join(files) + '\\n')
+''', encoding='utf-8'
+    )
+    # The real stage helper has its own integration tests. For this CLI
+    # fixture mock its three commands to verify that bootstrap still invokes
+    # the complete staging/promotion pipeline (not just a manifest shortcut).
+    (root / 'devtools/bootstrap-maven-stage.py').write_text(
+        '''import argparse
+import json
+import os
+from pathlib import Path
+p = argparse.ArgumentParser()
+p.add_argument('action')
+p.add_argument('--tsv')
+p.add_argument('--output')
+p.add_argument('--manifest')
+p.add_argument('--gradle')
+p.add_argument('--work')
+a = p.parse_args()
+with open(os.environ['TEST_LOG'], 'a') as stream:
+    stream.write('stage:' + a.action + '\\n')
+if a.action == 'collect-tsv':
+    Path(a.output).write_text(json.dumps({'source': a.tsv}), encoding='utf-8')
+elif a.action == 'promote':
+    import shutil
+    shutil.copyfile(json.loads(Path(a.manifest).read_text())['source'], a.output)
+elif a.action == 'verify-gradle':
+    assert Path(a.manifest).is_file()
+else:
+    raise SystemExit('Unexpected stage helper action: ' + a.action)
 ''', encoding='utf-8'
     )
     bin_dir = tmp_path / 'bin'
@@ -120,6 +149,9 @@ def test_default_invocation_prepares_and_uploads_once(fake_repository):
     assert log.count('helper:plan') == 1
     assert log.count('helper:verify-maven') == 1
     assert log.count('helper:package-python') == 1
+    assert log.count('stage:collect-tsv') == 1
+    assert log.count('stage:promote') == 1
+    assert log.count('stage:verify-gradle') == 1
     assert log.count('gradle:') == 1
     assert '--refresh-dependencies' in log
     assert log.count('wrapper:--session -- ') == 1
@@ -199,3 +231,18 @@ def test_help_does_not_require_dependencies(fake_repository):
     assert result.returncode == 0
     assert 'MODUSTRO_BOOTSTRAP_PREPARE_ONLY=1' in result.stdout
     assert log == ''
+
+
+def test_manifest_counts_follow_actual_prepared_artifacts(fake_repository):
+    """Different discovered totals must succeed and be printed verbatim."""
+    result, log = run_bootstrap(
+        fake_repository, '--prepare-only',
+        TEST_JAVA_COUNT='5', TEST_PYTHON_COUNT='2',
+    )
+    assert result.returncode == 0, result.stderr
+    assert 'Prepared 5 Maven artifacts and 2 Python wheels' in result.stdout
+    assert log.count('stage:verify-gradle') == 1
+    assert 'cloudsmith:' not in log
+    root, _ = fake_repository
+    assert len((root / 'build/run/general-bootstrap/packages.tsv').read_text().splitlines()) == 5
+    assert len((root / 'build/run/general-bootstrap/python-packages.tsv').read_text().splitlines()) == 2
