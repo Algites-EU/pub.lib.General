@@ -45,8 +45,9 @@ def test_generated_gradle_respects_shared_dependency_precedence(tmp_path):
     BOOT.stage_gradle(ROOT, tmp_path, records, '1.1-SNAPSHOT')
     gradle = (tmp_path / 'gradle/build.gradle').read_text()
     assert "MODUSTRO_BOOTSTRAP_DEPENDENCY_MODE" in gradle
-    assert "if (bootstrapMode != 'remote') mavenLocal()" in gradle
-    assert "if (bootstrapMode == 'remote') mavenLocal()" in gradle
+    assert "if (bootstrapMode != 'remote') maven { name = 'modustro-local'" in gradle
+    assert "if (bootstrapMode == 'remote') maven {" in gradle
+    assert "mavenLocal()" not in gradle
     assert "includeGroupByRegex" in gradle
 
 

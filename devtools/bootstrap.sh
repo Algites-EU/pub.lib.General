@@ -137,6 +137,8 @@ locStagedJson="$locBuildRoot/staged-publications.json"
 "$locPython" "$locRepo/devtools/bootstrap-maven-stage.py" promote --manifest "$locStagedJson" --output "$locBuildRoot/local-packages.tsv"
 locVerifyGradle="${MODUSTRO_GRADLE_EXECUTABLE:-$locRepo/gradlew}"
 "$locPython" "$locRepo/devtools/bootstrap-maven-stage.py" verify-gradle --manifest "$locBuildRoot/local-packages.tsv" --gradle "$locVerifyGradle" --work "$locBuildRoot/local-gradle-verification"
+# Publish verified Python distributions to the shared Modustro local Simple index.
+"${ALGITES_PYTHON_EXECUTABLE:-python3}" "$locRepo/devtools/modustro-local-python-repo.py" publish --manifest "$locBuildRoot/python-packages.tsv"
 locCloudsmithManifest="$locBuildRoot/local-packages.tsv"
 
 # Same manifest-output override as the other Modustro bootstraps; do not move

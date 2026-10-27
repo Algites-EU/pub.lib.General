@@ -66,6 +66,8 @@ locStagedJson="$locBuildRoot/staged-publications.json"
 "$locPython" "$locRepository/devtools/bootstrap-maven-stage.py" promote --manifest "$locStagedJson" --output "$locBuildRoot/local-packages.tsv"
 locVerifyGradle="${MODUSTRO_GRADLE_EXECUTABLE:-$locRepository/gradlew}"
 "$locPython" "$locRepository/devtools/bootstrap-maven-stage.py" verify-gradle --manifest "$locBuildRoot/local-packages.tsv" --gradle "$locVerifyGradle" --work "$locBuildRoot/local-gradle-verification"
+locLocalPythonRepo="${MODUSTRO_LOCAL_PYTHON_REPOSITORY:-${MODUSTRO_HOME:-$HOME/.modustro}/artifact-repos/python}"
+"$locPython" "$locRepository/devtools/modustro-local-python-repo.py" publish --manifest "$locBuildRoot/python-packages.tsv" --repository "$locLocalPythonRepo"
 locCloudsmithManifest="$locBuildRoot/local-packages.tsv"
 cp "$locCloudsmithManifest" "$locBuildRoot/packages.tsv"
 

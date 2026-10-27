@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Isolated Maven bootstrap staging, verified Maven Local promotion and Gradle resolution.
+"""Isolated Maven bootstrap staging, verified Modustro-local promotion and Gradle resolution.
 
 Only Maven publication files are promoted. Gradle's private dependency cache is
-never edited: the resolver probe uses Maven Local and checks the actual JAR SHA-256.
+never edited: the resolver probe uses the configured Modustro repository and verifies SHA-256.
 """
 from __future__ import annotations
 import argparse
@@ -15,6 +15,12 @@ import shutil
 import subprocess
 import tempfile
 import xml.etree.ElementTree as ET
+
+
+def modustro_local_maven() -> Path:
+    explicit = os.environ.get('MODUSTRO_LOCAL_MAVEN_REPOSITORY')
+    home = Path(os.environ.get('MODUSTRO_HOME') or Path.home() / '.modustro').expanduser()
+    return Path(explicit).expanduser().resolve() if explicit else (home / 'artifact-repos/java/maven').resolve()
 
 
 def digest(path: Path) -> str:
@@ -245,9 +251,10 @@ def gradle_verify(manifest: Path, gradle: str, work: Path) -> None:
     work.mkdir(parents=True, exist_ok=True)
     (work / 'settings.gradle').write_text("rootProject.name='algites-bootstrap-maven-local-verifier'\n", encoding='utf-8')
     (work / 'artifacts.json').write_text(json.dumps(config), encoding='utf-8')
+    local_repo = modustro_local_maven()
     (work / 'build.gradle').write_text('''import groovy.json.JsonSlurper
 import java.security.MessageDigest
-repositories { mavenLocal() }
+repositories { maven { url = uri(System.getenv('MODUSTRO_LOCAL_MAVEN_REPOSITORY')) } }
 configurations { bootstrapVerify { canBeConsumed = false; canBeResolved = true } }
 def expected = new JsonSlurper().parse(file('artifacts.json'))
 expected.each { row -> dependencies.add('bootstrapVerify', row.gav) { transitive = false } }
@@ -273,7 +280,7 @@ tasks.register('verifyMavenLocal') {
 ''', encoding='utf-8')
     command = ([gradle] if gradle != 'gradlew' else ['gradle'])
     subprocess.run([*command, '--no-daemon', '--refresh-dependencies', '--project-dir', str(work),
-                    'verifyMavenLocal'], check=True)
+                    'verifyMavenLocal'], check=True, env={**os.environ, 'MODUSTRO_LOCAL_MAVEN_REPOSITORY': str(local_repo)})
 
 
 def main():
@@ -288,7 +295,7 @@ def main():
     collect_tsv_cmd.add_argument('--output', type=Path, required=True)
     promote_cmd = actions.add_parser('promote')
     promote_cmd.add_argument('--manifest', type=Path, required=True)
-    promote_cmd.add_argument('--maven-local', type=Path, default=Path.home() / '.m2/repository')
+    promote_cmd.add_argument('--maven-local', type=Path, default=modustro_local_maven())
     promote_cmd.add_argument('--output', type=Path, required=True)
     verify_cmd = actions.add_parser('verify-gradle')
     verify_cmd.add_argument('--manifest', type=Path, required=True)
