@@ -1,7 +1,8 @@
-package eu.algites.lib.naming.convention.impl.algites;
+package eu.algites.lib.naming.convention.profile.algites;
 
 
 import eu.algites.lib.naming.convention.AIiNameConventionCatalog;
+import eu.algites.lib.naming.convention.impl.standard.AIcNameConventionCatalog;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
@@ -20,7 +21,7 @@ public final class AIcAlgitesNamingProfiles {
     }
 
     private static AIiNameConventionCatalog standard(String aKind) {
-        try { return AIcNameConventionCatalog.standard(aKind); }
+        try { return AIcNameConventionCatalog.loadResource("algites-" + aKind + "-name-conventions.yml"); }
         catch (IOException aError) { throw new UncheckedIOException(aError); }
     }
 }

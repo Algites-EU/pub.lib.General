@@ -11,7 +11,7 @@ from referencing import Registry, Resource
 
 _MODULE = Path(__file__).resolve().parents[3]
 _CONFIG = _MODULE / 'src/product/config/eu/algites/lib/naming/convention'
-_SCHEMAS = _MODULE.parent / 'intf/src/product'
+_SCHEMAS = _MODULE.parent.parent / 'intf/src/product'
 
 
 @pytest.mark.parametrize('family,suffix', [

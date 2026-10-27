@@ -25,9 +25,9 @@ Baseline: modustro-three-repositories-getter-setter-naming-final-20261021.zip
 ## File delta relative to baseline
 
 Changed (7):
-- `pub.lib.General/naming/convention/algites/src/develop/python/test_name_convention_catalog_1.py`
-- `pub.lib.General/naming/convention/algites/src/product/config/eu/algites/lib/naming/convention/algites-java-name-conventions.yml`
-- `pub.lib.General/naming/convention/algites/src/product/config/eu/algites/lib/naming/convention/algites-python-name-conventions.yml`
+- `pub.lib.General/naming/convention/profile/algites/src/develop/python/test_name_convention_catalog_1.py`
+- `pub.lib.General/naming/convention/profile/algites/src/product/config/eu/algites/lib/naming/convention/algites-java-name-conventions.yml`
+- `pub.lib.General/naming/convention/profile/algites/src/product/config/eu/algites/lib/naming/convention/algites-python-name-conventions.yml`
 - `pub.tool.General/generators/code/defscodegen/impl/src/develop/java/eu/algites/tool/codegen/defs/impl/standard/AItcSchemaParityTest.java`
 - `pub.tool.General/generators/code/defscodegen/impl/src/develop/python/test_schema_parity.py`
 - `pub.tool.General/generators/code/defscodegen/impl/src/product/java/eu/algites/tool/codegen/defs/impl/standard/AIcGenerationNames.java`
@@ -47,7 +47,7 @@ Baseline: pub.lib.General-schema-field-constant-naming-20261021.tgz
 
 ### Changes
 
-- Updated four outdated Java TestNG assertions in `naming/convention/algites/src/develop/java/eu/algites/lib/naming/convention/impl/algites/AItcNameConventionCatalog_1Test.java` from 57 to 59 profiles. The two new XML namespace profiles were already present in both Java and Python resource catalogs.
+- Updated four outdated Java TestNG assertions in `naming/convention/profile/algites/src/develop/java/eu/algites/lib/naming/convention/impl/algites/AItcNameConventionCatalog_1Test.java` from 57 to 59 profiles. The two new XML namespace profiles were already present in both Java and Python resource catalogs.
 - No catalog definitions, product Java/Python code, or generated sources were modified.
 
 ### Verification
@@ -59,7 +59,7 @@ Baseline: pub.lib.General-schema-field-constant-naming-20261021.tgz
 ### Changes relative to baseline
 
 Changed:
-- `naming/convention/algites/src/develop/java/eu/algites/lib/naming/convention/impl/algites/AItcNameConventionCatalog_1Test.java`
+- `naming/convention/profile/algites/src/develop/java/eu/algites/lib/naming/convention/impl/algites/AItcNameConventionCatalog_1Test.java`
 - `CHECKPOINT-NOTES.md` (this change log)
 
 Added: none.
@@ -68,7 +68,7 @@ Removed: none.
 ## Corrected file timestamps
 
 - Repackaged: 2026-10-21 13:54:11 CEST
-- Refreshed `mtime` for the four-assertion update in `naming/convention/algites/src/develop/java/eu/algites/lib/naming/convention/impl/algites/AItcNameConventionCatalog_1Test.java`.
+- Refreshed `mtime` for the four-assertion update in `naming/convention/profile/algites/src/develop/java/eu/algites/lib/naming/convention/impl/algites/AItcNameConventionCatalog_1Test.java`.
 - Expected naming profile count was corrected from 57 to 59 in four Java assertions. The file length remained identical (9171 bytes), causing timestamp/size-only comparison to overlook it.
 - Source content of all other repository files is unchanged.
 - Removed files: none.

@@ -2,7 +2,7 @@
 from copy import deepcopy
 
 import pytest
-from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog import AIcNameConventionCatalog
+from eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog import AIcNameConventionCatalog
 
 
 def test_disabled_source_cannot_enable_data_metadata_target():

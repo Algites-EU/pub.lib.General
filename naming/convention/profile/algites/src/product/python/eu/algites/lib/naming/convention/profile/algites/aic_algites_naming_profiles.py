@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog import AIcNameConventionCatalog
+from eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog import AIcNameConventionCatalog
 
 
 class AIcAlgitesNamingProfiles:
@@ -8,8 +8,8 @@ class AIcAlgitesNamingProfiles:
 
     @staticmethod
     def java_profile() -> AIcNameConventionCatalog:
-        return AIcNameConventionCatalog.standard('java')
+        return AIcNameConventionCatalog.load_resource('algites-java-name-conventions.yml')
 
     @staticmethod
     def python_profile() -> AIcNameConventionCatalog:
-        return AIcNameConventionCatalog.standard('python')
+        return AIcNameConventionCatalog.load_resource('algites-python-name-conventions.yml')

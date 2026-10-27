@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 from pathlib import Path
+import sys
 import pytest
 
-from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog import AIcNameConventionCatalog
+from eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog import AIcNameConventionCatalog
 
 
 ROOT = Path(__file__).resolve().parents[3] / 'src/product/config/eu/algites/lib/naming/convention'
+SHARED_CONFIG = Path(__file__).resolve().parents[5] / 'intf/src/product/config'
+sys.path.insert(0, str(SHARED_CONFIG))
 
 
 def catalog(language: str) -> AIcNameConventionCatalog:
@@ -15,7 +18,7 @@ def catalog(language: str) -> AIcNameConventionCatalog:
 
 def test_name_match_is_in_its_own_public_type_module():
     """Each publicly named Algites type has exactly one matching product module."""
-    from eu.algites.lib.naming.convention.impl.algites.aicd_name_match import AIcdNameMatch
+    from eu.algites.lib.naming.convention.impl.standard.aicd_name_match import AIcdNameMatch
 
     catalog_match = catalog('java').recognize_filename('AIigCustomer_1.java')
     assert isinstance(catalog_match, AIcdNameMatch)
@@ -93,7 +96,7 @@ def test_ambiguous_file_names_rejected():
     # Deliberately duplicate a profile and require a clear ambiguity error.
     root['SourceStructureNameConventions']['NameConventions']['duplicate'] = root['SourceStructureNameConventions']['NameConventions']['algites-java-gen-intf-versioned_1']
     with pytest.raises(ValueError, match='Ambiguous'):
-        cat = AIcNameConventionCatalog({**root, 'IdentifierConventions': {**yaml.safe_load((ROOT/'standard-conventions.yml').read_text())['IdentifierConventions']}, 'VersionConventions':yaml.safe_load((ROOT/'standard-conventions.yml').read_text())['VersionConventions']})
+        cat = AIcNameConventionCatalog({**root, 'IdentifierConventions': {**yaml.safe_load((SHARED_CONFIG/'eu/algites/lib/naming/convention/standard-conventions.yml').read_text())['IdentifierConventions']}, 'VersionConventions':yaml.safe_load((SHARED_CONFIG/'eu/algites/lib/naming/convention/standard-conventions.yml').read_text())['VersionConventions']})
         cat.recognize_filename('AIigCustomer_1.java')
 
 
@@ -140,11 +143,12 @@ def test_custom_version_named_variables_can_be_recomposed():
 
 def test_all_naming_catalogs_exist_under_product_config():
     """Configuration files are maintained once under the Modustro config resource root."""
-    expected = {'standard-conventions.yml', 'algites-java-name-conventions.yml',
+    expected = {'algites-java-name-conventions.yml',
                 'algites-python-name-conventions.yml', 'algites-yamldef-name-conventions.yml',
                 'algites-jsondef-name-conventions.yml', 'algites-xmldef-name-conventions.yml',
                 'example-input.yml', 'example-output.yml'}
     assert {p.name for p in ROOT.glob('*.yml')} == expected
+    assert (SHARED_CONFIG/'eu/algites/lib/naming/convention/standard-conventions.yml').is_file()
 
 
 @pytest.mark.parametrize('language,expected_parameter,expected_local', [
@@ -218,15 +222,16 @@ def test_standard_catalog_uses_python_import_roots_independent_of_checkout(tmp_p
     import sys
 
     module_root = ROOT.parents[5] / 'python'
+    generic_root = ROOT.parents[9] / 'impl/src/product/python'
     config_root = ROOT.parents[5] / 'config'
     assert module_root.is_dir() and config_root.is_dir()
     unrelated = tmp_path / 'unrelated-directory'
     unrelated.mkdir()
-    code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog "
+    code = ("from eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog "
             "import AIcNameConventionCatalog; "
-            "assert len(AIcNameConventionCatalog.standard('java').names) == 59; "
-            "assert len(AIcNameConventionCatalog.standard('python').names) == 59")
-    env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(config_root))))
+            "assert len(AIcNameConventionCatalog.load_resource('algites-java-name-conventions.yml').names) == 59; "
+            "assert len(AIcNameConventionCatalog.load_resource('algites-python-name-conventions.yml').names) == 59")
+    env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(generic_root), str(config_root), str(SHARED_CONFIG))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
 
 
@@ -238,20 +243,27 @@ def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
     import sys
 
     module_root = ROOT.parents[5] / 'python'
+    generic_root = ROOT.parents[9] / 'impl/src/product/python'
     stage = tmp_path / 'wheel-packages'
-    destination = (stage / 'algites/pub/lib/general/naming/convention/algites'
+    destination = (stage / 'algites/pub/lib/general/naming/convention/profile/algites'
                    / 'eu/algites/lib/naming/convention')
     destination.mkdir(parents=True)
     for item in ROOT.glob('*.yml'):
         shutil.copy2(item, destination / item.name)
+    metadata = stage / 'eu_algites_pub_lib_general_naming_convention_profile_algites-1.1.dev1.dist-info'
+    metadata.mkdir(parents=True)
+    (metadata / 'METADATA').write_text('Metadata-Version: 2.1\nName: eu-algites-pub-lib-general-naming-convention-profile-algites\nVersion: 1.1.dev1\n')
+    shared = stage / 'algites/pub/lib/general/naming/convention/intf/eu/algites/lib/naming/convention'
+    shared.mkdir(parents=True)
+    shutil.copy2(SHARED_CONFIG/'eu/algites/lib/naming/convention/standard-conventions.yml', shared/'standard-conventions.yml')
     unrelated = tmp_path / 'outside-repository'
     unrelated.mkdir()
-    code = ("from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog "
+    code = ("from eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog "
             "import AIcNameConventionCatalog; "
-            "assert len(AIcNameConventionCatalog.standard('java').names) == 59; "
-            "assert len(AIcNameConventionCatalog.standard('python').names) == 59; "
+            "assert len(AIcNameConventionCatalog.load_resource('algites-java-name-conventions.yml').names) == 59; "
+            "assert len(AIcNameConventionCatalog.load_resource('algites-python-name-conventions.yml').names) == 59; "
             "assert len(AIcNameConventionCatalog.load_resource('algites-yamldef-name-conventions.yml').names) == 2")
-    env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(stage))))
+    env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(generic_root), str(stage))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
 
 

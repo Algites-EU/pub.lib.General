@@ -44,9 +44,21 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
     public static AIcNameConventionCatalog load(Path aPath) throws IOException {
         Path locPath = aPath.toAbsolutePath().normalize();
         JsonNode locDocument = MAPPER.readTree(locPath.toFile());
-        JsonNode locStandard = locDocument.has("StandardConventionsFile")
-                ? MAPPER.readTree(locPath.resolveSibling(locDocument.get("StandardConventionsFile").asText()).toFile())
-                : MAPPER.createObjectNode();
+        JsonNode locStandard = MAPPER.createObjectNode();
+        if (locDocument.has("StandardConventionsFile")) {
+            String locName = locDocument.path("StandardConventionsFile").asText();
+            if (!locName.matches("[A-Za-z0-9][A-Za-z0-9_.-]*\\.yml"))
+                throw new IOException("Invalid standard naming catalog resource: " + locName);
+            Path locSibling = locPath.resolveSibling(locName);
+            if (Files.isRegularFile(locSibling)) locStandard = MAPPER.readTree(locSibling.toFile());
+            else {
+                String locShared = "eu/algites/lib/naming/convention/" + locName;
+                try (var locStream = AIcNameConventionCatalog.class.getClassLoader().getResourceAsStream(locShared)) {
+                    if (locStream == null) throw new IOException("Missing shared standard naming resource: " + locShared);
+                    locStandard = MAPPER.readTree(locStream);
+                }
+            }
+        }
         return new AIcNameConventionCatalog(locDocument, locStandard);
     }
 

@@ -79,7 +79,11 @@ class AIcNameConventionCatalog:
             standard_name = config['StandardConventionsFile']
             if not isinstance(standard_name, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*\.yml', standard_name):
                 raise ValueError(f'Invalid standard conventions resource name: {standard_name!r}')
-            standard = yaml.safe_load(read_text(standard_name))
+            try:
+                standard_text = read_text(standard_name)
+            except FileNotFoundError:
+                standard_text = cls._read_standard_resource(standard_name)
+            standard = yaml.safe_load(standard_text)
             if not isinstance(standard, dict):
                 raise ValueError(f'Standard conventions document must be a mapping: {standard_name}')
             for section in ('IdentifierConventions', 'VersionConventions'):
@@ -90,6 +94,28 @@ class AIcNameConventionCatalog:
                     combined[name] = item
                 config[section] = combined
         return cls(config)
+
+    @staticmethod
+    def _read_standard_resource(filename: str) -> str:
+        """Resolve shared naming grammar exclusively from the intf distribution.
+
+        A profile's YAML file may live in a separate wheel; its standard naming
+        rules are packaged just once by the naming-convention intf product.
+        Source checkouts may expose intf/src/product/config as an import root.
+        """
+        providers = (
+            ('eu.algites.lib.naming.convention', ()),
+            ('algites.pub.lib.general.naming.convention.intf',
+             ('eu', 'algites', 'lib', 'naming', 'convention')),
+        )
+        for package, subpath in providers:
+            try:
+                resource = resources.files(package).joinpath(*subpath, filename)
+            except (ModuleNotFoundError, TypeError):
+                continue
+            if resource.is_file():
+                return resource.read_text(encoding='utf-8')
+        raise FileNotFoundError(f'Missing shared naming conventions from intf artifact: {filename}')
 
     @classmethod
     def load(cls, path: str | Path) -> AIcNameConventionCatalog:
@@ -114,7 +140,7 @@ class AIcNameConventionCatalog:
             name = distribution.metadata.get('Name', '').replace('_', '-').lower()
             prefix = 'eu-algites-pub-lib-general-naming-convention-'
             if name.startswith(prefix):
-                providers.append((f'algites.pub.lib.general.naming.convention.{name[len(prefix):]}',
+                providers.append((f'algites.pub.lib.general.naming.convention.{name[len(prefix):].replace("-", ".")}',
                                   ('eu', 'algites', 'lib', 'naming', 'convention')))
         for package, subpath in providers:
             try:

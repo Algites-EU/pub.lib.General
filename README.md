@@ -243,7 +243,7 @@ produce derived profiles rather than modifying existing instances.
 
 ### YAML naming composition examples (1.1)
 
-The resource catalog in `naming/convention/algites/src/product/config/eu/algites/lib/naming/convention/`
+The resource catalog in `naming/convention/profile/algites/src/product/config/eu/algites/lib/naming/convention/`
 contains two standalone, schema-compatible examples:
 
 - `example-input.yml` describes how a name is **parsed** using a conventional
@@ -261,9 +261,9 @@ catalogs and appending the output's `file_name_suffix` creates
 
 ```python
 from pathlib import Path
-from eu.algites.lib.naming.convention.impl.algites.aic_name_convention_catalog import AIcNameConventionCatalog
+from eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog import AIcNameConventionCatalog
 
-root = Path('naming/convention/algites/src/product/config/eu/algites/lib/naming/convention')
+root = Path('naming/convention/profile/algites/src/product/config/eu/algites/lib/naming/convention')
 source = AIcNameConventionCatalog.load(root / 'example-input.yml')
 target = AIcNameConventionCatalog.load(root / 'example-output.yml')
 filename = 'customer_address--eu_west--beta--2.7.demo.schema'
@@ -305,7 +305,7 @@ The shared SmartDataObject implementation enforces derived-field restrictions.
 Python contracts expose equivalent semantics. This is a breaking API migration;
 Defs/SDO generators and existing annotations must be updated together.
 
-The naming convention catalogs in `naming/convention/algites` now define 16
+The naming convention catalogs in `naming/convention/profile/algites` now define 16
 additional XML-element-specific interface/class roles for both Java and
 Python (48 each). Read the naming documentation for the `_xe` / `__xe_`
 markers and requirements for unambiguous custom profiles. Recursive canonical

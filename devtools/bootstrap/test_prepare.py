@@ -52,7 +52,7 @@ def test_generated_gradle_respects_shared_dependency_precedence(tmp_path):
 
 def test_python_stage_preserves_shared_source_configuration_and_schemas(tmp_path):
     records = BOOT.module_records(ROOT, '1.1-SNAPSHOT', '1.1.dev20261024000000')
-    module = next(item for item in records if item['path'] == 'naming/convention/algites')
+    module = next(item for item in records if item['path'] == 'naming/convention/profile/algites')
     package = BOOT.stage_one_python(ROOT, tmp_path, module, '1.1.dev20261024000000')
     assert any((package / 'src').rglob('*.yml'))
     assert any((package / 'src').rglob('*.py'))
@@ -164,3 +164,27 @@ def test_verify_maven_rejects_wrong_snapshot_metadata_identity(tmp_path):
                                                     '<version>9.9-SNAPSHOT</version>'))
     with pytest.raises(ValueError, match='snapshot metadata identity'):
         BOOT.verify_maven(tmp_path, [record], '1.1-SNAPSHOT')
+
+
+def test_naming_profiles_publish_under_single_profile_set_with_one_shared_grammar():
+    """Avoid artifact-coordinate drift and accidental resource duplication."""
+    root = ROOT / 'naming/convention'
+    records = BOOT.module_records(ROOT, '1.1-SNAPSHOT', '1.1.dev20261027000000')
+    profile_records = [r for r in records if r['path'].startswith('naming/convention/profile/')]
+    assert {r['path'] for r in profile_records} == {
+        f'naming/convention/profile/{name}' for name in
+        ('algites', 'standardprefix', 'standardpostfix')}
+    assert all(r['artifactId'].startswith('pub.lib.General_naming.convention.profile.')
+               for r in profile_records)
+    config = 'src/product/config/eu/algites/lib/naming/convention/standard-conventions.yml'
+    shared = root / 'intf' / config
+    assert shared.is_file()
+    assert [p for p in root.rglob('standard-conventions.yml')] == [shared]
+    java_catalogs = list(root.rglob('AIcNameConventionCatalog.java'))
+    python_catalogs = list(root.rglob('aic_name_convention_catalog.py'))
+    assert len(java_catalogs) == len(python_catalogs) == 1
+    assert '/impl/' in java_catalogs[0].as_posix()
+    assert '/impl/' in python_catalogs[0].as_posix()
+    algites = next(r for r in profile_records if r['path'].endswith('/algites'))
+    assert any(d['artifactId'] == 'pub.lib.General_naming.convention.impl'
+               for d in algites['dependencies'] if d['kind'] == 'project')

@@ -378,7 +378,7 @@ def verify_maven(work: Path, records: list[dict], release: str) -> None:
             raise ValueError(f'Incorrect Maven POM coordinates for {record["artifactId"]}: {names}')
         with zipfile.ZipFile(jar) as archive:
             if not any(n.endswith('.class') for n in archive.namelist()):
-                if not record['path'].startswith('naming/convention/standard') or not any(
+                if not record['path'].startswith('naming/convention/profile/') or not any(
                         n.endswith('.yml') for n in archive.namelist()):
                     raise ValueError(f'JAR has neither compiled classes nor profile resources: {jar}')
         rows.append((str(jar), str(pom), str(module), str(sources)))
@@ -411,11 +411,9 @@ def main() -> None:
             raise ValueError('Python version changed during bootstrap')
     records=module_records(repository,args.version,release)
     if args.profiles_only:
-        profile_paths = {f'naming/convention/{name}' for name in
-                         ('algites', 'standardprefix', 'standardpostfix')}
-        selected = [r for r in records if r['path'] in profile_paths]
-        if len(selected) != len(profile_paths):
-            raise ValueError(f'Expected {len(profile_paths)} declared naming profiles, found {len(selected)}')
+        selected = [r for r in records if r['path'].startswith('naming/convention/profile/')]
+        if not selected:
+            raise ValueError('No naming profile artifacts declared below naming/convention/profile/')
         selected_ids = {r['artifactId'] for r in selected}
         for record in selected:
             deps = []

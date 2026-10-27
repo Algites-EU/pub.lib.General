@@ -9,14 +9,17 @@ The new naming catalog is defined by four schema kinds in `intf/src/product/{yam
 
 The schema-derived Java/Python interfaces and enums are in `intf/src/product/java.gen` and `python.gen` (not handwritten `AIcd` DTOs).
 
-The authoritative catalog YAML files reside in `impl/src/product/config/eu/algites/lib/naming/convention/`. They are maintained once in the Modustro `config` resource root. Java exposes them as classpath resources. For Python, Modustro stages them under the naming implementation artifact's isolated resource-package namespace in its wheel; `AIcNameConventionCatalog.standard()` and `load_resource()` access them through `importlib.resources`, **not by walking from the Python module into parent directories or the source repository**. In source-checkout development the `src/product/config` directory can instead be added as an explicit Python resource root (`PYTHONPATH`/`sys.path`), alongside `src/product/python` and `src/product/python.gen`. Explicit external catalogs can also be opened with `load(path)`:
-
-- `standard-conventions.yml`
-- `algites-java-name-conventions.yml` (59 profiles)
-- `algites-python-name-conventions.yml` (59 profiles)
-- `algites-jsondef-name-conventions.yml`
-- `algites-yamldef-name-conventions.yml`
-- `algites-xmldef-name-conventions.yml`
+The common `standard-conventions.yml` is owned by `intf/src/product/config/eu/algites/lib/naming/convention/`
+and is published **once**, both in the naming interface JAR and its Python wheel.
+Specific YAML catalogs live in `profile/{algites,standardprefix,standardpostfix}/src/product/config/`.
+Their language-neutral interpreter lives exclusively in `impl` (`impl.standard.AIcNameConventionCatalog`);
+Algites-specific profile construction is provided by `profile.algites.AIcAlgitesNamingProfiles`.
+`loadResource`/`load_resource` resolve the common standard conventions from the `intf` dependency,
+not from duplicate files bundled into each profile. External catalogs passed to `load(path)` may
+provide a sibling `standard-conventions.yml`; when absent, the shared interface resource is used.
+The Python product uses `importlib.resources` and its Modustro resource namespaces, never
+arbitrary repository walks. In development, include the `intf/src/product/config` resource root
+on `PYTHONPATH` alongside the implementation and profile roots.
 
 The full filename is the concatenation of `file_name_stem` and `file_name_suffix`; the suffix includes its leading separator and may be `.yamldef.schema.json`. The catalog resolves `Ref` recursively, rejects cycles and unknown references, compiles complete anchored regexes, and rejects multiple matching profiles. Literal strings are escaped, while `identifier`, `version`, and custom `variable` segments contribute named regex captures. Source regexes use Java-style `(?<name>...)` captures; Python translates them into its native syntax.
 

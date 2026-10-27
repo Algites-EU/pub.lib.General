@@ -1,5 +1,6 @@
-package eu.algites.lib.naming.convention.impl.algites;
+package eu.algites.lib.naming.convention.profile.algites;
 
+import eu.algites.lib.naming.convention.impl.standard.AIcNameConventionCatalog;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
@@ -111,8 +112,8 @@ public final class AItcNameConventionCatalogTest {
     /** Standard runtime catalogs are loadable from the compiled artifact classpath. */
     @Test
     public void AIcStandardCatalogResourceAvailable() throws Exception {
-        Assert.assertEquals(AIcNameConventionCatalog.standard("java").names().size(), 59);
-        Assert.assertEquals(AIcNameConventionCatalog.standard("python").names().size(), 59);
+        Assert.assertEquals(AIcNameConventionCatalog.loadResource("algites-java-name-conventions.yml").names().size(), 59);
+        Assert.assertEquals(AIcNameConventionCatalog.loadResource("algites-python-name-conventions.yml").names().size(), 59);
     }
 
     /** User-defined captures are extracted and reordered entirely through the example YAML catalogs. */

@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact-set_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact-set_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact-set_1.yamldef.schema.json
+
+ArtifactSet:
+  Name: Naming convention profiles
+  Description: Declarative naming profile packages sharing the core naming contracts and interpreter.
+
+GroupId: eu.algites.lib.naming
