@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"eu.algites.lib.naming.convention.impl.standard","l":"AIcNameConventionCatalog.AIcdNameMatch"},{"p":"eu.algites.lib.naming.convention.impl.standard","l":"AIcNameConventionCatalog"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"}];updateSearchResults();

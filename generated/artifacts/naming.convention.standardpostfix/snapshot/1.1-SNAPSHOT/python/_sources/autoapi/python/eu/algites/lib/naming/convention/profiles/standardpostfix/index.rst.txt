@@ -1,0 +1,11 @@
+python.eu.algites.lib.naming.convention.profiles.standardpostfix
+================================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.profiles.standardpostfix
+
+.. autoapi-nested-parse::
+
+   Source structure naming conventions for the standardpostfix profile.
+
+
+

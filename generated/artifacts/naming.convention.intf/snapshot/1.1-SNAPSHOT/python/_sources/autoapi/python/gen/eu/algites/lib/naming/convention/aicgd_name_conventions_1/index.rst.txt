@@ -44,7 +44,7 @@ Module Contents
 
    .. attribute:: _schema
 
-      Optional schema URI identifying the schema of this naming conventions document.
+      Optional URL identifying the schema of this naming-convention data document; distinct from the $schema dialect declaration in a JSON Schema definition.
 
    .. attribute:: standard_conventions_file
 
@@ -91,7 +91,7 @@ Module Contents
 
       ** ``$schema``
 
-      **Field Description:** Optional schema URI identifying the schema of this naming conventions document.
+      **Field Description:** Optional URL identifying the schema of this naming-convention data document; distinct from the $schema dialect declaration in a JSON Schema definition.
 
       :type: **Field Name
 

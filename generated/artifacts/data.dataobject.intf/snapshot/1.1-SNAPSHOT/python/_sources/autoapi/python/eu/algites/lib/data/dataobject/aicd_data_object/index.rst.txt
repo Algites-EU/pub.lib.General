@@ -22,7 +22,12 @@ Module Contents
 
 .. py:class:: AIcdDataObject
 
-   Describes a data contract independently of its source or runtime implementation.
+   Describes a source-independent contract and optional instance metadata mapping.
+
+   The schema URL is separate from its stable logical ID and version. Empty
+   ``data_source_schema_*_field`` names disable output of the corresponding
+   value into JSON/YAML data; a disabled output does not erase the annotated
+   source metadata. Nonempty names originate in the selected input convention.
 
 
    .. py:attribute:: schema_id
@@ -38,6 +43,24 @@ Module Contents
 
 
    .. py:attribute:: schema_url
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: data_source_schema_url_field
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: data_source_schema_identifier_field
+      :type:  str
+      :value: ''
+
+
+
+   .. py:attribute:: data_source_schema_version_field
       :type:  str
       :value: ''
 

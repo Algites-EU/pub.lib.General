@@ -1,0 +1,134 @@
+python.eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog
+=================================================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   python.eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog.AIcNameConventionCatalog
+
+
+Module Contents
+---------------
+
+.. py:class:: AIcNameConventionCatalog(config: Mapping[str, Any])
+
+   YAML-driven, language-independent name composition engine.
+
+   Java-style (?<name>...) captures in YAML are translated to Python's (?P<name>...).
+   Only file_name_stem + file_name_suffix is used to identify a file's profile.
+
+
+   .. py:method:: schema_metadata_fields(profile: str) -> dict[str, str]
+
+      Return the six metadata mappings for a source or generated-method profile.
+
+
+
+   .. py:method:: load(path: str | pathlib.Path) -> AIcNameConventionCatalog
+      :classmethod:
+
+
+      Load an explicitly selected external catalog without searching parent directories.
+
+
+
+   .. py:method:: load_resource(filename: str) -> AIcNameConventionCatalog
+      :classmethod:
+
+
+      Read the resource from the importable Python package or its Modustro resource bundle.
+
+      This uses Python package-resource lookup, never the source-repository layout.
+      Modustro publishes config resources under this artifact's isolated resource
+      namespace. A local Python environment may also expose the config source
+      root directly as a namespace package on sys.path.
+
+
+
+   .. py:method:: load_many(sources) -> AIcNameConventionCatalog
+      :classmethod:
+
+
+      Load an ordered set of file/resource catalogs without permitting conflicting IDs.
+
+      An identifier defined identically in multiple files is shared. Distinct definitions
+      of one identifier are always an error; file order never grants precedence.
+
+
+
+   .. py:property:: names
+      :type: tuple[str, Ellipsis]
+
+
+
+   .. py:property:: generated_method_names
+      :type: tuple[str, Ellipsis]
+
+
+      Profiles used for generated DO/SDO methods, not for identifying files.
+
+
+   .. py:method:: profile(name: str) -> Mapping[str, Any]
+
+
+   .. py:method:: generated_method_reference(role: str) -> str | None
+
+      Return the selected composition ID, or None for a disabled optional raw method.
+
+      An omitted/empty raw role explicitly suppresses both its abstract declaration
+      and its concrete implementation.  Callers must not synthesize default names.
+
+
+
+   .. py:method:: composition(name: str) -> tuple[dict, Ellipsis]
+
+
+   .. py:method:: with_generated_method_profile(profile: str)
+
+      Select one generated DO/SDO method profile while preserving source naming profiles.
+
+
+
+   .. py:method:: segments(profile_name: str, structure: str) -> tuple[dict, Ellipsis]
+
+
+   .. py:method:: pattern(profile_name: str, structure: str) -> re.Pattern
+
+
+   .. py:method:: filename_pattern(profile_name: str) -> re.Pattern
+
+
+   .. py:method:: parse(profile_name: str, structure: str, value: str) -> dict[str, str]
+
+
+   .. py:method:: matches(profile_name: str, structure: str, value: str) -> bool
+
+
+   .. py:method:: recognize_filename(filename: str, allowed: set[str] | None = None) -> eu.algites.lib.naming.convention.impl.standard.aicd_name_match.AIcdNameMatch | None
+
+
+   .. py:method:: clean(root: str | pathlib.Path, allowed: set[str]) -> tuple[pathlib.Path, Ellipsis]
+
+
+   .. py:method:: identifier_convention(profile_name: str, structure: str) -> str | None
+
+      Return the declared identifier conversion kind of one naming structure.
+
+
+
+   .. py:method:: format(profile_name: str, structure: str, variables: Mapping[str, str], source_convention: str | None = None) -> str
+
+
+   .. py:method:: convert_identifier(value: str, source: str, target: str) -> str
+      :staticmethod:
+
+
+
+   .. py:method:: convert(value: str, source_profile: str, target_catalog: AIcNameConventionCatalog, target_profile: str, structure: str, source_structure: str | None = None) -> str
+
+

@@ -1,0 +1,11 @@
+python.eu.algites.lib.naming.convention.profiles.standardprefix
+===============================================================
+
+.. py:module:: python.eu.algites.lib.naming.convention.profiles.standardprefix
+
+.. autoapi-nested-parse::
+
+   Source structure naming conventions for the standardprefix profile.
+
+
+

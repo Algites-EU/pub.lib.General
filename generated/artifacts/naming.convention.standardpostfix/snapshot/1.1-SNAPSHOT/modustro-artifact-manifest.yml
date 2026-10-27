@@ -1,0 +1,13 @@
+ManifestVersion: 1
+Artifact:
+  RepositoryId: pub.lib.General
+  LocalArtifactId: naming.convention.standardpostfix
+  ArtifactCoordinateId: pub.lib.General_naming.convention.standardpostfix
+  GroupId: eu.algites.lib.naming
+  Version: 1.1-SNAPSHOT
+  SourcePath: naming/convention/standardpostfix
+  StructureKind: artifact
+  Name: "Standard postfix naming conventions"
+  Description: "Language-neutral configurable postfix naming catalog with Java and Python roles."
+SourceMetadata:
+  DescriptorHierarchy:

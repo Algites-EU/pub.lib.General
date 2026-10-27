@@ -40,7 +40,7 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject" title="python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AIcdDataObject</span></code></a></p></td>
-<td><p>Describes a data contract independently of its source or runtime implementation.</p></td>
+<td><p>Describes a source-independent contract and optional instance metadata mapping.</p></td>
 </tr>
 </tbody>
 </table>
@@ -50,7 +50,11 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">python.eu.algites.lib.data.dataobject.aicd_data_object.</span></span><span class="sig-name descname"><span class="pre">AIcdDataObject</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject" title="Link to this definition">¶</a></dt>
-<dd><p>Describes a data contract independently of its source or runtime implementation.</p>
+<dd><p>Describes a source-independent contract and optional instance metadata mapping.</p>
+<p>The schema URL is separate from its stable logical ID and version. Empty
+<code class="docutils literal notranslate"><span class="pre">data_source_schema_*_field</span></code> names disable output of the corresponding
+value into JSON/YAML data; a disabled output does not erase the annotated
+source metadata. Nonempty names originate in the selected input convention.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject.schema_id">
 <span class="sig-name descname"><span class="pre">schema_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject.schema_id" title="Link to this definition">¶</a></dt>
@@ -64,6 +68,21 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject.schema_url">
 <span class="sig-name descname"><span class="pre">schema_url</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject.schema_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject.data_source_schema_url_field">
+<span class="sig-name descname"><span class="pre">data_source_schema_url_field</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject.data_source_schema_url_field" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject.data_source_schema_identifier_field">
+<span class="sig-name descname"><span class="pre">data_source_schema_identifier_field</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject.data_source_schema_identifier_field" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject.data_source_schema_version_field">
+<span class="sig-name descname"><span class="pre">data_source_schema_version_field</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#python.eu.algites.lib.data.dataobject.aicd_data_object.AIcdDataObject.data_source_schema_version_field" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
