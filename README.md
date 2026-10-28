@@ -315,8 +315,8 @@ not to the general DataObject API; they must be implemented downstream.
 ## Local manual Cloudsmith bootstrap
 
 For a standalone native Java/Python release without GitHub Actions or the Modustro Builder, use
-`bash devtools/bootstrap.sh --prepare-only` to compile and verify every product, then
-`bash devtools/bootstrap.sh --upload` to prepare afresh and publish them in one authenticated
+`bash devops/bootstrap/bootstrap.sh --prepare-only` to compile and verify every product, then
+`bash devops/bootstrap/bootstrap.sh --upload` to prepare afresh and publish them in one authenticated
 Cloudsmith session. The bootstrap has a fast `--plan-only` dry run. See
 [`devtools/bootstrap/README.md`](devtools/bootstrap/README.md) for prerequisites, manifests,
 repo/version options and limitations.

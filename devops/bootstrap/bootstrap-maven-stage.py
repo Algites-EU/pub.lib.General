@@ -249,7 +249,7 @@ def gradle_verify(manifest: Path, gradle: str, work: Path) -> None:
         config.append({'gav': ':'.join(fields[k] for k in ('groupId', 'artifactId', 'version')),
                        'sha256': digest(Path(row[0]))})
     work.mkdir(parents=True, exist_ok=True)
-    (work / 'settings.gradle').write_text("rootProject.name='algites-bootstrap-maven-local-verifier'\n", encoding='utf-8')
+    (work / 'settings.gradle').write_text("rootProject.name='modustro-bootstrap-maven-local-verifier'\n", encoding='utf-8')
     (work / 'artifacts.json').write_text(json.dumps(config), encoding='utf-8')
     local_repo = modustro_local_maven()
     (work / 'build.gradle').write_text('''import groovy.json.JsonSlurper

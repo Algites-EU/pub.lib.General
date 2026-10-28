@@ -156,6 +156,25 @@
     <inspection_tool class="MisspelledMethodName" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="NegatedConditionalExpressionJS" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="NegatedIfStatementJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="NewClassNamingConvention" enabled="true" level="WARNING" enabled_by_default="true">
+      <extension name="ClassNamingConvention" enabled="true">
+        <option name="m_regex" value="(AI((t?a|t?c|t?x|t?s|r|((c|r)gd?))([A-Z][A-Za-z0-9]*)|(rg?[A-Z][a-zA-Z0-9]*(_[a-zA-z]+)?)))|([A-Z][A-Z0-9_]*)" />
+        <option name="m_minLength" value="5" />
+        <option name="m_maxLength" value="95" />
+      </extension>
+      <extension name="EnumeratedClassNamingConvention" enabled="true">
+        <option name="inheritDefaultSettings" value="false" />
+        <option name="m_regex" value="AIn[A-Z][A-Za-z0-9]*" />
+        <option name="m_minLength" value="8" />
+        <option name="m_maxLength" value="64" />
+      </extension>
+      <extension name="InterfaceNamingConvention" enabled="true">
+        <option name="inheritDefaultSettings" value="false" />
+        <option name="m_regex" value="AI((t?i)|(igd?))[A-Z][A-Za-z0-9]*" />
+        <option name="m_minLength" value="8" />
+        <option name="m_maxLength" value="90" />
+      </extension>
+    </inspection_tool>
     <inspection_tool class="NullableProblems" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="REPORT_NULLABLE_METHOD_OVERRIDES_NOTNULL" value="true" />
       <option name="REPORT_NOT_ANNOTATED_METHOD_OVERRIDES_NOTNULL" value="false" />
