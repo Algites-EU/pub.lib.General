@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind" version="1">
+  <xs:annotation>
+    <xs:documentation>Roles for generated SmartDataObject accessors, raw accessors, presence checks and unsetters, separate from schema metadata roles.</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="smartdataobject-method-kind">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="standard_getter">
+        <xs:annotation>
+          <xs:documentation>Standard getter: Generated strongly typed accessor that reads a DataObject/SmartDataObject field; required for normal accessor generation.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="standard_setter">
+        <xs:annotation>
+          <xs:documentation>Standard setter: Generated strongly typed mutator that writes a DataObject/SmartDataObject field; required for normal accessor generation.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="raw_getter">
+        <xs:annotation>
+          <xs:documentation>Raw getter: Generated accessor returning the raw field representation before semantic conversion or defaulting; optional, and omitted if unconfigured.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="raw_presence_checker_method">
+        <xs:annotation>
+          <xs:documentation>Raw presence checker: Generated predicate reporting whether a field is explicitly present in the raw representation, separately from its logical value; optional.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="raw_unsetter">
+        <xs:annotation>
+          <xs:documentation>Raw unsetter: Generated operation that removes the explicit raw field value or presence marker without assigning a replacement; optional.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

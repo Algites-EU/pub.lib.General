@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/sourcecode/dataobject/dataobject-schema-metadata-kind_1.yamldef.schema.json",
+  "title": "DataObject schema metadata naming roles",
+  "description": "DataObject schema metadata naming roles Each enum constant denotes a configuration key, not the literal generated field or method name.",
+  "type": "string",
+  "enum": [
+    "schema_source_schema_url",
+    "schema_source_schema_identifier",
+    "schema_source_schema_version",
+    "data_source_schema_url",
+    "data_source_schema_identifier",
+    "data_source_schema_version"
+  ],
+  "oneOf": [
+    {
+      "const": "schema_source_schema_url",
+      "title": "Source schema URL field",
+      "description": "Field in the source schema definition carrying its canonical URL (normally $id). An empty configured mapping disables this extraction."
+    },
+    {
+      "const": "schema_source_schema_identifier",
+      "title": "Source schema identifier field",
+      "description": "Field in the source schema definition carrying its stable logical identifier, for example $x-algites-schema-id. An empty configured mapping disables this extraction."
+    },
+    {
+      "const": "schema_source_schema_version",
+      "title": "Source schema version field",
+      "description": "Field in the source schema definition carrying the schema version, for example $x-algites-schema-version. An empty configured mapping disables this extraction."
+    },
+    {
+      "const": "data_source_schema_url",
+      "title": "Instance schema URL field",
+      "description": "Field in a serialized DataObject instance carrying the canonical schema URL (normally $schema). Omitted or empty mapping disables reading and emitting this field; requires source URL mapping when enabled."
+    },
+    {
+      "const": "data_source_schema_identifier",
+      "title": "Instance schema identifier field",
+      "description": "Field in a serialized DataObject instance carrying the logical schema identifier. Omitted or empty mapping disables reading and emitting this field; requires source identifier mapping when enabled."
+    },
+    {
+      "const": "data_source_schema_version",
+      "title": "Instance schema version field",
+      "description": "Field in a serialized DataObject instance carrying the logical schema version. Omitted or empty mapping disables reading and emitting this field; requires source version mapping when enabled."
+    }
+  ],
+  "$x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-schema-metadata-kind",
+  "$x-algites-schema-version": 1
+}

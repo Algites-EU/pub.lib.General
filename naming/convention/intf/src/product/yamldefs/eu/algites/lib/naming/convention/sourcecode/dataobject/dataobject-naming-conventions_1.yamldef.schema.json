@@ -1,0 +1,182 @@
+{
+  "$schema": "https://defs.dev.algites.eu/api/jsonmetadefs/eu/algites/tool/codegen/defs/jsonmetadef/2020-12/dialect_1.jsonmetadef.schema.json",
+  "$id": "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/sourcecode/dataobject/dataobject-naming-conventions_1.yamldef.schema.json",
+  "title": "DataObject naming conventions",
+  "description": "Reusable DataObject schema metadata naming profiles. Does not specify generated accessor names.",
+  "allOf": [
+    {
+      "$ref": "../common-naming-conventions_1.yamldef.schema.json"
+    }
+  ],
+  "properties": {
+    "DataObjectNameConventions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "NameConventions": {
+          "type": "object",
+          "title": "Named profiles",
+          "additionalProperties": {
+            "type": "object",
+            "title": "DataObject naming profile",
+            "description": "One named profile of DataObject schema metadata field mappings.",
+            "additionalProperties": false,
+            "properties": {
+              "StructureNaming": {
+                "type": "object",
+                "title": "DataObject schema metadata naming",
+                "description": "Maps metadata roles to names of fields in source schema definitions and serialized documents. Empty mappings disable the corresponding role. YAML empty values (null) are accepted as disabled mappings.",
+                "propertyNames": {
+                  "$ref": "dataobject-schema-metadata-kind_1.yamldef.schema.json"
+                },
+                "additionalProperties": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "A metadata field name; null or the empty string disables this mapping."
+                },
+                "properties": {
+                  "schema_source_schema_url": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "default": "",
+                    "description": "Field in the source schema definition carrying its canonical URL (normally $id). An empty configured mapping disables this extraction. A blank YAML scalar (null) is also treated as disabled."
+                  },
+                  "schema_source_schema_identifier": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "default": "",
+                    "description": "Field in the source schema definition carrying its stable logical identifier, for example $x-algites-schema-id. An empty configured mapping disables this extraction. A blank YAML scalar (null) is also treated as disabled."
+                  },
+                  "schema_source_schema_version": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "default": "",
+                    "description": "Field in the source schema definition carrying the schema version, for example $x-algites-schema-version. An empty configured mapping disables this extraction. A blank YAML scalar (null) is also treated as disabled."
+                  },
+                  "data_source_schema_url": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "default": "",
+                    "description": "Field in a serialized DataObject instance carrying the canonical schema URL (normally $schema). Omitted or empty mapping disables reading and emitting this field; requires source URL mapping when enabled. A blank YAML scalar (null) is also treated as disabled."
+                  },
+                  "data_source_schema_identifier": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "default": "",
+                    "description": "Field in a serialized DataObject instance carrying the logical schema identifier. Omitted or empty mapping disables reading and emitting this field; requires source identifier mapping when enabled. A blank YAML scalar (null) is also treated as disabled."
+                  },
+                  "data_source_schema_version": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "default": "",
+                    "description": "Field in a serialized DataObject instance carrying the logical schema version. Omitted or empty mapping disables reading and emitting this field; requires source version mapping when enabled. A blank YAML scalar (null) is also treated as disabled."
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "required": [
+                        "data_source_schema_url"
+                      ],
+                      "properties": {
+                        "data_source_schema_url": {
+                          "minLength": 1,
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "schema_source_schema_url"
+                      ],
+                      "properties": {
+                        "schema_source_schema_url": {
+                          "minLength": 1
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "required": [
+                        "data_source_schema_identifier"
+                      ],
+                      "properties": {
+                        "data_source_schema_identifier": {
+                          "minLength": 1,
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "schema_source_schema_identifier"
+                      ],
+                      "properties": {
+                        "schema_source_schema_identifier": {
+                          "minLength": 1
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "required": [
+                        "data_source_schema_version"
+                      ],
+                      "properties": {
+                        "data_source_schema_version": {
+                          "minLength": 1,
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "schema_source_schema_version"
+                      ],
+                      "properties": {
+                        "schema_source_schema_version": {
+                          "minLength": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "StructureNaming"
+            ]
+          }
+        }
+      },
+      "required": [
+        "NameConventions"
+      ]
+    }
+  },
+  "type": "object",
+  "required": [
+    "DataObjectNameConventions"
+  ],
+  "x-algites-defscodegen-extends": [
+    "../common-naming-conventions_1.yamldef.schema.json"
+  ],
+  "$x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-naming-conventions",
+  "$x-algites-schema-version": 1
+}

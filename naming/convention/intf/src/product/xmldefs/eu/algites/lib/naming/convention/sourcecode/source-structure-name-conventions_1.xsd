@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="eu.algites.lib.naming.convention.sourcecode.source-structure-name-conventions"
+           version="1"
+           xmlns:common="eu.algites.lib.naming.convention.sourcecode.common-naming-conventions"
+           xmlns:container="eu.algites.lib.naming.convention.sourcecode.container-structure-type"
+           xmlns:kind="eu.algites.lib.naming.convention.sourcecode.source-structure-kind">
+  <xs:annotation>
+    <xs:documentation>Named source-structure profiles. NameConventions and StructureNaming are typed maps with unique keys.</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="eu.algites.lib.naming.convention.sourcecode.common-naming-conventions" schemaLocation="common-naming-conventions_1.xsd"/>
+  <xs:import namespace="eu.algites.lib.naming.convention.sourcecode.container-structure-type" schemaLocation="container-structure-type_1.xsd"/>
+  <xs:import namespace="eu.algites.lib.naming.convention.sourcecode.source-structure-kind" schemaLocation="source-structure-kind_1.xsd"/>
+  <xs:complexType name="source-structure-name-conventions">
+    <xs:complexContent>
+      <xs:extension base="common:common-naming-conventions">
+        <xs:sequence>
+          <xs:element name="SourceStructureNameConventions">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="NameConventions">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="NameConvention" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="ContainerStructureType" type="container:container-structure-type"/>
+                            <xs:element name="StructureNaming">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="Rule" minOccurs="0" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                      <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                          <xs:attribute name="kind" type="kind:source-structure-kind" use="required"/>
+                                        </xs:extension>
+                                      </xs:simpleContent>
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                              </xs:complexType>
+                              <xs:key name="UniqueStructureKinds">
+                                <xs:selector xpath="Rule"/>
+                                <xs:field xpath="@kind"/>
+                              </xs:key>
+                            </xs:element>
+                          </xs:sequence>
+                          <xs:attribute name="name" type="xs:string" use="required"/>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                  <xs:key name="UniqueNameConventions">
+                    <xs:selector xpath="NameConvention"/>
+                    <xs:field xpath="@name"/>
+                  </xs:key>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

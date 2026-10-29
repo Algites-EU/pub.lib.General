@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-schema-metadata-kind" version="1">
+  <xs:annotation>
+    <xs:documentation>Roles for extraction and emission of DataObject schema metadata, independent of generated method names.</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="dataobject-schema-metadata-kind">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="schema_source_schema_url">
+        <xs:annotation>
+          <xs:documentation>Source schema URL field: Field in the source schema definition carrying its canonical URL (normally $id). An empty configured mapping disables this extraction.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="schema_source_schema_identifier">
+        <xs:annotation>
+          <xs:documentation>Source schema identifier field: Field in the source schema definition carrying its stable logical identifier, for example $x-algites-schema-id. An empty configured mapping disables this extraction.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="schema_source_schema_version">
+        <xs:annotation>
+          <xs:documentation>Source schema version field: Field in the source schema definition carrying the schema version, for example $x-algites-schema-version. An empty configured mapping disables this extraction.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="data_source_schema_url">
+        <xs:annotation>
+          <xs:documentation>Instance schema URL field: Field in a serialized DataObject instance carrying the canonical schema URL (normally $schema). Omitted or empty mapping disables reading and emitting this field; requires source URL mapping when enabled.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="data_source_schema_identifier">
+        <xs:annotation>
+          <xs:documentation>Instance schema identifier field: Field in a serialized DataObject instance carrying the logical schema identifier. Omitted or empty mapping disables reading and emitting this field; requires source identifier mapping when enabled.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="data_source_schema_version">
+        <xs:annotation>
+          <xs:documentation>Instance schema version field: Field in a serialized DataObject instance carrying the logical schema version. Omitted or empty mapping disables reading and emitting this field; requires source version mapping when enabled.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

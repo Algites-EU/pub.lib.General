@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-method-kind_1.jsondef.schema.json",
+  "title": "SmartDataObject field method naming roles",
+  "description": "SmartDataObject field method naming roles Each enum constant denotes a configuration key, not the literal generated field or method name.",
+  "type": "string",
+  "enum": [
+    "standard_getter",
+    "standard_setter",
+    "raw_getter",
+    "raw_presence_checker_method",
+    "raw_unsetter"
+  ],
+  "oneOf": [
+    {
+      "const": "standard_getter",
+      "title": "Standard getter",
+      "description": "Generated strongly typed accessor that reads a DataObject/SmartDataObject field; required for normal accessor generation."
+    },
+    {
+      "const": "standard_setter",
+      "title": "Standard setter",
+      "description": "Generated strongly typed mutator that writes a DataObject/SmartDataObject field; required for normal accessor generation."
+    },
+    {
+      "const": "raw_getter",
+      "title": "Raw getter",
+      "description": "Generated accessor returning the raw field representation before semantic conversion or defaulting; optional, and omitted if unconfigured."
+    },
+    {
+      "const": "raw_presence_checker_method",
+      "title": "Raw presence checker",
+      "description": "Generated predicate reporting whether a field is explicitly present in the raw representation, separately from its logical value; optional."
+    },
+    {
+      "const": "raw_unsetter",
+      "title": "Raw unsetter",
+      "description": "Generated operation that removes the explicit raw field value or presence marker without assigning a replacement; optional."
+    }
+  ],
+  "$x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind",
+  "$x-algites-schema-version": 1
+}
