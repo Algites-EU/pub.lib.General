@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+# $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+
+Artifact:
+  TechnologyKinds: [java, python]
+  Name: Source-code naming convention definitions
+  Description: JSON, YAML, and XML definitions for source-code, DataObject and SmartDataObject naming profiles, with generated typed contracts.
+
+Dependencies:
+  - DependencyKind: modustro
+    Items:
+      - GroupId: eu.algites.lib.naming
+        ArtifactId: pub.lib.General_naming.convention.intf
+        Usages: [product_api]

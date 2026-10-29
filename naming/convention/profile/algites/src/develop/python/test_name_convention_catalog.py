@@ -7,7 +7,7 @@ import pytest
 from eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog import AIcNameConventionCatalog
 
 
-ROOT = Path(__file__).resolve().parents[3] / 'src/product/config/eu/algites/lib/naming/convention'
+ROOT = Path(__file__).resolve().parents[3] / 'src/product/config/eu/algites/lib/naming/convention/sourcecode'
 SHARED_CONFIG = Path(__file__).resolve().parents[5] / 'intf/src/product/config'
 sys.path.insert(0, str(SHARED_CONFIG))
 
@@ -103,8 +103,8 @@ def test_ambiguous_file_names_rejected():
 def test_custom_version_named_variables_can_be_recomposed():
     """Input 1.0 can become _1_0 without a generator-specific version algorithm."""
     identifiers = {
-        'lower_snake_case_1': {'Regexp': '(?<identifier>[a-z][a-z0-9]*(?:_[a-z][a-z0-9]*)*)'},
-        'upper_camel_case_1': {'Regexp': '(?<identifier>[A-Z][a-z0-9]*(?:[A-Z][a-z0-9]*)*)'},
+        'lower_snake_case_1': {'Regexp': '(?<identifier>[a-z][a-z0-9]*(?:_[a-z][a-z0-9]*)*)', 'ConversionStyle': 'lower_snake'},
+        'upper_camel_case_1': {'Regexp': '(?<identifier>[A-Z][a-z0-9]*(?:[A-Z][a-z0-9]*)*)', 'ConversionStyle': 'upper_camel'},
     }
     source = AIcNameConventionCatalog({
         'IdentifierConventions': identifiers,
@@ -221,9 +221,9 @@ def test_standard_catalog_uses_python_import_roots_independent_of_checkout(tmp_p
     import subprocess
     import sys
 
-    module_root = ROOT.parents[5] / 'python'
-    generic_root = ROOT.parents[9] / 'impl/src/product/python'
-    config_root = ROOT.parents[5] / 'config'
+    module_root = ROOT.parents[6] / 'python'
+    generic_root = ROOT.parents[10] / 'impl/src/product/python'
+    config_root = ROOT.parents[6] / 'config'
     assert module_root.is_dir() and config_root.is_dir()
     unrelated = tmp_path / 'unrelated-directory'
     unrelated.mkdir()
@@ -242,11 +242,11 @@ def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
     import subprocess
     import sys
 
-    module_root = ROOT.parents[5] / 'python'
-    generic_root = ROOT.parents[9] / 'impl/src/product/python'
+    module_root = ROOT.parents[6] / 'python'
+    generic_root = ROOT.parents[10] / 'impl/src/product/python'
     stage = tmp_path / 'wheel-packages'
     destination = (stage / 'algites/pub/lib/general/naming/convention/profile/algites'
-                   / 'eu/algites/lib/naming/convention')
+                   / 'eu/algites/lib/naming/convention/sourcecode')
     destination.mkdir(parents=True)
     for item in ROOT.glob('*.yml'):
         shutil.copy2(item, destination / item.name)

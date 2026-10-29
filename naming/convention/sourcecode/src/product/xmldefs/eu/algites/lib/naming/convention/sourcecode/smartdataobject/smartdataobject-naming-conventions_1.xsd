@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-naming-conventions" version="1"
+           xmlns:common="eu.algites.lib.naming.convention.common-naming-conventions"
+           xmlns:role="eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind">
+  <xs:annotation><xs:documentation>SmartDataObject accessor method naming profiles, separately typed from the other naming domain. XML entries encode named maps as Rule elements with unique role keys.</xs:documentation></xs:annotation>
+  <xs:import namespace="eu.algites.lib.naming.convention.common-naming-conventions" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd"/>
+  <xs:import namespace="eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind" schemaLocation="smartdataobject-method-kind_1.xsd"/>
+  <xs:complexType name="smartdataobject-naming-conventions">
+    <xs:complexContent>
+      <xs:extension base="common:common-naming-conventions">
+        <xs:sequence>
+          <xs:element name="SmartDataObjectNameConventions">
+            <xs:complexType><xs:sequence><xs:element name="NameConventions">
+              <xs:complexType><xs:sequence><xs:element name="NameConvention" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType><xs:sequence><xs:element name="StructureNaming">
+                  <xs:complexType><xs:sequence><xs:element name="Rule" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType><xs:simpleContent><xs:extension base="xs:string">
+                      <xs:attribute name="kind" type="role:smartdataobject-method-kind" use="required"/>
+                    </xs:extension></xs:simpleContent></xs:complexType>
+                  </xs:element></xs:sequence></xs:complexType>
+                  <xs:key name="UniqueNamingRoles"><xs:selector xpath="Rule"/><xs:field xpath="@kind"/></xs:key>
+                </xs:element></xs:sequence><xs:attribute name="name" type="xs:string" use="required"/></xs:complexType>
+              </xs:element></xs:sequence></xs:complexType>
+              <xs:key name="UniqueNamingProfiles"><xs:selector xpath="NameConvention"/><xs:field xpath="@name"/></xs:key>
+            </xs:element></xs:sequence></xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

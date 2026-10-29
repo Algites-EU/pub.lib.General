@@ -24,79 +24,52 @@ class AIcNameConventionCatalog:
         self._config = dict(config)
         self._fragments = config.get('NameFragments', {})
         self._compositions = config.get('NameCompositions', {})
-        self._conventions = dict(config.get('NameConventions', {}))
-        for name, definition in config.get('SourceStructureNameConventions', {}).get('NameConventions', {}).items():
-            if name in self._conventions and self._conventions[name] != definition:
-                raise ValueError(f'Conflicting source naming profile: {name}')
-            self._conventions[name] = definition
-            self._validate_schema_metadata(name, definition)
+        self._conventions: dict[str, Any] = {}
+        self._families: dict[str, str] = {}
+        for section, definitions in config.items():
+            if section == 'NameConventions' and isinstance(definitions, Mapping):
+                self._register_profiles(definitions, section)
+            elif isinstance(definitions, Mapping) and isinstance(definitions.get('NameConventions'), Mapping):
+                self._register_profiles(definitions['NameConventions'], section)
+        # Compatibility aliases only. Domain semantics belong in the consuming tool.
         self._generated_methods = dict(config.get('GeneratedDataObjectMethodNameConventions', {}).get('NameConventions', {}))
-        for name, definition in self._generated_methods.items():
-            self._validate_schema_metadata(name, definition, generated=True)
-            structures = definition.get('StructureNaming', {})
-            for required in ('standard_getter', 'standard_setter'):
-                if not structures.get(required):
-                    raise ValueError(f'{name}: required generated method role {required} is missing')
         self._generated_method_profile = None
-        if set(self._generated_methods) & set(self._conventions):
-            raise ValueError('Source and generated-method naming profile IDs overlap')
         self._identifiers = config.get('IdentifierConventions', {})
         self._versions = config.get('VersionConventions', {})
         self._expanded: dict[str, tuple[dict, ...]] = {}
         self._patterns: dict[str, re.Pattern] = {}
-        for name in self._conventions:
-            self.filename_pattern(name)
+        for name, definition in self._conventions.items():
+            keys = definition.get('StructureNaming', {})
+            if 'file_name_stem' in keys and 'file_name_suffix' in keys:
+                self.filename_pattern(name)
 
-    _SCHEMA_METADATA_ROLES = frozenset(
-        f'{side}_schema_{suffix}' for side in ('schema_source', 'data_source')
-        for suffix in ('url', 'identifier', 'version'))
+    def _register_profiles(self, entries: Mapping[str, Any], section: str) -> None:
+        """Register profile families without knowing their application or role vocabulary."""
+        for name, definition in entries.items():
+            if name in self._conventions and self._conventions[name] != definition:
+                raise ValueError(f'Conflicting naming profile: {name}')
+            self._conventions[name] = definition
+            self._families[name] = section
 
-    @classmethod
-    def _metadata_mapping(cls, name: str, definition: Mapping[str, Any],
-                          generated: bool = False) -> Mapping[str, Any]:
-        """Locate schema metadata in its category-specific, explicitly typed namespace.
+    @property
+    def profile_names(self) -> tuple[str, ...]:
+        """All profiles, including non-file-naming declarations."""
+        return tuple(self._conventions)
 
-        Source-structure profiles retain their established flat schema mappings;
-        generated-method profiles instead require the separate SchemaMetadataNaming
-        map. Keeping these namespaces distinct prevents method roles from being
-        confused with metadata header names and rejects partially migrated catalogs.
-        """
-        if not generated:
-            return definition
-        legacy = cls._SCHEMA_METADATA_ROLES.intersection(definition)
-        if legacy:
-            raise ValueError(f'{name}: obsolete flat schema metadata roles: {sorted(legacy)}')
-        mapping = definition.get('SchemaMetadataNaming')
-        if not isinstance(mapping, Mapping):
-            raise ValueError(f'{name}: SchemaMetadataNaming must be a mapping')
-        unknown = set(mapping) - cls._SCHEMA_METADATA_ROLES
-        if unknown:
-            raise ValueError(f'{name}: unknown SchemaMetadataNaming roles: {sorted(unknown)}')
-        return mapping
+    def profile_value(self, name: str, section: str, key: str) -> str:
+        """Return an opaque role value from a named profile section."""
+        definition = self.profile(name)
+        mapping = definition.get(section, {}) if section else definition
+        return mapping.get(key, '') if isinstance(mapping, Mapping) else ''
 
-    @classmethod
-    def _validate_schema_metadata(cls, name: str, definition: Mapping[str, Any],
-                                  generated: bool = False) -> None:
-        """Validate six metadata roles independently of method-name compositions.
-
-        Empty target fields disable emission; non-empty target field names require
-        the corresponding non-empty source schema field name. Unknown metadata
-        roles and legacy flat generated-method keys are rejected rather than ignored.
-        """
-        mapping = cls._metadata_mapping(name, definition, generated)
-        for suffix in ('url', 'identifier', 'version'):
-            source = mapping.get(f'schema_source_schema_{suffix}', '')
-            target = mapping.get(f'data_source_schema_{suffix}', '')
-            if not isinstance(source, str) or not isinstance(target, str):
-                raise ValueError(f'{name}: schema metadata field names must be strings')
-            if target and not source:
-                raise ValueError(f'{name}: data_source_schema_{suffix} requires schema_source_schema_{suffix}')
+    def composition_reference(self, profile: str, role: str) -> str:
+        """Resolve a structure role without interpreting what that role represents."""
+        return self.profile_value(profile, 'StructureNaming', role)
 
     def schema_metadata_fields(self, profile: str) -> dict[str, str]:
-        """Resolve the same six roles in source or generated-method naming profiles."""
+        """Deprecated compatibility for existing generators; use profile_value instead."""
         definition = self.profile(profile)
-        mapping = self._metadata_mapping(profile, definition,
-                                         generated=profile in self._generated_methods)
+        mapping = definition.get('SchemaMetadataNaming', definition)
         return {f'{side}_schema_{suffix}': mapping.get(f'{side}_schema_{suffix}', '')
                 for side in ('schema_source', 'data_source')
                 for suffix in ('url', 'identifier', 'version')}
@@ -167,13 +140,13 @@ class AIcNameConventionCatalog:
         if not isinstance(filename, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*\.yml', filename):
             raise ValueError(f'Invalid naming catalog resource filename: {filename!r}')
         from importlib.metadata import distributions
-        providers = [('eu.algites.lib.naming.convention', ())]
+        providers = [('eu.algites.lib.naming.convention', ('sourcecode',))]
         for distribution in distributions():
             name = distribution.metadata.get('Name', '').replace('_', '-').lower()
             prefix = 'eu-algites-pub-lib-general-naming-convention-'
             if name.startswith(prefix):
                 providers.append((f'algites.pub.lib.general.naming.convention.{name[len(prefix):].replace("-", ".")}',
-                                  ('eu', 'algites', 'lib', 'naming', 'convention')))
+                                  ('eu', 'algites', 'lib', 'naming', 'convention', 'sourcecode')))
         for package, subpath in providers:
             try:
                 root = resources.files(package).joinpath(*subpath)
@@ -193,32 +166,38 @@ class AIcNameConventionCatalog:
         An identifier defined identically in multiple files is shared. Distinct definitions
         of one identifier are always an error; file order never grants precedence.
         """
-        merged = {section: {} for section in (
+        merged: dict[str, Any] = {section: {} for section in (
             'IdentifierConventions', 'VersionConventions', 'NameFragments',
-            'NameCompositions', 'NameConventions', 'SourceStructureNameConventions',
-            'GeneratedDataObjectMethodNameConventions')}
+            'NameCompositions', 'NameConventions')}
         if not sources:
             raise ValueError('At least one naming convention catalog is required')
         for source in sources:
             value = str(source)
             catalog = cls.load_resource(value.removeprefix('resource:')) if value.startswith('resource:') else cls.load(value)
-            for section, definitions in merged.items():
-                for name, definition in catalog._config.get(section, {}).items():
-                    if section in ('SourceStructureNameConventions', 'GeneratedDataObjectMethodNameConventions') and name == 'NameConventions':
-                        profiles = definitions.setdefault(name, {})
-                        for profile_name, profile_definition in definition.items():
-                            if profile_name in profiles and profiles[profile_name] != profile_definition:
-                                raise ValueError(f'Conflicting naming definition {section}/NameConventions/{profile_name!r} in {source}')
-                            profiles[profile_name] = profile_definition
-                    else:
-                        if name in definitions and definitions[name] != definition:
-                            raise ValueError(f'Conflicting naming definition {section}/{name!r} in {source}')
-                        definitions[name] = definition
+            for section, section_data in catalog._config.items():
+                if section == '$schema':
+                    continue
+                if not isinstance(section_data, Mapping):
+                    if section in merged and merged[section] != section_data:
+                        raise ValueError(f'Conflicting catalog field {section!r}')
+                    merged[section] = section_data
+                    continue
+                if section != 'NameConventions' and isinstance(section_data.get('NameConventions'), Mapping):
+                    target = merged.setdefault(section, {}).setdefault('NameConventions', {})
+                    entries = section_data['NameConventions']
+                else:
+                    target = merged.setdefault(section, {})
+                    entries = section_data
+                for name, definition in entries.items():
+                    if name in target and target[name] != definition:
+                        raise ValueError(f'Conflicting naming definition {section}/{name!r} in {source}')
+                    target[name] = definition
         return cls(merged)
 
     @property
     def names(self) -> tuple[str, ...]:
-        return tuple(self._conventions)
+        """Filename-capable profiles, matching the Java catalog API."""
+        return tuple(self._patterns)
 
     @property
     def generated_method_names(self) -> tuple[str, ...]:
@@ -226,7 +205,7 @@ class AIcNameConventionCatalog:
         return tuple(self._generated_methods)
 
     def profile(self, name: str) -> Mapping[str, Any]:
-        return self._conventions[name] if name in self._conventions else (self._generated_methods[name] if name in self._generated_methods else self._missing_profile(name))
+        return self._conventions[name] if name in self._conventions else self._missing_profile(name)
 
     @staticmethod
     def _missing_profile(name: str):
@@ -280,10 +259,12 @@ class AIcNameConventionCatalog:
         return result
 
     def segments(self, profile_name: str, structure: str) -> tuple[dict, ...]:
-        if self._generated_method_profile and structure in ('getter_method_name', 'setter_method_name'):
-            profile_name = self._generated_method_profile
-            structure = ('standard_getter' if structure == 'getter_method_name'
-                         else 'standard_setter')
+        if self._generated_method_profile:
+            # Transitional mapping kept only for code generators not migrated yet.
+            aliases = {'getter_method_name': 'standard_getter',
+                       'setter_method_name': 'standard_setter'}
+            if structure in aliases:
+                profile_name, structure = self._generated_method_profile, aliases[structure]
         reference = self.profile(profile_name)['StructureNaming'][structure]
         return self.composition(reference)
 
@@ -367,7 +348,7 @@ class AIcNameConventionCatalog:
                 raise ValueError(f'Missing naming variable: {name}')
             value = str(variables[name])
             if kind == 'identifier' and source_convention and 'Convention' in segment:
-                value = self.convert_identifier(value, source_convention, segment['Convention'])
+                value = self.convert_identifier_by_declared_style(value, source_convention, segment['Convention'])
             if not re.fullmatch(self._segment_pattern(segment), value) if kind == 'variable' else not self._capture_valid(segment, value):
                 raise ValueError(f'Invalid naming variable {name}={value!r} for {profile_name}/{structure}')
             parts.append(value)
@@ -376,36 +357,55 @@ class AIcNameConventionCatalog:
     def _capture_valid(self, segment: dict, value: str) -> bool:
         return re.fullmatch(self._segment_pattern(segment), value) is not None
 
-    @staticmethod
-    def convert_identifier(value: str, source: str, target: str) -> str:
+    def convert_identifier_by_declared_style(self, value: str, source: str, target: str) -> str:
+        """Use declared lexical conversion styles, not profile names, to convert identifiers."""
         if source == target:
             return value
-        if source.endswith('_snake_case_1'):
+        origin = self._identifiers[source].get('ConversionStyle')
+        destination = self._identifiers[target].get('ConversionStyle')
+        if not origin or not destination:
+            raise ValueError(f'Automatic identifier conversion requires ConversionStyle: {source} -> {target}')
+        return self._convert_style(value, origin, destination)
+
+    @staticmethod
+    def _convert_style(value: str, source_style: str, target_style: str) -> str:
+        if source_style.endswith('_snake'):
             words = value.split('_')
-        elif source.endswith('_kebab_case_1'):
+        elif source_style.endswith('_kebab'):
             words = value.split('-')
-        elif source.endswith('_camel_case_1'):
+        elif source_style.endswith('_camel'):
             words = _CAMEL_BOUNDARY.split(value)
-        elif source in ('all_lower_1', 'all_upper_1'):
+        elif source_style.endswith('_flat'):
             words = [value]
         else:
-            raise ValueError('Custom identifier convention cannot automatically convert: ' + source)
+            raise ValueError(f'Unsupported source lexical style: {source_style}')
         words = [word.lower() for word in words]
-        if target == 'all_lower_1':
+        if target_style == 'lower_flat':
             return ''.join(words)
-        if target == 'all_upper_1':
+        if target_style == 'upper_flat':
             return ''.join(words).upper()
-        if target == 'lower_snake_case_1':
+        if target_style == 'lower_snake':
             return '_'.join(words)
-        if target == 'upper_snake_case_1':
+        if target_style == 'upper_snake':
             return '_'.join(words).upper()
-        if target == 'lower_kebab_case_1':
+        if target_style == 'lower_kebab':
             return '-'.join(words)
-        if target == 'upper_kebab_case_1':
+        if target_style == 'upper_kebab':
             return '-'.join(words).upper()
-        if target in ('lower_camel_case_1', 'upper_camel_case_1'):
-            return (words[0] if target == 'lower_camel_case_1' else words[0].capitalize()) + ''.join(w.capitalize() for w in words[1:])
-        raise ValueError('Unsupported formatter: ' + target)
+        if target_style in ('lower_camel', 'upper_camel'):
+            return (words[0] if target_style == 'lower_camel' else words[0].capitalize()) + ''.join(w.capitalize() for w in words[1:])
+        raise ValueError(f'Unsupported target lexical style: {target_style}')
+
+    @staticmethod
+    def convert_identifier(value: str, source: str, target: str) -> str:
+        """Legacy conversion using historical built-in IDs; retained for current tool clients."""
+        legacy = {'all_lower_1': 'lower_flat', 'all_upper_1': 'upper_flat',
+                  'lower_snake_case_1': 'lower_snake', 'upper_snake_case_1': 'upper_snake',
+                  'lower_camel_case_1': 'lower_camel', 'upper_camel_case_1': 'upper_camel',
+                  'lower_kebab_case_1': 'lower_kebab', 'upper_kebab_case_1': 'upper_kebab'}
+        if source == target:
+            return value
+        return AIcNameConventionCatalog._convert_style(value, legacy[source], legacy[target])
 
     def convert(self, value: str, source_profile: str, target_catalog: AIcNameConventionCatalog,
                 target_profile: str, structure: str, source_structure: str | None = None) -> str:

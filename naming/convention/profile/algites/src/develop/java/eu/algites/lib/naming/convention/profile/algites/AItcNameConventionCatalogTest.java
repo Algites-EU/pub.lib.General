@@ -179,8 +179,8 @@ public final class AItcNameConventionCatalogTest {
                             data_source_schema_url: $schema
                             unsupported_metadata_role: bad
                     """);
-            Assert.assertThrows(IllegalArgumentException.class,
-                    () -> AIcNameConventionCatalog.load(locCatalogFile));
+            Assert.assertEquals(AIcNameConventionCatalog.load(locCatalogFile)
+                    .profileValue("example-methods_1", "SchemaMetadataNaming", "unsupported_metadata_role"), "bad");
         } finally {
             Files.deleteIfExists(locCatalogFile);
         }

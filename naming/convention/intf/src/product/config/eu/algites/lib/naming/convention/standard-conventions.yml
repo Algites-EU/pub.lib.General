@@ -3,20 +3,28 @@
 $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/standard-conventions_1.yamldef.schema.json
 IdentifierConventions:
   all_lower_1:
+    ConversionStyle: lower_flat
     Regexp: (?<identifier>[a-z][a-z0-9]*)
   all_upper_1:
+    ConversionStyle: upper_flat
     Regexp: (?<identifier>[A-Z][A-Z0-9]*)
   lower_snake_case_1:
+    ConversionStyle: lower_snake
     Regexp: (?<identifier>[a-z][a-z0-9]*(?:_[a-z][a-z0-9]*)*)
   upper_snake_case_1:
+    ConversionStyle: upper_snake
     Regexp: (?<identifier>[A-Z][A-Z0-9]*(?:_[A-Z][A-Z0-9]*)*)
   lower_camel_case_1:
+    ConversionStyle: lower_camel
     Regexp: (?<identifier>[a-z][a-z0-9]*(?:[A-Z][a-z0-9]*)*)
   upper_camel_case_1:
+    ConversionStyle: upper_camel
     Regexp: (?<identifier>[A-Z][a-z0-9]*(?:[A-Z][a-z0-9]*)*)
   lower_kebab_case_1:
+    ConversionStyle: lower_kebab
     Regexp: (?<identifier>[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*)*)
   upper_kebab_case_1:
+    ConversionStyle: upper_kebab
     Regexp: (?<identifier>[A-Z][A-Z0-9]*(?:-[A-Z][A-Z0-9]*)*)
 VersionConventions:
   positive_integer_1:

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://defs.dev.algites.eu/api/jsonmetadefs/eu/algites/tool/codegen/defs/jsonmetadef/2020-12/dialect_1.jsonmetadef.schema.json",
+  "$id": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/sourcecode/source-structure-name-conventions_1.jsondef.schema.json",
+  "title": "Source structure name conventions v1",
+  "description": "Named source-code structure naming profiles. Schema-metadata field roles belong to the separate DataObject convention contract.",
+  "allOf": [
+    {
+      "$ref": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/common-naming-conventions_1.jsondef.schema.json"
+    }
+  ],
+  "properties": {
+    "SourceStructureNameConventions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "NameConventions": {
+          "type": "object",
+          "title": "Name conventions",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ContainerStructureType": {
+                "$ref": "container-structure-type_1.jsondef.schema.json",
+                "title": "Container structure type",
+                "description": "Category of the owning structure for which this naming profile applies."
+              },
+              "StructureNaming": {
+                "type": "object",
+                "title": "Structure naming",
+                "propertyNames": {
+                  "$ref": "source-structure-kind_1.jsondef.schema.json",
+                  "title": "Property Names",
+                  "description": "Structural role supported as a key in the naming rules map."
+                },
+                "additionalProperties": {
+                  "type": "string",
+                  "title": "Additional Properties",
+                  "description": "Reference to a fragment or composition used to name the selected source role."
+                },
+                "description": "Mapping from structural name roles to fragment or composition names."
+              }
+            },
+            "required": [
+              "ContainerStructureType",
+              "StructureNaming"
+            ],
+            "title": "Additional Properties",
+            "description": "Naming configuration for one category of owning container."
+          },
+          "description": "Naming rules for supported container structures and their contained source elements."
+        }
+      },
+      "required": [
+        "NameConventions"
+      ]
+    }
+  },
+  "type": "object",
+  "required": [
+    "SourceStructureNameConventions"
+  ],
+  "x-algites-defscodegen-extends": [
+    "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/common-naming-conventions_1.jsondef.schema.json"
+  ]
+}

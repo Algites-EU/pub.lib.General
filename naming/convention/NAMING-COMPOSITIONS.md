@@ -1,15 +1,15 @@
 # YAML-driven naming compositions (1.1 transition)
 
-The new naming catalog is defined by four schema kinds in `intf/src/product/{yamldefs,jsondefs,xmldefs}/eu/algites/lib/naming/convention`:
+The new naming catalog is defined by four schema kinds in `intf/src/product/{yamldefs,jsondefs,xmldefs}/eu/algites/lib/naming/convention/sourcecode`:
 
 - `source-structure-kind_1` enumerates named source components, including `file_name_stem` and `file_name_suffix`.
 - `container-structure-type_1` names supported container types (object, class, interface, enum, exception, annotation, resource_bundle).
 - `standard-conventions_1` describes reusable named capture regexes.
-- `name-conventions_1` describes reusable `NameFragments`, `NameCompositions`, and `NameConventions` mapping structural roles to compositions.
+- `common-naming-conventions_1` describes reusable `NameFragments` and `NameCompositions`; source-specific `NameConventions` are declared by `source-structure-name-conventions_1`.
 
 The schema-derived Java/Python interfaces and enums are in `intf/src/product/java.gen` and `python.gen` (not handwritten `AIcd` DTOs).
 
-The common `standard-conventions.yml` is owned by `intf/src/product/config/eu/algites/lib/naming/convention/`
+The common `standard-conventions.yml` is owned by `intf/src/product/config/eu/algites/lib/naming/convention/sourcecode/`
 and is published **once**, both in the naming interface JAR and its Python wheel.
 Specific YAML catalogs live in `profile/{algites,standardprefix,standardpostfix}/src/product/config/`.
 Their language-neutral interpreter lives exclusively in `impl` (`impl.standard.AIcNameConventionCatalog`);

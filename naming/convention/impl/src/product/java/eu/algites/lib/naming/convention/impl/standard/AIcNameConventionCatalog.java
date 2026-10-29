@@ -28,6 +28,7 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
     private final JsonNode document;
     private final Map<String, Pattern> filePatterns = new LinkedHashMap<>();
     private final Map<String, JsonNode> generatedMethodProfiles = new LinkedHashMap<>();
+    private final Map<String, JsonNode> profiles = new LinkedHashMap<>();
     private final Map<String, JsonNode> identifierConventions = new LinkedHashMap<>();
     private final Map<String, JsonNode> versionConventions = new LinkedHashMap<>();
     private final Map<String, String> roleBindings;
@@ -69,7 +70,7 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
     public static AIcNameConventionCatalog loadResource(String aFilename) throws IOException {
         if (aFilename == null || !aFilename.matches("[A-Za-z0-9][A-Za-z0-9_.-]*\\.yml"))
             throw new IllegalArgumentException("Expected a YAML catalog filename: " + aFilename);
-        String locDirectory = "eu/algites/lib/naming/convention/";
+        String locDirectory = "eu/algites/lib/naming/convention/sourcecode/";
         ClassLoader locLoader = AIcNameConventionCatalog.class.getClassLoader();
         try (var locCatalog = locLoader.getResourceAsStream(locDirectory + aFilename)) {
             if (locCatalog == null) throw new IOException("Missing packaged YAML naming catalog: " + locDirectory + aFilename);
@@ -79,8 +80,8 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
                 String locSibling = locDocument.path("StandardConventionsFile").asText();
                 if (!locSibling.matches("[A-Za-z0-9][A-Za-z0-9_.-]*\\.yml"))
                     throw new IOException("Invalid standard naming catalog resource: " + locSibling);
-                try (var locStream = locLoader.getResourceAsStream(locDirectory + locSibling)) {
-                    if (locStream == null) throw new IOException("Missing packaged standard naming catalog: " + locDirectory + locSibling);
+                try (var locStream = locLoader.getResourceAsStream("eu/algites/lib/naming/convention/" + locSibling)) {
+                    if (locStream == null) throw new IOException("Missing packaged standard naming catalog: " + locSibling);
                     locStandard = MAPPER.readTree(locStream);
                 }
             }
@@ -107,8 +108,6 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
         var locMerged = MAPPER.createObjectNode();
         for (String locSection : List.of("IdentifierConventions", "VersionConventions", "NameFragments",
                 "NameCompositions", "NameConventions")) locMerged.putObject(locSection);
-        locMerged.putObject("GeneratedDataObjectMethodNameConventions").putObject("NameConventions");
-        locMerged.putObject("SourceStructureNameConventions").putObject("NameConventions");
         for (String locSource : aSources) {
             AIcNameConventionCatalog locCatalog = locSource.startsWith("resource:")
                     ? loadResource(locSource.substring("resource:".length()))
@@ -130,26 +129,20 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
                     locTarget.set(locEntry.getKey(), locEntry.getValue().deepCopy());
                 });
             }
-            var locSourceTarget = (com.fasterxml.jackson.databind.node.ObjectNode) locMerged
-                    .path("SourceStructureNameConventions").path("NameConventions");
-            locCatalog.document.path("SourceStructureNameConventions").path("NameConventions")
-                    .fields().forEachRemaining(locEntry -> {
-                        JsonNode locOld = locSourceTarget.get(locEntry.getKey());
-                        if (locOld != null && !locOld.equals(locEntry.getValue()))
-                            throw new IllegalArgumentException("Conflicting source naming definition "
-                                    + locEntry.getKey() + " in " + locSource);
-                        locSourceTarget.set(locEntry.getKey(), locEntry.getValue().deepCopy());
-                    });
-            var locMethods = (com.fasterxml.jackson.databind.node.ObjectNode) locMerged
-                    .path("GeneratedDataObjectMethodNameConventions").path("NameConventions");
-            JsonNode locMethodEntries = locCatalog.document
-                    .path("GeneratedDataObjectMethodNameConventions").path("NameConventions");
-            locMethodEntries.fields().forEachRemaining(locEntry -> {
-                JsonNode locOld = locMethods.get(locEntry.getKey());
-                if (locOld != null && !locOld.equals(locEntry.getValue()))
-                    throw new IllegalArgumentException("Conflicting generated method naming definition "
-                            + locEntry.getKey() + " in " + locSource);
-                locMethods.set(locEntry.getKey(), locEntry.getValue().deepCopy());
+            /* Merge every named profile family structurally, not by its domain-specific name. */
+            locCatalog.document.fields().forEachRemaining(locSectionEntry -> {
+                String locSectionName = locSectionEntry.getKey();
+                JsonNode locFamily = locSectionEntry.getValue();
+                if (!locFamily.isObject() || !locFamily.path("NameConventions").isObject()) return;
+                var locMergedFamily = locMerged.withObject(locSectionName);
+                var locTarget = locMergedFamily.withObject("NameConventions");
+                locFamily.path("NameConventions").fields().forEachRemaining(locEntry -> {
+                    JsonNode locOld = locTarget.get(locEntry.getKey());
+                    if (locOld != null && !locOld.equals(locEntry.getValue()))
+                        throw new IllegalArgumentException("Conflicting naming profile "
+                                + locSectionName + "/" + locEntry.getKey() + " in " + locSource);
+                    locTarget.set(locEntry.getKey(), locEntry.getValue().deepCopy());
+                });
             });
             for (String locSection : List.of("IdentifierConventions", "VersionConventions")) {
                 var locTarget = (com.fasterxml.jackson.databind.node.ObjectNode) locMerged.path(locSection);
@@ -173,32 +166,36 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
         document = aDocument;
         mergeConventions(identifierConventions, aStandard.path("IdentifierConventions"), aDocument.path("IdentifierConventions"));
         mergeConventions(versionConventions, aStandard.path("VersionConventions"), aDocument.path("VersionConventions"));
-        JsonNode locLegacyProfiles = aDocument.path("NameConventions");
-        JsonNode locSourceProfiles = aDocument.path("SourceStructureNameConventions").path("NameConventions");
-        locLegacyProfiles.fields().forEachRemaining(aItem -> filePatterns.put(aItem.getKey(), filenamePattern(aItem.getKey())));
-        locSourceProfiles.fields().forEachRemaining(aItem -> {
-            validateSchemaMetadata(aItem.getKey(), aItem.getValue());
-            if (filePatterns.containsKey(aItem.getKey()) && !locLegacyProfiles.path(aItem.getKey()).equals(aItem.getValue()))
-                throw new IllegalArgumentException("Conflicting source naming profile: " + aItem.getKey());
-            filePatterns.put(aItem.getKey(), filenamePattern(aItem.getKey()));
+        registerProfiles(aDocument.path("NameConventions"), "NameConventions");
+        aDocument.fields().forEachRemaining(locEntry -> {
+            JsonNode locFamily = locEntry.getValue();
+            if (!locFamily.isObject() || !locFamily.path("NameConventions").isObject()) return;
+            registerProfiles(locFamily.path("NameConventions"), locEntry.getKey());
+            if (locEntry.getKey().equals("GeneratedDataObjectMethodNameConventions"))
+                locFamily.path("NameConventions").fields().forEachRemaining(locMethod ->
+                        generatedMethodProfiles.put(locMethod.getKey(), locMethod.getValue()));
         });
-        aDocument.path("GeneratedDataObjectMethodNameConventions").path("NameConventions")
-                .fields().forEachRemaining(aItem -> {
-                    if (filePatterns.containsKey(aItem.getKey()))
-                        throw new IllegalArgumentException("Generated-method and source profiles share ID: " + aItem.getKey());
-                    validateSchemaMetadata(aItem.getKey(), aItem.getValue(), true);
-                    for (String locRequired : java.util.List.of("standard_getter", "standard_setter")) {
-                        if (aItem.getValue().path("StructureNaming").path(locRequired).asText("").isBlank())
-                            throw new IllegalArgumentException("Missing generated-method role " + locRequired + " in " + aItem.getKey());
-                    }
-                    generatedMethodProfiles.put(aItem.getKey(), aItem.getValue());
-                });
+    }
+
+    /** Registers only profiles that explicitly declare file naming roles as filename matchers. */
+    private void registerProfiles(JsonNode aProfiles, String aSection) {
+        aProfiles.fields().forEachRemaining(locEntry -> {
+            String locName = locEntry.getKey();
+            JsonNode locDefinition = locEntry.getValue();
+            JsonNode locOld = profiles.putIfAbsent(locName, locDefinition);
+            if (locOld != null && !locOld.equals(locDefinition))
+                throw new IllegalArgumentException("Conflicting naming profile: " + locName);
+            if (locDefinition.path("StructureNaming").hasNonNull("file_name_stem") &&
+                    locDefinition.path("StructureNaming").hasNonNull("file_name_suffix"))
+                filePatterns.put(locName, filenamePattern(locName));
+        });
     }
 
     private AIcNameConventionCatalog(AIcNameConventionCatalog aSource, Map<String, String> aRoles) {
         document = aSource.document;
         filePatterns.putAll(aSource.filePatterns);
         generatedMethodProfiles.putAll(aSource.generatedMethodProfiles);
+        profiles.putAll(aSource.profiles);
         identifierConventions.putAll(aSource.identifierConventions);
         versionConventions.putAll(aSource.versionConventions);
         roleBindings = Map.copyOf(aRoles);
@@ -213,6 +210,7 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
         document = aSource.document;
         filePatterns.putAll(aSource.filePatterns);
         generatedMethodProfiles.putAll(aSource.generatedMethodProfiles);
+        profiles.putAll(aSource.profiles);
         identifierConventions.putAll(aSource.identifierConventions);
         versionConventions.putAll(aSource.versionConventions);
         roleBindings = aSource.roleBindings;
@@ -227,6 +225,7 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
      * @return immutable catalog view sharing every parsed composition and source profile
      * @throws IllegalArgumentException when the method profile is unavailable
      */
+    @Deprecated
     public AIcNameConventionCatalog withGeneratedMethodProfile(String aMethodProfile) {
         return new AIcNameConventionCatalog(this, aMethodProfile);
     }
@@ -246,6 +245,7 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
      * @return the composition ID or {@code null} when the role is disabled or no
      *         generated-method profile is selected
      */
+    @Deprecated
     public String generatedMethodReference(String aRole) {
         if (generatedMethodProfile == null) return null;
         JsonNode locValue = generatedMethodProfiles.get(generatedMethodProfile)
@@ -304,6 +304,7 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
      * Names of generated DataObject method profiles, which do not participate in filename recognition.
      * @return configured method-profile identifiers in deterministic document order
      */
+    @Deprecated
     public Set<String> generatedMethodNames() {
         return Collections.unmodifiableSet(generatedMethodProfiles.keySet());
     }
@@ -324,89 +325,44 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
      * @throws IllegalArgumentException if a side or kind is unsupported
      */
     @Override
+    @Deprecated
     public String schemaMetadataField(String aProfile, String aSide, String aKind) {
         if (!(aSide.equals("schema_source") || aSide.equals("data_source")) ||
                 !(aKind.equals("url") || aKind.equals("identifier") || aKind.equals("version")))
             throw new IllegalArgumentException("Unsupported schema metadata field: " + aSide + "/" + aKind);
         JsonNode locProfile = profile(aProfile);
-        JsonNode locMapping = generatedMethodProfiles.containsKey(aProfile)
-                ? locProfile.path("SchemaMetadataNaming") : locProfile;
-        return locMapping.path(aSide + "_schema_" + aKind).asText("");
+        String locSection = locProfile.has("SchemaMetadataNaming") ? "SchemaMetadataNaming" : "";
+        return profileValue(aProfile, locSection, aSide + "_schema_" + aKind);
     }
 
     /**
-     * Rejects an instance-document metadata mapping unless the source schema
-     * explicitly declares the corresponding metadata property.
+     * Returns a value in a named profile section without interpreting its role.
+     * A profile family decides which section and keys are valid via its own schema.
      *
-     * @param aName source naming profile identifier for diagnostic messages
-     * @param aProfile parsed source naming profile
-     * @throws IllegalArgumentException when a target has no configured source
+     * @param aProfile profile identifier
+     * @param aSection optional profile section, or empty string for the profile root
+     * @param aKey exact key within the selected section
+     * @return text value or an empty string when not declared
      */
-    /**
-     * Validates source-structure metadata field mappings in their original flat
-     * namespace. Generated-method profiles instead use the dedicated typed map.
-     *
-     * @param aName naming profile ID used in diagnostics
-     * @param aProfile source naming profile definition
-     * @throws IllegalArgumentException for inconsistent mappings
-     */
-    private static void validateSchemaMetadata(String aName, JsonNode aProfile) {
-        validateSchemaMetadata(aName, aProfile, false);
-    }
-
-    /**
-     * Checks the metadata naming namespace, its six allowed roles and matching
-     * source/target declarations. Generated profiles must not contain legacy flat
-     * metadata fields, or silently ignore a misspelled metadata kind.
-     *
-     * @param aName naming profile identifier for diagnostics
-     * @param aProfile raw profile definition
-     * @param aGenerated whether the profile is a generated-method naming profile
-     * @throws IllegalArgumentException if the map is missing, malformed or invalid
-     */
-    private static void validateSchemaMetadata(String aName, JsonNode aProfile, boolean aGenerated) {
-        JsonNode locMapping = aProfile;
-        if (aGenerated) {
-            for (String locSide : List.of("schema_source", "data_source")) {
-                for (String locKind : List.of("url", "identifier", "version")) {
-                    if (aProfile.has(locSide + "_schema_" + locKind))
-                        throw new IllegalArgumentException(aName + ": obsolete flat schema metadata role: "
-                                + locSide + "_schema_" + locKind);
-                }
-            }
-            locMapping = aProfile.path("SchemaMetadataNaming");
-            if (!locMapping.isObject())
-                throw new IllegalArgumentException(aName + ": SchemaMetadataNaming must be a mapping");
-            var locEntries = locMapping.fieldNames();
-            while (locEntries.hasNext()) {
-                String locRole = locEntries.next();
-                if (!List.of("schema_source_schema_url", "schema_source_schema_identifier",
-                        "schema_source_schema_version", "data_source_schema_url",
-                        "data_source_schema_identifier", "data_source_schema_version").contains(locRole))
-                    throw new IllegalArgumentException(aName + ": unknown SchemaMetadataNaming role: " + locRole);
-            }
-        }
-        for (String locKind : List.of("url", "identifier", "version")) {
-            JsonNode locSourceNode = locMapping.path("schema_source_schema_" + locKind);
-            JsonNode locTargetNode = locMapping.path("data_source_schema_" + locKind);
-            if ((!locSourceNode.isMissingNode() && !locSourceNode.isTextual()) ||
-                    (!locTargetNode.isMissingNode() && !locTargetNode.isTextual()))
-                throw new IllegalArgumentException(aName + ": schema metadata field names must be strings");
-            String locSource = locSourceNode.asText("");
-            String locTarget = locTargetNode.asText("");
-            if (!locTarget.isEmpty() && locSource.isEmpty())
-                throw new IllegalArgumentException(aName + ": data_source_schema_" + locKind +
-                        " requires schema_source_schema_" + locKind);
-        }
+    public String profileValue(String aProfile, String aSection, String aKey) {
+        JsonNode locProfile = profile(aProfile);
+        JsonNode locMap = aSection == null || aSection.isBlank()
+                ? locProfile : locProfile.path(aSection);
+        return locMap.path(aKey).asText("");
     }
 
     private JsonNode profile(String aName) {
-        JsonNode locProfile = document.path("SourceStructureNameConventions").path("NameConventions").path(aName);
-        if (locProfile.isMissingNode()) locProfile = document.path("NameConventions").path(aName);
-        if (locProfile.isMissingNode()) locProfile = generatedMethodProfiles.get(aName);
-        if (locProfile == null || locProfile.isMissingNode())
-            throw new IllegalArgumentException("Unknown naming profile: " + aName);
+        JsonNode locProfile = profiles.get(aName);
+        if (locProfile == null) throw new IllegalArgumentException("Unknown naming profile: " + aName);
         return locProfile;
+    }
+
+    /** Returns all registered profile names, including non-file-naming profile families. */
+    public Set<String> profileNames() { return Collections.unmodifiableSet(profiles.keySet()); }
+
+    /** Resolves a declared structure role without assigning domain meaning to it. */
+    public String compositionReference(String aProfile, String aRole) {
+        return profileValue(aProfile, "StructureNaming", aRole);
     }
 
     private List<JsonNode> segments(String aComposition) {
@@ -428,15 +384,25 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
         aStack.remove(aStack.size() - 1);
     }
 
+    /** Temporary API bridge for pre-migration generators; remove after the tool upgrade. */
+    @Deprecated
+    private static String legacyGeneratedMethodRole(String aStructure) {
+        return switch (aStructure) {
+            case "getter_method_name" -> "standard_getter";
+            case "setter_method_name" -> "standard_setter";
+            default -> null;
+        };
+    }
+
     private List<JsonNode> structureSegments(String aProfile, String aStructure) {
         String locProfile = aProfile;
         String locStructure = aStructure;
-        if (generatedMethodProfile != null && aStructure.equals("getter_method_name")) {
-            locProfile = generatedMethodProfile;
-            locStructure = "standard_getter";
-        } else if (generatedMethodProfile != null && aStructure.equals("setter_method_name")) {
-            locProfile = generatedMethodProfile;
-            locStructure = "standard_setter";
+        if (generatedMethodProfile != null) {
+            String locLegacyRole = legacyGeneratedMethodRole(aStructure);
+            if (locLegacyRole != null) {
+                locProfile = generatedMethodProfile;
+                locStructure = locLegacyRole;
+            }
         }
         JsonNode locValue = profile(locProfile).path("StructureNaming").path(locStructure);
         if (!locValue.isTextual()) throw new IllegalArgumentException("Missing structure naming " + aStructure + " in " + aProfile);
@@ -555,7 +521,7 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
             String locValue = aValues.get(locName);
             if (locValue == null) throw new IllegalArgumentException("Missing variable: " + locName);
             if (locKind.equals("identifier") && aSourceIdentifierConvention != null && locSegment.has("Convention"))
-                locValue = convertIdentifier(locValue, aSourceIdentifierConvention, locSegment.get("Convention").asText());
+                locValue = convertIdentifierByDeclaredStyle(locValue, aSourceIdentifierConvention, locSegment.get("Convention").asText());
             if (!Pattern.compile("\\A(?:" + expression(locSegment) + ")\\z").matcher(locValue).matches())
                 throw new IllegalArgumentException("Invalid naming variable " + locName + "=" + locValue);
             locResult.append(locValue);
@@ -563,7 +529,54 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
         return locResult.toString();
     }
 
-    /** Converts the captured identifier according to the two named lexical conventions. */
+    /** Converts between declared lexical styles without interpreting naming profile IDs. */
+    public String convertIdentifierByDeclaredStyle(String aValue, String aSource, String aTarget) {
+        if (aSource.equals(aTarget)) return aValue;
+        JsonNode locSource = identifierConventions.get(aSource);
+        JsonNode locTarget = identifierConventions.get(aTarget);
+        if (locSource == null || locTarget == null)
+            throw new IllegalArgumentException("Unknown lexical convention: " + aSource + " -> " + aTarget);
+        String locSourceStyle = locSource.path("ConversionStyle").asText();
+        String locTargetStyle = locTarget.path("ConversionStyle").asText();
+        if (locSourceStyle.isBlank() || locTargetStyle.isBlank())
+            throw new IllegalArgumentException("Automatic conversion requires declared ConversionStyle: "
+                    + aSource + " -> " + aTarget);
+        return convertIdentifierStyle(aValue, locSourceStyle, locTargetStyle);
+    }
+
+    /** Performs conversion based on documented lexical style tokens, not convention identifiers. */
+    private static String convertIdentifierStyle(String aValue, String aSourceStyle, String aTargetStyle) {
+        String[] locWords;
+        if (aSourceStyle.endsWith("_snake")) locWords = aValue.split("_");
+        else if (aSourceStyle.endsWith("_kebab")) locWords = aValue.split("-");
+        else if (aSourceStyle.endsWith("_camel")) locWords = CAMEL_BOUNDARY.split(aValue);
+        else if (aSourceStyle.endsWith("_flat")) locWords = new String[]{aValue};
+        else throw new IllegalArgumentException("Unsupported source lexical style: " + aSourceStyle);
+        List<String> locLower = new ArrayList<>();
+        for (String locWord : locWords) locLower.add(locWord.toLowerCase(Locale.ROOT));
+        return switch (aTargetStyle) {
+            case "lower_snake" -> String.join("_", locLower);
+            case "upper_snake" -> String.join("_", locLower).toUpperCase(Locale.ROOT);
+            case "lower_kebab" -> String.join("-", locLower);
+            case "upper_kebab" -> String.join("-", locLower).toUpperCase(Locale.ROOT);
+            case "lower_flat" -> String.join("", locLower);
+            case "upper_flat" -> String.join("", locLower).toUpperCase(Locale.ROOT);
+            case "lower_camel", "upper_camel" -> {
+                StringBuilder locBuilder = new StringBuilder();
+                for (int i = 0; i < locLower.size(); i++) {
+                    String locWord = locLower.get(i);
+                    if (locWord.isEmpty()) continue;
+                    if (i == 0 && aTargetStyle.equals("lower_camel")) locBuilder.append(locWord);
+                    else locBuilder.append(Character.toUpperCase(locWord.charAt(0))).append(locWord.substring(1));
+                }
+                yield locBuilder.toString();
+            }
+            default -> throw new IllegalArgumentException("Unsupported target lexical style: " + aTargetStyle);
+        };
+    }
+
+    /** Legacy convention-ID converter retained for callers not yet migrated to declared lexical styles. */
+    @Deprecated
     public String convert(String aValue, String aSourceProfile, AIcNameConventionCatalog aTarget,
             String aTargetProfile, String aStructure) {
         Map<String, String> locValues = parse(aSourceProfile, aStructure, aValue);
@@ -580,31 +593,24 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
     /** Normalizes only the lexical identifier: custom regex formats require already formatted values. */
     public static String convertIdentifier(String aValue, String aSource, String aTarget) {
         if (aSource.equals(aTarget)) return aValue;
-        String[] locWords;
-        if (aSource.endsWith("_snake_case_1")) locWords = aValue.split("_");
-        else if (aSource.endsWith("_kebab_case_1")) locWords = aValue.split("-");
-        else if (aSource.endsWith("_camel_case_1")) locWords = CAMEL_BOUNDARY.split(aValue);
-        else if (aSource.equals("all_lower_1") || aSource.equals("all_upper_1")) locWords = new String[]{aValue};
-        else throw new IllegalArgumentException("Custom regex cannot automatically format: " + aSource);
-        List<String> locLower = new ArrayList<>();
-        for (String locWord : locWords) locLower.add(locWord.toLowerCase(Locale.ROOT));
-        return switch (aTarget) {
-            case "lower_snake_case_1" -> String.join("_", locLower);
-            case "upper_snake_case_1" -> String.join("_", locLower).toUpperCase(Locale.ROOT);
-            case "lower_kebab_case_1" -> String.join("-", locLower);
-            case "upper_kebab_case_1" -> String.join("-", locLower).toUpperCase(Locale.ROOT);
-            case "all_lower_1" -> String.join("", locLower);
-            case "all_upper_1" -> String.join("", locLower).toUpperCase(Locale.ROOT);
-            case "lower_camel_case_1", "upper_camel_case_1" -> {
-                StringBuilder locBuilder = new StringBuilder();
-                for (int i = 0; i < locLower.size(); i++) {
-                    String locWord = locLower.get(i);
-                    if (i == 0 && aTarget.equals("lower_camel_case_1")) locBuilder.append(locWord);
-                    else locBuilder.append(Character.toUpperCase(locWord.charAt(0))).append(locWord.substring(1));
-                }
-                yield locBuilder.toString();
-            }
-            default -> throw new IllegalArgumentException("Unsupported lexical convention: " + aTarget);
+        String locSourceStyle = legacyStyle(aSource);
+        String locTargetStyle = legacyStyle(aTarget);
+        return convertIdentifierStyle(aValue, locSourceStyle, locTargetStyle);
+    }
+
+    /** Compatibility mapping for older callers using the static utility. */
+    @Deprecated
+    private static String legacyStyle(String aIdentifier) {
+        return switch (aIdentifier) {
+            case "all_lower_1" -> "lower_flat";
+            case "all_upper_1" -> "upper_flat";
+            case "lower_snake_case_1" -> "lower_snake";
+            case "upper_snake_case_1" -> "upper_snake";
+            case "lower_kebab_case_1" -> "lower_kebab";
+            case "upper_kebab_case_1" -> "upper_kebab";
+            case "lower_camel_case_1" -> "lower_camel";
+            case "upper_camel_case_1" -> "upper_camel";
+            default -> throw new IllegalArgumentException("Unknown historic lexical style: " + aIdentifier);
         };
     }
 }

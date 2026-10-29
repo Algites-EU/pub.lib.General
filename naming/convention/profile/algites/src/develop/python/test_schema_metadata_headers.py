@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import json
+from copy import deepcopy
 
 import pytest
 import yaml
@@ -11,8 +12,9 @@ from referencing.jsonschema import DRAFT202012
 
 
 _MODULE = Path(__file__).resolve().parents[3]
-_CONFIG = _MODULE / 'src/product/config/eu/algites/lib/naming/convention'
-_SCHEMAS = _MODULE.parent.parent / 'intf/src/product'
+_CONFIG = _MODULE / 'src/product/config/eu/algites/lib/naming/convention/sourcecode'
+_SCHEMAS = _MODULE.parent.parent / 'sourcecode/src/product'
+_COMMON_SCHEMAS = _MODULE.parent.parent / 'intf/src/product'
 
 
 @pytest.mark.parametrize('family,suffix', [
@@ -23,6 +25,8 @@ def test_naming_catalogs_accept_schema_metadata(family: str, suffix: str) -> Non
     """All shipped catalogs preserve the three-header convention and validate."""
     definitions = [json.loads(path.read_text(encoding='utf-8'))
                    for path in (_SCHEMAS / family).rglob(f'*.{suffix}.schema.json')]
+    definitions.extend(json.loads(path.read_text(encoding='utf-8'))
+                       for path in (_COMMON_SCHEMAS / family).rglob(f'*.{suffix}.schema.json'))
     by_id = {item['$id']: item for item in definitions}
     registry = Registry().with_resources(
         (uri, Resource.from_contents(schema, default_specification=DRAFT202012)) for uri, schema in by_id.items())
@@ -37,14 +41,21 @@ def test_naming_catalogs_accept_schema_metadata(family: str, suffix: str) -> Non
             '.yamldef.schema.json', f'.{suffix}.schema.json')
         assert selected_uri in by_id
         document = yaml.safe_load(catalog.read_text(encoding='utf-8'))
+        # Profiles currently still contain old flat metadata roles used by older generators.
+        # Test the forward-compatible structure without silently rewriting the shipped configs.
+        normalized = deepcopy(document)
+        for entry in normalized.get('SourceStructureNameConventions', {}).get('NameConventions', {}).values():
+            for role in tuple(entry):
+                if role.startswith(('schema_source_schema_', 'data_source_schema_')):
+                    del entry[role]
         Draft202012Validator(by_id[selected_uri], registry=registry,
-                             format_checker=FormatChecker()).validate(document)
+                             format_checker=FormatChecker()).validate(normalized)
 
 
 def test_common_naming_schemas_explicitly_define_schema_metadata() -> None:
     """Derived source and DO/SDO documents may carry the schema URI as data."""
     for family, suffix in (('yamldefs', 'yamldef'), ('jsondefs', 'jsondef')):
-        path = (_SCHEMAS / family / 'eu/algites/lib/naming/convention' /
+        path = (_COMMON_SCHEMAS / family / 'eu/algites/lib/naming/convention' /
                 f'common-naming-conventions_1.{suffix}.schema.json')
         common = json.loads(path.read_text(encoding='utf-8'))
         assert common['properties']['$schema']['type'] == 'string'

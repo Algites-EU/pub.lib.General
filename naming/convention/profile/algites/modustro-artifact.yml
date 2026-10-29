@@ -14,6 +14,9 @@ Dependencies:
         ArtifactId: pub.lib.General_naming.convention.intf
         Usages: [product_api]
       - GroupId: eu.algites.lib.naming
+        ArtifactId: pub.lib.General_naming.convention.sourcecode
+        Usages: [product_api]
+      - GroupId: eu.algites.lib.naming
         ArtifactId: pub.lib.General_naming.convention.impl
         Usages: [product_api]
   - DependencyKind: java

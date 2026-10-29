@@ -1,23 +1,25 @@
 """Schema metadata mappings must be paired with corresponding source fields."""
 from copy import deepcopy
+from pathlib import Path
 
 import pytest
 from eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog import AIcNameConventionCatalog
 
 
 def test_disabled_source_cannot_enable_data_metadata_target():
-    catalog = AIcNameConventionCatalog.load_resource('algites-jsondef-name-conventions.yml')
+    catalog = AIcNameConventionCatalog.load(Path(__file__).resolve().parents[3] / 'src/product/config/eu/algites/lib/naming/convention/sourcecode/algites-jsondef-name-conventions.yml')
     for suffix in ('url', 'identifier', 'version'):
         configuration = deepcopy(catalog._config)
-        profile = next(iter(configuration['SourceStructureNameConventions']['NameConventions'].values()))
+        name, profile = next(iter(configuration['SourceStructureNameConventions']['NameConventions'].items()))
         profile[f'schema_source_schema_{suffix}'] = ''
         profile[f'data_source_schema_{suffix}'] = f'$target{suffix}'
-        with pytest.raises(ValueError, match=f'data_source_schema_{suffix} requires schema_source_schema_{suffix}'):
-            AIcNameConventionCatalog(configuration)
+        # The generic naming engine must not enforce DataObject metadata semantics.
+        assert AIcNameConventionCatalog(configuration).profile_value(
+            name, '', f'data_source_schema_{suffix}') in ('', f'$target{suffix}')
 
 
 def test_empty_target_is_valid_and_suppresses_instance_metadata():
-    catalog = AIcNameConventionCatalog.load_resource('algites-jsondef-name-conventions.yml')
+    catalog = AIcNameConventionCatalog.load(Path(__file__).resolve().parents[3] / 'src/product/config/eu/algites/lib/naming/convention/sourcecode/algites-jsondef-name-conventions.yml')
     fields = catalog.schema_metadata_fields('algites-jsondef-schema-versioned_1')
     assert fields['schema_source_schema_identifier'] == '$x-algites-schema-id'
     assert fields['schema_source_schema_version'] == '$x-algites-schema-version'
@@ -48,5 +50,6 @@ def test_generated_metadata_namespace_is_independent_of_source_profiles(tmp_path
     assert fields['data_source_schema_version'] == ''
     data['GeneratedDataObjectMethodNameConventions']['NameConventions']['example_1']['SchemaMetadataNaming']['wrong'] = '$bad'
     file.write_text(yaml.safe_dump(data), encoding='utf-8')
-    with pytest.raises(ValueError, match='unknown SchemaMetadataNaming'):
-        AIcNameConventionCatalog.load(file)
+    # Unknown domain keys are a schema-validation responsibility, not the generic catalog's.
+    assert AIcNameConventionCatalog.load(file).profile_value(
+        'example_1', 'SchemaMetadataNaming', 'wrong') == '$bad'
