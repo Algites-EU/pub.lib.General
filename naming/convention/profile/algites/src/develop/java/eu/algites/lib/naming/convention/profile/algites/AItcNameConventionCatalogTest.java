@@ -186,4 +186,79 @@ public final class AItcNameConventionCatalogTest {
         }
     }
 
+
+
+    /**
+     * Rejects incompatible inline segment alternatives during catalog load, before
+     * a selected profile attempts to generate or parse a name.
+     *
+     * @throws Exception when a temporary catalog cannot be written or removed
+     */
+    @Test
+    public void AIcSegmentKindControlsPermittedFields() throws Exception {
+        for (String locBody : new String[] {
+                "Kind: identifier\n        Convention: upper_camel_case_1\n        Value: Hello",
+                "Kind: version\n        Convention: positive_integer_1\n        Name: value",
+                "Kind: variable\n        Name: region",
+                "Kind: constant_string\n        Value: X\n        CustomConventionRegexp: Y",
+                "Ref: another\n        Kind: constant_string",
+                "Kind: identifier\n        Convention: upper_camel_case_1\n        CustomConventionRegexp: '(?<identifier>[a-z]+)'"
+        }) {
+            Path locFile = Files.createTempFile("algites-invalid-segment", ".yml");
+            try {
+                Files.writeString(locFile, "NameCompositions:\n  segment:\n    Segments:\n      - " + locBody + "\n");
+                try {
+                    AIcNameConventionCatalog.load(locFile);
+                    Assert.fail("Invalid naming segment was accepted: " + locBody);
+                } catch (IllegalArgumentException locExpected) {
+                    Assert.assertTrue(locExpected.getMessage().contains("segment"), locExpected.getMessage());
+                }
+            } finally {
+                Files.deleteIfExists(locFile);
+            }
+        }
+    }
+
+    /**
+     * An inline identifier/version regular expression must compile under Java's
+     * regex engine and contain its required named capture group.
+     *
+     * @throws Exception when a temporary catalog cannot be written or removed
+     */
+    @Test
+    public void AIcCustomConventionRegexpIsValidatedEagerly() throws Exception {
+        for (String locCustom : new String[] {
+                "(?<version>[0-9]+)",
+                "(?<identifier>[a-z]+",
+                "(?<identifier>[a-z]+)(?<identifier>[0-9]+)"
+        }) {
+            Path locFile = Files.createTempFile("algites-invalid-regexp", ".yml");
+            try {
+                Files.writeString(locFile, "NameCompositions:\n  segment:\n    Segments:\n"
+                        + "      - Kind: identifier\n"
+                        + "        CustomConventionRegexp: '" + locCustom + "'\n");
+                try {
+                    AIcNameConventionCatalog.load(locFile);
+                    Assert.fail("Invalid custom regexp was accepted: " + locCustom);
+                } catch (IllegalArgumentException locExpected) {
+                    Assert.assertTrue(locExpected.getMessage().contains("segment"), locExpected.getMessage());
+                }
+            } finally {
+                Files.deleteIfExists(locFile);
+            }
+        }
+        Path locFile = Files.createTempFile("algites-valid-regexp", ".yml");
+        try {
+            Files.writeString(locFile, "NameCompositions:\n  segment:\n    Segments:\n"
+                    + "      - Kind: identifier\n"
+                    + "        CustomConventionRegexp: '(?<identifier>[a-z]+)'\n"
+                    + "NameConventions:\n  profile:\n    StructureNaming:\n"
+                    + "      main_container_name: segment\n");
+            AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.load(locFile);
+            Assert.assertEquals(locCatalog.parse("profile", "main_container_name", "customer")
+                    .get("identifier"), "customer");
+        } finally {
+            Files.deleteIfExists(locFile);
+        }
+    }
 }

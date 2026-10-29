@@ -49,12 +49,34 @@
           <xs:element name="NameFragment" minOccurs="0" maxOccurs="unbounded">
             <xs:complexType><xs:sequence><xs:element name="Segments"><xs:complexType><xs:sequence>
           <xs:element name="Segment" minOccurs="1" maxOccurs="unbounded">
-            <xs:complexType><xs:sequence>
-              <xs:element name="Ref" type="xs:string" minOccurs="0"/>
-              <xs:element name="Kind" minOccurs="0"><xs:simpleType>
-                <xs:restriction base="xs:string"><xs:enumeration value="constant_string"/><xs:enumeration value="identifier"/><xs:enumeration value="version"/><xs:enumeration value="variable"/></xs:restriction></xs:simpleType></xs:element>
-              <xs:element name="Value" type="xs:string" minOccurs="0"/>
-            </xs:sequence></xs:complexType>
+            <xs:complexType>
+              <xs:choice>
+                <!-- A reference cannot contain any inline segment fields. -->
+                <xs:element name="Ref" type="xs:string"/>
+                <xs:sequence>
+                  <xs:element name="Kind">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="constant_string"/>
+                        <xs:enumeration value="identifier"/>
+                        <xs:enumeration value="version"/>
+                        <xs:enumeration value="variable"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <!-- Exactly one alternative; Name and Regexp are an inseparable pair. -->
+                  <xs:choice>
+                    <xs:element name="Value" type="xs:string"/>
+                    <xs:element name="Convention" type="xs:string"/>
+                    <xs:element name="CustomConventionRegexp" type="xs:string"/>
+                    <xs:sequence>
+                      <xs:element name="Name" type="xs:string"/>
+                      <xs:element name="Regexp" type="xs:string"/>
+                    </xs:sequence>
+                  </xs:choice>
+                </xs:sequence>
+              </xs:choice>
+            </xs:complexType>
           </xs:element>
         </xs:sequence></xs:complexType></xs:element></xs:sequence>
               <xs:attribute name="name" type="xs:string" use="required"/>
@@ -72,12 +94,34 @@
           <xs:element name="NameComposition" minOccurs="0" maxOccurs="unbounded">
             <xs:complexType><xs:sequence><xs:element name="Segments"><xs:complexType><xs:sequence>
           <xs:element name="Segment" minOccurs="1" maxOccurs="unbounded">
-            <xs:complexType><xs:sequence>
-              <xs:element name="Ref" type="xs:string" minOccurs="0"/>
-              <xs:element name="Kind" minOccurs="0"><xs:simpleType>
-                <xs:restriction base="xs:string"><xs:enumeration value="constant_string"/><xs:enumeration value="identifier"/><xs:enumeration value="version"/><xs:enumeration value="variable"/></xs:restriction></xs:simpleType></xs:element>
-              <xs:element name="Value" type="xs:string" minOccurs="0"/>
-            </xs:sequence></xs:complexType>
+            <xs:complexType>
+              <xs:choice>
+                <!-- A reference cannot contain any inline segment fields. -->
+                <xs:element name="Ref" type="xs:string"/>
+                <xs:sequence>
+                  <xs:element name="Kind">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="constant_string"/>
+                        <xs:enumeration value="identifier"/>
+                        <xs:enumeration value="version"/>
+                        <xs:enumeration value="variable"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <!-- Exactly one alternative; Name and Regexp are an inseparable pair. -->
+                  <xs:choice>
+                    <xs:element name="Value" type="xs:string"/>
+                    <xs:element name="Convention" type="xs:string"/>
+                    <xs:element name="CustomConventionRegexp" type="xs:string"/>
+                    <xs:sequence>
+                      <xs:element name="Name" type="xs:string"/>
+                      <xs:element name="Regexp" type="xs:string"/>
+                    </xs:sequence>
+                  </xs:choice>
+                </xs:sequence>
+              </xs:choice>
+            </xs:complexType>
           </xs:element>
         </xs:sequence></xs:complexType></xs:element></xs:sequence>
               <xs:attribute name="name" type="xs:string" use="required"/>

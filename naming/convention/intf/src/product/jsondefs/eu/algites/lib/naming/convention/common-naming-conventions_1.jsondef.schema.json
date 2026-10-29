@@ -231,29 +231,179 @@
         "Convention": {
           "type": "string",
           "title": "Convention",
-          "description": "Identifier or version convention used to validate or format this segment."
+          "description": "Required for identifier/version segments when a named identifier/version convention is selected; mutually exclusive with CustomConventionRegexp.",
+          "minLength": 1
         },
         "CustomConventionRegexp": {
           "type": "string",
           "title": "Custom convention regexp",
-          "description": "Custom regular expression used instead of a named convention."
+          "description": "Inline Java-style regular expression used instead of a named convention for an identifier/version segment. It must compile and provide the named capture group identifier or version respectively; checked by the naming catalog in Java/Python.",
+          "minLength": 1
         },
         "Name": {
           "type": "string",
           "title": "Name",
-          "description": "Symbolic name of the variable or source value referenced by this segment."
+          "description": "Symbolic name of the variable or source value referenced by this segment.",
+          "minLength": 1
         },
         "Regexp": {
           "type": "string",
           "title": "Regexp",
-          "description": "Regular expression defining the syntax recognized by this named convention."
+          "description": "Regular expression defining the syntax recognized by this named convention.",
+          "minLength": 1
         }
       },
       "required": [
         "Kind"
       ],
       "title": "Inline segment",
-      "description": "Inline segment definition with its kind and optional parameters."
+      "description": "One inline segment. Kind determines exactly which alternative fields are permitted: constant_string/Value, identifier or version/one of Convention and CustomConventionRegexp, variable/Name plus Regexp.",
+      "oneOf": [
+        {
+          "title": "Literal segment",
+          "properties": {
+            "Kind": {
+              "const": "constant_string"
+            }
+          },
+          "required": [
+            "Value"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "Convention"
+                ]
+              },
+              {
+                "required": [
+                  "CustomConventionRegexp"
+                ]
+              },
+              {
+                "required": [
+                  "Name"
+                ]
+              },
+              {
+                "required": [
+                  "Regexp"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "title": "Identifier segment",
+          "properties": {
+            "Kind": {
+              "const": "identifier"
+            }
+          },
+          "oneOf": [
+            {
+              "required": [
+                "Convention"
+              ]
+            },
+            {
+              "required": [
+                "CustomConventionRegexp"
+              ]
+            }
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "Value"
+                ]
+              },
+              {
+                "required": [
+                  "Name"
+                ]
+              },
+              {
+                "required": [
+                  "Regexp"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "title": "Version segment",
+          "properties": {
+            "Kind": {
+              "const": "version"
+            }
+          },
+          "oneOf": [
+            {
+              "required": [
+                "Convention"
+              ]
+            },
+            {
+              "required": [
+                "CustomConventionRegexp"
+              ]
+            }
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "Value"
+                ]
+              },
+              {
+                "required": [
+                  "Name"
+                ]
+              },
+              {
+                "required": [
+                  "Regexp"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "title": "Named variable segment",
+          "properties": {
+            "Kind": {
+              "const": "variable"
+            }
+          },
+          "required": [
+            "Name",
+            "Regexp"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "Value"
+                ]
+              },
+              {
+                "required": [
+                  "Convention"
+                ]
+              },
+              {
+                "required": [
+                  "CustomConventionRegexp"
+                ]
+              }
+            ]
+          }
+        }
+      ]
     },
     "NameFragmentsSegmentChoice": {
       "oneOf": [

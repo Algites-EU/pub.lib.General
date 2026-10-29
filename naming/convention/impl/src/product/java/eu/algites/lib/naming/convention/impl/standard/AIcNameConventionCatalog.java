@@ -160,10 +160,104 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
         return new AIcNameConventionCatalog(locMerged, MAPPER.createObjectNode());
     }
 
+    /**
+     * Validates one YAML segment against the same exclusive content model as JSONDEFS.
+     * The check is required even for XML-only catalogs, because XSD 1.0 cannot express
+     * the dependency between a sibling Kind value and its content alternative.
+     *
+     * @param aSegment segment to validate
+     * @param aLocation diagnostic path to the segment
+     * @throws IllegalArgumentException if fields are inconsistent or a regex is invalid
+     */
+    private static void validateSegment(JsonNode aSegment, String aLocation) {
+        if (!aSegment.isObject())
+            throw new IllegalArgumentException(aLocation + ": naming segment must be an object");
+        Set<String> locKeys = new java.util.HashSet<>();
+        aSegment.fieldNames().forEachRemaining(locKeys::add);
+        if (locKeys.contains("Ref")) {
+            if (!locKeys.equals(Set.of("Ref")) || !aSegment.path("Ref").isTextual()
+                    || aSegment.path("Ref").asText().isEmpty())
+                throw new IllegalArgumentException(aLocation + ": Ref must be the only, nonempty field");
+            return;
+        }
+        String locKind = aSegment.path("Kind").asText();
+        Set<String> locExpected;
+        switch (locKind) {
+            case "constant_string" -> locExpected = Set.of("Kind", "Value");
+            case "identifier", "version" -> {
+                boolean locNamed = locKeys.contains("Convention");
+                boolean locCustom = locKeys.contains("CustomConventionRegexp");
+                if (locNamed == locCustom)
+                    throw new IllegalArgumentException(aLocation + ": " + locKind
+                            + " requires exactly one of Convention and CustomConventionRegexp");
+                locExpected = Set.of("Kind", locNamed ? "Convention" : "CustomConventionRegexp");
+            }
+            case "variable" -> locExpected = Set.of("Kind", "Name", "Regexp");
+            default -> throw new IllegalArgumentException(aLocation + ": unknown segment Kind " + locKind);
+        }
+        if (!locKeys.equals(locExpected))
+            throw new IllegalArgumentException(aLocation + ": " + locKind
+                    + " expects " + locExpected + ", got " + locKeys);
+        for (String locKey : locExpected) {
+            if (locKey.equals("Kind")) continue;
+            if (!aSegment.path(locKey).isTextual() || (!locKey.equals("Value")
+                    && aSegment.path(locKey).asText().isEmpty()))
+                throw new IllegalArgumentException(aLocation + ": invalid or empty " + locKey);
+        }
+        if (locKind.equals("variable")) {
+            String locName = aSegment.path("Name").asText();
+            if (!locName.matches("[A-Za-z][A-Za-z0-9_]*"))
+                throw new IllegalArgumentException(aLocation + ": invalid variable name " + locName);
+            validateRegexp(aSegment.path("Regexp").asText(), null, aLocation);
+        }
+        if (locKeys.contains("CustomConventionRegexp"))
+            validateRegexp(aSegment.path("CustomConventionRegexp").asText(), locKind, aLocation);
+    }
+
+    /**
+     * Compiles a Java regular expression and verifies the named group used to
+     * recover an identifier, version, or user-defined variable during parsing.
+     *
+     * @param aRegexp Java regular expression from a naming segment
+     * @param aExpectedGroup required named capture
+     * @param aLocation diagnostic segment location
+     */
+    private static void validateRegexp(String aRegexp, String aExpectedGroup, String aLocation) {
+        try {
+            Pattern.compile(aRegexp);
+        } catch (java.util.regex.PatternSyntaxException locError) {
+            throw new IllegalArgumentException(aLocation + ": invalid regular expression: "
+                    + locError.getDescription(), locError);
+        }
+        if (aExpectedGroup == null) return;
+        Matcher locCapture = CAPTURE.matcher(aRegexp);
+        while (locCapture.find()) {
+            if (locCapture.group(1).equals(aExpectedGroup)) return;
+        }
+        throw new IllegalArgumentException(aLocation + ": regular expression requires named capture "
+                + aExpectedGroup);
+    }
+
+    /** Validates every defined segment, including fragments not selected by a profile. */
+    private static void validateSegmentDefinitions(JsonNode aDocument) {
+        for (String locSection : List.of("NameFragments", "NameCompositions")) {
+            aDocument.path(locSection).fields().forEachRemaining(locEntry -> {
+                JsonNode locSegments = locEntry.getValue().path("Segments");
+                if (!locSegments.isArray())
+                    throw new IllegalArgumentException(locSection + "/" + locEntry.getKey()
+                            + " must contain a Segments array");
+                for (int locIndex = 0; locIndex < locSegments.size(); locIndex++)
+                    validateSegment(locSegments.get(locIndex), locSection + "/" + locEntry.getKey()
+                            + "/Segments[" + locIndex + "]");
+            });
+        }
+    }
+
     private AIcNameConventionCatalog(JsonNode aDocument, JsonNode aStandard) {
         roleBindings = Map.of();
         generatedMethodProfile = null;
         document = aDocument;
+        validateSegmentDefinitions(aDocument);
         mergeConventions(identifierConventions, aStandard.path("IdentifierConventions"), aDocument.path("IdentifierConventions"));
         mergeConventions(versionConventions, aStandard.path("VersionConventions"), aDocument.path("VersionConventions"));
         registerProfiles(aDocument.path("NameConventions"), "NameConventions");

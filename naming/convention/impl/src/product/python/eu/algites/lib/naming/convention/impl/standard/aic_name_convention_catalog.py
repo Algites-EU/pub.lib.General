@@ -36,12 +36,70 @@ class AIcNameConventionCatalog:
         self._generated_method_profile = None
         self._identifiers = config.get('IdentifierConventions', {})
         self._versions = config.get('VersionConventions', {})
+        for section, definitions in (('NameFragments', self._fragments),
+                                     ('NameCompositions', self._compositions)):
+            for name, definition in definitions.items():
+                for index, segment in enumerate(definition.get('Segments', ())):
+                    self._validate_segment(segment, f'{section}/{name}/Segments[{index}]')
         self._expanded: dict[str, tuple[dict, ...]] = {}
         self._patterns: dict[str, re.Pattern] = {}
         for name, definition in self._conventions.items():
             keys = definition.get('StructureNaming', {})
             if 'file_name_stem' in keys and 'file_name_suffix' in keys:
                 self.filename_pattern(name)
+
+    @staticmethod
+    def _validate_segment(segment: Mapping[str, Any], location: str) -> None:
+        """Enforce the four mutually exclusive naming forms, including inline regex captures.
+
+        XML Schema 1.0 cannot tie the value of Kind to the selected content branch,
+        so every runtime catalog enforces the same semantics as JSONDEFS/YAMLDEFS.
+        """
+        if not isinstance(segment, Mapping):
+            raise ValueError(f'{location}: segment must be a mapping')
+        keys = set(segment)
+        if 'Ref' in keys:
+            if keys != {'Ref'} or not isinstance(segment['Ref'], str) or not segment['Ref']:
+                raise ValueError(f'{location}: Ref segment must contain only a nonempty Ref')
+            return
+        kind = segment.get('Kind')
+        if kind == 'constant_string':
+            allowed = {'Kind', 'Value'}
+        elif kind in ('identifier', 'version'):
+            selected = {'Convention', 'CustomConventionRegexp'} & keys
+            if len(selected) != 1:
+                raise ValueError(f'{location}: {kind} requires exactly one of Convention and CustomConventionRegexp')
+            allowed = {'Kind', *selected}
+        elif kind == 'variable':
+            allowed = {'Kind', 'Name', 'Regexp'}
+        else:
+            raise ValueError(f'{location}: unsupported or missing segment Kind: {kind!r}')
+        if keys != allowed:
+            raise ValueError(f'{location}: {kind} expects {sorted(allowed)}; got {sorted(keys)}')
+        for name in allowed - {'Kind', 'Value'}:
+            if not isinstance(segment[name], str) or not segment[name]:
+                raise ValueError(f'{location}: {name} must be a nonempty string')
+        if kind == 'constant_string' and not isinstance(segment['Value'], str):
+            raise ValueError(f'{location}: Value must be a string')
+        if kind == 'variable' and not re.fullmatch(r'[A-Za-z][A-Za-z0-9_]*', segment['Name']):
+            raise ValueError(f'{location}: invalid variable Name: {segment["Name"]!r}')
+        if 'CustomConventionRegexp' in keys:
+            pattern = segment['CustomConventionRegexp']
+            expected = kind
+            AIcNameConventionCatalog._validate_regexp(pattern, expected, location)
+        elif kind == 'variable':
+            AIcNameConventionCatalog._validate_regexp(segment['Regexp'], None, location)
+
+    @staticmethod
+    def _validate_regexp(expression: str, required_group: str | None, location: str) -> None:
+        """Validate Java-style named capture syntax with the Python regex engine."""
+        converted = _NAMED_CAPTURE.sub(r'(?P<\1>', expression)
+        try:
+            compiled = re.compile(converted)
+        except re.error as exc:
+            raise ValueError(f'{location}: invalid regular expression {expression!r}: {exc}') from exc
+        if required_group is not None and required_group not in compiled.groupindex:
+            raise ValueError(f'{location}: regular expression must define named capture {required_group!r}')
 
     def _register_profiles(self, entries: Mapping[str, Any], section: str) -> None:
         """Register profile families without knowing their application or role vocabulary."""
@@ -238,15 +296,7 @@ class AIcNameConventionCatalog:
             if 'Ref' in segment:
                 results.extend(self._expand(segment['Ref'], stack + (name,)))
             else:
-                kind = segment['Kind']
-                if kind not in ('constant_string', 'identifier', 'version', 'variable'):
-                    raise ValueError(f'Unsupported segment kind: {kind}')
-                if kind == 'constant_string' and 'Value' not in segment:
-                    raise ValueError('Constant segment requires Value')
-                if kind in ('identifier', 'version') and (('Convention' in segment) == ('CustomConventionRegexp' in segment)):
-                    raise ValueError(f'{kind} must specify exactly one of Convention or CustomConventionRegexp')
-                if kind == 'variable' and ('Name' not in segment or 'Regexp' not in segment):
-                    raise ValueError('Variable segment requires Name and Regexp')
+                self._validate_segment(segment, f'composition {name}')
                 results.append(dict(segment))
         return tuple(results)
 
