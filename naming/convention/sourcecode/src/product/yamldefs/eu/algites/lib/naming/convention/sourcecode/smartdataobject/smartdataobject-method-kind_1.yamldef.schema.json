@@ -38,6 +38,6 @@
       "description": "Generated operation that removes the explicit raw field value or presence marker without assigning a replacement; optional."
     }
   ],
-  "$x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind",
-  "$x-algites-schema-version": 1
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind",
+  "x-algites-schema-version": 1
 }

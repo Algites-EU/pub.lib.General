@@ -118,6 +118,6 @@
     "VersionConventions"
   ],
   "description": "Reusable regular expressions with named capture groups. Regex syntax canonicalized from Java named groups.",
-  "$x-algites-schema-id": "eu.algites.lib.naming.convention.standard-conventions",
-  "$x-algites-schema-version": 1
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.standard-conventions",
+  "x-algites-schema-version": 1
 }

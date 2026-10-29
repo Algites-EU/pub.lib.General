@@ -67,8 +67,8 @@ def test_algites_schema_metadata_mapping(family: str) -> None:
     document = yaml.safe_load((_CONFIG / f'algites-{family}-name-conventions.yml').read_text(encoding='utf-8'))
     for profile in document['SourceStructureNameConventions']['NameConventions'].values():
         assert profile['schema_source_schema_url'] == '$id'
-        assert profile['schema_source_schema_identifier'] == '$x-algites-schema-id'
-        assert profile['schema_source_schema_version'] == '$x-algites-schema-version'
+        assert profile['schema_source_schema_identifier'] == 'x-algites-schema-id'
+        assert profile['schema_source_schema_version'] == 'x-algites-schema-version'
         assert profile['data_source_schema_url'] == '$schema'
         assert profile['data_source_schema_identifier'] == ''
         assert profile['data_source_schema_version'] == ''

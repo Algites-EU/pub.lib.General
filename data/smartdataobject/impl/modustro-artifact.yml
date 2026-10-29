@@ -14,7 +14,7 @@ Dependencies:
         ArtifactId: pub.lib.General_factory.cpdiscovery.impl
         Usages: [product_implementation]
       - GroupId: eu.algites.lib.common
-        ArtifactId: pub.lib.General_common
+        ArtifactId: pub.lib.General_common.util
         Usages: [product_implementation]
       - GroupId: eu.algites.lib.data
         ArtifactId: pub.lib.General_data.smartdataobject.intf

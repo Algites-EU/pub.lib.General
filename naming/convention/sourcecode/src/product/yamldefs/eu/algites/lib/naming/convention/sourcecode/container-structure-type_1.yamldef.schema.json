@@ -13,8 +13,8 @@
     "resource_bundle"
   ],
   "description": "Kind of represented container, independent of its naming profile.",
-  "$x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.container-structure-type",
-  "$x-algites-schema-version": 1,
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.container-structure-type",
+  "x-algites-schema-version": 1,
   "oneOf": [
     {
       "const": "object",

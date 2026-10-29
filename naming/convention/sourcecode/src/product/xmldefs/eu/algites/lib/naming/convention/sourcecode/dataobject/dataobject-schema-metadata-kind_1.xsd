@@ -12,12 +12,12 @@
       </xs:enumeration>
       <xs:enumeration value="schema_source_schema_identifier">
         <xs:annotation>
-          <xs:documentation>Source schema identifier field: Field in the source schema definition carrying its stable logical identifier, for example $x-algites-schema-id. An empty configured mapping disables this extraction.</xs:documentation>
+          <xs:documentation>Source schema identifier field: Field in the source schema definition carrying its stable logical identifier, for example x-algites-schema-id. An empty configured mapping disables this extraction.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="schema_source_schema_version">
         <xs:annotation>
-          <xs:documentation>Source schema version field: Field in the source schema definition carrying the schema version, for example $x-algites-schema-version. An empty configured mapping disables this extraction.</xs:documentation>
+          <xs:documentation>Source schema version field: Field in the source schema definition carrying the schema version, for example x-algites-schema-version. An empty configured mapping disables this extraction.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="data_source_schema_url">

@@ -122,8 +122,8 @@ keyword `$schema` continues to designate the JSON Schema dialect inside the
 **schema definition** and must not be substituted there.
 
 The Defs Codegen source naming profile supplies the exact source metadata key
-names (by default `$id`, `$x-algites-schema-id`, and
-`$x-algites-schema-version`) and destination property names. Generated types
+names (by default `$id`, `x-algites-schema-id`, and
+`x-algites-schema-version`) and destination property names. Generated types
 propagate this mapping into the second-stage SDO annotations. During JSON/YAML
 serialization, an explicitly declared property with the same target metadata
 name is emitted **once**; a conflicting stored value fails rather than silently

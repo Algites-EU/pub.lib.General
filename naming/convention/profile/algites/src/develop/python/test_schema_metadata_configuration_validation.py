@@ -21,8 +21,8 @@ def test_disabled_source_cannot_enable_data_metadata_target():
 def test_empty_target_is_valid_and_suppresses_instance_metadata():
     catalog = AIcNameConventionCatalog.load(Path(__file__).resolve().parents[3] / 'src/product/config/eu/algites/lib/naming/convention/sourcecode/algites-jsondef-name-conventions.yml')
     fields = catalog.schema_metadata_fields('algites-jsondef-schema-versioned_1')
-    assert fields['schema_source_schema_identifier'] == '$x-algites-schema-id'
-    assert fields['schema_source_schema_version'] == '$x-algites-schema-version'
+    assert fields['schema_source_schema_identifier'] == 'x-algites-schema-id'
+    assert fields['schema_source_schema_version'] == 'x-algites-schema-version'
     assert fields['data_source_schema_url'] == '$schema'
     assert fields['data_source_schema_identifier'] == ''
     assert fields['data_source_schema_version'] == ''
@@ -38,7 +38,7 @@ def test_generated_metadata_namespace_is_independent_of_source_profiles(tmp_path
             'StructureNaming': {'standard_getter': 'getter', 'standard_setter': 'setter'},
             'SchemaMetadataNaming': {
                 'schema_source_schema_url': '$id',
-                'schema_source_schema_identifier': '$x-algites-schema-id',
+                'schema_source_schema_identifier': 'x-algites-schema-id',
                 'data_source_schema_url': '$schema',
                 'data_source_schema_identifier': ''}}}}}
     file = tmp_path / 'generated-methods.yml'

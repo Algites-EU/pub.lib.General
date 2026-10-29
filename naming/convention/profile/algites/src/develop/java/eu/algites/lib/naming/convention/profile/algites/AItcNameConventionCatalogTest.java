@@ -159,7 +159,7 @@ public final class AItcNameConventionCatalogTest {
                             standard_setter: setter
                           SchemaMetadataNaming:
                             schema_source_schema_url: $id
-                            schema_source_schema_identifier: $x-algites-schema-id
+                            schema_source_schema_identifier: x-algites-schema-id
                             data_source_schema_url: $schema
                             data_source_schema_identifier: ''
                     """);

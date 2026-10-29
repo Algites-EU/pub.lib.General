@@ -51,7 +51,7 @@
                       "null"
                     ],
                     "default": "",
-                    "description": "Field in the source schema definition carrying its stable logical identifier, for example $x-algites-schema-id. An empty configured mapping disables this extraction. A blank YAML scalar (null) is also treated as disabled."
+                    "description": "Field in the source schema definition carrying its stable logical identifier, for example x-algites-schema-id. An empty configured mapping disables this extraction. A blank YAML scalar (null) is also treated as disabled."
                   },
                   "schema_source_schema_version": {
                     "type": [
@@ -59,7 +59,7 @@
                       "null"
                     ],
                     "default": "",
-                    "description": "Field in the source schema definition carrying the schema version, for example $x-algites-schema-version. An empty configured mapping disables this extraction. A blank YAML scalar (null) is also treated as disabled."
+                    "description": "Field in the source schema definition carrying the schema version, for example x-algites-schema-version. An empty configured mapping disables this extraction. A blank YAML scalar (null) is also treated as disabled."
                   },
                   "data_source_schema_url": {
                     "type": [
@@ -177,6 +177,6 @@
   "x-algites-defscodegen-extends": [
     "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/common-naming-conventions_1.jsondef.schema.json"
   ],
-  "$x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-naming-conventions",
-  "$x-algites-schema-version": 1
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-naming-conventions",
+  "x-algites-schema-version": 1
 }

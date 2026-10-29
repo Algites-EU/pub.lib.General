@@ -21,12 +21,12 @@
     {
       "const": "schema_source_schema_identifier",
       "title": "Source schema identifier field",
-      "description": "Field in the source schema definition carrying its stable logical identifier, for example $x-algites-schema-id. An empty configured mapping disables this extraction."
+      "description": "Field in the source schema definition carrying its stable logical identifier, for example x-algites-schema-id. An empty configured mapping disables this extraction."
     },
     {
       "const": "schema_source_schema_version",
       "title": "Source schema version field",
-      "description": "Field in the source schema definition carrying the schema version, for example $x-algites-schema-version. An empty configured mapping disables this extraction."
+      "description": "Field in the source schema definition carrying the schema version, for example x-algites-schema-version. An empty configured mapping disables this extraction."
     },
     {
       "const": "data_source_schema_url",
@@ -44,6 +44,6 @@
       "description": "Field in a serialized DataObject instance carrying the logical schema version. Omitted or empty mapping disables reading and emitting this field; requires source version mapping when enabled."
     }
   ],
-  "$x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-schema-metadata-kind",
-  "$x-algites-schema-version": 1
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-schema-metadata-kind",
+  "x-algites-schema-version": 1
 }

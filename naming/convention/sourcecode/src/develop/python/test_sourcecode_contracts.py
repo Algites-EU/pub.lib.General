@@ -50,8 +50,8 @@ def test_new_do_sdo_profiles_are_separate_and_enum_typed(kind, suffix):
         'dataobject/dataobject-naming-conventions_1': {
             'DataObjectNameConventions': {'NameConventions': {'sample': {'StructureNaming': {
                 'schema_source_schema_url': '$id',
-                'schema_source_schema_identifier': '$x-algites-schema-id',
-                'schema_source_schema_version': '$x-algites-schema-version',
+                'schema_source_schema_identifier': 'x-algites-schema-id',
+                'schema_source_schema_version': 'x-algites-schema-version',
                 'data_source_schema_url': '$schema',
                 'data_source_schema_identifier': None,
                 'data_source_schema_version': None}}}}},

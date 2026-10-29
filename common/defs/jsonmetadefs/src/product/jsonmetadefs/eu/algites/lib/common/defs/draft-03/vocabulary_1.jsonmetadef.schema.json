@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "id": "https://defs.dev.algites.eu/api/jsonmetadefs/eu/algites/lib/common/defs/draft-03/vocabulary_1.jsonmetadef.schema.json",
+  "title": "Algites Common Defs identity vocabulary 1 keyword syntax for draft-03",
+  "description": "JSON Schema keyword syntax for Algites logical Defs identity and version. See vocabulary_1.md.",
+  "type": "object",
+  "properties": {
+    "x-algites-schema-id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable logical identity of an Algites Defs contract, distinct from the JSON Schema $id resource URI."
+    },
+    "x-algites-schema-version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Positive integer version of a logical Algites Defs contract, distinct from the JSON Schema draft."
+    }
+  }
+}

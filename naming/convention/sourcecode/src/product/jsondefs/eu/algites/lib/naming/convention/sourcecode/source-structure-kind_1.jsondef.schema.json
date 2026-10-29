@@ -19,8 +19,8 @@
     "file_name_suffix"
   ],
   "description": "Structural name roles independent of source and target languages.",
-  "$x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.source-structure-kind",
-  "$x-algites-schema-version": 1,
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.source-structure-kind",
+  "x-algites-schema-version": 1,
   "oneOf": [
     {
       "const": "main_container_name",
