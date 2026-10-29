@@ -186,7 +186,7 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
                 .fields().forEachRemaining(aItem -> {
                     if (filePatterns.containsKey(aItem.getKey()))
                         throw new IllegalArgumentException("Generated-method and source profiles share ID: " + aItem.getKey());
-                    validateSchemaMetadata(aItem.getKey(), aItem.getValue());
+                    validateSchemaMetadata(aItem.getKey(), aItem.getValue(), true);
                     for (String locRequired : java.util.List.of("standard_getter", "standard_setter")) {
                         if (aItem.getValue().path("StructureNaming").path(locRequired).asText("").isBlank())
                             throw new IllegalArgumentException("Missing generated-method role " + locRequired + " in " + aItem.getKey());
@@ -328,7 +328,10 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
         if (!(aSide.equals("schema_source") || aSide.equals("data_source")) ||
                 !(aKind.equals("url") || aKind.equals("identifier") || aKind.equals("version")))
             throw new IllegalArgumentException("Unsupported schema metadata field: " + aSide + "/" + aKind);
-        return profile(aProfile).path(aSide + "_schema_" + aKind).asText("");
+        JsonNode locProfile = profile(aProfile);
+        JsonNode locMapping = generatedMethodProfiles.containsKey(aProfile)
+                ? locProfile.path("SchemaMetadataNaming") : locProfile;
+        return locMapping.path(aSide + "_schema_" + aKind).asText("");
     }
 
     /**
@@ -339,10 +342,58 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
      * @param aProfile parsed source naming profile
      * @throws IllegalArgumentException when a target has no configured source
      */
+    /**
+     * Validates source-structure metadata field mappings in their original flat
+     * namespace. Generated-method profiles instead use the dedicated typed map.
+     *
+     * @param aName naming profile ID used in diagnostics
+     * @param aProfile source naming profile definition
+     * @throws IllegalArgumentException for inconsistent mappings
+     */
     private static void validateSchemaMetadata(String aName, JsonNode aProfile) {
+        validateSchemaMetadata(aName, aProfile, false);
+    }
+
+    /**
+     * Checks the metadata naming namespace, its six allowed roles and matching
+     * source/target declarations. Generated profiles must not contain legacy flat
+     * metadata fields, or silently ignore a misspelled metadata kind.
+     *
+     * @param aName naming profile identifier for diagnostics
+     * @param aProfile raw profile definition
+     * @param aGenerated whether the profile is a generated-method naming profile
+     * @throws IllegalArgumentException if the map is missing, malformed or invalid
+     */
+    private static void validateSchemaMetadata(String aName, JsonNode aProfile, boolean aGenerated) {
+        JsonNode locMapping = aProfile;
+        if (aGenerated) {
+            for (String locSide : List.of("schema_source", "data_source")) {
+                for (String locKind : List.of("url", "identifier", "version")) {
+                    if (aProfile.has(locSide + "_schema_" + locKind))
+                        throw new IllegalArgumentException(aName + ": obsolete flat schema metadata role: "
+                                + locSide + "_schema_" + locKind);
+                }
+            }
+            locMapping = aProfile.path("SchemaMetadataNaming");
+            if (!locMapping.isObject())
+                throw new IllegalArgumentException(aName + ": SchemaMetadataNaming must be a mapping");
+            var locEntries = locMapping.fieldNames();
+            while (locEntries.hasNext()) {
+                String locRole = locEntries.next();
+                if (!List.of("schema_source_schema_url", "schema_source_schema_identifier",
+                        "schema_source_schema_version", "data_source_schema_url",
+                        "data_source_schema_identifier", "data_source_schema_version").contains(locRole))
+                    throw new IllegalArgumentException(aName + ": unknown SchemaMetadataNaming role: " + locRole);
+            }
+        }
         for (String locKind : List.of("url", "identifier", "version")) {
-            String locSource = aProfile.path("schema_source_schema_" + locKind).asText("");
-            String locTarget = aProfile.path("data_source_schema_" + locKind).asText("");
+            JsonNode locSourceNode = locMapping.path("schema_source_schema_" + locKind);
+            JsonNode locTargetNode = locMapping.path("data_source_schema_" + locKind);
+            if ((!locSourceNode.isMissingNode() && !locSourceNode.isTextual()) ||
+                    (!locTargetNode.isMissingNode() && !locTargetNode.isTextual()))
+                throw new IllegalArgumentException(aName + ": schema metadata field names must be strings");
+            String locSource = locSourceNode.asText("");
+            String locTarget = locTargetNode.asText("");
             if (!locTarget.isEmpty() && locSource.isEmpty())
                 throw new IllegalArgumentException(aName + ": data_source_schema_" + locKind +
                         " requires schema_source_schema_" + locKind);

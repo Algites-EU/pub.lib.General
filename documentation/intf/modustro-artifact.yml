@@ -6,3 +6,10 @@ Artifact:
   TechnologyKinds: [java]
   Name: Documentation model interfaces
   Description: Public read and write access contracts for renderer-neutral documentation models.
+
+Dependencies:
+  - DependencyKind: modustro
+    Items:
+      - GroupId: eu.algites.lib.data
+        ArtifactId: pub.lib.General_data.dataobject.intf
+        Usages: [product_api]

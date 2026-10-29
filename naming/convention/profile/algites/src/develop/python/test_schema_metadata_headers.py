@@ -7,6 +7,7 @@ import pytest
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
+from referencing.jsonschema import DRAFT202012
 
 
 _MODULE = Path(__file__).resolve().parents[3]
@@ -24,7 +25,7 @@ def test_naming_catalogs_accept_schema_metadata(family: str, suffix: str) -> Non
                    for path in (_SCHEMAS / family).rglob(f'*.{suffix}.schema.json')]
     by_id = {item['$id']: item for item in definitions}
     registry = Registry().with_resources(
-        (uri, Resource.from_contents(schema)) for uri, schema in by_id.items())
+        (uri, Resource.from_contents(schema, default_specification=DRAFT202012)) for uri, schema in by_id.items())
     for catalog in sorted(_CONFIG.glob('*.yml')):
         lines = catalog.read_text(encoding='utf-8').splitlines()
         if not lines[0].startswith('# yaml-language-server: $schema='):

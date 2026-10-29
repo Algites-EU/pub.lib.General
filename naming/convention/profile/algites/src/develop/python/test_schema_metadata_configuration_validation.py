@@ -24,3 +24,29 @@ def test_empty_target_is_valid_and_suppresses_instance_metadata():
     assert fields['data_source_schema_url'] == '$schema'
     assert fields['data_source_schema_identifier'] == ''
     assert fields['data_source_schema_version'] == ''
+
+
+
+
+def test_generated_metadata_namespace_is_independent_of_source_profiles(tmp_path):
+    """Java/Python catalogs must resolve method metadata without source-profile coupling."""
+    import yaml
+    data = {'GeneratedDataObjectMethodNameConventions': {'NameConventions': {
+        'example_1': {
+            'StructureNaming': {'standard_getter': 'getter', 'standard_setter': 'setter'},
+            'SchemaMetadataNaming': {
+                'schema_source_schema_url': '$id',
+                'schema_source_schema_identifier': '$x-algites-schema-id',
+                'data_source_schema_url': '$schema',
+                'data_source_schema_identifier': ''}}}}}
+    file = tmp_path / 'generated-methods.yml'
+    file.write_text(yaml.safe_dump(data), encoding='utf-8')
+    catalog = AIcNameConventionCatalog.load(file)
+    fields = catalog.schema_metadata_fields('example_1')
+    assert fields['schema_source_schema_url'] == '$id'
+    assert fields['data_source_schema_url'] == '$schema'
+    assert fields['data_source_schema_version'] == ''
+    data['GeneratedDataObjectMethodNameConventions']['NameConventions']['example_1']['SchemaMetadataNaming']['wrong'] = '$bad'
+    file.write_text(yaml.safe_dump(data), encoding='utf-8')
+    with pytest.raises(ValueError, match='unknown SchemaMetadataNaming'):
+        AIcNameConventionCatalog.load(file)

@@ -32,7 +32,7 @@ class AIcNameConventionCatalog:
             self._validate_schema_metadata(name, definition)
         self._generated_methods = dict(config.get('GeneratedDataObjectMethodNameConventions', {}).get('NameConventions', {}))
         for name, definition in self._generated_methods.items():
-            self._validate_schema_metadata(name, definition)
+            self._validate_schema_metadata(name, definition, generated=True)
             structures = definition.get('StructureNaming', {})
             for required in ('standard_getter', 'standard_setter'):
                 if not structures.get(required):
@@ -47,25 +47,57 @@ class AIcNameConventionCatalog:
         for name in self._conventions:
             self.filename_pattern(name)
 
-    @staticmethod
-    def _validate_schema_metadata(name: str, definition: Mapping[str, Any]) -> None:
-        """Reject target metadata fields lacking a corresponding schema source.
+    _SCHEMA_METADATA_ROLES = frozenset(
+        f'{side}_schema_{suffix}' for side in ('schema_source', 'data_source')
+        for suffix in ('url', 'identifier', 'version'))
 
-        Empty target fields intentionally disable emission; configured target fields
-        must have an explicit source rather than relying on filename heuristics.
+    @classmethod
+    def _metadata_mapping(cls, name: str, definition: Mapping[str, Any],
+                          generated: bool = False) -> Mapping[str, Any]:
+        """Locate schema metadata in its category-specific, explicitly typed namespace.
+
+        Source-structure profiles retain their established flat schema mappings;
+        generated-method profiles instead require the separate SchemaMetadataNaming
+        map. Keeping these namespaces distinct prevents method roles from being
+        confused with metadata header names and rejects partially migrated catalogs.
         """
+        if not generated:
+            return definition
+        legacy = cls._SCHEMA_METADATA_ROLES.intersection(definition)
+        if legacy:
+            raise ValueError(f'{name}: obsolete flat schema metadata roles: {sorted(legacy)}')
+        mapping = definition.get('SchemaMetadataNaming')
+        if not isinstance(mapping, Mapping):
+            raise ValueError(f'{name}: SchemaMetadataNaming must be a mapping')
+        unknown = set(mapping) - cls._SCHEMA_METADATA_ROLES
+        if unknown:
+            raise ValueError(f'{name}: unknown SchemaMetadataNaming roles: {sorted(unknown)}')
+        return mapping
+
+    @classmethod
+    def _validate_schema_metadata(cls, name: str, definition: Mapping[str, Any],
+                                  generated: bool = False) -> None:
+        """Validate six metadata roles independently of method-name compositions.
+
+        Empty target fields disable emission; non-empty target field names require
+        the corresponding non-empty source schema field name. Unknown metadata
+        roles and legacy flat generated-method keys are rejected rather than ignored.
+        """
+        mapping = cls._metadata_mapping(name, definition, generated)
         for suffix in ('url', 'identifier', 'version'):
-            source = definition.get(f'schema_source_schema_{suffix}', '')
-            target = definition.get(f'data_source_schema_{suffix}', '')
+            source = mapping.get(f'schema_source_schema_{suffix}', '')
+            target = mapping.get(f'data_source_schema_{suffix}', '')
             if not isinstance(source, str) or not isinstance(target, str):
                 raise ValueError(f'{name}: schema metadata field names must be strings')
             if target and not source:
                 raise ValueError(f'{name}: data_source_schema_{suffix} requires schema_source_schema_{suffix}')
 
     def schema_metadata_fields(self, profile: str) -> dict[str, str]:
-        """Return the six metadata mappings for a source or generated-method profile."""
+        """Resolve the same six roles in source or generated-method naming profiles."""
         definition = self.profile(profile)
-        return {f'{side}_schema_{suffix}': definition.get(f'{side}_schema_{suffix}', '')
+        mapping = self._metadata_mapping(profile, definition,
+                                         generated=profile in self._generated_methods)
+        return {f'{side}_schema_{suffix}': mapping.get(f'{side}_schema_{suffix}', '')
                 for side in ('schema_source', 'data_source')
                 for suffix in ('url', 'identifier', 'version')}
 

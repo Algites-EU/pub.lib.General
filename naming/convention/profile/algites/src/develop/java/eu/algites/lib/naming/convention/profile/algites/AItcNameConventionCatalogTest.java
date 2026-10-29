@@ -139,4 +139,51 @@ public final class AItcNameConventionCatalogTest {
         Assert.assertNull(locTarget.recognizeFilename(locOutput + ".java", null));
     }
 
+    /**
+     * Confirms that the Java naming catalog reads generated-method metadata from
+     * its distinct, enum-keyed mapping and continues to expose all six normalized
+     * metadata roles through the shared naming API.
+     *
+     * @throws Exception if the temporary catalog cannot be created or parsed
+     */
+    @Test
+    public void AIcGeneratedMethodSchemaMetadataNamespace() throws Exception {
+        Path locCatalogFile = Files.createTempFile("algites-schema-metadata-naming", ".yml");
+        try {
+            Files.writeString(locCatalogFile, """
+                    GeneratedDataObjectMethodNameConventions:
+                      NameConventions:
+                        example-methods_1:
+                          StructureNaming:
+                            standard_getter: getter
+                            standard_setter: setter
+                          SchemaMetadataNaming:
+                            schema_source_schema_url: $id
+                            schema_source_schema_identifier: $x-algites-schema-id
+                            data_source_schema_url: $schema
+                            data_source_schema_identifier: ''
+                    """);
+            AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.load(locCatalogFile);
+            Assert.assertEquals(locCatalog.schemaMetadataField("example-methods_1", "schema_source", "url"), "$id");
+            Assert.assertEquals(locCatalog.schemaMetadataField("example-methods_1", "data_source", "url"), "$schema");
+            Assert.assertEquals(locCatalog.schemaMetadataField("example-methods_1", "data_source", "version"), "");
+            Files.writeString(locCatalogFile, """
+                    GeneratedDataObjectMethodNameConventions:
+                      NameConventions:
+                        example-methods_1:
+                          StructureNaming:
+                            standard_getter: getter
+                            standard_setter: setter
+                          SchemaMetadataNaming:
+                            schema_source_schema_url: $id
+                            data_source_schema_url: $schema
+                            unsupported_metadata_role: bad
+                    """);
+            Assert.assertThrows(IllegalArgumentException.class,
+                    () -> AIcNameConventionCatalog.load(locCatalogFile));
+        } finally {
+            Files.deleteIfExists(locCatalogFile);
+        }
+    }
+
 }
