@@ -88,6 +88,8 @@ def test_java_sdo_staged_before_publication():
 def test_tool_defscodegen_intf_has_interim_sdo_runtime_dependency():
     import yaml
     declaration = BOOTSTRAP.parent.parent / 'generators/code/defscodegen/intf/modustro-artifact.yml'
+    if not declaration.is_file():
+        pytest.skip('Tool repository only')
     data = yaml.safe_load(declaration.read_text())
     items = [item for group in data['Dependencies'] if group['DependencyKind'] == 'modustro'
              for item in group['Items']]

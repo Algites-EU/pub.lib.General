@@ -13,6 +13,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = Path(__file__).resolve().parents[1] / 'bootstrap' / 'prepare.py'
+pytestmark = pytest.mark.skipif(not (ROOT / 'generators/code/common').exists(), reason='Tool repository only')
 
 
 def _bootstrap():
@@ -65,7 +66,8 @@ def test_real_common_distribution_is_valid_and_contains_all_schemas(packages):
     module, record, release, source, wheel, sdist = packages['generators/code/common']
     module.verify_python_distribution(record, release, wheel, sdist, source)
     expected = module.expected_python_files(source)
-    assert len(expected) == 13
+    # This resource-only artifact grows as new schema families are introduced.
+    assert len(expected) >= 13
     assert any(name.endswith('.xsd') for name in expected)
     assert any(name.endswith('.json') for name in expected)
     assert any(name.endswith('.yml') for name in expected)

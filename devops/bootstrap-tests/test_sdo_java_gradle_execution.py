@@ -43,6 +43,9 @@ def test_candidates_require_an_interface_declaration_not_mentions_in_code_templa
 def test_real_defscodegen_implementation_is_not_a_false_sdo_candidate():
     pattern = _interface_pattern()
     impl = ROOT / 'generators/code/defscodegen/impl/src/product/java'
+    if not impl.is_dir():
+        import pytest
+        pytest.skip('Tool repository only')
     assert any('AIiDataObject' in path.read_text(encoding='utf-8') for path in impl.rglob('*.java'))
     assert not any(pattern.search(path.read_text(encoding='utf-8')) for path in impl.rglob('*.java'))
 
@@ -51,7 +54,9 @@ def test_real_generated_dataobject_interfaces_are_candidates():
     pattern = _interface_pattern()
     directory = ROOT / 'generators/code/defscodegen/intf/src/product/java.gen'
     source = directory / 'eu/algites/tool/codegen/defs/AIigSchemaFieldBindings_1.java'
-    assert source.is_file()
+    if not source.is_file():
+        import pytest
+        pytest.skip('Tool repository only')
     assert pattern.search(source.read_text(encoding='utf-8'))
 
 

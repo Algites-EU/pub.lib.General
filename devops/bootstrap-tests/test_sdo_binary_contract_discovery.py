@@ -2,10 +2,13 @@
 
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[2]
 JAVA_GENERATED = ROOT / 'generators/code/defscodegen/intf/src/product/java.gen/eu/algites/tool/codegen/defs'
 CLI = ROOT / 'generators/code/sdocodegen/cli/src/product/java/eu/algites/tool/codegen/sdo/impl/cli/AIcSdoCodegenCli.java'
 SERVICE = ROOT / 'generators/code/sdocodegen/impl/src/product/java/eu/algites/tool/codegen/sdo/impl/standard/AIcSdoCodegenService.java'
+pytestmark = pytest.mark.skipif(not JAVA_GENERATED.exists(), reason='Tool repository only')
 
 
 def test_namespace_marker_is_not_a_dataobject_definition():
