@@ -1,56 +1,87 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:algdoc="urn:eu:algites:documentation:1" targetNamespace="eu.algites.lib.naming.convention.standard-conventions" version="1">
-  <xs:annotation>
-    <xs:appinfo>
-      <algdoc:title>Standard conventions</algdoc:title>
-    </xs:appinfo>
-    <xs:documentation>Reusable regular expressions with named capture groups. Regex syntax canonicalized from Java named groups.</xs:documentation>
-  </xs:annotation>
-  <xs:import namespace="urn:eu:algites:documentation:1" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/common/documentation/algites-documentation_1.xsd"/>
-  <xs:complexType name="standard-conventions">
-    <xs:annotation>
-      <xs:appinfo>
-        <algdoc:title>Standard conventions</algdoc:title>
-      </xs:appinfo>
-      <xs:documentation>Reusable regular expressions with named capture groups. Regex syntax canonicalized from Java named groups.</xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="IdentifierConventions" minOccurs="0">
-        <xs:annotation>
-          <xs:appinfo>
-            <algdoc:title>Identifier conventions</algdoc:title>
-          </xs:appinfo>
-          <xs:documentation>Named identifier conventions whose regular expressions validate or recognize identifiers.</xs:documentation>
-        </xs:annotation>
-      <xs:complexType>
-        <xs:sequence>
-          <xs:element name="IdentifierConvention" minOccurs="0" maxOccurs="unbounded">
-            <xs:complexType><xs:sequence><xs:element name="Regexp" type="xs:string"/><xs:element name="ConversionStyle" minOccurs="0">
-            <xs:simpleType><xs:restriction base="xs:string"><xs:enumeration value="lower_flat"/><xs:enumeration value="upper_flat"/><xs:enumeration value="lower_snake"/><xs:enumeration value="upper_snake"/><xs:enumeration value="lower_camel"/><xs:enumeration value="upper_camel"/><xs:enumeration value="lower_kebab"/><xs:enumeration value="upper_kebab"/></xs:restriction></xs:simpleType>
-            </xs:element></xs:sequence>
-              <xs:attribute name="name" type="xs:string" use="required"/>
-            </xs:complexType>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
-      <xs:key name="UniqueIdentifierConventionNames"><xs:selector xpath="IdentifierConvention"/><xs:field xpath="@name"/></xs:key></xs:element>
-      <xs:element name="VersionConventions" minOccurs="0">
-        <xs:annotation>
-          <xs:appinfo>
-            <algdoc:title>Version conventions</algdoc:title>
-          </xs:appinfo>
-          <xs:documentation>Named version conventions whose regular expressions recognize version components.</xs:documentation>
-        </xs:annotation>
-      <xs:complexType>
-        <xs:sequence>
-          <xs:element name="VersionConvention" minOccurs="0" maxOccurs="unbounded">
-            <xs:complexType><xs:sequence><xs:element name="Regexp" type="xs:string"/></xs:sequence>
-              <xs:attribute name="name" type="xs:string" use="required"/>
-            </xs:complexType>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
-      <xs:key name="UniqueVersionConventionNames"><xs:selector xpath="VersionConvention"/><xs:field xpath="@name"/></xs:key></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:algdoc="urn:eu:algites:documentation:1"
+           targetNamespace="eu.algites.lib.naming.convention.standard-conventions" version="1">
+	<xs:annotation>
+		<xs:appinfo>
+			<algdoc:title>Standard conventions</algdoc:title>
+		</xs:appinfo>
+		<xs:documentation>Reusable regular expressions with named capture groups. Regex syntax canonicalized from Java named groups.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:eu:algites:documentation:1"
+	           schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/common/documentation/algites-documentation_1.xsd"/>
+	<xs:complexType name="standard-conventions">
+		<xs:annotation>
+			<xs:appinfo>
+				<algdoc:title>Standard conventions</algdoc:title>
+			</xs:appinfo>
+			<xs:documentation>Reusable regular expressions with named capture groups. Regex syntax canonicalized from Java named groups.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IdentifierConventions" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<algdoc:title>Identifier conventions</algdoc:title>
+					</xs:appinfo>
+					<xs:documentation>Named identifier conventions whose regular expressions validate or recognize identifiers.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="IdentifierConvention" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Regexp" type="xs:string"/>
+									<xs:element name="ConversionStyle" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="lower_flat"/>
+												<xs:enumeration value="upper_flat"/>
+												<xs:enumeration value="lower_snake"/>
+												<xs:enumeration value="upper_snake"/>
+												<xs:enumeration value="lower_camel"/>
+												<xs:enumeration value="upper_camel"/>
+												<xs:enumeration value="lower_kebab"/>
+												<xs:enumeration value="upper_kebab"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="name" type="xs:string" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+				<xs:key name="UniqueIdentifierConventionNames">
+					<xs:selector xpath="IdentifierConvention"/>
+					<xs:field xpath="@name"/>
+				</xs:key>
+			</xs:element>
+			<xs:element name="VersionConventions" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<algdoc:title>Version conventions</algdoc:title>
+					</xs:appinfo>
+					<xs:documentation>Named version conventions whose regular expressions recognize version components.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="VersionConvention" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Regexp" type="xs:string"/>
+								</xs:sequence>
+								<xs:attribute name="name" type="xs:string" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+				<xs:key name="UniqueVersionConventionNames">
+					<xs:selector xpath="VersionConvention"/>
+					<xs:field xpath="@name"/>
+				</xs:key>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 </xs:schema>

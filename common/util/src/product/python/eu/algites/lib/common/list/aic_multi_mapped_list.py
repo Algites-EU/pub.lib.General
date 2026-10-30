@@ -15,6 +15,7 @@ from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMappin
 from typing import Generic, TypeVar, cast, overload
 
 from .aii_key_definition import AIiKeyDefinition
+from .aii_multi_mapped_list import AIiMultiMappedList
 
 V = TypeVar("V")
 K = TypeVar("K")
@@ -153,7 +154,7 @@ class _SubList(MutableSequence[V], Generic[V]):
         return self._owner._track(self._members[start:end], hint)
 
 
-class AIcMultiMappedList(MutableSequence[V], Generic[V]):
+class AIcMultiMappedList(AIiMultiMappedList[V], Generic[V]):
     """Mutable, order-preserving list with many live key maps.
 
     Args:
