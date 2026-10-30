@@ -113,6 +113,14 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
     }
 
     /** {@inheritDoc} */
+    @Override public AIiKeyDefinition<V, ?> keyDefinition(String id) {
+        Objects.requireNonNull(id, "id");
+        for (Index<V> index : indexes)
+            if (index.definition.getId().equals(id)) return index.definition;
+        return null;
+    }
+
+    /** {@inheritDoc} */
     @Override public int size() { return entries.size(); }
 
     /** {@inheritDoc} */

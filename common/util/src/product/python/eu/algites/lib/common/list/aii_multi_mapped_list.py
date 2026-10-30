@@ -46,6 +46,18 @@ class AIiMultiMappedList(MutableSequence[V]):
         ...
 
     @abstractmethod
+    def key_definition(self, identifier: str) -> AIiKeyDefinition[V, object] | None:
+        """Return the registered index definition with the given identity.
+
+        Args:
+            identifier: Stable schema index name.
+
+        Returns:
+            Exact identity-bearing definition object, or None if not registered.
+        """
+        ...
+
+    @abstractmethod
     def copy_range(self, start: int, stop: int) -> AIiMultiMappedList[V]:
         """Create an independently mutable shallow copy of the given range.
 

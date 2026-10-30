@@ -9,6 +9,10 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.WildcardType;
 import eu.algites.lib.data.dataobject.xmldefs.AIiXmlDataObject;
+import eu.algites.lib.data.dataobject.xmldefs.AIaXmlKeyDefinition;
+import eu.algites.lib.common.list.AIcKeyDefinition;
+import eu.algites.lib.common.list.AIcMultiMappedList;
+import eu.algites.lib.common.list.AIiKeyDefinition;
 import eu.algites.lib.data.dataobject.xmldefs.AIiXmlWildcardFragment;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
@@ -157,6 +161,28 @@ public final class AIcXmlSmartDataObjectParser {
             String aPath, String aExpectedQName, int aDepth) {
         if (aDepth >= 128) throw new IllegalArgumentException("XML nesting limit exceeded");
         var locMetadata = AIcSmartDataMetadata.forType(aType);
+        Map<String, Class<? extends AIcXmlSmartDataObject>> locEffectiveNested = new HashMap<>(aNestedTypes);
+        try {
+            var locMethod = aType.getMethod("xmlNestedTypes");
+            Object locDeclared = locMethod.invoke(null);
+            if (!(locDeclared instanceof Map<?, ?> locMap))
+                throw new IllegalArgumentException("Invalid generated XML nested type registry");
+            for (var locEntry : locMap.entrySet()) {
+                if (!(locEntry.getKey() instanceof String locName)
+                        || !(locEntry.getValue() instanceof Class<?> locClass)
+                        || !AIcXmlSmartDataObject.class.isAssignableFrom(locClass))
+                    throw new IllegalArgumentException("Invalid generated XML nested type entry");
+                @SuppressWarnings("unchecked")
+                Class<? extends AIcXmlSmartDataObject> locTarget =
+                        (Class<? extends AIcXmlSmartDataObject>) locClass;
+                locEffectiveNested.putIfAbsent(aPath.isEmpty() ? locName : aPath + "." + locName,
+                        locTarget);
+            }
+        } catch (NoSuchMethodException locAbsent) {
+            /* Handwritten SmartDataObjects may supply only the caller's nested registry. */
+        } catch (ReflectiveOperationException locFailure) {
+            throw new IllegalArgumentException("Cannot resolve generated XML nested classes", locFailure);
+        }
         String locExpected = aExpectedQName;
         if (locExpected == null && locMetadata.xmlSchema() != null &&
                 !locMetadata.xmlSchema().namespaceLocalName().isBlank())
@@ -238,12 +264,12 @@ public final class AIcXmlSmartDataObjectParser {
                     throw new IllegalArgumentException("Nil XML element has content or other attributes");
                 locValue = null;
             } else {
-                Class<? extends AIcXmlSmartDataObject> locNested = aNestedTypes.get(locFieldPath);
+                Class<? extends AIcXmlSmartDataObject> locNested = locEffectiveNested.get(locFieldPath);
                 if (locNested != null) {
-                    locValue = parse(locElement, locNested, aNestedTypes, locFieldPath, locQName, aDepth + 1);
+                    locValue = parse(locElement, locNested, locEffectiveNested, locFieldPath, locQName, aDepth + 1);
                 } else if (AIcXmlSmartDataObject.class.isAssignableFrom(locValueType)) {
                     Class<? extends AIcXmlSmartDataObject> locTarget = locValueType.asSubclass(AIcXmlSmartDataObject.class);
-                    locValue = parse(locElement, locTarget, aNestedTypes, locFieldPath, locQName, aDepth + 1);
+                    locValue = parse(locElement, locTarget, locEffectiveNested, locFieldPath, locQName, aDepth + 1);
                 } else {
                     if (hasChildren(locElement) || otherAttributes(locElement))
                         throw new IllegalArgumentException("Unexpected nested XML content: " + locFieldPath);
@@ -276,11 +302,73 @@ public final class AIcXmlSmartDataObjectParser {
             if (List.class.isAssignableFrom(locField.getter().getReturnType()))
                 locValues.putIfAbsent(locField.name(), new ArrayList<>());
         }
+        for (var locField : locMetadata.fields()) {
+            AIaXmlKeyDefinition[] locKeys = locField.getter()
+                    .getAnnotationsByType(AIaXmlKeyDefinition.class);
+            if (locKeys.length == 0) continue;
+            if (!List.class.isAssignableFrom(locField.getter().getReturnType()))
+                throw new IllegalArgumentException("xs:key requires a repeating XML field: " + locField.name());
+            Object locRaw = locValues.get(locField.name());
+            if (!(locRaw instanceof List<?> locList))
+                throw new IllegalArgumentException("Expected XML list for indexed field: " + locField.name());
+            List<AIiKeyDefinition<Object, ?>> locDefinitions = new ArrayList<>();
+            for (AIaXmlKeyDefinition locKey : locKeys) {
+                String[] locPaths = locKey.fields().clone();
+                if (locPaths.length == 0)
+                    throw new IllegalArgumentException("Empty xs:key: " + locKey.name());
+                locDefinitions.add(new AIcKeyDefinition<>(locKey.name(),
+                        aItem -> xmlKey(aItem, locKey.name(), locPaths), true));
+            }
+            AIcMultiMappedList<Object> locIndexed = new AIcMultiMappedList<>(locDefinitions);
+            locIndexed.addAll(locList);
+            locValues.put(locField.name(), locIndexed);
+        }
         T locObject = instantiate(aType);
         for (var locValue : locValues.entrySet()) locObject.set_RawField(locValue.getKey(), locValue.getValue());
         var locIssues = locObject._getValidationIssues(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode.RAW_VALUES);
         if (!locIssues.isEmpty()) throw new AIxSmartDataValidationException(locIssues);
         return locObject;
+    }
+
+    /**
+     * Extract an XML identity tuple from already parsed typed DataObject values.
+     * This does not use string XPath evaluation: each component is returned by
+     * its generated getter, preserving numeric equality, enum identity and the
+     * distinction between a missing field and a present empty string.
+     *
+     * @param aItem typed XML value object owning all selected fields
+     * @param aKeyName diagnostic name of the {@code xs:key}
+     * @param aPaths ordered schema field paths, each one or more named steps
+     * @return one typed scalar or an immutable ordered tuple of typed components
+     * @throws IllegalArgumentException if a step is absent, ambiguous or inaccessible
+     */
+    private static Object xmlKey(Object aItem, String aKeyName, String[] aPaths) {
+        List<Object> locValues = new ArrayList<>();
+        for (String locPath : aPaths) {
+            Object locCurrent = aItem;
+            for (String locSegment : locPath.split("\\.", -1)) {
+                if (locSegment.isBlank() || locCurrent == null)
+                    throw new IllegalArgumentException("Missing xs:key " + aKeyName + " component " + locPath);
+                var locDescriptor = AIcSmartDataMetadata.forType(locCurrent.getClass());
+                var locMatches = locDescriptor.fields().stream()
+                        .filter(aField -> aField.name().equals(locSegment)
+                                || aField.xmlLocalName().equals(locSegment)).toList();
+                if (locMatches.size() != 1)
+                    throw new IllegalArgumentException("Unresolved xs:key " + aKeyName
+                            + " component " + locPath + ": " + locSegment);
+                try {
+                    locCurrent = locMatches.get(0).getter().invoke(locCurrent);
+                } catch (ReflectiveOperationException locFailure) {
+                    throw new IllegalArgumentException("Cannot read xs:key " + aKeyName
+                            + " component " + locPath, locFailure);
+                }
+            }
+            if (locCurrent == null || locCurrent instanceof List<?> || locCurrent instanceof Map<?, ?>)
+                throw new IllegalArgumentException("Missing or non-scalar xs:key " + aKeyName
+                        + " component " + locPath);
+            locValues.add(locCurrent);
+        }
+        return locValues.size() == 1 ? locValues.get(0) : List.copyOf(locValues);
     }
 
     private static <T extends AIcXmlSmartDataObject> T instantiate(Class<T> aType) {

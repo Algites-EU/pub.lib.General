@@ -192,6 +192,24 @@ class AIcMultiMappedList(AIiMultiMappedList[V], Generic[V]):
         if initial:
             self._publish(initial)
 
+    def key_definition(self, identifier: str) -> AIiKeyDefinition[V, object] | None:
+        """Return the exact registered key-definition object for ``identifier``.
+
+        Args:
+            identifier: Identity name from the generated XML or other schema.
+
+        Returns:
+            Registered definition or None; returned object must be used unchanged
+            for a cached map-by-key lookup.
+
+        Raises:
+            TypeError: If identifier is not a string.
+        """
+        if not isinstance(identifier, str):
+            raise TypeError('Index identifier must be text')
+        return next((definition for definition in self._definitions
+                     if definition.id == identifier), None)
+
     def _build(self, candidate: list[_Entry[V]]) -> dict[int, dict[object, list[_Entry[V]]]]:
         result: dict[int, dict[object, list[_Entry[V]]]] = {}
         for definition in self._definitions:

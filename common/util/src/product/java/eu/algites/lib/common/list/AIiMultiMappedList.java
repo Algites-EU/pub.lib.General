@@ -47,6 +47,17 @@ public interface AIiMultiMappedList<V> extends List<V> {
     <K> Map<K, List<V>> mapByKeyType(AIiKeyDefinition<V, K> definition);
 
     /**
+     * Resolve a registered key definition by its schema identity. This returns
+     * the exact definition instance required by {@link #mapByKeyType(AIiKeyDefinition)},
+     * not a copy whose identity would fail map lookup.
+     *
+     * @param id nonblank index identifier
+     * @return registered definition, or null when no index has this identifier
+     * @throws NullPointerException if id is null
+     */
+    AIiKeyDefinition<V, ?> keyDefinition(String id);
+
+    /**
      * Creates a detached, shallow copy of a positional range, preserving the same
      * key definitions but not sharing membership or map indexes with this list.
      * Stored value objects themselves are shared, not cloned.
