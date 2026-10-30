@@ -79,3 +79,13 @@ localization fallback. Python represents locales as strings such as `cs-CZ`.
 `AIcBoundedList` returns `AIcdBoundedListValidationIssue` values carrying the
 actual and boundary sizes and the stable `MIN_ITEMS` / `MAX_ITEMS` codes.
 The low-level `getMessage(null)` contains this structured cardinality data.
+
+## Multi-mapped list
+
+`AIiMultiMappedList<V>` / `AIcMultiMappedList<V>` is an ordered mutable list
+with several cached, live key maps. Its map values are immutable snapshot groups,
+while tracked sublists receive removals from any path and do not implicitly
+include later parent insertions. See **[MULTI-MAPPED-LIST.md](MULTI-MAPPED-LIST.md)**
+for comprehensive contracts, operations, arguments, return values, exception
+behavior, Java/Python examples, weak-reference tracking, and planned generator
+integration.
