@@ -3,7 +3,11 @@ package eu.algites.lib.naming.convention;
 import java.util.Map;
 import java.util.Set;
 
-/** Independent API for declarative, YAML-backed named compositions. */
+/**
+ * Independent API for declarative, YAML-backed named compositions.
+ *
+ * @author linhart1
+ */
 public interface AIiNameConventionCatalog {
     /** Recognized convention IDs. */
     Set<String> names();
@@ -26,6 +30,19 @@ public interface AIiNameConventionCatalog {
      * @return configured property name or empty string if not provided
      */
     default String schemaMetadataField(String aProfile, String aSide, String aKind) {
+        return "";
+    }
+
+    /**
+     * Resolves a literal generated method name from a selected method naming profile.
+     * Unlike a structural composition identifier, the result is the actual name of
+     * the generated accessor. This includes the synthetic map entry getters.
+     *
+     * @param role non-null generated-method role identifier
+     * @return literal method name, or an empty string if no role is selected
+     * @throws IllegalArgumentException if the role identifier is invalid
+     */
+    default String generatedMethodLiteral(String role) {
         return "";
     }
 

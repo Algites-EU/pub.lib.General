@@ -331,6 +331,22 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
     public String generatedMethodProfile() { return generatedMethodProfile; }
 
     /**
+     * Return the configured literal generated-method name; no fallback is applied.
+     *
+     * @param role method naming role to resolve
+     * @return the literal method name or an empty string when unconfigured
+     * @throws IllegalArgumentException if a configured role is not a Java identifier
+     */
+    @Override
+    public String generatedMethodLiteral(String role) {
+        String name = generatedMethodReference(role);
+        if (name == null) return "";
+        if (!name.matches("[A-Za-z_][A-Za-z0-9_]*"))
+            throw new IllegalArgumentException("Invalid generated method name for " + role + ": " + name);
+        return name;
+    }
+
+    /**
      * Retrieves the composition ID assigned to an optional generated method role.
      * An absent or blank value explicitly disables that method and must not be
      * replaced by a generator-specific default. The selected profile must exist.
@@ -339,8 +355,7 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
      * @return the composition ID or {@code null} when the role is disabled or no
      *         generated-method profile is selected
      */
-    @Deprecated
-    public String generatedMethodReference(String aRole) {
+    private String generatedMethodReference(String aRole) {
         if (generatedMethodProfile == null) return null;
         JsonNode locValue = generatedMethodProfiles.get(generatedMethodProfile)
                 .path("StructureNaming").path(aRole);
