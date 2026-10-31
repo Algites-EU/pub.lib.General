@@ -17,6 +17,21 @@
       "description": "Relative path to the file containing shared identifier and version convention definitions."
     },
     "IdentifierConventions": {
+      "$ref": "#/$defs/IdentifierConventions"
+    },
+    "VersionConventions": {
+      "$ref": "#/$defs/VersionConventions"
+    },
+    "NameFragments": {
+      "$ref": "#/$defs/NameFragments"
+    },
+    "NameCompositions": {
+      "$ref": "#/$defs/NameCompositions"
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "IdentifierConventions": {
       "type": "object",
       "title": "Identifier conventions",
       "additionalProperties": {
@@ -117,59 +132,6 @@
       },
       "description": "Named version conventions whose regular expressions recognize version components."
     },
-    "NameFragments": {
-      "type": "object",
-      "title": "Name fragments",
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Segments": {
-            "type": "array",
-            "title": "Segments",
-            "minItems": 1,
-            "items": {
-              "$ref": "#/$defs/NameFragmentsSegmentChoice"
-            },
-            "description": "Ordered segments that make up this fragment or name composition."
-          }
-        },
-        "required": [
-          "Segments"
-        ],
-        "title": "Additional Properties",
-        "description": "Definition of one named reusable name fragment."
-      },
-      "description": "Reusable named sequences of text, identifier, version or variable segments."
-    },
-    "NameCompositions": {
-      "type": "object",
-      "title": "Name compositions",
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Segments": {
-            "type": "array",
-            "title": "Segments",
-            "minItems": 1,
-            "items": {
-              "$ref": "#/$defs/NameFragmentsSegmentChoice"
-            },
-            "description": "Ordered segments using the same reference-or-value grammar as a name fragment."
-          }
-        },
-        "required": [
-          "Segments"
-        ],
-        "title": "Additional Properties",
-        "description": "Definition of one named name composition."
-      },
-      "description": "Named compositions that combine reusable fragments into full names."
-    }
-  },
-  "additionalProperties": true,
-  "$defs": {
     "NameFragmentsSegmentReference": {
       "type": "object",
       "additionalProperties": false,
@@ -422,6 +384,58 @@
           "#/$defs/NameFragmentsSegmentValue"
         ]
       }
+    },
+    "NameFragments": {
+      "type": "object",
+      "title": "Name fragments",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Segments": {
+            "type": "array",
+            "title": "Segments",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/NameFragmentsSegmentChoice"
+            },
+            "description": "Ordered segments that make up this fragment or name composition."
+          }
+        },
+        "required": [
+          "Segments"
+        ],
+        "title": "Additional Properties",
+        "description": "Definition of one named reusable name fragment."
+      },
+      "description": "Reusable named sequences of text, identifier, version or variable segments."
+    },
+    "NameCompositions": {
+      "type": "object",
+      "title": "Name compositions",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Segments": {
+            "type": "array",
+            "title": "Segments",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/NameFragmentsSegmentChoice"
+            },
+            "description": "Ordered segments using the same reference-or-value grammar as a name fragment."
+          }
+        },
+        "required": [
+          "Segments"
+        ],
+        "title": "Additional Properties",
+        "description": "Definition of one named name composition."
+      },
+      "description": "Named compositions that combine reusable fragments into full names."
     }
-  }
+  },
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.common-naming-conventions",
+  "x-algites-schema-version": 1
 }

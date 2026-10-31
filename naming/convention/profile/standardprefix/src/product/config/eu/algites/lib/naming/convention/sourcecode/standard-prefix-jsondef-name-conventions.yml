@@ -46,7 +46,7 @@ SourceStructureNameConventions:
       data_source_schema_identifier: ''
       data_source_schema_version: ''
       StructureNaming:
-        main_container_name: schema-name_1
+        type_name: schema-name_1
         file_name_stem: schema-stem_1
         file_name_suffix: jsondefs-schema-suffix_1
         enum_item_name: schema-enum-item_1
@@ -61,7 +61,7 @@ SourceStructureNameConventions:
       data_source_schema_identifier: ''
       data_source_schema_version: ''
       StructureNaming:
-        main_container_name: schema-name_1
+        type_name: schema-name_1
         file_name_stem: schema-stem-versioned_1
         file_name_suffix: jsondefs-schema-suffix_1
         enum_item_name: schema-enum-item_1

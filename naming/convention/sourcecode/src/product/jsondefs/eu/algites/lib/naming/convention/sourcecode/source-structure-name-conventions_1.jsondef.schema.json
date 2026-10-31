@@ -62,5 +62,7 @@
   ],
   "x-algites-defscodegen-extends": [
     "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/common-naming-conventions_1.jsondef.schema.json"
-  ]
+  ],
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.source-structure-name-conventions",
+  "x-algites-schema-version": 1
 }

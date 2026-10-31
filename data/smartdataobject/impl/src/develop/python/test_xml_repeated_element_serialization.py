@@ -59,3 +59,30 @@ def test_xml_boolean_and_enum_lexical_values():
     document = ET.fromstring(example.toString_RawValues(AIsTextFormatProfiles.XML_XSD))
     assert document.find('Enabled').text == 'true'
     assert document.find('Token').text == 'enabled'
+
+
+def test_enum_item_code_overrides_python_enum_value():
+    """Serialize AIiEnumItem.code(), not an internal Enum.name or Enum.value."""
+    from enum import Enum
+    from eu.algites.lib.common.enums.aii_enum_item import AIiEnumItem
+
+    class AInWireToken(str, Enum):
+        APPROVED = 'implementation-token'
+
+        def code(self) -> str:
+            """Return the separately specified document-level enum code."""
+            return 'approved-wire'
+
+    assert isinstance(AInWireToken.APPROVED, AIiEnumItem)
+    class AIcgdCodeValue(AIcSmartDataObject):
+        """Minimal XML contract containing an enum-coded field."""
+        __data_object_fields__ = (AIcdDataObjectField('Status'),)
+        __xml_data_object_fields__ = {
+            'Status': AIaXmlDataObjectField(namespace_local_name='Status'),
+        }
+
+    value = AIcgdCodeValue()
+    value.set_RawField('Status', AInWireToken.APPROVED)
+    document = ET.fromstring(value.toString_RawValues(AIsTextFormatProfiles.XML_XSD))
+    assert document.find('Status').text == 'approved-wire'
+    assert value.to_mapping()['Status'] == 'approved-wire'

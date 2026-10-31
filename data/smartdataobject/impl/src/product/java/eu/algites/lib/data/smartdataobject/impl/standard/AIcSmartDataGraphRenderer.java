@@ -1,5 +1,6 @@
 package eu.algites.lib.data.smartdataobject.impl.standard;
 
+import eu.algites.lib.common.enums.AIiEnumItem;
 import eu.algites.lib.text.format.AIiTextFormatProfile;
 import eu.algites.lib.text.format.AIsTextFormatEscapes;
 import eu.algites.lib.text.format.AInTextFormatType;
@@ -529,21 +530,11 @@ final class AIcSmartDataGraphRenderer {
     /** Return a canonical XML Schema lexical scalar, including generated enum wire values. */
     private static String xmlScalarText(Object aValue) {
         if (aValue instanceof Enum<?> locEnum) {
-            try {
-                var locWireMethod = locEnum.getDeclaringClass().getMethod("wireValue");
-                if (locWireMethod.getReturnType() != String.class)
-                    throw new IllegalArgumentException("Enum wireValue must return String: "
-                            + locEnum.getDeclaringClass().getName());
-                String locWire = (String) locWireMethod.invoke(locEnum);
-                if (locWire == null)
-                    throw new IllegalArgumentException("Null enum wireValue: " + locEnum.getDeclaringClass().getName());
-                return locWire;
-            } catch (NoSuchMethodException locNoWireMethod) {
-                /* Handwritten enums without canonical wire metadata use their identifier. */
-                return locEnum.name();
-            } catch (ReflectiveOperationException locFailure) {
-                throw new IllegalStateException("Cannot access enum XML wireValue", locFailure);
-            }
+            if (locEnum instanceof AIiEnumItem locItem)
+                return java.util.Objects.requireNonNull(locItem.code(),
+                        "Enum item code must not be null: " + locEnum.getDeclaringClass().getName());
+            /* Handwritten enums that do not implement AIiEnumItem use their Java identifier. */
+            return locEnum.name();
         }
         return String.valueOf(aValue);
     }

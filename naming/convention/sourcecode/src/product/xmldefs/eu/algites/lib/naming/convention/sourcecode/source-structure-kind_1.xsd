@@ -7,7 +7,7 @@
     <xs:documentation>Structural name roles independent of source and target languages.</xs:documentation>
   </xs:annotation>
   <xs:import namespace="urn:eu:algites:documentation:1" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/common/documentation/algites-documentation_1.xsd"/>
-  <xs:simpleType name="source-structure-kind">
+  <xs:simpleType name="SourceStructureKind">
     <xs:annotation>
       <xs:appinfo>
         <algdoc:title>Source structure kind</algdoc:title>
@@ -15,12 +15,12 @@
       <xs:documentation>Structural name roles independent of source and target languages.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:enumeration value="main_container_name">
+      <xs:enumeration value="type_name">
         <xs:annotation>
           <xs:appinfo>
-            <algdoc:title>Main container name</algdoc:title>
+            <algdoc:title>Type name</algdoc:title>
           </xs:appinfo>
-          <xs:documentation>Name of the primary class, interface or other generated container.</xs:documentation>
+          <xs:documentation>Name of any source or generated type, including auxiliary and synthetic types.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="sub_container_name">

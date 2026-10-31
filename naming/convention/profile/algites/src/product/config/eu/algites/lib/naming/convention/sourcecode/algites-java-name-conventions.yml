@@ -759,7 +759,7 @@ SourceStructureNameConventions:
     algites-java-gen-xml-namespace-intf_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-xml-namespace-intf_1
+        type_name: algites-java-gen-xml-namespace-intf_1
         sub_container_name: algites-java-gen-xml-namespace-intf_1
         file_name_stem: algites-java-gen-xml-namespace-intf-file_1
         file_name_suffix: java-source-extension_1
@@ -775,7 +775,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-xml-namespace-intf_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-data-xml-namespace-intf_1
+        type_name: algites-java-gen-data-xml-namespace-intf_1
         sub_container_name: algites-java-gen-data-xml-namespace-intf_1
         file_name_stem: algites-java-gen-data-xml-namespace-intf-file_1
         file_name_suffix: java-source-extension_1
@@ -791,7 +791,7 @@ SourceStructureNameConventions:
     algites-java-intf_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-intf_1
+        type_name: algites-java-intf_1
         sub_container_name: algites-java-intf_1
         file_name_stem: algites-java-intf-file_1
         file_name_suffix: java-source-extension_1
@@ -807,7 +807,7 @@ SourceStructureNameConventions:
     algites-java-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-intf-versioned_1
+        type_name: algites-java-intf-versioned_1
         sub_container_name: algites-java-intf-versioned_1
         file_name_stem: algites-java-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -823,7 +823,7 @@ SourceStructureNameConventions:
     algites-java-data-intf_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-data-intf_1
+        type_name: algites-java-data-intf_1
         sub_container_name: algites-java-data-intf_1
         file_name_stem: algites-java-data-intf-file_1
         file_name_suffix: java-source-extension_1
@@ -839,7 +839,7 @@ SourceStructureNameConventions:
     algites-java-data-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-data-intf-versioned_1
+        type_name: algites-java-data-intf-versioned_1
         sub_container_name: algites-java-data-intf-versioned_1
         file_name_stem: algites-java-data-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -855,7 +855,7 @@ SourceStructureNameConventions:
     algites-java-gen-intf_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-intf_1
+        type_name: algites-java-gen-intf_1
         sub_container_name: algites-java-gen-intf_1
         file_name_stem: algites-java-gen-intf-file_1
         file_name_suffix: java-source-extension_1
@@ -871,7 +871,7 @@ SourceStructureNameConventions:
     algites-java-gen-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-intf-versioned_1
+        type_name: algites-java-gen-intf-versioned_1
         sub_container_name: algites-java-gen-intf-versioned_1
         file_name_stem: algites-java-gen-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -887,7 +887,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-intf_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-data-intf_1
+        type_name: algites-java-gen-data-intf_1
         sub_container_name: algites-java-gen-data-intf_1
         file_name_stem: algites-java-gen-data-intf-file_1
         file_name_suffix: java-source-extension_1
@@ -903,7 +903,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-data-intf-versioned_1
+        type_name: algites-java-gen-data-intf-versioned_1
         sub_container_name: algites-java-gen-data-intf-versioned_1
         file_name_stem: algites-java-gen-data-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -919,7 +919,7 @@ SourceStructureNameConventions:
     algites-java-class_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-class_1
+        type_name: algites-java-class_1
         sub_container_name: algites-java-class_1
         file_name_stem: algites-java-class-file_1
         file_name_suffix: java-source-extension_1
@@ -935,7 +935,7 @@ SourceStructureNameConventions:
     algites-java-class-versioned_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-class-versioned_1
+        type_name: algites-java-class-versioned_1
         sub_container_name: algites-java-class-versioned_1
         file_name_stem: algites-java-class-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -951,7 +951,7 @@ SourceStructureNameConventions:
     algites-java-data-class_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-data-class_1
+        type_name: algites-java-data-class_1
         sub_container_name: algites-java-data-class_1
         file_name_stem: algites-java-data-class-file_1
         file_name_suffix: java-source-extension_1
@@ -967,7 +967,7 @@ SourceStructureNameConventions:
     algites-java-data-class-versioned_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-data-class-versioned_1
+        type_name: algites-java-data-class-versioned_1
         sub_container_name: algites-java-data-class-versioned_1
         file_name_stem: algites-java-data-class-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -983,7 +983,7 @@ SourceStructureNameConventions:
     algites-java-gen-class_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-gen-class_1
+        type_name: algites-java-gen-class_1
         sub_container_name: algites-java-gen-class_1
         file_name_stem: algites-java-gen-class-file_1
         file_name_suffix: java-source-extension_1
@@ -999,7 +999,7 @@ SourceStructureNameConventions:
     algites-java-gen-class-versioned_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-gen-class-versioned_1
+        type_name: algites-java-gen-class-versioned_1
         sub_container_name: algites-java-gen-class-versioned_1
         file_name_stem: algites-java-gen-class-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1015,7 +1015,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-class_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-gen-data-class_1
+        type_name: algites-java-gen-data-class_1
         sub_container_name: algites-java-gen-data-class_1
         file_name_stem: algites-java-gen-data-class-file_1
         file_name_suffix: java-source-extension_1
@@ -1031,7 +1031,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-class-versioned_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-gen-data-class-versioned_1
+        type_name: algites-java-gen-data-class-versioned_1
         sub_container_name: algites-java-gen-data-class-versioned_1
         file_name_stem: algites-java-gen-data-class-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1047,7 +1047,7 @@ SourceStructureNameConventions:
     algites-java-enum_1:
       ContainerStructureType: enum
       StructureNaming:
-        main_container_name: algites-java-enum_1
+        type_name: algites-java-enum_1
         sub_container_name: algites-java-enum_1
         file_name_stem: algites-java-enum-file_1
         file_name_suffix: java-source-extension_1
@@ -1063,7 +1063,7 @@ SourceStructureNameConventions:
     algites-java-enum-versioned_1:
       ContainerStructureType: enum
       StructureNaming:
-        main_container_name: algites-java-enum-versioned_1
+        type_name: algites-java-enum-versioned_1
         sub_container_name: algites-java-enum-versioned_1
         file_name_stem: algites-java-enum-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1079,7 +1079,7 @@ SourceStructureNameConventions:
     algites-java-gen-enum_1:
       ContainerStructureType: enum
       StructureNaming:
-        main_container_name: algites-java-gen-enum_1
+        type_name: algites-java-gen-enum_1
         sub_container_name: algites-java-gen-enum_1
         file_name_stem: algites-java-gen-enum-file_1
         file_name_suffix: java-source-extension_1
@@ -1095,7 +1095,7 @@ SourceStructureNameConventions:
     algites-java-gen-enum-versioned_1:
       ContainerStructureType: enum
       StructureNaming:
-        main_container_name: algites-java-gen-enum-versioned_1
+        type_name: algites-java-gen-enum-versioned_1
         sub_container_name: algites-java-gen-enum-versioned_1
         file_name_stem: algites-java-gen-enum-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1111,7 +1111,7 @@ SourceStructureNameConventions:
     algites-java-ann_1:
       ContainerStructureType: annotation
       StructureNaming:
-        main_container_name: algites-java-ann_1
+        type_name: algites-java-ann_1
         sub_container_name: algites-java-ann_1
         file_name_stem: algites-java-ann-file_1
         file_name_suffix: java-source-extension_1
@@ -1127,7 +1127,7 @@ SourceStructureNameConventions:
     algites-java-ann-versioned_1:
       ContainerStructureType: annotation
       StructureNaming:
-        main_container_name: algites-java-ann-versioned_1
+        type_name: algites-java-ann-versioned_1
         sub_container_name: algites-java-ann-versioned_1
         file_name_stem: algites-java-ann-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1143,7 +1143,7 @@ SourceStructureNameConventions:
     algites-java-gen-ann_1:
       ContainerStructureType: annotation
       StructureNaming:
-        main_container_name: algites-java-gen-ann_1
+        type_name: algites-java-gen-ann_1
         sub_container_name: algites-java-gen-ann_1
         file_name_stem: algites-java-gen-ann-file_1
         file_name_suffix: java-source-extension_1
@@ -1159,7 +1159,7 @@ SourceStructureNameConventions:
     algites-java-gen-ann-versioned_1:
       ContainerStructureType: annotation
       StructureNaming:
-        main_container_name: algites-java-gen-ann-versioned_1
+        type_name: algites-java-gen-ann-versioned_1
         sub_container_name: algites-java-gen-ann-versioned_1
         file_name_stem: algites-java-gen-ann-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1175,7 +1175,7 @@ SourceStructureNameConventions:
     algites-java-exc_1:
       ContainerStructureType: exception
       StructureNaming:
-        main_container_name: algites-java-exc_1
+        type_name: algites-java-exc_1
         sub_container_name: algites-java-exc_1
         file_name_stem: algites-java-exc-file_1
         file_name_suffix: java-source-extension_1
@@ -1191,7 +1191,7 @@ SourceStructureNameConventions:
     algites-java-exc-versioned_1:
       ContainerStructureType: exception
       StructureNaming:
-        main_container_name: algites-java-exc-versioned_1
+        type_name: algites-java-exc-versioned_1
         sub_container_name: algites-java-exc-versioned_1
         file_name_stem: algites-java-exc-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1207,7 +1207,7 @@ SourceStructureNameConventions:
     algites-java-gen-exc_1:
       ContainerStructureType: exception
       StructureNaming:
-        main_container_name: algites-java-gen-exc_1
+        type_name: algites-java-gen-exc_1
         sub_container_name: algites-java-gen-exc_1
         file_name_stem: algites-java-gen-exc-file_1
         file_name_suffix: java-source-extension_1
@@ -1223,7 +1223,7 @@ SourceStructureNameConventions:
     algites-java-gen-exc-versioned_1:
       ContainerStructureType: exception
       StructureNaming:
-        main_container_name: algites-java-gen-exc-versioned_1
+        type_name: algites-java-gen-exc-versioned_1
         sub_container_name: algites-java-gen-exc-versioned_1
         file_name_stem: algites-java-gen-exc-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1239,7 +1239,7 @@ SourceStructureNameConventions:
     algites-java-rb_1:
       ContainerStructureType: resource_bundle
       StructureNaming:
-        main_container_name: algites-java-rb_1
+        type_name: algites-java-rb_1
         sub_container_name: algites-java-rb_1
         file_name_stem: algites-java-rb-file_1
         file_name_suffix: java-source-extension_1
@@ -1255,7 +1255,7 @@ SourceStructureNameConventions:
     algites-java-rb-versioned_1:
       ContainerStructureType: resource_bundle
       StructureNaming:
-        main_container_name: algites-java-rb-versioned_1
+        type_name: algites-java-rb-versioned_1
         sub_container_name: algites-java-rb-versioned_1
         file_name_stem: algites-java-rb-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1271,7 +1271,7 @@ SourceStructureNameConventions:
     algites-java-gen-rb_1:
       ContainerStructureType: resource_bundle
       StructureNaming:
-        main_container_name: algites-java-gen-rb_1
+        type_name: algites-java-gen-rb_1
         sub_container_name: algites-java-gen-rb_1
         file_name_stem: algites-java-gen-rb-file_1
         file_name_suffix: java-source-extension_1
@@ -1287,7 +1287,7 @@ SourceStructureNameConventions:
     algites-java-gen-rb-versioned_1:
       ContainerStructureType: resource_bundle
       StructureNaming:
-        main_container_name: algites-java-gen-rb-versioned_1
+        type_name: algites-java-gen-rb-versioned_1
         sub_container_name: algites-java-gen-rb-versioned_1
         file_name_stem: algites-java-gen-rb-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1303,7 +1303,7 @@ SourceStructureNameConventions:
     algites-java-xml-element-intf_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-xml-element-intf_1
+        type_name: algites-java-xml-element-intf_1
         sub_container_name: algites-java-xml-element-intf_1
         file_name_stem: algites-java-xml-element-intf-file_1
         file_name_suffix: java-source-extension_1
@@ -1319,7 +1319,7 @@ SourceStructureNameConventions:
     algites-java-xml-element-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-xml-element-intf-versioned_1
+        type_name: algites-java-xml-element-intf-versioned_1
         sub_container_name: algites-java-xml-element-intf-versioned_1
         file_name_stem: algites-java-xml-element-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1335,7 +1335,7 @@ SourceStructureNameConventions:
     algites-java-data-xml-element-intf_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-data-xml-element-intf_1
+        type_name: algites-java-data-xml-element-intf_1
         sub_container_name: algites-java-data-xml-element-intf_1
         file_name_stem: algites-java-data-xml-element-intf-file_1
         file_name_suffix: java-source-extension_1
@@ -1351,7 +1351,7 @@ SourceStructureNameConventions:
     algites-java-data-xml-element-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-data-xml-element-intf-versioned_1
+        type_name: algites-java-data-xml-element-intf-versioned_1
         sub_container_name: algites-java-data-xml-element-intf-versioned_1
         file_name_stem: algites-java-data-xml-element-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1367,7 +1367,7 @@ SourceStructureNameConventions:
     algites-java-gen-xml-element-intf_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-xml-element-intf_1
+        type_name: algites-java-gen-xml-element-intf_1
         sub_container_name: algites-java-gen-xml-element-intf_1
         file_name_stem: algites-java-gen-xml-element-intf-file_1
         file_name_suffix: java-source-extension_1
@@ -1383,7 +1383,7 @@ SourceStructureNameConventions:
     algites-java-gen-xml-element-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-xml-element-intf-versioned_1
+        type_name: algites-java-gen-xml-element-intf-versioned_1
         sub_container_name: algites-java-gen-xml-element-intf-versioned_1
         file_name_stem: algites-java-gen-xml-element-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1399,7 +1399,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-xml-element-intf_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-data-xml-element-intf_1
+        type_name: algites-java-gen-data-xml-element-intf_1
         sub_container_name: algites-java-gen-data-xml-element-intf_1
         file_name_stem: algites-java-gen-data-xml-element-intf-file_1
         file_name_suffix: java-source-extension_1
@@ -1415,7 +1415,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-xml-element-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-data-xml-element-intf-versioned_1
+        type_name: algites-java-gen-data-xml-element-intf-versioned_1
         sub_container_name: algites-java-gen-data-xml-element-intf-versioned_1
         file_name_stem: algites-java-gen-data-xml-element-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1431,7 +1431,7 @@ SourceStructureNameConventions:
     algites-java-xml-element-class_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-xml-element-class_1
+        type_name: algites-java-xml-element-class_1
         sub_container_name: algites-java-xml-element-class_1
         file_name_stem: algites-java-xml-element-class-file_1
         file_name_suffix: java-source-extension_1
@@ -1447,7 +1447,7 @@ SourceStructureNameConventions:
     algites-java-xml-element-class-versioned_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-xml-element-class-versioned_1
+        type_name: algites-java-xml-element-class-versioned_1
         sub_container_name: algites-java-xml-element-class-versioned_1
         file_name_stem: algites-java-xml-element-class-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1463,7 +1463,7 @@ SourceStructureNameConventions:
     algites-java-data-xml-element-class_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-data-xml-element-class_1
+        type_name: algites-java-data-xml-element-class_1
         sub_container_name: algites-java-data-xml-element-class_1
         file_name_stem: algites-java-data-xml-element-class-file_1
         file_name_suffix: java-source-extension_1
@@ -1479,7 +1479,7 @@ SourceStructureNameConventions:
     algites-java-data-xml-element-class-versioned_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-data-xml-element-class-versioned_1
+        type_name: algites-java-data-xml-element-class-versioned_1
         sub_container_name: algites-java-data-xml-element-class-versioned_1
         file_name_stem: algites-java-data-xml-element-class-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1495,7 +1495,7 @@ SourceStructureNameConventions:
     algites-java-gen-xml-element-class_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-gen-xml-element-class_1
+        type_name: algites-java-gen-xml-element-class_1
         sub_container_name: algites-java-gen-xml-element-class_1
         file_name_stem: algites-java-gen-xml-element-class-file_1
         file_name_suffix: java-source-extension_1
@@ -1511,7 +1511,7 @@ SourceStructureNameConventions:
     algites-java-gen-xml-element-class-versioned_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-gen-xml-element-class-versioned_1
+        type_name: algites-java-gen-xml-element-class-versioned_1
         sub_container_name: algites-java-gen-xml-element-class-versioned_1
         file_name_stem: algites-java-gen-xml-element-class-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1527,7 +1527,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-xml-element-class_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-gen-data-xml-element-class_1
+        type_name: algites-java-gen-data-xml-element-class_1
         sub_container_name: algites-java-gen-data-xml-element-class_1
         file_name_stem: algites-java-gen-data-xml-element-class-file_1
         file_name_suffix: java-source-extension_1
@@ -1543,7 +1543,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-xml-element-class-versioned_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-gen-data-xml-element-class-versioned_1
+        type_name: algites-java-gen-data-xml-element-class-versioned_1
         sub_container_name: algites-java-gen-data-xml-element-class-versioned_1
         file_name_stem: algites-java-gen-data-xml-element-class-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1559,7 +1559,7 @@ SourceStructureNameConventions:
     algites-java-gen-xml-type-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-xml-type-intf-versioned_1
+        type_name: algites-java-gen-xml-type-intf-versioned_1
         sub_container_name: algites-java-gen-xml-type-intf-versioned_1
         file_name_stem: algites-java-gen-xml-type-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1575,7 +1575,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-xml-type-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-data-xml-type-intf-versioned_1
+        type_name: algites-java-gen-data-xml-type-intf-versioned_1
         sub_container_name: algites-java-gen-data-xml-type-intf-versioned_1
         file_name_stem: algites-java-gen-data-xml-type-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1591,7 +1591,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-xml-type-class-versioned_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-gen-data-xml-type-class-versioned_1
+        type_name: algites-java-gen-data-xml-type-class-versioned_1
         sub_container_name: algites-java-gen-data-xml-type-class-versioned_1
         file_name_stem: algites-java-gen-data-xml-type-class-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1607,7 +1607,7 @@ SourceStructureNameConventions:
     algites-java-gen-json-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-json-intf-versioned_1
+        type_name: algites-java-gen-json-intf-versioned_1
         sub_container_name: algites-java-gen-json-intf-versioned_1
         file_name_stem: algites-java-gen-json-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1623,7 +1623,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-json-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-data-json-intf-versioned_1
+        type_name: algites-java-gen-data-json-intf-versioned_1
         sub_container_name: algites-java-gen-data-json-intf-versioned_1
         file_name_stem: algites-java-gen-data-json-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1639,7 +1639,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-json-class-versioned_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-gen-data-json-class-versioned_1
+        type_name: algites-java-gen-data-json-class-versioned_1
         sub_container_name: algites-java-gen-data-json-class-versioned_1
         file_name_stem: algites-java-gen-data-json-class-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1655,7 +1655,7 @@ SourceStructureNameConventions:
     algites-java-gen-yaml-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-yaml-intf-versioned_1
+        type_name: algites-java-gen-yaml-intf-versioned_1
         sub_container_name: algites-java-gen-yaml-intf-versioned_1
         file_name_stem: algites-java-gen-yaml-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1671,7 +1671,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-yaml-intf-versioned_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: algites-java-gen-data-yaml-intf-versioned_1
+        type_name: algites-java-gen-data-yaml-intf-versioned_1
         sub_container_name: algites-java-gen-data-yaml-intf-versioned_1
         file_name_stem: algites-java-gen-data-yaml-intf-versioned-file_1
         file_name_suffix: java-source-extension_1
@@ -1687,7 +1687,7 @@ SourceStructureNameConventions:
     algites-java-gen-data-yaml-class-versioned_1:
       ContainerStructureType: class
       StructureNaming:
-        main_container_name: algites-java-gen-data-yaml-class-versioned_1
+        type_name: algites-java-gen-data-yaml-class-versioned_1
         sub_container_name: algites-java-gen-data-yaml-class-versioned_1
         file_name_stem: algites-java-gen-data-yaml-class-versioned-file_1
         file_name_suffix: java-source-extension_1

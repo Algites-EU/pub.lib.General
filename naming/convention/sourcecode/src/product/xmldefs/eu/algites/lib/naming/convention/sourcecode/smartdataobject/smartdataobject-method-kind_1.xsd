@@ -3,7 +3,7 @@
   <xs:annotation>
     <xs:documentation>Roles for generated SmartDataObject accessors, raw accessors, presence checks and unsetters, separate from schema metadata roles.</xs:documentation>
   </xs:annotation>
-  <xs:simpleType name="smartdataobject-method-kind">
+  <xs:simpleType name="SmartdataobjectMethodKind">
     <xs:restriction base="xs:string">
       <xs:enumeration value="standard_getter">
         <xs:annotation>

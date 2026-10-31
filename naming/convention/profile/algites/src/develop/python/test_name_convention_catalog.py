@@ -75,7 +75,7 @@ def test_conversion():
     source = catalog('yamldef')
     target = catalog('java')
     assert source.convert('customer-address', 'algites-yamldef-schema_1', target,
-        'algites-java-gen-intf_1', 'main_container_name', 'file_name_stem') == 'AIigCustomerAddress'
+        'algites-java-gen-intf_1', 'type_name', 'file_name_stem') == 'AIigCustomerAddress'
 
 
 def test_clean_only_owned_outputs(tmp_path):
@@ -118,7 +118,7 @@ def test_custom_version_named_variables_can_be_recomposed():
             'suffix': {'Segments': [{'Kind': 'constant_string', 'Value': '.schema'}]},
         },
         'NameConventions': {'source-format': {'ContainerStructureType': 'object', 'StructureNaming': {
-            'file_name_stem': 'source', 'file_name_suffix': 'suffix', 'main_container_name': 'source'}}},
+            'file_name_stem': 'source', 'file_name_suffix': 'suffix', 'type_name': 'source'}}},
     })
     target = AIcNameConventionCatalog({
         'IdentifierConventions': identifiers,
@@ -133,10 +133,10 @@ def test_custom_version_named_variables_can_be_recomposed():
             'suffix': {'Segments': [{'Kind': 'constant_string', 'Value': '.java'}]},
         },
         'NameConventions': {'target-format': {'ContainerStructureType': 'interface', 'StructureNaming': {
-            'file_name_stem': 'target', 'file_name_suffix': 'suffix', 'main_container_name': 'target'}}},
+            'file_name_stem': 'target', 'file_name_suffix': 'suffix', 'type_name': 'target'}}},
     })
     assert source.convert('customer_address_1.0', 'source-format', target,
-        'target-format', 'main_container_name') == 'AIigCustomerAddress_1_0'
+        'target-format', 'type_name') == 'AIigCustomerAddress_1_0'
     match = target.recognize_filename('AIigCustomerAddress_1_0.java')
     assert match is not None and match.variables['major'] == '1' and match.variables['minor'] == '0'
 
@@ -277,7 +277,7 @@ def test_xml_element_marker_is_distinct_in_java_and_python():
     assert python.recognize_filename('aicgd__xe_payment_1.py').convention_name == 'algites-python-gen-data-xml-element-class-versioned_1'
     assert java.recognize_filename('AIigXePayment_1.java').convention_name == 'algites-java-gen-intf-versioned_1'
     assert python.recognize_filename('aiig_xe_payment_1.py').convention_name == 'algites-python-gen-intf-versioned_1'
-    assert java.parse('algites-java-gen-xml-element-intf-versioned_1', 'main_container_name',
+    assert java.parse('algites-java-gen-xml-element-intf-versioned_1', 'type_name',
                       'AIig_xePayment_1')['identifier'] == 'Payment'
     assert python.parse('algites-python-gen-xml-element-intf-versioned_1', 'file_name_stem',
                         'aiig__xe_payment_1')['identifier'] == 'payment'

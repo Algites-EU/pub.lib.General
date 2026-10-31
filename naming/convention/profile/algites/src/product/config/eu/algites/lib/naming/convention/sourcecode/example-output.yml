@@ -42,6 +42,6 @@ SourceStructureNameConventions:
     example-output_1:
       ContainerStructureType: interface
       StructureNaming:
-        main_container_name: example-output-stem_1
+        type_name: example-output-stem_1
         file_name_stem: example-output-stem_1
         file_name_suffix: output-java-suffix_1

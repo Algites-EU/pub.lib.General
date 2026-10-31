@@ -4,7 +4,7 @@
   "type": "string",
   "title": "Source structure kind",
   "enum": [
-    "main_container_name",
+    "type_name",
     "sub_container_name",
     "field_name",
     "enum_item_name",
@@ -23,9 +23,9 @@
   "x-algites-schema-version": 1,
   "oneOf": [
     {
-      "const": "main_container_name",
-      "title": "Main container name",
-      "description": "Name of the primary class, interface or other generated container."
+      "const": "type_name",
+      "title": "Type name",
+      "description": "Name of any source or generated type, including auxiliary and synthetic types."
     },
     {
       "const": "sub_container_name",

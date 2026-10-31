@@ -4,6 +4,7 @@ from eu.algites.lib.data.smartdataobject.ain_sdo_field_value_loading_mode import
 
 from collections.abc import Mapping, MutableSequence
 from eu.algites.lib.common.validation.aii_validatable import AIiValidatable
+from eu.algites.lib.common.enums.aii_enum_item import AIiEnumItem
 from dataclasses import dataclass, field, replace
 from decimal import Decimal
 from enum import Enum
@@ -141,6 +142,22 @@ def _validate_field_restriction(parent: Any, child: Any) -> None:
         raise ValueError('Restriction cannot introduce null: ' + child.name)
 
 
+def _enum_code(value: Enum) -> Any:
+    """Select the external code of an enum, retaining legacy enum values.
+
+    Generated enums implement the structural AIiEnumItem protocol, allowing
+    their member name and stored Python value to differ from the wire code.
+    Unrelated handwritten Enum implementations retain their original value.
+
+    Args:
+        value: Enum member whose external value is requested.
+
+    Returns:
+        The schema-defined string code when available, otherwise its raw value.
+    """
+    return value.code() if isinstance(value, AIiEnumItem) else value.value
+
+
 def _xml_lexical(value: Any) -> str:
     """Render XSD-compatible booleans and enumerated wire values.
 
@@ -148,7 +165,7 @@ def _xml_lexical(value: Any) -> str:
     valid XML Schema lexical representations of their underlying values.
     """
     if isinstance(value, Enum):
-        value = value.value
+        value = _enum_code(value)
     if isinstance(value, bool):
         return 'true' if value else 'false'
     return str(value)
@@ -365,7 +382,7 @@ class _Renderer:
         if node.kind == 'null':
             size = 4
         elif node.kind in ('scalar', 'opaque'):
-            val = node.value.value if isinstance(node.value, Enum) else node.value
+            val = _enum_code(node.value) if isinstance(node.value, Enum) else node.value
             size = len(dumps(val, ensure_ascii=False, default=str))
         elif node.kind == 'smart':
             size = 2
@@ -431,7 +448,7 @@ class _Renderer:
             elif node.kind in ('scalar', 'opaque'):
                 if node.kind == 'opaque' and not self.profile.diagnostic:
                     raise TypeError('Unsupported opaque canonical text value')
-                data = node.value.value if isinstance(node.value, Enum) else node.value
+                data = _enum_code(node.value) if isinstance(node.value, Enum) else node.value
             elif node.kind == 'list':
                 data = [self.as_data(child) for child in node.children]
             elif node.kind == 'map':
@@ -578,7 +595,7 @@ class _Renderer:
             if node.kind in ('scalar', 'opaque', 'null'):
                 if node.kind == 'opaque' and not self.profile.diagnostic:
                     raise TypeError('Unsupported opaque canonical YAML value')
-                value = node.value.value if isinstance(node.value, Enum) else node.value
+                value = _enum_code(node.value) if isinstance(node.value, Enum) else node.value
                 lines.append(prefix + (marker + ' ' if marker else '') + _json_text(value))
                 return
             lines.append(prefix + marker if marker else prefix.rstrip())
@@ -707,7 +724,7 @@ class AIcSmartDataObject(AIiSmartDataObject):
 
         def convert(value):
             if isinstance(value, Enum):
-                return value.value
+                return _enum_code(value)
             if isinstance(value, AIcSmartDataObject):
                 identity = id(value)
                 if identity in visiting:

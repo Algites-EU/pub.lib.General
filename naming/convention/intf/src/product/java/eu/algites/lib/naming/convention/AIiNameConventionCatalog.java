@@ -46,6 +46,30 @@ public interface AIiNameConventionCatalog {
         return "";
     }
 
+    /**
+     * Convert a previously validated identifier between named lexical conventions.
+     *
+     * @param aValue source identifier lexeme
+     * @param aSource source convention ID
+     * @param aTarget target convention ID
+     * @return identifier with its segments converted using the loaded catalog
+     * @throws IllegalArgumentException if a named convention is unknown or lacks a conversion style
+     */
+    default String convertIdentifierByDeclaredStyle(String aValue, String aSource, String aTarget) {
+        throw new UnsupportedOperationException("Identifier style conversion is not supported by this catalog");
+    }
+
+    /**
+     * Return the identifier convention configured for a structural name role.
+     *
+     * @param aProfile exact source naming profile
+     * @param aStructure exact structure role, such as {@code type_name}
+     * @return declared identifier convention, or {@code null} if none is present
+     */
+    default String identifierConvention(String aProfile, String aStructure) {
+        throw new UnsupportedOperationException("No identifier convention API in this catalog");
+    }
+
     /** Checks a name against the complete structural naming pattern. */
     boolean matches(String aProfile, String aStructure, String aName);
 

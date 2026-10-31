@@ -70,11 +70,11 @@ public final class AItcNameConventionCatalogTest {
     public void AIcNativeRenderingUsesYaml() throws Exception {
         AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.loadResource("algites-java-name-conventions.yml");
         Map<String, String> locValues = Map.of("identifier", "customer", "version", "1");
-        Assert.assertEquals(locCatalog.format("algites-java-gen-intf-versioned_1", "main_container_name",
+        Assert.assertEquals(locCatalog.format("algites-java-gen-intf-versioned_1", "type_name",
                 locValues, "lower_kebab_case_1"), "AIigCustomer_1");
-        Assert.assertEquals(locCatalog.format("algites-java-gen-data-class-versioned_1", "main_container_name",
+        Assert.assertEquals(locCatalog.format("algites-java-gen-data-class-versioned_1", "type_name",
                 locValues, "lower_kebab_case_1"), "AIcgdCustomer_1");
-        Assert.assertEquals(locCatalog.format("algites-java-gen-enum-versioned_1", "main_container_name",
+        Assert.assertEquals(locCatalog.format("algites-java-gen-enum-versioned_1", "type_name",
                 locValues, "lower_kebab_case_1"), "AIngCustomer_1");
     }
 
@@ -253,9 +253,9 @@ public final class AItcNameConventionCatalogTest {
                     + "      - Kind: identifier\n"
                     + "        CustomConventionRegexp: '(?<identifier>[a-z]+)'\n"
                     + "NameConventions:\n  profile:\n    StructureNaming:\n"
-                    + "      main_container_name: segment\n");
+                    + "      type_name: segment\n");
             AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.load(locFile);
-            Assert.assertEquals(locCatalog.parse("profile", "main_container_name", "customer")
+            Assert.assertEquals(locCatalog.parse("profile", "type_name", "customer")
                     .get("identifier"), "customer");
         } finally {
             Files.deleteIfExists(locFile);

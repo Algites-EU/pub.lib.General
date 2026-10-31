@@ -6,9 +6,9 @@
   <xs:annotation><xs:documentation>DataObject schema-metadata field naming profiles, separately typed from the other naming domain. XML entries encode named maps as Rule elements with unique role keys.</xs:documentation></xs:annotation>
   <xs:import namespace="eu.algites.lib.naming.convention.common-naming-conventions" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd"/>
   <xs:import namespace="eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-schema-metadata-kind" schemaLocation="dataobject-schema-metadata-kind_1.xsd"/>
-  <xs:complexType name="dataobject-naming-conventions">
+  <xs:complexType name="DataobjectNamingConventions">
     <xs:complexContent>
-      <xs:extension base="common:common-naming-conventions">
+      <xs:extension base="common:CommonNamingConventions">
         <xs:sequence>
           <xs:element name="DataObjectNameConventions">
             <xs:complexType><xs:sequence><xs:element name="NameConventions">
@@ -16,7 +16,7 @@
                 <xs:complexType><xs:sequence><xs:element name="StructureNaming">
                   <xs:complexType><xs:sequence><xs:element name="Rule" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType><xs:simpleContent><xs:extension base="xs:string">
-                      <xs:attribute name="kind" type="role:dataobject-schema-metadata-kind" use="required"/>
+                      <xs:attribute name="kind" type="role:DataobjectSchemaMetadataKind" use="required"/>
                     </xs:extension></xs:simpleContent></xs:complexType>
                   </xs:element></xs:sequence></xs:complexType>
                   <xs:key name="UniqueNamingRoles"><xs:selector xpath="Rule"/><xs:field xpath="@kind"/></xs:key>

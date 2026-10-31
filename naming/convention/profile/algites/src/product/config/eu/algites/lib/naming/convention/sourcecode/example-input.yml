@@ -37,6 +37,6 @@ SourceStructureNameConventions:
     example-input_1:
       ContainerStructureType: object
       StructureNaming:
-        main_container_name: example-input-stem_1
+        type_name: example-input-stem_1
         file_name_stem: example-input-stem_1
         file_name_suffix: input-schema-suffix_1

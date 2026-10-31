@@ -11,9 +11,9 @@
   <xs:import namespace="eu.algites.lib.naming.convention.common-naming-conventions" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd"/>
   <xs:import namespace="eu.algites.lib.naming.convention.sourcecode.container-structure-type" schemaLocation="container-structure-type_1.xsd"/>
   <xs:import namespace="eu.algites.lib.naming.convention.sourcecode.source-structure-kind" schemaLocation="source-structure-kind_1.xsd"/>
-  <xs:complexType name="source-structure-name-conventions">
+  <xs:complexType name="SourceStructureNameConventions">
     <xs:complexContent>
-      <xs:extension base="common:common-naming-conventions">
+      <xs:extension base="common:CommonNamingConventions">
         <xs:sequence>
           <xs:element name="SourceStructureNameConventions">
             <xs:complexType>
@@ -24,7 +24,7 @@
                       <xs:element name="NameConvention" minOccurs="0" maxOccurs="unbounded">
                         <xs:complexType>
                           <xs:sequence>
-                            <xs:element name="ContainerStructureType" type="container:container-structure-type"/>
+                            <xs:element name="ContainerStructureType" type="container:ContainerStructureType"/>
                             <xs:element name="StructureNaming">
                               <xs:complexType>
                                 <xs:sequence>
@@ -32,7 +32,7 @@
                                     <xs:complexType>
                                       <xs:simpleContent>
                                         <xs:extension base="xs:string">
-                                          <xs:attribute name="kind" type="kind:source-structure-kind" use="required"/>
+                                          <xs:attribute name="kind" type="kind:SourceStructureKind" use="required"/>
                                         </xs:extension>
                                       </xs:simpleContent>
                                     </xs:complexType>

@@ -3,7 +3,7 @@
   <xs:annotation>
     <xs:documentation>Roles for extraction and emission of DataObject schema metadata, independent of generated method names.</xs:documentation>
   </xs:annotation>
-  <xs:simpleType name="dataobject-schema-metadata-kind">
+  <xs:simpleType name="DataobjectSchemaMetadataKind">
     <xs:restriction base="xs:string">
       <xs:enumeration value="schema_source_schema_url">
         <xs:annotation>

@@ -76,11 +76,11 @@ def test_custom_regexp_requires_valid_syntax_and_correct_capture(kind, regex):
 def test_custom_regexp_parses_and_formats():
     c = AIcNameConventionCatalog({'NameCompositions': {
         'example': {'Segments': [{'Kind': 'identifier', 'CustomConventionRegexp': r'(?<identifier>[a-z]+)'}]}
-    }, 'NameConventions': {'profile': {'StructureNaming': {'main_container_name': 'example'}}}})
-    assert c.parse('profile', 'main_container_name', 'customer') == {'identifier': 'customer'}
-    assert c.format('profile', 'main_container_name', {'identifier': 'customer'}) == 'customer'
+    }, 'NameConventions': {'profile': {'StructureNaming': {'type_name': 'example'}}}})
+    assert c.parse('profile', 'type_name', 'customer') == {'identifier': 'customer'}
+    assert c.format('profile', 'type_name', {'identifier': 'customer'}) == 'customer'
     with pytest.raises(ValueError):
-        c.format('profile', 'main_container_name', {'identifier': 'Customer'})
+        c.format('profile', 'type_name', {'identifier': 'Customer'})
 
 
 def test_xml_xsd_enforces_exclusive_structure():

@@ -44,14 +44,14 @@ public final class AItcXmlRepeatedElementSerializationTest {
         public void setEntry(List<String> aValues) { set_RawField("Entry", aValues); }
     }
 
-    /** Generated enums expose their canonical serialized value through wireValue. */
-    public enum AInExampleStatus {
+    /** Generated enums expose their canonical serialized value through {@link eu.algites.lib.common.enums.AIiEnumItem#code()}. */
+    public enum AInExampleStatus implements eu.algites.lib.common.enums.AIiEnumItem {
         /** An intentionally different wire spelling from the Java identifier. */
         APPROVED("approved-wire");
         private final String wire;
         AInExampleStatus(String aWire) { wire = aWire; }
         /** Return the value preserved from the schema enumeration. */
-        public String wireValue() { return wire; }
+        @Override public String code() { return wire; }
     }
 
     /** Read-only XML contract with a generated-style enumerated field. */
@@ -76,7 +76,7 @@ public final class AItcXmlRepeatedElementSerializationTest {
 
     /** Verify that XSD wire strings, not Java enum identifiers, are emitted. */
     @Test
-    public void AIcEnumWireValueIsPreservedInXml() {
+    public void AIcEnumCodeIsPreservedInXml() {
         var locDocument = new AIcStatusDocument();
         locDocument.setStatus(AInExampleStatus.APPROVED);
         String locXml = locDocument.toString_RawValues(AIsTextFormatProfiles.XML_XSD,

@@ -4,7 +4,6 @@ import eu.algites.lib.data.smartdataobject.AIxSmartDataValidationException;
 import eu.algites.lib.data.smartdataobject.impl.xmldefs.AIcXmlSmartDataObject;
 import java.io.StringReader;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.WildcardType;
@@ -13,6 +12,7 @@ import eu.algites.lib.data.dataobject.xmldefs.AIaXmlKeyDefinition;
 import eu.algites.lib.common.list.AIcKeyDefinition;
 import eu.algites.lib.common.list.AIcMultiMappedList;
 import eu.algites.lib.common.list.AIiKeyDefinition;
+import eu.algites.lib.common.enums.AIiEnumItem;
 import eu.algites.lib.data.dataobject.xmldefs.AIiXmlWildcardFragment;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
@@ -463,15 +463,10 @@ public final class AIcXmlSmartDataObjectParser {
         if (aType == BigDecimal.class) return new BigDecimal(locTrimmed);
         if (aType.isEnum()) {
             for (Object locEnum : aType.getEnumConstants()) {
-                String locWire;
-                try {
-                    locWire = String.valueOf(aType.getMethod("wireValue").invoke(locEnum));
-                } catch (NoSuchMethodException aFailure) {
-                    locWire = ((Enum<?>) locEnum).name();
-                } catch (IllegalAccessException | InvocationTargetException aFailure) {
-                    throw new IllegalArgumentException("Cannot read XML enum wire value", aFailure);
-                }
-                if (locWire.equals(aText)) return locEnum;
+                String locCode = locEnum instanceof AIiEnumItem locItem
+                        ? Objects.requireNonNull(locItem.code(), "Enum item code must not be null")
+                        : ((Enum<?>) locEnum).name();
+                if (locCode.equals(aText)) return locEnum;
             }
             throw new IllegalArgumentException("Unrecognized XML enumeration value: " + aText);
         }
