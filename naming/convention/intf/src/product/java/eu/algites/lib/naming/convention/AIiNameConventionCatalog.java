@@ -70,6 +70,34 @@ public interface AIiNameConventionCatalog {
         throw new UnsupportedOperationException("No identifier convention API in this catalog");
     }
 
+    /**
+     * Returns the naming profile bound to a semantic DataObject generation role.
+     *
+     * @param aRole non-null semantic role identifier; must be defined by the caller's naming configuration
+     * @return selected naming profile identifier, or {@code null} when the role is not bound
+     */
+    String selectedRole(String aRole);
+
+    /**
+     * Returns the selected generated-method naming profile.
+     *
+     * @return selected profile identifier, or {@code null} when none is selected
+     */
+    String generatedMethodProfile();
+
+    /**
+     * Resolves the structural composition reference configured for a generated method role.
+     * This is a composition identifier, not the rendered Java method name. An absent
+     * or blank mapping disables the optional accessor; callers must not silently
+     * substitute a default method name.
+     *
+     * @param aRole generated-method role, for example {@code raw_getter},
+     *              {@code raw_presence_checker_method}, or {@code raw_unsetter}
+     * @return configured composition identifier, or {@code null} if there is no
+     *         selected generated-method profile or the role has no mapping
+     */
+    String generatedMethodReference(String aRole);
+
     /** Checks a name against the complete structural naming pattern. */
     boolean matches(String aProfile, String aStructure, String aName);
 

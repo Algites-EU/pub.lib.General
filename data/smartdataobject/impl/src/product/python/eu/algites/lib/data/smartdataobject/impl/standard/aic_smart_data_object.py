@@ -100,11 +100,31 @@ def _resolve_field_descriptor_default(owner: type, descriptor: Any) -> Any:
 
 
 def _data_object_fields(cls: type, identity_provider=None) -> dict[str, Any]:
-    """Resolve inherited fields by getter identity and reject data-name collisions."""
+    """Resolve inherited domain fields while excluding configured document metadata.
+
+    Metadata names are sourced from each declaring contract's DataObject annotation,
+    not inferred from a hard-coded JSON or YAML key. An empty configured name does
+    not reserve a field. The filter runs before semantic inheritance merging.
+    """
     descriptors: dict[str, Any] = {}
     owners: dict[str, type] = {}
     for base in reversed(cls.__mro__):
+        annotation = base.__dict__.get('__data_object__')
+        reserved = {
+            name for name in (
+                getattr(annotation, 'data_source_schema_url_field', ''),
+                getattr(annotation, 'data_source_schema_identifier_field', ''),
+                getattr(annotation, 'data_source_schema_version_field', ''),
+            ) if isinstance(name, str) and name
+        }
+        if len(reserved) != sum(bool(name) for name in (
+                getattr(annotation, 'data_source_schema_url_field', ''),
+                getattr(annotation, 'data_source_schema_identifier_field', ''),
+                getattr(annotation, 'data_source_schema_version_field', ''))):
+            raise ValueError('Duplicate configured document metadata field in ' + base.__name__)
         for declared in _declared_fields(base):
+            if declared.field_name and declared.field_name in reserved:
+                continue
             identity = (declared.semantic_id or declared.field_name if not declared.getter_name
                     else declared.semantic_id or (identity_provider(base, declared.getter_name)
                          if identity_provider is not None else _canonical_getter_identity(declared.getter_name)))
@@ -120,7 +140,11 @@ def _data_object_fields(cls: type, identity_provider=None) -> dict[str, Any]:
                 owner = owners[identity]
                 if not issubclass(base, owner):
                     if previous != descriptor:
-                        raise ValueError('Conflicting unrelated inherited semantic field: ' + identity)
+                        raise ValueError('Conflicting unrelated inherited semantic field: ' + identity
+                            + '; first owner=' + owner.__module__ + '.' + owner.__qualname__
+                            + ', second owner=' + base.__module__ + '.' + base.__qualname__
+                            + '; first descriptor=' + repr(previous)
+                            + '; second descriptor=' + repr(descriptor))
                 else:
                     _validate_field_restriction(previous, descriptor)
             descriptors[identity] = descriptor

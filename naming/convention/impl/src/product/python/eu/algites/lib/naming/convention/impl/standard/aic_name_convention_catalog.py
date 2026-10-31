@@ -7,13 +7,14 @@ from typing import Any, Callable, Mapping
 import yaml
 
 from eu.algites.lib.naming.convention.impl.standard.aicd_name_match import AIcdNameMatch
+from eu.algites.lib.naming.convention.aii_name_convention_catalog import AIiNameConventionCatalog
 
 
 _NAMED_CAPTURE = re.compile(r'\(\?<([A-Za-z][A-Za-z0-9_]*)>')
 _CAMEL_BOUNDARY = re.compile(r'(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])')
 
 
-class AIcNameConventionCatalog:
+class AIcNameConventionCatalog(AIiNameConventionCatalog):
     """YAML-driven, language-independent name composition engine.
 
     Java-style (?<name>...) captures in YAML are translated to Python's (?P<name>...).
@@ -268,6 +269,11 @@ class AIcNameConventionCatalog:
     @staticmethod
     def _missing_profile(name: str):
         raise KeyError(f'Unknown naming profile: {name}')
+
+    @property
+    def generated_method_profile(self) -> str | None:
+        """Return the selected generated-method naming profile, if any."""
+        return self._generated_method_profile
 
     def generated_method_reference(self, role: str) -> str | None:
         """Return the selected composition ID, or None for a disabled optional raw method.

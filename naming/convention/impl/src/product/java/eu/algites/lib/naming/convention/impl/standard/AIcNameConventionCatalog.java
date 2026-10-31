@@ -328,6 +328,7 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
      * Returns the selected method-profile identifier, if any.
      * @return exact profile ID or null when source-structure naming alone is configured
      */
+    @Override
     public String generatedMethodProfile() { return generatedMethodProfile; }
 
     /**
@@ -355,7 +356,8 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
      * @return the composition ID or {@code null} when the role is disabled or no
      *         generated-method profile is selected
      */
-    private String generatedMethodReference(String aRole) {
+    @Override
+    public String generatedMethodReference(String aRole) {
         if (generatedMethodProfile == null) return null;
         JsonNode locValue = generatedMethodProfiles.get(generatedMethodProfile)
                 .path("StructureNaming").path(aRole);
@@ -377,6 +379,7 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
      * @return selected naming convention identifier
      * @throws IllegalArgumentException if this role is not configured
      */
+    @Override
     public String selectedRole(String aRole) {
         String locSelected = roleBindings.get(aRole);
         if (locSelected == null)
