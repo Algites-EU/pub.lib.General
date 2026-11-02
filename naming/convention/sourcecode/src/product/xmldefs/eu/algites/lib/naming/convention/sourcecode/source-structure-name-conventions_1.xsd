@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="eu.algites.lib.naming.convention.sourcecode.source-structure-name-conventions"
+           targetNamespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/source-structure-name-conventions_1.xsd"
            version="1"
-           xmlns:common="eu.algites.lib.naming.convention.common-naming-conventions"
-           xmlns:container="eu.algites.lib.naming.convention.sourcecode.container-structure-type"
-           xmlns:kind="eu.algites.lib.naming.convention.sourcecode.source-structure-kind">
+           xmlns:common="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd"
+           xmlns:container="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/container-structure-type_1.xsd"
+           xmlns:kind="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/source-structure-kind_1.xsd">
   <xs:annotation>
     <xs:documentation>Named source-structure profiles. NameConventions and StructureNaming are typed maps with unique keys.</xs:documentation>
   </xs:annotation>
-  <xs:import namespace="eu.algites.lib.naming.convention.common-naming-conventions" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd"/>
-  <xs:import namespace="eu.algites.lib.naming.convention.sourcecode.container-structure-type" schemaLocation="container-structure-type_1.xsd"/>
-  <xs:import namespace="eu.algites.lib.naming.convention.sourcecode.source-structure-kind" schemaLocation="source-structure-kind_1.xsd"/>
+  <xs:import namespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd"/>
+  <xs:import namespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/container-structure-type_1.xsd" schemaLocation="container-structure-type_1.xsd"/>
+  <xs:import namespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/source-structure-kind_1.xsd" schemaLocation="source-structure-kind_1.xsd"/>
   <xs:complexType name="SourceStructureNameConventions">
     <xs:complexContent>
       <xs:extension base="common:CommonNamingConventions">

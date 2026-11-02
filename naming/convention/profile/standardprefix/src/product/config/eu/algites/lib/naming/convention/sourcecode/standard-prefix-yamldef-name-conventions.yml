@@ -5,36 +5,45 @@ StandardConventionsFile: standard-conventions.yml
 NameCompositions:
   schema-name_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
   schema-stem_1:
     Segments:
-    - Kind: identifier
-      Convention: lower_kebab_case_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: lower_kebab_case_1
   schema-stem-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: lower_kebab_case_1
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: lower_kebab_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   schema-enum-item_1:
     Segments:
-    - Kind: identifier
-      Convention: lower_snake_case_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: lower_snake_case_1
   yamldefs-schema-suffix_1:
     Segments:
-    - Kind: constant_string
-      Value: .yamldef.schema.json
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: .yamldef.schema.json
   schema-property_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
   schema-package_1:
     Segments:
-    - Kind: identifier
-      Convention: lower_snake_case_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: lower_snake_case_1
 SourceStructureNameConventions:
   NameConventions:
     standard-prefix-yamldef-schema_1:

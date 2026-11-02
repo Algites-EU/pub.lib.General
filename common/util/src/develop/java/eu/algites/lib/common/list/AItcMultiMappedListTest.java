@@ -48,6 +48,28 @@ public class AItcMultiMappedListTest {
         throw new AssertionError("Expected " + expected + " but operation succeeded");
     }
 
+    /** Verifies xs:unique-style optional keys and ordinary required keys. */
+    @Test public void optionalKeysAndNullGroups() {
+        var optionalCode = new AIcKeyDefinition<Employee, String>(
+                "OPTIONAL", Employee::email, true, false);
+        var requiredId = new AIcKeyDefinition<Employee, Long>("REQUIRED", Employee::id, true);
+        var employees = new AIcMultiMappedList<Employee>(optionalCode, requiredId);
+        Employee missing1 = new Employee(50, null, "Prague");
+        Employee missing2 = new Employee(51, null, "Brno");
+        employees.addAll(List.of(missing1, missing2, A));
+        Map<String, List<Employee>> mapped = employees.mapByKeyType(optionalCode);
+        check(mapped.get(null).equals(List.of(missing1, missing2)), "missing keys form null group");
+        fails(IllegalArgumentException.class, () -> employees.add(
+                new Employee(52, A.email(), "Plzen")));
+        check(employees.size() == 3, "failed unique insertion must be atomic");
+        mapped.remove(null);
+        check(employees.equals(List.of(A)), "null group deletion updates root list");
+        var strict = new AIcKeyDefinition<Employee, String>("STRICT", Employee::email, true);
+        var strictList = new AIcMultiMappedList<Employee>(strict);
+        fails(IllegalArgumentException.class, () -> strictList.add(missing1));
+        check(strictList.isEmpty(), "missing required keys must be rejected");
+    }
+
     /** Ensures indexed map views are cached and group snapshots never mutate. */
     @Test public void cachedViewsAndSnapshots() {
         AIcMultiMappedList<Employee> employees = list();

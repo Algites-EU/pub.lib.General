@@ -8,30 +8,39 @@ VersionConventions:
 NameFragments:
   input-schema-suffix_1:
     Segments:
-    - Kind: constant_string
-      Value: .demo.schema
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: .demo.schema
   schema-identifier_1:
     Segments:
-    - Kind: identifier
-      Convention: lower_snake_case_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: lower_snake_case_1
 NameCompositions:
   example-input-stem_1:
     Segments:
-    - Ref: schema-identifier_1
-    - Kind: constant_string
-      Value: --
-    - Kind: variable
-      Name: region
-      Regexp: '[a-z]+(?:_[a-z]+)*'
-    - Kind: constant_string
-      Value: --
-    - Kind: variable
-      Name: channel
-      Regexp: '[a-z]+'
-    - Kind: constant_string
-      Value: --
-    - Kind: version
-      Convention: example_major_minor_1
+    - NameFragmentsSegmentReference:
+        Ref: schema-identifier_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: --
+    - NameFragmentsSegmentValue:
+        Kind: variable
+        Name: region
+        Regexp: '[a-z]+(?:_[a-z]+)*'
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: --
+    - NameFragmentsSegmentValue:
+        Kind: variable
+        Name: channel
+        Regexp: '[a-z]+'
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: --
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: example_major_minor_1
 SourceStructureNameConventions:
   NameConventions:
     example-input_1:

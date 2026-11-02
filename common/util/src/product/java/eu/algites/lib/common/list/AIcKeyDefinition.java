@@ -18,6 +18,7 @@ public final class AIcKeyDefinition<V, K> implements AIiKeyDefinition<V, K> {
     private final String id;
     private final Function<? super V, ? extends K> extractor;
     private final boolean unique;
+    private final boolean required;
 
     /**
      * Creates a key definition whose extractor is evaluated when values are added
@@ -30,12 +31,28 @@ public final class AIcKeyDefinition<V, K> implements AIiKeyDefinition<V, K> {
      * @throws IllegalArgumentException if the identifier is blank
      */
     public AIcKeyDefinition(String id, Function<? super V, ? extends K> extractor, boolean unique) {
+        this(id, extractor, unique, true);
+    }
+
+    /**
+     * Defines a required or optional key without changing its uniqueness semantics.
+     *
+     * @param id nonblank index name
+     * @param extractor pure extraction function, permitted to return null only if optional
+     * @param unique whether non-null duplicate keys are forbidden
+     * @param required whether every value must supply a non-null key
+     * @throws NullPointerException if id or extractor is null
+     * @throws IllegalArgumentException if id is blank
+     */
+    public AIcKeyDefinition(String id, Function<? super V, ? extends K> extractor,
+            boolean unique, boolean required) {
         this.id = Objects.requireNonNull(id, "id");
         if (id.isBlank()) {
             throw new IllegalArgumentException("Key definition id must not be blank");
         }
         this.extractor = Objects.requireNonNull(extractor, "extractor");
         this.unique = unique;
+        this.required = required;
     }
 
     /** {@inheritDoc} */
@@ -46,4 +63,7 @@ public final class AIcKeyDefinition<V, K> implements AIiKeyDefinition<V, K> {
 
     /** {@inheritDoc} */
     @Override public boolean isUnique() { return unique; }
+
+    /** {@inheritDoc} */
+    @Override public boolean isRequired() { return required; }
 }

@@ -18,8 +18,10 @@ class AIcKeyDefinition(Generic[V, K]):
 
     Attributes:
         id: Nonempty string identifier, unique among a list's definitions.
-        extractor: Pure callable that returns a hashable, non-None key.
+        extractor: Pure callable that returns a stable, hashable key, or None
+            when this key definition is optional.
         unique: True for unique map indexes, False for grouping indexes.
+        required: Whether a missing key is forbidden; optional null groups may contain many values.
 
     Raises:
         ValueError: At construction if ``id`` is empty or whitespace.
@@ -29,6 +31,7 @@ class AIcKeyDefinition(Generic[V, K]):
     id: str
     extractor: Callable[[V], K]
     unique: bool
+    required: bool = True
 
     def __post_init__(self) -> None:
         """Validate the identifier and callable after dataclass initialization.
@@ -44,14 +47,14 @@ class AIcKeyDefinition(Generic[V, K]):
         if not callable(self.extractor):
             raise TypeError("Key extractor must be callable")
 
-    def extract_key(self, value: V) -> K:
+    def extract_key(self, value: V) -> K | None:
         """Apply the extractor to a value without altering it.
 
         Args:
             value: Non-None value from the owning list.
 
         Returns:
-            The extracted key.
+            The extracted key or None for an absent optional key.
 
         Raises:
             Exception: Any exception raised by the supplied extractor.

@@ -4,7 +4,9 @@ package eu.algites.lib.common.list;
  * Defines one stable, named lookup projection over values held by a multi-mapped list.
  * A definition identifies a single map view by object identity. Callers must use the
  * exact registered definition object, not a separately constructed definition with
- * the same identifier. Extracted keys must be non-null and their equality and hash
+ * the same identifier. Required extracted keys must be non-null; optional definitions may return null,
+ * which groups entries with absent keys without enforcing uniqueness. Non-null keys
+ * retain stable equality and hash
  * codes must remain unchanged while the corresponding value is in the collection.
  *
  * <p>Definitions may be unique (as with an XML {@code xs:key} or a JSON object
@@ -29,7 +31,7 @@ public interface AIiKeyDefinition<V, K> {
      * must be deterministic for values whose key attributes have not changed.
      *
      * @param value non-null value to inspect
-     * @return non-null key with stable equals/hashCode behavior while inserted
+     * @return extracted key, or null only when {@link #isRequired()} is false
      * @throws RuntimeException if extraction is impossible for the supplied value
      */
     K extractKey(V value);
@@ -40,4 +42,12 @@ public interface AIiKeyDefinition<V, K> {
      * @return true for unique keys; false for grouping keys
      */
     boolean isUnique();
+
+    /**
+     * Whether the key must exist for every value. Unique optional keys allow
+     * multiple absent keys in the null group while checking non-null keys.
+     *
+     * @return true if a missing key makes insertion invalid
+     */
+    default boolean isRequired() { return true; }
 }

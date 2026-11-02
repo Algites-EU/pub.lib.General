@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-naming-conventions" version="1"
-           xmlns:common="eu.algites.lib.naming.convention.common-naming-conventions"
-           xmlns:role="eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind">
+           targetNamespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-naming-conventions_1.xsd" version="1"
+           xmlns:common="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd"
+           xmlns:role="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-method-kind_1.xsd">
   <xs:annotation><xs:documentation>SmartDataObject accessor method naming profiles, separately typed from the other naming domain. XML entries encode named maps as Rule elements with unique role keys.</xs:documentation></xs:annotation>
-  <xs:import namespace="eu.algites.lib.naming.convention.common-naming-conventions" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd"/>
-  <xs:import namespace="eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind" schemaLocation="smartdataobject-method-kind_1.xsd"/>
+  <xs:import namespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd"/>
+  <xs:import namespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-method-kind_1.xsd" schemaLocation="smartdataobject-method-kind_1.xsd"/>
   <xs:complexType name="SmartdataobjectNamingConventions">
     <xs:complexContent>
       <xs:extension base="common:CommonNamingConventions">

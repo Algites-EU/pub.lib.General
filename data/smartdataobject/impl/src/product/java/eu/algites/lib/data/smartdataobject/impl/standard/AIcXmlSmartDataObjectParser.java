@@ -317,7 +317,8 @@ public final class AIcXmlSmartDataObjectParser {
                 if (locPaths.length == 0)
                     throw new IllegalArgumentException("Empty xs:key: " + locKey.name());
                 locDefinitions.add(new AIcKeyDefinition<>(locKey.name(),
-                        aItem -> xmlKey(aItem, locKey.name(), locPaths), true));
+                        aItem -> xmlKey(aItem, locKey.name(), locPaths, locKey.required()),
+                        true, locKey.required()));
             }
             AIcMultiMappedList<Object> locIndexed = new AIcMultiMappedList<>(locDefinitions);
             locIndexed.addAll(locList);
@@ -339,16 +340,21 @@ public final class AIcXmlSmartDataObjectParser {
      * @param aItem typed XML value object owning all selected fields
      * @param aKeyName diagnostic name of the {@code xs:key}
      * @param aPaths ordered schema field paths, each one or more named steps
+     * @param aRequired whether a missing component is an invalid key rather than an absent index
      * @return one typed scalar or an immutable ordered tuple of typed components
      * @throws IllegalArgumentException if a step is absent, ambiguous or inaccessible
      */
-    private static Object xmlKey(Object aItem, String aKeyName, String[] aPaths) {
+    private static Object xmlKey(Object aItem, String aKeyName, String[] aPaths, boolean aRequired) {
         List<Object> locValues = new ArrayList<>();
         for (String locPath : aPaths) {
             Object locCurrent = aItem;
             for (String locSegment : locPath.split("\\.", -1)) {
-                if (locSegment.isBlank() || locCurrent == null)
+                if (locSegment.isBlank())
+                    throw new IllegalArgumentException("Invalid XML identity path " + locPath);
+                if (locCurrent == null) {
+                    if (!aRequired) return null;
                     throw new IllegalArgumentException("Missing xs:key " + aKeyName + " component " + locPath);
+                }
                 var locDescriptor = AIcSmartDataMetadata.forType(locCurrent.getClass());
                 var locMatches = locDescriptor.fields().stream()
                         .filter(aField -> aField.name().equals(locSegment)
@@ -363,8 +369,9 @@ public final class AIcXmlSmartDataObjectParser {
                             + " component " + locPath, locFailure);
                 }
             }
+            if (locCurrent == null && !aRequired) return null;
             if (locCurrent == null || locCurrent instanceof List<?> || locCurrent instanceof Map<?, ?>)
-                throw new IllegalArgumentException("Missing or non-scalar xs:key " + aKeyName
+                throw new IllegalArgumentException("Missing or non-scalar XML key " + aKeyName
                         + " component " + locPath);
             locValues.add(locCurrent);
         }

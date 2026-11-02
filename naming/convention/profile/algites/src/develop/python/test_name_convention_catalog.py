@@ -223,6 +223,7 @@ def test_standard_catalog_uses_python_import_roots_independent_of_checkout(tmp_p
 
     module_root = ROOT.parents[6] / 'python'
     generic_root = ROOT.parents[10] / 'impl/src/product/python'
+    intf_root = ROOT.parents[10] / 'intf/src/product/python'
     config_root = ROOT.parents[6] / 'config'
     assert module_root.is_dir() and config_root.is_dir()
     unrelated = tmp_path / 'unrelated-directory'
@@ -231,7 +232,7 @@ def test_standard_catalog_uses_python_import_roots_independent_of_checkout(tmp_p
             "import AIcNameConventionCatalog; "
             "assert len(AIcNameConventionCatalog.load_resource('algites-java-name-conventions.yml').names) == 59; "
             "assert len(AIcNameConventionCatalog.load_resource('algites-python-name-conventions.yml').names) == 59")
-    env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(generic_root), str(config_root), str(SHARED_CONFIG))))
+    env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(generic_root), str(intf_root), str(config_root), str(SHARED_CONFIG))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
 
 
@@ -244,6 +245,7 @@ def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
 
     module_root = ROOT.parents[6] / 'python'
     generic_root = ROOT.parents[10] / 'impl/src/product/python'
+    intf_root = ROOT.parents[10] / 'intf/src/product/python'
     stage = tmp_path / 'wheel-packages'
     destination = (stage / 'algites/pub/lib/general/naming/convention/profile/algites'
                    / 'eu/algites/lib/naming/convention/sourcecode')
@@ -263,7 +265,7 @@ def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
             "assert len(AIcNameConventionCatalog.load_resource('algites-java-name-conventions.yml').names) == 59; "
             "assert len(AIcNameConventionCatalog.load_resource('algites-python-name-conventions.yml').names) == 59; "
             "assert len(AIcNameConventionCatalog.load_resource('algites-yamldef-name-conventions.yml').names) == 2")
-    env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(generic_root), str(stage))))
+    env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(generic_root), str(intf_root), str(stage))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
 
 

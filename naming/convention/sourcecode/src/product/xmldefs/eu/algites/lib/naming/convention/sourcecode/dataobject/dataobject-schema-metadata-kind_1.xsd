@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-schema-metadata-kind" version="1">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/dataobject/dataobject-schema-metadata-kind_1.xsd" version="1">
   <xs:annotation>
     <xs:documentation>Roles for extraction and emission of DataObject schema metadata, independent of generated method names.</xs:documentation>
   </xs:annotation>

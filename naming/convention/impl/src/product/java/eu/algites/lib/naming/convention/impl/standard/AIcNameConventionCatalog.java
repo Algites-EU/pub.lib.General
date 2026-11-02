@@ -238,6 +238,33 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
                 + aExpectedGroup);
     }
 
+    /**
+     * Removes the serialized Choice variant discriminator from one naming segment.
+     * The historical internal segment representation is deliberately preserved
+     * so parsing and formatting use identical logic across Java and Python.
+     *
+     * @param aSegment mapping containing one named variant, or an unwrapped legacy segment
+     * @return validated variant content or the unchanged legacy segment
+     * @throws IllegalArgumentException when the wrapper contains conflicting or invalid variants
+     */
+    private static JsonNode unwrapSegment(JsonNode aSegment) {
+        if (!aSegment.isObject()) return aSegment;
+        boolean locValue = aSegment.has("NameFragmentsSegmentValue");
+        boolean locReference = aSegment.has("NameFragmentsSegmentReference");
+        if (!locValue && !locReference) return aSegment;
+        if (locValue == locReference || aSegment.size() != 1)
+            throw new IllegalArgumentException("Naming segment Choice must contain exactly one named alternative");
+        String locName = locValue ? "NameFragmentsSegmentValue" : "NameFragmentsSegmentReference";
+        JsonNode locPayload = aSegment.path(locName);
+        if (!locPayload.isObject())
+            throw new IllegalArgumentException("Naming segment " + locName + " must be an object");
+        if (locValue && locPayload.has("Ref"))
+            throw new IllegalArgumentException("Value segment cannot contain Ref");
+        if (locReference && (locPayload.size() != 1 || !locPayload.has("Ref")))
+            throw new IllegalArgumentException("Reference segment must contain only Ref");
+        return locPayload.deepCopy();
+    }
+
     /** Validates every defined segment, including fragments not selected by a profile. */
     private static void validateSegmentDefinitions(JsonNode aDocument) {
         for (String locSection : List.of("NameFragments", "NameCompositions")) {
@@ -246,9 +273,12 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
                 if (!locSegments.isArray())
                     throw new IllegalArgumentException(locSection + "/" + locEntry.getKey()
                             + " must contain a Segments array");
-                for (int locIndex = 0; locIndex < locSegments.size(); locIndex++)
-                    validateSegment(locSegments.get(locIndex), locSection + "/" + locEntry.getKey()
+                for (int locIndex = 0; locIndex < locSegments.size(); locIndex++) {
+                    JsonNode locSegment = unwrapSegment(locSegments.get(locIndex));
+                    validateSegment(locSegment, locSection + "/" + locEntry.getKey()
                             + "/Segments[" + locIndex + "]");
+                    ((com.fasterxml.jackson.databind.node.ArrayNode) locSegments).set(locIndex, locSegment);
+                }
             });
         }
     }
@@ -256,8 +286,8 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
     private AIcNameConventionCatalog(JsonNode aDocument, JsonNode aStandard) {
         roleBindings = Map.of();
         generatedMethodProfile = null;
-        document = aDocument;
-        validateSegmentDefinitions(aDocument);
+        document = aDocument.deepCopy();
+        validateSegmentDefinitions(document);
         mergeConventions(identifierConventions, aStandard.path("IdentifierConventions"), aDocument.path("IdentifierConventions"));
         mergeConventions(versionConventions, aStandard.path("VersionConventions"), aDocument.path("VersionConventions"));
         registerProfiles(aDocument.path("NameConventions"), "NameConventions");

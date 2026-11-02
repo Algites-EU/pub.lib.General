@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:algdoc="urn:eu:algites:documentation:1" xmlns:common="eu.algites.lib.naming.convention.common-naming-conventions" targetNamespace="eu.algites.lib.naming.convention.standard-conventions" version="1">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:algdoc="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/common/documentation/algites-documentation_1.xsd" xmlns:common="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd" targetNamespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/standard-conventions_1.xsd" version="1">
 	<xs:annotation>
 		<xs:appinfo>
 			<algdoc:title>Standard conventions</algdoc:title>
@@ -7,8 +7,8 @@
 		<xs:documentation>Reusable regular expressions with named capture groups. Regex syntax canonicalized from Java named groups.
 		</xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="urn:eu:algites:documentation:1" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/common/documentation/algites-documentation_1.xsd"/>
-	<xs:import namespace="eu.algites.lib.naming.convention.common-naming-conventions" schemaLocation="common-naming-conventions_1.xsd"/>
+	<xs:import namespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/common/documentation/algites-documentation_1.xsd" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/common/documentation/algites-documentation_1.xsd"/>
+	<xs:import namespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd" schemaLocation="common-naming-conventions_1.xsd"/>
 	<xs:complexType name="StandardConventions">
 		<xs:annotation>
 			<xs:appinfo>

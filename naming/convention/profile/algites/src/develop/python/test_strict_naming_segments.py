@@ -13,7 +13,8 @@ SCHEMAS = REPOSITORY / 'naming/convention/intf/src/product'
 
 
 def segment_document(value: dict) -> dict:
-    return {'NameFragments': {'fragment': {'Segments': [value]}}}
+    variant = 'NameFragmentsSegmentReference' if 'Ref' in value else 'NameFragmentsSegmentValue'
+    return {'NameFragments': {'fragment': {'Segments': [{variant: value}]}}}
 
 
 GOOD = [
@@ -87,28 +88,24 @@ def test_xml_xsd_enforces_exclusive_structure():
     """XSD 1.0 rejects structural conflicts in both fragment and composition segments."""
     from lxml import etree
     xsd = SCHEMAS / 'xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd'
-    xml = xsd.read_text().replace(
-        'xmlns:xs="http://www.w3.org/2001/XMLSchema"',
-        'xmlns:xs="http://www.w3.org/2001/XMLSchema" '
-        'xmlns:tns="eu.algites.lib.naming.convention.common-naming-conventions"',
-    )
+    xml = xsd.read_text()
     tree = etree.fromstring(xml.encode())
     etree.SubElement(tree, '{http://www.w3.org/2001/XMLSchema}element',
-                     name='Document', type='tns:common-naming-conventions')
+                     name='Document', type='tns:CommonNamingConventions')
     validator = etree.XMLSchema(tree)
 
     def valid_segment(name: str, contents: str) -> bool:
         entry = 'NameFragment' if name == 'NameFragments' else 'NameComposition'
-        value = (f'<Document xmlns="eu.algites.lib.naming.convention.common-naming-conventions">'
-                 f'<{name} xmlns=""><{entry} name="sample"><Segments><Segment>'
-                 f'{contents}</Segment></Segments></{entry}></{name}></Document>')
+        value = (f'<Document xmlns="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd">'
+                 f'<{name} xmlns=""><{entry} name="sample"><Segments>'
+                 f'{contents}</Segments></{entry}></{name}></Document>')
         return validator.validate(etree.fromstring(value.encode()))
 
     for name in ('NameFragments', 'NameCompositions'):
-        assert valid_segment(name, '<Ref>other</Ref>')
-        assert valid_segment(name, '<Kind>constant_string</Kind><Value>X</Value>')
-        assert valid_segment(name, '<Kind>identifier</Kind><Convention>lower_1</Convention>')
-        assert valid_segment(name, '<Kind>variable</Kind><Name>region</Name><Regexp>[a-z]+</Regexp>')
-        assert not valid_segment(name, '<Kind>identifier</Kind><Value>x</Value><Convention>a</Convention>')
-        assert not valid_segment(name, '<Kind>variable</Kind><Name>region</Name>')
-        assert not valid_segment(name, '<Ref>other</Ref><Kind>version</Kind>')
+        assert valid_segment(name, '<NameFragmentsSegmentReference><Ref>other</Ref></NameFragmentsSegmentReference>')
+        assert valid_segment(name, '<NameFragmentsSegmentValue><Kind>constant_string</Kind><Value>X</Value></NameFragmentsSegmentValue>')
+        assert valid_segment(name, '<NameFragmentsSegmentValue><Kind>identifier</Kind><Convention>lower_1</Convention></NameFragmentsSegmentValue>')
+        assert valid_segment(name, '<NameFragmentsSegmentValue><Kind>variable</Kind><Name>region</Name><Regexp>[a-z]+</Regexp></NameFragmentsSegmentValue>')
+        assert not valid_segment(name, '<NameFragmentsSegmentValue><Kind>identifier</Kind><Value>x</Value><Convention>a</Convention></NameFragmentsSegmentValue>')
+        assert not valid_segment(name, '<NameFragmentsSegmentValue><Kind>variable</Kind><Name>region</Name></NameFragmentsSegmentValue>')
+        assert not valid_segment(name, '<NameFragmentsSegmentReference><Ref>other</Ref></NameFragmentsSegmentReference><NameFragmentsSegmentValue><Kind>version</Kind><Value>1</Value></NameFragmentsSegmentValue>')

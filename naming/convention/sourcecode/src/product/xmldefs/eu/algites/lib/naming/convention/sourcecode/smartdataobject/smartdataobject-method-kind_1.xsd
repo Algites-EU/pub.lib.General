@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind" version="1">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-method-kind_1.xsd" version="1">
   <xs:annotation>
     <xs:documentation>Roles for generated SmartDataObject accessors, raw accessors, presence checks and unsetters, separate from schema metadata roles.</xs:documentation>
   </xs:annotation>

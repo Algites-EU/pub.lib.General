@@ -5,38 +5,50 @@ StandardConventionsFile: standard-conventions.yml
 NameFragments:
   output-java-suffix_1:
     Segments:
-    - Kind: constant_string
-      Value: .java
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: .java
   generated-interface-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AIig
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AIig
 NameCompositions:
   example-output-stem_1:
     Segments:
-    - Ref: generated-interface-prefix_1
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: __
-    - Kind: variable
-      Name: channel
-      Regexp: '[a-z]+'
-    - Kind: constant_string
-      Value: __
-    - Kind: variable
-      Name: minor
-      Regexp: 0|[1-9][0-9]*
-    - Kind: constant_string
-      Value: '-'
-    - Kind: variable
-      Name: major
-      Regexp: 0|[1-9][0-9]*
-    - Kind: constant_string
-      Value: __
-    - Kind: variable
-      Name: region
-      Regexp: '[a-z]+(?:_[a-z]+)*'
+    - NameFragmentsSegmentReference:
+        Ref: generated-interface-prefix_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: __
+    - NameFragmentsSegmentValue:
+        Kind: variable
+        Name: channel
+        Regexp: '[a-z]+'
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: __
+    - NameFragmentsSegmentValue:
+        Kind: variable
+        Name: minor
+        Regexp: 0|[1-9][0-9]*
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: '-'
+    - NameFragmentsSegmentValue:
+        Kind: variable
+        Name: major
+        Regexp: 0|[1-9][0-9]*
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: __
+    - NameFragmentsSegmentValue:
+        Kind: variable
+        Name: region
+        Regexp: '[a-z]+(?:_[a-z]+)*'
 SourceStructureNameConventions:
   NameConventions:
     example-output_1:

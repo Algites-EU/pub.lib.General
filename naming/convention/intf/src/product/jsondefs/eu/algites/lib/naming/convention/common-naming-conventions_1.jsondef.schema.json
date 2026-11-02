@@ -368,22 +368,21 @@
       ]
     },
     "NameFragmentsSegmentChoice": {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/NameFragmentsSegmentReference"
-        },
-        {
-          "$ref": "#/$defs/NameFragmentsSegmentValue"
-        }
-      ],
       "title": "Items",
       "description": "One segment, expressed either as a reference or as an inline segment definition.",
-      "x-algites-defscodegen-choice": {
-        "alternatives": [
-          "#/$defs/NameFragmentsSegmentReference",
-          "#/$defs/NameFragmentsSegmentValue"
-        ]
-      }
+      "x-algites-defscodegen-choice": true,
+      "type": "object",
+      "properties": {
+        "NameFragmentsSegmentReference": {
+          "$ref": "#/$defs/NameFragmentsSegmentReference"
+        },
+        "NameFragmentsSegmentValue": {
+          "$ref": "#/$defs/NameFragmentsSegmentValue"
+        }
+      },
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": false
     },
     "NameFragments": {
       "type": "object",

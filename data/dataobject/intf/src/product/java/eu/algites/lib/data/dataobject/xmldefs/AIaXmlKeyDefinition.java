@@ -7,10 +7,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Declares one XSD {@code xs:key} enforced on a direct repeated XML element field.
- * Every path is a dot-separated sequence of canonical XML field names; the
- * ordered paths form one (possibly compound) unique key. All components are
- * mandatory, and the unique index is local to the containing XML object.
+ * Declares one XSD {@code xs:key} or {@code xs:unique} constraint on a direct
+ * repeated XML element field.
+ * Every path is a dot-separated sequence of canonical XML field names.
+ * A required constraint ({@code xs:key}) needs all fields, whereas an optional
+ * constraint ({@code xs:unique}) permits incomplete keys. Both enforce
+ * uniqueness for complete key tuples only. The index is local to the container.
  *
  * <p>These paths are resolved against typed generated object getters at runtime,
  * not evaluated using XML XPath against serialized documents. Descendant
@@ -28,7 +30,14 @@ public @interface AIaXmlKeyDefinition {
     String name();
 
     /**
-     * @return ordered, nonempty paths of mandatory scalar key components
+     * @return ordered, nonempty paths of scalar key components; a complete
+     *         value is mandatory for {@code xs:key} but optional for {@code xs:unique}
      */
     String[] fields();
+
+    /**
+     * @return true for {@code xs:key}; false for {@code xs:unique}, which permits
+     *         missing components to be grouped under a null lookup key
+     */
+    boolean required() default true;
 }

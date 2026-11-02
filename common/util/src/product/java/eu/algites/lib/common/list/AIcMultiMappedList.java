@@ -29,7 +29,9 @@ import java.util.function.UnaryOperator;
  *
  * <p>All mutations performed through the supported API validate all registered
  * indexes before publishing the new list and its indexes. Unique-key conflicts,
- * invalid keys and extractor failures leave the collection unchanged. Extractors
+ * missing required keys and extractor failures leave the collection unchanged.
+ * An optional missing key is indexed under null, and unique indexes do not
+ * enforce uniqueness for that null group. Extractors
  * must be pure; their external side effects cannot be rolled back. No implicit
  * locking or thread safety is provided.</p>
  *
@@ -284,10 +286,12 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
         for (Index<V> index : indexes) {
             Map<Object, List<Entry<V>>> groups = new HashMap<>();
             for (Entry<V> entry : candidate) {
-                Object key = Objects.requireNonNull(index.definition.extractKey(entry.value),
-                    "Null key from " + index.definition.getId());
+                Object key = index.definition.extractKey(entry.value);
+                if (key == null && index.definition.isRequired())
+                    throw new IllegalArgumentException("Missing required key from "
+                            + index.definition.getId());
                 List<Entry<V>> group = groups.computeIfAbsent(key, ignored -> new ArrayList<>());
-                if (index.definition.isUnique() && !group.isEmpty()) {
+                if (key != null && index.definition.isUnique() && !group.isEmpty()) {
                     throw new IllegalArgumentException("Duplicate unique key for "
                         + index.definition.getId() + ": " + key);
                 }

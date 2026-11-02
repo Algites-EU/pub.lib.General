@@ -32,26 +32,28 @@ def _field_metadata(owner: type) -> dict[str, object]:
     return result
 
 
-def _key_metadata(owner: type) -> dict[str, tuple[tuple[str, tuple[str, ...]], ...]]:
+def _key_metadata(owner: type) -> dict[str, tuple[tuple[str, tuple[str, ...], bool], ...]]:
     """Merge inherited schema-generated XSD identity declarations per field."""
-    result: dict[str, tuple[tuple[str, tuple[str, ...]], ...]] = {}
+    result: dict[str, tuple[tuple[str, tuple[str, ...], bool], ...]] = {}
     for base in reversed(owner.__mro__):
         result.update(base.__dict__.get('__xml_key_definitions__', {}))
     return result
 
 
-def _key_value(item: object, name: str, paths: tuple[str, ...]) -> object:
+def _key_value(item: object, name: str, paths: tuple[str, ...], required: bool = True) -> object | None:
     """Extract a typed scalar or composite tuple using semantic SDO field metadata.
 
-    Missing intermediate objects or terminal values are schema-key violations;
-    empty text is a present, indexable string and is never replaced by None.
+    A missing value is invalid for xs:key and grouped under None for xs:unique.
+    Empty text is a present, indexable string and is not treated as missing.
     """
     values = []
     for path in paths:
         current = item
         for segment in path.split('.'):
+            if current is None and not required:
+                return None
             if not segment or current is None or not isinstance(current, AIcSmartDataObject):
-                raise ValueError(f'Missing xs:key {name}: {path}')
+                raise ValueError(f'Missing XML identity key {name}: {path}')
             fields = current._fields()
             xml_names = _field_metadata(type(current))
             candidates = [semantic for semantic, desc in fields.items()
@@ -61,8 +63,10 @@ def _key_value(item: object, name: str, paths: tuple[str, ...]) -> object:
             if len(candidates) != 1:
                 raise ValueError(f'Unresolved xs:key {name}: {path}')
             current = current.get_EffectiveField(candidates[0])
+        if current is None and not required:
+            return None
         if current is None or isinstance(current, (list, dict, tuple)):
-            raise ValueError(f'Missing or non-scalar xs:key {name}: {path}')
+            raise ValueError(f'Missing or non-scalar XML identity key {name}: {path}')
         values.append(current)
     return values[0] if len(values) == 1 else tuple(values)
 
@@ -317,9 +321,13 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
                 semantic = wire_to_semantic.get(external_name, external_name)
                 if semantic not in repeated:
                     raise ValueError(f'xs:key requires repeating XML field: {external_name}')
-                definitions = tuple(AIcKeyDefinition(name,
-                    lambda item, n=name, fields=paths: _key_value(item, n, fields), True)
-                    for name, paths in keys)
+                # The third tuple slot is the required flag for xs:key versus
+                # xs:unique. Legacy two-slot generated metadata means required.
+                definitions = tuple(AIcKeyDefinition(key[0],
+                    lambda item, n=key[0], fields=key[1], required=(key[2] if len(key) > 2 else True):
+                        _key_value(item, n, fields, required),
+                    True, key[2] if len(key) > 2 else True)
+                    for key in keys)
                 values[semantic] = AIcMultiMappedList(definitions, values[semantic])
         instance = cls()
         for name, value in values.items():

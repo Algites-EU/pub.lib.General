@@ -216,10 +216,10 @@ class AIcMultiMappedList(AIiMultiMappedList[V], Generic[V]):
             groups: dict[object, list[_Entry[V]]] = defaultdict(list)
             for entry in candidate:
                 key = definition.extract_key(entry.value)
-                if key is None:
-                    raise ValueError(f"Null key from {definition.id}")
+                if key is None and definition.required:
+                    raise ValueError(f"Missing required key from {definition.id}")
                 group = groups[key]
-                if definition.unique and group:
+                if key is not None and definition.unique and group:
                     raise ValueError(f"Duplicate unique key for {definition.id}: {key!r}")
                 group.append(entry)
             result[id(definition)] = dict(groups)

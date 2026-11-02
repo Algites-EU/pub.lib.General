@@ -5,1193 +5,1632 @@ StandardConventionsFile: standard-conventions.yml
 NameFragments:
   xml-data-object-marker_1:
     Segments:
-    - Kind: constant_string
-      Value: XmlDataObject
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: XmlDataObject
   xml-namespace-marker_1:
     Segments:
-    - Kind: constant_string
-      Value: _xn
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _xn
   xml-element-marker_1:
     Segments:
-    - Kind: constant_string
-      Value: _xe
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _xe
   java-method-parameter-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: a
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: a
   java-local-variable-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: loc
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: loc
   standard-postfix-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
   generated-marker_1:
     Segments:
-    - Kind: constant_string
-      Value: g
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: g
   data-marker_1:
     Segments:
-    - Kind: constant_string
-      Value: d
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: d
   version-suffix_1:
     Segments:
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   intf-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: i
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: i
   intf-data-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: i
-    - Kind: constant_string
-      Value: d
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: i
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: d
   intf-generated-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: i
-    - Kind: constant_string
-      Value: g
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: i
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: g
   intf-generated-data-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: i
-    - Kind: constant_string
-      Value: g
-    - Kind: constant_string
-      Value: d
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: i
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: g
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: d
   class-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: c
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: c
   class-data-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: c
-    - Kind: constant_string
-      Value: d
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: c
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: d
   class-generated-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: c
-    - Kind: constant_string
-      Value: g
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: c
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: g
   class-generated-data-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: c
-    - Kind: constant_string
-      Value: g
-    - Kind: constant_string
-      Value: d
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: c
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: g
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: d
   enum-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: n
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: n
   enum-generated-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: n
-    - Kind: constant_string
-      Value: g
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: n
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: g
   ann-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: a
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: a
   ann-generated-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: a
-    - Kind: constant_string
-      Value: g
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: a
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: g
   exc-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: x
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: x
   exc-generated-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: x
-    - Kind: constant_string
-      Value: g
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: x
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: g
   rb-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: r
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: r
   rb-generated-prefix_1:
     Segments:
-    - Kind: constant_string
-      Value: AI
-    - Kind: constant_string
-      Value: r
-    - Kind: constant_string
-      Value: g
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: AI
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: r
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: g
   xml-type-marker_1:
     Segments:
-    - Kind: constant_string
-      Value: _x
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _x
   json-marker_1:
     Segments:
-    - Kind: constant_string
-      Value: _j
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _j
   yaml-marker_1:
     Segments:
-    - Kind: constant_string
-      Value: _y
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _y
 NameCompositions:
   standard-postfix-java-intf_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Intf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Intf
   standard-postfix-java-intf-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Intf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Intf
   standard-postfix-java-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Intf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Intf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Intf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Intf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-data-intf_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _DataIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _DataIntf
   standard-postfix-java-data-intf-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _DataIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _DataIntf
   standard-postfix-java-data-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _DataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _DataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-data-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _DataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _DataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-intf_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenIntf
   standard-postfix-java-gen-intf-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenIntf
   standard-postfix-java-gen-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-intf_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenDataIntf
   standard-postfix-java-gen-data-intf-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenDataIntf
   standard-postfix-java-gen-data-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-class_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Impl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Impl
   standard-postfix-java-class-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Impl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Impl
   standard-postfix-java-class-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Impl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Impl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-class-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Impl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Impl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-data-class_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _DataImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _DataImpl
   standard-postfix-java-data-class-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _DataImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _DataImpl
   standard-postfix-java-data-class-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _DataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _DataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-data-class-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _DataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _DataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-class_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenImpl
   standard-postfix-java-gen-class-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenImpl
   standard-postfix-java-gen-class-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-class-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-class_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenDataImpl
   standard-postfix-java-gen-data-class-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenDataImpl
   standard-postfix-java-gen-data-class-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-class-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-enum_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Enum
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Enum
   standard-postfix-java-enum-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Enum
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Enum
   standard-postfix-java-enum-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Enum
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Enum
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-enum-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Enum
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Enum
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-enum_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenEnum
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenEnum
   standard-postfix-java-gen-enum-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenEnum
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenEnum
   standard-postfix-java-gen-enum-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenEnum
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenEnum
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-enum-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenEnum
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenEnum
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-ann_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Annotation
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Annotation
   standard-postfix-java-ann-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Annotation
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Annotation
   standard-postfix-java-ann-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Annotation
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Annotation
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-ann-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Annotation
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Annotation
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-ann_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenAnnotation
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenAnnotation
   standard-postfix-java-gen-ann-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenAnnotation
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenAnnotation
   standard-postfix-java-gen-ann-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenAnnotation
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenAnnotation
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-ann-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenAnnotation
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenAnnotation
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-exc_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Exception
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Exception
   standard-postfix-java-exc-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Exception
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Exception
   standard-postfix-java-exc-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Exception
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Exception
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-exc-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _Exception
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _Exception
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-exc_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenException
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenException
   standard-postfix-java-gen-exc-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenException
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenException
   standard-postfix-java-gen-exc-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenException
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenException
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-exc-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenException
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenException
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-rb_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _ResourceBundle
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _ResourceBundle
   standard-postfix-java-rb-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _ResourceBundle
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _ResourceBundle
   standard-postfix-java-rb-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _ResourceBundle
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _ResourceBundle
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-rb-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _ResourceBundle
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _ResourceBundle
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-rb_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenResourceBundle
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenResourceBundle
   standard-postfix-java-gen-rb-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenResourceBundle
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenResourceBundle
   standard-postfix-java-gen-rb-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenResourceBundle
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenResourceBundle
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-rb-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenResourceBundle
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenResourceBundle
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   java-source-extension_1:
     Segments:
-    - Kind: constant_string
-      Value: .java
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: .java
   java-field-name_1:
     Segments:
-    - Kind: identifier
-      Convention: lower_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: lower_camel_case_1
   java-method-name_1:
     Segments:
-    - Kind: identifier
-      Convention: lower_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: lower_camel_case_1
   java-getter-method-name_1:
     Segments:
-    - Kind: constant_string
-      Value: get
-    - Kind: identifier
-      Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: get
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
   java-setter-method-name_1:
     Segments:
-    - Kind: constant_string
-      Value: set
-    - Kind: identifier
-      Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: set
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
   java-parameter-name_1:
     Segments:
-    - Ref: java-method-parameter-prefix_1
-    - Kind: identifier
-      Convention: upper_camel_case_1
+    - NameFragmentsSegmentReference:
+        Ref: java-method-parameter-prefix_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
   java-local-variable-name_1:
     Segments:
-    - Ref: java-local-variable-prefix_1
-    - Kind: identifier
-      Convention: upper_camel_case_1
+    - NameFragmentsSegmentReference:
+        Ref: java-local-variable-prefix_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
   package-segment-name_1:
     Segments:
-    - Kind: identifier
-      Convention: lower_snake_case_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: lower_snake_case_1
   enum-item-name_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_snake_case_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_snake_case_1
   constant-name_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_snake_case_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_snake_case_1
   standard-postfix-java-xml-element-intf_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementIntf
   standard-postfix-java-xml-element-intf-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementIntf
   standard-postfix-java-xml-element-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-xml-element-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-data-xml-element-intf_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementDataIntf
   standard-postfix-java-data-xml-element-intf-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementDataIntf
   standard-postfix-java-data-xml-element-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-data-xml-element-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-xml-element-intf_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementIntf
   standard-postfix-java-gen-xml-element-intf-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementIntf
   standard-postfix-java-gen-xml-element-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-xml-element-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-xml-element-intf_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementDataIntf
   standard-postfix-java-gen-data-xml-element-intf-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementDataIntf
   standard-postfix-java-gen-data-xml-element-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-xml-element-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-xml-element-class_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementImpl
   standard-postfix-java-xml-element-class-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementImpl
   standard-postfix-java-xml-element-class-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-xml-element-class-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-data-xml-element-class_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementDataImpl
   standard-postfix-java-data-xml-element-class-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementDataImpl
   standard-postfix-java-data-xml-element-class-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-data-xml-element-class-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _XmlElementDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _XmlElementDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-xml-element-class_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementImpl
   standard-postfix-java-gen-xml-element-class-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementImpl
   standard-postfix-java-gen-xml-element-class-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-xml-element-class-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-xml-element-class_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementDataImpl
   standard-postfix-java-gen-data-xml-element-class-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementDataImpl
   standard-postfix-java-gen-data-xml-element-class-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-xml-element-class-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlElementDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlElementDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-xml-type-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-xml-type-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-xml-type-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-xml-type-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-xml-type-class-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-xml-type-class-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-json-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenJsonIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenJsonIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-json-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenJsonIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenJsonIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-json-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenJsonDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenJsonDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-json-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenJsonDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenJsonDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-json-class-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenJsonDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenJsonDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-json-class-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenJsonDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenJsonDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-yaml-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenYamlIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenYamlIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-yaml-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenYamlIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenYamlIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-yaml-intf-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenYamlDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenYamlDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-yaml-intf-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenYamlDataIntf
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenYamlDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-yaml-class-versioned_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenYamlDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenYamlDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-data-yaml-class-versioned-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenYamlDataImpl
-    - Kind: constant_string
-      Value: _
-    - Kind: version
-      Convention: positive_integer_1
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenYamlDataImpl
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _
+    - NameFragmentsSegmentValue:
+        Kind: version
+        Convention: positive_integer_1
   standard-postfix-java-gen-xml-namespace-intf_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlNamespaceIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlNamespaceIntf
   standard-postfix-java-gen-xml-namespace-intf-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlNamespaceIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlNamespaceIntf
   standard-postfix-java-gen-data-xml-namespace-intf_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlNamespaceDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlNamespaceDataIntf
   standard-postfix-java-gen-data-xml-namespace-intf-file_1:
     Segments:
-    - Kind: identifier
-      Convention: upper_camel_case_1
-    - Kind: constant_string
-      Value: _GenXmlNamespaceDataIntf
+    - NameFragmentsSegmentValue:
+        Kind: identifier
+        Convention: upper_camel_case_1
+    - NameFragmentsSegmentValue:
+        Kind: constant_string
+        Value: _GenXmlNamespaceDataIntf
 SourceStructureNameConventions:
   NameConventions:
     standard-postfix-java-gen-xml-namespace-intf_1:

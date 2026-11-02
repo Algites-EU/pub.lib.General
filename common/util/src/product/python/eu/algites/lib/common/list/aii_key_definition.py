@@ -30,14 +30,20 @@ class AIiKeyDefinition(Protocol[V, K]):
         """Return whether the definition rejects duplicate extracted keys."""
         ...
 
-    def extract_key(self, value: V) -> K:
-        """Extract a non-None, stable, hashable key from ``value``.
+    @property
+    def required(self) -> bool:
+        """Whether a missing/None key makes an insertion invalid."""
+        ...
+
+    def extract_key(self, value: V) -> K | None:
+        """Extract a stable key, or None for a missing optional key.
 
         Args:
             value: Non-None stored value.
 
         Returns:
-            Key of type ``K``.
+            Key of type ``K``, or None if the definition is optional and a
+            complete key cannot be extracted.
 
         Raises:
             Exception: Propagates extraction failures to the calling mutation.

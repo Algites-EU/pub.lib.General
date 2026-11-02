@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from importlib import resources
+from copy import deepcopy
 from pathlib import Path
 import re
 from typing import Any, Callable, Mapping
@@ -22,9 +23,16 @@ class AIcNameConventionCatalog(AIiNameConventionCatalog):
     """
 
     def __init__(self, config: Mapping[str, Any]):
-        self._config = dict(config)
-        self._fragments = config.get('NameFragments', {})
-        self._compositions = config.get('NameCompositions', {})
+        self._config = deepcopy(dict(config))
+        # Serialized Choice variants are explicit in JSONDEFS/YAMLDEFS. Normalize
+        # them once at the boundary; all naming operations then share one shape.
+        for section in ('NameFragments', 'NameCompositions'):
+            for definition in self._config.get(section, {}).values():
+                if isinstance(definition, dict) and isinstance(definition.get('Segments'), list):
+                    definition['Segments'] = [self._unwrap_segment(segment)
+                                              for segment in definition['Segments']]
+        self._fragments = self._config.get('NameFragments', {})
+        self._compositions = self._config.get('NameCompositions', {})
         self._conventions: dict[str, Any] = {}
         self._families: dict[str, str] = {}
         for section, definitions in config.items():
@@ -48,6 +56,38 @@ class AIcNameConventionCatalog(AIiNameConventionCatalog):
             keys = definition.get('StructureNaming', {})
             if 'file_name_stem' in keys and 'file_name_suffix' in keys:
                 self.filename_pattern(name)
+
+    @staticmethod
+    def _unwrap_segment(segment: Any) -> Any:
+        """Convert a serialized exclusive Choice into the naming engine's payload.
+
+        Args:
+            segment: One named Choice variant, or a legacy unwrapped segment.
+
+        Returns:
+            The segment content without the serialization-only variant name.
+
+        Raises:
+            ValueError: If the Choice wrapper has an unknown name, multiple
+                alternatives, or an invalid payload; no partial mapping is used.
+        """
+        if not isinstance(segment, Mapping):
+            return segment
+        variant_names = {'NameFragmentsSegmentValue', 'NameFragmentsSegmentReference'}
+        present = variant_names.intersection(segment)
+        if not present:
+            return segment
+        if len(segment) != 1 or len(present) != 1:
+            raise ValueError('Naming segment Choice must contain exactly one named alternative')
+        variant = next(iter(present))
+        payload = segment[variant]
+        if not isinstance(payload, Mapping):
+            raise ValueError(f'Naming segment {variant} must contain an object')
+        if variant == 'NameFragmentsSegmentValue' and 'Ref' in payload:
+            raise ValueError('Value segment cannot contain Ref')
+        if variant == 'NameFragmentsSegmentReference' and set(payload) != {'Ref'}:
+            raise ValueError('Reference segment must contain only Ref')
+        return dict(payload)
 
     @staticmethod
     def _validate_segment(segment: Mapping[str, Any], location: str) -> None:
