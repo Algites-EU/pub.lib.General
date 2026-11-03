@@ -20,7 +20,7 @@ import java.util.Objects;
  * @author linhart1
  * @date 28.01.26
  */
-public interface AIiVersionStructure extends AIiEnumItem {
+public interface AIiVersionStructure extends AIiEnumItem<String> {
 
 	/**
 	 * @return true if the precedence-relevant version part is placed before the build-identification part

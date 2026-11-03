@@ -19,7 +19,7 @@ import eu.algites.lib.common.enums.AIiEnumItem;
  * @author linhart1
  * @date 20.01.26 7:54
  */
-public interface AIiUidEnumDataOrigin extends AIiEnumItem {
+public interface AIiUidEnumDataOrigin extends AIiEnumItem<String> {
 	/**
 	 * Is a namespace required for this enum uiddata origin?
 	 * @return true if namespace is required, false otherwise

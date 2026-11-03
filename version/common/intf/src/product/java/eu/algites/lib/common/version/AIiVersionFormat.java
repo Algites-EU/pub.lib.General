@@ -19,7 +19,7 @@ import jakarta.annotation.Nonnull;
  * @author linhart1
  * @date 28.01.26
  */
-public interface AIiVersionFormat extends AIiEnumItem {
+public interface AIiVersionFormat extends AIiEnumItem<String> {
 
 	/**
 	 * @return policy defining how the build-identification part is formatted when serializing versions

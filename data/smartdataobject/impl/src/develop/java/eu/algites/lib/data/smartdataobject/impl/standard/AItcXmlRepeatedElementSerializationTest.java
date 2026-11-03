@@ -45,7 +45,7 @@ public final class AItcXmlRepeatedElementSerializationTest {
     }
 
     /** Generated enums expose their canonical serialized value through {@link eu.algites.lib.common.enums.AIiEnumItem#code()}. */
-    public enum AInExampleStatus implements eu.algites.lib.common.enums.AIiEnumItem {
+    public enum AInExampleStatus implements eu.algites.lib.common.enums.AIiEnumItem<String> {
         /** An intentionally different wire spelling from the Java identifier. */
         APPROVED("approved-wire");
         private final String wire;

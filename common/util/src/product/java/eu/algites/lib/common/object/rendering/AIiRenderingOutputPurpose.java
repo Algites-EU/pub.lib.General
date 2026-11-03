@@ -19,6 +19,6 @@ import eu.algites.lib.common.enums.AIiEnumItem;
  * @author linhart1
  * @date 12.01.26 4:47
  */
-public interface AIiRenderingOutputPurpose extends AIiEnumItem {
+public interface AIiRenderingOutputPurpose extends AIiEnumItem<String> {
 
 }

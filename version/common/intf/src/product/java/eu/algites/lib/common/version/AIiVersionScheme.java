@@ -28,7 +28,7 @@ import jakarta.annotation.Nonnull;
  * @author linhart1
  * @date 26.01.26 22:45
  */
-public interface AIiVersionScheme extends AIiEnumItem {
+public interface AIiVersionScheme extends AIiEnumItem<String> {
 
 	/**
 	 * Provides the comparator implementing the given scheme.

@@ -470,10 +470,10 @@ public final class AIcXmlSmartDataObjectParser {
         if (aType == BigDecimal.class) return new BigDecimal(locTrimmed);
         if (aType.isEnum()) {
             for (Object locEnum : aType.getEnumConstants()) {
-                String locCode = locEnum instanceof AIiEnumItem locItem
+                Object locCode = locEnum instanceof AIiEnumItem locItem
                         ? Objects.requireNonNull(locItem.code(), "Enum item code must not be null")
                         : ((Enum<?>) locEnum).name();
-                if (locCode.equals(aText)) return locEnum;
+                if (String.valueOf(locCode).equals(aText)) return locEnum;
             }
             throw new IllegalArgumentException("Unrecognized XML enumeration value: " + aText);
         }

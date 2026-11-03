@@ -27,7 +27,7 @@ import java.util.List;
  * @author linhart1
  * @date 16.01.26 14:34
  */
-public interface AIiVersionSchemeDataUidRecord extends AIiUidEnumDataRecord, AIiEnumItem {
+public interface AIiVersionSchemeDataUidRecord extends AIiUidEnumDataRecord, AIiEnumItem<String> {
 
 	/** {@inheritDoc} */
 	@AIaFieldLabel(label = "version-scheme-uid")

@@ -19,7 +19,7 @@ import eu.algites.lib.common.enums.AIiEnumItem;
  * @author linhart1
  * @date 26.01.26 15:36
  */
-public enum AInIntervalBoundary implements AIiEnumItem {
+public enum AInIntervalBoundary implements AIiEnumItem<String> {
 	/**
 	 * Exclusive interval endpoint; the boundary value is not included.
 	 */

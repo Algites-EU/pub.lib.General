@@ -6,13 +6,14 @@ import eu.algites.lib.text.format.AIsTextFormatEscapes;
 import eu.algites.lib.text.format.AInTextFormatType;
 import eu.algites.lib.text.format.AInTextOutputObjectReferenceMode;
 import eu.algites.lib.text.format.AInTextReferenceEncoding;
-import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /** Internal profile-driven graph renderer. No generated type depends on this class. */
@@ -530,9 +531,10 @@ final class AIcSmartDataGraphRenderer {
     /** Return a canonical XML Schema lexical scalar, including generated enum wire values. */
     private static String xmlScalarText(Object aValue) {
         if (aValue instanceof Enum<?> locEnum) {
-            if (locEnum instanceof AIiEnumItem locItem)
-                return java.util.Objects.requireNonNull(locItem.code(),
-                        "Enum item code must not be null: " + locEnum.getDeclaringClass().getName());
+            if (locEnum instanceof AIiEnumItem locItem) {
+                Object locCode = Objects.requireNonNull(locItem.code(), "Enum item code must not be null: " + locEnum.getDeclaringClass().getName());
+                return String.valueOf(locCode);
+            }
             /* Handwritten enums that do not implement AIiEnumItem use their Java identifier. */
             return locEnum.name();
         }
