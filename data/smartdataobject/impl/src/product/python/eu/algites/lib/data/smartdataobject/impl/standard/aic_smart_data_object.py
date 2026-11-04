@@ -2,7 +2,7 @@
 from __future__ import annotations
 from eu.algites.lib.data.smartdataobject.ain_sdo_field_value_loading_mode import AInSdoFieldValueLoadingMode
 
-from collections.abc import Mapping, MutableSequence
+from collections.abc import Mapping, MutableMapping, MutableSequence
 from eu.algites.lib.common.validation.aii_validatable import AIiValidatable
 from eu.algites.lib.common.enums.aii_enum_item import AIiEnumItem
 from dataclasses import dataclass, field, replace
@@ -240,6 +240,10 @@ class _Node:
     fields: list[_Field] = field(default_factory=list)
     children: list[_Node] = field(default_factory=list)
     entries: list[tuple[_Node, _Node]] = field(default_factory=list)
+    # Serialized members include declared fields and integrated map values in
+    # their original shared-storage insertion order. The validation field list
+    # remains separate so additional properties are not treated as declared fields.
+    wire_members: list[tuple[str, _Field | _Node]] = field(default_factory=list)
 
 
 @dataclass(eq=False)
@@ -283,7 +287,7 @@ class _Snapshot:
                     raise TypeError('__xml_data_object_fields__ must map field names to XML metadata')
                 xml_fields.update(declared_xml)
             for desc in _data_object_fields(type(obj)).values():
-                present = desc.name in obj._present if isinstance(obj, AIcSmartDataObject) else True
+                present = desc.name in obj._values if isinstance(obj, AIcSmartDataObject) else True
                 if present:
                     if isinstance(obj, AIcSmartDataObject):
                         value = obj._values[desc.name]
@@ -294,6 +298,19 @@ class _Snapshot:
                     value = None
                 node.fields.append(_Field(desc, xml_fields.get(desc.field_name, xml_fields.get(desc.name)), present,
                                           self.build(value) if present else self.nil))
+            by_semantic_name = {member.descriptor.name: member for member in node.fields}
+            seen: set[str] = set()
+            if isinstance(obj, AIcSmartDataObject):
+                for key, value in obj._values.items():
+                    if isinstance(key, _AdditionalPropertyKey):
+                        node.wire_members.append((key.name, self.build(value)))
+                    elif key in by_semantic_name:
+                        member = by_semantic_name[key]
+                        seen.add(key)
+                        node.wire_members.append((member.descriptor.field_name, member))
+            for member in node.fields:
+                if member.descriptor.name not in seen:
+                    node.wire_members.append((member.descriptor.field_name, member))
         elif kind == 'map':
             node.entries = [(self.build(k), self.build(v)) for k, v in obj.items()]
         elif kind == 'list':
@@ -369,8 +386,11 @@ class _Renderer:
 
     def kids(self, node: _Node) -> list[_Node]:
         if node.kind == 'smart':
-            return [self.snapshot.value(f, self.effective) for f in node.fields
-                    if f.present or self.effective and f.descriptor.default_value_resolver]
+            return [self.snapshot.value(member, self.effective)
+                    if isinstance(member, _Field) else member
+                    for _, member in node.wire_members
+                    if not isinstance(member, _Field) or member.present or
+                       self.effective and member.descriptor.default_value_resolver]
         if node.kind == 'list':
             return node.children
         if node.kind == 'map':
@@ -410,13 +430,15 @@ class _Renderer:
             size = len(dumps(val, ensure_ascii=False, default=str))
         elif node.kind == 'smart':
             size = 2
-            for f in node.fields:
-                if not f.present and not self.profile.diagnostic and \
-                        (not self.effective or not f.descriptor.default_value_resolver):
+            for name, member in node.wire_members:
+                if isinstance(member, _Field) and not member.present and not self.profile.diagnostic and \
+                        (not self.effective or not member.descriptor.default_value_resolver):
                     continue
-                size += len(dumps(f.descriptor.field_name)) + 2
-                if f.present or self.effective and f.descriptor.default_value_resolver:
-                    size += self.approximate_size(self.snapshot.value(f, self.effective), path)
+                size += len(dumps(name)) + 2
+                if not isinstance(member, _Field):
+                    size += self.approximate_size(member, path)
+                elif member.present or self.effective and member.descriptor.default_value_resolver:
+                    size += self.approximate_size(self.snapshot.value(member, self.effective), path)
                 if self.profile.diagnostic:
                     size += 20
         else:
@@ -481,21 +503,28 @@ class _Renderer:
                 data = {k.value: self.as_data(v) for k, v in node.entries}
             else:
                 data = {} if self.profile.diagnostic else _schema_wire_metadata(type(node.obj))
-                for fld in node.fields:
-                    if fld.descriptor.field_name in data:
-                        # The configured metadata may also be an explicitly declared
-                        # schema property. Emit it once, and reject contradictory values.
-                        if fld.present:
-                            actual = self.as_data(self.snapshot.value(fld, False))
-                            if actual != data[fld.descriptor.field_name]:
-                                raise ValueError('Schema metadata conflicts with a data property: ' + fld.descriptor.name)
-                        continue
-                    if not fld.present and not self.profile.diagnostic and (not self.effective or not fld.descriptor.default_value_resolver):
-                        continue
-                    val = self.as_data(self.snapshot.value(fld, self.effective)) if \
-                        fld.present or self.effective and fld.descriptor.default_value_resolver else None
-                    data[fld.descriptor.field_name] = ({'present': fld.present, **({'value': val} if fld.present else {})}
-                                                 if self.profile.diagnostic else val)
+                for name, member in node.wire_members:
+                    if isinstance(member, _Field):
+                        if name in data:
+                            if member.present:
+                                actual = self.as_data(self.snapshot.value(member, False))
+                                if actual != data[name]:
+                                    raise ValueError('Schema metadata conflicts with a data property: '
+                                                     + member.descriptor.name)
+                            continue
+                        if not member.present and not self.profile.diagnostic and \
+                                (not self.effective or not member.descriptor.default_value_resolver):
+                            continue
+                        raw = (self.as_data(self.snapshot.value(member, self.effective)) if
+                               member.present or self.effective and member.descriptor.default_value_resolver else None)
+                        data[name] = ({'present': member.present,
+                                       **({'value': raw} if member.present else {})}
+                                      if self.profile.diagnostic else raw)
+                    else:
+                        if name in data:
+                            raise ValueError('Additional property collides with schema metadata: ' + name)
+                        raw = self.as_data(member)
+                        data[name] = {'present': True, 'value': raw} if self.profile.diagnostic else raw
                 if self.profile.diagnostic:
                     meta = {'type': type(node.obj).__name__}
                     fingerprint = getattr(type(node.obj), '__schema_fingerprint__', '')
@@ -518,6 +547,9 @@ class _Renderer:
 
     def as_xml(self) -> str:
         def visit(node: _Node, parent: ET.Element | None, name: str | None) -> ET.Element:
+            if node.kind == 'smart' and any(not isinstance(member, _Field)
+                                            for _, member in node.wire_members):
+                raise NotImplementedError('XMLDEFS-to-integrated-MAP serialization is intentionally unsupported')
             xml_schema = getattr(type(node.obj), '__xml_data_object__', None)
             tag = name or (xml_schema.namespace_local_name if xml_schema and
                            xml_schema.namespace_local_name else type(node.obj).__name__)
@@ -634,13 +666,15 @@ class _Renderer:
                                 raise ValueError('Schema metadata conflicts with a data property: ' + f.descriptor.name)
                     for schema_key, schema_value in schema_fields.items():
                         lines.append(' ' * level + dumps(schema_key) + ': ' + _json_text(schema_value))
-                    fields = []
-                    for f in node.fields:
-                        if not f.present and not self.profile.diagnostic and \
-                                (not self.effective or not f.descriptor.default_value_resolver):
+                    members = []
+                    for name, member in node.wire_members:
+                        if isinstance(member, _Field) and not member.present and not self.profile.diagnostic and \
+                                (not self.effective or not member.descriptor.default_value_resolver):
                             continue
-                        if f.descriptor.field_name not in schema_fields:
-                            fields.append(f)
+                        if name not in schema_fields:
+                            members.append((name, member))
+                        elif not isinstance(member, _Field):
+                            raise ValueError('Additional property collides with schema metadata: ' + name)
                     if self.profile.diagnostic:
                         meta = {'type': type(node.obj).__name__}
                         fingerprint = getattr(type(node.obj), '__schema_fingerprint__', '')
@@ -651,18 +685,22 @@ class _Renderer:
                         lines.append(' ' * level + '"$meta": ' + dumps(meta))
                         lines.append(' ' * level + '"$fields":')
                         level += 2
-                    if not fields and not schema_fields:
+                    if not members and not schema_fields:
                         lines.append(' ' * level + '{}')
-                    for f in fields:
-                        locKey = ' ' * level + dumps(f.descriptor.field_name) + ': '
+                    for name, member in members:
+                        locKey = ' ' * level + dumps(name) + ': '
                         if self.profile.diagnostic:
+                            present = member.present if isinstance(member, _Field) else True
                             lines.append(locKey)
-                            lines.append(' ' * (level + 2) + 'present: ' + str(f.present).lower())
-                            if f.present:
-                                emit(self.snapshot.value(f, self.effective), level + 4,
-                                     ' ' * (level + 2) + 'value: ')
+                            lines.append(' ' * (level + 2) + 'present: ' + str(present).lower())
+                            if present:
+                                value = (self.snapshot.value(member, self.effective)
+                                         if isinstance(member, _Field) else member)
+                                emit(value, level + 4, ' ' * (level + 2) + 'value: ')
                         else:
-                            emit(self.snapshot.value(f, self.effective), level + 2, locKey)
+                            value = (self.snapshot.value(member, self.effective)
+                                     if isinstance(member, _Field) else member)
+                            emit(value, level + 2, locKey)
                 elif node.kind == 'list':
                     if not node.children:
                         lines.append(' ' * level + '[]')
@@ -690,6 +728,55 @@ class _Renderer:
         return _json_text(self.as_data(self.snapshot.root)) + '\n'
 
 
+
+@dataclass(frozen=True)
+class _AdditionalPropertyKey:
+    """Typed namespace for additional property keys in the single SDO store."""
+    name: str
+
+
+class _IntegratedAdditionalPropertiesMap(MutableMapping[str, Any]):
+    """Stable, live, typed view of only the additional entries in SDO storage."""
+
+    def __init__(self, owner: AIcSmartDataObject, value_type: type) -> None:
+        self._owner = owner
+        self._value_type = value_type
+
+    def _validate(self, name: str, value: Any) -> None:
+        if not isinstance(name, str):
+            raise TypeError('Additional property names must be strings')
+        if name in self._owner._reserved_wire_names():
+            raise ValueError('Reserved SDO property name: ' + name)
+        if value is not None and not isinstance(value, self._value_type):
+            raise TypeError('Invalid additional property value class for ' + name)
+
+    def __getitem__(self, name: str) -> Any:
+        return self._owner._values[_AdditionalPropertyKey(name)]
+
+    def __setitem__(self, name: str, value: Any) -> None:
+        self._validate(name, value)
+        self._owner._values[_AdditionalPropertyKey(name)] = value
+
+    def __delitem__(self, name: str) -> None:
+        del self._owner._values[_AdditionalPropertyKey(name)]
+
+    def __iter__(self):
+        return (key.name for key in list(self._owner._values)
+                if isinstance(key, _AdditionalPropertyKey)
+                and key in self._owner._values)
+
+    def __len__(self) -> int:
+        return sum(isinstance(key, _AdditionalPropertyKey) for key in self._owner._values)
+
+    def update(self, other=(), /, **kwargs) -> None:
+        """Preflight all assignments to avoid partial commit on invalid entries."""
+        incoming = dict(other, **kwargs)
+        for key, value in incoming.items():
+            self._validate(key, value)
+        for key, value in incoming.items():
+            self._owner._values[_AdditionalPropertyKey(key)] = value
+
+
 class AIcSmartDataObject(AIiSmartDataObject):
     """Mutable, presence-aware SmartDataObject foundation."""
     DEFAULT_DIAGNOSTIC_PROFILE = AIsTextFormatProfiles.XML_DIAGNOSTIC
@@ -703,11 +790,42 @@ class AIcSmartDataObject(AIiSmartDataObject):
         return _data_object_fields(cls)
 
     def __init__(self, aMapping: Mapping[str, AIidVirtualFieldValue] | None = None):
-        self._values: dict[str, Any] = {}
-        self._present: set[str] = set()
+        # One insertion-ordered map stores both declared and additional entries.
+        # Declared names are plain strings; additional names are namespaced keys.
+        # Presence follows membership, including explicitly assigned null values.
+        self._values: dict[str | _AdditionalPropertyKey, Any] = {}
+        self._additional_properties_view: _IntegratedAdditionalPropertiesMap | None = None
         if aMapping is not None:
             from eu.algites.lib.data.smartdataobject.impl.standard.ais_smart_data_object_factory import AIsSmartDataObjectFactory
             AIsSmartDataObjectFactory.populate(self, aMapping)
+
+    @classmethod
+    def _reserved_wire_names(cls) -> set[str]:
+        """Declared serialized names and enabled schema metadata names cannot be additional keys."""
+        names = {descriptor.field_name for descriptor in cls._fields().values()}
+        for parent in cls.__mro__:
+            annotation = parent.__dict__.get('__data_object__')
+            if annotation is not None:
+                names.update(name for name in (
+                    getattr(annotation, 'data_source_schema_url_field', ''),
+                    getattr(annotation, 'data_source_schema_identifier_field', ''),
+                    getattr(annotation, 'data_source_schema_version_field', ''),
+                ) if name)
+        return names
+
+    def get_IntegratedAdditionalPropertiesMap(self, value_type: type) -> MutableMapping[str, Any]:
+        """Return a stable typed additional-properties view over this object's shared store.
+
+        The first requested value type fixes the view type. Later incompatible
+        requests are rejected; no independently ordered map is allocated.
+        """
+        if not isinstance(value_type, type):
+            raise TypeError('Additional-property value type must be a class')
+        if self._additional_properties_view is None:
+            self._additional_properties_view = _IntegratedAdditionalPropertiesMap(self, value_type)
+        elif self._additional_properties_view._value_type is not value_type:
+            raise ValueError('Additional-properties map already has a different value type')
+        return self._additional_properties_view
 
     @classmethod
     def from_mapping(cls, aValue: Mapping[str, Any]):
@@ -749,6 +867,11 @@ class AIcSmartDataObject(AIiSmartDataObject):
         def convert(value):
             if isinstance(value, Enum):
                 return _enum_code(value)
+            if getattr(type(value), '__closed_choice_mode__', None) in {'oneOf', 'anyOf'}:
+                # The generated, sealed choice wrapper owns exactly one named
+                # schema variant. Its `value` is a generated DataObject with the
+                # corresponding single field. The wrapper itself is not a field.
+                return convert(value.value)
             if isinstance(value, AIcSmartDataObject):
                 identity = id(value)
                 if identity in visiting:
@@ -756,16 +879,37 @@ class AIcSmartDataObject(AIiSmartDataObject):
                 visiting.add(identity)
                 try:
                     result = _schema_wire_metadata(type(value))
-                    for semantic_id, descriptor in value._fields().items():
-                        if semantic_id not in value._present:
+                    fields = value._fields()
+                    for storage_key, stored in value._values.items():
+                        if isinstance(storage_key, _AdditionalPropertyKey):
+                            name = storage_key.name
+                        elif storage_key in fields:
+                            name = fields[storage_key].field_name
+                        else:
                             continue
-                        name = descriptor.field_name
-                        actual = convert(value._values[semantic_id])
+                        actual = convert(stored)
                         if name in result:
                             if actual != result[name]:
                                 raise ValueError('Schema metadata conflicts with a data property: ' + name)
                         else:
                             result[name] = actual
+                    # JSON/YAML `additionalProperties` may be represented by a
+                    # typed generated AIiMultiMappedList. Each item is a value
+                    # object with *virtual* key/value getters; they must be
+                    # projected onto the containing object, never nested.
+                    from eu.algites.lib.common.list.aii_multi_mapped_list import AIiMultiMappedList
+                    if isinstance(value, AIiMultiMappedList):
+                        for entry in value:
+                            get_key = getattr(entry, '_getKey', None)
+                            get_value = getattr(entry, '_getValue', None)
+                            if not callable(get_key) or not callable(get_value):
+                                raise TypeError('Mapped DataObject entry requires generated virtual key and value getters')
+                            name = get_key()
+                            if not isinstance(name, str) or not name:
+                                raise ValueError('Mapped DataObject key must be nonempty text')
+                            if name in result:
+                                raise ValueError('Duplicate or reserved mapped DataObject key: ' + name)
+                            result[name] = convert(get_value())
                     return result
                 finally:
                     visiting.remove(identity)
@@ -826,7 +970,7 @@ class AIcSmartDataObject(AIiSmartDataObject):
         if value is not None and definition.expected_type is not None and not isinstance(value, definition.expected_type):
             raise ValueError('Incompatible field value type: ' + name)
         self._values[name] = value
-        self._present.add(name)
+        
 
     def get_RawField(self, name: str) -> Any:
         self._require_allowed(self._check(name))
@@ -835,7 +979,7 @@ class AIcSmartDataObject(AIiSmartDataObject):
     def get_EffectiveField(self, name: str) -> Any:
         definition = self._check(name)
         self._require_allowed(definition)
-        if name in self._present:
+        if name in self._values:
             return self._values[name]
         if definition.default_value_resolver:
             return definition.default_value_resolver()
@@ -861,12 +1005,12 @@ class AIcSmartDataObject(AIiSmartDataObject):
 
     def isPresent_Field(self, name: str) -> bool:
         self._check(name)
-        return name in self._present
+        return name in self._values
 
     def unset_Field(self, name: str) -> None:
         self._check(name)
         self._values.pop(name, None)
-        self._present.discard(name)
+        
 
     def _issues(self, effective: bool, deep: bool) -> list[AIcdSmartDataValidationIssue]:
         return _Snapshot(self).issues(effective, deep)
@@ -882,9 +1026,9 @@ class AIcSmartDataObject(AIiSmartDataObject):
     def is_DeeplyByRawValuesValid(self): return not self.get_DeeplyRawValuesValidationIssues()
     def is_DeeplyByEffectiveValuesValid(self): return not self.get_DeeplyEffectiveValuesValidationIssues()
     def get_RawNotPresentRequiredFields(self):
-        return {d.name for d in self._fields().values() if d.presence == AInFieldPresenceKind.REQUIRED and d.name not in self._present}
+        return {d.name for d in self._fields().values() if d.presence == AInFieldPresenceKind.REQUIRED and d.name not in self._values}
     def get_EffectiveNotPresentRequiredFields(self):
-        return {d.name for d in self._fields().values() if d.presence == AInFieldPresenceKind.REQUIRED and d.name not in self._present and not d.default_value_resolver}
+        return {d.name for d in self._fields().values() if d.presence == AInFieldPresenceKind.REQUIRED and d.name not in self._values and not d.default_value_resolver}
     def get_DeeplyRawNotPresentRequiredFields(self):
         return {e.path for e in self.get_DeeplyRawValuesValidationIssues() if e.code == 'REQUIRED_ABSENT'}
     def get_DeeplyEffectiveNotPresentRequiredFields(self):

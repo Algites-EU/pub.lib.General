@@ -344,6 +344,79 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
     }
 
     /**
+     * Selects independent Common and Defs/SDO profiles for a code generator.
+     *
+     * <p>The combined view is used only by the existing contract-generation
+     * naming API: the original Common/Defs/SDO documents remain independent,
+     * and no mixed naming catalog is written or registered globally. Shared
+     * getter/setter methods and schema metadata come exclusively from Common;
+     * Defs or SDO contributes only its own structural roles.
+     *
+     * @param aCommonId exact CommonCodegenNameConventions identifier
+     * @param aSpecificId exact DefsCodegenNameConventions or SdoCodegenNameConventions identifier
+     * @param aDomain generator domain, either {@code defs} or {@code sdo}
+     * @return a new catalog view with the selected, validated naming composition
+     * @throws IllegalArgumentException when profiles are absent, inconsistent, or contain foreign roles
+     */
+    public AIcNameConventionCatalog withCodegenNamingProfiles(
+            String aCommonId, String aSpecificId, String aDomain) {
+        if (!Set.of("defs", "sdo").contains(aDomain))
+            throw new IllegalArgumentException("Codegen naming domain must be defs or sdo");
+        if (aCommonId == null || aCommonId.isBlank() || aSpecificId == null || aSpecificId.isBlank())
+            throw new IllegalArgumentException("Both Common and specialized codegen profile IDs are required");
+        String locFamily = aDomain.equals("defs")
+                ? "DefsCodegenNameConventions" : "SdoCodegenNameConventions";
+        JsonNode locCommon = document.path("CommonCodegenNameConventions")
+                .path("NameConventions").path(aCommonId);
+        JsonNode locSpecific = document.path(locFamily).path("NameConventions").path(aSpecificId);
+        if (!locCommon.isObject() || !locSpecific.isObject())
+            throw new IllegalArgumentException("Unknown Common or " + aDomain + " codegen naming profile: "
+                    + aCommonId + " / " + aSpecificId);
+        if (!aCommonId.equals(locSpecific.path("CommonNamingConvention").asText()))
+            throw new IllegalArgumentException(aDomain + " naming profile " + aSpecificId
+                    + " does not reference selected Common profile " + aCommonId);
+        Set<String> locSharedRoles = Set.of("standard_getter", "standard_setter",
+                "multi_mapped_list_key_synthetic_getter", "multi_mapped_list_value_synthetic_getter",
+                "positional_item_synthetic_getter", "const_container_interface");
+        Set<String> locDomainRoles = aDomain.equals("defs")
+                ? Set.of("synthetic_property_type", "synthetic_list_item_type", "synthetic_map_value_type",
+                        "synthetic_positional_item_type", "synthetic_choice_variant_type",
+                        "synthetic_group_type", "string_enum_item", "non_string_enum_item")
+                : Set.of("raw_getter", "raw_presence_checker_method", "raw_unsetter");
+        JsonNode locCommonRoles = locCommon.path("StructureNaming");
+        JsonNode locSpecificRoles = locSpecific.path("StructureNaming");
+        if (!locCommonRoles.isObject() || !locSpecificRoles.isObject()
+                || !locCommonRoles.hasNonNull("standard_getter")
+                || !locCommonRoles.hasNonNull("standard_setter"))
+            throw new IllegalArgumentException("Invalid Common or specialized codegen StructureNaming");
+        var locMerged = MAPPER.createObjectNode();
+        var locRoles = locMerged.putObject("StructureNaming");
+        for (var locEntry : List.of(Map.entry(locCommonRoles, locSharedRoles),
+                                    Map.entry(locSpecificRoles, locDomainRoles))) {
+            locEntry.getKey().fields().forEachRemaining(locRole -> {
+                if (!locEntry.getValue().contains(locRole.getKey())
+                        || !locRole.getValue().isTextual() || locRole.getValue().asText().isBlank())
+                    throw new IllegalArgumentException("Unknown or invalid " + aDomain
+                            + " codegen naming role: " + locRole.getKey());
+                locRoles.set(locRole.getKey(), locRole.getValue().deepCopy());
+            });
+        }
+        JsonNode locMetadata = locCommon.path("SchemaMetadataNaming");
+        if (locMetadata.isObject()) {
+            locMerged.set("SchemaMetadataNaming", locMetadata.deepCopy());
+            for (String locSuffix : List.of("url", "identifier", "version")) {
+                if (!locMetadata.path("data_source_schema_" + locSuffix).asText().isBlank()
+                        && locMetadata.path("schema_source_schema_" + locSuffix).asText().isBlank())
+                    throw new IllegalArgumentException("Data schema metadata requires source mapping: " + locSuffix);
+            }
+        }
+        AIcNameConventionCatalog locSelected = new AIcNameConventionCatalog(this, Map.copyOf(roleBindings));
+        locSelected.generatedMethodProfiles.put(aSpecificId, locMerged);
+        locSelected.profiles.put(aSpecificId, locMerged);
+        return new AIcNameConventionCatalog(locSelected, aSpecificId);
+    }
+
+    /**
      * Selects the same explicit DO/SDO method naming profile for all field-specific methods.
      * @param aMethodProfile ID under GeneratedDataObjectMethodNameConventions.NameConventions
      * @return immutable catalog view sharing every parsed composition and source profile

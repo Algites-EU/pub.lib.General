@@ -65,8 +65,10 @@ final class AIcSmartDataGraphRenderer {
         List<AIcSmartDataGraphSnapshot.AIcNode> locChildren = new ArrayList<>();
         switch (aNode.kind) {
             case SMART -> {
-                for (var locField : aNode.fields) {
-                    if (locField.present || (effective && locField.descriptor.hasDefault()))
+                for (var locMember : aNode.wireMembers) {
+                    var locField = locMember.field;
+                    if (locMember.isAdditional()) locChildren.add(locMember.value);
+                    else if (locField.present || (effective && locField.descriptor.hasDefault()))
                         locChildren.add(snapshot.fieldValue(locField, effective));
                 }
             }
@@ -117,11 +119,13 @@ final class AIcSmartDataGraphRenderer {
         } else {
             locSize = 2;
             if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SMART) {
-                for (var locField : aNode.fields) {
-                    if (!locField.present && !profile.isDiagnostic() &&
+                for (var locMember : aNode.wireMembers) {
+                    var locField = locMember.field;
+                    if (!locMember.isAdditional() && !locField.present && !profile.isDiagnostic() &&
                             (!effective || !locField.descriptor.hasDefault())) continue;
-                    locSize += quote(locField.wireName()).length() + 2;
-                    if (locField.present || (effective && locField.descriptor.hasDefault()))
+                    locSize += quote(locMember.name).length() + 2;
+                    if (locMember.isAdditional()) locSize += approximateSize(locMember.value, aPath);
+                    else if (locField.present || (effective && locField.descriptor.hasDefault()))
                         locSize += approximateSize(snapshot.fieldValue(locField, effective), aPath);
                     if (profile.isDiagnostic()) locSize += 20;
                 }
@@ -249,21 +253,26 @@ final class AIcSmartDataGraphRenderer {
                 case SMART -> {
                     Map<String, Object> locFields = profile.isDiagnostic()
                             ? new LinkedHashMap<>() : schemaWireMetadata(aNode);
-                    for (var locField : aNode.fields) {
-                        if (locFields.containsKey(locField.wireName())) {
-                            validateSchemaProperty(locField, locFields.get(locField.wireName()));
+                    for (var locMember : aNode.wireMembers) {
+                        String locName = locMember.name;
+                        var locField = locMember.field;
+                        if (locFields.containsKey(locName)) {
+                            if (locMember.isAdditional()) throw new IllegalArgumentException(
+                                    "Additional property collides with schema metadata: " + locName);
+                            validateSchemaProperty(locField, locFields.get(locName));
                             continue;
                         }
-                        if (!locField.present && !profile.isDiagnostic() &&
+                        if (!locMember.isAdditional() && !locField.present && !profile.isDiagnostic() &&
                                 (!effective || !locField.descriptor.hasDefault())) continue;
-                        Object locFieldValue = locField.present || (effective && locField.descriptor.hasDefault())
-                                ? jsonValue(snapshot.fieldValue(locField, effective)) : null;
+                        Object locFieldValue = locMember.isAdditional() ? jsonValue(locMember.value)
+                                : locField.present || (effective && locField.descriptor.hasDefault())
+                                    ? jsonValue(snapshot.fieldValue(locField, effective)) : null;
                         if (profile.isDiagnostic()) {
                             Map<String, Object> locWrapper = new LinkedHashMap<>();
-                            locWrapper.put("present", locField.present);
-                            if (locField.present) locWrapper.put("value", locFieldValue);
-                            locFields.put(profile.isDiagnostic() ? locField.name() : locField.wireName(), locWrapper);
-                        } else locFields.put(locField.wireName(), locFieldValue);
+                            locWrapper.put("present", locMember.isAdditional() || locField.present);
+                            if (locMember.isAdditional() || locField.present) locWrapper.put("value", locFieldValue);
+                            locFields.put(locMember.isAdditional() ? locName : locField.name(), locWrapper);
+                        } else locFields.put(locName, locFieldValue);
                     }
                     if (profile.isDiagnostic()) {
                         Map<String, Object> locMeta = new LinkedHashMap<>();
@@ -356,22 +365,32 @@ final class AIcSmartDataGraphRenderer {
                     aOut.append(" ".repeat(aDepth)).append(quote(locEntry.getKey())).append(": ")
                             .append(jsonText(locEntry.getValue())).append('\n');
                 }
-                for (var locField : aNode.fields) {
-                    if (locMetadata.containsKey(locField.wireName())) continue;
-                    if (!locField.present && !profile.isDiagnostic() && (!effective || !locField.descriptor.hasDefault())) continue;
-                    aOut.append(" ".repeat(aDepth)).append(quote(profile.isDiagnostic() ? locField.name() : locField.wireName())).append(':');
+                for (var locMember : aNode.wireMembers) {
+                    var locField = locMember.field;
+                    if (locMetadata.containsKey(locMember.name)) {
+                        if (locMember.isAdditional()) throw new IllegalArgumentException(
+                                "Additional property collides with schema metadata: " + locMember.name);
+                        continue;
+                    }
+                    if (!locMember.isAdditional() && !locField.present && !profile.isDiagnostic() &&
+                            (!effective || !locField.descriptor.hasDefault())) continue;
+                    aOut.append(" ".repeat(aDepth)).append(quote(profile.isDiagnostic() && !locMember.isAdditional()
+                            ? locField.name() : locMember.name)).append(':');
                     if (profile.isDiagnostic()) {
-                        aOut.append("\n").append(" ".repeat(aDepth + 2)).append("present: ").append(locField.present).append('\n');
-                        if (locField.present) {
+                        aOut.append("\n").append(" ".repeat(aDepth + 2)).append("present: ")
+                                .append(locMember.isAdditional() || locField.present).append('\n');
+                        if (locMember.isAdditional() || locField.present) {
                             aOut.append(" ".repeat(aDepth + 2)).append("value: ");
-                            yamlNode(snapshot.fieldValue(locField, effective), aOut, aDepth + 4);
+                            yamlNode(locMember.isAdditional() ? locMember.value
+                                    : snapshot.fieldValue(locField, effective), aOut, aDepth + 4);
                         }
                     } else {
                         aOut.append(' ');
-                        yamlNode(snapshot.fieldValue(locField, effective), aOut, aDepth + 2);
+                        yamlNode(locMember.isAdditional() ? locMember.value
+                                : snapshot.fieldValue(locField, effective), aOut, aDepth + 2);
                     }
                 }
-                if (aNode.fields.isEmpty() && locMetadata.isEmpty()) aOut.append(" ".repeat(aDepth)).append("{}\n");
+                if (aNode.wireMembers.isEmpty() && locMetadata.isEmpty()) aOut.append(" ".repeat(aDepth)).append("{}\n");
             } else if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SEQUENCE) {
                 if (aNode.elements.isEmpty()) aOut.append(" ".repeat(aDepth)).append("[]\n");
                 for (var locValue : aNode.elements) {
@@ -425,6 +444,10 @@ final class AIcSmartDataGraphRenderer {
                 ? locXmlDefinition != null && !locXmlDefinition.namespaceLocalName().isBlank()
                     ? locXmlDefinition.namespaceLocalName() : aNode.original.getClass().getSimpleName()
                 : "Value" : aName;
+        if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SMART && aNode.wireMembers.stream()
+                .anyMatch(AIcSmartDataGraphSnapshot.AIcWireMember::isAdditional)) {
+            throw new UnsupportedOperationException("XMLDEFS-to-integrated-MAP serialization is intentionally unsupported");
+        }
         if (!locName.matches("([A-Za-z_][A-Za-z0-9_.-]*:)?[A-Za-z_][A-Za-z0-9_.-]*"))
             throw new IllegalArgumentException("Invalid XML local name: " + locName);
         Integer locRef = referenceOrRegister(aNode);

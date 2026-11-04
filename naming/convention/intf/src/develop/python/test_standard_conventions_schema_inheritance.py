@@ -80,5 +80,12 @@ def test_xsd_restricts_shared_complex_type_without_repeated_shapes() -> None:
     assert [item.get("name") for item in sections] == ["IdentifierConventions", "VersionConventions"]
     assert all(item.get("minOccurs") is None for item in sections)
     assert all(not item.xpath("xs:complexType", namespaces=ns) for item in sections)
-    assert common.getroot().get("targetNamespace") == IDENTITY + ".common-naming-conventions"
-    assert standard.getroot().get("targetNamespace") == IDENTITY + ".standard-conventions"
+    # Schema location/namespace URIs are independent of the logical x-algites-schema-id.
+    # Check the exact canonical XSD publication identities and the cross-schema import.
+    base = "https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/"
+    assert common.getroot().get("targetNamespace") == base + "common-naming-conventions_1.xsd"
+    assert standard.getroot().get("targetNamespace") == base + "standard-conventions_1.xsd"
+    imports = standard.xpath("//xs:import[@namespace]", namespaces=ns)
+    assert any(item.get("namespace") == common.getroot().get("targetNamespace")
+               and item.get("schemaLocation") == "common-naming-conventions_1.xsd"
+               for item in imports)

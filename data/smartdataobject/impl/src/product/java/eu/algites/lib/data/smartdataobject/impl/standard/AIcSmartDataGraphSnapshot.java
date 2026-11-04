@@ -44,6 +44,7 @@ final class AIcSmartDataGraphSnapshot {
         final Object original;
         final Object scalar;
         final List<AIcField> fields = new ArrayList<>();
+        final List<AIcWireMember> wireMembers = new ArrayList<>();
         final List<AIcNode> elements = new ArrayList<>();
         final Map<AIcNode, AIcNode> entries = new LinkedHashMap<>();
         AIcNode(AInNodeKind aKind, Object aOriginal, Object aScalar) {
@@ -68,6 +69,19 @@ final class AIcSmartDataGraphSnapshot {
         }
         String name() { return descriptor.name(); }
         String wireName() { return descriptor.wireName(); }
+    }
+
+    /** One ordered serialized property; declared fields retain their validation descriptor. */
+    static final class AIcWireMember {
+        final String name;
+        final AIcField field;
+        final AIcNode value;
+        AIcWireMember(String aName, AIcField aField, AIcNode aValue) {
+            name = aName;
+            field = aField;
+            value = aValue;
+        }
+        boolean isAdditional() { return field == null; }
     }
 
     private static final int MAX_NODES = 50000;
@@ -114,6 +128,28 @@ final class AIcSmartDataGraphSnapshot {
                 }
                 locNode.fields.add(new AIcField(locDescriptor, locPresent,
                         locPresent ? build(locRaw) : nil));
+            }
+            Map<String, AIcField> locByName = new LinkedHashMap<>();
+            for (var locField : locNode.fields) locByName.put(locField.name(), locField);
+            Set<String> locSeen = new java.util.HashSet<>();
+            if (locSmart != null) {
+                for (var locStored : locSmart.storedEntries()) {
+                    if (locStored.additional()) {
+                        locNode.wireMembers.add(new AIcWireMember(locStored.name(), null,
+                                build(locStored.value())));
+                    } else {
+                        var locField = locByName.get(locStored.name());
+                        if (locField != null) {
+                            locSeen.add(locStored.name());
+                            locNode.wireMembers.add(new AIcWireMember(locField.wireName(), locField, null));
+                        }
+                    }
+                }
+            }
+            for (var locField : locNode.fields) {
+                if (!locSeen.contains(locField.name())) {
+                    locNode.wireMembers.add(new AIcWireMember(locField.wireName(), locField, null));
+                }
             }
         } else if (locKind == AInNodeKind.MAPPING) {
             for (var locEntry : ((Map<?, ?>) aValue).entrySet()) {

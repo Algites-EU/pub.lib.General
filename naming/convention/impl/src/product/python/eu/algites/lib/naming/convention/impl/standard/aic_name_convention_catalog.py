@@ -27,8 +27,18 @@ class AIcNameConventionCatalog(AIiNameConventionCatalog):
         # Serialized Choice variants are explicit in JSONDEFS/YAMLDEFS. Normalize
         # them once at the boundary; all naming operations then share one shape.
         for section in ('NameFragments', 'NameCompositions'):
-            for definition in self._config.get(section, {}).values():
-                if isinstance(definition, dict) and isinstance(definition.get('Segments'), list):
+            definitions = self._config.get(section, {})
+            if not isinstance(definitions, Mapping):
+                raise ValueError(f'{section} must be a mapping of named compositions')
+            for name, definition in tuple(definitions.items()):
+                # A legacy resource may encode a fragment directly as a list.
+                # Normalize only the serialization envelope, never the segment rules.
+                if isinstance(definition, list):
+                    definition = {'Segments': definition}
+                    definitions[name] = definition
+                if not isinstance(definition, Mapping):
+                    raise ValueError(f'{section}/{name} must be a segment composition')
+                if isinstance(definition.get('Segments'), list):
                     definition['Segments'] = [self._unwrap_segment(segment)
                                               for segment in definition['Segments']]
         self._fragments = self._config.get('NameFragments', {})
@@ -345,6 +355,63 @@ class AIcNameConventionCatalog(AIiNameConventionCatalog):
                 self._validate_segment(segment, f'composition {name}')
                 results.append(dict(segment))
         return tuple(results)
+
+    def with_codegen_naming_profiles(self, common_id: str, specific_id: str,
+                                     domain: str):
+        """Select and validate separate Common and Defs/SDO naming profiles.
+
+        Only the returned catalog view exposes the composed legacy method API.
+        The source documents and their naming sections stay independent.
+        """
+        if domain not in {'defs', 'sdo'}:
+            raise ValueError('Codegen naming domain must be defs or sdo')
+        if not common_id or not specific_id:
+            raise ValueError('Both Common and specialized codegen profiles are required')
+        family = ('DefsCodegenNameConventions' if domain == 'defs'
+                  else 'SdoCodegenNameConventions')
+        common = (self._config.get('CommonCodegenNameConventions', {})
+                  .get('NameConventions', {}).get(common_id))
+        specific = (self._config.get(family, {})
+                    .get('NameConventions', {}).get(specific_id))
+        if not isinstance(common, dict) or not isinstance(specific, dict):
+            raise ValueError(f'Unknown Common/{domain} codegen naming profile: '
+                             f'{common_id} / {specific_id}')
+        if specific.get('CommonNamingConvention') != common_id:
+            raise ValueError(f'{domain} naming profile {specific_id} does not reference '
+                             f'selected Common profile {common_id}')
+        common_roles = {'standard_getter', 'standard_setter',
+                        'multi_mapped_list_key_synthetic_getter',
+                        'multi_mapped_list_value_synthetic_getter',
+                        'positional_item_synthetic_getter', 'const_container_interface'}
+        defs_roles = {'synthetic_property_type', 'synthetic_list_item_type',
+                      'synthetic_map_value_type', 'synthetic_positional_item_type',
+                      'synthetic_choice_variant_type', 'synthetic_group_type',
+                      'string_enum_item', 'non_string_enum_item'}
+        sdo_roles = {'raw_getter', 'raw_presence_checker_method', 'raw_unsetter'}
+        shared = common.get('StructureNaming')
+        special = specific.get('StructureNaming')
+        if not isinstance(shared, dict) or not isinstance(special, dict):
+            raise ValueError('Invalid Common or specialized codegen StructureNaming')
+        if not {'standard_getter', 'standard_setter'} <= shared.keys():
+            raise ValueError('Common getter/setter roles are mandatory')
+        if (set(shared) - common_roles or set(special) -
+                (defs_roles if domain == 'defs' else sdo_roles)):
+            raise ValueError(f'Foreign naming role in Common or {domain} profile')
+        if any(not isinstance(value, str) or not value
+               for value in (*shared.values(), *special.values())):
+            raise ValueError('Empty or invalid codegen naming role')
+        metadata = common.get('SchemaMetadataNaming', {})
+        for suffix in ('url', 'identifier', 'version'):
+            if (metadata.get('data_source_schema_' + suffix)
+                    and not metadata.get('schema_source_schema_' + suffix)):
+                raise ValueError(f'Missing source schema metadata mapping for {suffix}')
+        combined = {'StructureNaming': {**shared, **special},
+                    'SchemaMetadataNaming': dict(metadata)}
+        result = AIcNameConventionCatalog(self._config)
+        result._conventions[specific_id] = combined
+        result._generated_methods[specific_id] = combined
+        result._generated_method_profile = specific_id
+        return result
 
     def with_generated_method_profile(self, profile: str):
         """Select one generated DO/SDO method profile while preserving source naming profiles."""

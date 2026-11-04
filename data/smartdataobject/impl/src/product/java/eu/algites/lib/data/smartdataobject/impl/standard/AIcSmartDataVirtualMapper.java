@@ -48,9 +48,14 @@ final class AIcSmartDataVirtualMapper {
             case SMART -> {
                 Map<String, AIidVirtualFieldValue> locProperties = new LinkedHashMap<>();
                 locValue.representation = locProperties;
-                for (var locField : aNode.fields) {
-                    if (!locField.present && (!effective || !locField.descriptor.hasDefault())) continue;
-                    locProperties.put(locField.name(), convert(snapshot.fieldValue(locField, effective)));
+                for (var locMember : aNode.wireMembers) {
+                    if (locMember.isAdditional()) {
+                        locProperties.put(locMember.name, convert(locMember.value));
+                    } else {
+                        var locField = locMember.field;
+                        if (!locField.present && (!effective || !locField.descriptor.hasDefault())) continue;
+                        locProperties.put(locField.name(), convert(snapshot.fieldValue(locField, effective)));
+                    }
                 }
             }
             case SEQUENCE -> {

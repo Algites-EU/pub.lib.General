@@ -13,6 +13,7 @@ import eu.algites.lib.text.format.AInTextOutputObjectReferenceMode;
 import eu.algites.lib.text.format.AIsTextFormatProfiles;
 import java.util.AbstractMap;
 import java.util.AbstractSet;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -24,9 +25,40 @@ import java.util.Set;
 
 /** Mutable generated DTO foundation; snapshot and graph implementation remain package-private. */
 public abstract class AIcSmartDataObject implements AIiSmartDataObject {
-    private final Map<String, Object> values = new LinkedHashMap<>();
-    private final Set<String> present = new LinkedHashSet<>();
-    private final Map<String, Object> additionalPropertyValues = new LinkedHashMap<>();
+    /**
+     * One insertion-ordered store for declared fields and integrated map entries.
+     * Namespaced keys avoid collisions when a semantic field name differs from its
+     * serialized wire name. Presence is the existence of a declared key, even if
+     * its explicit raw value is null; there is no independent presence collection.
+     */
+    private final Map<AIcdStorageKey, Object> values = new LinkedHashMap<>();
+
+    /** Stable namespace distinction for entries sharing the one ordered storage. */
+    private record AIcdStorageKey(boolean additional, String name) { }
+
+    private static AIcdStorageKey declaredKey(String name) { return new AIcdStorageKey(false, name); }
+    private static AIcdStorageKey additionalKey(String name) { return new AIcdStorageKey(true, name); }
+
+    /** One snapshot entry retaining the backing-store insertion order and the key namespace. */
+    record AIcdStoredEntry(boolean additional, String name, Object value) { }
+
+    /** Provides the graph snapshot with ordered fields and extra properties. */
+    final List<AIcdStoredEntry> storedEntries() {
+        List<AIcdStoredEntry> result = new ArrayList<>();
+        for (var entry : values.entrySet()) {
+            result.add(new AIcdStoredEntry(entry.getKey().additional(),
+                    entry.getKey().name(), entry.getValue()));
+        }
+        return List.copyOf(result);
+    }
+
+    private int additionalSize() {
+        int count = 0;
+        for (var key : values.keySet()) if (key.additional()) count++;
+        return count;
+    }
+
+    private void clearAdditional() { values.keySet().removeIf(AIcdStorageKey::additional); }
     private AIcIntegratedAdditionalPropertiesMap<?> additionalPropertiesView;
 
     /** Create an initially empty, mutable data object. */
@@ -108,8 +140,8 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
 
     /**
      * SDO-owned additional-property view; never copies or shadows ordinary SDO fields.
-     * The backing store is distinct from the declared-field storage, while the
-     * name checks use the very same resolved annotation metadata as field access.
+     * Declared and additional entries occupy one insertion-ordered backing store,
+     * while their typed key namespaces and annotation metadata prevent collisions.
      *
      * @param <V> accepted value type
      */
@@ -159,40 +191,48 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         }
 
         /** {@inheritDoc} */
-        @Override public boolean containsKey(Object aKey) { return additionalPropertyValues.containsKey(aKey); }
+        @Override public boolean containsKey(Object aKey) {
+            return aKey instanceof String locKey && values.containsKey(additionalKey(locKey));
+        }
 
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
-        @Override public V get(Object aKey) { return (V) additionalPropertyValues.get(aKey); }
+        @Override public V get(Object aKey) {
+            return aKey instanceof String locKey ? (V) values.get(additionalKey(locKey)) : null;
+        }
 
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override public V put(String aKey, V aValue) {
             requireAdditionalName(aKey);
             requireValue(aValue);
-            return (V) additionalPropertyValues.put(aKey, aValue);
+            return (V) values.put(additionalKey(aKey), aValue);
         }
 
         /** {@inheritDoc} */
         @Override public void putAll(Map<? extends String, ? extends V> aValues) {
             Objects.requireNonNull(aValues, "additional properties");
-            // Preflight every entry so an invalid bulk update cannot partially commit.
+            /* Preflight every entry so an invalid bulk update cannot partially commit. */
             for (var locEntry : aValues.entrySet()) {
                 requireAdditionalName(locEntry.getKey());
                 requireValue(locEntry.getValue());
             }
-            additionalPropertyValues.putAll(aValues);
+            for (var locEntry : aValues.entrySet()) {
+                values.put(additionalKey(locEntry.getKey()), locEntry.getValue());
+            }
         }
 
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
-        @Override public V remove(Object aKey) { return (V) additionalPropertyValues.remove(aKey); }
+        @Override public V remove(Object aKey) {
+            return aKey instanceof String locKey ? (V) values.remove(additionalKey(locKey)) : null;
+        }
 
         /** {@inheritDoc} */
-        @Override public void clear() { additionalPropertyValues.clear(); }
+        @Override public void clear() { clearAdditional(); }
 
         /** {@inheritDoc} */
-        @Override public int size() { return additionalPropertyValues.size(); }
+        @Override public int size() { return additionalSize(); }
 
         /**
          * Returns entries backed by the live SDO state. Iterator removals and
@@ -202,34 +242,44 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         @Override public Set<Entry<String, V>> entrySet() {
             return new AbstractSet<>() {
                 /** {@inheritDoc} */
-                @Override public int size() { return additionalPropertyValues.size(); }
+                @Override public int size() { return additionalSize(); }
 
                 /** {@inheritDoc} */
-                @Override public void clear() { additionalPropertyValues.clear(); }
+                @Override public void clear() { clearAdditional(); }
 
                 /** {@inheritDoc} */
                 @Override public Iterator<Entry<String, V>> iterator() {
-                    Iterator<Entry<String, Object>> locIterator = additionalPropertyValues.entrySet().iterator();
+                    /* A key snapshot makes a filtered iterator safe when removing entries
+                     * from the shared store: changing map entries does not invalidate the
+                     * iterator, while the backing entry values remain live. */
+                    List<AIcdStorageKey> locKeys = new ArrayList<>();
+                    for (var locKey : values.keySet()) if (locKey.additional()) locKeys.add(locKey);
+                    Iterator<AIcdStorageKey> locIterator = locKeys.iterator();
                     return new Iterator<>() {
+                        private AIcdStorageKey last;
+                        private boolean canRemove;
                         /** {@inheritDoc} */
                         @Override public boolean hasNext() { return locIterator.hasNext(); }
 
                         /** {@inheritDoc} */
                         @Override public Entry<String, V> next() {
-                            Entry<String, Object> locEntry = locIterator.next();
+                            AIcdStorageKey locKey = locIterator.next();
+                            last = locKey;
+                            canRemove = true;
                             return new Entry<>() {
                                 /** {@inheritDoc} */
-                                @Override public String getKey() { return locEntry.getKey(); }
+                                @Override public String getKey() { return locKey.name(); }
 
                                 /** {@inheritDoc} */
                                 @SuppressWarnings("unchecked")
-                                @Override public V getValue() { return (V) locEntry.getValue(); }
+                                @Override public V getValue() { return (V) values.get(locKey); }
 
                                 /** {@inheritDoc} */
                                 @SuppressWarnings("unchecked")
                                 @Override public V setValue(V aValue) {
                                     requireValue(aValue);
-                                    return (V) locEntry.setValue(aValue);
+                                    if (!values.containsKey(locKey)) throw new IllegalStateException("Map entry was removed");
+                                    return (V) values.put(locKey, aValue);
                                 }
 
                                 /** {@inheritDoc} */
@@ -247,7 +297,11 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
                         }
 
                         /** {@inheritDoc} */
-                        @Override public void remove() { locIterator.remove(); }
+                        @Override public void remove() {
+                            if (!canRemove) throw new IllegalStateException("next must precede remove");
+                            values.remove(last);
+                            canRemove = false;
+                        }
                     };
                 }
             };
@@ -260,19 +314,18 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         requireAllowed(locField);
         if (aValue != null && !locField.getter().getReturnType().isInstance(aValue))
             throw new IllegalArgumentException("Incompatible field value for " + aName + ": " + aValue.getClass());
-        values.put(aName, aValue);
-        present.add(aName);
+        values.put(declaredKey(aName), aValue);
     }
     /** Generated raw getters invoke this method and cast to the declared object type. */
     protected final Object get_RawField(String aName) {
         requireAllowed(requireField(aName));
-        return values.get(aName);
+        return values.get(declaredKey(aName));
     }
     /** Generated effective getters invoke this method and cast to the declared object type. */
     protected final Object get_EffectiveField(String aName) {
         var locField = requireField(aName);
         requireAllowed(locField);
-        if (present.contains(aName)) return values.get(aName);
+        if (values.containsKey(declaredKey(aName))) return values.get(declaredKey(aName));
         if (locField.hasDefault()) return locField.createDefault();
         if (locField.annotation().presence() == AInFieldPresenceKind.REQUIRED && !locField.allowNonPresentRead())
             throw new IllegalStateException("Required field is absent: " + aName);
@@ -285,7 +338,7 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
      */
     protected final boolean isPresent_Field(String aName) {
         requireField(aName);
-        return present.contains(aName);
+        return values.containsKey(declaredKey(aName));
     }
     /**
      * Removes an explicitly assigned field value, allowing its default to apply again.
@@ -293,8 +346,7 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
      */
     protected final void unset_Field(String aName) {
         requireField(aName);
-        values.remove(aName);
-        present.remove(aName);
+        values.remove(declaredKey(aName));
     }
     private static void requireAllowed(AIcSmartDataMetadata.AIcdField aField) {
         if (aField.annotation().presence() == AInFieldPresenceKind.FORBIDDEN)
@@ -309,8 +361,8 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
     final AIcSmartDataMetadata.AIcdDescriptor metadata() {
         return AIcSmartDataMetadata.forType(getClass());
     }
-    final boolean hasRaw(String aName) { return present.contains(aName); }
-    final Object raw(String aName) { return values.get(aName); }
+    final boolean hasRaw(String aName) { return values.containsKey(declaredKey(aName)); }
+    final Object raw(String aName) { return values.get(declaredKey(aName)); }
 
     /** {@inheritDoc} */
     @Override public final Set<String> get_RawNotPresentRequiredFields() { return missing(false); }

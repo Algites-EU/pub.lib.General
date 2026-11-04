@@ -37,6 +37,7 @@ public final class AItcXmlLocalKeyedCollectionTest {
                 minOccurs = 1, maxOccurs = -1)
         @AIaXmlKeyDefinition(name = "ById", fields = {"id"})
         @AIaXmlKeyDefinition(name = "ByRegionCode", fields = {"region", "Identity.Code"})
+        @AIaXmlKeyDefinition(name = "ByAlias", fields = {"Alias"}, required = false)
         AIiMultiMappedList<AIiEmployee> getEmployee();
 
         /** @return optional department name from an unqualified attribute */
@@ -61,6 +62,11 @@ public final class AItcXmlLocalKeyedCollectionTest {
         @AIaDataObjectField(fieldName = "Region")
         @AIaXmlDataObjectField(namespaceLocalName = "region", valueKind = AInXmlValueKind.ATTRIBUTE)
         String getRegion();
+
+        /** @return optional alias indexed by the local xs:unique constraint */
+        @AIaDataObjectField(fieldName = "Alias")
+        @AIaXmlDataObjectField(namespaceLocalName = "alias", valueKind = AInXmlValueKind.ATTRIBUTE)
+        String getAlias();
     }
 
     /** Schema contract for the numeric part of an employee's compound key. */
@@ -113,6 +119,8 @@ public final class AItcXmlLocalKeyedCollectionTest {
         @Override public String getId() { return (String) get_EffectiveField("Id"); }
         /** {@inheritDoc} */
         @Override public String getRegion() { return (String) get_EffectiveField("Region"); }
+        /** {@inheritDoc} */
+        @Override public String getAlias() { return (String) get_EffectiveField("Alias"); }
         /** @return nested identity implementation mapping for the XML parser */
         public static Map<String, Class<? extends AIcXmlSmartDataObject>> xmlNestedTypes() {
             return Map.of("Identity", AIcIdentity.class);
@@ -130,10 +138,10 @@ public final class AItcXmlLocalKeyedCollectionTest {
     /** XML fixture with identical IDs in different departments, which is valid. */
     private static final String VALID = "<Company xmlns='urn:test'>"
             + "<Department name='Development'>"
-            + "<Employee id='101' region='eu'><Identity><Code>3</Code></Identity></Employee>"
+            + "<Employee id='101' region='eu' alias='north-a'><Identity><Code>3</Code></Identity></Employee>"
             + "<Employee id='102' region='us'><Identity><Code>003</Code></Identity></Employee>"
             + "</Department><Department name='Sales'>"
-            + "<Employee id='101' region='eu'><Identity><Code>3</Code></Identity></Employee>"
+            + "<Employee id='101' region='eu' alias='north-a'><Identity><Code>3</Code></Identity></Employee>"
             + "</Department></Company>";
 
     /** Tests per-owner indexes, compound typed values and live map lookups. */
@@ -153,10 +161,34 @@ public final class AItcXmlLocalKeyedCollectionTest {
         Assert.assertEquals(development.mapByKeyType(development.keyDefinition("ByRegionCode"))
                 .get(List.of("us", BigInteger.valueOf(3))).get(0).getId(), "102");
         Assert.assertEquals(development.get(1).getIdentity().getCode(), BigInteger.valueOf(3));
+        var optional = development.mapByKeyType(development.keyDefinition("ByAlias"));
+        Assert.assertEquals(optional.get("north-a").size(), 1);
+        Assert.assertEquals(optional.get(null).size(), 1);
+        Assert.assertEquals(sales.mapByKeyType(sales.keyDefinition("ByAlias"))
+                .get("north-a").size(), 1);
         Assert.expectThrows(IllegalArgumentException.class,
                 () -> development.add(development.get(0)));
         Assert.assertEquals(development.size(), 2);
         Assert.assertEquals(development.mapByKeyType(development.keyDefinition("ById")).size(), 2);
+    }
+
+    /** Verify the canonical XML writer preserves repeated siblings and rebuilds indexes on parsing. */
+    @Test
+    public void roundTripsCompositeKeyIndexesThroughCanonicalXml() {
+        AIcCompany source = AIcXmlSmartDataObject.fromXml(VALID, AIcCompany.class, Map.of());
+        String xml = source.toString_RawValues(
+                eu.algites.lib.text.format.AIsTextFormatProfiles.XML_XSD,
+                eu.algites.lib.text.format.AInTextOutputObjectReferenceMode.NO_REFERENCES);
+        AIcCompany restored = AIcXmlSmartDataObject.fromXml(xml, AIcCompany.class, Map.of());
+        Assert.assertEquals(restored.getDepartment().size(), 2);
+        var development = restored.getDepartment().get(0).getEmployee();
+        Assert.assertEquals(development.size(), 2);
+        Assert.assertEquals(development.mapByKeyType(development.keyDefinition("ById"))
+                .get("102").get(0).getIdentity().getCode(), BigInteger.valueOf(3));
+        Assert.assertEquals(development.mapByKeyType(development.keyDefinition("ByRegionCode"))
+                .get(List.of("us", BigInteger.valueOf(3))).size(), 1);
+        Assert.assertNotSame(development.keyDefinition("ById"),
+                restored.getDepartment().get(1).getEmployee().keyDefinition("ById"));
     }
 
     /** Tests collision rejection for either unique index with the other unchanged. */
@@ -168,6 +200,17 @@ public final class AItcXmlLocalKeyedCollectionTest {
                 () -> AIcXmlSmartDataObject.fromXml(compositeCollision, AIcCompany.class, Map.of()));
         Assert.expectThrows(IllegalArgumentException.class,
                 () -> AIcXmlSmartDataObject.fromXml(idCollision, AIcCompany.class, Map.of()));
+    }
+
+    /** Optional xs:unique permits missing aliases but rejects a repeated present alias. */
+    @Test
+    public void acceptsAbsentOptionalUniqueKeysButRejectsDuplicatePresentValues() {
+        AIcCompany parsed = AIcXmlSmartDataObject.fromXml(VALID, AIcCompany.class, Map.of());
+        var employees = parsed.getDepartment().get(0).getEmployee();
+        Assert.assertEquals(employees.mapByKeyType(employees.keyDefinition("ByAlias")).size(), 2);
+        String duplicate = VALID.replace("id='102' region='us'", "id='102' region='us' alias='north-a'");
+        Assert.expectThrows(IllegalArgumentException.class,
+                () -> AIcXmlSmartDataObject.fromXml(duplicate, AIcCompany.class, Map.of()));
     }
 
     /** Tests that an absent nested mandatory component cannot enter an {@code xs:key}. */

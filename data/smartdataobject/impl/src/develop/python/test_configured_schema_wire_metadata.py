@@ -58,12 +58,11 @@ def test_schema_metadata_and_declared_field_are_merged_once_in_wire_outputs():
                                        AInTextOutputObjectReferenceMode.NO_REFERENCES)
     assert yaml_text.count('"$schema"') == 1
     assert _ExplicitSchemaField.from_mapping(expected).to_mapping() == expected
-    obj.set_RawField('$schema', 'https://not-valid.example/')
-    with pytest.raises(ValueError, match='Schema metadata conflicts'):
-        obj.to_mapping()
-    with pytest.raises(ValueError, match='Schema metadata conflicts'):
-        obj.toString_RawValues(AIsTextFormatProfiles.JSON_STANDARD,
-                               AInTextOutputObjectReferenceMode.NO_REFERENCES)
-    with pytest.raises(ValueError, match='Schema metadata conflicts'):
-        obj.toString_RawValues(AIsTextFormatProfiles.YAML_STANDARD,
-                               AInTextOutputObjectReferenceMode.NO_REFERENCES)
+    # Schema metadata is not a domain field even when legacy descriptors declare it.
+    # Its configured name must therefore never be writable through raw field APIs.
+    with pytest.raises(ValueError, match='Unknown SmartData property'):
+        obj.set_RawField('$schema', 'https://not-valid.example/')
+    assert obj.to_mapping() == expected
+    assert json.loads(obj.toString_RawValues(
+        AIsTextFormatProfiles.JSON_STANDARD,
+        AInTextOutputObjectReferenceMode.NO_REFERENCES)) == expected
