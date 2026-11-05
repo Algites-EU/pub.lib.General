@@ -303,7 +303,7 @@ tasks.register('bootstrapSdoJava') {
                     '--common-codegen-naming-convention:java=algites-java-codegen-common_1',
                     '--sdo-codegen-naming-convention:java=algites-java-sdocodegen-standard_1',
                     '--codegen-validate-one-input-at-a-time-only=' +
-                        (System.getenv('MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY') ?: 'true')
+                        (System.getenv('MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY') ?: 'false')
             ]
             arguments << '--dointf-input-classes:java=' + eligible.join(';')
             arguments << '--dointf-classpath:java=' + classpath

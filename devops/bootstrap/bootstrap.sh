@@ -43,8 +43,8 @@ By default the root is the complete source repository and the action is upload.
 build and publication to a directory below this repository. Paths are resolved
 relative to the source repository (not the caller's working directory).
 --plan-only never deletes generated sources, compiles or uploads.
-The Codegen validation policy defaults to true (fail fast). With false,
-Defs and SDO validate all selected inputs and aggregate detectable errors.
+The Codegen validation policy defaults to false (aggregate all input errors).
+With true, stop after checking the first failing input in full.
 HELP
             exit 0 ;;
         *) echo "Unsupported bootstrap option: $1" >&2; exit 2 ;;
@@ -52,7 +52,7 @@ HELP
 done
 
 # All generator CLIs, including Gradle's Java SDO process, inherit one policy.
-export MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY="${MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY:-true}"
+export MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY="${MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY:-false}"
 [[ "$MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY" == true ||
    "$MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY" == false ]] || {
     echo 'MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY must be true or false' >&2; exit 2;

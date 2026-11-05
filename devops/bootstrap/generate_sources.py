@@ -471,7 +471,7 @@ def _defs_cli_arguments(repository: Path, manifest: dict) -> list[str]:
 
 def _validation_policy() -> str:
     """Strictly validate the inherited, shared policy before either generator runs."""
-    value = os.environ.get('MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY', 'true')
+    value = os.environ.get('MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY', 'false')
     if value not in ('true', 'false'):
         raise ValueError('MODUSTRO_CODEGEN_VALIDATE_ONE_INPUT_AT_A_TIME_ONLY must be true or false')
     return value
