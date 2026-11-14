@@ -31,9 +31,6 @@ Dependencies:
       - GroupId: eu.algites.lib.data
         ArtifactId: pub.lib.General_data.smartdataobject.impl.common
         Usages: [product_api]
-#      - GroupId: eu.algites.lib.data
-#        ArtifactId: pub.lib.General_data.smartdataobject.impl
-#        Usages: [product_api]
   - DependencyKind: java
     Items:
       - GroupId: org.testng
