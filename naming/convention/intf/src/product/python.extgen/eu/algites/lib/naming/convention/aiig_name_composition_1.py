@@ -12,6 +12,7 @@ from eu.algites.lib.data.dataobject.aii_data_object import AIiDataObject
 from eu.algites.lib.data.dataobject.jsondefs.aia_json_data_object import AIaJsonDataObject
 from eu.algites.lib.data.dataobject.yamldefs.aia_yaml_data_object import AIaYamlDataObject
 from eu.algites.lib.data.dataobject.jsonschema.aia_data_object_json_schema import AIaDataObjectJsonSchema
+from eu.algites.lib.common.list.aii_bounded_list import AIiBoundedList
 from eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object_field import AIaXmlDataObjectField
 from eu.algites.lib.data.dataobject.xmlschema.aia_data_object_field_xml_schema import AIaDataObjectFieldXmlSchema
 from eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind import AInXmlValueKind
@@ -57,9 +58,9 @@ class AIigNameComposition_1(AIiDataObject):
         FIELD_NAME__NAME = 'name'
 
     @AIaDataObjectFieldListConstraints(min_items=1)
-    @AIaDataObjectField(dataFieldName='Segments', presence=AInFieldPresenceKind.REQUIRED, allows_null=False, expected_type=list, order=0, min_item_count=1, max_item_count=-1, is_empty_allowed=False)
+    @AIaDataObjectField(dataFieldName='Segments', presence=AInFieldPresenceKind.REQUIRED, allows_null=False, expected_type=AIiBoundedList, order=0, min_item_count=1, max_item_count=-1, is_empty_allowed=False)
     @abstractmethod
-    def getSegmentsList(self) -> list[AIigNameFragmentsSegmentChoice_1]:
+    def getSegmentsList(self) -> AIiBoundedList[AIigNameFragmentsSegmentChoice_1]:
         """Return Canonical field Segments. (required, cardinality 1..-1)."""
         raise NotImplementedError
 

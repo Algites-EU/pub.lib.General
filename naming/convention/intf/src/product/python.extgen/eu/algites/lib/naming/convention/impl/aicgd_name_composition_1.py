@@ -23,10 +23,10 @@ class AIcgdNameComposition_1(AIcSmartDataObject, AIigdNameComposition_1):
     __json_data_object__ = AIaJsonDataObject(schema_id='eu.algites.lib.naming.convention.common-naming-conventions#/$defs/NameComposition', schema_version=1, schema_url='', data_source_schema_url_field='', data_source_schema_identifier_field='', data_source_schema_version_field='')
     __yaml_data_object__ = AIaYamlDataObject(schema_id='eu.algites.lib.naming.convention.common-naming-conventions#/$defs/NameComposition', schema_version=1, schema_url='', data_source_schema_url_field='', data_source_schema_identifier_field='', data_source_schema_version_field='')
 
-    def getSegmentsList(self) -> list[AIigNameFragmentsSegmentChoice_1]:
+    def getSegmentsList(self) -> AIiBoundedList[AIigNameFragmentsSegmentChoice_1]:
         return self.get_OrCreateCollectionField('SegmentsList', False)
 
-    def _getRaw_SegmentsList(self) -> list[AIigNameFragmentsSegmentChoice_1]:
+    def _getRaw_SegmentsList(self) -> AIiBoundedList[AIigNameFragmentsSegmentChoice_1]:
         return self.get_RawField('SegmentsList')
 
     def _isPresent_SegmentsList(self):
