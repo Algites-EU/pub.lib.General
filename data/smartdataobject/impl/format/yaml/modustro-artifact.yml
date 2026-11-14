@@ -1,0 +1,28 @@
+$schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
+Artifact:
+  TechnologyKinds: [java, python]
+  Name: Smart Data Object YAML format provider
+  Description: Independent schema-aware SDO YAML marshalling and unmarshalling provider.
+Dependencies:
+  - DependencyKind: modustro
+    Items:
+      - GroupId: eu.algites.lib.data
+        ArtifactId: pub.lib.General_data.smartdataobject.impl.common
+        Usages: [product_api]
+      - GroupId: eu.algites.lib.data
+        ArtifactId: pub.lib.General_data.smartdataobject.intf
+        Usages: [product_api]
+      - GroupId: eu.algites.lib.data
+        ArtifactId: pub.lib.General_data.dataobject.intf
+        Usages: [product_api]
+      - GroupId: eu.algites.lib.text
+        ArtifactId: pub.lib.General_text.format
+        Usages: [product_api]
+  - DependencyKind: python
+    Items:
+      - ArtifactId: PyYAML
+        Usages: [product_implementation]
+        VersionRequirement:
+          Minimum: ">=6.0"
+          Maximum: "<7.0"
+          MaximumStrict: true

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/common-naming-conventions_1.jsondef.schema.json",
-  "title": "Shared naming convention tools v1",
+  "title": "Shared naming convention tools",
   "type": "object",
   "description": "Reusable fragments, compositions, identifiers and version rules for any naming-convention domain.",
   "properties": {
@@ -29,108 +29,44 @@
       "$ref": "#/$defs/NameCompositions"
     }
   },
-  "additionalProperties": true,
   "$defs": {
     "IdentifierConventions": {
       "type": "object",
       "title": "Identifier conventions",
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Regexp": {
-            "type": "string",
-            "title": "Regexp",
-            "minLength": 1,
-            "description": "Regular expression defining the syntax recognized by this named convention."
+      "description": "Named identifier conventions whose regular expressions validate or recognize identifiers.",
+      "additionalProperties": false,
+      "properties": {
+        "IdentifierConvention": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IdentifierConvention"
           },
-          "ConversionStyle": {
-            "type": "string",
-            "title": "Identifier conversion style",
-            "description": "Optional lexical splitting and formatting policy. Custom regex conventions without a conversion style are validation-only. The style, not the naming convention ID, controls conversion.",
-            "enum": [
-              "lower_flat",
-              "upper_flat",
-              "lower_snake",
-              "upper_snake",
-              "lower_camel",
-              "upper_camel",
-              "lower_kebab",
-              "upper_kebab"
-            ],
-            "oneOf": [
-              {
-                "const": "lower_flat",
-                "title": "Lower Flat",
-                "description": "Use lower_flat lexical formatting."
-              },
-              {
-                "const": "upper_flat",
-                "title": "Upper Flat",
-                "description": "Use upper_flat lexical formatting."
-              },
-              {
-                "const": "lower_snake",
-                "title": "Lower Snake",
-                "description": "Use lower_snake lexical formatting."
-              },
-              {
-                "const": "upper_snake",
-                "title": "Upper Snake",
-                "description": "Use upper_snake lexical formatting."
-              },
-              {
-                "const": "lower_camel",
-                "title": "Lower Camel",
-                "description": "Use lower_camel lexical formatting."
-              },
-              {
-                "const": "upper_camel",
-                "title": "Upper Camel",
-                "description": "Use upper_camel lexical formatting."
-              },
-              {
-                "const": "lower_kebab",
-                "title": "Lower Kebab",
-                "description": "Use lower_kebab lexical formatting."
-              },
-              {
-                "const": "upper_kebab",
-                "title": "Upper Kebab",
-                "description": "Use upper_kebab lexical formatting."
-              }
-            ]
+          "description": "Ordered XSD IdentifierConvention elements; name is an identity attribute.",
+          "x-algites-defscodegen-key": {
+            "id": "UniqueIdentifierConventionNames",
+            "field-name": "name"
           }
-        },
-        "required": [
-          "Regexp"
-        ],
-        "title": "Additional Properties",
-        "description": "Definition of one named identifier convention."
-      },
-      "description": "Named identifier conventions whose regular expressions validate or recognize identifiers."
+        }
+      }
     },
     "VersionConventions": {
       "type": "object",
       "title": "Version conventions",
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Regexp": {
-            "type": "string",
-            "title": "Regexp",
-            "minLength": 1,
-            "description": "Regular expression defining the syntax recognized by this named convention."
+      "description": "Named version conventions whose regular expressions recognize version components.",
+      "additionalProperties": false,
+      "properties": {
+        "VersionConvention": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/VersionConvention"
+          },
+          "description": "Ordered XSD VersionConvention elements; name is an identity attribute.",
+          "x-algites-defscodegen-key": {
+            "id": "UniqueVersionConventionNames",
+            "field-name": "name"
           }
-        },
-        "required": [
-          "Regexp"
-        ],
-        "title": "Additional Properties",
-        "description": "Definition of one named version convention."
-      },
-      "description": "Named version conventions whose regular expressions recognize version components."
+        }
+      }
     },
     "NameFragmentsSegmentReference": {
       "type": "object",
@@ -154,216 +90,120 @@
       "additionalProperties": false,
       "properties": {
         "Kind": {
-          "enum": [
-            "constant_string",
-            "identifier",
-            "version",
-            "variable"
-          ],
-          "title": "Kind",
-          "description": "Determines how the segment value is interpreted during name construction.",
-          "oneOf": [
-            {
-              "const": "constant_string",
-              "title": "Constant string",
-              "description": "A literal text segment emitted without a lookup."
-            },
-            {
-              "const": "identifier",
-              "title": "Identifier",
-              "description": "A segment derived from an identifier, optionally using an identifier convention."
-            },
-            {
-              "const": "version",
-              "title": "Version",
-              "description": "A segment representing a version according to a version convention."
-            },
-            {
-              "const": "variable",
-              "title": "Variable",
-              "description": "A segment resolved from a named variable in the generation context."
-            }
-          ]
+          "$ref": "#/$defs/NameFragmentsSegmentValueKind"
         },
-        "Value": {
-          "type": "string",
-          "title": "Value",
-          "description": "Literal or resolved value emitted by the segment, according to its kind."
-        },
-        "Convention": {
-          "type": "string",
-          "title": "Convention",
-          "description": "Required for identifier/version segments when a named identifier/version convention is selected; mutually exclusive with CustomConventionRegexp.",
-          "minLength": 1
-        },
-        "CustomConventionRegexp": {
-          "type": "string",
-          "title": "Custom convention regexp",
-          "description": "Inline Java-style regular expression used instead of a named convention for an identifier/version segment. It must compile and provide the named capture group identifier or version respectively; checked by the naming catalog in Java/Python.",
-          "minLength": 1
-        },
-        "Name": {
-          "type": "string",
-          "title": "Name",
-          "description": "Symbolic name of the variable or source value referenced by this segment.",
-          "minLength": 1
-        },
-        "Regexp": {
-          "type": "string",
-          "title": "Regexp",
-          "description": "Regular expression defining the syntax recognized by this named convention.",
-          "minLength": 1
+        "Content": {
+          "$ref": "#/$defs/NameFragmentsSegmentValueContent"
         }
       },
       "required": [
-        "Kind"
+        "Kind",
+        "Content"
       ],
       "title": "Inline segment",
-      "description": "One inline segment. Kind determines exactly which alternative fields are permitted: constant_string/Value, identifier or version/one of Convention and CustomConventionRegexp, variable/Name plus Regexp.",
+      "description": "Inline segment with an explicitly named Content choice; the Kind determines its valid variant.",
       "oneOf": [
         {
-          "title": "Literal segment",
           "properties": {
             "Kind": {
               "const": "constant_string"
+            },
+            "Content": {
+              "type": "object",
+              "required": [
+                "Value"
+              ]
             }
           },
           "required": [
-            "Value"
-          ],
-          "not": {
-            "anyOf": [
-              {
-                "required": [
-                  "Convention"
-                ]
-              },
-              {
-                "required": [
-                  "CustomConventionRegexp"
-                ]
-              },
-              {
-                "required": [
-                  "Name"
-                ]
-              },
-              {
-                "required": [
-                  "Regexp"
-                ]
-              }
-            ]
-          }
+            "Kind",
+            "Content"
+          ]
         },
         {
-          "title": "Identifier segment",
           "properties": {
             "Kind": {
               "const": "identifier"
-            }
-          },
-          "oneOf": [
-            {
+            },
+            "Content": {
+              "type": "object",
               "required": [
                 "Convention"
               ]
-            },
-            {
-              "required": [
-                "CustomConventionRegexp"
-              ]
-            }
-          ],
-          "not": {
-            "anyOf": [
-              {
-                "required": [
-                  "Value"
-                ]
-              },
-              {
-                "required": [
-                  "Name"
-                ]
-              },
-              {
-                "required": [
-                  "Regexp"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "title": "Version segment",
-          "properties": {
-            "Kind": {
-              "const": "version"
-            }
-          },
-          "oneOf": [
-            {
-              "required": [
-                "Convention"
-              ]
-            },
-            {
-              "required": [
-                "CustomConventionRegexp"
-              ]
-            }
-          ],
-          "not": {
-            "anyOf": [
-              {
-                "required": [
-                  "Value"
-                ]
-              },
-              {
-                "required": [
-                  "Name"
-                ]
-              },
-              {
-                "required": [
-                  "Regexp"
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "title": "Named variable segment",
-          "properties": {
-            "Kind": {
-              "const": "variable"
             }
           },
           "required": [
-            "Name",
-            "Regexp"
-          ],
-          "not": {
-            "anyOf": [
-              {
-                "required": [
-                  "Value"
-                ]
-              },
-              {
-                "required": [
-                  "Convention"
-                ]
-              },
-              {
-                "required": [
-                  "CustomConventionRegexp"
-                ]
-              }
-            ]
-          }
+            "Kind",
+            "Content"
+          ]
+        },
+        {
+          "properties": {
+            "Kind": {
+              "const": "identifier"
+            },
+            "Content": {
+              "type": "object",
+              "required": [
+                "CustomConventionRegexp"
+              ]
+            }
+          },
+          "required": [
+            "Kind",
+            "Content"
+          ]
+        },
+        {
+          "properties": {
+            "Kind": {
+              "const": "version"
+            },
+            "Content": {
+              "type": "object",
+              "required": [
+                "Convention"
+              ]
+            }
+          },
+          "required": [
+            "Kind",
+            "Content"
+          ]
+        },
+        {
+          "properties": {
+            "Kind": {
+              "const": "version"
+            },
+            "Content": {
+              "type": "object",
+              "required": [
+                "CustomConventionRegexp"
+              ]
+            }
+          },
+          "required": [
+            "Kind",
+            "Content"
+          ]
+        },
+        {
+          "properties": {
+            "Kind": {
+              "const": "variable"
+            },
+            "Content": {
+              "type": "object",
+              "required": [
+                "NameRegexp"
+              ]
+            }
+          },
+          "required": [
+            "Kind",
+            "Content"
+          ]
         }
       ]
     },
@@ -387,52 +227,221 @@
     "NameFragments": {
       "type": "object",
       "title": "Name fragments",
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Segments": {
-            "type": "array",
-            "title": "Segments",
-            "minItems": 1,
-            "items": {
-              "$ref": "#/$defs/NameFragmentsSegmentChoice"
-            },
-            "description": "Ordered segments that make up this fragment or name composition."
+      "description": "Reusable named sequences of text, identifier, version or variable segments.",
+      "additionalProperties": false,
+      "properties": {
+        "NameFragment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NameFragment"
+          },
+          "description": "Ordered XSD NameFragment elements; name is an identity attribute.",
+          "x-algites-defscodegen-key": {
+            "id": "UniqueNameFragmentNames",
+            "field-name": "name"
           }
-        },
-        "required": [
-          "Segments"
-        ],
-        "title": "Additional Properties",
-        "description": "Definition of one named reusable name fragment."
-      },
-      "description": "Reusable named sequences of text, identifier, version or variable segments."
+        }
+      }
     },
     "NameCompositions": {
       "type": "object",
       "title": "Name compositions",
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Segments": {
-            "type": "array",
-            "title": "Segments",
-            "minItems": 1,
-            "items": {
-              "$ref": "#/$defs/NameFragmentsSegmentChoice"
-            },
-            "description": "Ordered segments using the same reference-or-value grammar as a name fragment."
+      "description": "Named compositions that combine reusable fragments into full names.",
+      "additionalProperties": false,
+      "properties": {
+        "NameComposition": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NameComposition"
+          },
+          "description": "Ordered XSD NameComposition elements; name is an identity attribute.",
+          "x-algites-defscodegen-key": {
+            "id": "UniqueNameCompositionNames",
+            "field-name": "name"
           }
+        }
+      }
+    },
+    "IdentifierConvention": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Required XSD identity attribute."
         },
-        "required": [
-          "Segments"
-        ],
-        "title": "Additional Properties",
-        "description": "Definition of one named name composition."
+        "Regexp": {
+          "type": "string",
+          "title": "Regexp",
+          "minLength": 1,
+          "description": "Regular expression defining the syntax recognized by this named convention."
+        },
+        "ConversionStyle": {
+          "$ref": "#/$defs/IdentifierConversionStyle"
+        }
       },
-      "description": "Named compositions that combine reusable fragments into full names."
+      "required": [
+        "name",
+        "Regexp"
+      ],
+      "title": "Additional Properties",
+      "description": "Definition of one named identifier convention."
+    },
+    "VersionConvention": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Required XSD identity attribute."
+        },
+        "Regexp": {
+          "type": "string",
+          "title": "Regexp",
+          "minLength": 1,
+          "description": "Regular expression defining the syntax recognized by this named convention."
+        }
+      },
+      "required": [
+        "name",
+        "Regexp"
+      ],
+      "title": "Additional Properties",
+      "description": "Definition of one named version convention."
+    },
+    "NameFragment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Required XSD identity attribute."
+        },
+        "Segments": {
+          "type": "array",
+          "title": "Segments",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/NameFragmentsSegmentChoice"
+          },
+          "description": "Ordered segments that make up this fragment or name composition."
+        }
+      },
+      "required": [
+        "name",
+        "Segments"
+      ],
+      "title": "Additional Properties",
+      "description": "Definition of one named reusable name fragment."
+    },
+    "NameComposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Required XSD identity attribute."
+        },
+        "Segments": {
+          "type": "array",
+          "title": "Segments",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/NameFragmentsSegmentChoice"
+          },
+          "description": "Ordered segments using the same reference-or-value grammar as a name fragment."
+        }
+      },
+      "required": [
+        "name",
+        "Segments"
+      ],
+      "title": "Additional Properties",
+      "description": "Definition of one named name composition."
+    },
+    "NameFragmentsSegmentValueKind": {
+      "type": "string",
+      "enum": [
+        "constant_string",
+        "identifier",
+        "version",
+        "variable"
+      ],
+      "title": "Segment value kind",
+      "description": "Determines how the segment value is interpreted during name construction."
+    },
+    "NameRegexp": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Symbolic name of the variable or source value referenced by this segment.",
+          "minLength": 1
+        },
+        "Regexp": {
+          "type": "string",
+          "title": "Regexp",
+          "description": "Regular expression defining the syntax recognized by this named convention.",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "Name",
+        "Regexp"
+      ],
+      "title": "Variable name and regexp"
+    },
+    "NameFragmentsSegmentValueContent": {
+      "title": "Inline segment content",
+      "description": "Exactly one alternative: literal, named convention, inline regexp, or NameRegexp variable pair.",
+      "type": "object",
+      "x-algites-defscodegen-choice": true,
+      "properties": {
+        "Value": {
+          "type": "string",
+          "title": "Value",
+          "description": "Literal or resolved value emitted by the segment, according to its kind."
+        },
+        "Convention": {
+          "type": "string",
+          "title": "Convention",
+          "description": "Required for identifier/version segments when a named identifier/version convention is selected; mutually exclusive with CustomConventionRegexp.",
+          "minLength": 1
+        },
+        "CustomConventionRegexp": {
+          "type": "string",
+          "title": "Custom convention regexp",
+          "description": "Inline Java-style regular expression used instead of a named convention for an identifier/version segment. It must compile and provide the named capture group identifier or version respectively; checked by the naming catalog in Java/Python.",
+          "minLength": 1
+        },
+        "NameRegexp": {
+          "$ref": "#/$defs/NameRegexp"
+        }
+      },
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": false
+    },
+    "IdentifierConversionStyle": {
+      "type": "string",
+      "enum": [
+        "lower_flat",
+        "upper_flat",
+        "lower_snake",
+        "upper_snake",
+        "lower_camel",
+        "upper_camel",
+        "lower_kebab",
+        "upper_kebab"
+      ],
+      "title": "Identifier conversion style",
+      "description": "Optional lexical splitting and formatting policy. Custom regex conventions without a conversion style are validation-only. The style, not the naming convention ID, controls conversion."
     }
   },
   "x-algites-schema-id": "eu.algites.lib.naming.convention.common-naming-conventions",

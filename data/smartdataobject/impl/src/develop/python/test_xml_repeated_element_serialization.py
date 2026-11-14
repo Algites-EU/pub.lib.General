@@ -86,3 +86,36 @@ def test_enum_item_code_overrides_python_enum_value():
     document = ET.fromstring(value.toString_RawValues(AIsTextFormatProfiles.XML_XSD))
     assert document.find('Status').text == 'approved-wire'
     assert value.to_mapping()['Status'] == 'approved-wire'
+
+
+def test_enum_code_is_used_for_xml_deserialization_not_enum_value():
+    """Generated wire codes may differ from the enum implementation token."""
+    import pytest
+    from enum import Enum
+    from eu.algites.lib.data.smartdataobject.impl.xmldefs.aic_xml_smart_data_object import (
+        AIcXmlSmartDataObject)
+
+    class WireStatus(str, Enum):
+        APPROVED = 'implementation-token'
+        REJECTED = 'internal-token'
+
+        def code(self) -> str:
+            """Return the exact schema-defined serialized status."""
+            return {'APPROVED': 'approved-wire', 'REJECTED': 'rejected-wire'}[self.name]
+
+    class StatusDocument(AIcXmlSmartDataObject):
+        __xml_data_object__ = AIaXmlDataObject(namespace_local_name='StatusDocument')
+        __data_object_fields__ = (AIcdDataObjectField('Status', expected_type=WireStatus),)
+        __xml_data_object_fields__ = {
+            'Status': AIaXmlDataObjectField(namespace_local_name='Status'),
+        }
+
+    document = StatusDocument.from_xml(
+        '<StatusDocument><Status>approved-wire</Status></StatusDocument>')
+    assert document.get_RawField('Status') is WireStatus.APPROVED
+    serialized = document.toString_RawValues(AIsTextFormatProfiles.XML_XSD)
+    assert ET.fromstring(serialized).find('Status').text == 'approved-wire'
+    assert StatusDocument.from_xml(serialized).get_RawField('Status') is WireStatus.APPROVED
+    with pytest.raises(ValueError, match='enumeration code'):
+        StatusDocument.from_xml(
+            '<StatusDocument><Status>implementation-token</Status></StatusDocument>')

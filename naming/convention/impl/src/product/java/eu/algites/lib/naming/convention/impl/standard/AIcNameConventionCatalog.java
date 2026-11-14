@@ -3,6 +3,8 @@ package eu.algites.lib.naming.convention.impl.standard;
 
 import eu.algites.lib.naming.convention.AIiNameConventionCatalog;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -40,6 +42,77 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
  * @param variables values extracted from named captures in the matched name
  */
     public record AIcdNameMatch(String conventionName, Map<String, String> variables) { }
+
+    /**
+     * Converts the XSD-compatible YAML wrapper/array representation into fast,
+     * internally indexed maps. A duplicate name or kind is always rejected.
+     * The serialized input and its XML/JSON/YAML schema remain unchanged.
+     */
+    private static JsonNode normalizedDocument(JsonNode aRaw) {
+        if (!aRaw.isObject()) throw new IllegalArgumentException("Naming document must be an object");
+        var locDoc = (com.fasterxml.jackson.databind.node.ObjectNode) aRaw.deepCopy();
+        Map<String, String> locCollections = Map.of(
+                "IdentifierConventions", "IdentifierConvention", "VersionConventions", "VersionConvention",
+                "NameFragments", "NameFragment", "NameCompositions", "NameComposition");
+        locCollections.forEach((section, entry) -> normalizeCollection(locDoc, section, entry, "name"));
+        locDoc.fields().forEachRemaining(family -> {
+            if (family.getKey().equals("NameConventions")) return;
+            if (!(family.getValue() instanceof com.fasterxml.jackson.databind.node.ObjectNode locFamily)) return;
+            normalizeCollection(locFamily, "NameConventions", "NameConvention", "name");
+            JsonNode locProfiles = locFamily.path("NameConventions");
+            if (!locProfiles.isObject()) return;
+            locProfiles.fields().forEachRemaining(profile -> {
+                if (!(profile.getValue() instanceof com.fasterxml.jackson.databind.node.ObjectNode locProfile))
+                    return;
+                normalizeCollection(locProfile, "StructureNaming", "Rule", "kind");
+                normalizeCollection(locProfile, "SchemaMetadataNaming", "Rule", "kind");
+                for (String section : List.of("StructureNaming", "SchemaMetadataNaming")) {
+                    JsonNode locRoles = locProfile.get(section);
+                    if (!(locRoles instanceof com.fasterxml.jackson.databind.node.ObjectNode locRoleMap)) continue;
+                    var locValues = MAPPER.createObjectNode();
+                    locRoles.fields().forEachRemaining(role -> {
+                        JsonNode locBody = role.getValue();
+                        if (locBody.isObject()) {
+                            if (locBody.size() != 1 || !locBody.path("Value").isTextual())
+                                throw new IllegalArgumentException(section + "/" + role.getKey()
+                                        + ": expected exactly a string Value");
+                            locValues.set(role.getKey(), locBody.path("Value"));
+                        } else if (locBody.isTextual()) {
+                            locValues.set(role.getKey(), locBody);
+                        } else {
+                            throw new IllegalArgumentException(section + "/" + role.getKey()
+                                    + ": invalid naming role");
+                        }
+                    });
+                    locProfile.set(section, locValues);
+                }
+            });
+        });
+        return locDoc;
+    }
+
+    /** Decode one keyed list without losing its encounter order. */
+    private static void normalizeCollection(com.fasterxml.jackson.databind.node.ObjectNode aOwner,
+            String aSection, String aEntry, String aKey) {
+        JsonNode locSection = aOwner.get(aSection);
+        if (locSection == null || !locSection.isObject() || !locSection.has(aEntry)) return;
+        if (locSection.size() != 1 || !locSection.path(aEntry).isArray())
+            throw new IllegalArgumentException(aSection + "/" + aEntry + ": expected a single named list");
+        var locResult = MAPPER.createObjectNode();
+        int locIndex = 0;
+        for (JsonNode item : locSection.path(aEntry)) {
+            String locPath = aSection + "/" + aEntry + "[" + locIndex++ + "]";
+            if (!item.isObject() || !item.path(aKey).isTextual() || item.path(aKey).asText().isBlank())
+                throw new IllegalArgumentException(locPath + ": missing " + aKey);
+            String locName = item.path(aKey).asText();
+            if (locResult.has(locName))
+                throw new IllegalArgumentException(locPath + ": duplicate " + aKey + " " + locName);
+            var locDefinition = (com.fasterxml.jackson.databind.node.ObjectNode) item.deepCopy();
+            locDefinition.remove(aKey);
+            locResult.set(locName, locDefinition);
+        }
+        aOwner.set(aSection, locResult);
+    }
 
     /** Reads the catalog and resolves its optional standard-conventions sibling document. */
     public static AIcNameConventionCatalog load(Path aPath) throws IOException {
@@ -262,6 +335,30 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
             throw new IllegalArgumentException("Value segment cannot contain Ref");
         if (locReference && (locPayload.size() != 1 || !locPayload.has("Ref")))
             throw new IllegalArgumentException("Reference segment must contain only Ref");
+        if (locValue) {
+            if (locPayload.size() != 2 || !locPayload.has("Kind") || !locPayload.has("Content"))
+                throw new IllegalArgumentException("Inline segment requires exactly Kind and Content");
+            JsonNode locContent = locPayload.path("Content");
+            if (!locContent.isObject() || locContent.size() != 1)
+                throw new IllegalArgumentException("Inline segment Content must select exactly one alternative");
+            var locFields = locContent.fields();
+            var locAlternative = locFields.next();
+            String locVariant = locAlternative.getKey();
+            ObjectNode locFlattened = JsonNodeFactory.instance.objectNode();
+            locFlattened.set("Kind", locPayload.path("Kind").deepCopy());
+            if ("NameRegexp".equals(locVariant)) {
+                JsonNode locPair = locAlternative.getValue();
+                if (!locPair.isObject() || locPair.size() != 2 || !locPair.has("Name") || !locPair.has("Regexp"))
+                    throw new IllegalArgumentException("NameRegexp alternative requires Name and Regexp");
+                locFlattened.set("Name", locPair.path("Name").deepCopy());
+                locFlattened.set("Regexp", locPair.path("Regexp").deepCopy());
+            } else if (Set.of("Value", "Convention", "CustomConventionRegexp").contains(locVariant)) {
+                locFlattened.set(locVariant, locAlternative.getValue().deepCopy());
+            } else {
+                throw new IllegalArgumentException("Unknown inline segment Content alternative " + locVariant);
+            }
+            return locFlattened;
+        }
         return locPayload.deepCopy();
     }
 
@@ -286,6 +383,8 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
     private AIcNameConventionCatalog(JsonNode aDocument, JsonNode aStandard) {
         roleBindings = Map.of();
         generatedMethodProfile = null;
+        aDocument = normalizedDocument(aDocument);
+        aStandard = normalizedDocument(aStandard);
         document = aDocument.deepCopy();
         validateSegmentDefinitions(document);
         mergeConventions(identifierConventions, aStandard.path("IdentifierConventions"), aDocument.path("IdentifierConventions"));
@@ -375,14 +474,14 @@ public final class AIcNameConventionCatalog implements AIiNameConventionCatalog 
         if (!aCommonId.equals(locSpecific.path("CommonNamingConvention").asText()))
             throw new IllegalArgumentException(aDomain + " naming profile " + aSpecificId
                     + " does not reference selected Common profile " + aCommonId);
-        Set<String> locSharedRoles = Set.of("standard_getter", "standard_setter",
+        Set<String> locSharedRoles = Set.of("standard_getter", "standard_setter", "list_getter",
                 "multi_mapped_list_key_synthetic_getter", "multi_mapped_list_value_synthetic_getter",
                 "positional_item_synthetic_getter", "const_container_interface");
         Set<String> locDomainRoles = aDomain.equals("defs")
                 ? Set.of("synthetic_property_type", "synthetic_list_item_type", "synthetic_map_value_type",
                         "synthetic_positional_item_type", "synthetic_choice_variant_type",
-                        "synthetic_group_type", "string_enum_item", "non_string_enum_item")
-                : Set.of("raw_getter", "raw_presence_checker_method", "raw_unsetter");
+                        "synthetic_group_type", "synthetic_inline_enum_type", "string_enum_item", "non_string_enum_item")
+                : Set.of("raw_getter", "raw_presence_checker_method", "raw_unsetter", "raw_empty_setter", "raw_empty_checker_method");
         JsonNode locCommonRoles = locCommon.path("StructureNaming");
         JsonNode locSpecificRoles = locSpecific.path("StructureNaming");
         if (!locCommonRoles.isObject() || !locSpecificRoles.isObject()

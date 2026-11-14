@@ -34,14 +34,16 @@ public final class AItcSmartDataObjectTest {
         AIsCategoryProviderDiscovery.setRegistry(locRegistry);
     }
 
-    @AIaDataObject(schemaId = "test-options", schemaVersion = 1, fingerprint = "xyz456")
+    @AIaDataObject
+    @eu.algites.lib.data.dataobject.jsondefs.AIaJsonDataObject(schemaId = "test-options", schemaVersion = 1)
     public interface AIigOptions extends AIiDataObject {
         @AIaDataObjectField(fieldName = "Host", presence = AInFieldPresenceKind.REQUIRED)
         String getHost();
         @AIaDataObjectField(fieldName = "Secure", presence = AInFieldPresenceKind.REQUIRED)
         Boolean getSecure();
     }
-    @AIaDataObject(schemaId = "test-settings", schemaVersion = 1, fingerprint = "abc123")
+    @AIaDataObject
+    @eu.algites.lib.data.dataobject.jsondefs.AIaJsonDataObject(schemaId = "test-settings", schemaVersion = 1)
     @AIaXmlDataObject(namespaceLocalName = "Settings", namespace = "urn:settings", definitionKind = AInXmlObjectDefinitionKind.ELEMENT)
     public interface AIigDemo extends AIiXmlDataObject {
         @AIaXmlDataObjectField(namespace = "urn:field")
@@ -101,7 +103,8 @@ public final class AItcSmartDataObjectTest {
         @Override public void unset_Child() { unset_Field("Child"); }
     }
 
-    @AIaDataObject(schemaId = "test-read-policy", schemaVersion = 1)
+    @AIaDataObject
+    @eu.algites.lib.data.dataobject.jsondefs.AIaJsonDataObject(schemaId = "test-read-policy", schemaVersion = 1)
     @AIaSmartDataObject(allowNonPresentRead = true)
     public interface AIigReadPolicy extends AIiDataObject {
         @AIaDataObjectField(presence = AInFieldPresenceKind.REQUIRED)

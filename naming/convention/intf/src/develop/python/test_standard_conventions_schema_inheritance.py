@@ -36,8 +36,18 @@ def test_standard_catalog_only_references_shared_field_definitions(kind: str) ->
     for name in ("IdentifierConventions", "VersionConventions"):
         assert common["properties"][name] == {"$ref": "#/$defs/" + name}
         assert common["$defs"][name]["type"] == "object"
-        assert common["$defs"][name]["additionalProperties"]["required"] == ["Regexp"]
+        section_schema = common["$defs"][name]
+        assert section_schema["additionalProperties"] is False
+        singular = name.removesuffix("s")
+        entries = section_schema["properties"][singular]
+        assert entries["type"] == "array"
+        assert entries["items"]["required"] == ["name", "Regexp"]
     assert standard["additionalProperties"] is False
+    # Open naming bases are extended by other profiles. Explicit `true`
+    # used to generate an untyped `Map<String,Object>` in Defs Codegen.
+    # Omission retains JSON Schema's open-world default without declaring
+    # a synthetic, non-semantic additionalProperties DataObject field.
+    assert "additionalProperties" not in common
     assert common["x-algites-schema-id"] == IDENTITY + ".common-naming-conventions"
     assert standard["x-algites-schema-id"] == IDENTITY + ".standard-conventions"
     assert common["x-algites-schema-version"] == standard["x-algites-schema-version"] == 1
@@ -60,8 +70,10 @@ def test_standard_catalog_requires_both_sections_but_common_does_not(kind: str) 
     assert not standard_validator.is_valid({"IdentifierConventions": {}})
     assert not standard_validator.is_valid({"VersionConventions": {}})
     assert not standard_validator.is_valid({"IdentifierConventions": {}, "VersionConventions": {}, "Unknown": 1})
-    assert common_validator.is_valid({"VersionConventions": {"v1": {"Regexp": "[0-9]+"}}})
+    assert common_validator.is_valid({"VersionConventions": {
+        "VersionConvention": [{"name": "v1", "Regexp": "[0-9]+"}]}})
     assert common_validator.is_valid({"StandardConventionsFile": "standard-conventions.yml"})
+    assert not common_validator.is_valid({"VersionConventions": {"v1": {"Regexp": "[0-9]+"}}})
 
 
 def test_xsd_restricts_shared_complex_type_without_repeated_shapes() -> None:

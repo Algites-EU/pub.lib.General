@@ -57,6 +57,49 @@ class AIiMultiMappedList(MutableSequence[V]):
         """
         ...
 
+
+    def _compat_index(self):
+        """Access a generated legacy mapped-list wrapper without changing its source."""
+        value = getattr(self, '_mapped_entries', None)
+        if value is None:
+            raise NotImplementedError('This legacy mapped-list implementation does not provide the new index API')
+        return value
+
+    def get_key_count(self) -> int:
+        """Return count, including for generated legacy wrappers."""
+        return self._compat_index().get_key_count()
+
+    def is_one_key_list(self) -> bool:
+        """Return whether exactly one definition exists."""
+        return self.get_key_count() == 1
+
+    def is_dynamic_key_defs_list(self) -> bool:
+        """Return whether dynamic definition modifications are allowed."""
+        return self._compat_index().is_dynamic_key_defs_list()
+
+    def get_one_key_map(self) -> MutableMapping[object, tuple[V, ...]]:
+        """Return the one key-to-snapshot-group map."""
+        return self._compat_index().get_one_key_map()
+
+    def add_key_definition(self, definition: AIiKeyDefinition[V, object]) -> None:
+        """Atomically index a definition, or reject fixed mode."""
+        self._compat_index().add_key_definition(definition)
+
+    def remove_key_definition(self, identifier: str) -> bool:
+        """Unregister by id, invalidating map views, or reject fixed mode."""
+        return self._compat_index().remove_key_definition(identifier)
+
+    def clear_key_definitions(self) -> None:
+        """Remove all index definitions, or reject fixed mode."""
+        self._compat_index().clear_key_definitions()
+
+    def map_by_key_id(self, identifier: str) -> MutableMapping[object, tuple[V, ...]]:
+        """Look up a named live key-to-group map."""
+        definition = self.key_definition(identifier)
+        if definition is None:
+            raise ValueError('Unknown key definition: ' + identifier)
+        return self.map_by_key_type(definition)
+
     @abstractmethod
     def copy_range(self, start: int, stop: int) -> AIiMultiMappedList[V]:
         """Create an independently mutable shallow copy of the given range.

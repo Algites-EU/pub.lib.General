@@ -42,7 +42,8 @@ import java.util.function.UnaryOperator;
  * {@code subList} remains a backed view but intentionally has stronger semantics
  * than Java's usual positional-range view following parent modifications.</p>
  *
- * <p>Registered definitions cannot be changed after construction. In particular,
+ * <p>Fixed definitions cannot be changed after construction. Dynamic-definition lists
+ * may add/remove definitions atomically. In particular,
  * key properties on stored objects and extracted key objects must not be mutated
  * while inserted. Clients violating that contract may see stale keys or
  * undefined lookup behavior; the container does not observe external mutations.</p>
@@ -70,12 +71,46 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
     private final ReferenceQueue<TrackedSubList> subListQueue = new ReferenceQueue<>();
     private final Set<WeakReference<TrackedSubList>> subLists = new HashSet<>();
     private long mutationVersion;
+    private final boolean dynamicKeyDefs;
 
     /**
-     * Constructs a list without key mappings. Additional definitions cannot be
-     * registered after construction.
+     * Constructs an initially unindexed, dynamically configurable list.
+     * Further key definitions can be added with {@link #addKeyDefinition(AIiKeyDefinition)}.
      */
-    public AIcMultiMappedList() { this(List.of()); }
+    public AIcMultiMappedList() { this(true, List.of()); }
+
+    /**
+     * Constructs a list with explicitly dynamic or fixed key definitions.
+     *
+     * @param dynamicKeyDefs true to permit later definition changes; false to freeze them
+     * @param definitions initial non-null definitions with unique, nonblank ids
+     * @throws NullPointerException if definitions or a member is null
+     * @throws IllegalArgumentException if a definition is duplicated
+     */
+    public AIcMultiMappedList(boolean dynamicKeyDefs,
+            Collection<? extends AIiKeyDefinition<V, ?>> definitions) {
+        this.dynamicKeyDefs = dynamicKeyDefs;
+        Objects.requireNonNull(definitions, "definitions");
+        for (AIiKeyDefinition<V, ?> definition : definitions) {
+            validateDefinition(definition);
+            registerDefinition(definition);
+        }
+    }
+
+    /**
+     * Constructs a fixed or dynamic list with supplied vararg definitions.
+     *
+     * @param dynamicKeyDefs whether registration is enabled
+     * @param definitions non-null definitions with unique, nonblank ids
+     * @throws NullPointerException if the array or any member is null
+     * @throws IllegalArgumentException if a definition is duplicated
+     */
+    @SafeVarargs
+    @SuppressWarnings("varargs")
+    public AIcMultiMappedList(boolean dynamicKeyDefs, AIiKeyDefinition<V, ?>... definitions) {
+        this(dynamicKeyDefs, List.of(Objects.requireNonNull(definitions, "definitions")));
+    }
+
 
     /**
      * Constructs a list with a fixed set of independently addressable key maps.
@@ -86,19 +121,88 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
      * @throws IllegalArgumentException if identifiers are blank or repeated, or
      *                                  the same definition instance is repeated
      */
+    @Deprecated(since = "1.1", forRemoval = false)
     public AIcMultiMappedList(Collection<? extends AIiKeyDefinition<V, ?>> definitions) {
-        Objects.requireNonNull(definitions, "definitions");
-        Set<String> ids = new HashSet<>();
-        for (AIiKeyDefinition<V, ?> def : definitions) {
-            Objects.requireNonNull(def, "definition");
-            String id = Objects.requireNonNull(def.getId(), "definition id");
-            if (id.isBlank() || !ids.add(id) || byDefinition.containsKey(def)) {
-                throw new IllegalArgumentException("Duplicate or blank key definition id: " + id);
+        this(false, definitions);
+    }
+
+    private void validateDefinition(AIiKeyDefinition<V, ?> definition) {
+        Objects.requireNonNull(definition, "definition");
+        String id = Objects.requireNonNull(definition.getId(), "definition id");
+        if (id.isBlank() || byDefinition.containsKey(definition) || keyDefinition(id) != null)
+            throw new IllegalArgumentException("Duplicate or blank key definition id: " + id);
+    }
+
+    private void registerDefinition(AIiKeyDefinition<V, ?> definition) {
+        Index<V> index = new Index<>(definition);
+        indexes.add(index);
+        byDefinition.put(definition, index);
+    }
+
+    private void requireDynamic() {
+        if (!dynamicKeyDefs) throw new IllegalStateException("Key definitions are fixed");
+    }
+
+    /** {@inheritDoc} */
+    @Override public int getKeyCount() { return indexes.size(); }
+
+    /** {@inheritDoc} */
+    @Override public boolean isOneKeyList() { return indexes.size() == 1; }
+
+    /** {@inheritDoc} */
+    @Override public boolean isDynamicKeyDefsList() { return dynamicKeyDefs; }
+
+    /** {@inheritDoc} */
+    @Override public void addKeyDefinition(AIiKeyDefinition<V, ?> definition) {
+        requireDynamic();
+        validateDefinition(definition);
+        // Do not mutate the registered definitions until the new index is valid.
+        Index<V> candidate = new Index<>(definition);
+        candidate.groups = buildIndex(candidate, entries);
+        registerDefinition(definition);
+        indexes.get(indexes.size() - 1).groups = candidate.groups;
+        mutationVersion++;
+    }
+
+    /** {@inheritDoc} */
+    @Override public boolean removeKeyDefinition(String id) {
+        requireDynamic();
+        Objects.requireNonNull(id, "id");
+        for (int i = 0; i < indexes.size(); i++) {
+            Index<V> index = indexes.get(i);
+            if (index.definition.getId().equals(id)) {
+                indexes.remove(i);
+                byDefinition.remove(index.definition);
+                mutationVersion++;
+                return true;
             }
-            Index<V> index = new Index<>(def);
-            indexes.add(index);
-            byDefinition.put(def, index);
         }
+        return false;
+    }
+
+    /** {@inheritDoc} */
+    @Override public void clearKeyDefinitions() {
+        requireDynamic();
+        if (!indexes.isEmpty()) {
+            indexes.clear();
+            byDefinition.clear();
+            mutationVersion++;
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override @SuppressWarnings("unchecked")
+    public <K> Map<K, List<V>> getOneKeyMap() {
+        if (!isOneKeyList()) throw new IllegalStateException("Exactly one key definition is required");
+        return mapByKeyType((AIiKeyDefinition<V, K>) indexes.get(0).definition);
+    }
+
+    /** {@inheritDoc} */
+    @Override @SuppressWarnings("unchecked")
+    public <K> Map<K, List<V>> mapByKeyId(String id) {
+        AIiKeyDefinition<V, ?> definition = keyDefinition(Objects.requireNonNull(id, "id"));
+        if (definition == null) throw new IllegalArgumentException("Unregistered key definition: " + id);
+        return mapByKeyType((AIiKeyDefinition<V, K>) definition);
     }
 
     /**
@@ -110,8 +214,9 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
      */
     @SafeVarargs
     @SuppressWarnings("varargs")
+    @Deprecated(since = "1.1", forRemoval = false)
     public AIcMultiMappedList(AIiKeyDefinition<V, ?>... definitions) {
-        this(List.of(Objects.requireNonNull(definitions, "definitions")));
+        this(false, List.of(Objects.requireNonNull(definitions, "definitions")));
     }
 
     /** {@inheritDoc} */
@@ -281,24 +386,25 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
         return true;
     }
 
+    private Map<Object, List<Entry<V>>> buildIndex(Index<V> index, List<Entry<V>> candidate) {
+        Map<Object, List<Entry<V>>> groups = new HashMap<>();
+        for (Entry<V> entry : candidate) {
+            Object key = index.definition.extractKey(entry.value);
+            if (key == null && index.definition.isRequired())
+                throw new IllegalArgumentException("Missing required key from "
+                        + index.definition.getId());
+            List<Entry<V>> group = groups.computeIfAbsent(key, ignored -> new ArrayList<>());
+            if (key != null && index.definition.isUnique() && !group.isEmpty())
+                throw new IllegalArgumentException("Duplicate unique key for "
+                        + index.definition.getId() + ": " + key);
+            group.add(entry);
+        }
+        return groups;
+    }
+
     private Map<Index<V>, Map<Object, List<Entry<V>>>> buildIndexes(List<Entry<V>> candidate) {
         Map<Index<V>, Map<Object, List<Entry<V>>>> result = new IdentityHashMap<>();
-        for (Index<V> index : indexes) {
-            Map<Object, List<Entry<V>>> groups = new HashMap<>();
-            for (Entry<V> entry : candidate) {
-                Object key = index.definition.extractKey(entry.value);
-                if (key == null && index.definition.isRequired())
-                    throw new IllegalArgumentException("Missing required key from "
-                            + index.definition.getId());
-                List<Entry<V>> group = groups.computeIfAbsent(key, ignored -> new ArrayList<>());
-                if (key != null && index.definition.isUnique() && !group.isEmpty()) {
-                    throw new IllegalArgumentException("Duplicate unique key for "
-                        + index.definition.getId() + ": " + key);
-                }
-                group.add(entry);
-            }
-            result.put(index, groups);
-        }
+        for (Index<V> index : indexes) result.put(index, buildIndex(index, candidate));
         return result;
     }
 
@@ -352,7 +458,7 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
         Objects.checkFromToIndex(fromIndex, toIndex, entries.size());
         List<AIiKeyDefinition<V, ?>> definitions = new ArrayList<>();
         for (Index<V> index : indexes) definitions.add(index.definition);
-        AIcMultiMappedList<V> copied = new AIcMultiMappedList<>(definitions);
+        AIcMultiMappedList<V> copied = new AIcMultiMappedList<>(dynamicKeyDefs, definitions);
         copied.addAll(new ArrayList<>(this.subList(fromIndex, toIndex)));
         return copied;
     }
@@ -390,12 +496,17 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
         private final Set<Map.Entry<K, List<V>>> entrySet = new MapEntries();
 
         private MapView(Index<V> index) { this.index = index; }
+        private void ensureRegistered() {
+            if (byDefinition.get(index.definition) != index)
+                throw new IllegalStateException("This key definition is no longer registered");
+        }
         /** {@inheritDoc} */
-        @Override public int size() { return index.groups.size(); }
+        @Override public int size() { ensureRegistered(); return index.groups.size(); }
         /** {@inheritDoc} */
-        @Override public boolean containsKey(Object key) { return index.groups.containsKey(key); }
+        @Override public boolean containsKey(Object key) { ensureRegistered(); return index.groups.containsKey(key); }
         /** {@inheritDoc} */
         @Override public List<V> get(Object key) {
+            ensureRegistered();
             List<AIcMultiMappedList.Entry<V>> group = index.groups.get(key);
             return group == null ? null : snapshot(group);
         }
@@ -404,15 +515,15 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
             throw new UnsupportedOperationException("Insert values through the parent list");
         }
         /** {@inheritDoc} */
-        @Override public List<V> remove(Object key) { return removeGroup(index, key); }
+        @Override public List<V> remove(Object key) { ensureRegistered(); return removeGroup(index, key); }
         /** {@inheritDoc} */
-        @Override public void clear() { AIcMultiMappedList.this.clear(); }
+        @Override public void clear() { ensureRegistered(); AIcMultiMappedList.this.clear(); }
         /** {@inheritDoc} */
-        @Override public Set<Map.Entry<K, List<V>>> entrySet() { return entrySet; }
+        @Override public Set<Map.Entry<K, List<V>>> entrySet() { ensureRegistered(); return entrySet; }
 
         private final class MapEntries extends AbstractSet<Map.Entry<K, List<V>>> {
             /** {@inheritDoc} */
-            @Override public int size() { return index.groups.size(); }
+            @Override public int size() { ensureRegistered(); return index.groups.size(); }
             /** {@inheritDoc} */
             @Override public void clear() { MapView.this.clear(); }
             /** {@inheritDoc} */

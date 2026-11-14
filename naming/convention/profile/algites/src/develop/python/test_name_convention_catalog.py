@@ -29,7 +29,7 @@ def test_name_match_is_in_its_own_public_type_module():
 
 def test_all_java_combinations_and_distinct_filename_classification():
     cat = catalog('java')
-    assert len(cat.names) == 59
+    assert len(cat.names) == 32
     for name in cat.names:
         fields = {'identifier': 'Customer', 'version': '2'}
         value = cat.format(name, 'file_name_stem', fields) + cat.format(name, 'file_name_suffix', fields)
@@ -42,7 +42,7 @@ def test_all_java_combinations_and_distinct_filename_classification():
 
 def test_all_python_combinations_and_distinct_filename_classification():
     cat = catalog('python')
-    assert len(cat.names) == 59
+    assert len(cat.names) == 32
     for name in cat.names:
         fields = {'identifier': 'customer', 'version': '2'}
         value = cat.format(name, 'file_name_stem', fields) + cat.format(name, 'file_name_suffix', fields)
@@ -94,7 +94,10 @@ def test_ambiguous_file_names_rejected():
     root = yaml.safe_load((ROOT/'algites-java-name-conventions.yml').read_text())
     root['IdentifierConventions'] = {'upper_camel_case_1': {'Regexp': '(?<identifier>[A-Z][A-Za-z0-9]*)'}}
     # Deliberately duplicate a profile and require a clear ambiguity error.
-    root['SourceStructureNameConventions']['NameConventions']['duplicate'] = root['SourceStructureNameConventions']['NameConventions']['algites-java-gen-intf-versioned_1']
+    entries = root['SourceStructureNameConventions']['NameConventions']['NameConvention']
+    duplicate = dict(next(entry for entry in entries if entry['name'] == 'algites-java-gen-intf-versioned_1'))
+    duplicate['name'] = 'duplicate'
+    entries.append(duplicate)
     with pytest.raises(ValueError, match='Ambiguous'):
         cat = AIcNameConventionCatalog({**root, 'IdentifierConventions': {**yaml.safe_load((SHARED_CONFIG/'eu/algites/lib/naming/convention/standard-conventions.yml').read_text())['IdentifierConventions']}, 'VersionConventions':yaml.safe_load((SHARED_CONFIG/'eu/algites/lib/naming/convention/standard-conventions.yml').read_text())['VersionConventions']})
         cat.recognize_filename('AIigCustomer_1.java')
@@ -230,8 +233,8 @@ def test_standard_catalog_uses_python_import_roots_independent_of_checkout(tmp_p
     unrelated.mkdir()
     code = ("from eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog "
             "import AIcNameConventionCatalog; "
-            "assert len(AIcNameConventionCatalog.load_resource('algites-java-name-conventions.yml').names) == 59; "
-            "assert len(AIcNameConventionCatalog.load_resource('algites-python-name-conventions.yml').names) == 59")
+            "assert len(AIcNameConventionCatalog.load_resource('algites-java-name-conventions.yml').names) == 32; "
+            "assert len(AIcNameConventionCatalog.load_resource('algites-python-name-conventions.yml').names) == 32")
     env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(generic_root), str(intf_root), str(config_root), str(SHARED_CONFIG))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
 
@@ -262,27 +265,32 @@ def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
     unrelated.mkdir()
     code = ("from eu.algites.lib.naming.convention.impl.standard.aic_name_convention_catalog "
             "import AIcNameConventionCatalog; "
-            "assert len(AIcNameConventionCatalog.load_resource('algites-java-name-conventions.yml').names) == 59; "
-            "assert len(AIcNameConventionCatalog.load_resource('algites-python-name-conventions.yml').names) == 59; "
+            "assert len(AIcNameConventionCatalog.load_resource('algites-java-name-conventions.yml').names) == 32; "
+            "assert len(AIcNameConventionCatalog.load_resource('algites-python-name-conventions.yml').names) == 32; "
             "assert len(AIcNameConventionCatalog.load_resource('algites-yamldef-name-conventions.yml').names) == 2")
     env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(module_root), str(generic_root), str(intf_root), str(stage))))
     subprocess.run([sys.executable, '-c', code], cwd=unrelated, env=env, check=True)
 
 
-def test_xml_element_marker_is_distinct_in_java_and_python():
+def test_format_specific_output_names_are_retired_but_common_names_remain():
+    """The output ABI is format-neutral; input schema naming catalogs are separate."""
     java, python = catalog('java'), catalog('python')
-    assert java.recognize_filename('AIig_xePayment_1.java').convention_name == 'algites-java-gen-xml-element-intf-versioned_1'
-    assert java.recognize_filename('AIigd_xePayment_1.java').convention_name == 'algites-java-gen-data-xml-element-intf-versioned_1'
-    assert java.recognize_filename('AIcgd_xePayment_1.java').convention_name == 'algites-java-gen-data-xml-element-class-versioned_1'
-    assert python.recognize_filename('aiig__xe_payment_1.py').convention_name == 'algites-python-gen-xml-element-intf-versioned_1'
-    assert python.recognize_filename('aiigd__xe_payment_1.py').convention_name == 'algites-python-gen-data-xml-element-intf-versioned_1'
-    assert python.recognize_filename('aicgd__xe_payment_1.py').convention_name == 'algites-python-gen-data-xml-element-class-versioned_1'
-    assert java.recognize_filename('AIigXePayment_1.java').convention_name == 'algites-java-gen-intf-versioned_1'
-    assert python.recognize_filename('aiig_xe_payment_1.py').convention_name == 'algites-python-gen-intf-versioned_1'
-    assert java.parse('algites-java-gen-xml-element-intf-versioned_1', 'type_name',
-                      'AIig_xePayment_1')['identifier'] == 'Payment'
-    assert python.parse('algites-python-gen-xml-element-intf-versioned_1', 'file_name_stem',
-                        'aiig__xe_payment_1')['identifier'] == 'payment'
+    for name in ('AIig_xePayment_1.java', 'AIigd_xePayment_1.java',
+                 'AIcgd_xePayment_1.java'):
+        assert java.recognize_filename(name) is None
+    for name in ('aiig__xe_payment_1.py', 'aiigd__xe_payment_1.py',
+                 'aicgd__xe_payment_1.py'):
+        assert python.recognize_filename(name) is None
+    assert java.recognize_filename('AIigXePayment_1.java').convention_name == (
+        'algites-java-gen-intf-versioned_1')
+    assert python.recognize_filename('aiig_xe_payment_1.py').convention_name == (
+        'algites-python-gen-intf-versioned_1')
+    for language, entries in (('java', java.names), ('python', python.names)):
+        assert not any(('-xml-' in name or '-json-' in name or '-yaml-' in name)
+                       for name in entries)
+        for role in ('gen-intf-versioned_1', 'gen-data-intf-versioned_1',
+                     'gen-data-class-versioned_1'):
+            assert f'algites-{language}-{role}' in entries
 
 
 @pytest.mark.parametrize('language,source_identifier,source_style', [

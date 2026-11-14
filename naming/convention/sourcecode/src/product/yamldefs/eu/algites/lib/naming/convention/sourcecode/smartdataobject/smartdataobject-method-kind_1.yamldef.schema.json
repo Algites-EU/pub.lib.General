@@ -9,7 +9,9 @@
     "standard_setter",
     "raw_getter",
     "raw_presence_checker_method",
-    "raw_unsetter"
+    "raw_unsetter",
+    "raw_empty_setter",
+    "raw_empty_checker_method"
   ],
   "oneOf": [
     {
@@ -36,6 +38,16 @@
       "const": "raw_unsetter",
       "title": "Raw unsetter",
       "description": "Generated operation that removes the explicit raw field value or presence marker without assigning a replacement; optional."
+    },
+    {
+      "const": "raw_empty_setter",
+      "title": "Raw Empty Setter",
+      "description": "Optional generated technical method, enabled only for fields declaring isEmptyAllowed."
+    },
+    {
+      "const": "raw_empty_checker_method",
+      "title": "Raw Empty Checker Method",
+      "description": "Optional generated technical method, enabled only for fields declaring isEmptyAllowed."
     }
   ],
   "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind",

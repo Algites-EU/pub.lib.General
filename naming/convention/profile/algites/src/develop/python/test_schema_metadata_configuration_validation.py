@@ -18,9 +18,24 @@ def test_disabled_source_cannot_enable_data_metadata_target():
             name, '', f'data_source_schema_{suffix}') in ('', f'$target{suffix}')
 
 
-def test_empty_target_is_valid_and_suppresses_instance_metadata():
-    catalog = AIcNameConventionCatalog.load(Path(__file__).resolve().parents[3] / 'src/product/config/eu/algites/lib/naming/convention/sourcecode/algites-jsondef-name-conventions.yml')
+def test_source_schema_profiles_do_not_redefine_dataobject_metadata():
+    """Metadata is owned by DataObject, not SourceStructureNameConventions."""
+    path = Path(__file__).resolve().parents[3] / 'src/product/config/eu/algites/lib/naming/convention/sourcecode/algites-jsondef-name-conventions.yml'
+    catalog = AIcNameConventionCatalog.load(path)
     fields = catalog.schema_metadata_fields('algites-jsondef-schema-versioned_1')
+    assert not any(fields.values()), fields
+
+
+def test_empty_target_is_valid_and_suppresses_instance_metadata():
+    """The generic catalog supports independently configured DO metadata values."""
+    config = {'DataObjectNameConventions': {'NameConventions': {'example_1': {
+        'SchemaMetadataNaming': {
+            'schema_source_schema_identifier': 'x-algites-schema-id',
+            'schema_source_schema_version': 'x-algites-schema-version',
+            'data_source_schema_url': '$schema',
+            'data_source_schema_identifier': '',
+            'data_source_schema_version': ''}}}}}
+    fields = AIcNameConventionCatalog(config).schema_metadata_fields('example_1')
     assert fields['schema_source_schema_identifier'] == 'x-algites-schema-id'
     assert fields['schema_source_schema_version'] == 'x-algites-schema-version'
     assert fields['data_source_schema_url'] == '$schema'

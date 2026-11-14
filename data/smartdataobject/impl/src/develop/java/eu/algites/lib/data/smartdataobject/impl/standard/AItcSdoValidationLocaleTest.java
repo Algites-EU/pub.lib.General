@@ -14,7 +14,8 @@ import org.testng.annotations.Test;
 
 /** Regression for SDO related topics, nested list validation and locale semantics. */
 public class AItcSdoValidationLocaleTest {
-    @AIaDataObject(schemaId = "test.Locale", schemaVersion = 1)
+    @AIaDataObject
+    @eu.algites.lib.data.dataobject.jsondefs.AIaJsonDataObject(schemaId = "test.Locale", schemaVersion = 1)
     public interface AIigDemo {
         @AIaDataObjectField(fieldName = "Password")
         @AIaFieldLabel(label = "Password", labels = {

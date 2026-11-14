@@ -28,12 +28,19 @@ layout. Python namespace package paths below those roots are the same as when
 running from a wheel.
 
 
-XML global element synthetic contracts use new `*-xml-element-intf` and
-`*-xml-element-class` naming profiles for all preexisting interface/class
-roles. `xml-element-marker` is `_xe` for generated Java and Python class
-names; Python filename composites use `xml-element-file-marker` (`_xe_`)
-after the already-underscored `aiig_`/`aicgd_` technical file prefix,
-producing `aiig__xe_payment_1.py`. Existing names for non-XML types remain
-unchanged. Every recognizer must reject ambiguously matching user-supplied
-compositions; users of custom naming profiles are responsible for constructing
-uniquely reversible patterns.
+## Format-independent DataObject output
+
+The `algites`, `standardprefix` and `standardpostfix` profiles define one
+read-only DataObject interface naming role, one mutable SDO interface role and
+one concrete SDO implementation role per language. Their source-code output
+names are independent of the originating XMLDEFS/JSONDEFS/YAMLDEFS dialect.
+The corresponding naming selectors are `--dointf-naming-convention`,
+`--sdointf-naming-convention` and `--sdoimpl-naming-convention`, each qualified
+by Java or Python. Format-specific output profiles and synthetic `_xe` class
+markers are obsolete and are not accepted as naming selections.
+
+The separate `xmldef`, `jsondef` and `yamldef` naming catalogs remain required
+for recognizing **input schema filenames**. XML QName/element and JSON/YAML
+schema metadata are preserved by the Defs generator in annotations on the
+single read-only contract, rather than by additional generated type names.
+The catalog rejects ambiguously matching output filename patterns.

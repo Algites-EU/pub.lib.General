@@ -1,19 +1,22 @@
 """Regression tests for schema metadata emitted into SDO instance documents."""
 import pytest
 from eu.algites.lib.data.dataobject.aicd_data_object import AIcdDataObject
+from eu.algites.lib.data.dataobject.jsondefs.aia_json_data_object import AIaJsonDataObject
 from eu.algites.lib.data.dataobject.aicd_data_object_field import AIcdDataObjectField
 from eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object import AIcSmartDataObject
 
 
 class _SchemaUrlOnly(AIcSmartDataObject):
-    __data_object__ = AIcdDataObject(schema_id='sample', schema_version=3,
+    __data_object__ = AIcdDataObject()
+    __json_data_object__ = AIaJsonDataObject(schema_id='sample', schema_version=3,
                                     schema_url='https://example.test/sample.json',
                                     data_source_schema_url_field='$schema')
     __data_object_fields__ = (AIcdDataObjectField('Name'),)
 
 
 class _ThreeFields(AIcSmartDataObject):
-    __data_object__ = AIcdDataObject(schema_id='sample', schema_version=3,
+    __data_object__ = AIcdDataObject()
+    __json_data_object__ = AIaJsonDataObject(schema_id='sample', schema_version=3,
                                     schema_url='https://example.test/sample.json',
                                     data_source_schema_url_field='url',
                                     data_source_schema_identifier_field='id',
@@ -38,7 +41,8 @@ def test_custom_target_fields_emit_three_metadata_values():
             _ThreeFields.from_mapping({**instance.to_mapping(), **invalid})
 
 class _ExplicitSchemaField(AIcSmartDataObject):
-    __data_object__ = AIcdDataObject(schema_id='sample', schema_version=3,
+    __data_object__ = AIcdDataObject()
+    __json_data_object__ = AIaJsonDataObject(schema_id='sample', schema_version=3,
                                     schema_url='https://example.test/sample.json',
                                     data_source_schema_url_field='$schema')
     __data_object_fields__ = (AIcdDataObjectField('$schema'), AIcdDataObjectField('Name'))

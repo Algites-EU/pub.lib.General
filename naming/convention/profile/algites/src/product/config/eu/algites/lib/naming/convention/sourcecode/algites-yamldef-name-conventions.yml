@@ -3,88 +3,89 @@
 $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/sourcecode/source-structure-name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 NameCompositions:
-  schema-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  schema-stem_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_kebab_case_1
-  schema-stem-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_kebab_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  schema-enum-item_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  yamldefs-schema-suffix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: .yamldef.schema.json
-  schema-property_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  schema-package_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
+  NameComposition:
+    - name: schema-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: schema-stem_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_kebab_case_1
+    - name: schema-stem-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_kebab_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: schema-enum-item_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: yamldefs-schema-suffix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: .yamldef.schema.json
+    - name: schema-property_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: schema-package_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
 SourceStructureNameConventions:
   NameConventions:
-    algites-yamldef-schema_1:
-      ContainerStructureType: object
-      # Property in the schema definition that supplies its canonical schema URL; for JSON Schema this is normally $id.
-      schema_source_schema_url: "$id"
-      # Property in the schema definition supplying a stable logical schema identifier independent of the URL. An empty value disables extraction.
-      schema_source_schema_identifier: "x-algites-schema-id"
-      # Property in the schema definition supplying the logical schema version. An empty value disables extraction.
-      schema_source_schema_version: "x-algites-schema-version"
-      # Property in an instance document containing the schema URL. An empty value suppresses both writing and automatic reading of this metadata.
-      data_source_schema_url: "$schema"
-      # Property in an instance document containing the logical schema identifier. An empty value suppresses writing and automatic reading. Requires schema_source_schema_identifier.
-      data_source_schema_identifier: ""
-      # Property in an instance document containing the logical schema version. An empty value suppresses writing and automatic reading. Requires schema_source_schema_version.
-      data_source_schema_version: ""
-      StructureNaming:
-        type_name: schema-name_1
-        file_name_stem: schema-stem_1
-        file_name_suffix: yamldefs-schema-suffix_1
-        enum_item_name: schema-enum-item_1
-        field_name: schema-property_1
-        package_segment_name: schema-package_1
-    algites-yamldef-schema-versioned_1:
-      ContainerStructureType: object
-      # Property in the schema definition that supplies its canonical schema URL; for JSON Schema this is normally $id.
-      schema_source_schema_url: "$id"
-      # Property in the schema definition supplying a stable logical schema identifier independent of the URL. An empty value disables extraction.
-      schema_source_schema_identifier: "x-algites-schema-id"
-      # Property in the schema definition supplying the logical schema version. An empty value disables extraction.
-      schema_source_schema_version: "x-algites-schema-version"
-      # Property in an instance document containing the schema URL. An empty value suppresses both writing and automatic reading of this metadata.
-      data_source_schema_url: "$schema"
-      # Property in an instance document containing the logical schema identifier. An empty value suppresses writing and automatic reading. Requires schema_source_schema_identifier.
-      data_source_schema_identifier: ""
-      # Property in an instance document containing the logical schema version. An empty value suppresses writing and automatic reading. Requires schema_source_schema_version.
-      data_source_schema_version: ""
-      StructureNaming:
-        type_name: schema-name_1
-        file_name_stem: schema-stem-versioned_1
-        file_name_suffix: yamldefs-schema-suffix_1
-        enum_item_name: schema-enum-item_1
-        field_name: schema-property_1
-        package_segment_name: schema-package_1
+    NameConvention:
+      - name: algites-yamldef-schema_1
+        ContainerStructureType: object
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: schema-name_1
+            - kind: file_name_stem
+              Value: schema-stem_1
+            - kind: file_name_suffix
+              Value: yamldefs-schema-suffix_1
+            - kind: enum_item_name
+              Value: schema-enum-item_1
+            - kind: field_name
+              Value: schema-property_1
+            - kind: package_segment_name
+              Value: schema-package_1
+      - name: algites-yamldef-schema-versioned_1
+        ContainerStructureType: object
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: schema-name_1
+            - kind: file_name_stem
+              Value: schema-stem-versioned_1
+            - kind: file_name_suffix
+              Value: yamldefs-schema-suffix_1
+            - kind: enum_item_name
+              Value: schema-enum-item_1
+            - kind: field_name
+              Value: schema-property_1
+            - kind: package_segment_name
+              Value: schema-package_1

@@ -8,7 +8,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.WildcardType;
 import eu.algites.lib.data.dataobject.xmldefs.AIiXmlDataObject;
-import eu.algites.lib.data.dataobject.xmldefs.AIaXmlKeyDefinition;
+import eu.algites.lib.data.dataobject.AIaKeyDefinition;
 import eu.algites.lib.common.list.AIcKeyDefinition;
 import eu.algites.lib.common.list.AIcMultiMappedList;
 import eu.algites.lib.common.list.AIiKeyDefinition;
@@ -155,6 +155,228 @@ public final class AIcXmlSmartDataObjectParser {
         }
     }
 
+    /** One matched immutable sealed CHOICE alternative with its XML token count. */
+    private record AIcdEmbeddedChoiceMatch(int consumed, Object value) { }
+
+    /**
+     * Parse exactly one immutable CHOICE variant through its generated getter
+     * annotations. The return type remains the original sealed interface;
+     * neither the parent DataObject nor the choice type is duplicated.
+     *
+     * @param aChoice read-only sealed choice interface
+     * @param aChildren XML siblings containing the selected alternative
+     * @param aStart start position within those siblings
+     * @param aNestedTypes explicit concrete SDO implementations for nested groups
+     * @param aPath logical getter path for precise diagnostics
+     * @param aDepth recursion depth
+     * @return matched record and consumed element count; zero if no alternative matches
+     */
+    private static AIcdEmbeddedChoiceMatch choiceMatch(Class<?> aChoice,
+            List<Element> aChildren, int aStart,
+            Map<String, Class<? extends AIcXmlSmartDataObject>> aNestedTypes,
+            String aPath, int aDepth) {
+        if (aDepth >= 128) throw new IllegalArgumentException("XML CHOICE nesting limit exceeded");
+        if (!aChoice.isSealed())
+            throw new IllegalArgumentException("Expected sealed XML CHOICE: " + aChoice.getName());
+        List<AIcdEmbeddedChoiceMatch> matches = new ArrayList<>();
+        List<String> missingBindings = new ArrayList<>();
+        for (Class<?> variant : aChoice.getPermittedSubclasses()) {
+            if (!variant.isRecord())
+                throw new IllegalArgumentException("CHOICE alternative is not a record: " + variant.getName());
+            // Defs emits the possible first XML QNames of each variant from
+            // the linked structural model. Skip an unselected alternative
+            // before checking its nested concrete SDO implementation.
+            try {
+                var firstMethod = variant.getMethod("xmlFirstQNames");
+                if (!java.lang.reflect.Modifier.isStatic(firstMethod.getModifiers()))
+                    throw new IllegalArgumentException("CHOICE XML prefix must be static: " + variant.getName());
+                Object declared = firstMethod.invoke(null);
+                if (!(declared instanceof java.util.Set<?> firstQNames)
+                        || firstQNames.isEmpty()
+                        || firstQNames.stream().anyMatch(name -> !(name instanceof String)))
+                    throw new IllegalArgumentException("Invalid CHOICE XML prefix: " + variant.getName());
+                if (aStart >= aChildren.size()
+                        || !firstQNames.contains(expanded(aChildren.get(aStart)))) continue;
+            } catch (NoSuchMethodException absent) {
+                // Handwritten/older variants can still use their getter metadata.
+            } catch (ReflectiveOperationException failure) {
+                throw new IllegalArgumentException("Cannot resolve generated CHOICE XML prefix: "
+                        + variant.getName(), failure);
+            }
+            var components = variant.getRecordComponents();
+            java.util.TreeMap<Integer, java.lang.reflect.Method> getters = new java.util.TreeMap<>();
+            for (var method : variant.getDeclaredMethods()) {
+                var field = method.getDeclaredAnnotation(
+                        eu.algites.lib.data.dataobject.AIaDataObjectField.class);
+                if (field != null && method.getParameterCount() == 0
+                        && getters.putIfAbsent(field.order(), method) != null)
+                    throw new IllegalArgumentException("Duplicate CHOICE getter order: " + variant.getName());
+            }
+            if (getters.size() != components.length)
+                throw new IllegalArgumentException("CHOICE record getter metadata mismatch: "
+                        + variant.getName());
+            List<Object> values = new ArrayList<>();
+            int cursor = aStart;
+            int index = 0;
+            for (var getter : getters.values()) {
+                Class<?> componentType = components[index++].getType();
+                var wire = getter.getDeclaredAnnotation(
+                        eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObjectField.class);
+                Object value;
+                if (wire != null) {
+                    if (cursor >= aChildren.size() || !expanded(wire.namespace(),
+                            wire.namespaceLocalName()).equals(expanded(aChildren.get(cursor)))) break;
+                    var child = aChildren.get(cursor);
+                    if (wire.valueKind()
+                            != eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
+                        throw new IllegalArgumentException("CHOICE only supports XML element variants: " + getter);
+                    String semantic = getter.getName().startsWith("get")
+                            ? getter.getName().substring(3) : getter.getName();
+                    String nestedPath = aPath + "." + semantic;
+                    var nested = aNestedTypes.get(nestedPath);
+                    if (nested == null) nested = aNestedTypes.get(semantic);
+                    if (nested == null && AIcXmlSmartDataObject.class.isAssignableFrom(componentType))
+                        nested = componentType.asSubclass(AIcXmlSmartDataObject.class);
+                    if (nested != null) {
+                        value = parse(child, nested, aNestedTypes,
+                                nestedPath, expanded(child), aDepth + 1);
+                    } else if (componentType.isInterface()
+                            && AIiXmlDataObject.class.isAssignableFrom(componentType)) {
+                        missingBindings.add(nestedPath);
+                        break;
+                    } else {
+                        if (hasChildren(child) || otherAttributes(child))
+                            throw new IllegalArgumentException("CHOICE scalar has nested XML: " + nestedPath);
+                        value = scalar(child.getTextContent(), componentType);
+                    }
+                    cursor++;
+                } else {
+                    var field = getter.getDeclaredAnnotation(
+                            eu.algites.lib.data.dataobject.AIaDataObjectField.class);
+                    if (field == null || !field.embedded())
+                        throw new IllegalArgumentException("Unmapped CHOICE getter: " + getter);
+                    String semantic = getter.getName().startsWith("get")
+                            ? getter.getName().substring(3) : getter.getName();
+                    String nestedPath = aPath + "." + semantic;
+                    var nested = aNestedTypes.get(nestedPath);
+                    if (nested == null) nested = aNestedTypes.get(semantic);
+                    if (nested == null && AIcXmlSmartDataObject.class.isAssignableFrom(componentType))
+                        nested = componentType.asSubclass(AIcXmlSmartDataObject.class);
+                    if (nested == null) {
+                        missingBindings.add(nestedPath);
+                        break;
+                    }
+                    int count = embeddedPrefix(nested, aChildren, cursor,
+                            aNestedTypes, nestedPath, aDepth + 1);
+                    if (count <= 0) break;
+                    Element virtual = aChildren.get(cursor).getOwnerDocument().createElement(
+                            "__embedded_choice_content__");
+                    for (int i = cursor; i < cursor + count; i++)
+                        virtual.appendChild(aChildren.get(i).cloneNode(true));
+                    value = parse(virtual, nested, aNestedTypes,
+                            nestedPath, expanded(virtual), aDepth + 1);
+                    cursor += count;
+                }
+                values.add(value);
+            }
+            if (values.size() == components.length && cursor > aStart) {
+                try {
+                    Class<?>[] types = java.util.Arrays.stream(components)
+                            .map(java.lang.reflect.RecordComponent::getType).toArray(Class<?>[]::new);
+                    var constructor = variant.getDeclaredConstructor(types);
+                    Object value = constructor.newInstance(values.toArray());
+                    matches.add(new AIcdEmbeddedChoiceMatch(cursor - aStart, value));
+                } catch (ReflectiveOperationException failure) {
+                    throw new IllegalArgumentException("Cannot instantiate sealed CHOICE: "
+                            + variant.getName(), failure);
+                }
+            }
+        }
+        if (matches.size() > 1)
+            throw new IllegalArgumentException("Ambiguous embedded XML CHOICE: " + aPath);
+        if (!matches.isEmpty()) return matches.get(0);
+        if (aStart < aChildren.size() && !missingBindings.isEmpty())
+            throw new IllegalArgumentException("CHOICE needs concrete nested SDO for "
+                    + String.join(", ", missingBindings));
+        return new AIcdEmbeddedChoiceMatch(0, null);
+    }
+
+    /**
+     * Match one embedded sequence occurrence without a synthetic XML wrapper.
+     * A group is a typed object in memory but a contiguous particle sequence
+     * on the wire. The result is the number of direct child elements consumed;
+     * zero means no occurrence starts at the current position.
+     *
+     * @param aType concrete embedded SDO type
+     * @param aChildren ordered children of the containing XML element
+     * @param aStart first unconsumed child
+     * @param aNestedTypes explicit nested SDO registrations
+     * @param aPath semantic object path for nested type lookup
+     * @param aDepth recursion depth
+     * @return consumed child count, or zero if no match
+     */
+    private static int embeddedPrefix(Class<? extends AIcXmlSmartDataObject> aType,
+            List<Element> aChildren, int aStart,
+            Map<String, Class<? extends AIcXmlSmartDataObject>> aNestedTypes,
+            String aPath, int aDepth) {
+        if (aDepth >= 128) throw new IllegalArgumentException("Embedded XML nesting limit exceeded");
+        int cursor = aStart;
+        for (var field : AIcSmartDataMetadata.forType(aType).fields()) {
+            if (field.isXmlAttribute())
+                throw new IllegalArgumentException("Embedded XML group cannot contain attributes: " + field.name());
+            int count = 0;
+            if (field.annotation().embedded()) {
+                String nestedPath = aPath.isEmpty() ? field.name() : aPath + "." + field.name();
+                Class<?> target = field.getter().getReturnType();
+                if (List.class.isAssignableFrom(target))
+                    target = elementClass(field.getter().getGenericReturnType());
+                var nested = target.isSealed() ? null : embeddedType(field, aNestedTypes, nestedPath);
+                while (cursor < aChildren.size()) {
+                    int matched = target.isSealed()
+                            ? choiceMatch(target, aChildren, cursor, aNestedTypes,
+                                    nestedPath, aDepth + 1).consumed()
+                            : embeddedPrefix(nested, aChildren, cursor, aNestedTypes,
+                                    nestedPath, aDepth + 1);
+                    if (matched <= 0) break;
+                    cursor += matched;
+                    count++;
+                    if (!List.class.isAssignableFrom(field.getter().getReturnType())
+                            && field.annotation().maxItemCount() <= 1) break;
+                    if (field.annotation().maxItemCount() >= 0
+                            && count >= field.annotation().maxItemCount()) break;
+                }
+            } else {
+                if (field.xml() != null && !field.xml().wildcardNamespace().isBlank())
+                    throw new IllegalArgumentException("Embedded XML wildcard needs an explicit particle matcher");
+                String qname = expanded(field.xmlNamespace(), field.xmlLocalName());
+                while (cursor < aChildren.size() && qname.equals(expanded(aChildren.get(cursor)))) {
+                    cursor++;
+                    count++;
+                    if (!List.class.isAssignableFrom(field.getter().getReturnType())
+                            && field.annotation().maxItemCount() <= 1) break;
+                    if (field.annotation().maxItemCount() >= 0
+                            && count >= field.annotation().maxItemCount()) break;
+                }
+            }
+            if (field.annotation().minItemCount() > count) return 0;
+        }
+        return cursor - aStart;
+    }
+
+    /** Resolve one embedded structural member to a concrete generated implementation. */
+    private static Class<? extends AIcXmlSmartDataObject> embeddedType(
+            AIcSmartDataMetadata.AIcdField aField,
+            Map<String, Class<? extends AIcXmlSmartDataObject>> aNestedTypes, String aPath) {
+        Class<? extends AIcXmlSmartDataObject> registered = aNestedTypes.get(aPath);
+        if (registered != null) return registered;
+        Class<?> expected = aField.getter().getReturnType();
+        if (List.class.isAssignableFrom(expected))
+            expected = elementClass(aField.getter().getGenericReturnType());
+        if (AIcXmlSmartDataObject.class.isAssignableFrom(expected))
+            return expected.asSubclass(AIcXmlSmartDataObject.class);
+        throw new IllegalArgumentException("Embedded XML group needs a concrete nested SDO: " + aPath);
+    }
+
     private static <T extends AIcXmlSmartDataObject> T parse(
             Element aRoot, Class<T> aType,
             Map<String, Class<? extends AIcXmlSmartDataObject>> aNestedTypes,
@@ -196,6 +418,11 @@ public final class AIcXmlSmartDataObjectParser {
         Map<String, AIcSmartDataMetadata.AIcdField> locAttributes = new HashMap<>();
         List<AIcSmartDataMetadata.AIcdField> locWildcards = new ArrayList<>();
         for (var locField : locMetadata.fields()) {
+            if (locField.annotation().embedded()) {
+                if (!locField.annotation().fieldName().isEmpty())
+                    throw new IllegalArgumentException("Embedded XML field has a wire name: " + locField.name());
+                continue;
+            }
             if (locField.xml() != null && !locField.xml().wildcardNamespace().isBlank()) {
                 locWildcards.add(locField);
                 continue;
@@ -219,8 +446,64 @@ public final class AIcXmlSmartDataObjectParser {
             if (locField == null) throw new IllegalArgumentException("Unknown XML attribute: " + locQName);
             locValues.put(locField.name(), scalar(locAttr.getValue(), locField.getter().getReturnType()));
         }
+        // A named or synthetic group has no XML QName. Consume its occurrence
+        // directly from the ordered element stream before ordinary QName lookup.
+        // The two scopes are deliberately independent: GROUP reference identity
+        // is a semantic getter, not an invented serialized field.
+        List<Element> locChildren = new ArrayList<>();
+        for (Node child = aRoot.getFirstChild(); child != null; child = child.getNextSibling())
+            if (child instanceof Element element) locChildren.add(element);
+        java.util.Set<Element> locEmbeddedChildren = java.util.Collections.newSetFromMap(
+                new java.util.IdentityHashMap<>());
+        if (locMetadata.fields().stream().anyMatch(field -> field.annotation().embedded())) {
+            int cursor = 0;
+            for (var field : locMetadata.fields()) {
+                if (!field.annotation().embedded()) {
+                    if (field.isXmlAttribute()) continue;
+                    String qname = expanded(field.xmlNamespace(), field.xmlLocalName());
+                    while (cursor < locChildren.size() && qname.equals(expanded(locChildren.get(cursor)))) {
+                        cursor++;
+                        if (!List.class.isAssignableFrom(field.getter().getReturnType())) break;
+                    }
+                    continue;
+                }
+                String fieldPath = aPath.isEmpty() ? field.name() : aPath + "." + field.name();
+                Class<?> target = field.getter().getReturnType();
+                if (List.class.isAssignableFrom(target))
+                    target = elementClass(field.getter().getGenericReturnType());
+                boolean choice = target.isSealed();
+                var nested = choice ? null : embeddedType(field, locEffectiveNested, fieldPath);
+                List<Object> values = new ArrayList<>();
+                while (cursor < locChildren.size()) {
+                    AIcdEmbeddedChoiceMatch choiceValue = choice
+                            ? choiceMatch(target, locChildren, cursor, locEffectiveNested,
+                                    fieldPath, aDepth + 1) : null;
+                    int consumed = choice ? choiceValue.consumed()
+                            : embeddedPrefix(nested, locChildren, cursor,
+                                    locEffectiveNested, fieldPath, aDepth + 1);
+                    if (consumed <= 0) break;
+                    Element virtual = choice ? null : aRoot.getOwnerDocument().createElementNS(
+                            aRoot.getNamespaceURI(), aRoot.getTagName());
+                    for (int i = cursor; i < cursor + consumed; i++) {
+                        locEmbeddedChildren.add(locChildren.get(i));
+                        if (!choice) virtual.appendChild(locChildren.get(i).cloneNode(true));
+                    }
+                    values.add(choice ? choiceValue.value()
+                            : parse(virtual, nested, locEffectiveNested,
+                                    fieldPath, expanded(aRoot), aDepth + 1));
+                    cursor += consumed;
+                    if (!List.class.isAssignableFrom(field.getter().getReturnType())
+                            && field.annotation().maxItemCount() <= 1) break;
+                    if (field.annotation().maxItemCount() >= 0
+                            && values.size() >= field.annotation().maxItemCount()) break;
+                }
+                if (!values.isEmpty()) locValues.put(field.name(),
+                        List.class.isAssignableFrom(field.getter().getReturnType()) ? values : values.get(0));
+            }
+        }
         for (Node locChild = aRoot.getFirstChild(); locChild != null; locChild = locChild.getNextSibling()) {
             if (!(locChild instanceof Element locElement)) continue;
+            if (locEmbeddedChildren.contains(locElement)) continue;
             String locQName = expanded(locElement);
             var locField = locElements.get(locQName);
             if (locField == null) {
@@ -273,7 +556,13 @@ public final class AIcXmlSmartDataObjectParser {
                 } else {
                     if (hasChildren(locElement) || otherAttributes(locElement))
                         throw new IllegalArgumentException("Unexpected nested XML content: " + locFieldPath);
-                    locValue = scalar(locElement.getTextContent(), locValueType);
+                    String locLexical = locElement.getTextContent();
+                    // A schema-permitted empty XML element is a distinct raw
+                    // state. A direct setXxxx("") remains an ordinary String.
+                    // The two states serialize identically, by design.
+                    locValue = !locRepeated && locValueType == String.class
+                            && locField.annotation().isEmptyAllowed() && locLexical.isEmpty()
+                            ? AIcSmartDataObject.EMPTY_VALUE : scalar(locLexical, locValueType);
                 }
             }
             if (locRepeated) {
@@ -287,24 +576,26 @@ public final class AIcXmlSmartDataObjectParser {
             }
         }
         for (var locField : locMetadata.fields()) {
-            var locXml = locField.xml();
-            if (locXml != null && (locXml.minOccurs() >= 0 || locXml.maxOccurs() >= 0)) {
+            var locBounds = locField.annotation();
+            if (locBounds.minItemCount() >= 0 || locBounds.maxItemCount() >= 0) {
                 Object locValue = locValues.get(locField.name());
                 int locCount = locValue instanceof List<?> locList ? locList.size()
                         : locValues.containsKey(locField.name()) ? 1 : 0;
-                if (locXml.minOccurs() >= 0 && locCount < locXml.minOccurs())
+                if (locBounds.minItemCount() >= 0 && locCount < locBounds.minItemCount())
                     throw new IllegalArgumentException("XML field '" + locField.name() + "' has "
-                            + locCount + " occurrences; minimum is " + locXml.minOccurs());
-                if (locXml.maxOccurs() >= 0 && locCount > locXml.maxOccurs())
+                            + locCount + " occurrences; minimum is " + locBounds.minItemCount());
+                if (locBounds.maxItemCount() >= 0 && locCount > locBounds.maxItemCount())
                     throw new IllegalArgumentException("XML field '" + locField.name() + "' has "
-                            + locCount + " occurrences; maximum is " + locXml.maxOccurs());
+                            + locCount + " occurrences; maximum is " + locBounds.maxItemCount());
             }
             if (List.class.isAssignableFrom(locField.getter().getReturnType()))
                 locValues.putIfAbsent(locField.name(), new ArrayList<>());
         }
         for (var locField : locMetadata.fields()) {
-            AIaXmlKeyDefinition[] locKeys = locField.getter()
-                    .getAnnotationsByType(AIaXmlKeyDefinition.class);
+            AIaKeyDefinition[] locKeys = java.util.Arrays.stream(locField.getter()
+                    .getAnnotationsByType(AIaKeyDefinition.class))
+                    .filter(key -> key.selector().isBlank())
+                    .toArray(AIaKeyDefinition[]::new);
             if (locKeys.length == 0) continue;
             if (!List.class.isAssignableFrom(locField.getter().getReturnType()))
                 throw new IllegalArgumentException("xs:key requires a repeating XML field: " + locField.name());
@@ -312,7 +603,7 @@ public final class AIcXmlSmartDataObjectParser {
             if (!(locRaw instanceof List<?> locList))
                 throw new IllegalArgumentException("Expected XML list for indexed field: " + locField.name());
             List<AIiKeyDefinition<Object, ?>> locDefinitions = new ArrayList<>();
-            for (AIaXmlKeyDefinition locKey : locKeys) {
+            for (AIaKeyDefinition locKey : locKeys) {
                 String[] locPaths = locKey.fields().clone();
                 if (locPaths.length == 0)
                     throw new IllegalArgumentException("Empty xs:key: " + locKey.name());
@@ -324,11 +615,96 @@ public final class AIcXmlSmartDataObjectParser {
             locIndexed.addAll(locList);
             locValues.put(locField.name(), locIndexed);
         }
+        // Scoped identity rules are declared on the reference getter and
+        // applied to its child list after the original nominal TYPE was parsed.
+        // They are not inherited globally by other uses of that shared TYPE.
+        for (var locField : locMetadata.fields()) {
+            AIaKeyDefinition[] locScoped = java.util.Arrays.stream(locField.getter()
+                    .getAnnotationsByType(AIaKeyDefinition.class))
+                    .filter(key -> !key.selector().isBlank())
+                    .toArray(AIaKeyDefinition[]::new);
+            if (locScoped.length == 0) continue;
+            Object locNested = locValues.get(locField.name());
+            if (locNested == null) continue;
+            if (!(locNested instanceof AIcXmlSmartDataObject nested)) {
+                throw new IllegalArgumentException("Scoped xs:key needs a nested XML DataObject: "
+                        + locField.name());
+            }
+            applyScopedKeys(nested, locField.name(), locScoped);
+        }
+        // Some shared TYPEs have a multi-map-capable LIST getter, even when
+        // this particular occurrence has no local identity constraint.
+        for (var locField : locMetadata.fields()) {
+            if (!eu.algites.lib.common.list.AIiMultiMappedList.class.isAssignableFrom(
+                    locField.getter().getReturnType())) continue;
+            Object locRaw = locValues.get(locField.name());
+            if (locRaw instanceof List<?> list
+                    && !(locRaw instanceof eu.algites.lib.common.list.AIiMultiMappedList<?>)) {
+                AIcMultiMappedList<Object> capable = new AIcMultiMappedList<>();
+                capable.addAll(list);
+                locValues.put(locField.name(), capable);
+            }
+        }
         T locObject = instantiate(aType);
-        for (var locValue : locValues.entrySet()) locObject.set_RawField(locValue.getKey(), locValue.getValue());
+        for (var locValue : locValues.entrySet()) {
+            if (locValue.getValue() == AIcSmartDataObject.EMPTY_VALUE)
+                locObject.set_EmptyField(locValue.getKey());
+            else
+                locObject.set_RawField(locValue.getKey(), locValue.getValue());
+        }
         var locIssues = locObject._getValidationIssues(eu.algites.lib.data.smartdataobject.AInSdoFieldValueLoadingMode.RAW_VALUES);
         if (!locIssues.isEmpty()) throw new AIxSmartDataValidationException(locIssues);
         return locObject;
+    }
+
+    /**
+     * Attach occurrence-local indexes to an existing nested object's selected
+     * repeated member. Neither the nested TYPE nor its generated class changes.
+     *
+     * @param owner the parsed object reached through the parent element
+     * @param ownerField enclosing element name used in errors
+     * @param rules identity constraints declared on that enclosing element
+     * @throws IllegalArgumentException if a selector is missing, ambiguous or
+     *         does not select a repeating field, or if a uniqueness rule fails
+     */
+    private static void applyScopedKeys(AIcXmlSmartDataObject owner, String ownerField,
+            AIaKeyDefinition[] rules) {
+        var metadata = AIcSmartDataMetadata.forType(owner.getClass());
+        Map<String, List<AIaKeyDefinition>> grouped = new java.util.LinkedHashMap<>();
+        for (AIaKeyDefinition rule : rules) {
+            AIcSmartDataMetadata.AIcdField selected = null;
+            for (var candidate : metadata.fields()) {
+                if (rule.selector().equals(candidate.name())
+                        || rule.selector().equals(candidate.xmlLocalName())) {
+                    if (selected != null)
+                        throw new IllegalArgumentException("Ambiguous scoped xs:key selector "
+                                + rule.selector() + " on " + ownerField);
+                    selected = candidate;
+                }
+            }
+            if (selected == null || !List.class.isAssignableFrom(selected.getter().getReturnType()))
+                throw new IllegalArgumentException("Scoped xs:key selector must resolve to a LIST: "
+                        + ownerField + "/" + rule.selector());
+            grouped.computeIfAbsent(selected.name(), ignored -> new ArrayList<>()).add(rule);
+        }
+        for (var group : grouped.entrySet()) {
+            Object value = owner.get_RawField(group.getKey());
+            if (!(value instanceof List<?> items))
+                throw new IllegalArgumentException("Scoped xs:key member is not a list: "
+                        + ownerField + "/" + group.getKey());
+            List<AIiKeyDefinition<Object, ?>> definitions = new ArrayList<>();
+            for (AIaKeyDefinition rule : group.getValue()) {
+                String[] paths = rule.fields().clone();
+                if (paths.length == 0)
+                    throw new IllegalArgumentException("Empty scoped xs:key: " + rule.name());
+                definitions.add(new AIcKeyDefinition<>(rule.name(),
+                        item -> xmlKey(item, rule.name(), paths, rule.required()),
+                        true, rule.required()));
+            }
+            AIcMultiMappedList<Object> indexed = new AIcMultiMappedList<>(false, definitions);
+            indexed.addAll(items);
+            owner.set_RawField(group.getKey(), indexed);
+        }
     }
 
     /**

@@ -11,10 +11,13 @@ import xml.etree.ElementTree as ET
 from eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind import AInXmlValueKind
 from eu.algites.lib.data.dataobject.xmldefs.aic_xml_wildcard_fragment import AIcXmlWildcardFragment, xml_wildcard_class
 from eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object import AIcSmartDataObject
+from eu.algites.lib.common.list.aii_multi_mapped_list import AIiMultiMappedList
 from eu.algites.lib.data.smartdataobject.xmldefs.aii_xml_smart_data_object import AIiXmlSmartDataObject
 
 
 _XML_SCHEMA_INSTANCE = 'http://www.w3.org/2001/XMLSchema-instance'
+# Per-element parsing marker, never exposed as a public field value.
+_XML_EMPTY = object()
 
 
 def _qname(namespace: str, local_name: str) -> str:
@@ -29,6 +32,7 @@ def _field_metadata(owner: type) -> dict[str, object]:
     result: dict[str, object] = {}
     for base in reversed(owner.__mro__):
         result.update(base.__dict__.get('__xml_data_object_fields__', {}))
+        result.update(base.__dict__.get('__xml_schema_fields__', {}))
     return result
 
 
@@ -37,7 +41,69 @@ def _key_metadata(owner: type) -> dict[str, tuple[tuple[str, tuple[str, ...], bo
     result: dict[str, tuple[tuple[str, tuple[str, ...], bool], ...]] = {}
     for base in reversed(owner.__mro__):
         result.update(base.__dict__.get('__xml_key_definitions__', {}))
+        result.update(base.__dict__.get('__key_definitions__', {}))
     return result
+
+
+def _scoped_key_metadata(owner: type) -> dict[str, tuple[tuple[str, str, tuple[str, ...], bool], ...]]:
+    """Read occurrence-scoped indexes from the generated read-only contract.
+
+    The enclosing field refers to a reusable nominal TYPE; its identity and
+    class are never changed. Each selected child list acquires indexes only on
+    the concrete object reached through this enclosing field.
+
+    Args:
+        owner: XML DataObject class with inherited read-only field metadata.
+
+    Returns:
+        Mapping of enclosing field to (selector, key name, paths, required).
+    """
+    result = {}
+    for base in reversed(owner.__mro__):
+        result.update(base.__dict__.get('__scoped_key_definitions__', {}))
+    return result
+
+
+def _apply_scoped_keys(nested: object, field_name: str,
+                       declarations: tuple[tuple[str, str, tuple[str, ...], bool], ...]) -> None:
+    """Apply local XSD indexes to the selected list of one nested object.
+
+    Args:
+        nested: Parsed instance of the original shared nominal TYPE.
+        field_name: Enclosing field, for precise source diagnostics.
+        declarations: Validated direct-list selectors and semantic key paths.
+
+    Raises:
+        ValueError: Selector missing/ambiguous, missing list, or duplicate keys.
+        TypeError: Nested value is not a generated XML SmartDataObject.
+    """
+    if not isinstance(nested, AIcXmlSmartDataObject):
+        raise TypeError('Scoped xs:key owner is not an XML DataObject: ' + field_name)
+    fields = nested._fields()
+    xml_fields = _field_metadata(type(nested))
+    grouped = {}
+    for selector, identifier, paths, required in declarations:
+        if not selector or not identifier or not paths:
+            raise ValueError('Incomplete scoped xs:key on ' + field_name)
+        matches = [semantic for semantic, desc in fields.items()
+                   if selector in (semantic, desc.field_name,
+                       getattr(xml_fields.get(desc.field_name, xml_fields.get(semantic)),
+                               'namespace_local_name', None))]
+        if len(matches) != 1:
+            raise ValueError('Unresolved scoped xs:key selector ' + selector
+                             + ' on ' + field_name)
+        grouped.setdefault(matches[0], []).append((identifier, paths, required))
+    from eu.algites.lib.common.list.aic_key_definition import AIcKeyDefinition
+    from eu.algites.lib.common.list.aic_multi_mapped_list import AIcMultiMappedList
+    for target, entries in grouped.items():
+        values = nested.get_RawField(target)
+        if not isinstance(values, (list, AIiMultiMappedList)):
+            raise ValueError('Scoped xs:key requires a repeated list: '
+                             + field_name + '/' + target)
+        definitions = [AIcKeyDefinition(
+            name, lambda item, n=name, p=paths, r=required: _key_value(item, n, p, r),
+            True, required) for name, paths, required in entries]
+        nested.set_RawField(target, AIcMultiMappedList(definitions, values))
 
 
 def _key_value(item: object, name: str, paths: tuple[str, ...], required: bool = True) -> object | None:
@@ -79,12 +145,238 @@ def _nested_metadata(owner: type) -> dict[str, type]:
     return result
 
 
+def _xml_scalar_types(owner: type) -> dict[str, type]:
+    """Resolve generated enum types without requiring eager interface imports.
+
+    Args:
+        owner: A concrete XML SDO or immutable CHOICE variant with generated
+            exact module/class references for nominal scalar types.
+
+    Returns:
+        The semantic field-to-enum mapping inherited from its contracts.
+
+    Raises:
+        ValueError: A generated symbol reference is malformed.
+        TypeError: A declared scalar type is not an enumeration.
+    """
+    import importlib
+    result: dict[str, type] = {}
+    for base in reversed(owner.__mro__):
+        for semantic, qualified in base.__dict__.get('__xml_scalar_type_imports__', {}).items():
+            module, sep, name = qualified.partition(':')
+            if not sep or not module or not name:
+                raise ValueError('Invalid generated XML enum reference: ' + str(semantic))
+            candidate = getattr(importlib.import_module(module), name)
+            if not isinstance(candidate, type) or not issubclass(candidate, Enum):
+                raise TypeError('Generated XML scalar reference is not an enum: ' + qualified)
+            result[semantic] = candidate
+    return result
+
+
 def _repeated_metadata(owner: type) -> set[str]:
     """Read repetition declarations, including inherited generated contract fields."""
     result: set[str] = set()
     for base in reversed(owner.__mro__):
         result.update(base.__dict__.get('__xml_repeated_fields__', ()))
     return result
+
+
+def _embedded_targets(owner: type, overrides: Mapping[str, type] | None = None) -> dict[str, type]:
+    """Resolve generated concrete types by logical getter rather than XML wire name.
+
+    The group has no serialized name; the caller's registration must therefore
+    identify its semantic field (or its full logical path).
+    """
+    import importlib
+    result = _nested_metadata(owner)
+    for base in reversed(owner.__mro__):
+        for name, qualified in base.__dict__.get('__xml_field_type_imports__', {}).items():
+            module, separator, type_name = qualified.partition(':')
+            if not separator:
+                raise ValueError('Invalid generated XML nested implementation mapping: ' + name)
+            result[name] = getattr(importlib.import_module(module), type_name)
+    if overrides:
+        result.update(overrides)
+    fields = owner._fields()
+    wire_names = {descriptor.field_name: semantic for semantic, descriptor in fields.items()
+                  if not descriptor.embedded}
+    return {wire_names.get(name, name): target for name, target in result.items()}
+
+
+def _embedded_read_type(owner: type, semantic: str) -> type | None:
+    """Find a generated read-only CHOICE/group without guessing naming profiles.
+
+    Defs emits the import identity, not a concrete SDO implementation. The
+    latter remains the sole responsibility of SDO Codegen or a caller-supplied
+    nested-type registry.
+    """
+    import importlib
+    for base in owner.__mro__:
+        target = base.__dict__.get('__xml_embedded_read_types__', {}).get(semantic)
+        if target:
+            module, marker, symbol = target.partition(':')
+            if not marker:
+                raise ValueError('Invalid generated embedded reference: ' + semantic)
+            return getattr(importlib.import_module(module), symbol)
+    return None
+
+
+def _choice_variant_parse(target: type, elements: list[ET.Element], start: int,
+                          registrations: Mapping[str, type], depth: int,
+                          path: str = '') -> tuple[int, object | None]:
+    """Match and instantiate exactly one immutable CHOICE variant.
+
+    Generated choice bases explicitly enumerate all variants; simply querying
+    __subclasses__() would depend on arbitrary module import order. Named XML
+    members are compared by QName. A nested, transparent sequence is parsed
+    through its registered concrete SDO rather than inventing an XML wrapper.
+    """
+    from dataclasses import fields, is_dataclass
+    import importlib
+    if depth >= 128:
+        raise ValueError('Embedded XML choice nesting limit exceeded')
+    candidates = getattr(target, '__xml_choice_variant_imports__', ())
+    if not isinstance(candidates, tuple) or not candidates:
+        raise TypeError('Embedded CHOICE lacks generated variant declarations: ' + repr(target))
+    matches = []
+    missing_nested = set()
+    for qualified in candidates:
+        module, separator, type_name = qualified.partition(':')
+        if not separator:
+            raise ValueError('Invalid generated CHOICE variant reference: ' + qualified)
+        variant = getattr(importlib.import_module(module), type_name)
+        if not issubclass(variant, target) or not is_dataclass(variant):
+            raise TypeError('Generated CHOICE variant must be an immutable dataclass: ' + qualified)
+        names = getattr(variant, '__xml_choice_component_names__', ())
+        components = fields(variant)
+        if len(names) != len(components):
+            raise ValueError('CHOICE component names do not match dataclass fields: ' + qualified)
+        # The generator provides the possible first XML QNames for every
+        # alternative, including transparent nested sequences. Reject an
+        # unselected alternative *before* asking for a concrete nested SDO.
+        # Such implementations are only required for the chosen branch.
+        first_qnames = variant.__dict__.get('__xml_choice_first_qnames__', ())
+        if first_qnames and (start >= len(elements) or
+                             elements[start].tag not in first_qnames):
+            continue
+        wire = dict(variant.__dict__.get('__xml_data_object_fields__', {}))
+        wire.update(variant.__dict__.get('__xml_schema_fields__', {}))
+        enum_types = _xml_scalar_types(variant)
+        cursor = start
+        decoded = []
+        for name, component in zip(names, components):
+            annotation = wire.get(name)
+            if annotation is not None:
+                if cursor >= len(elements) or elements[cursor].tag != _qname(
+                        annotation.namespace, annotation.namespace_local_name):
+                    break
+                part = elements[cursor]
+                if len(part) or part.attrib:
+                    raise ValueError('CHOICE scalar XML member has unexpected nested content: '
+                                     + path + '/' + name)
+                raw_type = variant.__annotations__.get(component.name, '')
+                lexical_type = (enum_types.get(name) or
+                                (raw_type if raw_type in (str, int, float, bool, Decimal)
+                                 else {'str': str, 'int': int, 'float': float,
+                                       'bool': bool, 'Decimal': Decimal}.get(str(raw_type))))
+                if lexical_type is None:
+                    # A nested named value can only be reconstructed with a
+                    # concrete SDO binding (the read-only interface is abstract).
+                    nested_type = registrations.get(path + '.' + name) or registrations.get(name)
+                    if nested_type is None:
+                        missing_nested.add(path + '.' + name)
+                        break
+                    decoded.append(nested_type._from_xml_element(
+                        part, registrations, depth + 1, part.tag, path + '.' + name))
+                else:
+                    decoded.append(_scalar(part.text or '', lexical_type))
+                cursor += 1
+            else:
+                nested_type = (registrations.get(path + '.' + name)
+                               or registrations.get(name))
+                if nested_type is None:
+                    missing_nested.add(path + '.' + name)
+                    break
+                prefix = _embedded_group_prefix(nested_type, elements, cursor,
+                                                registrations, depth + 1)
+                if prefix <= 0:
+                    break
+                virtual = ET.Element('{urn:algites:internal}embedded-choice')
+                virtual.extend(elements[cursor:cursor + prefix])
+                decoded.append(nested_type._from_xml_element(
+                    virtual, registrations, depth + 1, virtual.tag, path + '.' + name))
+                cursor += prefix
+        else:
+            if cursor > start:
+                matches.append((cursor - start, variant(*decoded)))
+    if len(matches) > 1:
+        raise ValueError('Ambiguous XML CHOICE alternatives at ' + (path or target.__name__))
+    if matches:
+        return matches[0]
+    if start < len(elements) and missing_nested:
+        # Do not silently treat a potentially selected alternative as absent.
+        # Callers may supply a concrete SDO via aNestedTypes for nested groups.
+        raise TypeError('XML CHOICE needs concrete nested implementation for '
+                        + ', '.join(sorted(missing_nested)))
+    return 0, None
+
+
+def _embedded_group_prefix(target: type, elements: list[ET.Element], start: int,
+                           registrations: Mapping[str, type], depth: int) -> int:
+    """Recognize exactly one occurrence of a transparent SEQUENCE group.
+
+    A match consumes a contiguous, schema-ordered run of XML children. An empty
+    optional group does not consume a token. No wire wrapper is fabricated.
+    Unsupported or ambiguous structures fail rather than silently reassigning
+    XML children to the wrong logical group.
+    """
+    if depth >= 128:
+        raise ValueError('XML embedded group nesting limit exceeded')
+    if isinstance(target, type) and getattr(target, '__xml_choice_variant_imports__', None):
+        return _choice_variant_parse(target, elements, start, registrations, depth)[0]
+    if not isinstance(target, type) or not issubclass(target, AIcXmlSmartDataObject):
+        raise TypeError('Embedded XML member needs a concrete XML DataObject type')
+    definitions = target._fields()
+    xml_fields = _field_metadata(target)
+    nested = _embedded_targets(target, registrations)
+    repeat = _repeated_metadata(target)
+    cursor = start
+    for semantic, descriptor in definitions.items():
+        if descriptor.embedded:
+            nested_type = nested.get(semantic) or descriptor.expected_type
+            matches = 0
+            while cursor < len(elements):
+                count = _embedded_group_prefix(nested_type, elements, cursor, registrations, depth + 1)
+                if count <= 0:
+                    break
+                cursor += count
+                matches += 1
+                if semantic not in repeat and descriptor.max_item_count <= 1:
+                    break
+                if descriptor.max_item_count >= 0 and matches >= descriptor.max_item_count:
+                    break
+            if descriptor.min_item_count > matches:
+                return 0
+            continue
+        xml = xml_fields.get(descriptor.field_name, xml_fields.get(semantic))
+        if xml is not None and xml.value_kind == AInXmlValueKind.ATTRIBUTE:
+            raise ValueError('An embedded xs:group cannot contain XML attributes: ' + semantic)
+        if xml is not None and xml.wildcard_namespace:
+            raise NotImplementedError('Embedded wildcard groups need an explicit particle matcher')
+        name = _qname(xml.namespace if xml else '',
+                      xml.namespace_local_name if xml and xml.namespace_local_name
+                      else descriptor.field_name)
+        matches = 0
+        while cursor < len(elements) and elements[cursor].tag == name:
+            cursor += 1
+            matches += 1
+            if semantic not in repeat and descriptor.max_item_count <= 1:
+                break
+            if descriptor.max_item_count >= 0 and matches >= descriptor.max_item_count:
+                break
+        if descriptor.min_item_count > matches:
+            return 0
+    return cursor - start
 
 
 def _scalar(text: str, target: type | None) -> object:
@@ -100,10 +392,13 @@ def _scalar(text: str, target: type | None) -> object:
     if target in (int, float, Decimal):
         return target(text.strip())
     if isinstance(target, type) and issubclass(target, Enum):
+        from eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object import _enum_code
         for choice in target:
-            if str(choice.value) == text:
+            code = _enum_code(choice)
+            lexical = ('true' if code else 'false') if isinstance(code, bool) else str(code)
+            if lexical == text:
                 return choice
-        raise ValueError('Unrecognized XML enumeration value ' + repr(text) + ' for ' + target.__name__)
+        raise ValueError('Unrecognized XML enumeration code ' + repr(text) + ' for ' + target.__name__)
     raise TypeError('XML field needs a supported scalar or explicit nested SmartDataObject type: ' + repr(target))
 
 
@@ -184,7 +479,8 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
         """Materialize one typed subtree; the limit prevents unbounded recursion."""
         if depth >= 128:
             raise ValueError('XML SmartDataObject nesting limit exceeded')
-        definition = getattr(cls, '__xml_data_object__', None)
+        definition = (getattr(cls, '__xml_schema__', None)
+                      or getattr(cls, '__xml_data_object__', None))
         expected = aExpectedQName
         if expected is None and definition is not None and definition.namespace_local_name:
             expected = _qname(definition.namespace, definition.namespace_local_name)
@@ -196,6 +492,7 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
             raise ValueError('Mixed XML character content is not a DataObject field')
 
         descriptors = cls._fields()
+        enum_types = _xml_scalar_types(cls)
         wire_to_semantic = {descriptor.field_name: name for name, descriptor in descriptors.items()}
         raw_xml_metadata = _field_metadata(cls)
         xml_metadata = {name: raw_xml_metadata.get(descriptor.field_name, raw_xml_metadata.get(name))
@@ -217,6 +514,10 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
         by_attribute: dict[str, str] = {}
         wildcards: list[tuple[str, object]] = []
         for name, descriptor in descriptors.items():
+            if descriptor.embedded:
+                if descriptor.field_name:
+                    raise ValueError('Embedded XML field must not declare a serialized name: ' + name)
+                continue
             xml = xml_metadata.get(name)
             if xml and bool(xml.wildcard_namespace):
                 wildcards.append((name, xml))
@@ -233,7 +534,62 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
             if descriptor.expected_type is list:
                 repeated.add(name)
 
-        values: dict[str, object] = {}
+        # Unlike named members, an embedded group has no wire QName. Partition
+        # its children by the ordered content model *before* the ordinary QName
+        # dispatcher, retaining each occurrence as its own DataObject instance.
+        embedded_values: dict[str, object] = {}
+        embedded_indices: set[int] = set()
+        if any(descriptor.embedded for descriptor in descriptors.values()):
+            xml_children = list(element)
+            cursor = 0
+            for semantic, descriptor in descriptors.items():
+                if not descriptor.embedded:
+                    if semantic not in by_element.values():
+                        continue
+                    qname = next(name for name, field in by_element.items() if field == semantic)
+                    while cursor < len(xml_children) and xml_children[cursor].tag == qname:
+                        cursor += 1
+                        if semantic not in repeated:
+                            break
+                    continue
+                target = (nested_types.get(semantic) or descriptor.expected_type
+                          or _embedded_read_type(cls, semantic))
+                if not isinstance(target, type):
+                    raise TypeError('Embedded XML member requires a nominal DataObject type: '
+                                    + semantic)
+                is_choice = bool(getattr(target, '__xml_choice_variant_imports__', None))
+                if not is_choice and not issubclass(target, AIcXmlSmartDataObject):
+                    raise TypeError('Embedded XML member requires concrete SmartDataObject type: '
+                                    + semantic)
+                occurrences = []
+                while cursor < len(xml_children):
+                    field_path = aPath + '.' + semantic if aPath else semantic
+                    if is_choice:
+                        count, nested_value = _choice_variant_parse(
+                            target, xml_children, cursor, nested_types, depth + 1, field_path)
+                    else:
+                        count = _embedded_group_prefix(target, xml_children, cursor,
+                                                       nested_types, depth + 1)
+                    if count <= 0:
+                        break
+                    if not is_choice:
+                        wrapper = ET.Element(element.tag)
+                        wrapper.extend(xml_children[cursor:cursor + count])
+                        nested_value = target._from_xml_element(
+                            wrapper, aNestedTypes, depth + 1, element.tag, field_path)
+                    occurrences.append(nested_value)
+                    embedded_indices.update(range(cursor, cursor + count))
+                    cursor += count
+                    if semantic not in repeated and descriptor.max_item_count <= 1:
+                        break
+                    if descriptor.max_item_count >= 0 and len(occurrences) >= descriptor.max_item_count:
+                        break
+                if occurrences:
+                    embedded_values[semantic] = (occurrences if semantic in repeated
+                                                 else occurrences[0])
+                elif semantic in repeated:
+                    embedded_values[semantic] = []
+        values: dict[str, object] = dict(embedded_values)
         for name, raw in element.attrib.items():
             if name == _qname(_XML_SCHEMA_INSTANCE, 'nil'):
                 if raw in ('false', '0'):
@@ -247,7 +603,9 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
                 raise ValueError('XML attribute cannot contain nested/repeated values: ' + field_name)
             values[field_name] = _scalar(raw, descriptor.expected_type)
 
-        for child in element:
+        for child_index, child in enumerate(element):
+            if child_index in embedded_indices:
+                continue
             field_name = by_element.get(child.tag)
             if field_name is None:
                 matches = [(name, xml) for name, xml in wildcards
@@ -291,7 +649,14 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
                 if len(child) or any(key != _qname(_XML_SCHEMA_INSTANCE, 'nil')
                                      for key in child.attrib):
                     raise ValueError('Unexpected nested XML structure for scalar field: ' + field_name)
-                value = _scalar(child.text or '', descriptor.expected_type)
+                # XML has an explicit empty element state, distinct from an
+                # ordinary setXxxx("") call. Keep its raw lexical form in XML
+                # output, but select an effective empty-default on reads.
+                if (child.text is None or child.text == '') and descriptor.is_empty_allowed \
+                        and field_name not in repeated and descriptor.expected_type is str:
+                    value = _XML_EMPTY
+                else:
+                    value = _scalar(child.text or '', enum_types.get(field_name) or descriptor.expected_type)
             if child.tail and child.tail.strip():
                 raise ValueError('Mixed XML character content is not a DataObject field')
             if field_name in repeated:
@@ -301,15 +666,14 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
             else:
                 values[field_name] = value
         for name, descriptor in descriptors.items():
-            xml = xml_metadata.get(name)
-            if xml is None or xml.min_occurs < 0 and xml.max_occurs < 0:
+            if descriptor.min_item_count < 0 and descriptor.max_item_count < 0:
                 continue
             value = values.get(name)
             count = len(value) if name in repeated and isinstance(value, list) else int(name in values)
-            if xml.min_occurs >= 0 and count < xml.min_occurs:
-                raise ValueError(f'XML field {name!r} has {count} occurrences; minimum is {xml.min_occurs}')
-            if xml.max_occurs >= 0 and count > xml.max_occurs:
-                raise ValueError(f'XML field {name!r} has {count} occurrences; maximum is {xml.max_occurs}')
+            if descriptor.min_item_count >= 0 and count < descriptor.min_item_count:
+                raise ValueError(f'XML field {name!r} has {count} occurrences; minimum is {descriptor.min_item_count}')
+            if descriptor.max_item_count >= 0 and count > descriptor.max_item_count:
+                raise ValueError(f'XML field {name!r} has {count} occurrences; maximum is {descriptor.max_item_count}')
         for name in repeated:
             if name not in values:
                 values[name] = []
@@ -329,9 +693,28 @@ class AIcXmlSmartDataObject(AIcSmartDataObject, AIiXmlSmartDataObject):
                     True, key[2] if len(key) > 2 else True)
                     for key in keys)
                 values[semantic] = AIcMultiMappedList(definitions, values[semantic])
+        for outer_name, constraints in _scoped_key_metadata(cls).items():
+            semantic = wire_to_semantic.get(outer_name, outer_name)
+            nested_value = values.get(semantic)
+            if nested_value is None:
+                continue  # Optional container is absent, so there is no index scope.
+            _apply_scoped_keys(nested_value, semantic, constraints)
+        # A list type can be multi-map capable without owning any indexes: the
+        # same named TYPE can also occur in a context with no xs:key at all.
+        from eu.algites.lib.common.list.aic_multi_mapped_list import AIcMultiMappedList
+        for name in repeated:
+            descriptor = descriptors.get(name)
+            if descriptor and name in values and \
+                    isinstance(descriptor.expected_type, type) and \
+                    issubclass(descriptor.expected_type, AIiMultiMappedList) and \
+                    not isinstance(values[name], AIiMultiMappedList):
+                values[name] = AIcMultiMappedList(values=values[name])
         instance = cls()
         for name, value in values.items():
-            instance.set_RawField(name, value)
+            if value is _XML_EMPTY:
+                instance.set_EmptyField(name)
+            else:
+                instance.set_RawField(name, value)
         issues = instance._getValidationIssues(AInSdoFieldValueLoadingMode.RAW_VALUES)
         if issues:
             from eu.algites.lib.data.smartdataobject.aix_smart_data_validation_exception import AIxSmartDataValidationException

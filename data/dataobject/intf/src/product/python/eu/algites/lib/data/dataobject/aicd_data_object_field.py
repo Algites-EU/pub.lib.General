@@ -1,5 +1,6 @@
 """Schema-neutral normalized data-object field metadata."""
 from dataclasses import dataclass
+from .aia_data_object_field_default import AIaDataObjectFieldDefault
 from .ain_field_setter_inheritance_policy import AInFieldSetterInheritancePolicy
 from typing import Callable, Any
 from .ain_field_presence_kind import AInFieldPresenceKind
@@ -14,6 +15,7 @@ class AIcdDataObjectField:
     and the CategoryProviderDiscovery factory selection instead.
     """
     field_name: str
+    embedded: bool = False
     presence: AInFieldPresenceKind = AInFieldPresenceKind.ALLOWED
     allows_null: bool = True
     default_value_resolver: Callable[[], Any] | None = None
@@ -21,6 +23,26 @@ class AIcdDataObjectField:
     getter_name: str = ''
     setter_inheritance_policy: AInFieldSetterInheritancePolicy = AInFieldSetterInheritancePolicy.DEFAULT
     semantic_id: str = ''
+    order: int = -1
+    min_item_count: int = -1
+    max_item_count: int = -1
+    is_empty_allowed: bool = False
+    default_value: AIaDataObjectFieldDefault = AIaDataObjectFieldDefault()
+    string_constraints: Any = None
+    numeric_constraints: Any = None
+    list_constraints: Any = None
+    object_constraints: Any = None
+
+    def __post_init__(self) -> None:
+        """Reject invalid schema-neutral collection limits."""
+        if type(self.embedded) is not bool:
+            raise TypeError('embedded must be Boolean')
+        if self.embedded and self.field_name:
+            raise ValueError('Embedded field cannot have a serialized field_name')
+        if self.min_item_count < -1 or self.max_item_count < -1:
+            raise ValueError('Invalid item count bound')
+        if self.max_item_count >= 0 and self.min_item_count > self.max_item_count:
+            raise ValueError('min_item_count exceeds max_item_count')
 
     @property
     def name(self) -> str:

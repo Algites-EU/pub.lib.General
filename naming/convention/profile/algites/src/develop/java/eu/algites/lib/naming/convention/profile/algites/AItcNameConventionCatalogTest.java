@@ -15,7 +15,7 @@ public final class AItcNameConventionCatalogTest {
     @Test
     public void AIcAllJavaProfilesAndAmbiguities() throws Exception {
         AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.loadResource("algites-java-name-conventions.yml");
-        Assert.assertEquals(locCatalog.names().size(), 59);
+        Assert.assertEquals(locCatalog.names().size(), 32);
         for (String locName : locCatalog.names()) {
             Map<String, String> locVars = Map.of("identifier", "Customer", "version", "2");
             String locFilename = locCatalog.format(locName, "file_name_stem", locVars, null)
@@ -26,8 +26,7 @@ public final class AItcNameConventionCatalogTest {
                 "algites-java-gen-intf-versioned_1");
         Assert.assertEquals(locCatalog.recognizeFilename("AIigdCustomer_1.java", null).conventionName(),
                 "algites-java-gen-data-intf-versioned_1");
-        Assert.assertEquals(locCatalog.recognizeFilename("AIig_xePayment_1.java", null).conventionName(),
-                "algites-java-gen-xml-element-intf-versioned_1");
+        Assert.assertNull(locCatalog.recognizeFilename("AIig_xePayment_1.java", null));
         Assert.assertEquals(locCatalog.recognizeFilename("AIigXePayment_1.java", null).conventionName(),
                 "algites-java-gen-intf-versioned_1");
     }
@@ -36,11 +35,10 @@ public final class AItcNameConventionCatalogTest {
     @Test
     public void AIcPythonCatalogOnJava() throws Exception {
         AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.loadResource("algites-python-name-conventions.yml");
-        Assert.assertEquals(locCatalog.names().size(), 59);
+        Assert.assertEquals(locCatalog.names().size(), 32);
         Assert.assertEquals(locCatalog.recognizeFilename("aiig_customer_1.py", null).conventionName(),
                 "algites-python-gen-intf-versioned_1");
-        Assert.assertEquals(locCatalog.recognizeFilename("aiig__xe_payment_1.py", null).conventionName(),
-                "algites-python-gen-xml-element-intf-versioned_1");
+        Assert.assertNull(locCatalog.recognizeFilename("aiig__xe_payment_1.py", null));
         Assert.assertEquals(locCatalog.recognizeFilename("aiig_xe_payment_1.py", null).conventionName(),
                 "algites-python-gen-intf-versioned_1");
     }
@@ -112,8 +110,8 @@ public final class AItcNameConventionCatalogTest {
     /** Standard runtime catalogs are loadable from the compiled artifact classpath. */
     @Test
     public void AIcStandardCatalogResourceAvailable() throws Exception {
-        Assert.assertEquals(AIcNameConventionCatalog.loadResource("algites-java-name-conventions.yml").names().size(), 59);
-        Assert.assertEquals(AIcNameConventionCatalog.loadResource("algites-python-name-conventions.yml").names().size(), 59);
+        Assert.assertEquals(AIcNameConventionCatalog.loadResource("algites-java-name-conventions.yml").names().size(), 32);
+        Assert.assertEquals(AIcNameConventionCatalog.loadResource("algites-python-name-conventions.yml").names().size(), 32);
     }
 
     /** User-defined captures are extracted and reordered entirely through the example YAML catalogs. */
@@ -153,15 +151,24 @@ public final class AItcNameConventionCatalogTest {
             Files.writeString(locCatalogFile, """
                     GeneratedDataObjectMethodNameConventions:
                       NameConventions:
-                        example-methods_1:
-                          StructureNaming:
-                            standard_getter: getter
-                            standard_setter: setter
-                          SchemaMetadataNaming:
-                            schema_source_schema_url: $id
-                            schema_source_schema_identifier: x-algites-schema-id
-                            data_source_schema_url: $schema
-                            data_source_schema_identifier: ''
+                        NameConvention:
+                          - name: example-methods_1
+                            StructureNaming:
+                              Rule:
+                                - kind: standard_getter
+                                  Value: getter
+                                - kind: standard_setter
+                                  Value: setter
+                            SchemaMetadataNaming:
+                              Rule:
+                                - kind: schema_source_schema_url
+                                  Value: $id
+                                - kind: schema_source_schema_identifier
+                                  Value: x-algites-schema-id
+                                - kind: data_source_schema_url
+                                  Value: $schema
+                                - kind: data_source_schema_identifier
+                                  Value: ''
                     """);
             AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.load(locCatalogFile);
             Assert.assertEquals(locCatalog.schemaMetadataField("example-methods_1", "schema_source", "url"), "$id");
@@ -170,14 +177,18 @@ public final class AItcNameConventionCatalogTest {
             Files.writeString(locCatalogFile, """
                     GeneratedDataObjectMethodNameConventions:
                       NameConventions:
-                        example-methods_1:
-                          StructureNaming:
-                            standard_getter: getter
-                            standard_setter: setter
-                          SchemaMetadataNaming:
-                            schema_source_schema_url: $id
-                            data_source_schema_url: $schema
-                            unsupported_metadata_role: bad
+                        NameConvention:
+                          - name: example-methods_1
+                            StructureNaming:
+                              Rule:
+                                - kind: standard_getter
+                                  Value: getter
+                            SchemaMetadataNaming:
+                              Rule:
+                                - kind: schema_source_schema_url
+                                  Value: $id
+                                - kind: unsupported_metadata_role
+                                  Value: bad
                     """);
             Assert.assertEquals(AIcNameConventionCatalog.load(locCatalogFile)
                     .profileValue("example-methods_1", "SchemaMetadataNaming", "unsupported_metadata_role"), "bad");
@@ -185,7 +196,6 @@ public final class AItcNameConventionCatalogTest {
             Files.deleteIfExists(locCatalogFile);
         }
     }
-
 
 
     /**
@@ -197,21 +207,23 @@ public final class AItcNameConventionCatalogTest {
     @Test
     public void AIcSegmentKindControlsPermittedFields() throws Exception {
         for (String locBody : new String[] {
-                "Kind: identifier\n        Convention: upper_camel_case_1\n        Value: Hello",
-                "Kind: version\n        Convention: positive_integer_1\n        Name: value",
-                "Kind: variable\n        Name: region",
-                "Kind: constant_string\n        Value: X\n        CustomConventionRegexp: Y",
-                "Ref: another\n        Kind: constant_string",
-                "Kind: identifier\n        Convention: upper_camel_case_1\n        CustomConventionRegexp: '(?<identifier>[a-z]+)'"
+                "NameFragmentsSegmentValue:\n            Kind: identifier\n            Content:\n              Value: Hello",
+                "NameFragmentsSegmentValue:\n            Kind: version\n            Content:\n              Convention: upper_camel_case_1",
+                "NameFragmentsSegmentValue:\n            Kind: variable\n            Content:\n              NameRegexp:\n                Name: region",
+                "NameFragmentsSegmentValue:\n            Kind: constant_string\n            Content:\n              Value: X\n              CustomConventionRegexp: Y",
+                "NameFragmentsSegmentReference:\n            Ref: another\n            Kind: constant_string",
+                "NameFragmentsSegmentValue:\n            Kind: identifier\n            Content:\n              Convention: upper_camel_case_1\n              CustomConventionRegexp: '(?<identifier>[a-z]+)'"
         }) {
             Path locFile = Files.createTempFile("algites-invalid-segment", ".yml");
             try {
-                Files.writeString(locFile, "NameCompositions:\n  segment:\n    Segments:\n      - " + locBody + "\n");
+                Files.writeString(locFile, "NameCompositions:\n  NameComposition:\n    - name: segment\n"
+                        + "      Segments:\n        - " + locBody + "\n");
                 try {
                     AIcNameConventionCatalog.load(locFile);
                     Assert.fail("Invalid naming segment was accepted: " + locBody);
                 } catch (IllegalArgumentException locExpected) {
-                    Assert.assertTrue(locExpected.getMessage().contains("segment"), locExpected.getMessage());
+                    Assert.assertTrue(locExpected.getMessage().toLowerCase().contains("segment")
+                            || locExpected.getMessage().contains("Content"), locExpected.getMessage());
                 }
             } finally {
                 Files.deleteIfExists(locFile);
@@ -234,9 +246,12 @@ public final class AItcNameConventionCatalogTest {
         }) {
             Path locFile = Files.createTempFile("algites-invalid-regexp", ".yml");
             try {
-                Files.writeString(locFile, "NameCompositions:\n  segment:\n    Segments:\n"
-                        + "      - Kind: identifier\n"
-                        + "        CustomConventionRegexp: '" + locCustom + "'\n");
+                Files.writeString(locFile, "NameCompositions:\n  NameComposition:\n"
+                        + "    - name: segment\n      Segments:\n"
+                        + "        - NameFragmentsSegmentValue:\n"
+                        + "            Kind: identifier\n"
+                        + "            Content:\n"
+                        + "              CustomConventionRegexp: '" + locCustom + "'\n");
                 try {
                     AIcNameConventionCatalog.load(locFile);
                     Assert.fail("Invalid custom regexp was accepted: " + locCustom);
@@ -249,11 +264,17 @@ public final class AItcNameConventionCatalogTest {
         }
         Path locFile = Files.createTempFile("algites-valid-regexp", ".yml");
         try {
-            Files.writeString(locFile, "NameCompositions:\n  segment:\n    Segments:\n"
-                    + "      - Kind: identifier\n"
-                    + "        CustomConventionRegexp: '(?<identifier>[a-z]+)'\n"
-                    + "NameConventions:\n  profile:\n    StructureNaming:\n"
-                    + "      type_name: segment\n");
+            Files.writeString(locFile, "NameCompositions:\n  NameComposition:\n"
+                    + "    - name: segment\n      Segments:\n"
+                    + "        - NameFragmentsSegmentValue:\n"
+                    + "            Kind: identifier\n"
+                    + "            Content:\n"
+                    + "              CustomConventionRegexp: '(?<identifier>[a-z]+)'\n"
+                    + "SourceStructureNameConventions:\n  NameConventions:\n"
+                    + "    NameConvention:\n      - name: profile\n"
+                    + "        ContainerStructureType: interface\n"
+                    + "        StructureNaming:\n          Rule:\n"
+                    + "            - kind: type_name\n              Value: segment\n");
             AIcNameConventionCatalog locCatalog = AIcNameConventionCatalog.load(locFile);
             Assert.assertEquals(locCatalog.parse("profile", "type_name", "customer")
                     .get("identifier"), "customer");
@@ -261,4 +282,5 @@ public final class AItcNameConventionCatalogTest {
             Files.deleteIfExists(locFile);
         }
     }
+
 }

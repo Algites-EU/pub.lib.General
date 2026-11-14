@@ -3,49 +3,67 @@
 $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/sourcecode/source-structure-name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 VersionConventions:
-  example_major_minor_1:
-    Regexp: (?<version>(?<major>0|[1-9][0-9]*)\.(?<minor>0|[1-9][0-9]*))
+  VersionConvention:
+    - name: example_major_minor_1
+      Regexp: (?<version>(?<major>0|[1-9][0-9]*)\.(?<minor>0|[1-9][0-9]*))
 NameFragments:
-  input-schema-suffix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: .demo.schema
-  schema-identifier_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
+  NameFragment:
+    - name: input-schema-suffix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: .demo.schema
+    - name: schema-identifier_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
 NameCompositions:
-  example-input-stem_1:
-    Segments:
-    - NameFragmentsSegmentReference:
-        Ref: schema-identifier_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: --
-    - NameFragmentsSegmentValue:
-        Kind: variable
-        Name: region
-        Regexp: '[a-z]+(?:_[a-z]+)*'
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: --
-    - NameFragmentsSegmentValue:
-        Kind: variable
-        Name: channel
-        Regexp: '[a-z]+'
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: --
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: example_major_minor_1
+  NameComposition:
+    - name: example-input-stem_1
+      Segments:
+        - NameFragmentsSegmentReference:
+            Ref: schema-identifier_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: --
+        - NameFragmentsSegmentValue:
+            Kind: variable
+            Content:
+              NameRegexp:
+                Name: region
+                Regexp: '[a-z]+(?:_[a-z]+)*'
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: --
+        - NameFragmentsSegmentValue:
+            Kind: variable
+            Content:
+              NameRegexp:
+                Name: channel
+                Regexp: '[a-z]+'
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: --
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: example_major_minor_1
 SourceStructureNameConventions:
   NameConventions:
-    example-input_1:
-      ContainerStructureType: object
-      StructureNaming:
-        type_name: example-input-stem_1
-        file_name_stem: example-input-stem_1
-        file_name_suffix: input-schema-suffix_1
+    NameConvention:
+      - name: example-input_1
+        ContainerStructureType: object
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: example-input-stem_1
+            - kind: file_name_stem
+              Value: example-input-stem_1
+            - kind: file_name_suffix
+              Value: input-schema-suffix_1

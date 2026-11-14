@@ -19,7 +19,8 @@ public final class AItcBridgeGetterMetadataTest {
     public interface AIigdPayload extends AIigPayload { }
 
     /** Base container exposing the read-only payload. */
-    @AIaDataObject(schemaId = "test:bridge-read", schemaVersion = 1)
+    @AIaDataObject
+    @eu.algites.lib.data.dataobject.jsondefs.AIaJsonDataObject(schemaId = "test:bridge-read", schemaVersion = 1)
     public interface AIigBox extends AIiDataObject {
         /** Return the payload through its read-only contract. */
         @AIaDataObjectField(fieldName = "Payload")
@@ -27,7 +28,8 @@ public final class AItcBridgeGetterMetadataTest {
     }
 
     /** Writable container with a generic, covariantly specialized getter. */
-    @AIaDataObject(schemaId = "test:bridge-write", schemaVersion = 1)
+    @AIaDataObject
+    @eu.algites.lib.data.dataobject.jsondefs.AIaJsonDataObject(schemaId = "test:bridge-write", schemaVersion = 1)
     public interface AIigdBox<TPayload extends AIigdPayload> extends AIigBox {
         /** Return the exact writable payload subtype. */
         @Override

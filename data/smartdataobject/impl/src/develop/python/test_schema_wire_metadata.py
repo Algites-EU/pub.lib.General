@@ -3,6 +3,7 @@ import json
 import pytest
 
 from eu.algites.lib.data.dataobject.aicd_data_object import AIcdDataObject
+from eu.algites.lib.data.dataobject.jsondefs.aia_json_data_object import AIaJsonDataObject
 from eu.algites.lib.data.dataobject.aicd_data_object_field import AIcdDataObjectField
 from eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object import AIcSmartDataObject
 from eu.algites.lib.text.format.ais_text_format_profiles import AIsTextFormatProfiles as F
@@ -10,14 +11,16 @@ from eu.algites.lib.text.format.ain_text_output_object_reference_mode import AIn
 
 
 class AIcgdWithSchema(AIcSmartDataObject):
-    __data_object__ = AIcdDataObject(schema_id='logical-contract', schema_version=7,
+    __data_object__ = AIcdDataObject()
+    __json_data_object__ = AIaJsonDataObject(schema_id='logical-contract', schema_version=7,
         schema_url='https://example.invalid/contract_7.jsondef.schema.json',
         data_source_schema_url_field='$schema')
     __data_object_fields__ = (AIcdDataObjectField('Value', expected_type=str),)
 
 
 class AIcgdWithAllMetadata(AIcgdWithSchema):
-    __data_object__ = AIcdDataObject(schema_id='logical-contract', schema_version=7,
+    __data_object__ = AIcdDataObject()
+    __json_data_object__ = AIaJsonDataObject(schema_id='logical-contract', schema_version=7,
         schema_url='https://example.invalid/contract_7.jsondef.schema.json',
         data_source_schema_url_field='$schema',
         data_source_schema_identifier_field='$schemaId',

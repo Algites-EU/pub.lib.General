@@ -38,6 +38,8 @@ class _KeyMap(MutableMapping[K, tuple[V, ...]], Generic[V, K]):
         self._definition = definition
 
     def _groups(self) -> dict[K, list[_Entry[V]]]:
+        if self._owner._by_id.get(id(self._definition)) is not self._definition:
+            raise ValueError("This key definition is no longer registered")
         return cast(dict[K, list[_Entry[V]]], self._owner._groups[id(self._definition)])
 
     def __getitem__(self, key: K) -> tuple[V, ...]:
@@ -63,6 +65,7 @@ class _KeyMap(MutableMapping[K, tuple[V, ...]], Generic[V, K]):
         Returns:
             ``None``.
         """
+        self._groups()  # reject a stale map view after deregistration
         self._owner.clear()
 
 
@@ -172,9 +175,13 @@ class AIcMultiMappedList(AIiMultiMappedList[V], Generic[V]):
     key attributes after insertion are unsupported.
     """
 
-    def __init__(self, definitions: Iterable[AIiKeyDefinition[V, object]] = (),
-                 values: Iterable[V] = ()) -> None:
-        self._definitions = tuple(definitions)
+    def __init__(self, definitions: Iterable[AIiKeyDefinition[V, object]] | None = None,
+                 values: Iterable[V] = (), *, dynamic_key_defs: bool | None = None) -> None:
+        # Legacy explicit-definition calls stay fixed until the migration deploy.
+        # Zero-argument construction is dynamic, as is explicit dynamic_key_defs=True.
+        self._dynamic_key_defs = (definitions is None if dynamic_key_defs is None
+                                  else bool(dynamic_key_defs))
+        self._definitions = tuple(definitions or ())
         self._by_id: dict[int, AIiKeyDefinition[V, object]] = {}
         used_names: set[str] = set()
         for definition in self._definitions:
@@ -209,6 +216,90 @@ class AIcMultiMappedList(AIiMultiMappedList[V], Generic[V]):
             raise TypeError('Index identifier must be text')
         return next((definition for definition in self._definitions
                      if definition.id == identifier), None)
+
+    def get_key_count(self) -> int:
+        """Return the number of registered definitions, not the number of key values."""
+        return len(self._definitions)
+
+    def is_one_key_list(self) -> bool:
+        """Return whether precisely one key definition is registered."""
+        return len(self._definitions) == 1
+
+    def is_dynamic_key_defs_list(self) -> bool:
+        """Return whether definition registration/removal is permitted."""
+        return self._dynamic_key_defs
+
+    def get_one_key_map(self) -> MutableMapping[object, tuple[V, ...]]:
+        """Return the sole map (keys to immutable value groups), or raise ValueError."""
+        if not self.is_one_key_list():
+            raise ValueError('Exactly one key definition is required')
+        return self.map_by_key_type(self._definitions[0])
+
+    def map_by_key_id(self, identifier: str) -> MutableMapping[object, tuple[V, ...]]:
+        """Return the map registered under identifier, or raise ValueError."""
+        definition = self.key_definition(identifier)
+        if definition is None:
+            raise ValueError(f'Unregistered key definition: {identifier}')
+        return self.map_by_key_type(definition)
+
+    def _require_dynamic(self) -> None:
+        if not self._dynamic_key_defs:
+            raise ValueError('Key definitions are fixed')
+
+    def add_key_definition(self, definition: AIiKeyDefinition[V, object]) -> None:
+        """Atomically register a definition, validating all existing values first.
+
+        Raises:
+            ValueError: Fixed mode, invalid/duplicate definition or invalid keys.
+            TypeError: The definition/extractor is invalid.
+        """
+        self._require_dynamic()
+        if definition is None or not isinstance(definition.id, str) or not definition.id.strip():
+            raise ValueError('A key definition needs a nonblank id')
+        if definition.id in (d.id for d in self._definitions) or id(definition) in self._by_id:
+            raise ValueError(f'Repeated key definition: {definition.id}')
+        # Build on a temporary definition tuple; do not publish partial state.
+        old_definitions = self._definitions
+        self._definitions += (definition,)
+        try:
+            new_groups = self._build(self._items)
+        except BaseException:
+            self._definitions = old_definitions
+            raise
+        self._by_id[id(definition)] = definition
+        self._groups = new_groups
+
+    def remove_key_definition(self, identifier: str) -> bool:
+        """Unregister a key by id without changing values; invalidate its map view."""
+        self._require_dynamic()
+        if not isinstance(identifier, str):
+            raise TypeError('Index identifier must be text')
+        definition = self.key_definition(identifier)
+        if definition is None:
+            return False
+        self._definitions = tuple(d for d in self._definitions if d is not definition)
+        self._by_id.pop(id(definition))
+        self._maps.pop(id(definition), None)
+        self._groups.pop(id(definition), None)
+        return True
+
+    def clear_key_definitions(self) -> None:
+        """Unregister all key definitions, invalidate map views, and retain values."""
+        self._require_dynamic()
+        self._definitions = ()
+        self._by_id.clear()
+        self._maps.clear()
+        self._groups.clear()
+
+    # Explicit Java-style aliases preserve cross-language generated/API parity.
+    getKeyCount = get_key_count
+    isOneKeyList = is_one_key_list
+    isDynamicKeyDefsList = is_dynamic_key_defs_list
+    getOneKeyMap = get_one_key_map
+    mapByKeyId = map_by_key_id
+    addKeyDefinition = add_key_definition
+    removeKeyDefinition = remove_key_definition
+    clearKeyDefinitions = clear_key_definitions
 
     def _build(self, candidate: list[_Entry[V]]) -> dict[int, dict[object, list[_Entry[V]]]]:
         result: dict[int, dict[object, list[_Entry[V]]]] = {}
@@ -373,7 +464,8 @@ class AIcMultiMappedList(AIiMultiMappedList[V], Generic[V]):
         """
         if not (0 <= start <= end <= len(self)):
             raise IndexError("Invalid copy range")
-        return AIcMultiMappedList(self._definitions, self[start:end])
+        return AIcMultiMappedList(self._definitions, self[start:end],
+                                  dynamic_key_defs=self._dynamic_key_defs)
 
     def remove_if(self, predicate: Callable[[V], bool]) -> bool:
         """Remove all matching entries as a single atomic mutation.

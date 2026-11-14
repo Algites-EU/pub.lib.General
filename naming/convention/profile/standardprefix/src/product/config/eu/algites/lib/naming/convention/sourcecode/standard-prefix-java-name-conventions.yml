@@ -3,2577 +3,2185 @@
 $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/sourcecode/source-structure-name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 NameFragments:
-  xml-data-object-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: XmlDataObject
-  xml-namespace-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _xn
-  xml-element-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _xe
-  java-method-parameter-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: a
-  java-local-variable-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: loc
-  standard-prefix-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-  generated-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  data-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  version-suffix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  intf-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-  intf-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  intf-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  intf-generated-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  class-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-  class-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  class-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  class-generated-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  enum-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: n
-  enum-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: n
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  ann-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: a
-  ann-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: a
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  exc-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: x
-  exc-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: x
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  rb-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: r
-  rb-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: r
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  xml-type-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _x
-  json-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _j
-  yaml-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _y
+  NameFragment:
+    - name: java-method-parameter-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: a
+    - name: java-local-variable-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: loc
+    - name: standard-prefix-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+    - name: generated-marker_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: data-marker_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: version-suffix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: intf-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+    - name: intf-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: intf-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: intf-generated-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: class-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+    - name: class-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: class-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: class-generated-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: enum-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: n
+    - name: enum-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: n
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: ann-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: a
+    - name: ann-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: a
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: exc-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: x
+    - name: exc-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: x
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: rb-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: r
+    - name: rb-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: r
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
 NameCompositions:
-  standard-prefix-java-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: I_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: I_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: I_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: I_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-data-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ID_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-data-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ID_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-data-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ID_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-data-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ID_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-data-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-data-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: C_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: C_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: C_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: C_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-data-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-data-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-data-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-data-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-data-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-data-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-enum_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: N_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-enum-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: N_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-enum-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: N_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-enum-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: N_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-enum_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: NG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-enum-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: NG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-enum-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: NG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-enum-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: NG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-ann_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: A_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-ann-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: A_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-ann-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: A_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-ann-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: A_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-ann_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-ann-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-ann-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-ann-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-exc_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: X_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-exc-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: X_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-exc-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: X_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-exc-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: X_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-exc_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: XG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-exc-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: XG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-exc-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: XG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-exc-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: XG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-rb_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: R_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-rb-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: R_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-rb-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: R_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-rb-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: R_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-rb_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: RG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-rb-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: RG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-rb-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: RG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-rb-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: RG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  java-source-extension_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: .java
-  java-field-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_camel_case_1
-  java-method-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_camel_case_1
-  java-getter-method-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: get
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  java-setter-method-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: set
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  java-parameter-name_1:
-    Segments:
-    - NameFragmentsSegmentReference:
-        Ref: java-method-parameter-prefix_1
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  java-local-variable-name_1:
-    Segments:
-    - NameFragmentsSegmentReference:
-        Ref: java-local-variable-prefix_1
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  package-segment-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  enum-item-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_snake_case_1
-  constant-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_snake_case_1
-  standard-prefix-java-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Ixe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Ixe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Ixe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Ixe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-data-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-data-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-data-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-data-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-data-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-data-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Cxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Cxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Cxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Cxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-data-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-data-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-data-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-data-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-data-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-data-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-xml-type-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-xml-type-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-xml-type-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-xml-type-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-xml-type-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-xml-type-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-json-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-json-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-json-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-json-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-json-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-json-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-yaml-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-yaml-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-yaml-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-yaml-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-yaml-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-data-yaml-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-java-gen-xml-namespace-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGxn_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-xml-namespace-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGxn_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-data-xml-namespace-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDxn_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-java-gen-data-xml-namespace-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDxn_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
+  NameComposition:
+    - name: standard-prefix-java-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: I_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: I_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: I_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: I_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-data-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ID_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-data-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ID_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-data-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ID_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-data-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ID_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-data-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-data-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-data-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-data-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: C_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: C_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: C_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: C_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-data-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-data-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-data-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-data-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-data-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-data-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-data-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-data-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-enum_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: N_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-enum-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: N_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-enum-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: N_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-enum-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: N_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-enum_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: NG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-enum-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: NG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-enum-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: NG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-enum-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: NG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-ann_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: A_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-ann-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: A_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-ann-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: A_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-ann-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: A_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-ann_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-ann-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-ann-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-ann-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-exc_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: X_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-exc-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: X_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-exc-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: X_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-exc-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: X_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-exc_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: XG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-exc-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: XG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-exc-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: XG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-exc-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: XG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-rb_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: R_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-rb-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: R_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-rb-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: R_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-rb-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: R_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-rb_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: RG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-rb-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: RG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-java-gen-rb-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: RG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-java-gen-rb-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: RG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: java-source-extension_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: .java
+    - name: java-field-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_camel_case_1
+    - name: java-method-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_camel_case_1
+    - name: java-getter-method-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: get
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: java-setter-method-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: set
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: java-parameter-name_1
+      Segments:
+        - NameFragmentsSegmentReference:
+            Ref: java-method-parameter-prefix_1
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: java-local-variable-name_1
+      Segments:
+        - NameFragmentsSegmentReference:
+            Ref: java-local-variable-prefix_1
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: package-segment-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: enum-item-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_snake_case_1
+    - name: constant-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_snake_case_1
 SourceStructureNameConventions:
   NameConventions:
-    standard-prefix-java-gen-xml-namespace-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-xml-namespace-intf_1
-        sub_container_name: standard-prefix-java-gen-xml-namespace-intf_1
-        file_name_stem: standard-prefix-java-gen-xml-namespace-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-xml-namespace-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-xml-namespace-intf_1
-        sub_container_name: standard-prefix-java-gen-data-xml-namespace-intf_1
-        file_name_stem: standard-prefix-java-gen-data-xml-namespace-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-intf_1
-        sub_container_name: standard-prefix-java-intf_1
-        file_name_stem: standard-prefix-java-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-intf-versioned_1
-        sub_container_name: standard-prefix-java-intf-versioned_1
-        file_name_stem: standard-prefix-java-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-data-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-data-intf_1
-        sub_container_name: standard-prefix-java-data-intf_1
-        file_name_stem: standard-prefix-java-data-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-data-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-data-intf-versioned_1
-        sub_container_name: standard-prefix-java-data-intf-versioned_1
-        file_name_stem: standard-prefix-java-data-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-intf_1
-        sub_container_name: standard-prefix-java-gen-intf_1
-        file_name_stem: standard-prefix-java-gen-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-intf-versioned_1
-        sub_container_name: standard-prefix-java-gen-intf-versioned_1
-        file_name_stem: standard-prefix-java-gen-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-intf_1
-        sub_container_name: standard-prefix-java-gen-data-intf_1
-        file_name_stem: standard-prefix-java-gen-data-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-intf-versioned_1
-        sub_container_name: standard-prefix-java-gen-data-intf-versioned_1
-        file_name_stem: standard-prefix-java-gen-data-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-class_1
-        sub_container_name: standard-prefix-java-class_1
-        file_name_stem: standard-prefix-java-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-class-versioned_1
-        sub_container_name: standard-prefix-java-class-versioned_1
-        file_name_stem: standard-prefix-java-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-data-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-data-class_1
-        sub_container_name: standard-prefix-java-data-class_1
-        file_name_stem: standard-prefix-java-data-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-data-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-data-class-versioned_1
-        sub_container_name: standard-prefix-java-data-class-versioned_1
-        file_name_stem: standard-prefix-java-data-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-gen-class_1
-        sub_container_name: standard-prefix-java-gen-class_1
-        file_name_stem: standard-prefix-java-gen-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-gen-class-versioned_1
-        sub_container_name: standard-prefix-java-gen-class-versioned_1
-        file_name_stem: standard-prefix-java-gen-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-class_1
-        sub_container_name: standard-prefix-java-gen-data-class_1
-        file_name_stem: standard-prefix-java-gen-data-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-class-versioned_1
-        sub_container_name: standard-prefix-java-gen-data-class-versioned_1
-        file_name_stem: standard-prefix-java-gen-data-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-enum_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-prefix-java-enum_1
-        sub_container_name: standard-prefix-java-enum_1
-        file_name_stem: standard-prefix-java-enum-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-enum-versioned_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-prefix-java-enum-versioned_1
-        sub_container_name: standard-prefix-java-enum-versioned_1
-        file_name_stem: standard-prefix-java-enum-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-enum_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-prefix-java-gen-enum_1
-        sub_container_name: standard-prefix-java-gen-enum_1
-        file_name_stem: standard-prefix-java-gen-enum-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-enum-versioned_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-prefix-java-gen-enum-versioned_1
-        sub_container_name: standard-prefix-java-gen-enum-versioned_1
-        file_name_stem: standard-prefix-java-gen-enum-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-ann_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-prefix-java-ann_1
-        sub_container_name: standard-prefix-java-ann_1
-        file_name_stem: standard-prefix-java-ann-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-ann-versioned_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-prefix-java-ann-versioned_1
-        sub_container_name: standard-prefix-java-ann-versioned_1
-        file_name_stem: standard-prefix-java-ann-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-ann_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-prefix-java-gen-ann_1
-        sub_container_name: standard-prefix-java-gen-ann_1
-        file_name_stem: standard-prefix-java-gen-ann-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-ann-versioned_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-prefix-java-gen-ann-versioned_1
-        sub_container_name: standard-prefix-java-gen-ann-versioned_1
-        file_name_stem: standard-prefix-java-gen-ann-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-exc_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-prefix-java-exc_1
-        sub_container_name: standard-prefix-java-exc_1
-        file_name_stem: standard-prefix-java-exc-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-exc-versioned_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-prefix-java-exc-versioned_1
-        sub_container_name: standard-prefix-java-exc-versioned_1
-        file_name_stem: standard-prefix-java-exc-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-exc_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-prefix-java-gen-exc_1
-        sub_container_name: standard-prefix-java-gen-exc_1
-        file_name_stem: standard-prefix-java-gen-exc-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-exc-versioned_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-prefix-java-gen-exc-versioned_1
-        sub_container_name: standard-prefix-java-gen-exc-versioned_1
-        file_name_stem: standard-prefix-java-gen-exc-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-rb_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-prefix-java-rb_1
-        sub_container_name: standard-prefix-java-rb_1
-        file_name_stem: standard-prefix-java-rb-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-rb-versioned_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-prefix-java-rb-versioned_1
-        sub_container_name: standard-prefix-java-rb-versioned_1
-        file_name_stem: standard-prefix-java-rb-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-rb_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-prefix-java-gen-rb_1
-        sub_container_name: standard-prefix-java-gen-rb_1
-        file_name_stem: standard-prefix-java-gen-rb-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-rb-versioned_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-prefix-java-gen-rb-versioned_1
-        sub_container_name: standard-prefix-java-gen-rb-versioned_1
-        file_name_stem: standard-prefix-java-gen-rb-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-xml-element-intf_1
-        sub_container_name: standard-prefix-java-xml-element-intf_1
-        file_name_stem: standard-prefix-java-xml-element-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-xml-element-intf-versioned_1
-        sub_container_name: standard-prefix-java-xml-element-intf-versioned_1
-        file_name_stem: standard-prefix-java-xml-element-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-data-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-data-xml-element-intf_1
-        sub_container_name: standard-prefix-java-data-xml-element-intf_1
-        file_name_stem: standard-prefix-java-data-xml-element-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-data-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-data-xml-element-intf-versioned_1
-        sub_container_name: standard-prefix-java-data-xml-element-intf-versioned_1
-        file_name_stem: standard-prefix-java-data-xml-element-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-xml-element-intf_1
-        sub_container_name: standard-prefix-java-gen-xml-element-intf_1
-        file_name_stem: standard-prefix-java-gen-xml-element-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-xml-element-intf-versioned_1
-        sub_container_name: standard-prefix-java-gen-xml-element-intf-versioned_1
-        file_name_stem: standard-prefix-java-gen-xml-element-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-xml-element-intf_1
-        sub_container_name: standard-prefix-java-gen-data-xml-element-intf_1
-        file_name_stem: standard-prefix-java-gen-data-xml-element-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-xml-element-intf-versioned_1
-        sub_container_name: standard-prefix-java-gen-data-xml-element-intf-versioned_1
-        file_name_stem: standard-prefix-java-gen-data-xml-element-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-xml-element-class_1
-        sub_container_name: standard-prefix-java-xml-element-class_1
-        file_name_stem: standard-prefix-java-xml-element-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-xml-element-class-versioned_1
-        sub_container_name: standard-prefix-java-xml-element-class-versioned_1
-        file_name_stem: standard-prefix-java-xml-element-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-data-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-data-xml-element-class_1
-        sub_container_name: standard-prefix-java-data-xml-element-class_1
-        file_name_stem: standard-prefix-java-data-xml-element-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-data-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-data-xml-element-class-versioned_1
-        sub_container_name: standard-prefix-java-data-xml-element-class-versioned_1
-        file_name_stem: standard-prefix-java-data-xml-element-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-gen-xml-element-class_1
-        sub_container_name: standard-prefix-java-gen-xml-element-class_1
-        file_name_stem: standard-prefix-java-gen-xml-element-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-gen-xml-element-class-versioned_1
-        sub_container_name: standard-prefix-java-gen-xml-element-class-versioned_1
-        file_name_stem: standard-prefix-java-gen-xml-element-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-xml-element-class_1
-        sub_container_name: standard-prefix-java-gen-data-xml-element-class_1
-        file_name_stem: standard-prefix-java-gen-data-xml-element-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-xml-element-class-versioned_1
-        sub_container_name: standard-prefix-java-gen-data-xml-element-class-versioned_1
-        file_name_stem: standard-prefix-java-gen-data-xml-element-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-xml-type-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-xml-type-intf-versioned_1
-        sub_container_name: standard-prefix-java-gen-xml-type-intf-versioned_1
-        file_name_stem: standard-prefix-java-gen-xml-type-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-xml-type-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-xml-type-intf-versioned_1
-        sub_container_name: standard-prefix-java-gen-data-xml-type-intf-versioned_1
-        file_name_stem: standard-prefix-java-gen-data-xml-type-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-xml-type-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-xml-type-class-versioned_1
-        sub_container_name: standard-prefix-java-gen-data-xml-type-class-versioned_1
-        file_name_stem: standard-prefix-java-gen-data-xml-type-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-json-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-json-intf-versioned_1
-        sub_container_name: standard-prefix-java-gen-json-intf-versioned_1
-        file_name_stem: standard-prefix-java-gen-json-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-json-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-json-intf-versioned_1
-        sub_container_name: standard-prefix-java-gen-data-json-intf-versioned_1
-        file_name_stem: standard-prefix-java-gen-data-json-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-json-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-json-class-versioned_1
-        sub_container_name: standard-prefix-java-gen-data-json-class-versioned_1
-        file_name_stem: standard-prefix-java-gen-data-json-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-yaml-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-yaml-intf-versioned_1
-        sub_container_name: standard-prefix-java-gen-yaml-intf-versioned_1
-        file_name_stem: standard-prefix-java-gen-yaml-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-yaml-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-yaml-intf-versioned_1
-        sub_container_name: standard-prefix-java-gen-data-yaml-intf-versioned_1
-        file_name_stem: standard-prefix-java-gen-data-yaml-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-java-gen-data-yaml-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-java-gen-data-yaml-class-versioned_1
-        sub_container_name: standard-prefix-java-gen-data-yaml-class-versioned_1
-        file_name_stem: standard-prefix-java-gen-data-yaml-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
+    NameConvention:
+      - name: standard-prefix-java-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-intf_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-intf_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-intf-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-data-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-data-intf_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-data-intf_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-data-intf-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-data-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-data-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-data-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-data-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-intf_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-intf_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-intf-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-data-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-data-intf_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-data-intf_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-data-intf-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-data-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-data-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-data-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-data-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-class_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-class_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-class-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-data-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-data-class_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-data-class_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-data-class-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-data-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-data-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-data-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-data-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-class_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-class_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-class-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-data-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-data-class_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-data-class_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-data-class-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-data-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-data-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-data-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-data-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-enum_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-enum_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-enum_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-enum-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-enum-versioned_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-enum-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-enum-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-enum-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-enum_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-enum_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-enum_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-enum-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-enum-versioned_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-enum-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-enum-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-enum-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-ann_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-ann_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-ann_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-ann-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-ann-versioned_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-ann-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-ann-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-ann-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-ann_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-ann_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-ann_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-ann-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-ann-versioned_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-ann-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-ann-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-ann-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-exc_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-exc_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-exc_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-exc-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-exc-versioned_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-exc-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-exc-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-exc-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-exc_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-exc_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-exc_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-exc-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-exc-versioned_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-exc-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-exc-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-exc-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-rb_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-rb_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-rb_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-rb-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-rb-versioned_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-rb-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-rb-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-rb-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-rb_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-rb_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-rb_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-rb-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-java-gen-rb-versioned_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-java-gen-rb-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-java-gen-rb-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-java-gen-rb-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1

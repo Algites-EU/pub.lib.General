@@ -21,6 +21,8 @@ from eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind import AInXmlValu
 from eu.algites.lib.common.object.props.labels.ais_field_label_utils import AIsFieldLabelUtils
 from eu.algites.lib.common.object.props.labels.aia_field_label import AIaFieldLabel
 from eu.algites.lib.data.dataobject.aia_field_default import AIaFieldDefault
+from eu.algites.lib.data.dataobject.ain_data_object_field_default_kind import AInDataObjectFieldDefaultKind
+import re
 from eu.algites.lib.data.dataobject.aii_field_default_value_resolver_factory import AIiFieldDefaultValueResolverFactory
 from eu.algites.lib.factory.cpdiscovery.ais_category_provider_discovery import AIsCategoryProviderDiscovery
 from eu.algites.lib.data.smartdataobject.aix_smart_data_validation_exception import AIxSmartDataValidationException
@@ -65,8 +67,8 @@ def _resolve_field_identity(owner: type, descriptor: Any, inherited: Any = None,
         # bound getter, so their previously persisted key remains unchanged.
         # New contracts must use the method-bound AIaDataObjectField decorator.
         semantic_id = descriptor.semantic_id or descriptor.field_name
-        return replace(descriptor, field_name=descriptor.field_name or semantic_id,
-                       semantic_id=semantic_id)
+        return replace(descriptor, field_name=('' if descriptor.embedded else
+                       descriptor.field_name or semantic_id), semantic_id=semantic_id)
     resolved_id = (identity_provider(owner, getter_name) if identity_provider is not None
                    else _canonical_getter_identity(getter_name))
     semantic_id = descriptor.semantic_id or resolved_id
@@ -74,8 +76,27 @@ def _resolve_field_identity(owner: type, descriptor: Any, inherited: Any = None,
         raise ValueError('Getter and supplied semantic identity disagree: ' + getter_name)
     if inherited is not None and descriptor.field_name and descriptor.field_name != inherited.field_name:
         raise ValueError('Overridden getter changes fieldName: ' + semantic_id)
-    wire_name = descriptor.field_name or (inherited.field_name if inherited is not None else semantic_id)
+    if inherited is not None and descriptor.embedded != inherited.embedded:
+        raise ValueError('Inherited field changes embedded serialization: ' + semantic_id)
+    wire_name = ('' if descriptor.embedded else
+                 descriptor.field_name or (inherited.field_name if inherited is not None else semantic_id))
     return replace(descriptor, field_name=wire_name, getter_name=getter_name, semantic_id=semantic_id)
+
+def _lexical_default(lexical: str, value_type: type | None) -> Any:
+    """Convert a schema-lexical default to its declared scalar Python type."""
+    if value_type is bool:
+        if lexical not in ('true', 'false', '1', '0'):
+            raise ValueError('Invalid schema boolean default: ' + lexical)
+        return lexical in ('true', '1')
+    if value_type in (int, float, Decimal):
+        return value_type(lexical)
+    if isinstance(value_type, type) and issubclass(value_type, Enum):
+        for member in value_type:
+            if member.name == lexical or str(_enum_code(member)) == lexical:
+                return member
+        raise ValueError('Unknown schema enum default: ' + lexical)
+    return lexical
+
 
 def _resolve_field_descriptor_default(owner: type, descriptor: Any) -> Any:
     """Attach only an explicit, typed CPDiscovery default resolver to this field.
@@ -88,6 +109,18 @@ def _resolve_field_descriptor_default(owner: type, descriptor: Any) -> Any:
     annotation = getattr(getter, '__field_default__', None)
     if annotation is None:
         annotation = owner.__dict__.get('__field_defaults__', {}).get(descriptor.name)
+    for kind in ('string', 'numeric', 'list', 'object'):
+        constraint = getattr(getter, '__data_object_field_' + kind + '_constraints__', None)
+        if constraint is not None:
+            descriptor = replace(descriptor, **{kind + '_constraints': constraint})
+    field_default = descriptor.default_value
+    if field_default.defined:
+        if descriptor.default_value_resolver is not None or annotation is not None:
+            raise ValueError('Conflicting inline and annotation defaults for ' + descriptor.name)
+        if field_default.kind is AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_NOT_PRESENT:
+            return replace(descriptor, default_value_resolver=lambda:
+                           _lexical_default(field_default.value, descriptor.expected_type))
+        return descriptor
     if annotation is None:
         return descriptor
     if not isinstance(annotation, AIaFieldDefault):
@@ -106,10 +139,20 @@ def _data_object_fields(cls: type, identity_provider=None) -> dict[str, Any]:
     not inferred from a hard-coded JSON or YAML key. An empty configured name does
     not reserve a field. The filter runs before semantic inheritance merging.
     """
+    # Cache on the *concrete class*, never on a base (which would leak its
+    # unmerged descriptors into derived contracts). Unlike a global strong-key
+    # cache this does not retain dynamically generated classes after unloading.
+    # An explicit identity provider can change naming rules, so bypass cache.
+    if identity_provider is None:
+        cached = cls.__dict__.get('__sdo_runtime_effective_fields_cache__')
+        if cached is not None:
+            return cached
     descriptors: dict[str, Any] = {}
     owners: dict[str, type] = {}
     for base in reversed(cls.__mro__):
-        annotation = base.__dict__.get('__data_object__')
+        annotation = (base.__dict__.get('__json_schema__')
+                      or base.__dict__.get('__json_data_object__')
+                      or base.__dict__.get('__yaml_data_object__'))
         reserved = {
             name for name in (
                 getattr(annotation, 'data_source_schema_url_field', ''),
@@ -136,6 +179,17 @@ def _data_object_fields(cls: type, identity_provider=None) -> dict[str, Any]:
                 raise ValueError('Inherited field changes its source getter: ' + identity)
             descriptor = _resolve_field_identity(base, declared, previous, identity_provider)
             descriptor = _resolve_field_descriptor_default(base, descriptor)
+            if previous is not None:
+                # Format-specific and covariant getters need not redeclare
+                # constraint decorators. Keep the already-resolved annotations.
+                inherited_constraints = {
+                    name: getattr(previous, name)
+                    for name in ('string_constraints', 'numeric_constraints',
+                                 'list_constraints', 'object_constraints')
+                    if getattr(descriptor, name) is None
+                }
+                if inherited_constraints:
+                    descriptor = replace(descriptor, **inherited_constraints)
             if previous is not None and previous != descriptor:
                 owner = owners[identity]
                 if not issubclass(base, owner):
@@ -151,10 +205,14 @@ def _data_object_fields(cls: type, identity_provider=None) -> dict[str, Any]:
             owners[identity] = base
     wire_owners: dict[str, str] = {}
     for identity, descriptor in descriptors.items():
+        if descriptor.embedded:
+            continue
         previous = wire_owners.setdefault(descriptor.field_name, identity)
         if previous != identity:
             raise ValueError('Duplicate fieldName for unrelated getters: '
                              + descriptor.field_name + ' (' + previous + ', ' + identity + ')')
+    if identity_provider is None:
+        setattr(cls, '__sdo_runtime_effective_fields_cache__', descriptors)
     return descriptors
 
 def _validate_field_restriction(parent: Any, child: Any) -> None:
@@ -215,8 +273,10 @@ def _schema_wire_metadata(owner: type) -> dict[str, str | int]:
     Empty target field names are intentionally omitted, and absent values are
     never fabricated from an unrelated URL or a class name.
     """
-    schema = next((base.__dict__['__data_object__'] for base in owner.__mro__
-                   if '__data_object__' in base.__dict__), None)
+    schema = next((base.__dict__.get('__json_schema__')
+                   or base.__dict__.get('__json_data_object__')
+                   or base.__dict__.get('__yaml_data_object__') for base in owner.__mro__
+                   if any(key in base.__dict__ for key in ('__json_schema__', '__json_data_object__', '__yaml_data_object__'))), None)
     if schema is None:
         return {}
     values = ((schema.data_source_schema_url_field, schema.schema_url),
@@ -252,6 +312,7 @@ class _Field:
     xml: Any
     present: bool
     raw: _Node
+    empty: bool = False
     effective: _Node | None = None
     resolved: bool = False
 
@@ -265,6 +326,8 @@ class _Snapshot:
     def build(self, obj: Any) -> _Node:
         if obj is None:
             return self.nil
+        if obj is EMPTY_VALUE:
+            obj = '' 
         key = id(obj)
         if key in self.registry:
             assert self.registry[key].obj is obj
@@ -286,18 +349,27 @@ class _Snapshot:
                 if not isinstance(declared_xml, Mapping):
                     raise TypeError('__xml_data_object_fields__ must map field names to XML metadata')
                 xml_fields.update(declared_xml)
+                new_xml = owner.__dict__.get('__xml_schema_fields__', {})
+                if not isinstance(new_xml, Mapping):
+                    raise TypeError('__xml_schema_fields__ must map field names to XML metadata')
+                xml_fields.update(new_xml)
             for desc in _data_object_fields(type(obj)).values():
                 present = desc.name in obj._values if isinstance(obj, AIcSmartDataObject) else True
+                explicit_empty = present and isinstance(obj, AIcSmartDataObject) \
+                    and obj._values[desc.name] is EMPTY_VALUE
                 if present:
                     if isinstance(obj, AIcSmartDataObject):
                         value = obj._values[desc.name]
+                        if value is EMPTY_VALUE:
+                            value = ''  # explicit empty serializes as empty lexical value
                     else:
                         getter = desc.getter_name or 'get' + desc.name
                         value = getattr(obj, getter)()
                 else:
                     value = None
                 node.fields.append(_Field(desc, xml_fields.get(desc.field_name, xml_fields.get(desc.name)), present,
-                                          self.build(value) if present else self.nil))
+                                          self.build(value) if present else self.nil,
+                                          empty=explicit_empty))
             by_semantic_name = {member.descriptor.name: member for member in node.fields}
             seen: set[str] = set()
             if isinstance(obj, AIcSmartDataObject):
@@ -318,11 +390,17 @@ class _Snapshot:
         return node
 
     def value(self, fld: _Field, effective: bool) -> _Node:
-        if not effective or fld.present:
+        if not effective or fld.present and not fld.empty:
             return fld.raw
         if not fld.resolved:
             fld.resolved = True
-            fld.effective = self.build(fld.descriptor.default_value_resolver()) if fld.descriptor.default_value_resolver else self.nil
+            default = fld.descriptor.default_value
+            if fld.empty and default.defined and default.kind is AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_EMPTY:
+                fld.effective = self.build(_lexical_default(default.value, fld.descriptor.expected_type))
+            elif not fld.present and fld.descriptor.default_value_resolver:
+                fld.effective = self.build(fld.descriptor.default_value_resolver())
+            else:
+                fld.effective = self.nil
         return fld.effective
 
     def issues(self, effective: bool, deep: bool) -> list[AIcdSmartDataValidationIssue]:
@@ -527,9 +605,6 @@ class _Renderer:
                         data[name] = {'present': True, 'value': raw} if self.profile.diagnostic else raw
                 if self.profile.diagnostic:
                     meta = {'type': type(node.obj).__name__}
-                    fingerprint = getattr(type(node.obj), '__schema_fingerprint__', '')
-                    if fingerprint:
-                        meta['schemaHash'] = fingerprint
                     if nr is not None:
                         meta['dNr'] = nr
                     return {'$meta': meta, '$fields': data}
@@ -546,18 +621,60 @@ class _Renderer:
             self.active.remove(node)
 
     def as_xml(self) -> str:
-        def visit(node: _Node, parent: ET.Element | None, name: str | None) -> ET.Element:
+        def visit(node: _Node, parent: ET.Element | None, name: str | None,
+                  embedded: bool = False) -> ET.Element:
+            if (embedded and parent is not None and node.kind == 'opaque'
+                    and getattr(type(node.obj), '__xml_choice_component_names__', None)):
+                # CHOICE alternatives are immutable typed dataclasses, not
+                # AIiDataObjects. Their wire member metadata is attached by
+                # Defs Codegen; no wrapper element is introduced for the choice.
+                from dataclasses import fields as dataclass_fields, is_dataclass
+                variant = type(node.obj)
+                if not is_dataclass(node.obj):
+                    raise TypeError('XML CHOICE variant is not a dataclass: ' + variant.__name__)
+                names = variant.__xml_choice_component_names__
+                members = dataclass_fields(node.obj)
+                if len(names) != len(members):
+                    raise ValueError('XML CHOICE component arity mismatch: ' + variant.__name__)
+                metadata = dict(variant.__dict__.get('__xml_data_object_fields__', {}))
+                metadata.update(variant.__dict__.get('__xml_schema_fields__', {}))
+                for semantic, member in zip(names, members):
+                    raw = getattr(node.obj, member.name)
+                    if raw is None:
+                        raise ValueError('XML CHOICE alternative cannot omit member: ' + semantic)
+                    xml = metadata.get(semantic)
+                    if xml is None:
+                        if not isinstance(raw, AIiDataObject):
+                            raise TypeError('Transparent XML CHOICE member must be a DataObject: '
+                                            + semantic)
+                        visit(self.snapshot.build(raw), parent, None, embedded=True)
+                    else:
+                        if xml.value_kind != AInXmlValueKind.ELEMENT:
+                            raise ValueError('XML CHOICE supports only element alternatives: ' + semantic)
+                        qname = ('{' + xml.namespace + '}' if xml.namespace else '') + xml.namespace_local_name
+                        if isinstance(raw, AIiDataObject):
+                            visit(self.snapshot.build(raw), parent, qname)
+                        elif isinstance(raw, (str, int, float, bool, Decimal, Enum)):
+                            ET.SubElement(parent, qname).text = _xml_lexical(raw)
+                        else:
+                            raise TypeError('Unsupported XML CHOICE alternative value: ' + semantic)
+                return parent
             if node.kind == 'smart' and any(not isinstance(member, _Field)
                                             for _, member in node.wire_members):
                 raise NotImplementedError('XMLDEFS-to-integrated-MAP serialization is intentionally unsupported')
-            xml_schema = getattr(type(node.obj), '__xml_data_object__', None)
+            xml_schema = (getattr(type(node.obj), '__xml_schema__', None)
+                          or getattr(type(node.obj), '__xml_data_object__', None))
             tag = name or (xml_schema.namespace_local_name if xml_schema and
                            xml_schema.namespace_local_name else type(node.obj).__name__)
             if xml_schema and xml_schema.namespace and not self.profile.diagnostic and name is None:
                 tag = '{' + xml_schema.namespace + '}' + tag
-            element = ET.SubElement(parent, tag) if parent is not None else ET.Element(tag)
+            if embedded and (parent is None or node.kind != 'smart'):
+                raise TypeError('Embedded XML group must be a DataObject nested in a parent')
+            element = parent if embedded else (ET.SubElement(parent, tag) if parent is not None else ET.Element(tag))
             ref = self.ref(node)
             if ref is not None:
+                if embedded:
+                    raise ValueError('Embedded XML group cannot be emitted as an object reference')
                 element.set('dNrRef', str(ref))
                 return element
             number = self.ids.get(node) if self.numbered(node) else None
@@ -573,13 +690,17 @@ class _Renderer:
                         raise TypeError('Unsupported opaque canonical XML value')
                     element.text = _xml_lexical(node.value)
                 elif node.kind == 'smart':
-                    if self.profile.diagnostic:
-                        fingerprint = getattr(type(node.obj), '__schema_fingerprint__', '')
-                        if fingerprint:
-                            element.set('schemaHash', fingerprint)
                     for fld in node.fields:
                         if not fld.present and not self.profile.diagnostic and \
                                 (not self.effective or not fld.descriptor.default_value_resolver):
+                            continue
+                        if fld.descriptor.embedded and not self.profile.diagnostic:
+                            value = self.snapshot.value(fld, self.effective)
+                            if value.kind == 'list':
+                                for occurrence in value.children:
+                                    visit(occurrence, element, None, embedded=True)
+                            else:
+                                visit(value, element, None, embedded=True)
                             continue
                         name = (fld.xml.namespace_local_name if fld.xml and fld.xml.namespace_local_name
                                 else fld.descriptor.name)
@@ -677,9 +798,6 @@ class _Renderer:
                             raise ValueError('Additional property collides with schema metadata: ' + name)
                     if self.profile.diagnostic:
                         meta = {'type': type(node.obj).__name__}
-                        fingerprint = getattr(type(node.obj), '__schema_fingerprint__', '')
-                        if fingerprint:
-                            meta['schemaHash'] = fingerprint
                         if nr is not None:
                             meta['dNr'] = nr
                         lines.append(' ' * level + '"$meta": ' + dumps(meta))
@@ -777,12 +895,52 @@ class _IntegratedAdditionalPropertiesMap(MutableMapping[str, Any]):
             self._owner._values[_AdditionalPropertyKey(key)] = value
 
 
+# One and only explicit-empty sentinel, intentionally distinct from "" and None.
+EMPTY_VALUE = object()
+
+
+def _check_constraints(definition: Any, value: Any) -> None:
+    """Apply applicable typed field constraints without converting stored values."""
+    if value is None:
+        return
+    string = definition.string_constraints
+    if string is not None and isinstance(value, str):
+        if string.min_length >= 0 and len(value) < string.min_length or \
+                string.max_length >= 0 and len(value) > string.max_length or \
+                string.pattern and re.fullmatch(string.pattern, value) is None:
+            raise ValueError('String constraint violated for ' + definition.name)
+    numeric = definition.numeric_constraints
+    if numeric is not None and isinstance(value, (int, float, Decimal)) and not isinstance(value, bool):
+        number = Decimal(str(value))
+        if numeric.minimum:
+            lower = Decimal(numeric.minimum)
+            if number < lower or numeric.exclusive_minimum and number == lower:
+                raise ValueError('Numeric minimum violated for ' + definition.name)
+        if numeric.maximum:
+            upper = Decimal(numeric.maximum)
+            if number > upper or numeric.exclusive_maximum and number == upper:
+                raise ValueError('Numeric maximum violated for ' + definition.name)
+        if numeric.multiple_of and number % Decimal(numeric.multiple_of) != 0:
+            raise ValueError('Numeric multipleOf violated for ' + definition.name)
+    array = definition.list_constraints
+    if array is not None and isinstance(value, (list, tuple, MutableSequence)):
+        if array.min_items >= 0 and len(value) < array.min_items or \
+                array.max_items >= 0 and len(value) > array.max_items or \
+                array.unique_items and any(left == right for i, left in enumerate(value)
+                                           for right in value[i + 1:]):
+            raise ValueError('List constraint violated for ' + definition.name)
+    obj = definition.object_constraints
+    if obj is not None and isinstance(value, Mapping):
+        if obj.min_properties >= 0 and len(value) < obj.min_properties or \
+                obj.max_properties >= 0 and len(value) > obj.max_properties:
+            raise ValueError('Object constraint violated for ' + definition.name)
+
+
 class AIcSmartDataObject(AIiSmartDataObject):
     """Mutable, presence-aware SmartDataObject foundation."""
     DEFAULT_DIAGNOSTIC_PROFILE = AIsTextFormatProfiles.XML_DIAGNOSTIC
     DEFAULT_DIAGNOSTIC_REFERENCE_MODE = Mode.REPEATED_OBJECTS
     __data_object_fields__: tuple[Any, ...] = ()
-    __schema_fingerprint__ = ''
 
     @classmethod
     def _fields(cls) -> dict[str, Any]:
@@ -802,9 +960,11 @@ class AIcSmartDataObject(AIiSmartDataObject):
     @classmethod
     def _reserved_wire_names(cls) -> set[str]:
         """Declared serialized names and enabled schema metadata names cannot be additional keys."""
-        names = {descriptor.field_name for descriptor in cls._fields().values()}
+        names = {descriptor.field_name for descriptor in cls._fields().values() if not descriptor.embedded}
         for parent in cls.__mro__:
-            annotation = parent.__dict__.get('__data_object__')
+            annotation = (parent.__dict__.get('__json_schema__')
+                          or parent.__dict__.get('__json_data_object__')
+                          or parent.__dict__.get('__yaml_data_object__'))
             if annotation is not None:
                 names.update(name for name in (
                     getattr(annotation, 'data_source_schema_url_field', ''),
@@ -842,7 +1002,7 @@ class AIcSmartDataObject(AIiSmartDataObject):
             if key in aValue and aValue[key] != expected:
                 raise ValueError('Schema metadata does not match declared contract: ' + key)
         wire_names = {descriptor.field_name: semantic_id
-                      for semantic_id, descriptor in fields.items()}
+                      for semantic_id, descriptor in fields.items() if not descriptor.embedded}
         # A system-property field is injected using its declared external name.
         external = {key: value for key, value in aValue.items()
                     if key not in wire_metadata or key in wire_names}
@@ -850,6 +1010,10 @@ class AIcSmartDataObject(AIiSmartDataObject):
             if key in wire_names and key not in external:
                 external[key] = expected
         unknown = set(external) - wire_names.keys()
+        # Embedded members have no own wire key. Their flattened children
+        # are reconstructed by the format-aware typed deserializers.
+        if any(descriptor.embedded for descriptor in fields.values()):
+            raise NotImplementedError('Embedded mapping input requires explicit nested type metadata')
         if unknown:
             raise ValueError('Unknown DataObject fields: ' + repr(sorted(unknown)))
         result = cls()
@@ -872,6 +1036,21 @@ class AIcSmartDataObject(AIiSmartDataObject):
                 # schema variant. Its `value` is a generated DataObject with the
                 # corresponding single field. The wrapper itself is not a field.
                 return convert(value.value)
+            # A named sealed CHOICE may be embedded as the value of an
+            # ordinary DataObject field, not only as an XML-transparent member.
+            # Its generated dataclass carries semantic field names separately
+            # from its positional constructor names (field1, field2, ...).
+            if hasattr(type(value), '__xml_choice_component_names__'):
+                from dataclasses import fields as dataclass_fields, is_dataclass
+                if not is_dataclass(value):
+                    raise TypeError('Generated CHOICE alternative must be a dataclass')
+                names = type(value).__xml_choice_component_names__
+                members = dataclass_fields(value)
+                if len(names) != len(members):
+                    raise ValueError('CHOICE alternative member arity mismatch')
+                return {name: convert(getattr(value, member.name))
+                        for name, member in zip(names, members)
+                        if getattr(value, member.name) is not None}
             if isinstance(value, AIcSmartDataObject):
                 identity = id(value)
                 if identity in visiting:
@@ -881,6 +1060,8 @@ class AIcSmartDataObject(AIiSmartDataObject):
                     result = _schema_wire_metadata(type(value))
                     fields = value._fields()
                     for storage_key, stored in value._values.items():
+                        if stored is EMPTY_VALUE:
+                            stored = '' 
                         if isinstance(storage_key, _AdditionalPropertyKey):
                             name = storage_key.name
                         elif storage_key in fields:
@@ -888,6 +1069,14 @@ class AIcSmartDataObject(AIiSmartDataObject):
                         else:
                             continue
                         actual = convert(stored)
+                        if not isinstance(storage_key, _AdditionalPropertyKey) and fields[storage_key].embedded:
+                            if not isinstance(actual, Mapping):
+                                raise TypeError('Embedded DataObject must contain object fields')
+                            for embedded_name, embedded_value in actual.items():
+                                if embedded_name in result:
+                                    raise ValueError('Conflicting embedded DataObject field: ' + embedded_name)
+                                result[embedded_name] = embedded_value
+                            continue
                         if name in result:
                             if actual != result[name]:
                                 raise ValueError('Schema metadata conflicts with a data property: ' + name)
@@ -967,20 +1156,139 @@ class AIcSmartDataObject(AIiSmartDataObject):
     def set_RawField(self, name: str, value: Any) -> None:
         definition = self._check(name)
         self._require_allowed(definition)
-        if value is not None and definition.expected_type is not None and not isinstance(value, definition.expected_type):
+        if (value is not None and definition.expected_type is not None
+                and (not isinstance(value, definition.expected_type)
+                     # Python's bool subclasses int, unlike Java's boxed Boolean
+                     # versus Integer. A fixed numeric value of 1 must not be
+                     # satisfied by True (or 0 by False).
+                     or (definition.expected_type is int and type(value) is bool))):
             raise ValueError('Incompatible field value type: ' + name)
+        default = definition.default_value
+        if default.defined and default.kind is AInDataObjectFieldDefaultKind.CONSTRAINT_DEFAULT:
+            if value != _lexical_default(default.value, definition.expected_type):
+                raise ValueError('Fixed field value mismatch: ' + name)
+        _check_constraints(definition, value)
         self._values[name] = value
         
 
+    def get_OrCreateCollectionField(self, name: str, mapped: bool) -> MutableSequence:
+        """Lazily attach a stable list, or indexed list using read-only DO metadata.
+
+        The read-only getter's ``__key_definitions__`` provides index ids and
+        semantic field paths; no schemas are imported by the SDO runtime.
+        Calling unset_Field detaches the collection and the next getter creates
+        a different instance.
+
+        Args:
+            name: Internal semantic collection identity.
+            mapped: True to use AIcMultiMappedList, otherwise a builtin list.
+
+        Returns:
+            Stable mutable collection attached to this SmartDataObject.
+
+        Raises:
+            ValueError: Unknown fields or invalid index definitions/paths.
+        """
+        definition = self._check(name)
+        self._require_allowed(definition)
+        if name in self._values:
+            return self._values[name]
+        if mapped:
+            from eu.algites.lib.common.list.aic_multi_mapped_list import AIcMultiMappedList
+            indexes = self._collectionKeyDefinitions(name)
+            created = (AIcMultiMappedList(indexes, dynamic_key_defs=False)
+                       if indexes else AIcMultiMappedList())
+        else:
+            created = []
+        self.set_RawField(name, created)
+        return created
+
+    def get_OrCreateNamedMappedCollectionField(self, name: str, factory: type) -> Any:
+        """Attach a named indexed SDO collection using read-contract key metadata.
+
+        Args:
+            name: Semantic field name on the containing DataObject.
+            factory: Generated SDO collection class with a ``definitions`` constructor.
+
+        Returns:
+            The stable named instance; an explicitly present None remains None.
+
+        Raises:
+            ValueError: For an unknown field, invalid keys, or a type mismatch.
+            TypeError: If the supplied factory cannot construct the named collection.
+        """
+        definition = self._check(name)
+        self._require_allowed(definition)
+        if name in self._values:
+            return self._values[name]
+        instance = factory(definitions=self._collectionKeyDefinitions(name))
+        self.set_RawField(name, instance)
+        return instance
+
+    def _collectionKeyDefinitions(self, name: str) -> list:
+        """Resolve annotated index paths for ordinary and named indexed lists.
+
+        Args:
+            name: Semantic field whose read-only getter declares indexes.
+
+        Returns:
+            Stable list of AIcKeyDefinition objects, possibly empty.
+        """
+        from eu.algites.lib.common.list.aic_key_definition import AIcKeyDefinition
+        declared = ()
+        for ancestor in reversed(type(self).__mro__):
+            definitions = ancestor.__dict__.get('__key_definitions__', {})
+            declared = definitions.get(name, declared)
+        indexes = []
+        for index_id, field_paths, required in declared:
+            def extract(item, paths=field_paths):
+                parts = []
+                for path in paths:
+                    current = item
+                    for part in path.split('.'):
+                        if current is None:
+                            break
+                        desc = _data_object_fields(type(current)).get(part)
+                        if desc is None:
+                            raise ValueError('Unresolved DataObject key field ' + path)
+                        getter = getattr(current, desc.getter_name)
+                        current = getter()
+                    parts.append(current)
+                return None if any(part is None for part in parts) else \
+                    parts[0] if len(parts) == 1 else tuple(parts)
+            indexes.append(AIcKeyDefinition(index_id, extract, True, required))
+        return indexes
+
+    def set_EmptyField(self, name: str) -> None:
+        """Assign explicit EMPTY_VALUE, rejecting fields without that capability."""
+        definition = self._check(name)
+        self._require_allowed(definition)
+        if not definition.is_empty_allowed or definition.default_value.defined and \
+                definition.default_value.kind is AInDataObjectFieldDefaultKind.CONSTRAINT_DEFAULT:
+            raise ValueError('Explicit empty value not permitted: ' + name)
+        self._values[name] = EMPTY_VALUE
+
+    def isEmpty_Field(self, name: str) -> bool:
+        """Report whether a declared field is explicitly in its empty state."""
+        self._check(name)
+        return self._values.get(name) is EMPTY_VALUE
+
     def get_RawField(self, name: str) -> Any:
         self._require_allowed(self._check(name))
-        return self._values.get(name)
+        value = self._values.get(name)
+        return '' if value is EMPTY_VALUE else value
 
     def get_EffectiveField(self, name: str) -> Any:
         definition = self._check(name)
         self._require_allowed(definition)
         if name in self._values:
-            return self._values[name]
+            value = self._values[name]
+            if value is EMPTY_VALUE:
+                default = definition.default_value
+                if default.defined and default.kind is AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_EMPTY:
+                    return _lexical_default(default.value, definition.expected_type)
+                return None
+            return value
         if definition.default_value_resolver:
             return definition.default_value_resolver()
         if definition.presence == AInFieldPresenceKind.REQUIRED and not self._allow_non_present_read(name, definition):

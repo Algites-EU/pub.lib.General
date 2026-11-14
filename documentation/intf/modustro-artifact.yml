@@ -19,6 +19,11 @@ Dependencies:
       - GroupId: eu.algites.lib.data
         ArtifactId: pub.lib.General_data.smartdataobject.intf
         Usages: [product_api]
+      # Transitional: existing generated classes still extend the legacy runtime.
+      # Newly generated classes use impl.common; keep both until codegen migrates.
       - GroupId: eu.algites.lib.data
-        ArtifactId: pub.lib.General_data.smartdataobject.impl
+        ArtifactId: pub.lib.General_data.smartdataobject.impl.common
         Usages: [product_api]
+#      - GroupId: eu.algites.lib.data
+#        ArtifactId: pub.lib.General_data.smartdataobject.impl
+#        Usages: [product_api]

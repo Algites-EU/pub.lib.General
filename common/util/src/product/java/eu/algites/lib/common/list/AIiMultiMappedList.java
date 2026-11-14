@@ -58,6 +58,98 @@ public interface AIiMultiMappedList<V> extends List<V> {
     AIiKeyDefinition<V, ?> keyDefinition(String id);
 
     /**
+     * Returns the number of registered key definitions (not the number of key values).
+     *
+     * @return zero for an unindexed list, otherwise the number of definitions
+     */
+    default int getKeyCount() {
+        throw new UnsupportedOperationException("Legacy implementation does not expose key count");
+    }
+
+    /**
+     * Indicates whether exactly one key definition is registered.
+     *
+     * @return true precisely when {@link #getKeyCount()} is one
+     */
+    default boolean isOneKeyList() {
+        return getKeyCount() == 1;
+    }
+
+    /**
+     * Reports whether key definitions may be registered and removed at runtime.
+     *
+     * @return true for a dynamic-definition list, false for a fixed-definition list
+     */
+    default boolean isDynamicKeyDefsList() {
+        return false;
+    }
+
+    /**
+     * Returns the cached map of the list's only registered key definition.
+     * Its values are snapshot {@code List<V>} groups even for unique keys.
+     *
+     * @param <K> the key type, which the caller must know from the definition
+     * @return live map of keys to immutable snapshot lists
+     * @throws IllegalStateException if there are zero or more than one key definitions
+     * @throws ClassCastException on use if the caller assumes a different key type
+     */
+    default <K> Map<K, List<V>> getOneKeyMap() {
+        throw new UnsupportedOperationException("Legacy implementation does not expose a sole-key lookup");
+    }
+
+    /**
+     * Registers a new key definition and atomically indexes existing elements.
+     *
+     * @param definition non-null key definition with unique, nonblank id and identity
+     * @throws IllegalStateException if definitions are fixed
+     * @throws IllegalArgumentException if its id/identity is duplicated or any
+     *         existing value violates the new definition
+     * @throws NullPointerException if definition is null
+     */
+    default void addKeyDefinition(AIiKeyDefinition<V, ?> definition) {
+        throw new IllegalStateException("Legacy implementations use fixed key definitions");
+    }
+
+    /**
+     * Removes the definition identified by its stable id without removing values.
+     * Any previously retrieved map view for that definition becomes invalid.
+     *
+     * @param id non-null definition id
+     * @return true if a matching definition was present, false otherwise
+     * @throws IllegalStateException if definitions are fixed
+     * @throws NullPointerException if id is null
+     */
+    default boolean removeKeyDefinition(String id) {
+        throw new IllegalStateException("Legacy implementations use fixed key definitions");
+    }
+
+    /**
+     * Unregisters all key definitions while retaining list values.
+     * Previously returned map views become invalid.
+     *
+     * @throws IllegalStateException if definitions are fixed
+     */
+    default void clearKeyDefinitions() {
+        throw new IllegalStateException("Legacy implementations use fixed key definitions");
+    }
+
+    /**
+     * Looks up a registered definition id and returns its cached live map.
+     *
+     * @param id registered definition id
+     * @param <K> expected key type of that definition
+     * @return live map of key to snapshot group
+     * @throws IllegalArgumentException if no definition has this id
+     * @throws NullPointerException if id is null
+     */
+    @SuppressWarnings("unchecked")
+    default <K> Map<K, List<V>> mapByKeyId(String id) {
+        var definition = keyDefinition(id);
+        if (definition == null) throw new IllegalArgumentException("Unknown key definition: " + id);
+        return mapByKeyType((AIiKeyDefinition<V, K>) definition);
+    }
+
+    /**
      * Creates a detached, shallow copy of a positional range, preserving the same
      * key definitions but not sharing membership or map indexes with this list.
      * Stored value objects themselves are shared, not cloned.

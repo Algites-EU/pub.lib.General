@@ -16,43 +16,20 @@
         "NameConventions": {
           "type": "object",
           "title": "Named profiles",
-          "additionalProperties": {
-            "type": "object",
-            "title": "SmartDataObject naming profile",
-            "description": "One named profile of SmartDataObject methods.",
-            "additionalProperties": false,
-            "properties": {
-              "StructureNaming": {
-                "type": "object",
-                "title": "SmartDataObject method naming",
-                "description": "Maps method roles to named fragment or composition IDs.",
-                "propertyNames": {
-                  "$ref": "smartdataobject-method-kind_1.jsondef.schema.json"
-                },
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "properties": {
-                  "standard_getter": {
-                    "type": "string",
-                    "minLength": 1,
-                    "description": "Generated strongly typed accessor that reads a DataObject/SmartDataObject field; required for normal accessor generation."
-                  },
-                  "standard_setter": {
-                    "type": "string",
-                    "minLength": 1,
-                    "description": "Generated strongly typed mutator that writes a DataObject/SmartDataObject field; required for normal accessor generation."
-                  }
-                },
-                "required": [
-                  "standard_getter",
-                  "standard_setter"
-                ]
+          "description": "",
+          "additionalProperties": false,
+          "properties": {
+            "NameConvention": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/SmartDataObjectNameConvention"
+              },
+              "description": "Ordered XSD NameConvention elements; name is an identity attribute.",
+              "x-algites-defscodegen-key": {
+                "id": "UniqueNamingProfiles",
+                "field-name": "name"
               }
-            },
-            "required": [
-              "StructureNaming"
-            ]
+            }
           }
         }
       },
@@ -69,5 +46,130 @@
     "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/common-naming-conventions_1.jsondef.schema.json"
   ],
   "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-naming-conventions",
-  "x-algites-schema-version": 1
+  "x-algites-schema-version": 1,
+  "$defs": {
+    "SmartDataObjectNameConvention": {
+      "type": "object",
+      "title": "SmartDataObject naming profile",
+      "description": "One named profile of SmartDataObject methods.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Required XSD identity attribute."
+        },
+        "StructureNaming": {
+          "type": "object",
+          "title": "SmartDataObject method naming",
+          "description": "Maps method roles to named fragment or composition IDs.",
+          "additionalProperties": false,
+          "properties": {
+            "Rule": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/SmartDataObjectStructureNamingRule"
+              },
+              "x-algites-defscodegen-key": {
+                "id": "UniqueNamingRoles",
+                "field-name": "kind"
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "const": "standard_getter"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ]
+                  }
+                },
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "const": "standard_setter"
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "name",
+        "StructureNaming"
+      ]
+    },
+    "SmartDataObjectStructureNamingRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "$ref": "smartdataobject-method-kind_1.jsondef.schema.json"
+        },
+        "Value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "Value"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "standard_getter"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "Value": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Generated strongly typed accessor that reads a DataObject/SmartDataObject field; required for normal accessor generation."
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "standard_setter"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "Value": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Generated strongly typed mutator that writes a DataObject/SmartDataObject field; required for normal accessor generation."
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
 }

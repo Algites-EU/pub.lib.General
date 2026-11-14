@@ -10,6 +10,8 @@ import java.lang.annotation.Target;
  * XML QName and attribute-versus-element representation do not change the field's
  * independent schema identifier, presence policy, or nullability.
  */
+/** @deprecated use {@link eu.algites.lib.data.dataobject.xmlschema.AIaDataObjectFieldXmlSchema}; legacy contracts remain supported during migration. */
+@Deprecated(since = "1.1", forRemoval = false)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface AIaXmlDataObjectField {
@@ -40,26 +42,11 @@ public @interface AIaXmlDataObjectField {
      * contracts. The order is applied within each declaring interface so
      * inherited base fields precede locally declared derived fields.
      *
+     * @deprecated use {@link eu.algites.lib.data.dataobject.AIaDataObjectField#order()}.
      * @return schema position or {@code -1} when unspecified
      */
+    @Deprecated(since = "1.1", forRemoval = false)
     int order() default -1;
-
-    /**
-     * Minimum number of XML wire occurrences. Negative means the schema has not
-     * supplied an occurrence bound, not an implicit requirement. Attributes have
-     * cardinality zero or one; generated contracts include their exact bounds.
-     *
-     * @return minimum XML occurrence count, or {@code -1} when unspecified
-     */
-    int minOccurs() default -1;
-
-    /**
-     * Maximum number of XML wire occurrences. {@code -1} means unspecified or
-     * unbounded; a nonnegative value is an enforceable wire limit.
-     *
-     * @return maximum XML occurrence count, or {@code -1} without a finite limit
-     */
-    int maxOccurs() default -1;
 
     /**
      * Namespace selection of an {@code xs:any} particle. Values are the XSD
@@ -67,8 +54,10 @@ public @interface AIaXmlDataObjectField {
      * {@code ##targetNamespace} or a space-separated sequence of URIs).
      * The empty default denotes an ordinary named XML field.
      *
+     * @deprecated {@code xs:any} is not part of the new generated DataObject ABI.
      * @return original namespace constraint of the wildcard
      */
+    @Deprecated(since = "1.1", forRemoval = false)
     String wildcardNamespace() default "";
 
     /**
@@ -76,7 +65,9 @@ public @interface AIaXmlDataObjectField {
      * {@code skip} retain the complete fragment; {@code strict} requires
      * an external schema-aware validator before claiming schema validity.
      *
+     * @deprecated {@code xs:any} is not part of the new generated DataObject ABI.
      * @return original processContents policy, or the XSD default
      */
+    @Deprecated(since = "1.1", forRemoval = false)
     String wildcardProcessContents() default "strict";
 }

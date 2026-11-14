@@ -3,2687 +3,2281 @@
 $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/sourcecode/source-structure-name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 NameFragments:
-  xml-data-object-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: XmlDataObject
-  xml-data-object-file-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: xml_data_object_
-  xml-namespace-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _xn
-  xml-namespace-file-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _xn_
-  xml-element-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _xe
-  xml-element-file-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _xe_
-  python-method-parameter-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: a_
-  python-local-variable-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: loc_
-  standard-prefix-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-  generated-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  data-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  version-suffix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  intf-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-  intf-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aii_
-  intf-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  intf-data-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aiid_
-  intf-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  intf-generated-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aiig_
-  intf-generated-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  intf-generated-data-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aiigd_
-  class-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-  class-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aic_
-  class-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  class-data-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aicd_
-  class-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  class-generated-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aicg_
-  class-generated-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  class-generated-data-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aicgd_
-  enum-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: n
-  enum-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ain_
-  enum-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: n
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  enum-generated-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aing_
-  ann-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: a
-  ann-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aia_
-  ann-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: a
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  ann-generated-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aiag_
-  exc-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: x
-  exc-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aix_
-  exc-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: x
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  exc-generated-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: aixg_
-  rb-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: r
-  rb-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: air_
-  rb-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: r
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  rb-generated-prefix-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: airg_
-  xml-type-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _x
-  json-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _j
-  yaml-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _y
-  xml-type-file-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _x_
-  json-file-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _j_
-  yaml-file-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _y_
+  NameFragment:
+    - name: python-method-parameter-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: a_
+    - name: python-local-variable-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: loc_
+    - name: standard-prefix-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+    - name: generated-marker_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: data-marker_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: version-suffix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: intf-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+    - name: intf-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aii_
+    - name: intf-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: intf-data-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aiid_
+    - name: intf-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: intf-generated-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aiig_
+    - name: intf-generated-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: intf-generated-data-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aiigd_
+    - name: class-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+    - name: class-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aic_
+    - name: class-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: class-data-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aicd_
+    - name: class-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: class-generated-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aicg_
+    - name: class-generated-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: class-generated-data-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aicgd_
+    - name: enum-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: n
+    - name: enum-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ain_
+    - name: enum-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: n
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: enum-generated-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aing_
+    - name: ann-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: a
+    - name: ann-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aia_
+    - name: ann-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: a
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: ann-generated-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aiag_
+    - name: exc-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: x
+    - name: exc-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aix_
+    - name: exc-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: x
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: exc-generated-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: aixg_
+    - name: rb-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: r
+    - name: rb-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: air_
+    - name: rb-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: r
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: rb-generated-prefix-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: airg_
 NameCompositions:
-  standard-prefix-python-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: I_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: I_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-data-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ID_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-data-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: id_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-data-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ID_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-data-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: id_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ig_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ig_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-data-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igd_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-data-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igd_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: C_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: C_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-data-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-data-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cd_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-data-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-data-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cd_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cg_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cg_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-data-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cgd_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-data-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGD_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cgd_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-enum_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: N_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-enum-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: n_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-enum-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: N_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-enum-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: n_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-enum_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: NG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-enum-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ng_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-enum-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: NG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-enum-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ng_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-ann_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: A_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-ann-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: a_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-ann-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: A_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-ann-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: a_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-ann_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-ann-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ag_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-ann-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-ann-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ag_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-exc_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: X_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-exc-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: x_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-exc-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: X_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-exc-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: x_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-exc_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: XG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-exc-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: xg_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-exc-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: XG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-exc-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: xg_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-rb_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: R_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-rb-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: r_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-rb-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: R_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-rb-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: r_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-rb_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: RG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-rb-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: rg_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-rb-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: RG_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-rb-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: rg_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  python-source-extension_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: .py
-  python-field-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  python-method-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  python-getter-method-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: get
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  python-setter-method-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: set
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  python-parameter-name_1:
-    Segments:
-    - NameFragmentsSegmentReference:
-        Ref: python-method-parameter-prefix_1
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  python-local-variable-name_1:
-    Segments:
-    - NameFragmentsSegmentReference:
-        Ref: python-local-variable-prefix_1
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  package-segment-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  enum-item-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_snake_case_1
-  constant-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_snake_case_1
-  standard-prefix-python-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Ixe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ixe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Ixe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: ixe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-data-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-data-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: idxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-data-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-data-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: idxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-data-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igdxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-data-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igdxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Cxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: Cxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-data-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-data-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cdxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-data-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-data-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cdxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cgxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cgxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-data-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cgdxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-data-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cgdxe_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-xml-type-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-xml-type-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-xml-type-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-xml-type-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igdx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-xml-type-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-xml-type-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cgdx_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-json-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-json-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-json-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-json-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igdj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-json-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-json-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cgdj_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-yaml-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-yaml-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-yaml-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-yaml-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igdy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-yaml-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: CGDy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-data-yaml-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: cgdy_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-prefix-python-gen-xml-namespace-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGxn_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-xml-namespace-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igxn_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  standard-prefix-python-gen-data-xml-namespace-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: IGDxn_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  standard-prefix-python-gen-data-xml-namespace-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: igdxn_
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
+  NameComposition:
+    - name: standard-prefix-python-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: I_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: I_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-data-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ID_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-data-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: id_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-data-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ID_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-data-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: id_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-gen-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ig_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-gen-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ig_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-data-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-gen-data-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: igd_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-gen-data-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: IGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-data-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: igd_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: C_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: C_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-data-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-data-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: cd_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-data-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-data-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: cd_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-gen-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: cg_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-gen-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: cg_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-data-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-gen-data-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: cgd_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-gen-data-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: CGD_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-data-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: cgd_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-enum_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: N_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-enum-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: n_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-enum-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: N_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-enum-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: n_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-enum_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: NG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-gen-enum-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ng_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-gen-enum-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: NG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-enum-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ng_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-ann_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: A_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-ann-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: a_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-ann-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: A_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-ann-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: a_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-ann_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-gen-ann-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ag_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-gen-ann-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-ann-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: ag_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-exc_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: X_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-exc-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: x_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-exc-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: X_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-exc-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: x_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-exc_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: XG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-gen-exc-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: xg_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-gen-exc-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: XG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-exc-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: xg_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-rb_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: R_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-rb-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: r_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-rb-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: R_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-rb-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: r_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-rb_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: RG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: standard-prefix-python-gen-rb-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: rg_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: standard-prefix-python-gen-rb-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: RG_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-prefix-python-gen-rb-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: rg_
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: python-source-extension_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: .py
+    - name: python-field-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: python-method-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: python-getter-method-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: get
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: python-setter-method-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: set
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: python-parameter-name_1
+      Segments:
+        - NameFragmentsSegmentReference:
+            Ref: python-method-parameter-prefix_1
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: python-local-variable-name_1
+      Segments:
+        - NameFragmentsSegmentReference:
+            Ref: python-local-variable-prefix_1
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: package-segment-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: enum-item-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_snake_case_1
+    - name: constant-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_snake_case_1
 SourceStructureNameConventions:
   NameConventions:
-    standard-prefix-python-gen-xml-namespace-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-xml-namespace-intf_1
-        sub_container_name: standard-prefix-python-gen-xml-namespace-intf_1
-        file_name_stem: standard-prefix-python-gen-xml-namespace-intf-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-xml-namespace-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-xml-namespace-intf_1
-        sub_container_name: standard-prefix-python-gen-data-xml-namespace-intf_1
-        file_name_stem: standard-prefix-python-gen-data-xml-namespace-intf-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-intf_1
-        sub_container_name: standard-prefix-python-intf_1
-        file_name_stem: standard-prefix-python-intf-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-intf-versioned_1
-        sub_container_name: standard-prefix-python-intf-versioned_1
-        file_name_stem: standard-prefix-python-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-data-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-data-intf_1
-        sub_container_name: standard-prefix-python-data-intf_1
-        file_name_stem: standard-prefix-python-data-intf-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-data-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-data-intf-versioned_1
-        sub_container_name: standard-prefix-python-data-intf-versioned_1
-        file_name_stem: standard-prefix-python-data-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-intf_1
-        sub_container_name: standard-prefix-python-gen-intf_1
-        file_name_stem: standard-prefix-python-gen-intf-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-intf-versioned_1
-        sub_container_name: standard-prefix-python-gen-intf-versioned_1
-        file_name_stem: standard-prefix-python-gen-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-intf_1
-        sub_container_name: standard-prefix-python-gen-data-intf_1
-        file_name_stem: standard-prefix-python-gen-data-intf-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-intf-versioned_1
-        sub_container_name: standard-prefix-python-gen-data-intf-versioned_1
-        file_name_stem: standard-prefix-python-gen-data-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-class_1
-        sub_container_name: standard-prefix-python-class_1
-        file_name_stem: standard-prefix-python-class-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-class-versioned_1
-        sub_container_name: standard-prefix-python-class-versioned_1
-        file_name_stem: standard-prefix-python-class-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-data-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-data-class_1
-        sub_container_name: standard-prefix-python-data-class_1
-        file_name_stem: standard-prefix-python-data-class-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-data-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-data-class-versioned_1
-        sub_container_name: standard-prefix-python-data-class-versioned_1
-        file_name_stem: standard-prefix-python-data-class-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-gen-class_1
-        sub_container_name: standard-prefix-python-gen-class_1
-        file_name_stem: standard-prefix-python-gen-class-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-gen-class-versioned_1
-        sub_container_name: standard-prefix-python-gen-class-versioned_1
-        file_name_stem: standard-prefix-python-gen-class-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-class_1
-        sub_container_name: standard-prefix-python-gen-data-class_1
-        file_name_stem: standard-prefix-python-gen-data-class-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-class-versioned_1
-        sub_container_name: standard-prefix-python-gen-data-class-versioned_1
-        file_name_stem: standard-prefix-python-gen-data-class-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-enum_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-prefix-python-enum_1
-        sub_container_name: standard-prefix-python-enum_1
-        file_name_stem: standard-prefix-python-enum-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-enum-versioned_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-prefix-python-enum-versioned_1
-        sub_container_name: standard-prefix-python-enum-versioned_1
-        file_name_stem: standard-prefix-python-enum-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-enum_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-prefix-python-gen-enum_1
-        sub_container_name: standard-prefix-python-gen-enum_1
-        file_name_stem: standard-prefix-python-gen-enum-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-enum-versioned_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-prefix-python-gen-enum-versioned_1
-        sub_container_name: standard-prefix-python-gen-enum-versioned_1
-        file_name_stem: standard-prefix-python-gen-enum-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-ann_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-prefix-python-ann_1
-        sub_container_name: standard-prefix-python-ann_1
-        file_name_stem: standard-prefix-python-ann-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-ann-versioned_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-prefix-python-ann-versioned_1
-        sub_container_name: standard-prefix-python-ann-versioned_1
-        file_name_stem: standard-prefix-python-ann-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-ann_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-prefix-python-gen-ann_1
-        sub_container_name: standard-prefix-python-gen-ann_1
-        file_name_stem: standard-prefix-python-gen-ann-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-ann-versioned_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-prefix-python-gen-ann-versioned_1
-        sub_container_name: standard-prefix-python-gen-ann-versioned_1
-        file_name_stem: standard-prefix-python-gen-ann-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-exc_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-prefix-python-exc_1
-        sub_container_name: standard-prefix-python-exc_1
-        file_name_stem: standard-prefix-python-exc-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-exc-versioned_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-prefix-python-exc-versioned_1
-        sub_container_name: standard-prefix-python-exc-versioned_1
-        file_name_stem: standard-prefix-python-exc-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-exc_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-prefix-python-gen-exc_1
-        sub_container_name: standard-prefix-python-gen-exc_1
-        file_name_stem: standard-prefix-python-gen-exc-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-exc-versioned_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-prefix-python-gen-exc-versioned_1
-        sub_container_name: standard-prefix-python-gen-exc-versioned_1
-        file_name_stem: standard-prefix-python-gen-exc-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-rb_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-prefix-python-rb_1
-        sub_container_name: standard-prefix-python-rb_1
-        file_name_stem: standard-prefix-python-rb-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-rb-versioned_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-prefix-python-rb-versioned_1
-        sub_container_name: standard-prefix-python-rb-versioned_1
-        file_name_stem: standard-prefix-python-rb-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-rb_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-prefix-python-gen-rb_1
-        sub_container_name: standard-prefix-python-gen-rb_1
-        file_name_stem: standard-prefix-python-gen-rb-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-rb-versioned_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-prefix-python-gen-rb-versioned_1
-        sub_container_name: standard-prefix-python-gen-rb-versioned_1
-        file_name_stem: standard-prefix-python-gen-rb-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-xml-element-intf_1
-        sub_container_name: standard-prefix-python-xml-element-intf_1
-        file_name_stem: standard-prefix-python-xml-element-intf-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-xml-element-intf-versioned_1
-        sub_container_name: standard-prefix-python-xml-element-intf-versioned_1
-        file_name_stem: standard-prefix-python-xml-element-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-data-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-data-xml-element-intf_1
-        sub_container_name: standard-prefix-python-data-xml-element-intf_1
-        file_name_stem: standard-prefix-python-data-xml-element-intf-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-data-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-data-xml-element-intf-versioned_1
-        sub_container_name: standard-prefix-python-data-xml-element-intf-versioned_1
-        file_name_stem: standard-prefix-python-data-xml-element-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-xml-element-intf_1
-        sub_container_name: standard-prefix-python-gen-xml-element-intf_1
-        file_name_stem: standard-prefix-python-gen-xml-element-intf-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-xml-element-intf-versioned_1
-        sub_container_name: standard-prefix-python-gen-xml-element-intf-versioned_1
-        file_name_stem: standard-prefix-python-gen-xml-element-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-xml-element-intf_1
-        sub_container_name: standard-prefix-python-gen-data-xml-element-intf_1
-        file_name_stem: standard-prefix-python-gen-data-xml-element-intf-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-xml-element-intf-versioned_1
-        sub_container_name: standard-prefix-python-gen-data-xml-element-intf-versioned_1
-        file_name_stem: standard-prefix-python-gen-data-xml-element-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-xml-element-class_1
-        sub_container_name: standard-prefix-python-xml-element-class_1
-        file_name_stem: standard-prefix-python-xml-element-class-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-xml-element-class-versioned_1
-        sub_container_name: standard-prefix-python-xml-element-class-versioned_1
-        file_name_stem: standard-prefix-python-xml-element-class-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-data-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-data-xml-element-class_1
-        sub_container_name: standard-prefix-python-data-xml-element-class_1
-        file_name_stem: standard-prefix-python-data-xml-element-class-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-data-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-data-xml-element-class-versioned_1
-        sub_container_name: standard-prefix-python-data-xml-element-class-versioned_1
-        file_name_stem: standard-prefix-python-data-xml-element-class-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-gen-xml-element-class_1
-        sub_container_name: standard-prefix-python-gen-xml-element-class_1
-        file_name_stem: standard-prefix-python-gen-xml-element-class-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-gen-xml-element-class-versioned_1
-        sub_container_name: standard-prefix-python-gen-xml-element-class-versioned_1
-        file_name_stem: standard-prefix-python-gen-xml-element-class-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-xml-element-class_1
-        sub_container_name: standard-prefix-python-gen-data-xml-element-class_1
-        file_name_stem: standard-prefix-python-gen-data-xml-element-class-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-xml-element-class-versioned_1
-        sub_container_name: standard-prefix-python-gen-data-xml-element-class-versioned_1
-        file_name_stem: standard-prefix-python-gen-data-xml-element-class-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-xml-type-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-xml-type-intf-versioned_1
-        sub_container_name: standard-prefix-python-gen-xml-type-intf-versioned_1
-        file_name_stem: standard-prefix-python-gen-xml-type-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-xml-type-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-xml-type-intf-versioned_1
-        sub_container_name: standard-prefix-python-gen-data-xml-type-intf-versioned_1
-        file_name_stem: standard-prefix-python-gen-data-xml-type-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-xml-type-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-xml-type-class-versioned_1
-        sub_container_name: standard-prefix-python-gen-data-xml-type-class-versioned_1
-        file_name_stem: standard-prefix-python-gen-data-xml-type-class-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-json-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-json-intf-versioned_1
-        sub_container_name: standard-prefix-python-gen-json-intf-versioned_1
-        file_name_stem: standard-prefix-python-gen-json-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-json-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-json-intf-versioned_1
-        sub_container_name: standard-prefix-python-gen-data-json-intf-versioned_1
-        file_name_stem: standard-prefix-python-gen-data-json-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-json-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-json-class-versioned_1
-        sub_container_name: standard-prefix-python-gen-data-json-class-versioned_1
-        file_name_stem: standard-prefix-python-gen-data-json-class-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-yaml-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-yaml-intf-versioned_1
-        sub_container_name: standard-prefix-python-gen-yaml-intf-versioned_1
-        file_name_stem: standard-prefix-python-gen-yaml-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-yaml-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-yaml-intf-versioned_1
-        sub_container_name: standard-prefix-python-gen-data-yaml-intf-versioned_1
-        file_name_stem: standard-prefix-python-gen-data-yaml-intf-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-prefix-python-gen-data-yaml-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-prefix-python-gen-data-yaml-class-versioned_1
-        sub_container_name: standard-prefix-python-gen-data-yaml-class-versioned_1
-        file_name_stem: standard-prefix-python-gen-data-yaml-class-versioned-file_1
-        file_name_suffix: python-source-extension_1
-        field_name: python-field-name_1
-        method_name: python-method-name_1
-        getter_method_name: python-getter-method-name_1
-        setter_method_name: python-setter-method-name_1
-        method_parameter_name: python-parameter-name_1
-        local_variable_name: python-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
+    NameConvention:
+      - name: standard-prefix-python-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-intf_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-intf_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-intf-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-data-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-data-intf_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-data-intf_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-data-intf-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-data-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-data-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-data-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-data-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-intf_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-intf_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-intf-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-data-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-data-intf_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-data-intf_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-data-intf-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-data-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-data-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-data-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-data-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-class_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-class_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-class-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-data-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-data-class_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-data-class_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-data-class-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-data-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-data-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-data-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-data-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-class_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-class_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-class-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-data-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-data-class_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-data-class_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-data-class-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-data-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-data-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-data-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-data-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-enum_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-enum_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-enum_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-enum-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-enum-versioned_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-enum-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-enum-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-enum-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-enum_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-enum_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-enum_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-enum-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-enum-versioned_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-enum-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-enum-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-enum-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-ann_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-ann_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-ann_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-ann-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-ann-versioned_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-ann-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-ann-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-ann-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-ann_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-ann_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-ann_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-ann-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-ann-versioned_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-ann-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-ann-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-ann-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-exc_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-exc_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-exc_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-exc-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-exc-versioned_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-exc-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-exc-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-exc-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-exc_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-exc_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-exc_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-exc-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-exc-versioned_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-exc-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-exc-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-exc-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-rb_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-rb_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-rb_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-rb-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-rb-versioned_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-rb-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-rb-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-rb-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-rb_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-rb_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-rb_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-rb-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-prefix-python-gen-rb-versioned_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-prefix-python-gen-rb-versioned_1
+            - kind: sub_container_name
+              Value: standard-prefix-python-gen-rb-versioned_1
+            - kind: file_name_stem
+              Value: standard-prefix-python-gen-rb-versioned-file_1
+            - kind: file_name_suffix
+              Value: python-source-extension_1
+            - kind: field_name
+              Value: python-field-name_1
+            - kind: method_name
+              Value: python-method-name_1
+            - kind: getter_method_name
+              Value: python-getter-method-name_1
+            - kind: setter_method_name
+              Value: python-setter-method-name_1
+            - kind: method_parameter_name
+              Value: python-parameter-name_1
+            - kind: local_variable_name
+              Value: python-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1

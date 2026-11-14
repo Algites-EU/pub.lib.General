@@ -2,12 +2,14 @@
 import pytest
 
 from eu.algites.lib.data.dataobject.aicd_data_object import AIcdDataObject
+from eu.algites.lib.data.dataobject.jsondefs.aia_json_data_object import AIaJsonDataObject
 from eu.algites.lib.data.dataobject.aicd_data_object_field import AIcdDataObjectField
 from eu.algites.lib.data.smartdataobject.impl.standard.aic_smart_data_object import AIcSmartDataObject
 
 
 class _Person(AIcSmartDataObject):
-    __data_object__ = AIcdDataObject(schema_url='https://example.org/person.schema.json',
+    __data_object__ = AIcdDataObject()
+    __json_data_object__ = AIaJsonDataObject(schema_url='https://example.org/person.schema.json',
                                     data_source_schema_url_field='$schema')
     __data_object_fields__ = (AIcdDataObjectField('firstName'),
                               AIcdDataObjectField('lastName'))

@@ -41,7 +41,7 @@ class StaffContract:
     """Generated Defs read contract: key metadata belongs to the inherited API."""
 
     __xml_repeated_fields__ = ('employee',)
-    __xml_key_definitions__ = {
+    __key_definitions__ = {
         'employee': (
             ('ByDepartmentAndCode', ('department', 'identity.code'), True),
             ('UniqueAlias', ('alias',), False),
@@ -52,10 +52,9 @@ class StaffContract:
 class Staff(AIcXmlSmartDataObject, StaffContract):
     """Generated-style mutable implementation with inherited key metadata."""
 
-    __data_object_fields__ = (AIcdDataObjectField('employee', expected_type=AIiMultiMappedList),)
+    __data_object_fields__ = (AIcdDataObjectField('employee', expected_type=AIiMultiMappedList, min_item_count=0),)
     __xml_data_object_fields__ = {
-        'employee': AIaXmlDataObjectField(namespace='urn:employees', namespace_local_name='employee',
-                                          min_occurs=0, max_occurs=-1)}
+        'employee': AIaXmlDataObjectField(namespace='urn:employees', namespace_local_name='employee')}
     __xml_field_types__ = {'employee': Employee}
 
 

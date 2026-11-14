@@ -57,15 +57,17 @@ final class AIcSmartDataGraphSnapshot {
     static final class AIcField {
         final AIcSmartDataMetadata.AIcdField descriptor;
         final boolean present;
+        final boolean empty;
         final AIcNode raw;
         AIcNode effective;
         boolean effectiveResolved;
-        AIcField(AIcSmartDataMetadata.AIcdField aDescriptor, boolean aPresent, AIcNode aRaw) {
+        AIcField(AIcSmartDataMetadata.AIcdField aDescriptor, boolean aPresent, boolean aEmpty, AIcNode aRaw) {
             descriptor = aDescriptor;
             present = aPresent;
+            empty = aEmpty;
             raw = aRaw;
             effective = aRaw;
-            effectiveResolved = aPresent;
+            effectiveResolved = aPresent && !aEmpty;
         }
         String name() { return descriptor.name(); }
         String wireName() { return descriptor.wireName(); }
@@ -95,8 +97,12 @@ final class AIcSmartDataGraphSnapshot {
     }
     AIcNode root() { return root; }
 
+    /** Resolve a sealed CHOICE record's immutable component through this snapshot. */
+    AIcNode nodeFor(Object aValue) { return build(aValue); }
+
     private AIcNode build(Object aValue) {
         if (aValue == null) return nil;
+        aValue = AIcSmartDataObject.serializeRaw(aValue);
         AIcNode locExisting = identity.get(aValue);
         if (locExisting != null) return locExisting;
         if (identity.size() >= MAX_NODES) throw new IllegalStateException("SmartData graph node limit exceeded");
@@ -127,6 +133,7 @@ final class AIcSmartDataGraphSnapshot {
                     }
                 }
                 locNode.fields.add(new AIcField(locDescriptor, locPresent,
+                        locSmart != null && locSmart.isEmptyRaw(locDescriptor.name()),
                         locPresent ? build(locRaw) : nil));
             }
             Map<String, AIcField> locByName = new LinkedHashMap<>();
@@ -165,10 +172,12 @@ final class AIcSmartDataGraphSnapshot {
     }
 
     AIcNode fieldValue(AIcField aField, boolean aEffective) {
-        if (!aEffective || aField.present) return aField.raw;
+        if (!aEffective || aField.present && !aField.empty) return aField.raw;
         if (!aField.effectiveResolved) {
             aField.effectiveResolved = true;
-            if (aField.descriptor.hasDefault()) aField.effective = build(aField.descriptor.createDefault());
+            if (aField.empty && aField.descriptor.hasEmptyDefault()
+                    || !aField.present && aField.descriptor.hasDefault())
+                aField.effective = build(aField.descriptor.createDefault());
             else aField.effective = nil;
         }
         return aField.effective;

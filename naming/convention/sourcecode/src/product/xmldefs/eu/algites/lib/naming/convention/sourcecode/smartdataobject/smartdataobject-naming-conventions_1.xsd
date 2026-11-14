@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-naming-conventions_1.xsd" version="1"
-           xmlns:common="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd"
-           xmlns:role="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-method-kind_1.xsd">
-  <xs:annotation><xs:documentation>SmartDataObject accessor method naming profiles, separately typed from the other naming domain. XML entries encode named maps as Rule elements with unique role keys.</xs:documentation></xs:annotation>
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd" xmlns:role="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-method-kind_1.xsd" xmlns:tns="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-naming-conventions_1.xsd" targetNamespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-naming-conventions_1.xsd" version="1">
+  <xs:annotation>
+    <xs:documentation>SmartDataObject accessor method naming profiles, separately typed from the other naming domain. XML entries encode named maps as Rule elements with unique role keys.</xs:documentation>
+  </xs:annotation>
   <xs:import namespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd" schemaLocation="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd"/>
   <xs:import namespace="https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-method-kind_1.xsd" schemaLocation="smartdataobject-method-kind_1.xsd"/>
   <xs:complexType name="SmartdataobjectNamingConventions">
@@ -11,22 +10,52 @@
       <xs:extension base="common:CommonNamingConventions">
         <xs:sequence>
           <xs:element name="SmartDataObjectNameConventions">
-            <xs:complexType><xs:sequence><xs:element name="NameConventions">
-              <xs:complexType><xs:sequence><xs:element name="NameConvention" minOccurs="0" maxOccurs="unbounded">
-                <xs:complexType><xs:sequence><xs:element name="StructureNaming">
-                  <xs:complexType><xs:sequence><xs:element name="Rule" minOccurs="0" maxOccurs="unbounded">
-                    <xs:complexType><xs:simpleContent><xs:extension base="xs:string">
-                      <xs:attribute name="kind" type="role:SmartdataobjectMethodKind" use="required"/>
-                    </xs:extension></xs:simpleContent></xs:complexType>
-                  </xs:element></xs:sequence></xs:complexType>
-                  <xs:key name="UniqueNamingRoles"><xs:selector xpath="Rule"/><xs:field xpath="@kind"/></xs:key>
-                </xs:element></xs:sequence><xs:attribute name="name" type="xs:string" use="required"/></xs:complexType>
-              </xs:element></xs:sequence></xs:complexType>
-              <xs:key name="UniqueNamingProfiles"><xs:selector xpath="NameConvention"/><xs:field xpath="@name"/></xs:key>
-            </xs:element></xs:sequence></xs:complexType>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="NameConventions">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="NameConvention" minOccurs="0" maxOccurs="unbounded" type="tns:SmartDataObjectNameConvention"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                  <xs:key name="UniqueNamingProfiles">
+                    <xs:selector xpath="NameConvention"/>
+                    <xs:field xpath="@name"/>
+                  </xs:key>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
           </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SmartDataObjectNameConvention">
+    <xs:sequence>
+      <xs:element name="StructureNaming">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Rule" minOccurs="0" maxOccurs="unbounded" type="tns:SmartDataObjectStructureNamingRule"/>
+          </xs:sequence>
+        </xs:complexType>
+        <xs:key name="UniqueNamingRoles">
+          <xs:selector xpath="Rule"/>
+          <xs:field xpath="@kind"/>
+        </xs:key>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="SmartDataObjectStructureNamingRule">
+    <xs:sequence>
+      <xs:element name="Value" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="kind" type="role:SmartdataobjectMethodKind" use="required"/>
   </xs:complexType>
 </xs:schema>

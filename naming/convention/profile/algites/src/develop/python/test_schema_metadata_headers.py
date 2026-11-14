@@ -41,15 +41,9 @@ def test_naming_catalogs_accept_schema_metadata(family: str, suffix: str) -> Non
             '.yamldef.schema.json', f'.{suffix}.schema.json')
         assert selected_uri in by_id
         document = yaml.safe_load(catalog.read_text(encoding='utf-8'))
-        # Profiles currently still contain old flat metadata roles used by older generators.
-        # Test the forward-compatible structure without silently rewriting the shipped configs.
-        normalized = deepcopy(document)
-        for entry in normalized.get('SourceStructureNameConventions', {}).get('NameConventions', {}).values():
-            for role in tuple(entry):
-                if role.startswith(('schema_source_schema_', 'data_source_schema_')):
-                    del entry[role]
+        # All published catalogs must validate *as checked in*: no hidden migration.
         Draft202012Validator(by_id[selected_uri], registry=registry,
-                             format_checker=FormatChecker()).validate(normalized)
+                             format_checker=FormatChecker()).validate(document)
 
 
 def test_common_naming_schemas_explicitly_define_schema_metadata() -> None:
@@ -65,10 +59,7 @@ def test_common_naming_schemas_explicitly_define_schema_metadata() -> None:
 def test_algites_schema_metadata_mapping(family: str) -> None:
     """Keep schema-dialect metadata distinct from instance schema references."""
     document = yaml.safe_load((_CONFIG / f'algites-{family}-name-conventions.yml').read_text(encoding='utf-8'))
-    for profile in document['SourceStructureNameConventions']['NameConventions'].values():
-        assert profile['schema_source_schema_url'] == '$id'
-        assert profile['schema_source_schema_identifier'] == 'x-algites-schema-id'
-        assert profile['schema_source_schema_version'] == 'x-algites-schema-version'
-        assert profile['data_source_schema_url'] == '$schema'
-        assert profile['data_source_schema_identifier'] == ''
-        assert profile['data_source_schema_version'] == ''
+    for profile in document['SourceStructureNameConventions']['NameConventions']['NameConvention']:
+        assert not any(name.startswith(('schema_source_schema_', 'data_source_schema_'))
+                       for name in profile)
+        assert profile['StructureNaming']['Rule']

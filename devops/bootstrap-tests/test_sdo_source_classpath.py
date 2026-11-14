@@ -36,5 +36,9 @@ def test_source_jar_shadowing_is_a_real_semantic_difference():
     if not old.is_file():
         # The test applies equally to the tool repository, which does not own the grammar.
         return
-    current = old.read_text(encoding='utf-8')
-    assert 'all_lower_1:\n    ConversionStyle: lower_flat' in current
+    import yaml
+    current = yaml.safe_load(old.read_text(encoding='utf-8'))
+    rules = current['IdentifierConventions']['IdentifierConvention']
+    assert any(rule.get('name') == 'all_lower_1'
+               and rule.get('ConversionStyle') == 'lower_flat'
+               for rule in rules)

@@ -5,3 +5,7 @@ class AInTextFormatType(str, Enum):
     JSON = 'JSON'
     YAML = 'YAML'
     XML = 'XML'
+
+    def code(self) -> str:
+        """Return the stable external format code."""
+        return self.value

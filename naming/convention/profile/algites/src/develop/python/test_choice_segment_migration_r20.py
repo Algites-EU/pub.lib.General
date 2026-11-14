@@ -27,12 +27,17 @@ def test_all_resource_segments_are_exclusively_named():
         if not isinstance(payload, dict):
             continue
         for section in ('NameFragments', 'NameCompositions'):
-            for definition in payload.get(section, {}).values():
+            for definition in payload.get(section, {}).get({'NameFragments': 'NameFragment', 'NameCompositions': 'NameComposition'}[section], []):
                 for segment in definition.get('Segments', []):
                     assert isinstance(segment, dict) and len(segment) == 1, path
                     variant, value = next(iter(segment.items()))
                     assert variant in {'NameFragmentsSegmentValue', 'NameFragmentsSegmentReference'}, path
                     assert isinstance(value, dict), path
+                    if variant == 'NameFragmentsSegmentValue':
+                        assert set(value) == {'Kind', 'Content'}, path
+                        assert isinstance(value['Content'], dict) and len(value['Content']) == 1, path
+                        if 'NameRegexp' in value['Content']:
+                            assert set(value['Content']['NameRegexp']) == {'Name', 'Regexp'}, path
                     checked += 1
         # Only independently scoped source files with naming segments are validated;
         # generated artifacts and build outputs are intentionally not inspected.
@@ -52,7 +57,7 @@ def test_tagged_resource_validates_as_standard_json_schema():
 def test_catalog_rejects_ambiguous_choice_wrapper():
     """The reader must not silently pick the first of two declared alternatives."""
     ambiguous = {'NameFragments': {'f': {'Segments': [{
-        'NameFragmentsSegmentValue': {'Kind': 'constant_string', 'Value': 'a'},
+        'NameFragmentsSegmentValue': {'Kind': 'constant_string', 'Content': {'Value': 'a'}},
         'NameFragmentsSegmentReference': {'Ref': 'other'},
     }]}}}
     with pytest.raises(ValueError, match='exactly one'):
@@ -62,10 +67,10 @@ def test_catalog_rejects_ambiguous_choice_wrapper():
 def test_catalog_normalizes_choice_without_mutating_input():
     """Keep naming operations agnostic of JSON/YAML serialization wrappers."""
     source = {'NameFragments': {'f': {'Segments': [
-        {'NameFragmentsSegmentValue': {'Kind': 'constant_string', 'Value': 'A'}},
+        {'NameFragmentsSegmentValue': {'Kind': 'constant_string', 'Content': {'Value': 'A'}}},
         {'NameFragmentsSegmentReference': {'Ref': 'g'}},
     ]}, 'g': {'Segments': [
-        {'NameFragmentsSegmentValue': {'Kind': 'constant_string', 'Value': 'B'}}]}}}
+        {'NameFragmentsSegmentValue': {'Kind': 'constant_string', 'Content': {'Value': 'B'}}}]}}}
     catalog = AIcNameConventionCatalog(source)
     assert catalog.composition('f') == (
         {'Kind': 'constant_string', 'Value': 'A'},

@@ -15,6 +15,73 @@ _NAMED_CAPTURE = re.compile(r'\(\?<([A-Za-z][A-Za-z0-9_]*)>')
 _CAMEL_BOUNDARY = re.compile(r'(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])')
 
 
+_NAMED_CONVENTION_ITEMS = {
+    'IdentifierConventions': 'IdentifierConvention',
+    'VersionConventions': 'VersionConvention',
+    'NameFragments': 'NameFragment',
+    'NameCompositions': 'NameComposition',
+}
+
+
+def _named_entries(value: Any, singular: str, field: str, location: str) -> dict[str, Any]:
+    """Index XSD-equivalent named elements, rejecting duplicate identifiers.
+
+    Serialization uses a named array, while runtime naming lookups use a map.
+    This translation never changes the checked-in schema representation.
+    """
+    if not isinstance(value, Mapping):
+        raise ValueError(f'{location}: expected a named collection object')
+    if singular not in value:
+        return dict(value)  # Internal normalized callers and explicit legacy tests.
+    if len(value) != 1 or not isinstance(value[singular], list):
+        raise ValueError(f'{location}/{singular}: expected an array with no sibling fields')
+    result: dict[str, Any] = {}
+    for index, item in enumerate(value[singular]):
+        where = f'{location}/{singular}[{index}]'
+        if not isinstance(item, Mapping) or not isinstance(item.get(field), str) or not item[field]:
+            raise ValueError(f'{where}: missing nonempty {field}')
+        key = item[field]
+        if key in result:
+            raise ValueError(f'{where}: duplicate {field} {key!r}')
+        result[key] = {k: v for k, v in item.items() if k != field}
+    return result
+
+
+def _normalize_naming_document(document: Mapping[str, Any]) -> dict[str, Any]:
+    """Normalize XSD-shaped catalogues once at the YAML loading boundary."""
+    if not isinstance(document, Mapping):
+        raise ValueError('Naming document must be a mapping')
+    doc = deepcopy(dict(document))
+    for plural, singular in _NAMED_CONVENTION_ITEMS.items():
+        if plural in doc:
+            doc[plural] = _named_entries(doc[plural], singular, 'name', plural)
+    for family, value in doc.items():
+        if family == 'NameConventions' and isinstance(value, Mapping):
+            profiles = value
+        elif isinstance(value, Mapping) and 'NameConventions' in value:
+            profiles = _named_entries(value['NameConventions'], 'NameConvention', 'name', family+'/NameConventions')
+            value['NameConventions'] = profiles
+        else:
+            continue
+        for name, profile in profiles.items():
+            if not isinstance(profile, Mapping):
+                raise ValueError(f'{family}/{name}: invalid profile')
+            for collection in ('StructureNaming', 'SchemaMetadataNaming'):
+                if collection in profile:
+                    rules = _named_entries(profile[collection], 'Rule', 'kind', f'{family}/{name}/{collection}')
+                    profile[collection] = {
+                        kind: (rule if isinstance(rule, str) else
+                               rule['Value'] if isinstance(rule, Mapping) and set(rule) == {'Value'}
+                               and isinstance(rule['Value'], str) else
+                               _invalid_rule(family,name,collection,kind))
+                        for kind,rule in rules.items()}
+    return doc
+
+
+def _invalid_rule(family: str, name: str, collection: str, kind: str):
+    raise ValueError(f'{family}/{name}/{collection}/Rule[{kind}]: expected exactly Value')
+
+
 class AIcNameConventionCatalog(AIiNameConventionCatalog):
     """YAML-driven, language-independent name composition engine.
 
@@ -23,7 +90,7 @@ class AIcNameConventionCatalog(AIiNameConventionCatalog):
     """
 
     def __init__(self, config: Mapping[str, Any]):
-        self._config = deepcopy(dict(config))
+        self._config = _normalize_naming_document(config)
         # Serialized Choice variants are explicit in JSONDEFS/YAMLDEFS. Normalize
         # them once at the boundary; all naming operations then share one shape.
         for section in ('NameFragments', 'NameCompositions'):
@@ -45,16 +112,16 @@ class AIcNameConventionCatalog(AIiNameConventionCatalog):
         self._compositions = self._config.get('NameCompositions', {})
         self._conventions: dict[str, Any] = {}
         self._families: dict[str, str] = {}
-        for section, definitions in config.items():
+        for section, definitions in self._config.items():
             if section == 'NameConventions' and isinstance(definitions, Mapping):
                 self._register_profiles(definitions, section)
             elif isinstance(definitions, Mapping) and isinstance(definitions.get('NameConventions'), Mapping):
                 self._register_profiles(definitions['NameConventions'], section)
         # Compatibility aliases only. Domain semantics belong in the consuming tool.
-        self._generated_methods = dict(config.get('GeneratedDataObjectMethodNameConventions', {}).get('NameConventions', {}))
+        self._generated_methods = dict(self._config.get('GeneratedDataObjectMethodNameConventions', {}).get('NameConventions', {}))
         self._generated_method_profile = None
-        self._identifiers = config.get('IdentifierConventions', {})
-        self._versions = config.get('VersionConventions', {})
+        self._identifiers = self._config.get('IdentifierConventions', {})
+        self._versions = self._config.get('VersionConventions', {})
         for section, definitions in (('NameFragments', self._fragments),
                                      ('NameCompositions', self._compositions)):
             for name, definition in definitions.items():
@@ -97,6 +164,20 @@ class AIcNameConventionCatalog(AIiNameConventionCatalog):
             raise ValueError('Value segment cannot contain Ref')
         if variant == 'NameFragmentsSegmentReference' and set(payload) != {'Ref'}:
             raise ValueError('Reference segment must contain only Ref')
+        if variant == 'NameFragmentsSegmentValue':
+            if set(payload) != {'Kind', 'Content'}:
+                raise ValueError('Inline segment requires exactly Kind and Content')
+            content = payload['Content']
+            if not isinstance(content, Mapping) or len(content) != 1:
+                raise ValueError('Inline segment Content must select exactly one alternative')
+            alternative, selected = next(iter(content.items()))
+            if alternative == 'NameRegexp':
+                if not isinstance(selected, Mapping) or set(selected) != {'Name', 'Regexp'}:
+                    raise ValueError('NameRegexp alternative requires Name and Regexp')
+                return {'Kind': payload['Kind'], **selected}
+            if alternative not in {'Value', 'Convention', 'CustomConventionRegexp'}:
+                raise ValueError(f'Unknown inline segment Content alternative {alternative!r}')
+            return {'Kind': payload['Kind'], alternative: selected}
         return dict(payload)
 
     @staticmethod
@@ -189,6 +270,7 @@ class AIcNameConventionCatalog(AIiNameConventionCatalog):
         config = yaml.safe_load(read_text(filename))
         if not isinstance(config, dict):
             raise ValueError(f'Name conventions document must be a mapping: {filename}')
+        config = _normalize_naming_document(config)
         if 'StandardConventionsFile' in config:
             standard_name = config['StandardConventionsFile']
             if not isinstance(standard_name, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*\.yml', standard_name):
@@ -200,6 +282,7 @@ class AIcNameConventionCatalog(AIiNameConventionCatalog):
             standard = yaml.safe_load(standard_text)
             if not isinstance(standard, dict):
                 raise ValueError(f'Standard conventions document must be a mapping: {standard_name}')
+            standard = _normalize_naming_document(standard)
             for section in ('IdentifierConventions', 'VersionConventions'):
                 combined = dict(standard.get(section, {}))
                 for name, item in config.get(section, {}).items():
@@ -379,15 +462,16 @@ class AIcNameConventionCatalog(AIiNameConventionCatalog):
         if specific.get('CommonNamingConvention') != common_id:
             raise ValueError(f'{domain} naming profile {specific_id} does not reference '
                              f'selected Common profile {common_id}')
-        common_roles = {'standard_getter', 'standard_setter',
+        common_roles = {'standard_getter', 'standard_setter', 'list_getter',
                         'multi_mapped_list_key_synthetic_getter',
                         'multi_mapped_list_value_synthetic_getter',
                         'positional_item_synthetic_getter', 'const_container_interface'}
         defs_roles = {'synthetic_property_type', 'synthetic_list_item_type',
                       'synthetic_map_value_type', 'synthetic_positional_item_type',
                       'synthetic_choice_variant_type', 'synthetic_group_type',
+                      'synthetic_inline_enum_type',
                       'string_enum_item', 'non_string_enum_item'}
-        sdo_roles = {'raw_getter', 'raw_presence_checker_method', 'raw_unsetter'}
+        sdo_roles = {'raw_getter', 'raw_presence_checker_method', 'raw_unsetter', 'raw_empty_setter', 'raw_empty_checker_method'}
         shared = common.get('StructureNaming')
         special = specific.get('StructureNaming')
         if not isinstance(shared, dict) or not isinstance(special, dict):

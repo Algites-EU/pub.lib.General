@@ -3,7 +3,7 @@ package eu.algites.lib.data.smartdataobject.impl.standard;
 import eu.algites.lib.common.list.AIiMultiMappedList;
 import eu.algites.lib.data.dataobject.AIaDataObjectField;
 import eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObjectField;
-import eu.algites.lib.data.dataobject.xmldefs.AIaXmlKeyDefinition;
+import eu.algites.lib.data.dataobject.AIaKeyDefinition;
 import eu.algites.lib.data.dataobject.xmldefs.AIiXmlDataObject;
 import eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind;
 import eu.algites.lib.data.smartdataobject.impl.xmldefs.AIcXmlSmartDataObject;
@@ -35,9 +35,9 @@ public final class AItcXmlLocalKeyedCollectionTest {
         @AIaDataObjectField(fieldName = "Employee")
         @AIaXmlDataObjectField(namespace = "urn:test", namespaceLocalName = "Employee",
                 minOccurs = 1, maxOccurs = -1)
-        @AIaXmlKeyDefinition(name = "ById", fields = {"id"})
-        @AIaXmlKeyDefinition(name = "ByRegionCode", fields = {"region", "Identity.Code"})
-        @AIaXmlKeyDefinition(name = "ByAlias", fields = {"Alias"}, required = false)
+        @AIaKeyDefinition(name = "ById", fields = {"id"})
+        @AIaKeyDefinition(name = "ByRegionCode", fields = {"region", "Identity.Code"})
+        @AIaKeyDefinition(name = "ByAlias", fields = {"Alias"}, required = false)
         AIiMultiMappedList<AIiEmployee> getEmployee();
 
         /** @return optional department name from an unqualified attribute */

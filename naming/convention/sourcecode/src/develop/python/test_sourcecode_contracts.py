@@ -48,18 +48,20 @@ def test_new_do_sdo_profiles_are_separate_and_enum_typed(kind, suffix):
     base = f'https://defs.dev.algites.eu/api/{kind}/{BASE}/sourcecode/'
     samples = {
         'dataobject/dataobject-naming-conventions_1': {
-            'DataObjectNameConventions': {'NameConventions': {'sample': {'StructureNaming': {
-                'schema_source_schema_url': '$id',
-                'schema_source_schema_identifier': 'x-algites-schema-id',
-                'schema_source_schema_version': 'x-algites-schema-version',
-                'data_source_schema_url': '$schema',
-                'data_source_schema_identifier': None,
-                'data_source_schema_version': None}}}}},
+            'DataObjectNameConventions': {'NameConventions': {'NameConvention': [{
+                'name': 'sample', 'StructureNaming': {'Rule': [
+                    {'kind': 'schema_source_schema_url', 'Value': '$id'},
+                    {'kind': 'schema_source_schema_identifier', 'Value': 'x-algites-schema-id'},
+                    {'kind': 'schema_source_schema_version', 'Value': 'x-algites-schema-version'},
+                    {'kind': 'data_source_schema_url', 'Value': '$schema'},
+                    {'kind': 'data_source_schema_identifier', 'Value': ''},
+                    {'kind': 'data_source_schema_version', 'Value': ''}]}}]}}},
         'smartdataobject/smartdataobject-naming-conventions_1': {
-            'SmartDataObjectNameConventions': {'NameConventions': {'sample': {'StructureNaming': {
-                'standard_getter': 'java-getter-method-name_1',
-                'standard_setter': 'java-setter-method-name_1',
-                'raw_getter': 'algites-java-sdo-raw-getter_1'}}}}},
+            'SmartDataObjectNameConventions': {'NameConventions': {'NameConvention': [{
+                'name': 'sample', 'StructureNaming': {'Rule': [
+                    {'kind': 'standard_getter', 'Value': 'java-getter-method-name_1'},
+                    {'kind': 'standard_setter', 'Value': 'java-setter-method-name_1'},
+                    {'kind': 'raw_getter', 'Value': 'algites-java-sdo-raw-getter_1'}]}}]}}},
     }
     for name, doc in samples.items():
         url = base + name + f'.{suffix}.schema.json'
@@ -67,13 +69,19 @@ def test_new_do_sdo_profiles_are_separate_and_enum_typed(kind, suffix):
         assert validator.is_valid(doc), (name, list(validator.iter_errors(doc)))
         invalid = json.loads(json.dumps(doc))
         key = next(iter(invalid))
-        rolemap = invalid[key]['NameConventions']['sample']['StructureNaming']
-        rolemap['not_a_declared_kind'] = 'bad'
+        rules = invalid[key]['NameConventions']['NameConvention'][0]['StructureNaming']['Rule']
+        rules.append({'kind': 'not_a_declared_kind', 'Value': 'bad'})
         assert not validator.is_valid(invalid)
+        rules.pop()
         other_role = ('standard_getter' if name.startswith('dataobject/') else 'schema_source_schema_url')
-        rolemap.pop('not_a_declared_kind')
-        rolemap[other_role] = 'must-not-leak'
+        rules.append({'kind': other_role, 'Value': 'must-not-leak'})
         assert not validator.is_valid(invalid)
+        rules.pop()
+        rules.append(dict(rules[0]))  # UniqueStructureKinds must hold.
+        # JSON Schema metadata is additionally enforced by the runtime/index checker;
+        # the XSD identity key is represented explicitly in the schema annotation.
+        assert by_id[url]['properties'][key]['properties']['NameConventions']['properties']['NameConvention']['items']['properties']['StructureNaming']['properties']['Rule']['x-algites-defscodegen-key']['field-name'] == 'kind'
+
 
 
 @pytest.mark.parametrize('kind,suffix', [('yamldefs','yamldef'),('jsondefs','jsondef')])

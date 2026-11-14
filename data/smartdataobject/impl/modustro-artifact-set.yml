@@ -2,10 +2,14 @@
 # $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
 $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/tool/build/yamldefs/modustro-artifact_1.yamldef.schema.json
 
-Artifact:
-  TechnologyKinds: [java, python]
-  Name: Smart Data Object runtime
-  Description: Mutable SmartDataObject foundation, field metadata, graph snapshots, deep validation and serialization.
+#Artifact:
+#  TechnologyKinds: [java, python]
+#  Name: Smart Data Object runtime
+#  Description: Mutable SmartDataObject foundation, field metadata, graph snapshots, deep validation and serialization.
+
+ArtifactSet:
+  Name: Smart Data Object implementations
+  Description: Smart Data Object implementations
 
 Dependencies:
   - DependencyKind: modustro
@@ -14,8 +18,14 @@ Dependencies:
         ArtifactId: pub.lib.General_factory.cpdiscovery.impl
         Usages: [product_implementation]
       - GroupId: eu.algites.lib.common
+        ArtifactId: pub.lib.General_factory.cpdiscovery.intf
+        Usages: [product_implementation]
+      - GroupId: eu.algites.lib.common
         ArtifactId: pub.lib.General_common.util
         Usages: [product_implementation]
+      - GroupId: eu.algites.lib.data
+        ArtifactId: pub.lib.General_data.dataobject.intf
+        Usages: [product_api]
       - GroupId: eu.algites.lib.data
         ArtifactId: pub.lib.General_data.smartdataobject.intf
         Usages: [product_api]

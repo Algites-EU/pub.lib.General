@@ -33,6 +33,12 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
      */
     private final Map<AIcdStorageKey, Object> values = new LinkedHashMap<>();
 
+    /** Sole internal marker for a deliberately empty field; never exposed as a value. */
+    static final Object EMPTY_VALUE = new Object();
+
+    /** Returns the XML/JSON wire scalar for the internal empty marker. */
+    static Object serializeRaw(Object value) { return value == EMPTY_VALUE ? "" : value; }
+
     /** Stable namespace distinction for entries sharing the one ordered storage. */
     private record AIcdStorageKey(boolean additional, String name) { }
 
@@ -169,7 +175,7 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
                 if (locField.wireName().equals(aName))
                     throw new IllegalArgumentException("Reserved SDO property name: " + aName);
             }
-            var locSchema = metadata().schema();
+            var locSchema = metadata().formatSchema();
             if (locSchema != null && ((!locSchema.dataSourceSchemaUrlField().isEmpty()
                             && aName.equals(locSchema.dataSourceSchemaUrlField()))
                     || (!locSchema.dataSourceSchemaIdentifierField().isEmpty()
@@ -308,29 +314,180 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         }
     }
 
+    /**
+     * Returns a stable mutable collection, allocating it on first getter call.
+     * A subsequent unset detaches the old instance; clients retaining that old
+     * instance cannot mutate the newly attached collection.
+     *
+     * <p>Index definitions are obtained solely from DataObject getter metadata,
+     * never from the source XML/JSON/YAML schema or a second SDO pipeline.
+     *
+     * @param aName semantic name of the generated collection field
+     * @param aMapped true for an AIiMultiMappedList getter; false for a plain list
+     * @return stable attached collection, possibly already populated
+     * @throws IllegalArgumentException for invalid key paths or incompatible getter types
+     */
+    protected final Object get_OrCreateCollectionField(String aName, boolean aMapped) {
+        var field = requireField(aName);
+        requireAllowed(field);
+        var key = declaredKey(aName);
+        if (values.containsKey(key)) return serializeRaw(values.get(key));
+        Object created;
+        if (aMapped) {
+            var definitions = collectionKeyDefinitions(aName, field);
+            created = definitions.isEmpty()
+                    ? new eu.algites.lib.common.list.AIcMultiMappedList<>()
+                    : new eu.algites.lib.common.list.AIcMultiMappedList<>(false, definitions);
+        } else {
+            created = new ArrayList<>();
+        }
+        set_RawField(aName, created);
+        return created;
+    }
+
+    /**
+     * Attach a concrete named indexed collection when an annotated read-only
+     * contract itself extends {@code AIiMultiMappedList}.  Unlike a plain
+     * {@code AIcMultiMappedList}, this factory retains the generated nominal
+     * DataObject type expected by the getter.
+     *
+     * @param aName semantic field name
+     * @param aFactory factory for the generated implementation and its index definitions
+     * @param <V> indexed entry type
+     * @param <T> generated concrete collection type
+     * @return existing attached value or newly constructed named collection
+     * @throws IllegalArgumentException if the field is unknown, its keys are invalid,
+     *         or the generated value is incompatible with the declared getter
+     */
+    protected final <V, T extends eu.algites.lib.common.list.AIiMultiMappedList<V>> T get_OrCreateNamedMappedCollectionField(String aName,
+            java.util.function.Function<java.util.Collection<? extends eu.algites.lib.common.list.AIiKeyDefinition<V, ?>>, T> aFactory) {
+        java.util.Objects.requireNonNull(aFactory, "collection factory");
+        var field = requireField(aName);
+        requireAllowed(field);
+        var key = declaredKey(aName);
+        if (values.containsKey(key)) {
+            @SuppressWarnings("unchecked") T existing = (T) serializeRaw(values.get(key));
+            return existing;
+        }
+        T created = aFactory.apply(collectionKeyDefinitions(aName, field));
+        set_RawField(aName, created);
+        return created;
+    }
+
+    /**
+     * Read indexed-list declarations from the DataObject getter.  Both generic
+     * and named collections must use these same definitions to retain key views.
+     *
+     * @param aName semantic field name, for diagnostics
+     * @param aField resolved annotated metadata
+     * @param <V> element type of the indexed collection
+     * @return ordered definitions with their distinct names and path extractors
+     * @throws IllegalArgumentException for empty or unresolved index paths
+     */
+    private static <V> java.util.ArrayList<eu.algites.lib.common.list.AIiKeyDefinition<V, ?>>
+            collectionKeyDefinitions(String aName, AIcSmartDataMetadata.AIcdField aField) {
+        var definitions = new java.util.ArrayList<eu.algites.lib.common.list.AIiKeyDefinition<V, ?>>();
+        for (var keyDefinition : aField.keyDefinitions()) {
+            var paths = keyDefinition.fields().clone();
+            if (paths.length == 0) throw new IllegalArgumentException("Key fields must not be empty: " + aName);
+            definitions.add(new eu.algites.lib.common.list.AIcKeyDefinition<V, Object>(
+                    keyDefinition.name(), value -> {
+                        var keyValues = new java.util.ArrayList<Object>();
+                        for (String path : paths) {
+                            Object component = value;
+                            for (String fragment : path.split("\\.")) {
+                                if (component == null) break;
+                                var part = AIcSmartDataMetadata.forReadContract(component.getClass())
+                                        .names().get(fragment);
+                                if (part == null) throw new IllegalArgumentException(
+                                        "Unresolved key field " + path + " for " + aName);
+                                try { component = part.getter().invoke(component); }
+                                catch (ReflectiveOperationException error) {
+                                    throw new IllegalArgumentException("Cannot read key field: " + path, error);
+                                }
+                            }
+                            keyValues.add(component);
+                        }
+                        return keyValues.contains(null) ? null
+                                : keyValues.size() == 1 ? keyValues.get(0) : List.copyOf(keyValues);
+                    }, true, keyDefinition.required()));
+        }
+        return definitions;
+    }
+
+    /** Return the reference type accepted for a primitive getter's boxed setter argument. */
+    private static Class<?> boxedGetterType(Class<?> aType) {
+        if (!aType.isPrimitive()) return aType;
+        if (aType == boolean.class) return Boolean.class;
+        if (aType == byte.class) return Byte.class;
+        if (aType == short.class) return Short.class;
+        if (aType == int.class) return Integer.class;
+        if (aType == long.class) return Long.class;
+        if (aType == float.class) return Float.class;
+        if (aType == double.class) return Double.class;
+        if (aType == char.class) return Character.class;
+        throw new IllegalArgumentException("Not a DataObject getter value type: " + aType);
+    }
+
     /** Generated setters invoke this method with their schema property name. */
     protected final void set_RawField(String aName, Object aValue) {
         var locField = requireField(aName);
         requireAllowed(locField);
-        if (aValue != null && !locField.getter().getReturnType().isInstance(aValue))
+        // Reflection reports `int.class` (etc.) for primitive getters, but
+        // generated setters pass boxed values into the Object-backed store.
+        // Class.isInstance() is always false on a primitive Class literal.
+        if (aValue != null && !boxedGetterType(locField.getter().getReturnType()).isInstance(aValue))
             throw new IllegalArgumentException("Incompatible field value for " + aName + ": " + aValue.getClass());
+        locField.validateValue(aValue);
         values.put(declaredKey(aName), aValue);
     }
     /** Generated raw getters invoke this method and cast to the declared object type. */
     protected final Object get_RawField(String aName) {
         requireAllowed(requireField(aName));
-        return values.get(declaredKey(aName));
+        return serializeRaw(values.get(declaredKey(aName)));
     }
     /** Generated effective getters invoke this method and cast to the declared object type. */
     protected final Object get_EffectiveField(String aName) {
         var locField = requireField(aName);
         requireAllowed(locField);
-        if (values.containsKey(declaredKey(aName))) return values.get(declaredKey(aName));
+        if (values.containsKey(declaredKey(aName))) {
+            Object value = values.get(declaredKey(aName));
+            return value == EMPTY_VALUE
+                    ? locField.hasEmptyDefault() ? locField.createDefault() : null : value;
+        }
         if (locField.hasDefault()) return locField.createDefault();
         if (locField.annotation().presence() == AInFieldPresenceKind.REQUIRED && !locField.allowNonPresentRead())
             throw new IllegalStateException("Required field is absent: " + aName);
         return null;
     }
+    /**
+     * Assigns the distinct explicit empty state, only where field metadata allows it.
+     * Unlike setXxx(""), this changes the semantic empty state without storing a String.
+     *
+     * @param aName semantic field name
+     * @throws IllegalArgumentException if the field is not empty-capable or fixed
+     */
+    protected final void set_EmptyField(String aName) {
+        var field = requireField(aName);
+        requireAllowed(field);
+        if (!field.annotation().isEmptyAllowed())
+            throw new IllegalArgumentException("Explicit empty not allowed for " + aName);
+        if (field.hasFixed())
+            throw new IllegalArgumentException("Fixed field cannot be explicitly empty: " + aName);
+        values.put(declaredKey(aName), EMPTY_VALUE);
+    }
+
+    /**
+     * Tests explicit empty-state presence without materializing any default.
+     *
+     * @param aName semantic field name
+     * @return true only when the internal empty marker is present
+     */
+    protected final boolean isEmpty_Field(String aName) {
+        requireField(aName);
+        return values.get(declaredKey(aName)) == EMPTY_VALUE;
+    }
+
     /**
      * Checks whether present field is enabled or present.
      * @param aName name supplied to the operation
@@ -363,6 +520,7 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
     }
     final boolean hasRaw(String aName) { return values.containsKey(declaredKey(aName)); }
     final Object raw(String aName) { return values.get(declaredKey(aName)); }
+    final boolean isEmptyRaw(String aName) { return values.get(declaredKey(aName)) == EMPTY_VALUE; }
 
     /** {@inheritDoc} */
     @Override public final Set<String> get_RawNotPresentRequiredFields() { return missing(false); }

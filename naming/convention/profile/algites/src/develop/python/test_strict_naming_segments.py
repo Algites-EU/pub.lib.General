@@ -13,8 +13,18 @@ SCHEMAS = REPOSITORY / 'naming/convention/intf/src/product'
 
 
 def segment_document(value: dict) -> dict:
+    """Wrap internal test alternatives in the real named wire representation."""
     variant = 'NameFragmentsSegmentReference' if 'Ref' in value else 'NameFragmentsSegmentValue'
-    return {'NameFragments': {'fragment': {'Segments': [{variant: value}]}}}
+    if variant == 'NameFragmentsSegmentValue':
+        payload = dict(value)
+        content = {}
+        if 'Name' in payload or 'Regexp' in payload:
+            content['NameRegexp'] = {k: payload.pop(k) for k in ('Name', 'Regexp') if k in payload}
+        content.update({k: payload.pop(k) for k in ('Value', 'Convention', 'CustomConventionRegexp') if k in payload})
+        payload['Content'] = content
+    else:
+        payload = value
+    return {'NameFragments': {'NameFragment': [{'name': 'fragment', 'Segments': [{variant: payload}]}]}}
 
 
 GOOD = [
@@ -103,9 +113,9 @@ def test_xml_xsd_enforces_exclusive_structure():
 
     for name in ('NameFragments', 'NameCompositions'):
         assert valid_segment(name, '<NameFragmentsSegmentReference><Ref>other</Ref></NameFragmentsSegmentReference>')
-        assert valid_segment(name, '<NameFragmentsSegmentValue><Kind>constant_string</Kind><Value>X</Value></NameFragmentsSegmentValue>')
-        assert valid_segment(name, '<NameFragmentsSegmentValue><Kind>identifier</Kind><Convention>lower_1</Convention></NameFragmentsSegmentValue>')
-        assert valid_segment(name, '<NameFragmentsSegmentValue><Kind>variable</Kind><Name>region</Name><Regexp>[a-z]+</Regexp></NameFragmentsSegmentValue>')
-        assert not valid_segment(name, '<NameFragmentsSegmentValue><Kind>identifier</Kind><Value>x</Value><Convention>a</Convention></NameFragmentsSegmentValue>')
-        assert not valid_segment(name, '<NameFragmentsSegmentValue><Kind>variable</Kind><Name>region</Name></NameFragmentsSegmentValue>')
-        assert not valid_segment(name, '<NameFragmentsSegmentReference><Ref>other</Ref></NameFragmentsSegmentReference><NameFragmentsSegmentValue><Kind>version</Kind><Value>1</Value></NameFragmentsSegmentValue>')
+        assert valid_segment(name, '<NameFragmentsSegmentValue><Kind>constant_string</Kind><Content><Value>X</Value></Content></NameFragmentsSegmentValue>')
+        assert valid_segment(name, '<NameFragmentsSegmentValue><Kind>identifier</Kind><Content><Convention>lower_1</Convention></Content></NameFragmentsSegmentValue>')
+        assert valid_segment(name, '<NameFragmentsSegmentValue><Kind>variable</Kind><Content><NameRegexp><Name>region</Name><Regexp>[a-z]+</Regexp></NameRegexp></Content></NameFragmentsSegmentValue>')
+        assert not valid_segment(name, '<NameFragmentsSegmentValue><Kind>identifier</Kind><Content><Value>x</Value><Convention>a</Convention></Content></NameFragmentsSegmentValue>')
+        assert not valid_segment(name, '<NameFragmentsSegmentValue><Kind>variable</Kind><Content><NameRegexp><Name>region</Name></NameRegexp></Content></NameFragmentsSegmentValue>')
+        assert not valid_segment(name, '<NameFragmentsSegmentReference><Ref>other</Ref></NameFragmentsSegmentReference><NameFragmentsSegmentValue><Kind>version</Kind><Content><Value>1</Value></Content></NameFragmentsSegmentValue>')

@@ -1,10 +1,11 @@
 # DataObject (pub.lib.General)
 
 `data/dataobject/intf` defines common Java/Python structured data-object contracts.
-`AIaDataObjectField` exposes `fieldName`, `presence` and `allowsNull` (default `true`).
+`AIaDataObjectField` exposes `fieldName`, `presence`, `allowsNull` (default `true`), `order` (default `-1`), `isEmptyAllowed` (default `false`) and a nested `defaultValue` declaration.
 Its presentation text is declared through `AIaFieldLabel` in the common library,
-not through `description`. Its effective default is supplied by a separate
-`AIaFieldDefault.defaultValueResolver` category/provider factory selection.
+not through `description`. Historical `AIaFieldDefault.defaultValueResolver` category/provider factories remain supported
+for existing contracts; new schema-lexical defaults are declared by the
+`AIaDataObjectFieldDefault` nested annotation.
 Effective defaults do not make raw fields present and never replace explicit nulls.
 
 XML metadata is separate, in `eu.algites.lib.data.dataobject.xmldefs` and the
@@ -23,6 +24,40 @@ interfaces inheriting both their XML type `_x` interface and their substitution
 head `_xe` interface. No OpenChoice annotations, runtime role registry or special
 runtime assignment check are used. XML schema legality is decided by Defs Codegen,
 not by this core data-object marker library.
+
+## Typově specifická omezení a výchozí hodnoty (1.1-SNAPSHOT)
+
+`AIaDataObjectFieldStringConstraints`, `AIaDataObjectFieldNumericConstraints`,
+`AIaDataObjectFieldListConstraints` a `AIaDataObjectFieldObjectConstraints`
+patří přímo na getter; nesou jen omezení příslušného typu. Obecné `order`,
+`isEmptyAllowed`, `presence` a `defaultValue` náleží `AIaDataObjectField`.
+Identita schématu pro XML/JSON/YAML je technologicky specifické metadata a
+nemění identitu samotného DataObject pole.
+
+Vnořená anotace `AIaDataObjectFieldDefault` používá `defined=true` i pro
+skutečnou výchozí hodnotu `""`. `AInDataObjectFieldDefaultKind` má čtyři režimy:
+
+- `DECLARATION_ONLY`: dokumentuje hodnotu, runtime ji nedosazuje;
+- `IF_FIELD_VALUE_NOT_PRESENT`: efektivní čtení dosadí hodnotu při absenci;
+- `IF_FIELD_VALUE_EMPTY`: efektivní čtení dosadí hodnotu jen při explicitním
+  interním `EMPTY_VALUE`, nikoli při přímém `setXxx("")`;
+- `CONSTRAINT_DEFAULT`: přepis XSD `fixed`; SDO odmítne každou nastavenou
+  hodnotu, která se nerovná deklarované hodnotě. Sám ji nenastavuje.
+
+XML atribut `default` odpovídá `IF_FIELD_VALUE_NOT_PRESENT`; `default` XML
+*elementu* odpovídá `IF_FIELD_VALUE_EMPTY`. Při serializaci raw hodnot se nikdy
+nevypíše efektivně dosazený default místo skutečně uložené hodnoty. Když
+`isEmptyAllowed=false`, technické `_setEmpty_Xxxx` a `_isEmpty_Xxxx` vůbec
+nesmějí být generovány. Staré anotace zůstávají v období migrace dostupné
+jako `deprecated` a lze je odstranit až po úspěšném prvním deployi.
+
+```java
+@AIaDataObjectField(isEmptyAllowed = true,
+    defaultValue = @AIaDataObjectFieldDefault(
+        defined = true, kind = AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_EMPTY,
+        value = "Anonymous"))
+String getName();
+```
 
 ## Canonical field identity and metadata inheritance
 
@@ -128,3 +163,41 @@ propagate this mapping into the second-stage SDO annotations. During JSON/YAML
 serialization, an explicitly declared property with the same target metadata
 name is emitted **once**; a conflicting stored value fails rather than silently
 overriding the contract metadata. Missing or disabled metadata is not guessed.
+
+## Migrační anotace JSON Schema a XML Schema (1.1-SNAPSHOT)
+
+Vedle zachovaných `AIaJsonDataObject`, `AIaYamlDataObject`,
+`AIaXmlDataObject`, `AIaXmlDataObjectField` nyní existují
+`AIaDataObjectJsonSchema` (pro JSON i YAML definice),
+`AIaDataObjectXmlSchema` a `AIaDataObjectFieldXmlSchema`.
+Staré anotace zůstávají kompatibilní a jsou označené jako deprecated;
+nejde o změnu formátových markerů `AIiJsonDataObject`, `AIiYamlDataObject`
+a `AIiXmlDataObject`. Nové anotace popisují metadata schémat, nikoli
+sémantickou identitu společného DataObject typu.
+
+`AIaDataObject` a `AIaDataObjectField` mají být deklarovány pouze na
+společných `AIig…` typech a getterech; formátové XML/JSON/YAML rozhraní
+přidává schématová metadata. Konzumenti mají číst nové anotace s
+kompatibilní podporou deprecated protějšků. Staré atributy se v rámci
+této fáze nemažou. Testy `AItcDataObjectSchemaMetadataCompatibilityTest`
+a `test_data_object_schema_metadata_compatibility.py` pokrývají
+pět shodných Java/Python případů.
+
+
+## Umístění nových schématových anotací
+
+**Umístění nových anotací (Java/Python):**
+
+| Anotace | Java package | Python modul |
+|---|---|---|
+| `AIaDataObjectJsonSchema` | `eu.algites.lib.data.dataobject.jsonschema` | `eu.algites.lib.data.dataobject.jsonschema.aia_data_object_json_schema` |
+| `AIaDataObjectXmlSchema` | `eu.algites.lib.data.dataobject.xmlschema` | `eu.algites.lib.data.dataobject.xmlschema.aia_data_object_xml_schema` |
+| `AIaDataObjectFieldXmlSchema` | `eu.algites.lib.data.dataobject.xmlschema` | `eu.algites.lib.data.dataobject.xmlschema.aia_data_object_field_xml_schema` |
+
+Původní formátové anotace (`AIaJsonDataObject`, `AIaYamlDataObject`,
+`AIaXmlDataObject`, `AIaXmlDataObjectField`) zůstávají v dosavadních
+`jsondefs`, `yamldefs` a `xmldefs` packages jako deprecated; jejich veřejná
+signatura se nemění. Obecné `AIaDataObject` / `AIaDataObjectField` zůstávají
+v `eu.algites.lib.data.dataobject` a náleží výhradně společným `AIig…`
+kontraktům. Při generování se importy nových anotací vytvářejí pro nové
+packages; pro kompatibilitu se nadále emitují i původní anotace.

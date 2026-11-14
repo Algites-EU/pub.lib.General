@@ -11,3 +11,8 @@ can import its published schema at
 `https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/common/documentation/algites-documentation_1.xsd`
 and use `algdoc:title` inside `xs:annotation/xs:appinfo`. Standard
 `xs:documentation` remains the source of `description`.
+
+JSONDEFS and YAMLDEFS schemas do not import this XSD: their native
+JSON Schema `title` and `description` keywords represent equivalent
+documentation. The XML-only `algdoc:title` vocabulary is an annotation
+namespace, not an independent domain DataObject or a Python runtime API.

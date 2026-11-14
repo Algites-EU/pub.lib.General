@@ -10,6 +10,8 @@ import java.lang.annotation.Target;
  * This annotation complements {@code AIaDataObject}; XML QName identity must not be
  * confused with common schema ID, Java type name, or the field display label.
  */
+/** @deprecated use {@link eu.algites.lib.data.dataobject.xmlschema.AIaDataObjectXmlSchema}; legacy contracts remain supported during migration. */
+@Deprecated(since = "1.1", forRemoval = false)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface AIaXmlDataObject {

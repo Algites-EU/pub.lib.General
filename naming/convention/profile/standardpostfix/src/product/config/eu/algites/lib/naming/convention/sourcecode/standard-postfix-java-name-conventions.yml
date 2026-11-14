@@ -3,2577 +3,2185 @@
 $schema: https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/sourcecode/source-structure-name-conventions_1.yamldef.schema.json
 StandardConventionsFile: standard-conventions.yml
 NameFragments:
-  xml-data-object-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: XmlDataObject
-  xml-namespace-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _xn
-  xml-element-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _xe
-  java-method-parameter-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: a
-  java-local-variable-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: loc
-  standard-postfix-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-  generated-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  data-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  version-suffix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  intf-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-  intf-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  intf-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  intf-generated-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: i
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  class-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-  class-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  class-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  class-generated-data-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: c
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: d
-  enum-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: n
-  enum-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: n
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  ann-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: a
-  ann-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: a
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  exc-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: x
-  exc-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: x
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  rb-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: r
-  rb-generated-prefix_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: AI
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: r
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: g
-  xml-type-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _x
-  json-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _j
-  yaml-marker_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _y
+  NameFragment:
+    - name: java-method-parameter-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: a
+    - name: java-local-variable-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: loc
+    - name: standard-postfix-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+    - name: generated-marker_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: data-marker_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: version-suffix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: intf-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+    - name: intf-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: intf-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: intf-generated-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: i
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: class-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+    - name: class-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: class-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: class-generated-data-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: c
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: d
+    - name: enum-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: n
+    - name: enum-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: n
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: ann-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: a
+    - name: ann-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: a
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: exc-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: x
+    - name: exc-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: x
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
+    - name: rb-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: r
+    - name: rb-generated-prefix_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: AI
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: r
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: g
 NameCompositions:
-  standard-postfix-java-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Intf
-  standard-postfix-java-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Intf
-  standard-postfix-java-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Intf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Intf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-data-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _DataIntf
-  standard-postfix-java-data-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _DataIntf
-  standard-postfix-java-data-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _DataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-data-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _DataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenIntf
-  standard-postfix-java-gen-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenIntf
-  standard-postfix-java-gen-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenDataIntf
-  standard-postfix-java-gen-data-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenDataIntf
-  standard-postfix-java-gen-data-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Impl
-  standard-postfix-java-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Impl
-  standard-postfix-java-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Impl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Impl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-data-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _DataImpl
-  standard-postfix-java-data-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _DataImpl
-  standard-postfix-java-data-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _DataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-data-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _DataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenImpl
-  standard-postfix-java-gen-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenImpl
-  standard-postfix-java-gen-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenDataImpl
-  standard-postfix-java-gen-data-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenDataImpl
-  standard-postfix-java-gen-data-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-enum_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Enum
-  standard-postfix-java-enum-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Enum
-  standard-postfix-java-enum-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Enum
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-enum-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Enum
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-enum_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenEnum
-  standard-postfix-java-gen-enum-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenEnum
-  standard-postfix-java-gen-enum-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenEnum
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-enum-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenEnum
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-ann_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Annotation
-  standard-postfix-java-ann-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Annotation
-  standard-postfix-java-ann-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Annotation
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-ann-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Annotation
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-ann_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenAnnotation
-  standard-postfix-java-gen-ann-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenAnnotation
-  standard-postfix-java-gen-ann-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenAnnotation
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-ann-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenAnnotation
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-exc_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Exception
-  standard-postfix-java-exc-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Exception
-  standard-postfix-java-exc-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Exception
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-exc-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _Exception
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-exc_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenException
-  standard-postfix-java-gen-exc-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenException
-  standard-postfix-java-gen-exc-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenException
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-exc-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenException
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-rb_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _ResourceBundle
-  standard-postfix-java-rb-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _ResourceBundle
-  standard-postfix-java-rb-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _ResourceBundle
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-rb-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _ResourceBundle
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-rb_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenResourceBundle
-  standard-postfix-java-gen-rb-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenResourceBundle
-  standard-postfix-java-gen-rb-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenResourceBundle
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-rb-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenResourceBundle
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  java-source-extension_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: .java
-  java-field-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_camel_case_1
-  java-method-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_camel_case_1
-  java-getter-method-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: get
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  java-setter-method-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: set
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  java-parameter-name_1:
-    Segments:
-    - NameFragmentsSegmentReference:
-        Ref: java-method-parameter-prefix_1
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  java-local-variable-name_1:
-    Segments:
-    - NameFragmentsSegmentReference:
-        Ref: java-local-variable-prefix_1
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-  package-segment-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: lower_snake_case_1
-  enum-item-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_snake_case_1
-  constant-name_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_snake_case_1
-  standard-postfix-java-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementIntf
-  standard-postfix-java-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementIntf
-  standard-postfix-java-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-data-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementDataIntf
-  standard-postfix-java-data-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementDataIntf
-  standard-postfix-java-data-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-data-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementIntf
-  standard-postfix-java-gen-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementIntf
-  standard-postfix-java-gen-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-xml-element-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementDataIntf
-  standard-postfix-java-gen-data-xml-element-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementDataIntf
-  standard-postfix-java-gen-data-xml-element-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-xml-element-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementImpl
-  standard-postfix-java-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementImpl
-  standard-postfix-java-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-data-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementDataImpl
-  standard-postfix-java-data-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementDataImpl
-  standard-postfix-java-data-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-data-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _XmlElementDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementImpl
-  standard-postfix-java-gen-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementImpl
-  standard-postfix-java-gen-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-xml-element-class_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementDataImpl
-  standard-postfix-java-gen-data-xml-element-class-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementDataImpl
-  standard-postfix-java-gen-data-xml-element-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-xml-element-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlElementDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-xml-type-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-xml-type-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-xml-type-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-xml-type-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-xml-type-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-xml-type-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-json-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenJsonIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-json-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenJsonIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-json-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenJsonDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-json-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenJsonDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-json-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenJsonDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-json-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenJsonDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-yaml-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenYamlIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-yaml-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenYamlIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-yaml-intf-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenYamlDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-yaml-intf-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenYamlDataIntf
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-yaml-class-versioned_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenYamlDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-data-yaml-class-versioned-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenYamlDataImpl
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _
-    - NameFragmentsSegmentValue:
-        Kind: version
-        Convention: positive_integer_1
-  standard-postfix-java-gen-xml-namespace-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlNamespaceIntf
-  standard-postfix-java-gen-xml-namespace-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlNamespaceIntf
-  standard-postfix-java-gen-data-xml-namespace-intf_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlNamespaceDataIntf
-  standard-postfix-java-gen-data-xml-namespace-intf-file_1:
-    Segments:
-    - NameFragmentsSegmentValue:
-        Kind: identifier
-        Convention: upper_camel_case_1
-    - NameFragmentsSegmentValue:
-        Kind: constant_string
-        Value: _GenXmlNamespaceDataIntf
+  NameComposition:
+    - name: standard-postfix-java-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Intf
+    - name: standard-postfix-java-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Intf
+    - name: standard-postfix-java-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Intf
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Intf
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-data-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _DataIntf
+    - name: standard-postfix-java-data-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _DataIntf
+    - name: standard-postfix-java-data-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _DataIntf
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-data-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _DataIntf
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenIntf
+    - name: standard-postfix-java-gen-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenIntf
+    - name: standard-postfix-java-gen-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenIntf
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenIntf
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-data-intf_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenDataIntf
+    - name: standard-postfix-java-gen-data-intf-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenDataIntf
+    - name: standard-postfix-java-gen-data-intf-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenDataIntf
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-data-intf-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenDataIntf
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Impl
+    - name: standard-postfix-java-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Impl
+    - name: standard-postfix-java-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Impl
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Impl
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-data-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _DataImpl
+    - name: standard-postfix-java-data-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _DataImpl
+    - name: standard-postfix-java-data-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _DataImpl
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-data-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _DataImpl
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenImpl
+    - name: standard-postfix-java-gen-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenImpl
+    - name: standard-postfix-java-gen-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenImpl
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenImpl
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-data-class_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenDataImpl
+    - name: standard-postfix-java-gen-data-class-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenDataImpl
+    - name: standard-postfix-java-gen-data-class-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenDataImpl
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-data-class-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenDataImpl
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-enum_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Enum
+    - name: standard-postfix-java-enum-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Enum
+    - name: standard-postfix-java-enum-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Enum
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-enum-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Enum
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-enum_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenEnum
+    - name: standard-postfix-java-gen-enum-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenEnum
+    - name: standard-postfix-java-gen-enum-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenEnum
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-enum-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenEnum
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-ann_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Annotation
+    - name: standard-postfix-java-ann-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Annotation
+    - name: standard-postfix-java-ann-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Annotation
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-ann-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Annotation
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-ann_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenAnnotation
+    - name: standard-postfix-java-gen-ann-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenAnnotation
+    - name: standard-postfix-java-gen-ann-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenAnnotation
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-ann-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenAnnotation
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-exc_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Exception
+    - name: standard-postfix-java-exc-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Exception
+    - name: standard-postfix-java-exc-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Exception
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-exc-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _Exception
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-exc_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenException
+    - name: standard-postfix-java-gen-exc-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenException
+    - name: standard-postfix-java-gen-exc-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenException
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-exc-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenException
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-rb_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _ResourceBundle
+    - name: standard-postfix-java-rb-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _ResourceBundle
+    - name: standard-postfix-java-rb-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _ResourceBundle
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-rb-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _ResourceBundle
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-rb_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenResourceBundle
+    - name: standard-postfix-java-gen-rb-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenResourceBundle
+    - name: standard-postfix-java-gen-rb-versioned_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenResourceBundle
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: standard-postfix-java-gen-rb-versioned-file_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _GenResourceBundle
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: _
+        - NameFragmentsSegmentValue:
+            Kind: version
+            Content:
+              Convention: positive_integer_1
+    - name: java-source-extension_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: .java
+    - name: java-field-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_camel_case_1
+    - name: java-method-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_camel_case_1
+    - name: java-getter-method-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: get
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: java-setter-method-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: constant_string
+            Content:
+              Value: set
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: java-parameter-name_1
+      Segments:
+        - NameFragmentsSegmentReference:
+            Ref: java-method-parameter-prefix_1
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: java-local-variable-name_1
+      Segments:
+        - NameFragmentsSegmentReference:
+            Ref: java-local-variable-prefix_1
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_camel_case_1
+    - name: package-segment-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: lower_snake_case_1
+    - name: enum-item-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_snake_case_1
+    - name: constant-name_1
+      Segments:
+        - NameFragmentsSegmentValue:
+            Kind: identifier
+            Content:
+              Convention: upper_snake_case_1
 SourceStructureNameConventions:
   NameConventions:
-    standard-postfix-java-gen-xml-namespace-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-xml-namespace-intf_1
-        sub_container_name: standard-postfix-java-gen-xml-namespace-intf_1
-        file_name_stem: standard-postfix-java-gen-xml-namespace-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-xml-namespace-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-xml-namespace-intf_1
-        sub_container_name: standard-postfix-java-gen-data-xml-namespace-intf_1
-        file_name_stem: standard-postfix-java-gen-data-xml-namespace-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-intf_1
-        sub_container_name: standard-postfix-java-intf_1
-        file_name_stem: standard-postfix-java-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-intf-versioned_1
-        sub_container_name: standard-postfix-java-intf-versioned_1
-        file_name_stem: standard-postfix-java-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-data-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-data-intf_1
-        sub_container_name: standard-postfix-java-data-intf_1
-        file_name_stem: standard-postfix-java-data-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-data-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-data-intf-versioned_1
-        sub_container_name: standard-postfix-java-data-intf-versioned_1
-        file_name_stem: standard-postfix-java-data-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-intf_1
-        sub_container_name: standard-postfix-java-gen-intf_1
-        file_name_stem: standard-postfix-java-gen-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-intf-versioned_1
-        sub_container_name: standard-postfix-java-gen-intf-versioned_1
-        file_name_stem: standard-postfix-java-gen-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-intf_1
-        sub_container_name: standard-postfix-java-gen-data-intf_1
-        file_name_stem: standard-postfix-java-gen-data-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-intf-versioned_1
-        sub_container_name: standard-postfix-java-gen-data-intf-versioned_1
-        file_name_stem: standard-postfix-java-gen-data-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-class_1
-        sub_container_name: standard-postfix-java-class_1
-        file_name_stem: standard-postfix-java-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-class-versioned_1
-        sub_container_name: standard-postfix-java-class-versioned_1
-        file_name_stem: standard-postfix-java-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-data-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-data-class_1
-        sub_container_name: standard-postfix-java-data-class_1
-        file_name_stem: standard-postfix-java-data-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-data-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-data-class-versioned_1
-        sub_container_name: standard-postfix-java-data-class-versioned_1
-        file_name_stem: standard-postfix-java-data-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-gen-class_1
-        sub_container_name: standard-postfix-java-gen-class_1
-        file_name_stem: standard-postfix-java-gen-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-gen-class-versioned_1
-        sub_container_name: standard-postfix-java-gen-class-versioned_1
-        file_name_stem: standard-postfix-java-gen-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-class_1
-        sub_container_name: standard-postfix-java-gen-data-class_1
-        file_name_stem: standard-postfix-java-gen-data-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-class-versioned_1
-        sub_container_name: standard-postfix-java-gen-data-class-versioned_1
-        file_name_stem: standard-postfix-java-gen-data-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-enum_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-postfix-java-enum_1
-        sub_container_name: standard-postfix-java-enum_1
-        file_name_stem: standard-postfix-java-enum-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-enum-versioned_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-postfix-java-enum-versioned_1
-        sub_container_name: standard-postfix-java-enum-versioned_1
-        file_name_stem: standard-postfix-java-enum-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-enum_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-postfix-java-gen-enum_1
-        sub_container_name: standard-postfix-java-gen-enum_1
-        file_name_stem: standard-postfix-java-gen-enum-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-enum-versioned_1:
-      ContainerStructureType: enum
-      StructureNaming:
-        type_name: standard-postfix-java-gen-enum-versioned_1
-        sub_container_name: standard-postfix-java-gen-enum-versioned_1
-        file_name_stem: standard-postfix-java-gen-enum-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-ann_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-postfix-java-ann_1
-        sub_container_name: standard-postfix-java-ann_1
-        file_name_stem: standard-postfix-java-ann-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-ann-versioned_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-postfix-java-ann-versioned_1
-        sub_container_name: standard-postfix-java-ann-versioned_1
-        file_name_stem: standard-postfix-java-ann-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-ann_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-postfix-java-gen-ann_1
-        sub_container_name: standard-postfix-java-gen-ann_1
-        file_name_stem: standard-postfix-java-gen-ann-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-ann-versioned_1:
-      ContainerStructureType: annotation
-      StructureNaming:
-        type_name: standard-postfix-java-gen-ann-versioned_1
-        sub_container_name: standard-postfix-java-gen-ann-versioned_1
-        file_name_stem: standard-postfix-java-gen-ann-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-exc_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-postfix-java-exc_1
-        sub_container_name: standard-postfix-java-exc_1
-        file_name_stem: standard-postfix-java-exc-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-exc-versioned_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-postfix-java-exc-versioned_1
-        sub_container_name: standard-postfix-java-exc-versioned_1
-        file_name_stem: standard-postfix-java-exc-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-exc_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-postfix-java-gen-exc_1
-        sub_container_name: standard-postfix-java-gen-exc_1
-        file_name_stem: standard-postfix-java-gen-exc-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-exc-versioned_1:
-      ContainerStructureType: exception
-      StructureNaming:
-        type_name: standard-postfix-java-gen-exc-versioned_1
-        sub_container_name: standard-postfix-java-gen-exc-versioned_1
-        file_name_stem: standard-postfix-java-gen-exc-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-rb_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-postfix-java-rb_1
-        sub_container_name: standard-postfix-java-rb_1
-        file_name_stem: standard-postfix-java-rb-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-rb-versioned_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-postfix-java-rb-versioned_1
-        sub_container_name: standard-postfix-java-rb-versioned_1
-        file_name_stem: standard-postfix-java-rb-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-rb_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-postfix-java-gen-rb_1
-        sub_container_name: standard-postfix-java-gen-rb_1
-        file_name_stem: standard-postfix-java-gen-rb-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-rb-versioned_1:
-      ContainerStructureType: resource_bundle
-      StructureNaming:
-        type_name: standard-postfix-java-gen-rb-versioned_1
-        sub_container_name: standard-postfix-java-gen-rb-versioned_1
-        file_name_stem: standard-postfix-java-gen-rb-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-xml-element-intf_1
-        sub_container_name: standard-postfix-java-xml-element-intf_1
-        file_name_stem: standard-postfix-java-xml-element-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-xml-element-intf-versioned_1
-        sub_container_name: standard-postfix-java-xml-element-intf-versioned_1
-        file_name_stem: standard-postfix-java-xml-element-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-data-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-data-xml-element-intf_1
-        sub_container_name: standard-postfix-java-data-xml-element-intf_1
-        file_name_stem: standard-postfix-java-data-xml-element-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-data-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-data-xml-element-intf-versioned_1
-        sub_container_name: standard-postfix-java-data-xml-element-intf-versioned_1
-        file_name_stem: standard-postfix-java-data-xml-element-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-xml-element-intf_1
-        sub_container_name: standard-postfix-java-gen-xml-element-intf_1
-        file_name_stem: standard-postfix-java-gen-xml-element-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-xml-element-intf-versioned_1
-        sub_container_name: standard-postfix-java-gen-xml-element-intf-versioned_1
-        file_name_stem: standard-postfix-java-gen-xml-element-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-xml-element-intf_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-xml-element-intf_1
-        sub_container_name: standard-postfix-java-gen-data-xml-element-intf_1
-        file_name_stem: standard-postfix-java-gen-data-xml-element-intf-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-xml-element-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-xml-element-intf-versioned_1
-        sub_container_name: standard-postfix-java-gen-data-xml-element-intf-versioned_1
-        file_name_stem: standard-postfix-java-gen-data-xml-element-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-xml-element-class_1
-        sub_container_name: standard-postfix-java-xml-element-class_1
-        file_name_stem: standard-postfix-java-xml-element-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-xml-element-class-versioned_1
-        sub_container_name: standard-postfix-java-xml-element-class-versioned_1
-        file_name_stem: standard-postfix-java-xml-element-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-data-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-data-xml-element-class_1
-        sub_container_name: standard-postfix-java-data-xml-element-class_1
-        file_name_stem: standard-postfix-java-data-xml-element-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-data-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-data-xml-element-class-versioned_1
-        sub_container_name: standard-postfix-java-data-xml-element-class-versioned_1
-        file_name_stem: standard-postfix-java-data-xml-element-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-gen-xml-element-class_1
-        sub_container_name: standard-postfix-java-gen-xml-element-class_1
-        file_name_stem: standard-postfix-java-gen-xml-element-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-gen-xml-element-class-versioned_1
-        sub_container_name: standard-postfix-java-gen-xml-element-class-versioned_1
-        file_name_stem: standard-postfix-java-gen-xml-element-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-xml-element-class_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-xml-element-class_1
-        sub_container_name: standard-postfix-java-gen-data-xml-element-class_1
-        file_name_stem: standard-postfix-java-gen-data-xml-element-class-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-xml-element-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-xml-element-class-versioned_1
-        sub_container_name: standard-postfix-java-gen-data-xml-element-class-versioned_1
-        file_name_stem: standard-postfix-java-gen-data-xml-element-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-xml-type-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-xml-type-intf-versioned_1
-        sub_container_name: standard-postfix-java-gen-xml-type-intf-versioned_1
-        file_name_stem: standard-postfix-java-gen-xml-type-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-xml-type-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-xml-type-intf-versioned_1
-        sub_container_name: standard-postfix-java-gen-data-xml-type-intf-versioned_1
-        file_name_stem: standard-postfix-java-gen-data-xml-type-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-xml-type-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-xml-type-class-versioned_1
-        sub_container_name: standard-postfix-java-gen-data-xml-type-class-versioned_1
-        file_name_stem: standard-postfix-java-gen-data-xml-type-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-json-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-json-intf-versioned_1
-        sub_container_name: standard-postfix-java-gen-json-intf-versioned_1
-        file_name_stem: standard-postfix-java-gen-json-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-json-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-json-intf-versioned_1
-        sub_container_name: standard-postfix-java-gen-data-json-intf-versioned_1
-        file_name_stem: standard-postfix-java-gen-data-json-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-json-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-json-class-versioned_1
-        sub_container_name: standard-postfix-java-gen-data-json-class-versioned_1
-        file_name_stem: standard-postfix-java-gen-data-json-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-yaml-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-yaml-intf-versioned_1
-        sub_container_name: standard-postfix-java-gen-yaml-intf-versioned_1
-        file_name_stem: standard-postfix-java-gen-yaml-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-yaml-intf-versioned_1:
-      ContainerStructureType: interface
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-yaml-intf-versioned_1
-        sub_container_name: standard-postfix-java-gen-data-yaml-intf-versioned_1
-        file_name_stem: standard-postfix-java-gen-data-yaml-intf-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
-    standard-postfix-java-gen-data-yaml-class-versioned_1:
-      ContainerStructureType: class
-      StructureNaming:
-        type_name: standard-postfix-java-gen-data-yaml-class-versioned_1
-        sub_container_name: standard-postfix-java-gen-data-yaml-class-versioned_1
-        file_name_stem: standard-postfix-java-gen-data-yaml-class-versioned-file_1
-        file_name_suffix: java-source-extension_1
-        field_name: java-field-name_1
-        method_name: java-method-name_1
-        getter_method_name: java-getter-method-name_1
-        setter_method_name: java-setter-method-name_1
-        method_parameter_name: java-parameter-name_1
-        local_variable_name: java-local-variable-name_1
-        package_segment_name: package-segment-name_1
-        enum_item_name: enum-item-name_1
-        constant_name: constant-name_1
+    NameConvention:
+      - name: standard-postfix-java-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-intf_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-intf_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-intf-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-data-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-data-intf_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-data-intf_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-data-intf-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-data-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-data-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-data-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-data-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-intf_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-intf_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-intf-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-data-intf_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-data-intf_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-data-intf_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-data-intf-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-data-intf-versioned_1
+        ContainerStructureType: interface
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-data-intf-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-data-intf-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-data-intf-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-class_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-class_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-class-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-data-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-data-class_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-data-class_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-data-class-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-data-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-data-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-data-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-data-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-class_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-class_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-class-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-data-class_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-data-class_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-data-class_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-data-class-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-data-class-versioned_1
+        ContainerStructureType: class
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-data-class-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-data-class-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-data-class-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-enum_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-enum_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-enum_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-enum-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-enum-versioned_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-enum-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-enum-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-enum-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-enum_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-enum_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-enum_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-enum-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-enum-versioned_1
+        ContainerStructureType: enum
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-enum-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-enum-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-enum-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-ann_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-ann_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-ann_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-ann-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-ann-versioned_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-ann-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-ann-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-ann-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-ann_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-ann_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-ann_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-ann-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-ann-versioned_1
+        ContainerStructureType: annotation
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-ann-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-ann-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-ann-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-exc_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-exc_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-exc_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-exc-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-exc-versioned_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-exc-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-exc-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-exc-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-exc_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-exc_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-exc_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-exc-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-exc-versioned_1
+        ContainerStructureType: exception
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-exc-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-exc-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-exc-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-rb_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-rb_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-rb_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-rb-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-rb-versioned_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-rb-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-rb-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-rb-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-rb_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-rb_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-rb_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-rb-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1
+      - name: standard-postfix-java-gen-rb-versioned_1
+        ContainerStructureType: resource_bundle
+        StructureNaming:
+          Rule:
+            - kind: type_name
+              Value: standard-postfix-java-gen-rb-versioned_1
+            - kind: sub_container_name
+              Value: standard-postfix-java-gen-rb-versioned_1
+            - kind: file_name_stem
+              Value: standard-postfix-java-gen-rb-versioned-file_1
+            - kind: file_name_suffix
+              Value: java-source-extension_1
+            - kind: field_name
+              Value: java-field-name_1
+            - kind: method_name
+              Value: java-method-name_1
+            - kind: getter_method_name
+              Value: java-getter-method-name_1
+            - kind: setter_method_name
+              Value: java-setter-method-name_1
+            - kind: method_parameter_name
+              Value: java-parameter-name_1
+            - kind: local_variable_name
+              Value: java-local-variable-name_1
+            - kind: package_segment_name
+              Value: package-segment-name_1
+            - kind: enum_item_name
+              Value: enum-item-name_1
+            - kind: constant_name
+              Value: constant-name_1

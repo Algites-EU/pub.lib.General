@@ -12,6 +12,7 @@ import java.lang.annotation.Target;
  * Each evaluation obtains its value from the configured category provider factory; this
  * permits immutable or fresh mutable defaults without reflective static method calls.
  */
+@Deprecated(since = "1.1", forRemoval = false)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface AIaFieldDefault {

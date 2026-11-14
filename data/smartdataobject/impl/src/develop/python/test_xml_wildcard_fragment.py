@@ -15,13 +15,13 @@ class AIcgdWildcardExtensions(AIcXmlSmartDataObject):
     __xml_data_object__ = AIaXmlDataObject(namespace='urn:builder', namespace_local_name='Extensions')
     __data_object_fields__ = (
         AIcdDataObjectField('Key', expected_type=str),
-        AIcdDataObjectField('AnyXmlElement2', expected_type=list),
+        AIcdDataObjectField('AnyXmlElement2', expected_type=list, min_item_count=0),
     )
     __xml_data_object_fields__ = {
         'Key': AIaXmlDataObjectField(namespace='urn:builder', namespace_local_name='Key', order=0),
         'AnyXmlElement2': AIaXmlDataObjectField(namespace='urn:builder',
             namespace_local_name='AnyXmlElement2', value_kind=AInXmlValueKind.ELEMENT,
-            order=1, min_occurs=0, max_occurs=-1, wildcard_namespace='##other',
+            order=1, wildcard_namespace='##other',
             wildcard_process_contents='lax'),
     }
     __xml_repeated_fields__ = ('AnyXmlElement2',)
@@ -90,7 +90,7 @@ def test_typed_xml_namespace_wildcard_returns_namespace_interface(constraint, ch
             **AIcgdWildcardExtensions.__xml_data_object_fields__,
             'AnyXmlElement2': AIaXmlDataObjectField(namespace='urn:builder',
                 namespace_local_name='AnyXmlElement2', value_kind=AInXmlValueKind.ELEMENT,
-                order=1, min_occurs=0, max_occurs=-1, wildcard_namespace=constraint,
+                order=1, wildcard_namespace=constraint,
                 wildcard_process_contents='lax'),
         }
 

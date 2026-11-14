@@ -179,8 +179,9 @@ final class AIcSmartDataGraphRenderer {
      * @param aNode annotated smart data object node
      * @return ordered wire properties enabled by the contract's naming convention
      */
-    private static Map<String, Object> schemaWireMetadata(AIcSmartDataGraphSnapshot.AIcNode aNode) {
-        var locSchema = AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema();
+    private Map<String, Object> schemaWireMetadata(AIcSmartDataGraphSnapshot.AIcNode aNode) {
+        var locSchema = AIcSmartDataMetadata.forReadContract(aNode.original.getClass())
+                .formatSchema(profile.getFormatType() == AInTextFormatType.YAML);
         Map<String, Object> locFields = new LinkedHashMap<>();
         if (locSchema == null) return locFields;
         if (!locSchema.dataSourceSchemaUrlField().isBlank() && !locSchema.schemaUrl().isBlank())
@@ -277,9 +278,7 @@ final class AIcSmartDataGraphRenderer {
                     if (profile.isDiagnostic()) {
                         Map<String, Object> locMeta = new LinkedHashMap<>();
                         locMeta.put("type", aNode.original.getClass().getSimpleName());
-                        String locHash = AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema() == null ? "" :
-                                AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema().fingerprint();
-                        if (!locHash.isBlank()) locMeta.put("schemaHash", locHash);
+
                         if (locId != null) locMeta.put("dNr", locId);
                         locValue = Map.of("$meta", locMeta, "$fields", locFields);
                         locId = null;
@@ -479,10 +478,8 @@ final class AIcSmartDataGraphRenderer {
                 return;
             }
             if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SMART) {
-                var locSchema = AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).schema();
+                var locSchema = AIcSmartDataMetadata.forReadContract(aNode.original.getClass()).formatSchema();
                 if (profile.isDiagnostic()) {
-                    if (locSchema != null && !locSchema.fingerprint().isBlank())
-                        aOut.append(" schemaHash=\"").append(xmlEscape(locSchema.fingerprint())).append('"');
                 } else {
                     for (var locField : aNode.fields) {
                         if (locField.descriptor.isXmlAttribute() &&
@@ -513,6 +510,10 @@ final class AIcSmartDataGraphRenderer {
                         }
                     } else {
                         var locValue = snapshot.fieldValue(locField, effective);
+                        if (locField.descriptor.annotation().embedded()) {
+                            xmlEmbedded(locValue, aOut, aDepth + 1);
+                            continue;
+                        }
                         if (locField.descriptor.xml() != null && !locField.descriptor.xml().wildcardNamespace().isBlank()) {
                             var locItems = locValue.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SEQUENCE
                                     ? locValue.elements : java.util.List.of(locValue);
@@ -551,6 +552,122 @@ final class AIcSmartDataGraphRenderer {
             aOut.append("  ".repeat(aDepth)).append("</").append(locName).append(">\n");
         } finally { active.remove(aNode); }
     }
+    /**
+     * Emit one structural DataObject without a wire wrapper. The canonical
+     * ELEMENT(EMBEDDED) owns a semantic getter only; its children belong to
+     * the enclosing XML particle sequence. Repeated occurrences are emitted
+     * individually, rather than introducing synthetic Item elements.
+     *
+     * @param aNode embedded object or a collection of embedded objects
+     * @param aOut target XML output
+     * @param aDepth indentation depth of the surrounding XML children
+     */
+    private void xmlEmbedded(AIcSmartDataGraphSnapshot.AIcNode aNode,
+            StringBuilder aOut, int aDepth) {
+        if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.NULL) return;
+        if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.OPAQUE
+                && aNode.original.getClass().isRecord()) {
+            xmlEmbeddedChoice(aNode, aOut, aDepth);
+            return;
+        }
+        if (aNode.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SEQUENCE) {
+            for (var item : aNode.elements) xmlEmbedded(item, aOut, aDepth);
+            return;
+        }
+        if (aNode.kind != AIcSmartDataGraphSnapshot.AInNodeKind.SMART)
+            throw new IllegalArgumentException("Embedded XML group must be a SmartDataObject");
+        if (!active.add(aNode))
+            throw new IllegalArgumentException("Cycle in embedded XML group");
+        try {
+            for (var field : aNode.fields) {
+                if (field.descriptor.isXmlAttribute())
+                    throw new IllegalArgumentException("xs:group cannot embed XML attributes: " + field.name());
+                if (!field.present && (!effective || !field.descriptor.hasDefault())) continue;
+                var value = snapshot.fieldValue(field, effective);
+                if (field.descriptor.annotation().embedded()) {
+                    xmlEmbedded(value, aOut, aDepth);
+                    continue;
+                }
+                if (field.descriptor.xml() != null
+                        && !field.descriptor.xml().wildcardNamespace().isBlank()) {
+                    var items = value.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SEQUENCE
+                            ? value.elements : java.util.List.of(value);
+                    for (var item : items) {
+                        if (item.kind != AIcSmartDataGraphSnapshot.AInNodeKind.SCALAR
+                                || !(item.scalar instanceof String fragment))
+                            throw new IllegalArgumentException("Embedded wildcard must be an XML fragment");
+                        aOut.append("  ".repeat(aDepth)).append(
+                                AIcXmlSmartDataObjectParser.verifiedWildcardFragment(fragment,
+                                        field.descriptor.xml().wildcardNamespace(),
+                                        field.descriptor.xml().namespace())).append('\n');
+                    }
+                    continue;
+                }
+                String qname = qname(field.descriptor.xmlLocalName(),
+                        field.descriptor.xmlNamespace());
+                if (value.kind == AIcSmartDataGraphSnapshot.AInNodeKind.SEQUENCE) {
+                    for (var item : value.elements) xml(item, aOut, aDepth, qname, true);
+                } else xml(value, aOut, aDepth, qname, true);
+            }
+        } finally { active.remove(aNode); }
+    }
+
+    /**
+     * Serialize one immutable sealed CHOICE record without an XML wrapper.
+     * Defs Codegen annotates each generated logical getter with its canonical
+     * order and whether the member is itself a transparent nested sequence.
+     * The record and its nominal sealed interface are never rewritten as SDOs.
+     *
+     * @param aChoice immutable generated choice record
+     * @param aOut destination XML text
+     * @param aDepth current XML child indentation depth
+     */
+    private void xmlEmbeddedChoice(AIcSmartDataGraphSnapshot.AIcNode aChoice,
+            StringBuilder aOut, int aDepth) {
+        Class<?> type = aChoice.original.getClass();
+        if (!type.isRecord() || java.util.Arrays.stream(type.getInterfaces()).noneMatch(Class::isSealed))
+            throw new IllegalArgumentException("Embedded XML record is not a sealed CHOICE: " + type.getName());
+        java.util.TreeMap<Integer, java.lang.reflect.Method> getters = new java.util.TreeMap<>();
+        for (var method : type.getDeclaredMethods()) {
+            var field = method.getDeclaredAnnotation(
+                    eu.algites.lib.data.dataobject.AIaDataObjectField.class);
+            if (field == null || method.getParameterCount() != 0) continue;
+            if (getters.putIfAbsent(field.order(), method) != null)
+                throw new IllegalArgumentException("Duplicate CHOICE field order: " + type.getName());
+        }
+        if (getters.size() != type.getRecordComponents().length)
+            throw new IllegalArgumentException("CHOICE getter metadata does not match record components: "
+                    + type.getName());
+        for (var entry : getters.entrySet()) {
+            var method = entry.getValue();
+            var annotation = method.getDeclaredAnnotation(
+                    eu.algites.lib.data.dataobject.AIaDataObjectField.class);
+            Object raw;
+            try { raw = method.invoke(aChoice.original); }
+            catch (ReflectiveOperationException failure) {
+                throw new IllegalArgumentException("Cannot read CHOICE getter: " + method, failure);
+            }
+            if (raw == null)
+                throw new IllegalArgumentException("CHOICE variant member is missing: " + method);
+            var child = snapshot.nodeFor(raw);
+            if (annotation.embedded()) {
+                xmlEmbedded(child, aOut, aDepth);
+                continue;
+            }
+            var modernWire = method.getDeclaredAnnotation(
+                    eu.algites.lib.data.dataobject.xmlschema.AIaDataObjectFieldXmlSchema.class);
+            var legacyWire = method.getDeclaredAnnotation(
+                    eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObjectField.class);
+            var elementKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT;
+            if (modernWire != null ? modernWire.valueKind() != elementKind
+                    : legacyWire == null || legacyWire.valueKind() != elementKind)
+                throw new IllegalArgumentException("CHOICE variant needs an XML element mapping: " + method);
+            xml(child, aOut, aDepth, qname(
+                    modernWire != null ? modernWire.namespaceLocalName() : legacyWire.namespaceLocalName(),
+                    modernWire != null ? modernWire.namespace() : legacyWire.namespace()), true);
+        }
+    }
+
     /** Return a canonical XML Schema lexical scalar, including generated enum wire values. */
     private static String xmlScalarText(Object aValue) {
         if (aValue instanceof Enum<?> locEnum) {

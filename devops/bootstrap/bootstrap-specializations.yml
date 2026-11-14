@@ -1,0 +1,18 @@
+# The only repository-specific bootstrap policy; ordinary repos may omit it.
+CleanGeneratedDefault: false
+RequireFreshGenerated: false
+GeneratedSourceSelection:
+  - ArtifactId: pub.lib.General_naming.convention.intf
+    JavaCompletionPatterns:
+      - '**/impl/intf/AIigd*.java'
+      - '**/impl/AIcgd*.java'
+    PythonCompletionPatterns:
+      - '**/impl/intf/aiigd*.py'
+      - '**/impl/aicgd*.py'
+Snapshots:
+  - ArtifactPath: naming/convention/intf
+    Program: promote-naming-extgen.py
+    CheckSeed: --check
+    BeforeGeneration: --check
+    BeforeGenerationSeedOnly: true
+    AfterBuild: --refresh

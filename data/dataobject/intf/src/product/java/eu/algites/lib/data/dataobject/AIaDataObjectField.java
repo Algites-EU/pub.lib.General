@@ -22,7 +22,26 @@ public @interface AIaDataObjectField {
      *
      * @return schema field identifier or empty for getter-derived naming
      */
+    @Deprecated(since = "1.1")
     String fieldName() default "";
+
+    /**
+     * Canonical data-field name shared by technologies; independent of XML QName
+     * and of the semantic getter identity.
+     *
+     * @return external data field name, or empty to inherit or derive it
+     */
+    String dataFieldName() default "";
+
+    /**
+     * A structurally embedded member has a logical getter but no serialized
+     * field/element wrapper. Its children are serialized in the parent context.
+     * It must not declare a {@link #dataFieldName()} and is independent of the
+     * referenced type's declared/synthetic origin.
+     *
+     * @return whether the member has no wire-level wrapper
+     */
+    boolean embedded() default false;
 
     /**
      * Presence restriction enforced by data-object implementations. REQUIRED requires an
@@ -39,6 +58,50 @@ public @interface AIaDataObjectField {
      * @return true unless nullability is explicitly forbidden
      */
     boolean allowsNull() default true;
+
+    /**
+     * Schema declaration order shared by XML, JSON and YAML. An unspecified
+     * order is -1; legacy XML-specific order is consulted during migration.
+     *
+     * @return zero-based declaration order, or -1 if not provided
+     */
+    int order() default -1;
+
+    /**
+     * Minimum item count for a collection-valued field. XML Schema
+     * Source-schema collection lower bounds map to this schema-neutral
+     * constraint. A value of {@code -1} means unspecified.
+     * Field presence is controlled separately by {@link #presence()}.
+     *
+     * @return minimum collection item count, or -1 when unspecified
+     */
+    int minItemCount() default -1;
+
+    /**
+     * Maximum item count for a collection-valued field. XML Schema
+     * Source-schema collection upper bounds map to this schema-neutral
+     * constraint. A value of {@code -1} means unbounded
+     * or unspecified; it is not a prohibition on collection items.
+     *
+     * @return maximum collection item count, or -1 when unspecified
+     */
+    int maxItemCount() default -1;
+
+    /**
+     * Whether the explicit EMPTY_VALUE sentinel may be assigned to this field.
+     * It differs from assigning an ordinary empty String through setXxx("").
+     *
+     * @return true if the technical empty-state accessors are permitted
+     */
+    boolean isEmptyAllowed() default false;
+
+    /**
+     * Nested schema default and XSD fixed constraint information.
+     * An unspecified default is metadata-only and does not change raw storage.
+     *
+     * @return the immutable default declaration
+     */
+    AIaDataObjectFieldDefault defaultValue() default @AIaDataObjectFieldDefault;
 
     /**
      * Declares the inherited setter parameter-type strategy for this field.

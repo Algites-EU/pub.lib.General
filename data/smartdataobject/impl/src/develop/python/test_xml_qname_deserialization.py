@@ -104,14 +104,12 @@ class AIcgdBoundedXml(AIcXmlSmartDataObject):
     """Runtime fixture for exact XML occurrence limits independent of field presence."""
     __xml_data_object__ = AIaXmlDataObject(namespace='urn:bounded', namespace_local_name='Root')
     __data_object_fields__ = (
-        AIcdDataObjectField('Required', expected_type=str),
-        AIcdDataObjectField('Entry', expected_type=list),
+        AIcdDataObjectField('Required', expected_type=str, min_item_count=1, max_item_count=1),
+        AIcdDataObjectField('Entry', expected_type=list, min_item_count=1, max_item_count=2),
     )
     __xml_data_object_fields__ = {
-        'Required': AIaXmlDataObjectField(namespace='urn:bounded', namespace_local_name='Required',
-                                          min_occurs=1, max_occurs=1),
-        'Entry': AIaXmlDataObjectField(namespace='urn:bounded', namespace_local_name='Entry',
-                                       min_occurs=1, max_occurs=2),
+        'Required': AIaXmlDataObjectField(namespace='urn:bounded', namespace_local_name='Required'),
+        'Entry': AIaXmlDataObjectField(namespace='urn:bounded', namespace_local_name='Entry'),
     }
     __xml_repeated_fields__ = ('Entry',)
 
@@ -133,7 +131,32 @@ def test_xml_parser_enforces_wire_cardinalities():
 
 def test_xml_occurrence_metadata_rejects_invalid_intervals():
     """Generated wire intervals must not contain negative or inverted finite bounds."""
-    with pytest.raises(ValueError, match='min_occurs exceeds max_occurs'):
-        AIaXmlDataObjectField(min_occurs=2, max_occurs=1)
+    with pytest.raises(ValueError, match='min_item_count exceeds max_item_count'):
+        AIcdDataObjectField("Entry", min_item_count=2, max_item_count=1)
     with pytest.raises(ValueError, match='bound'):
-        AIaXmlDataObjectField(min_occurs=-2)
+        AIcdDataObjectField("Entry", min_item_count=-2)
+
+class AIcgdModernCommonContract(AIcXmlSmartDataObject):
+    """Schema-neutral declaration from which XML-only wire metadata inherits."""
+    __data_object_fields__ = (AIcdDataObjectField('Code', expected_type=str),)
+
+
+class AIcgdModernXmlContract(AIcgdModernCommonContract):
+    """New-only XML metadata regression; no legacy XML attributes are present."""
+    from eu.algites.lib.data.dataobject.xmlschema.aia_data_object_xml_schema import AIaDataObjectXmlSchema
+    from eu.algites.lib.data.dataobject.xmlschema.aia_data_object_field_xml_schema import AIaDataObjectFieldXmlSchema
+    __xml_schema__ = AIaDataObjectXmlSchema(namespace='urn:modern', namespace_local_name='Record')
+    __xml_schema_fields__ = {
+        'Code': AIaDataObjectFieldXmlSchema(namespace_local_name='code',
+                                            value_kind=AInXmlValueKind.ATTRIBUTE),
+    }
+
+
+def test_modern_only_xml_schema_preserves_common_fields_and_attribute_roundtrip():
+    """New XML Schema metadata alone must support the same typed runtime as legacy metadata."""
+    assert '__data_object_fields__' not in AIcgdModernXmlContract.__dict__
+    value = AIcgdModernXmlContract.from_xml('<Record xmlns="urn:modern" code="B"/>')
+    assert value.get_RawField('Code') == 'B'
+    output = value.toString_RawValues(AIsTextFormatProfiles.XML_XSD)
+    assert 'code="B"' in output
+    assert AIcgdModernXmlContract.from_xml(output).get_RawField('Code') == 'B'

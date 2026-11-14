@@ -17,7 +17,8 @@ import static org.testng.Assert.expectThrows;
  */
 public final class AItcSchemaWireMetadataTest {
     /** Contract with the Algites default: only the schema URL is serialized. */
-    @AIaDataObject(schemaId = "test.contract", schemaVersion = 7,
+    @AIaDataObject
+    @eu.algites.lib.data.dataobject.jsondefs.AIaJsonDataObject(schemaId = "test.contract", schemaVersion = 7,
             schemaUrl = "https://example.invalid/schema_7.jsondef.schema.json",
             dataSourceSchemaUrlField = "$schema")
     public interface AIigUrlOnly extends AIiDataObject {
@@ -27,7 +28,8 @@ public final class AItcSchemaWireMetadataTest {
     }
 
     /** Contract explicitly configured to emit ID and version in addition to the URL. */
-    @AIaDataObject(schemaId = "test.contract", schemaVersion = 7,
+    @AIaDataObject
+    @eu.algites.lib.data.dataobject.jsondefs.AIaJsonDataObject(schemaId = "test.contract", schemaVersion = 7,
             schemaUrl = "https://example.invalid/schema_7.jsondef.schema.json",
             dataSourceSchemaUrlField = "$schema",
             dataSourceSchemaIdentifierField = "$schemaId",
@@ -55,7 +57,8 @@ public final class AItcSchemaWireMetadataTest {
     }
 
     /** Contract declaring the same system property explicitly as an ordinary field. */
-    @AIaDataObject(schemaId = "test.contract", schemaVersion = 7,
+    @AIaDataObject
+    @eu.algites.lib.data.dataobject.jsondefs.AIaJsonDataObject(schemaId = "test.contract", schemaVersion = 7,
             schemaUrl = "https://example.invalid/schema_7.jsondef.schema.json",
             dataSourceSchemaUrlField = "$schema")
     public interface AIigExplicitSchemaUrl extends AIiDataObject {
@@ -88,7 +91,8 @@ public final class AItcSchemaWireMetadataTest {
     }
 
     /** Contract that also declares the system metadata name as an ordinary field. */
-    @AIaDataObject(schemaId = "test.contract", schemaVersion = 7,
+    @AIaDataObject
+    @eu.algites.lib.data.dataobject.jsondefs.AIaJsonDataObject(schemaId = "test.contract", schemaVersion = 7,
             schemaUrl = "https://example.invalid/schema_7.jsondef.schema.json",
             dataSourceSchemaUrlField = "$schema")
     public interface AIigDeclaredSchemaProperty extends AIiDataObject {
