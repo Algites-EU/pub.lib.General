@@ -26,7 +26,7 @@ import java.util.function.Predicate;
  *
  * @param <T> element type
  */
-public class AIcBoundedList<T> extends AbstractList<T> implements RandomAccess, AIiValidatable<AIcdBoundedListValidationIssue> {
+public class AIcBoundedList<T> extends AbstractList<T> implements RandomAccess, AIiBoundedList<T> {
     private final List<T> values = new ArrayList<>();
     private final Integer minSize;
     private final Integer maxSize;
@@ -208,6 +208,6 @@ public class AIcBoundedList<T> extends AbstractList<T> implements RandomAccess, 
 
     /** {@inheritDoc} */
     @Override public String getInvalidStateMessage(Locale aLocale) {
-        return AIiValidatable.super.getInvalidStateMessage(aLocale);
+        return AIiBoundedList.super.getInvalidStateMessage(aLocale);
     }
 }

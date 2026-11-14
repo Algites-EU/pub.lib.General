@@ -16,12 +16,13 @@ from abc import abstractmethod
 from typing import TypeVar
 
 from .aii_key_definition import AIiKeyDefinition
+from .aii_bounded_list import AIiBoundedList
 
 V = TypeVar('V')
 K = TypeVar('K')
 
 
-class AIiMultiMappedList(MutableSequence[V]):
+class AIiMultiMappedList(AIiBoundedList[V]):
     """Ordered mutable sequence with cached, deletion-only multi-key maps.
 
     A failed insertion or replacement must leave all maps and list membership
@@ -58,40 +59,39 @@ class AIiMultiMappedList(MutableSequence[V]):
         ...
 
 
-    def _compat_index(self):
-        """Access a generated legacy mapped-list wrapper without changing its source."""
-        value = getattr(self, '_mapped_entries', None)
-        if value is None:
-            raise NotImplementedError('This legacy mapped-list implementation does not provide the new index API')
-        return value
-
+    @abstractmethod
     def get_key_count(self) -> int:
-        """Return count, including for generated legacy wrappers."""
-        return self._compat_index().get_key_count()
+        """Return the number of registered key definitions."""
+        ...
 
     def is_one_key_list(self) -> bool:
-        """Return whether exactly one definition exists."""
+        """Return whether exactly one key definition is registered."""
         return self.get_key_count() == 1
 
+    @abstractmethod
     def is_dynamic_key_defs_list(self) -> bool:
-        """Return whether dynamic definition modifications are allowed."""
-        return self._compat_index().is_dynamic_key_defs_list()
+        """Return whether key definitions may change after construction."""
+        ...
 
+    @abstractmethod
     def get_one_key_map(self) -> MutableMapping[object, tuple[V, ...]]:
-        """Return the one key-to-snapshot-group map."""
-        return self._compat_index().get_one_key_map()
+        """Return the registered key map when exactly one definition exists."""
+        ...
 
+    @abstractmethod
     def add_key_definition(self, definition: AIiKeyDefinition[V, object]) -> None:
-        """Atomically index a definition, or reject fixed mode."""
-        self._compat_index().add_key_definition(definition)
+        """Register a definition atomically, or reject a fixed-definition list."""
+        ...
 
+    @abstractmethod
     def remove_key_definition(self, identifier: str) -> bool:
-        """Unregister by id, invalidating map views, or reject fixed mode."""
-        return self._compat_index().remove_key_definition(identifier)
+        """Remove a registered definition without deleting list elements."""
+        ...
 
+    @abstractmethod
     def clear_key_definitions(self) -> None:
-        """Remove all index definitions, or reject fixed mode."""
-        self._compat_index().clear_key_definitions()
+        """Remove all key definitions while preserving list elements."""
+        ...
 
     def map_by_key_id(self, identifier: str) -> MutableMapping[object, tuple[V, ...]]:
         """Look up a named live key-to-group map."""

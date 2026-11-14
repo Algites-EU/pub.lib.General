@@ -17,6 +17,9 @@ import java.util.ServiceLoader;
  * @author linhart1
  */
 public final class AIsSmartDataObjectFormatBindingProviderRegistry {
+    /** Immutable discovery snapshot; published after successful initialization. */
+    private static volatile List<AIiSmartDataObjectFormatBindingProvider> CACHED_PROVIDERS;
+
     private static final Map<ClassLoader, Boolean> EXTRA_LOADERS =
             Collections.synchronizedMap(new IdentityHashMap<>());
     private static final Map<ModuleLayer, Boolean> EXTRA_LAYERS =
@@ -25,8 +28,9 @@ public final class AIsSmartDataObjectFormatBindingProviderRegistry {
     private AIsSmartDataObjectFormatBindingProviderRegistry() { }
 
     /**
-     * Adds a provider discovery classloader. Existing per-class metadata can
-     * acquire this loader's additional provider contributions on next forType.
+     * Adds a provider discovery classloader before the first discovery.
+     * Discovery is immutable for the lifetime of this registry classloader;
+     * registration after initialization does not trigger another scan.
      *
      * @param aClassLoader non-null classloader exposing ServiceLoader registrations
      * @throws NullPointerException if aClassLoader is null
@@ -36,9 +40,8 @@ public final class AIsSmartDataObjectFormatBindingProviderRegistry {
     }
 
     /**
-     * Stops discovering providers from an explicitly registered classloader.
-     * Existing immutable class metadata are unaffected; any cached contribution
-     * already resolved for that provider remains associated with its SDO class.
+     * Stops registering a classloader for future first discovery.
+     * A completed discovery snapshot is intentionally not invalidated.
      *
      * @param aClassLoader classloader to remove, not null
      * @throws NullPointerException if the argument is null
@@ -48,8 +51,8 @@ public final class AIsSmartDataObjectFormatBindingProviderRegistry {
     }
 
     /**
-     * Adds one Java module layer to provider discovery. Unlike classloader-only
-     * discovery this also discovers provider declarations from named modules.
+     * Adds one Java module layer before first discovery, including providers
+     * declared in named modules. A cached discovery snapshot is not invalidated.
      *
      * @param aLayer non-null module layer to include
      * @throws NullPointerException if the layer is null
@@ -59,8 +62,8 @@ public final class AIsSmartDataObjectFormatBindingProviderRegistry {
     }
 
     /**
-     * Stops discovering providers from an explicitly registered module layer.
-     * This does not invalidate contributions already attached to metadata.
+     * Removes a layer from the scopes of a not-yet-completed discovery.
+     * A cached discovery snapshot is not invalidated.
      *
      * @param aLayer non-null previously registered module layer
      * @throws NullPointerException if the layer is null
@@ -70,14 +73,30 @@ public final class AIsSmartDataObjectFormatBindingProviderRegistry {
     }
 
     /**
-     * Discovers provider instances using the supplied, thread-context and
-     * explicitly registered classloaders. Duplicate provider implementation
-     * class identities are included only once.
+     * Discovers provider instances once using the supplied implementation loader,
+     * thread-context loader, registered loaders and module layers. Each provider
+     * implementation class is instantiated at most once per registry lifetime.
+     * Every subsequent caller receives the identical immutable provider list.
+     * Register additional discovery scopes before the first call.
      *
      * @param aImplementationLoader classloader of the SDO being inspected; nullable
      * @return immutable list of discovered providers
      */
     public static List<AIiSmartDataObjectFormatBindingProvider> getProviders(
+            ClassLoader aImplementationLoader) {
+        List<AIiSmartDataObjectFormatBindingProvider> locCached = CACHED_PROVIDERS;
+        if (locCached != null) return locCached;
+        synchronized (AIsSmartDataObjectFormatBindingProviderRegistry.class) {
+            locCached = CACHED_PROVIDERS;
+            if (locCached == null) {
+                locCached = discover(aImplementationLoader);
+                CACHED_PROVIDERS = locCached;
+            }
+        }
+        return locCached;
+    }
+
+    private static List<AIiSmartDataObjectFormatBindingProvider> discover(
             ClassLoader aImplementationLoader) {
         List<ClassLoader> locLoaders = new ArrayList<>();
         addUnique(locLoaders, aImplementationLoader);
@@ -88,24 +107,23 @@ public final class AIsSmartDataObjectFormatBindingProviderRegistry {
         }
         Map<Class<?>, AIiSmartDataObjectFormatBindingProvider> locProviders = new LinkedHashMap<>();
         for (ClassLoader locLoader : locLoaders) {
-            for (AIiSmartDataObjectFormatBindingProvider locProvider :
-                    ServiceLoader.load(AIiSmartDataObjectFormatBindingProvider.class, locLoader)) {
-                locProviders.putIfAbsent(locProvider.getClass(), locProvider);
-            }
+            ServiceLoader.load(AIiSmartDataObjectFormatBindingProvider.class, locLoader)
+                    .stream().forEach(aEntry -> locProviders.computeIfAbsent(
+                            aEntry.type(), aIgnored -> aEntry.get()));
         }
         synchronized (EXTRA_LAYERS) {
             for (ModuleLayer locLayer : EXTRA_LAYERS.keySet()) {
-                for (AIiSmartDataObjectFormatBindingProvider locProvider :
-                        ServiceLoader.load(locLayer, AIiSmartDataObjectFormatBindingProvider.class)) {
-                    locProviders.putIfAbsent(locProvider.getClass(), locProvider);
-                }
+                ServiceLoader.load(locLayer, AIiSmartDataObjectFormatBindingProvider.class)
+                        .stream().forEach(aEntry -> locProviders.computeIfAbsent(
+                                aEntry.type(), aIgnored -> aEntry.get()));
             }
         }
         return List.copyOf(locProviders.values());
     }
 
     /**
-     * Locates all providers available in the current thread's classloader scope.
+     * Returns the process-cached discovery result, using the current thread's
+     * classloader only for the first initialization.
      *
      * @return immutable discovered providers
      */

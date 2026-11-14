@@ -16,6 +16,8 @@ from typing import Generic, TypeVar, cast, overload
 
 from .aii_key_definition import AIiKeyDefinition
 from .aii_multi_mapped_list import AIiMultiMappedList
+from .ain_bounds_mutation_policy import AInBoundsMutationPolicy
+from .aicd_bounded_list_validation_issue import AIcdBoundedListValidationIssue
 
 V = TypeVar("V")
 K = TypeVar("K")
@@ -176,7 +178,16 @@ class AIcMultiMappedList(AIiMultiMappedList[V], Generic[V]):
     """
 
     def __init__(self, definitions: Iterable[AIiKeyDefinition[V, object]] | None = None,
-                 values: Iterable[V] = (), *, dynamic_key_defs: bool | None = None) -> None:
+                 values: Iterable[V] = (), *, dynamic_key_defs: bool | None = None,
+                 min_size: int | None = None, max_size: int | None = None,
+                 mutation_policy: AInBoundsMutationPolicy = AInBoundsMutationPolicy.PREVENT_WORSENING) -> None:
+        for bound in (min_size, max_size):
+            if bound is not None and (type(bound) is not int or not 0 <= bound <= 2_147_483_647):
+                raise ValueError('Bounds must be nonnegative signed 32-bit integers or None')
+        if min_size is not None and max_size is not None and min_size > max_size:
+            raise ValueError('Minimum size exceeds maximum size')
+        self._min_size, self._max_size = min_size, max_size
+        self._policy = AInBoundsMutationPolicy(mutation_policy)
         # Legacy explicit-definition calls stay fixed until the migration deploy.
         # Zero-argument construction is dynamic, as is explicit dynamic_key_defs=True.
         self._dynamic_key_defs = (definitions is None if dynamic_key_defs is None
@@ -198,6 +209,32 @@ class AIcMultiMappedList(AIiMultiMappedList[V], Generic[V]):
         initial = [_Entry(value) for value in values]
         if initial:
             self._publish(initial)
+
+    def getMinSize(self) -> int | None: return self._min_size
+    def getMaxSize(self) -> int | None: return self._max_size
+    def getMutationPolicy(self) -> AInBoundsMutationPolicy: return self._policy
+    def _below(self, count: int) -> int: return max(0, self._min_size - count) if self._min_size is not None else 0
+    def _above(self, count: int) -> int: return max(0, count - self._max_size) if self._max_size is not None else 0
+    def isValid(self) -> bool: return self._below(len(self)) == 0 and self._above(len(self)) == 0
+    def getValidationIssues(self) -> list[AIcdBoundedListValidationIssue]:
+        if self._below(len(self)):
+            return [AIcdBoundedListValidationIssue('MIN_ITEMS', len(self), self._min_size)]
+        if self._above(len(self)):
+            return [AIcdBoundedListValidationIssue('MAX_ITEMS', len(self), self._max_size)]
+        return []
+    def modifyAtomically(self, aChange: Callable[[list[V]], object]) -> None:
+        if aChange is None: raise ValueError('Change callback is required')
+        candidate_values = [entry.value for entry in self._items]
+        aChange(candidate_values)
+        unused = list(self._items)
+        candidate = []
+        for value in candidate_values:
+            old = next((entry for entry in unused if entry.value is value), None)
+            if old is not None:
+                unused.remove(old)
+            candidate.append(old if old is not None else _Entry(value))
+        if candidate != self._items:
+            self._publish(candidate)
 
     def key_definition(self, identifier: str) -> AIiKeyDefinition[V, object] | None:
         """Return the exact registered key-definition object for ``identifier``.
@@ -318,6 +355,9 @@ class AIcMultiMappedList(AIiMultiMappedList[V], Generic[V]):
 
     def _publish(self, candidate: list[_Entry[V]],
                  replacements: Mapping[_Entry[V], _Entry[V]] | None = None) -> None:
+        if self._policy is AInBoundsMutationPolicy.PREVENT_WORSENING:
+            if self._below(len(candidate)) > self._below(len(self)) or self._above(len(candidate)) > self._above(len(self)):
+                raise ValueError('List mutation increases a cardinality constraint violation')
         indexed = self._build(candidate)
         self._items = candidate
         self._groups = indexed
@@ -464,7 +504,8 @@ class AIcMultiMappedList(AIiMultiMappedList[V], Generic[V]):
         """
         if not (0 <= start <= end <= len(self)):
             raise IndexError("Invalid copy range")
-        return AIcMultiMappedList(self._definitions, self[start:end],
+        return AIcMultiMappedList(self._definitions, self[start:end], min_size=self._min_size,
+                                  max_size=self._max_size, mutation_policy=self._policy,
                                   dynamic_key_defs=self._dynamic_key_defs)
 
     def remove_if(self, predicate: Callable[[V], bool]) -> bool:

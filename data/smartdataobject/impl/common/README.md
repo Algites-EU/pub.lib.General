@@ -2,7 +2,7 @@
 
 This artifact contains the **new**, independent metadata and implementation-binding APIs for Java and Python. The legacy `data/smartdataobject/impl` runtime remains unchanged and will be deprecated and removed after the new runtime is fully migrated.
 
-- `AIsSmartDataObjectMetadataRegistry.forType(...)` provides common per-implementation-class metadata (`ClassValue` in Java; class-owned cache in Python), independent of the legacy cache.
+- `AIsSmartDataObjectMetadataRegistry.forType(...)` provides common per-implementation-class metadata (`ClassValue` in Java; class-owned cache in Python), independent of the legacy cache. Reading common fields does **not** discover format providers; discovery is deferred until `getFormatBindings()` / `getFormatBinding()` (or explicit format serialization) is requested.
 - `AIcSmartDataObjectBindingRegistry.builder().register(...).build()` selects a purpose-scoped subset of concrete implementations. Multiple implementations for one read-only contract are valid.
 - `AIaSmartDataObjectImplementationBinding(readContracts=...)` defines class-level contracts, including inherited declarations.
 - `AIaSmartDataObjectFieldImplementationBinding` optionally chooses a concrete implementation for an SDO-valued field; an overriding getter can replace the inherited choice.

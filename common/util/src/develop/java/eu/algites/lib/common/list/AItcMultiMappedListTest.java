@@ -249,4 +249,33 @@ public class AItcMultiMappedListTest {
             () -> employees.add(new Employee(9, A.email(), "Brno")));
         check(employees.size() == 3, "unique email collision rejected");
     }
+    /**
+     * A schema-required indexed collection begins empty and is populated through
+     * its List methods, not any DataObject setter. Both bounds and key indexes
+     * remain coherent after rejected mutations.
+     */
+    @Test public void boundedIndexedCollectionsRemainAtomic() {
+        AIcMultiMappedList<Employee> employees = new AIcMultiMappedList<>(
+                2, 3, AInBoundsMutationPolicy.PREVENT_WORSENING,
+                false, List.of(byId));
+        AIiBoundedList<Employee> bounded = employees;
+        check(bounded.getMinSize() == 2 && bounded.getMaxSize() == 3,
+                "declared bounds retained by indexed list");
+        check(!bounded.isValid(), "initial empty list below minimum is constructible");
+        bounded.add(A);
+        check(!bounded.isValid(), "first item moves toward required minimum");
+        bounded.add(B);
+        check(bounded.isValid(), "minimum reached");
+        check(employees.mapByKeyType(byId).get(1L).equals(List.of(A)),
+                "key index registered on first access");
+        fails(IllegalStateException.class, () -> bounded.remove(B));
+        check(employees.size() == 2, "rejected lower-bound mutation is atomic");
+        fails(IllegalArgumentException.class, () -> bounded.add(A));
+        check(employees.size() == 2, "rejected unique key mutation is atomic");
+        bounded.add(C);
+        fails(IllegalStateException.class, () -> bounded.add(D));
+        check(employees.size() == 3 && employees.mapByKeyType(byId).containsKey(3L),
+                "rejected upper-bound mutation preserves indexes");
+    }
+
 }

@@ -166,28 +166,19 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
      * @return previously assigned or new collection
      */
     protected final Object get_OrCreateCollectionField(String aSemanticFieldName, boolean aMapped) {
-        requireField(aSemanticFieldName);
+        AIiSmartDataObjectFieldMetadata field = requireField(aSemanticFieldName);
         if (values.containsKey(aSemanticFieldName)) return get_RawField(aSemanticFieldName);
-        Object result = aMapped ? new eu.algites.lib.common.list.AIcMultiMappedList<>() : new ArrayList<>();
-        set_RawField(aSemanticFieldName, result);
-        return result;
-    }
-
-    /**
-     * Creates and attaches a nominal indexed collection with generated factory semantics.
-     * @param aSemanticFieldName indexed field name
-     * @param aFactory indexed collection factory
-     * @param <V> indexed element type
-     * @param <T> concrete indexed collection type
-     * @return attached collection
-     */
-    @SuppressWarnings("unchecked")
-    protected final <V, T extends eu.algites.lib.common.list.AIiMultiMappedList<V>> T
-            get_OrCreateNamedMappedCollectionField(String aSemanticFieldName,
-            java.util.function.Function<java.util.Collection<? extends eu.algites.lib.common.list.AIiKeyDefinition<V, ?>>, T> aFactory) {
-        Objects.requireNonNull(aFactory, "aFactory");
-        if (values.containsKey(aSemanticFieldName)) return (T) get_RawField(aSemanticFieldName);
-        T result = aFactory.apply(List.of());
+        Integer minimum = cardinalityMin(field);
+        Integer maximum = cardinalityMax(field);
+        Object result;
+        if (aMapped) {
+            var definitions = indexDefinitions(field);
+            result = new eu.algites.lib.common.list.AIcMultiMappedList<>(minimum, maximum,
+                    eu.algites.lib.common.list.AInBoundsMutationPolicy.PREVENT_WORSENING,
+                    definitions.isEmpty(), definitions);
+        } else {
+            result = new eu.algites.lib.common.list.AIcBoundedList<>(minimum, maximum);
+        }
         set_RawField(aSemanticFieldName, result);
         return result;
     }
@@ -199,6 +190,67 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
      */
     final void populateField(String aSemanticFieldName, Object aValue) {
         set_RawField(aSemanticFieldName, aValue);
+    }
+
+    /**
+     * Compile direct, schema-declared indexes for a collection before it becomes
+     * visible. Nested selectors belong to their nested collection owners rather
+     * than the current field, and therefore are not registered on this list.
+     *
+     * @param aField resolved common field metadata
+     * @return stable key definitions owned by a newly materialized collection
+     */
+    private static java.util.List<eu.algites.lib.common.list.AIiKeyDefinition<Object, ?>>
+            indexDefinitions(AIiSmartDataObjectFieldMetadata aField) {
+        var definitions = new java.util.ArrayList<eu.algites.lib.common.list.AIiKeyDefinition<Object, ?>>();
+        for (var key : aField.getKeyDefinitions()) {
+            if (!key.selector().isEmpty()) continue;
+            if (key.name().isBlank() || key.fields().length == 0)
+                throw new IllegalArgumentException("Invalid indexed list definition for "
+                        + aField.getSemanticFieldName());
+            String[] paths = key.fields().clone();
+            definitions.add(new eu.algites.lib.common.list.AIcKeyDefinition<Object, Object>(
+                    key.name(), item -> indexedKey(item, paths), true, key.required()));
+        }
+        return java.util.List.copyOf(definitions);
+    }
+
+    /**
+     * Evaluate logical DataObject getter paths, without using wire-format keys.
+     * @param aItem list element
+     * @param aPaths getter paths for one composite key
+     * @return scalar key, immutable tuple, or null when an optional component is absent
+     */
+    private static Object indexedKey(Object aItem, String[] aPaths) {
+        var values = new java.util.ArrayList<Object>(aPaths.length);
+        for (String path : aPaths) {
+            Object current = aItem;
+            for (String component : path.split("\\.", -1)) {
+                if (component.isBlank())
+                    throw new IllegalArgumentException("Invalid indexed list getter path: " + path);
+                if (current == null) break;
+                try {
+                    current = current.getClass().getMethod("get" + component).invoke(current);
+                } catch (ReflectiveOperationException error) {
+                    throw new IllegalArgumentException("Cannot resolve indexed list getter: " + path, error);
+                }
+            }
+            if (current == null) return null;
+            values.add(current);
+        }
+        return values.size() == 1 ? values.get(0) : java.util.List.copyOf(values);
+    }
+
+    private static Integer cardinalityMin(AIiSmartDataObjectFieldMetadata field) {
+        var list = field.getListConstraints();
+        int result = list != null && list.minItems() >= 0 ? list.minItems() : field.getDefinition().minItemCount();
+        return result < 0 ? null : result;
+    }
+
+    private static Integer cardinalityMax(AIiSmartDataObjectFieldMetadata field) {
+        var list = field.getListConstraints();
+        int result = list != null && list.maxItems() >= 0 ? list.maxItems() : field.getDefinition().maxItemCount();
+        return result < 0 ? null : result;
     }
 
     private AIiSmartDataObjectFieldMetadata requireField(String aSemanticFieldName) {
@@ -277,8 +329,9 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         }
         var list = field.getListConstraints();
         if (value instanceof java.util.Collection<?> collection && list != null) {
-            if (list.minItems() >= 0 && collection.size() < list.minItems() ||
-                list.maxItems() >= 0 && collection.size() > list.maxItems() ||
+            if (!(collection instanceof eu.algites.lib.common.list.AIiBoundedList<?>) &&
+                    (list.minItems() >= 0 && collection.size() < list.minItems() ||
+                     list.maxItems() >= 0 && collection.size() > list.maxItems()) ||
                 list.uniqueItems() && new LinkedHashSet<>(collection).size() != collection.size())
                 throw new IllegalArgumentException("Collection constraint violated: " + field.getSemanticFieldName());
         }
@@ -332,7 +385,11 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
             if (values.containsKey(name)) {
                 Object value = effective ? get_EffectiveField(name) : get_RawField(name);
                 try { if (value == null && !field.getDefinition().allowsNull())
-                    throw new IllegalArgumentException("Null forbidden"); validateValue(field, value); }
+                    throw new IllegalArgumentException("Null forbidden");
+                    validateValue(field, value);
+                    if (value instanceof eu.algites.lib.common.list.AIiBoundedList<?> bounded && !bounded.isValid())
+                        throw new IllegalArgumentException(bounded.getInvalidStateMessage(null));
+                }
                 catch (IllegalArgumentException error) {
                     result.add(new AIcdSmartDataValidationIssue(name, "FIELD_CONSTRAINT", error.getMessage()));
                 }

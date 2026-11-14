@@ -33,21 +33,18 @@ segment is `NameFragmentsSegmentValue: {Kind: identifier, Content:
 
 ## Temporary naming bootstrap ABI (`*.extgen`)
 
-Until the standard builder takes over, only this library's interim bootstrap
-uses a checked-in `java.extgen` / `python.extgen` compiler snapshot. The first
-source-mode build of `pub.lib.General_naming.convention.intf` cannot yet run
-Java SDO Codegen, since the tool depends on naming types. The initial snapshot
-therefore contains:
+The interim bootstrap uses a repository-local `java.extgen` / `python.extgen`
+compiler snapshot to break the initial dependency cycle: the first source-mode
+build of `naming.convention.intf` cannot yet run Java SDO Codegen, because that
+generator itself depends on naming types. Originally, Java used minimal
+compiler-only `AIigd*` and abstract `AIcgd*` ABI placeholders. Those placeholders
+are **not runtime implementations** and must not be published as final output.
 
-- Java: exact copies of read-only Defs interfaces, sealed variants and enums,
-  plus **minimal compiler-only** mutable interfaces (`AIigd*`) and abstract
-  implementation placeholders (`AIcgd*`). They deliberately contain no
-  setters, getters or instance behavior and **must never be used as runtime
-  SDO implementations**. The minimal generic type parameters support compiling
-  dependent code during the initial ABI cycle.
-- Python: the already available genuine read-only and SDO generated source
-  snapshot; no invented Python APIs. It will also be renewed from actual
-  generation after a successful bootstrap.
+After a successful full bootstrap, the snapshots must instead contain genuine
+Defs and SDO generated sources for Java and Python, with a single unified
+contract per type, without technology-specific interface projections.
+The current repository snapshot has already been promoted from real generated
+sources, so rechecking it must not depend on a removed historical manifest.
 
 The initial naming compiler phase uses `java.extgen` instead of `java.gen`
 so Java classes are not compiled twice. The SDO CLI is then built from source;
@@ -55,10 +52,15 @@ its normal Java/Python generation runs on the read-only interfaces, and only
 after the complete successful build does
 `devops/bootstrap/promote-naming-extgen.py --refresh` replace **both**
 `extgen` snapshots from the genuine `*.gen` outputs. The second Gradle
-invocation selects `java.gen` rather than the abstract `java.extgen` stubs;
-refresh happens after verification but before Maven Local promotion. The guard
-`--check` verifies that the seed has not been modified or truncated. The
-bootstrap fails instead of silently promoting incomplete Java SDO results.
+invocation selects `java.gen` rather than the interim `java.extgen` seed;
+refresh happens after verification but before Maven Local promotion. The guard `--check` validates the complete Java/Python ABI source
+snapshots directly, checking required read-only and writable roles and
+rejecting historical technology-specific projections. No hash manifest,
+checked-in generated-file list, or other persistent build metadata is used.
+`--refresh` regenerates the snapshots from complete `*.gen` output using
+staged directory replacement and never writes such a manifest. Missing or
+incomplete snapshots remain a fatal error; they are never silently rebuilt
+from stale historical files.
 
 This special handling applies to `naming.convention.intf` only and to the
 interim bootstrap, not to unrelated libraries or a future standard Gradle

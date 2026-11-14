@@ -72,6 +72,10 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
     private final Set<WeakReference<TrackedSubList>> subLists = new HashSet<>();
     private long mutationVersion;
     private final boolean dynamicKeyDefs;
+    private final Integer minSize;
+    private final Integer maxSize;
+    private final AInBoundsMutationPolicy mutationPolicy;
+
 
     /**
      * Constructs an initially unindexed, dynamically configurable list.
@@ -89,6 +93,36 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
      */
     public AIcMultiMappedList(boolean dynamicKeyDefs,
             Collection<? extends AIiKeyDefinition<V, ?>> definitions) {
+        this(null, null, AInBoundsMutationPolicy.PREVENT_WORSENING, dynamicKeyDefs, definitions);
+    }
+
+    /**
+     * Creates a list with bounds, no initial keys, and dynamic key registration.
+     * Bounds affect mutation policy; a new empty list is allowed even if minSize is positive.
+     * @param aMinSize inclusive minimum, null for none
+     * @param aMaxSize inclusive maximum, null for none
+     */
+    public AIcMultiMappedList(Integer aMinSize, Integer aMaxSize) {
+        this(aMinSize, aMaxSize, AInBoundsMutationPolicy.PREVENT_WORSENING, true, List.of());
+    }
+
+    /**
+     * Creates an indexed list with the same cardinality policy as AIcBoundedList.
+     * @param aMinSize inclusive minimum, null for none
+     * @param aMaxSize inclusive maximum, null for none
+     * @param aPolicy policy governing changes outside bounds
+     * @param dynamicKeyDefs whether key definitions can be added or removed
+     * @param definitions initially registered key definitions
+     */
+    public AIcMultiMappedList(Integer aMinSize, Integer aMaxSize,
+            AInBoundsMutationPolicy aPolicy, boolean dynamicKeyDefs,
+            Collection<? extends AIiKeyDefinition<V, ?>> definitions) {
+        if (aMinSize != null && aMinSize < 0 || aMaxSize != null && aMaxSize < 0 ||
+                aMinSize != null && aMaxSize != null && aMinSize > aMaxSize)
+            throw new IllegalArgumentException("Invalid list cardinality bounds");
+        minSize = aMinSize;
+        maxSize = aMaxSize;
+        mutationPolicy = Objects.requireNonNull(aPolicy, "Mutation policy");
         this.dynamicKeyDefs = dynamicKeyDefs;
         Objects.requireNonNull(definitions, "definitions");
         for (AIiKeyDefinition<V, ?> definition : definitions) {
@@ -409,6 +443,10 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
     }
 
     private void publish(List<Entry<V>> candidate, Map<Entry<V>, Entry<V>> replacements, boolean structural) {
+        if (mutationPolicy == AInBoundsMutationPolicy.PREVENT_WORSENING &&
+                (below(candidate.size()) > below(entries.size()) ||
+                 above(candidate.size()) > above(entries.size())))
+            throw new IllegalStateException("List mutation increases a cardinality constraint violation");
         Map<Index<V>, Map<Object, List<Entry<V>>>> next = buildIndexes(candidate);
         Set<Entry<V>> surviving = Collections.newSetFromMap(new IdentityHashMap<>());
         surviving.addAll(candidate);
@@ -422,6 +460,53 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
             TrackedSubList view = weak.get();
             if (view != null) view.synchronizeMembers(surviving, replacements);
         }
+    }
+
+    private long below(long aSize) { return minSize == null ? 0 : Math.max(0L, (long) minSize - aSize); }
+    private long above(long aSize) { return maxSize == null ? 0 : Math.max(0L, aSize - maxSize); }
+
+    /** {@inheritDoc} */
+    @Override public Integer getMinSize() { return minSize; }
+    /** {@inheritDoc} */
+    @Override public Integer getMaxSize() { return maxSize; }
+    /** {@inheritDoc} */
+    @Override public AInBoundsMutationPolicy getMutationPolicy() { return mutationPolicy; }
+    /** {@inheritDoc} */
+    @Override public boolean isValid() { return below(size()) == 0 && above(size()) == 0; }
+    /** {@inheritDoc} */
+    @Override public List<AIcdBoundedListValidationIssue> getValidationIssues() {
+        if (below(size()) > 0) return List.of(new AIcdBoundedListValidationIssue("MIN_ITEMS", size(), minSize));
+        if (above(size()) > 0) return List.of(new AIcdBoundedListValidationIssue("MAX_ITEMS", size(), maxSize));
+        return List.of();
+    }
+
+    /**
+     * Applies a detached sequence of edits and reindexes the result as one transaction.
+     * Existing entries are reused by reference where possible to retain live sublist membership.
+     * @param aChange callback editing detached list values
+     * @throws NullPointerException if callback is null
+     * @throws IllegalStateException when resulting size worsens constraint violation
+     */
+    @Override public void modifyAtomically(java.util.function.Consumer<List<V>> aChange) {
+        Objects.requireNonNull(aChange, "Change callback");
+        List<V> changed = new ArrayList<>();
+        for (Entry<V> item : entries) changed.add(item.value);
+        aChange.accept(changed);
+        List<Entry<V>> candidate = new ArrayList<>();
+        Set<Entry<V>> used = Collections.newSetFromMap(new IdentityHashMap<>());
+        for (V item : changed) {
+            Entry<V> found = null;
+            for (Entry<V> old : entries) {
+                if (old.value == item && used.add(old)) { found = old; break; }
+            }
+            candidate.add(found != null ? found : new Entry<>(item));
+        }
+        if (!sameOrder(candidate, entries)) publish(candidate, Map.of(), true);
+    }
+
+    /** {@inheritDoc} */
+    @Override public String getInvalidStateMessage(java.util.Locale aLocale) {
+        return AIiMultiMappedList.super.getInvalidStateMessage(aLocale);
     }
 
     private void cleanSubLists() {
@@ -458,7 +543,7 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
         Objects.checkFromToIndex(fromIndex, toIndex, entries.size());
         List<AIiKeyDefinition<V, ?>> definitions = new ArrayList<>();
         for (Index<V> index : indexes) definitions.add(index.definition);
-        AIcMultiMappedList<V> copied = new AIcMultiMappedList<>(dynamicKeyDefs, definitions);
+        AIcMultiMappedList<V> copied = new AIcMultiMappedList<>(minSize, maxSize, mutationPolicy, dynamicKeyDefs, definitions);
         copied.addAll(new ArrayList<>(this.subList(fromIndex, toIndex)));
         return copied;
     }

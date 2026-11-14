@@ -109,52 +109,24 @@ formatting, conversion and validation now use the YAML-backed
 `AIcNameConventionCatalog` in Java and Python, exposed through
 `AIiNameConventionCatalog` to Java API consumers.
 
-## XML element synthetic contract naming
+## XML schema identities and naming
 
-The Java and Python catalogs add 16 XML-element-specific versions of their
-existing interface/class roles (59 profiles per language). Normal generated
-type conventions are unchanged and packages continue to represent business
-areas. XML global element declarations can use their own synthetic interfaces,
-uniquely keyed by XML QName in the canonical model. These new roles use the
-normal naming compositions with an extra marker after their technical prefix:
+The active Defs Codegen emits a single common, read-only DataObject contract
+for each canonical logical type. XML namespace URIs, global element QNames,
+substitution relationships, JSON `$id`, and YAML schema identity are stored
+as independent format metadata; they are **not** a reason to create a second
+nominal interface or any separate writable class family.
 
-- Java class and filename: `_xe`, e.g. `AIig_xePayment_1.java`,
-  `AIigd_xePayment_1.java`, `AIcgd_xePayment_1.java`.
-- Python class: `_xe`, e.g. `AIig_xePayment_1`.
-- Python file: a further underscore to separate snake-case segments, e.g.
-  `aiig__xe_payment_1.py`, `aiigd__xe_payment_1.py`, `aicgd__xe_payment_1.py`.
+XMLDEFS, JSONDEFS and YAMLDEFS input filenames may have different source
+naming conventions. Output names, however, are selected from the common
+interface and SDO naming conventions. The naming catalog rejects ambiguous
+filenames and collisions; these checks also apply to external read-only type
+references and to case-folded paths across output roots.
 
-The general-role identifier starts with uppercase in a Java/Python class name,
-whereas reserved role markers start with an underscore and lowercase letters.
-Python filenames require `__xe_` because `lower_snake_case` itself contains
-single underscores; double underscores distinguish the new role. Both the
-standard identifier and version grammars must remain anchored and distinct.
-Custom naming catalogs may use postfixes or other compositions, but the
-catalog must reject any name matching multiple active conventions. This
-requirement applies independently to container and filename recognizers.
-Generator output must additionally reject duplicate full names/paths, including
-case-folded filesystem collisions, before writing outputs. The marker is a
-convention fragment, never a hardcoded operation in the Defs or SDO generator.
-
-## XML namespace contracts
-
-Defs Codegen has a distinct XML namespace interface naming role,
-`xmldefs_namespace`, independent of both `xmldefs_type` and `xmldefs_element`.
-Its generated interfaces are **unversioned**, because the identity is an XML
-namespace URI rather than an individual versioned XSD definition. The Algites
-catalog provides `algites-{java,python}-gen-xml-namespace-intf_1` and a
-`gen-data` variant, with independent class-name and filename compositions.
-The standard XML namespace role composes both the `_xn` marker and the
-`XmlDataObject` component from separately named YAML `NameFragments`; Defs
-Codegen supplies only a normalized identifier derived from the namespace URI.
-No fixed part of the resulting contract name is assembled in generator source.
-A custom namespace naming convention can change or omit either component.
-The default role inserts the `_xn` marker from a named YAML
-`NameFragment`. Java example: `AIig_xnXmlDataObjectUrnDemo`.
-Python example: `AIig_xnXmlDataObjectUrnDemo` in
-`aiig__xn_xml_data_object_urn_demo.py`. Neither role is inferred
-from an element naming prefix or created for JSON/YAML.
-
+The historical XML namespace and element naming conventions belong only to
+the archived schema generator and must not be used by the new Defs/SDO
+pipeline. An XML-only document may add XML annotations to its shared type;
+it must not introduce a second nominal DataObject interface.
 
 ## Getter and setter method naming
 

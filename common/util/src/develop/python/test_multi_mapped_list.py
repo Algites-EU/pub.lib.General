@@ -126,3 +126,35 @@ def test_validation_of_definitions_and_unhashable_key():
     with pytest.raises(TypeError):
         employees.append(A)
     assert len(employees) == 0
+
+
+def test_bounded_multi_mapped_list_builds_from_empty_and_preserves_indexes():
+    """A required list can be constructed incrementally, without relaxing indexes."""
+    from eu.algites.lib.common.list.aii_bounded_list import AIiBoundedList
+    from eu.algites.lib.common.list.ain_bounds_mutation_policy import AInBoundsMutationPolicy
+
+    by_id = AIcKeyDefinition('BY_ID', lambda employee: employee.id, True)
+    employees = AIcMultiMappedList((by_id,), min_size=2, max_size=3)
+    assert isinstance(employees, AIiBoundedList)
+    assert employees.getMinSize() == 2
+    assert employees.getMaxSize() == 3
+    assert employees.getMutationPolicy() is AInBoundsMutationPolicy.PREVENT_WORSENING
+    assert not employees.isValid()
+    employees.append(A)
+    assert not employees.isValid()
+    employees.append(B)
+    assert employees.isValid()
+    indexed = employees.map_by_key_type(by_id)
+    assert indexed[1] == (A,)
+    with pytest.raises(ValueError):
+        employees.pop()    # 2 -> 1 worsens the lower bound
+    assert list(employees) == [A, B]
+    assert indexed[2] == (B,)
+    with pytest.raises(ValueError):
+        employees.append(Employee(A.id, 'another@example.org', 'Other'))
+    assert list(employees) == [A, B]
+    employees.append(C)
+    with pytest.raises((ValueError, RuntimeError)):
+        employees.append(D)  # 3 -> 4 exceeds the upper bound
+    assert list(employees) == [A, B, C]
+    assert indexed[3] == (C,)

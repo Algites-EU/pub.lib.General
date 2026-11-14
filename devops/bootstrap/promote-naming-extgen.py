@@ -11,9 +11,8 @@ existing independent CLIs. Bootstrap stubs are NEVER the final SDO output.
 from __future__ import annotations
 
 import argparse
-import hashlib
-import json
 import os
+import re
 from pathlib import Path
 import shutil
 import sys
@@ -21,13 +20,7 @@ import uuid
 
 REPOSITORY = Path(__file__).resolve().parents[2]
 PRODUCT = REPOSITORY / 'naming/convention/intf/src/product'
-MANIFEST = REPOSITORY / 'naming/convention/intf/naming-bootstrap-extgen.json'
 SUFFIXES = {'java': '.java', 'python': '.py'}
-
-
-def digest(path: Path) -> str:
-    """Compute the content hash of a source file."""
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def snapshot(root: Path, suffix: str) -> dict[str, Path]:
@@ -76,7 +69,6 @@ def required_naming_sdo(files: dict[str, Path], language: str) -> None:
     and writable contract per schema type. Never REQUIRE old prefixed types
     to promote newly generated code.
     """
-    import re
     path_prefix = 'eu/algites/lib/naming/convention/'
     for role, prefix, directory in (
         ('interface', 'AIigd', 'impl/intf/'),
@@ -93,25 +85,40 @@ def required_naming_sdo(files: dict[str, Path], language: str) -> None:
                 raise ValueError(f'Missing generated {language} naming {role}: {expected}')
 
 
+def reject_format_projections(sources: dict[str, Path], language: str) -> None:
+    """Reject obsolete per-technology naming interfaces in modern snapshots.
+
+    The bootstrap seed must represent the unified read-only/writable API.  A
+    historical x/j/y projection cannot satisfy that API, even if its name is
+    present alongside the proper unified interface.
+    """
+    pattern = (r'^(?:AIigd|AIig|AIcgd)_[xjy](?:[A-Z_]|$)'
+               if language == 'java'
+               else r'^(?:aiigd|aiig|aicgd)_{1,2}[xjy]_(?:[a-z]|$)')
+    obsolete = [key for key in sources if re.match(pattern, Path(key).name)]
+    if obsolete:
+        raise ValueError(f'Obsolete technology-specific {language} naming contracts: '
+                         + ', '.join(sorted(obsolete)))
+
+
 def check() -> None:
-    """Validate tracked seed paths, hashes and both technologies."""
-    if not MANIFEST.is_file():
-        raise ValueError(f'Missing naming seed manifest: {MANIFEST}')
-    manifest = json.loads(MANIFEST.read_text(encoding='utf-8'))
+    """Validate the actual compiler ABI snapshots, without persistent metadata.
+
+    The snapshots are complete generated source trees. Their contents, not a
+    checked-in list of hashes, determine whether first-stage compilation can
+    proceed. This works before Defs/SDO have produced fresh ``*.gen`` roots.
+    """
+    counts = {}
     for language, suffix in SUFFIXES.items():
-        expected = manifest['files'][language]
         actual = snapshot(PRODUCT / (language + '.extgen'), suffix)
-        if set(expected) != set(actual):
-            raise ValueError(f'{language} naming seed paths differ from manifest')
-        for key, path in actual.items():
-            if expected[key] != digest(path):
-                raise ValueError(f'Stale naming seed: {path}')
-        roles(actual, language)
-    print('Naming extgen seed validated (Java and Python).')
+        counts[language] = roles(actual, language)
+        required_naming_sdo(actual, language)
+        reject_format_projections(actual, language)
+    print(f'Naming extgen source snapshots validated (Java/Python): {counts}')
 
 
 def refresh() -> None:
-    """Atomically replace both seeds and their manifest from complete *.gen output.
+    """Atomically replace both seeds from complete *.gen output.
 
     Generated *.gen files remain intact until the owning bootstrap has finished:
     removing them during code generation can invalidate compiler and Python
@@ -119,19 +126,16 @@ def refresh() -> None:
     """
     new = {}
     counts = {}
-    old_kind = None
-    if MANIFEST.is_file():
-        old_kind = json.loads(MANIFEST.read_text(encoding='utf-8')).get('kind')
     for language, suffix in SUFFIXES.items():
         files = snapshot(PRODUCT / (language + '.gen'), suffix)
         counts[language] = roles(files, language)
-        if old_kind in ('bootstrap-abi-stubs', 'generated'):
-            required_naming_sdo(files, language)
+        # Require complete unified Defs+SDO output before replacing the ABI seed.
+        required_naming_sdo(files, language)
+        reject_format_projections(files, language)
         new[language] = files
     token = uuid.uuid4().hex
     staged = []
     completed = []
-    manifest_stage = MANIFEST.with_name(MANIFEST.name + '.stage-' + token)
     succeeded = False
     try:
         for language in SUFFIXES:
@@ -146,14 +150,6 @@ def refresh() -> None:
                 target = stage / key
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(source, target)
-        metadata = {
-            'description': 'Verified naming Defs/SDO output from the independent generators; supersedes bootstrap ABI stubs',
-            'kind': 'generated',
-            'roles': counts,
-            'files': {lang: {key: digest(path) for key, path in files.items()}
-                      for lang, files in new.items()},
-        }
-        manifest_stage.write_text(json.dumps(metadata, indent=2, sort_keys=True) + '\n', encoding='utf-8')
         for destination, stage, backup in staged:
             existed = destination.exists()
             if existed:
@@ -165,7 +161,6 @@ def refresh() -> None:
                     os.replace(backup, destination)
                 raise
             completed.append((destination, backup, existed))
-        os.replace(manifest_stage, MANIFEST)
         succeeded = True
     except BaseException:
         for destination, backup, existed in reversed(completed):
@@ -180,7 +175,10 @@ def refresh() -> None:
                 shutil.rmtree(stage)
             if succeeded and backup.exists():
                 shutil.rmtree(backup)
-        manifest_stage.unlink(missing_ok=True)
+    # One-time cleanup of the retired persistent sidecar from older builds.
+    legacy = PRODUCT.parents[1] / 'naming-bootstrap-extgen.json'
+    if legacy.is_file() or legacy.is_symlink():
+        legacy.unlink()
     print(f'Refreshed naming extgen: {counts}')
 
 

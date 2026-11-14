@@ -32,7 +32,7 @@ import java.util.Map;
  * @param <V> non-null stored value type
  * @author linhart1
  */
-public interface AIiMultiMappedList<V> extends List<V> {
+public interface AIiMultiMappedList<V> extends AIiBoundedList<V> {
     /**
      * Returns the cached, live map view for a registered key definition. The map
      * has read-only snapshot lists as its values. The returned map allows removal
@@ -62,9 +62,7 @@ public interface AIiMultiMappedList<V> extends List<V> {
      *
      * @return zero for an unindexed list, otherwise the number of definitions
      */
-    default int getKeyCount() {
-        throw new UnsupportedOperationException("Legacy implementation does not expose key count");
-    }
+    int getKeyCount();
 
     /**
      * Indicates whether exactly one key definition is registered.
@@ -93,9 +91,7 @@ public interface AIiMultiMappedList<V> extends List<V> {
      * @throws IllegalStateException if there are zero or more than one key definitions
      * @throws ClassCastException on use if the caller assumes a different key type
      */
-    default <K> Map<K, List<V>> getOneKeyMap() {
-        throw new UnsupportedOperationException("Legacy implementation does not expose a sole-key lookup");
-    }
+    <K> Map<K, List<V>> getOneKeyMap();
 
     /**
      * Registers a new key definition and atomically indexes existing elements.
@@ -106,9 +102,7 @@ public interface AIiMultiMappedList<V> extends List<V> {
      *         existing value violates the new definition
      * @throws NullPointerException if definition is null
      */
-    default void addKeyDefinition(AIiKeyDefinition<V, ?> definition) {
-        throw new IllegalStateException("Legacy implementations use fixed key definitions");
-    }
+    void addKeyDefinition(AIiKeyDefinition<V, ?> definition);
 
     /**
      * Removes the definition identified by its stable id without removing values.
@@ -119,9 +113,7 @@ public interface AIiMultiMappedList<V> extends List<V> {
      * @throws IllegalStateException if definitions are fixed
      * @throws NullPointerException if id is null
      */
-    default boolean removeKeyDefinition(String id) {
-        throw new IllegalStateException("Legacy implementations use fixed key definitions");
-    }
+    boolean removeKeyDefinition(String id);
 
     /**
      * Unregisters all key definitions while retaining list values.
@@ -129,9 +121,7 @@ public interface AIiMultiMappedList<V> extends List<V> {
      *
      * @throws IllegalStateException if definitions are fixed
      */
-    default void clearKeyDefinitions() {
-        throw new IllegalStateException("Legacy implementations use fixed key definitions");
-    }
+    void clearKeyDefinitions();
 
     /**
      * Looks up a registered definition id and returns its cached live map.

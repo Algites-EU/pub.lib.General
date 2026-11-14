@@ -63,7 +63,12 @@ class AIcSmartDataObject(AIiSmartDataObject):
         from typing import get_origin
         required = getattr(definition, 'expected_type', None) or field.getEffectiveReturnType()
         expected_class = get_origin(required) or required
+        from eu.algites.lib.common.list.aii_bounded_list import AIiBoundedList
+        # Transitional *.extgen ABI may still annotate collections as list[T].
+        # Keep that generated seed compatible with the new public bounded-list API.
+        is_compatible_list = expected_class is list and isinstance(value, AIiBoundedList)
         if (value is not None and isinstance(expected_class, type) and
+                not is_compatible_list and
                 (not isinstance(value, expected_class) or
                  (expected_class is int and isinstance(value, bool)))):
             raise TypeError(f'Incompatible field value for {name}: {type(value)}; expected {expected_class}')
@@ -108,7 +113,8 @@ class AIcSmartDataObject(AIiSmartDataObject):
         if default.defined and default.kind is AInDataObjectFieldDefaultKind.CONSTRAINT_DEFAULT:
             if value != AIcSmartDataObject._parse_default(field):
                 raise ValueError('FIXED constraint violated: ' + field.getSemanticFieldName())
-        if isinstance(value, (list, tuple)):
+        from eu.algites.lib.common.list.aii_bounded_list import AIiBoundedList
+        if isinstance(value, (list, tuple)) and not isinstance(value, AIiBoundedList):
             if definition.min_item_count >= 0 and len(value) < definition.min_item_count or (
                     definition.max_item_count >= 0 and len(value) > definition.max_item_count):
                 raise ValueError('Collection cardinality constraint violated: ' + field.getSemanticFieldName())
@@ -181,20 +187,44 @@ class AIcSmartDataObject(AIiSmartDataObject):
             ValueError: When the field is unknown or forbidden by its definition.
             TypeError: When the new collection violates the declared field type.
         """
-        self._field(name)
+        field = self._field(name)
         if name not in self._sdo_values:
+            from eu.algites.lib.common.list.aic_bounded_list import AIcBoundedList
+            definition = field.getDefinition()
+            constraints = field.getListConstraints()
+            minimum = (constraints.min_items if constraints is not None and constraints.min_items >= 0
+                       else definition.min_item_count)
+            maximum = (constraints.max_items if constraints is not None and constraints.max_items >= 0
+                       else definition.max_item_count)
+            bounds = dict(min_size=minimum if minimum >= 0 else None,
+                          max_size=maximum if maximum >= 0 else None)
             if mapped:
                 from eu.algites.lib.common.list.aic_multi_mapped_list import AIcMultiMappedList
-                value = AIcMultiMappedList()
+                from eu.algites.lib.common.list.aic_key_definition import AIcKeyDefinition
+                definitions = []
+                for key_name, key_fields, required in field.getKeyDefinitions():
+                    if not key_name or not key_fields:
+                        raise ValueError('Invalid indexed list definition on ' + name)
+                    paths = tuple(str(path).split('.') for path in key_fields)
+                    def extract(item, paths=paths):
+                        values = []
+                        for path in paths:
+                            current = item
+                            for component in path:
+                                if not component:
+                                    raise ValueError('Empty indexed list field path')
+                                getter = getattr(current, 'get' + component, None) if current is not None else None
+                                current = getter() if callable(getter) else None
+                            if current is None:
+                                return None
+                            values.append(current)
+                        return values[0] if len(values) == 1 else tuple(values)
+                    definitions.append(AIcKeyDefinition(str(key_name), extract, unique=True,
+                                                       required=bool(required)))
+                value = AIcMultiMappedList(definitions, dynamic_key_defs=not bool(definitions), **bounds)
             else:
-                value = []
+                value = AIcBoundedList(bounds['min_size'], bounds['max_size'])
             self.set_RawField(name, value)
-        return self.get_RawField(name)
-
-    def get_OrCreateNamedMappedCollectionField(self, name: str, factory: Any) -> Any:
-        """Get or attach a generated nominal collection."""
-        if name not in self._sdo_values:
-            self.set_RawField(name, factory())
         return self.get_RawField(name)
 
     def _snapshot(self, effective: bool) -> dict[str, Any]:
@@ -235,6 +265,9 @@ class AIcSmartDataObject(AIiSmartDataObject):
                 if value is None and not field.getDefinition().allows_null:
                     raise ValueError('Null forbidden')
                 self._validate(field, value)
+                from eu.algites.lib.common.list.aii_bounded_list import AIiBoundedList
+                if isinstance(value, AIiBoundedList) and not value.isValid():
+                    raise ValueError(value.getInvalidStateMessage(None))
             except (ValueError, TypeError) as error:
                 issues.append(AIcdSmartDataValidationIssue(name, 'FIELD_CONSTRAINT', str(error)))
         return issues
@@ -253,7 +286,7 @@ class AIcSmartDataObject(AIiSmartDataObject):
                     visit(child, path + field + '.')
             elif isinstance(value, Mapping):
                 for key, child in value.items(): visit(child, path + str(key) + '.')
-            elif isinstance(value, (list, tuple)):
+            elif isinstance(value, (list, tuple, AIiBoundedList)):
                 for index, child in enumerate(value): visit(child, path + f'[{index}].')
         visit(self, '')
         return issues

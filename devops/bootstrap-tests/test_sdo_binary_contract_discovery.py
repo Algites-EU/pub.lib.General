@@ -11,13 +11,11 @@ SERVICE = ROOT / 'generators/code/sdocodegen/impl/src/product/java/eu/algites/to
 pytestmark = pytest.mark.skipif(not JAVA_GENERATED.exists(), reason='Tool repository only')
 
 
-def test_namespace_marker_is_not_a_dataobject_definition():
-    marker = (JAVA_GENERATED / 'AIig_xnXmlDataObjectUrnEuAlgitesToolCodegenDefsInputProfile1.java').read_text()
-    definition = (JAVA_GENERATED / 'AIig_xInputProfile_1.java').read_text()
-    assert 'extends eu.algites.lib.data.dataobject.xmldefs.AIiXmlDataObjectNamespace' in marker
-    assert '@eu.algites.lib.data.dataobject.AIaDataObject(' not in marker
+def test_common_dataobject_has_no_separate_xml_namespace_projection():
+    """A QName belongs to metadata, never an additional nominal DataObject."""
+    definition = (JAVA_GENERATED / 'AIigInputProfile_1.java').read_text()
     assert '@eu.algites.lib.data.dataobject.AIaDataObject(' in definition
-    assert 'AIig_xnXmlDataObjectUrnEuAlgitesToolCodegenDefsInputProfile1' in definition
+    assert not list(JAVA_GENERATED.rglob('*XmlDataObjectUrn*.java'))
 
 
 def test_binary_discovery_uses_same_contract_gate_as_sdo_service():

@@ -2,11 +2,11 @@ from __future__ import annotations
 from collections.abc import Iterable, MutableSequence, Callable
 from eu.algites.lib.common.interval.ais_interval_utils import AIsIntervalUtils
 from eu.algites.lib.common.list.ain_bounds_mutation_policy import AInBoundsMutationPolicy
-from eu.algites.lib.common.validation.aii_validatable import AIiValidatable
+from eu.algites.lib.common.list.aii_bounded_list import AIiBoundedList
 from eu.algites.lib.common.list.aicd_bounded_list_validation_issue import AIcdBoundedListValidationIssue
 T = __import__('typing').TypeVar('T')
 
-class AIcBoundedList(MutableSequence[T], AIiValidatable[AIcdBoundedListValidationIssue]):
+class AIcBoundedList(AIiBoundedList[T]):
     """Bounded mutable list. Every size change is transactional; callbacks edit a detached copy.
 
     Constructor accepts (min_size, max_size[, policy]) or (AIiInterval[, policy]).

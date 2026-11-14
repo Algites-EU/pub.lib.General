@@ -18,6 +18,26 @@ The registry is limited to explicitly registered implementations and does not en
 
 Java discovers `AIiSmartDataObjectFormatBindingProvider` using `ServiceLoader`, including explicitly registered classloaders and named-module `ModuleLayer` scopes. Python discovers entry points in the `eu.algites.lib.data.smartdataobject.format_binding_providers` group. Each provider declares its own stable `getFormatId()` and `getProviderId()` and contributes metadata independently.
 
+**Eager metadata with one-time cached discovery.** On the first call to
+`AIsSmartDataObjectMetadataRegistry.forType()` for an implementation class, common
+field metadata and all available XML/JSON/YAML provider contributions are resolved
+immediately. The provider registry enumerates the Java `ServiceLoader` or Python
+`importlib.metadata.entry_points()` group and instantiates its services **once**
+per registry lifetime (per Java registry classloader, per Python process). The
+immutable discovery result, including the empty set, is cached in memory;
+subsequent metadata initialization for other classes reuses the same service
+instances. Each concrete DataObject class also caches the result of
+`resolveMetadata()` and does not recompute it on its getter/setter calls.
+
+The provider set is assumed stable during a Codegen run. Java discovery scopes
+(`registerClassLoader`, `registerModuleLayer`) should be configured before the
+first metadata lookup. Python explicitly registered providers are supported as
+an alternative to installed distribution entry points and should be registered
+before their target metadata is first initialized; later registration does not
+retroactively modify previously cached class metadata. No persistent manifest,
+on-disk cache or implicit provider invalidation is used.
+
+
 `AInTextFormatType` implements `AIiEnumItem<String>` with stable `code()` values for the built-in formats. The `formatId` interface also accepts codes supplied by future formats.
 
 ## Compatibility and limitations
@@ -46,4 +66,4 @@ The only existing tracked file **renamed** by this source-tree layout change is 
 
 ## Java discovery and roundtrip test
 
-The test `AItcSmartDataObjectFormatRoundtripTest` in `impl/format/xml/src/develop/java` checks that all three provider services can be discovered from classpath resource directories and roundtrip nested data. Test execution must include each format artifact's `src/product/resources` or the corresponding built JAR on the classpath. Explicit `ModuleLayer` registration is available for providers declared in named Java modules. Providers can also be exposed via `registerClassLoader()` and subsequently removed from discovery via `unregisterClassLoader()`.
+The test `AItcSmartDataObjectFormatRoundtripTest` in `impl/format/xml/src/develop/java` checks that all three provider services can be discovered from classpath resource directories and roundtrip nested data. Test execution must include each format artifact's `src/product/resources` or the corresponding built JAR on the classpath. Explicit `ModuleLayer` registration is available for providers declared in named Java modules. Providers can also be exposed via `registerClassLoader()` before first discovery. Subsequent `unregisterClassLoader()` does not mutate an already-cached provider snapshot.

@@ -51,8 +51,9 @@ public final class AIsSmartDataObjectMetadataRegistry {
     private AIsSmartDataObjectMetadataRegistry() { }
 
     /**
-     * Retrieves or constructs metadata for a concrete SDO type, resolving all
-     * currently discovered format providers. The class itself is not instantiated.
+     * Retrieves or constructs metadata for a concrete SDO type. Common fields
+     * and provider-specific contributions are resolved upon first access; the
+     * provider services themselves are discovered and instantiated only once.
      *
      * @param aImplementationClass requested concrete SmartDataObject class
      * @return cached common descriptor with all discovered format contributions
@@ -63,7 +64,7 @@ public final class AIsSmartDataObjectMetadataRegistry {
             Class<? extends AIcSmartDataObject> aImplementationClass) {
         Objects.requireNonNull(aImplementationClass, "aImplementationClass");
         ResolvedMetadata locMetadata = METADATA.get(aImplementationClass);
-        locMetadata.refreshFormatBindings();
+        locMetadata.ensureFormatBindingsInitialized();
         return locMetadata;
     }
 
@@ -210,6 +211,7 @@ public final class AIsSmartDataObjectMetadataRegistry {
         private final Map<String, ResolvedField> fields;
         private final ConcurrentHashMap<Class<?>, Optional<AIiSmartDataObjectFormatBindingMetadata>>
                 formatContributions = new ConcurrentHashMap<>();
+        private volatile boolean formatBindingsInitialized;
         ResolvedMetadata(Class<? extends AIcSmartDataObject> aType, Map<String, ResolvedField> aFields) {
             implementationClass = aType;
             fields = Collections.unmodifiableMap(new LinkedHashMap<>(aFields));
@@ -223,21 +225,26 @@ public final class AIsSmartDataObjectMetadataRegistry {
         @Override public AIiSmartDataObjectFieldMetadata getField(String aSemanticFieldName) {
             return fields.get(aSemanticFieldName);
         }
-        void refreshFormatBindings() {
-            for (AIiSmartDataObjectFormatBindingProvider locProvider :
-                    AIsSmartDataObjectFormatBindingProviderRegistry.getProviders(implementationClass.getClassLoader())) {
-                formatContributions.computeIfAbsent(locProvider.getClass(), aIgnored -> {
-                    Optional<? extends AIiSmartDataObjectFormatBindingMetadata> locResolved =
-                            Objects.requireNonNull(locProvider.resolveMetadata(this), "provider metadata result");
-                    locResolved.ifPresent(aValue -> {
-                        if (!locProvider.getFormatId().equals(aValue.getFormatId()) ||
-                                !locProvider.getProviderId().equals(aValue.getProviderId())) {
-                            throw new IllegalArgumentException("Inconsistent format provider metadata IDs: "
-                                    + locProvider.getClass().getName());
-                        }
+        void ensureFormatBindingsInitialized() {
+            if (formatBindingsInitialized) return;
+            synchronized (this) {
+                if (formatBindingsInitialized) return;
+                for (AIiSmartDataObjectFormatBindingProvider locProvider :
+                        AIsSmartDataObjectFormatBindingProviderRegistry.getProviders(implementationClass.getClassLoader())) {
+                    formatContributions.computeIfAbsent(locProvider.getClass(), aIgnored -> {
+                        Optional<? extends AIiSmartDataObjectFormatBindingMetadata> locResolved =
+                                Objects.requireNonNull(locProvider.resolveMetadata(this), "provider metadata result");
+                        locResolved.ifPresent(aValue -> {
+                            if (!locProvider.getFormatId().equals(aValue.getFormatId()) ||
+                                    !locProvider.getProviderId().equals(aValue.getProviderId())) {
+                                throw new IllegalArgumentException("Inconsistent format provider metadata IDs: "
+                                        + locProvider.getClass().getName());
+                            }
+                        });
+                        return locResolved.map(aValue -> (AIiSmartDataObjectFormatBindingMetadata)aValue);
                     });
-                    return locResolved.map(aValue -> (AIiSmartDataObjectFormatBindingMetadata)aValue);
-                });
+                }
+                formatBindingsInitialized = true;
             }
         }
         @Override public Collection<? extends AIiSmartDataObjectFormatBindingMetadata> getFormatBindings() {

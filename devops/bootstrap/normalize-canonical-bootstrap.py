@@ -87,40 +87,6 @@ def _java(text: str) -> str:
     return pattern.sub(replace, text)
 
 
-def _java_element_sdo_seed(text: str) -> str:
-    """Upgrade the schema-generated first-stage Java SDO seed for ElementKind.
-
-    This is a temporary bootstrap adapter only. The independent Java SDO
-    generator will produce the same accessors from the new Defs read contract
-    during a complete source bootstrap. Never rewrite handwritten sources.
-    """
-    if 'getElementKind()' in text or 'AIigd_jElement_1' not in text:
-        return text
-    field_type = 'eu.algites.tool.codegen.defs.model.AIngElementKind_1'
-    if 'public interface AIigd_jElement_1<' in text:
-        methods = (f'    /** Canonical placement of this member within its ELEMENTLIST. */\n'
-                   f'    @eu.algites.lib.data.dataobject.AIaDataObjectField(fieldName = "element_kind", '
-                   f'presence = eu.algites.lib.data.dataobject.AInFieldPresenceKind.REQUIRED, allowsNull = false)\n'
-                   f'    @Override {field_type} getElementKind();\n'
-                   f'    void setElementKind({field_type} aElementKind);\n'
-                   f'    {field_type} _getRaw_ElementKind();\n'
-                   f'    boolean _isPresent_ElementKind();\n'
-                   f'    void _unset_ElementKind();\n')
-        return text[:text.rfind('}')] + methods + text[text.rfind('}'):]
-    if 'public class AIcgd_jElement_1 ' in text:
-        methods = (f'    @Override public {field_type} getElementKind() '
-                   f'{{ return ({field_type}) get_EffectiveField("ElementKind"); }}\n'
-                   f'    @Override public void setElementKind({field_type} aElementKind) '
-                   f'{{ set_RawField("ElementKind", aElementKind); }}\n'
-                   f'    @Override public {field_type} _getRaw_ElementKind() '
-                   f'{{ return ({field_type}) get_RawField("ElementKind"); }}\n'
-                   f'    @Override public boolean _isPresent_ElementKind() '
-                   f'{{ return isPresent_Field("ElementKind"); }}\n'
-                   f'    @Override public void _unset_ElementKind() {{ unset_Field("ElementKind"); }}\n')
-        return text[:text.rfind('}')] + methods + text[text.rfind('}'):]
-    return text
-
-
 def normalize(text: str, language: str) -> str:
     """Normalize generated format metadata without mutating original sources."""
     # The immutable SDO bootstrap seed predates the canonical field-count rename.
@@ -134,8 +100,13 @@ def normalize(text: str, language: str) -> str:
                      ('MIN_OCCURS', 'MIN_ITEM_COUNT'),
                      ('MAX_OCCURS', 'MAX_ITEM_COUNT')):
         text = text.replace(old, new)
+    # Canonical first-stage snapshots may still contain the previous field-name
+    # keyword. Convert it while recreating the generated compiler ABI; the
+    # active new runtime reads only dataFieldName / dataFieldName.
     if language == 'python':
+        text = re.sub(r'(?<=AIaDataObjectField\()field_name=', 'dataFieldName=', text)
         return _python(text)
     if language == 'java':
-        return _java_element_sdo_seed(_java(text))
+        text = re.sub(r'(?<=AIaDataObjectField\()fieldName = ', 'dataFieldName = ', text)
+        return _java(text)
     raise ValueError('Unsupported language: ' + language)

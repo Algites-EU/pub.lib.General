@@ -59,6 +59,6 @@ def test_unified_naming_contracts_exist_without_per_format_read_interfaces():
     unified = generated / 'AIigNameCompositions_1.java'
     assert unified.is_file()
     assert '@eu.algites.lib.data.dataobject.AIaDataObject(' in unified.read_text(encoding='utf-8')
-    assert not (generated / 'AIig_jNameCompositions_1.java').exists()
-    assert not (generated / 'AIig_xNameCompositions_1.java').exists()
-    assert not (generated / 'AIig_yNameCompositions_1.java').exists()
+    assert not (generated / 'AIigNameCompositions_1.java').exists()
+    assert not (generated / 'AIigNameCompositions_1.java').exists()
+    assert not (generated / 'AIigNameCompositions_1.java').exists()

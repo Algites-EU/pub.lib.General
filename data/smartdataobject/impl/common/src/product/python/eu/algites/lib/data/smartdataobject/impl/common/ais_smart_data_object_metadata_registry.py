@@ -35,6 +35,7 @@ class _Metadata:
     fields: dict[str, _Field]
     format_bindings: dict[type, Any] = field(default_factory=dict)
     lock: Any = field(default_factory=RLock)
+    _initialized: bool = False
     def getImplementationClass(self) -> type: return self.implementation
     def getFields(self) -> tuple[_Field, ...]: return tuple(self.fields.values())
     def getField(self, aSemanticFieldName: str) -> _Field | None:
@@ -47,15 +48,25 @@ class _Metadata:
         if len(hits) > 1:
             raise ValueError('Ambiguous format binding provider: ' + aFormatId + '/' + aProviderId)
         return hits[0] if hits else None
-    def refresh(self) -> None:
-        for provider in AIsSmartDataObjectFormatBindingProviderRegistry.getProviders():
-            with self.lock:
+    def ensureInitialized(self) -> None:
+        """Populate format metadata once from the process-cached providers.
+
+        Common fields are scanned first, so providers can inspect the complete
+        common descriptor. An exception leaves initialization retryable.
+        """
+        if self._initialized:
+            return
+        with self.lock:
+            if self._initialized:
+                return
+            for provider in AIsSmartDataObjectFormatBindingProviderRegistry.getProviders():
                 if type(provider) not in self.format_bindings:
                     result = provider.resolveMetadata(self)
                     if result is not None and (result.getFormatId() != provider.getFormatId() or
                                                result.getProviderId() != provider.getProviderId()):
                         raise ValueError('Provider metadata identity mismatch')
                     self.format_bindings[type(provider)] = result
+            self._initialized = True
 
 class AIsSmartDataObjectMetadataRegistry:
     """One lazy metadata object per type, independent of the legacy metadata cache."""
@@ -63,7 +74,7 @@ class AIsSmartDataObjectMetadataRegistry:
 
     @classmethod
     def forType(cls, aImplementationClass: type) -> _Metadata:
-        """Return effective field metadata and refresh discovered format contributions."""
+        """Return cached common and eagerly resolved format-specific metadata."""
         if not isinstance(aImplementationClass, type) or not issubclass(aImplementationClass, AIcSmartDataObject):
             raise TypeError('Expected an AIcSmartDataObject implementation class')
         with cls._lock:
@@ -72,7 +83,9 @@ class AIsSmartDataObjectMetadataRegistry:
                 result = _Metadata(aImplementationClass, cls._scan(aImplementationClass))
                 # Class-owned cache does not pin dynamic classes in a global mapping.
                 setattr(aImplementationClass, '__sdo_new_runtime_metadata_cache__', result)
-        result.refresh()
+        # Format metadata are populated immediately for a new implementation.
+        # On subsequent field accesses this is just a boolean check, not discovery.
+        result.ensureInitialized()
         return result
 
     @staticmethod
@@ -104,7 +117,10 @@ class AIsSmartDataObjectMetadataRegistry:
                     """Use the nearest explicitly annotated constraint, including overrides."""
                     explicit = getter.__dict__.get('__data_object_field_' + kind + '_constraints__')
                     return explicit if explicit is not None else previous
+                owner_keys = owner.__dict__.get('__key_definitions__', {})
                 keys = getter.__dict__.get('__key_definitions__')
+                if keys is None and isinstance(owner_keys, dict):
+                    keys = owner_keys.get(semantic, owner_keys.get(data_name))
                 found[semantic] = _Field(
                     semantic, data_name, getter, effective_definition, return_type,
                     inherited_constraint('string', earlier.string_constraints if earlier else None),

@@ -26,7 +26,7 @@ public final class AItcNameConventionCatalogTest {
                 "algites-java-gen-intf-versioned_1");
         Assert.assertEquals(locCatalog.recognizeFilename("AIigdCustomer_1.java", null).conventionName(),
                 "algites-java-gen-data-intf-versioned_1");
-        Assert.assertNull(locCatalog.recognizeFilename("AIig_xePayment_1.java", null));
+        Assert.assertNull(locCatalog.recognizeFilename("AIig__Payment_1.java", null));
         Assert.assertEquals(locCatalog.recognizeFilename("AIigXePayment_1.java", null).conventionName(),
                 "algites-java-gen-intf-versioned_1");
     }
@@ -38,7 +38,7 @@ public final class AItcNameConventionCatalogTest {
         Assert.assertEquals(locCatalog.names().size(), 32);
         Assert.assertEquals(locCatalog.recognizeFilename("aiig_customer_1.py", null).conventionName(),
                 "algites-python-gen-intf-versioned_1");
-        Assert.assertNull(locCatalog.recognizeFilename("aiig__xe_payment_1.py", null));
+        Assert.assertNull(locCatalog.recognizeFilename("aiig__payment_1.py", null));
         Assert.assertEquals(locCatalog.recognizeFilename("aiig_xe_payment_1.py", null).conventionName(),
                 "algites-python-gen-intf-versioned_1");
     }

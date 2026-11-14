@@ -18,8 +18,8 @@ public class AIcgdNameComposition_1 extends eu.algites.lib.data.smartdataobject.
     @Override public void _unset_Name() { unset_Field("Name"); }
     @Override public void _setEmpty_Name() { set_EmptyField("Name"); }
     @Override public boolean _isEmpty_Name() { return isEmpty_Field("Name"); }
-    @Override public java.util.List<? extends eu.algites.lib.naming.convention.AIigNameFragmentsSegmentChoice_1> getSegmentsList() { return (java.util.List<? extends eu.algites.lib.naming.convention.AIigNameFragmentsSegmentChoice_1>) get_OrCreateCollectionField("SegmentsList", false); }
-    @Override public java.util.List<? extends eu.algites.lib.naming.convention.AIigNameFragmentsSegmentChoice_1> _getRaw_SegmentsList() { return (java.util.List<? extends eu.algites.lib.naming.convention.AIigNameFragmentsSegmentChoice_1>) get_RawField("SegmentsList"); }
+    @Override public eu.algites.lib.common.list.AIiBoundedList<? extends eu.algites.lib.naming.convention.AIigNameFragmentsSegmentChoice_1> getSegmentsList() { return (eu.algites.lib.common.list.AIiBoundedList<? extends eu.algites.lib.naming.convention.AIigNameFragmentsSegmentChoice_1>) get_OrCreateCollectionField("SegmentsList", false); }
+    @Override public eu.algites.lib.common.list.AIiBoundedList<? extends eu.algites.lib.naming.convention.AIigNameFragmentsSegmentChoice_1> _getRaw_SegmentsList() { return (eu.algites.lib.common.list.AIiBoundedList<? extends eu.algites.lib.naming.convention.AIigNameFragmentsSegmentChoice_1>) get_RawField("SegmentsList"); }
     @Override public boolean _isPresent_SegmentsList() { return isPresent_Field("SegmentsList"); }
     @Override public void _unset_SegmentsList() { unset_Field("SegmentsList"); }
 }

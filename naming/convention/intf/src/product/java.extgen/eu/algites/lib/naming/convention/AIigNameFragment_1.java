@@ -27,7 +27,7 @@ public interface AIigNameFragment_1 extends eu.algites.lib.data.dataobject.AIiDa
     /** Value of schema field Segments. Field is required; cardinality 1..-1.
      * @return field value in its canonical representation
      */
-    java.util.List<? extends AIigNameFragmentsSegmentChoice_1> getSegmentsList();
+    eu.algites.lib.common.list.AIiBoundedList<? extends AIigNameFragmentsSegmentChoice_1> getSegmentsList();
 
     @eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObjectField(namespace = "", namespaceLocalName = "name", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ATTRIBUTE)
     @eu.algites.lib.data.dataobject.xmlschema.AIaDataObjectFieldXmlSchema(namespace = "", namespaceLocalName = "name", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ATTRIBUTE)

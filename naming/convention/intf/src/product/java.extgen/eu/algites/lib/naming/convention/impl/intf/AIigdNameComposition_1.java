@@ -27,8 +27,8 @@ public interface AIigdNameComposition_1<TSegmentsList extends eu.algites.lib.nam
         @eu.algites.lib.common.object.props.labels.AIaFieldLabel(label = "Segments list")
     @eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObjectField(namespace = "", namespaceLocalName = "Segments", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
 @eu.algites.lib.data.dataobject.xmlschema.AIaDataObjectFieldXmlSchema(namespace = "", namespaceLocalName = "Segments", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
-            @Override java.util.List<? extends TSegmentsList> getSegmentsList();
-    java.util.List<? extends TSegmentsList> _getRaw_SegmentsList();
+            @Override eu.algites.lib.common.list.AIiBoundedList<? extends TSegmentsList> getSegmentsList();
+    eu.algites.lib.common.list.AIiBoundedList<? extends TSegmentsList> _getRaw_SegmentsList();
     boolean _isPresent_SegmentsList();
     void _unset_SegmentsList();
 }

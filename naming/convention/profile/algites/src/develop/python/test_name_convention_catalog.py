@@ -275,11 +275,11 @@ def test_standard_catalog_uses_published_modustro_resource_package(tmp_path):
 def test_format_specific_output_names_are_retired_but_common_names_remain():
     """The output ABI is format-neutral; input schema naming catalogs are separate."""
     java, python = catalog('java'), catalog('python')
-    for name in ('AIig_xePayment_1.java', 'AIigd_xePayment_1.java',
-                 'AIcgd_xePayment_1.java'):
+    for name in ('AIig__Payment_1.java', 'AIigd__Payment_1.java',
+                 'AIcgd__Payment_1.java'):
         assert java.recognize_filename(name) is None
-    for name in ('aiig__xe_payment_1.py', 'aiigd__xe_payment_1.py',
-                 'aicgd__xe_payment_1.py'):
+    for name in ('aiig__payment_1.py', 'aiigd__payment_1.py',
+                 'aicgd__payment_1.py'):
         assert python.recognize_filename(name) is None
     assert java.recognize_filename('AIigXePayment_1.java').convention_name == (
         'algites-java-gen-intf-versioned_1')
