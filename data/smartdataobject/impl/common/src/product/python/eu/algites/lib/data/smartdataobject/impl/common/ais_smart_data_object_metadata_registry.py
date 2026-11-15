@@ -13,6 +13,7 @@ class _Field:
     getter: Any
     definition: Any
     return_type: Any
+    default: Any = None
     string_constraints: Any = None
     numeric_constraints: Any = None
     list_constraints: Any = None
@@ -28,6 +29,7 @@ class _Field:
     def getEffectiveGetter(self): return self.getter
     def getEffectiveReturnType(self): return self.return_type
     def getDefinition(self): return self.definition
+    def getDefault(self): return self.default
 
 @dataclass
 class _Metadata:
@@ -123,6 +125,7 @@ class AIsSmartDataObjectMetadataRegistry:
                     keys = owner_keys.get(semantic, owner_keys.get(data_name))
                 found[semantic] = _Field(
                     semantic, data_name, getter, effective_definition, return_type,
+                    getattr(getter, '__sdo_field_default_definition__', None) or (earlier.default if earlier else None),
                     inherited_constraint('string', earlier.string_constraints if earlier else None),
                     inherited_constraint('numeric', earlier.numeric_constraints if earlier else None),
                     inherited_constraint('list', earlier.list_constraints if earlier else None),

@@ -19,6 +19,8 @@ public interface AIiSmartDataObjectFieldMetadata {
     Type getEffectiveReturnType();
     /** @return effective common field definition */
     AIaDataObjectField getDefinition();
+    /** @return inherited or locally declared getter default, or null if absent */
+    AIaDataObjectFieldDefault getDefault();
     /** @return optional effective string constraints or null */
     AIaDataObjectFieldStringConstraints getStringConstraints();
     /** @return optional effective numeric constraints or null */

@@ -11,7 +11,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.Locale;
 
 /**
  * Declares semantic labels for fields, record components and getters.
@@ -83,7 +82,7 @@ public @interface AIaFieldLabel {
      * @return specialized label resolver factory definition
      */
 	AIaCategoryProviderFactoryDefinition labelResolver() default
-            @AIaCategoryProviderFactoryDefinition(factoryClass = AIiFieldLabelResolverFactory.class);
+            @AIaCategoryProviderFactoryDefinition(factoryInterface = AIiFieldLabelResolverFactory.class);
 
 	/* --- MODE axis --- */
 
@@ -107,7 +106,7 @@ public @interface AIaFieldLabel {
      * @return specialized purpose resolver factory definition
      */
 	AIaCategoryProviderFactoryDefinition purposeResolver() default
-            @AIaCategoryProviderFactoryDefinition(factoryClass = AIiRenderingOutputPurposeResolverFactory.class);
+            @AIaCategoryProviderFactoryDefinition(factoryInterface = AIiRenderingOutputPurposeResolverFactory.class);
 
     /**
      * Built-in output format associated with this annotation.
@@ -128,7 +127,7 @@ public @interface AIaFieldLabel {
      * @return specialized format resolver factory definition
      */
 	AIaCategoryProviderFactoryDefinition formatResolver() default
-            @AIaCategoryProviderFactoryDefinition(factoryClass = AIiRenderingOutputFormatResolverFactory.class);
+            @AIaCategoryProviderFactoryDefinition(factoryInterface = AIiRenderingOutputFormatResolverFactory.class);
 
     /**
      * Explicit output locale language tag, independent of the primary field name.
@@ -143,7 +142,7 @@ public @interface AIaFieldLabel {
      * @return specialized locale resolver factory definition
      */
 	AIaCategoryProviderFactoryDefinition localeResolver() default
-            @AIaCategoryProviderFactoryDefinition(factoryClass = AIiRenderingOutputLocaleResolverFactory.class);
+            @AIaCategoryProviderFactoryDefinition(factoryInterface = AIiRenderingOutputLocaleResolverFactory.class);
 	
     /**
      * One explicit text alternative for a semantic field role and rendering axes.

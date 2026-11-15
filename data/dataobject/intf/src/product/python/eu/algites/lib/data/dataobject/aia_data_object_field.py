@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from typing import Any, Callable
 
 from .aicd_data_object_field import AIcdDataObjectField
-from .aia_data_object_field_default import AIaDataObjectFieldDefault
 from .ain_field_presence_kind import AInFieldPresenceKind
 from .ain_field_setter_inheritance_policy import AInFieldSetterInheritancePolicy
 
@@ -30,7 +29,6 @@ class AIaDataObjectField:
     min_item_count: int = -1
     max_item_count: int = -1
     is_empty_allowed: bool = False
-    default_value: AIaDataObjectFieldDefault = AIaDataObjectFieldDefault()
     setter_inheritance_policy: AInFieldSetterInheritancePolicy = AInFieldSetterInheritancePolicy.DEFAULT
 
     def __call__(self, getter):
@@ -51,6 +49,5 @@ class AIaDataObjectField:
             min_item_count=self.min_item_count,
             max_item_count=self.max_item_count,
             is_empty_allowed=self.is_empty_allowed,
-            default_value=self.default_value,
             setter_inheritance_policy=self.setter_inheritance_policy))
         return getter

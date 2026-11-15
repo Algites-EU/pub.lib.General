@@ -1,6 +1,10 @@
 package eu.algites.lib.data.smartdataobject.impl.common;
 
 import eu.algites.lib.data.dataobject.AIaDataObjectField;
+import eu.algites.lib.data.dataobject.AIaDataObjectFieldDefault;
+import eu.algites.lib.data.dataobject.AIiFieldDefaultValueFactory;
+import eu.algites.lib.factory.cpdiscovery.AIaCategoryProviderFactoryDefinition;
+import eu.algites.lib.factory.cpdiscovery.AIsCategoryProviderDiscovery;
 import eu.algites.lib.data.dataobject.AInDataObjectFieldDefaultKind;
 import eu.algites.lib.data.dataobject.AInFieldPresenceKind;
 import eu.algites.lib.data.smartdataobject.AIcdSmartDataValidationIssue;
@@ -124,8 +128,9 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
         boolean present = values.containsKey(aSemanticFieldName);
         Object raw = values.get(aSemanticFieldName);
         if (present && raw != EMPTY) return raw;
-        AInDataObjectFieldDefaultKind kind = definition.defaultValue().kind();
-        if (definition.defaultValue().defined() &&
+        AIaDataObjectFieldDefault declared = field.getDefault();
+        AInDataObjectFieldDefaultKind kind = declared == null ? null : declared.kind();
+        if (declared != null &&
                 ((!present && kind == AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_NOT_PRESENT) ||
                  (present && raw == EMPTY && kind == AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_EMPTY)))
             return parseDefault(field);
@@ -139,6 +144,8 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
     protected final void set_EmptyField(String aSemanticFieldName) {
         AIiSmartDataObjectFieldMetadata field = requireField(aSemanticFieldName);
         if (!field.getDefinition().isEmptyAllowed()) throw new IllegalArgumentException("EMPTY forbidden: " + aSemanticFieldName);
+        if (field.getDefault() != null && field.getDefault().kind() == AInDataObjectFieldDefaultKind.CONSTRAINT_DEFAULT)
+            throw new IllegalArgumentException("FIXED constraint violated: " + aSemanticFieldName);
         values.put(aSemanticFieldName, EMPTY);
     }
 
@@ -275,34 +282,39 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
     }
 
     private static Object parseDefault(AIiSmartDataObjectFieldMetadata field) {
-        String value = field.getDefinition().defaultValue().value();
-        Class<?> type = boxed(field.getEffectiveGetter().getReturnType());
-        if (type == String.class) return value;
-        if (type == Integer.class) return Integer.valueOf(value);
-        if (type == Long.class) return Long.valueOf(value);
-        if (type == Short.class) return Short.valueOf(value);
-        if (type == Double.class) return Double.valueOf(value);
-        if (type == Float.class) return Float.valueOf(value);
-        if (type == BigDecimal.class) return new BigDecimal(value);
-        if (type == Boolean.class) return Boolean.valueOf(value);
-        if (type.isEnum()) {
-            for (Object constant : type.getEnumConstants()) {
-                if (constant instanceof eu.algites.lib.common.enums.AIiEnumItem<?> item
-                        && value.equals(String.valueOf(item.code()))) return constant;
-                // Persistent enum values are resolved solely by stable AIiEnumItem.code().
-            }
-        }
-        throw new IllegalArgumentException("Unsupported default value type " + type + " for " + field.getSemanticFieldName());
+        AIaDataObjectFieldDefault declared = field.getDefault();
+        if (declared == null) throw new IllegalArgumentException("No default for " + field.getSemanticFieldName());
+        AIaCategoryProviderFactoryDefinition selection = declared.defaultValueFactory();
+        if (!AIiFieldDefaultValueFactory.class.isAssignableFrom(selection.factoryInterface()))
+            throw new IllegalArgumentException("Invalid field default factory SPI: " + selection.factoryInterface());
+        @SuppressWarnings("unchecked")
+        Class<? extends AIiFieldDefaultValueFactory> factoryType =
+                (Class<? extends AIiFieldDefaultValueFactory>) selection.factoryInterface();
+        var context = new AIcFieldDefaultValueFactoryContext(
+                field.getEffectiveReturnType(), declared.defaultArguments());
+        // CPDiscovery caches provider registrations; each evaluation invokes createInstance.
+        java.util.Optional<?> result = AIsCategoryProviderDiscovery.getRegistry().getInstance(
+                factoryType, selection.factoryCategory().isBlank() ? "default" : selection.factoryCategory(),
+                selection.factoryProviderId().isBlank() ? null : selection.factoryProviderId(), context);
+        Object value = result.orElse(null);
+        if (value == null && !field.getDefinition().allowsNull())
+            throw new IllegalArgumentException("Null default is not allowed: " + field.getSemanticFieldName());
+        if (value != null && !boxed(field.getEffectiveGetter().getReturnType()).isInstance(value))
+            throw new IllegalArgumentException("Incorrect default type for " + field.getSemanticFieldName());
+        return value;
     }
 
     private static void validateValue(AIiSmartDataObjectFieldMetadata field, Object value) {
-        if (value == null) return;
         AIaDataObjectField definition = field.getDefinition();
-        if (definition.defaultValue().defined() &&
-                definition.defaultValue().kind() == AInDataObjectFieldDefaultKind.CONSTRAINT_DEFAULT) {
-            if (!Objects.equals(value, parseDefault(field)))
+        if (field.getDefault() != null &&
+                field.getDefault().kind() == AInDataObjectFieldDefaultKind.CONSTRAINT_DEFAULT) {
+            Object fixed = parseDefault(field);
+            boolean matches = value instanceof BigDecimal number && fixed instanceof BigDecimal expected
+                    ? number.compareTo(expected) == 0 : Objects.equals(value, fixed);
+            if (!matches)
                 throw new IllegalArgumentException("FIXED constraint violated: " + field.getSemanticFieldName());
         }
+        if (value == null) return;
         var string = field.getStringConstraints();
         if (value instanceof String text && string != null) {
             int length = text.codePointCount(0, text.length());
@@ -355,8 +367,8 @@ public abstract class AIcSmartDataObject implements AIiSmartDataObject {
     }
 
     private boolean hasEffectiveDefault(AIiSmartDataObjectFieldMetadata field) {
-        return field.getDefinition().defaultValue().defined() &&
-                field.getDefinition().defaultValue().kind() == AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_NOT_PRESENT;
+        return field.getDefault() != null &&
+                field.getDefault().kind() == AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_NOT_PRESENT;
     }
 
     /** {@inheritDoc} */

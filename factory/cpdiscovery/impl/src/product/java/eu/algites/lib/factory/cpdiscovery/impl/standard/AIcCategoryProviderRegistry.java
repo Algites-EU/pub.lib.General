@@ -40,19 +40,19 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         "META-INF/algites/category-provider-defaults.properties";
 
     private final ReentrantLock writeLock = new ReentrantLock();
-    private final AtomicReference<Snapshot> current =
-        new AtomicReference<>(new Snapshot(Map.of(), Map.of()));
+    private final AtomicReference<AIdSnapshot> current =
+        new AtomicReference<>(new AIdSnapshot(Map.of(), Map.of()));
 
-    private record Key(Class<?> factoryInterface, String category, String providerId) { }
-    private record Registration(AIiCategoryProviderFactory<?, ?> factory, String source) { }
-    private record DefaultEntry(String providerId, String source) { }
-    private record Resource(Object identity, String source, Map<String, String> values) { }
-    private record Contribution(List<Registration> factories, List<Resource> resources) { }
-    private record Snapshot(Map<Key, Registration> factories,
-                            Map<String, DefaultEntry> defaults) { }
+    private record AIdKey(Class<?> factoryInterface, String category, String providerId) { }
+    private record AIdRegistration(AIiCategoryProviderFactory<?, ?> factory, String source) { }
+    private record AIdDefaultEntry(String providerId, String source) { }
+    private record AIdResource(Object identity, String source, Map<String, String> values) { }
+    private record AIdContribution(List<AIdRegistration> factories, List<AIdResource> resources) { }
+    private record AIdSnapshot(Map<AIdKey, AIdRegistration> factories,
+                               Map<String, AIdDefaultEntry> defaults) { }
 
-    private final Map<ClassLoader, Contribution> classLoaders = new IdentityHashMap<>();
-    private final Map<ModuleLayer, Contribution> moduleLayers = new IdentityHashMap<>();
+    private final Map<ClassLoader, AIdContribution> classLoaders = new IdentityHashMap<>();
+    private final Map<ModuleLayer, AIdContribution> moduleLayers = new IdentityHashMap<>();
 
     /** {@inheritDoc} */
     @Override
@@ -62,10 +62,10 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         try {
             if (classLoaders.containsKey(aClassLoader))
                 throw new AIxCategoryProviderConflictException("ClassLoader already registered: " + aClassLoader);
-            Contribution discovered = discoverClassLoader(aClassLoader);
-            Map<ClassLoader, Contribution> loaders = new IdentityHashMap<>(classLoaders);
+            AIdContribution discovered = discoverClassLoader(aClassLoader);
+            Map<ClassLoader, AIdContribution> loaders = new IdentityHashMap<>(classLoaders);
             loaders.put(aClassLoader, discovered);
-            Snapshot candidate = aggregate(loaders, moduleLayers);
+            AIdSnapshot candidate = aggregate(loaders, moduleLayers);
             classLoaders.put(aClassLoader, discovered);
             current.set(candidate);
         } finally { writeLock.unlock(); }
@@ -79,9 +79,9 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         try {
             if (!classLoaders.containsKey(aClassLoader))
                 throw new AIxCategoryProviderUnavailableException("ClassLoader not registered: " + aClassLoader);
-            Map<ClassLoader, Contribution> loaders = new IdentityHashMap<>(classLoaders);
+            Map<ClassLoader, AIdContribution> loaders = new IdentityHashMap<>(classLoaders);
             loaders.remove(aClassLoader);
-            Snapshot candidate = aggregate(loaders, moduleLayers);
+            AIdSnapshot candidate = aggregate(loaders, moduleLayers);
             classLoaders.remove(aClassLoader);
             current.set(candidate);
         } finally { writeLock.unlock(); }
@@ -95,10 +95,10 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         try {
             if (moduleLayers.containsKey(aLayer))
                 throw new AIxCategoryProviderConflictException("ModuleLayer already registered: " + aLayer);
-            Contribution discovered = discoverLayer(aLayer);
-            Map<ModuleLayer, Contribution> layers = new IdentityHashMap<>(moduleLayers);
+            AIdContribution discovered = discoverLayer(aLayer);
+            Map<ModuleLayer, AIdContribution> layers = new IdentityHashMap<>(moduleLayers);
             layers.put(aLayer, discovered);
-            Snapshot candidate = aggregate(classLoaders, layers);
+            AIdSnapshot candidate = aggregate(classLoaders, layers);
             moduleLayers.put(aLayer, discovered);
             current.set(candidate);
         } finally { writeLock.unlock(); }
@@ -112,9 +112,9 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         try {
             if (!moduleLayers.containsKey(aLayer))
                 throw new AIxCategoryProviderUnavailableException("ModuleLayer not registered: " + aLayer);
-            Map<ModuleLayer, Contribution> layers = new IdentityHashMap<>(moduleLayers);
+            Map<ModuleLayer, AIdContribution> layers = new IdentityHashMap<>(moduleLayers);
             layers.remove(aLayer);
-            Snapshot candidate = aggregate(classLoaders, layers);
+            AIdSnapshot candidate = aggregate(classLoaders, layers);
             moduleLayers.remove(aLayer);
             current.set(candidate);
         } finally { writeLock.unlock(); }
@@ -133,13 +133,13 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
                                 String aCategory, String aProviderId, C aContext) {
         Objects.requireNonNull(aFactoryType, "factoryType");
         String category = requireName(aCategory, "category");
-        Snapshot snapshot = current.get();
+        AIdSnapshot snapshot = current.get();
         String providerId = aProviderId;
         if (providerId == null) {
-            DefaultEntry declared = snapshot.defaults.get(aFactoryType.getName() + "." + category);
+            AIdDefaultEntry declared = snapshot.defaults.get(aFactoryType.getName() + "." + category);
             if (declared != null) providerId = declared.providerId();
             else {
-                for (Key key : snapshot.factories.keySet()) {
+                for (AIdKey key : snapshot.factories.keySet()) {
                     if (key.factoryInterface() == aFactoryType && key.category().equals(category)) {
                         if (providerId != null)
                             throw new AIxCategoryProviderUnavailableException(
@@ -152,7 +152,7 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         if (providerId == null)
             throw new AIxCategoryProviderUnavailableException(
                 "No provider for " + aFactoryType.getName() + "/" + category);
-        Registration registered = snapshot.factories.get(new Key(aFactoryType, category, providerId));
+        AIdRegistration registered = snapshot.factories.get(new AIdKey(aFactoryType, category, providerId));
         if (registered == null)
             throw new AIxCategoryProviderUnavailableException(
                 "Unavailable provider " + providerId + " for " + aFactoryType.getName() + "/" + category);
@@ -174,42 +174,42 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         }
     }
 
-    private static Contribution discoverClassLoader(ClassLoader loader) {
+    private static AIdContribution discoverClassLoader(ClassLoader loader) {
         try {
-            List<Registration> factories = new ArrayList<>();
+            List<AIdRegistration> factories = new ArrayList<>();
             for (AIiCategoryProviderFactory<?, ?> factory :
                     ServiceLoader.load(AIiCategoryProviderFactory.class, loader))
-                factories.add(new Registration(factory, factory.getClass().getName()));
-            List<Resource> resources = new ArrayList<>();
+                factories.add(new AIdRegistration(factory, factory.getClass().getName()));
+            List<AIdResource> resources = new ArrayList<>();
             Enumeration<URL> urls = loader.getResources(DEFAULTS_RESOURCE);
             while (urls.hasMoreElements()) {
                 URL url = urls.nextElement();
                 try (InputStream stream = url.openStream()) {
-                    resources.add(new Resource(url.toExternalForm(), url.toExternalForm(), loadProperties(stream)));
+                    resources.add(new AIdResource(url.toExternalForm(), url.toExternalForm(), loadProperties(stream)));
                 }
             }
-            return new Contribution(List.copyOf(factories), List.copyOf(resources));
+            return new AIdContribution(List.copyOf(factories), List.copyOf(resources));
         } catch (IOException | java.util.ServiceConfigurationError error) {
             throw new AIxCategoryProviderDiscoveryException("Failed to discover ClassLoader providers", error);
         }
     }
 
-    private static Contribution discoverLayer(ModuleLayer layer) {
+    private static AIdContribution discoverLayer(ModuleLayer layer) {
         try {
-            List<Registration> factories = new ArrayList<>();
+            List<AIdRegistration> factories = new ArrayList<>();
             for (AIiCategoryProviderFactory<?, ?> factory :
                     ServiceLoader.load(layer, AIiCategoryProviderFactory.class))
-                factories.add(new Registration(factory, factory.getClass().getName()));
-            List<Resource> resources = new ArrayList<>();
+                factories.add(new AIdRegistration(factory, factory.getClass().getName()));
+            List<AIdResource> resources = new ArrayList<>();
             for (ModuleLayer scope : layerAndParents(layer)) {
                 for (Module module : scope.modules()) {
                     try (InputStream stream = module.getResourceAsStream(DEFAULTS_RESOURCE)) {
-                        if (stream != null) resources.add(new Resource(
+                        if (stream != null) resources.add(new AIdResource(
                             module, module.toString(), loadProperties(stream)));
                     }
                 }
             }
-            return new Contribution(List.copyOf(factories), List.copyOf(resources));
+            return new AIdContribution(List.copyOf(factories), List.copyOf(resources));
         } catch (IOException | java.util.ServiceConfigurationError error) {
             throw new AIxCategoryProviderDiscoveryException("Failed to discover ModuleLayer providers", error);
         }
@@ -244,26 +244,26 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
         return Map.copyOf(values);
     }
 
-    private static Snapshot aggregate(Map<ClassLoader, Contribution> loaders,
-                                      Map<ModuleLayer, Contribution> layers) {
-        Map<Key, Registration> discovered = new LinkedHashMap<>();
-        Map<String, DefaultEntry> defaultsByName = new LinkedHashMap<>();
+    private static AIdSnapshot aggregate(Map<ClassLoader, AIdContribution> loaders,
+                                      Map<ModuleLayer, AIdContribution> layers) {
+        Map<AIdKey, AIdRegistration> discovered = new LinkedHashMap<>();
+        Map<String, AIdDefaultEntry> defaultsByName = new LinkedHashMap<>();
         Set<Class<?>> encounteredFactoryClasses = Collections.newSetFromMap(new IdentityHashMap<>());
         Set<Object> encounteredResourceIds = new HashSet<>();
-        List<Contribution> all = new ArrayList<>(loaders.values());
+        List<AIdContribution> all = new ArrayList<>(loaders.values());
         all.addAll(layers.values());
-        for (Contribution contribution : all) {
-            for (Resource resource : contribution.resources()) {
+        for (AIdContribution contribution : all) {
+            for (AIdResource resource : contribution.resources()) {
                 if (!encounteredResourceIds.add(resource.identity())) continue;
                 for (var entry : resource.values().entrySet()) {
-                    DefaultEntry old = defaultsByName.putIfAbsent(entry.getKey(),
-                        new DefaultEntry(entry.getValue(), resource.source()));
+                    AIdDefaultEntry old = defaultsByName.putIfAbsent(entry.getKey(),
+                        new AIdDefaultEntry(entry.getValue(), resource.source()));
                     if (old != null && !old.providerId().equals(entry.getValue()))
                         throw new AIxCategoryProviderConflictException(
                             "Conflicting defaults for " + entry.getKey() + ": " + old.source() + " and " + resource.source());
                 }
             }
-            for (Registration registered : contribution.factories()) {
+            for (AIdRegistration registered : contribution.factories()) {
                 Class<?> type = registered.factory().getClass();
                 if (!encounteredFactoryClasses.add(type)) continue;
                 AIaCategoryProviderFactory annotation = type.getAnnotation(AIaCategoryProviderFactory.class);
@@ -279,14 +279,14 @@ public final class AIcCategoryProviderRegistry implements AIiCategoryProviderReg
                 if (annotation.categories().length == 0)
                     throw new AIxCategoryProviderDiscoveryException("Factory declares no categories: " + type);
                 for (String category : annotation.categories()) {
-                    Key key = new Key(specialization, requireName(category, "category"), providerId);
-                    Registration old = discovered.putIfAbsent(key, registered);
+                    AIdKey key = new AIdKey(specialization, requireName(category, "category"), providerId);
+                    AIdRegistration old = discovered.putIfAbsent(key, registered);
                     if (old != null)
                         throw new AIxCategoryProviderConflictException("Duplicate factory " + key + ": " + old.source() + " and " + registered.source());
                 }
             }
         }
-        return new Snapshot(Map.copyOf(discovered), Map.copyOf(defaultsByName));
+        return new AIdSnapshot(Map.copyOf(discovered), Map.copyOf(defaultsByName));
     }
 
     private static Class<?> resolveSpecialization(Class<?> type) {

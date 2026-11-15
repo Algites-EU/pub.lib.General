@@ -17,7 +17,7 @@ public @interface AIaCategoryProviderFactoryDefinition {
      *
      * @return interface used as the lookup key, never a resolver implementation class
      */
-    Class<? extends AIiCategoryProviderFactory<?, ?>> factoryClass();
+    Class<? extends AIiCategoryProviderFactory<?, ?>> factoryInterface();
 
     /**
      * Optional category override; empty selects the consuming resolver's default category.

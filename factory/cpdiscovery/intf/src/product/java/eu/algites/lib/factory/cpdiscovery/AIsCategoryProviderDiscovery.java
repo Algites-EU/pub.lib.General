@@ -76,8 +76,8 @@ public final class AIsCategoryProviderDiscovery {
             String aDefaultCategory, C aContext) {
         Objects.requireNonNull(aDefinition, "definition");
         Objects.requireNonNull(aRequiredFactoryType, "requiredFactoryType");
-        if (!aDefinition.factoryClass().equals(aRequiredFactoryType))
-            throw new IllegalArgumentException("Unexpected factory interface: " + aDefinition.factoryClass());
+        if (!aDefinition.factoryInterface().equals(aRequiredFactoryType))
+            throw new IllegalArgumentException("Unexpected factory interface: " + aDefinition.factoryInterface());
         String locCategory = aDefinition.factoryCategory().isBlank()
                 ? aDefaultCategory : aDefinition.factoryCategory();
         String locProviderId = aDefinition.factoryProviderId().isBlank()

@@ -7,7 +7,7 @@ package eu.algites.lib.naming.convention.impl.intf;
 @eu.algites.lib.data.dataobject.xmldefs.AIaDataObjectXmlSchema(definitionKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlObjectDefinitionKind.TYPE, namespace = "https://defs.dev.algites.eu/api/xmldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.xsd", namespaceLocalName = "NameFragmentsSegmentValue")
 public interface AIigdNameFragmentsSegmentValue_1 extends eu.algites.lib.naming.convention.AIigNameFragmentsSegmentValue_1, eu.algites.lib.data.smartdataobject.AIiSmartDataObject {
     /** Typed writable access to field Content under the published setter policy. */
-    @eu.algites.lib.data.dataobject.AIaDataObjectField(dataFieldName = "Content", presence = eu.algites.lib.data.dataobject.AInFieldPresenceKind.REQUIRED, allowsNull = false, order = 1, minItemCount = 1, maxItemCount = 1, isEmptyAllowed = false, defaultValue = @eu.algites.lib.data.dataobject.AIaDataObjectFieldDefault(kind = eu.algites.lib.data.dataobject.AInDataObjectFieldDefaultKind.DECLARATION_ONLY, value = "", defined = false), setterInheritancePolicy = eu.algites.lib.data.dataobject.AInFieldSetterInheritancePolicy.INHERIT_AS_GENERIC_PARAMETER)
+    @eu.algites.lib.data.dataobject.AIaDataObjectField(dataFieldName = "Content", presence = eu.algites.lib.data.dataobject.AInFieldPresenceKind.REQUIRED, allowsNull = false, order = 1, minItemCount = 1, maxItemCount = 1, isEmptyAllowed = false, setterInheritancePolicy = eu.algites.lib.data.dataobject.AInFieldSetterInheritancePolicy.INHERIT_AS_GENERIC_PARAMETER)
         @eu.algites.lib.common.object.props.labels.AIaFieldLabel(label = "Content")
     @eu.algites.lib.data.dataobject.xmldefs.AIaDataObjectFieldXmlSchema(namespace = "", namespaceLocalName = "Content", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
             @Override eu.algites.lib.naming.convention.AIigNameFragmentsSegmentValueContent_1 getContent();
@@ -16,7 +16,7 @@ public interface AIigdNameFragmentsSegmentValue_1 extends eu.algites.lib.naming.
     boolean _isPresent_Content();
     void _unset_Content();
     /** Typed writable access to field Kind under the published setter policy. */
-    @eu.algites.lib.data.dataobject.AIaDataObjectField(dataFieldName = "Kind", presence = eu.algites.lib.data.dataobject.AInFieldPresenceKind.REQUIRED, allowsNull = false, order = 0, minItemCount = 1, maxItemCount = 1, isEmptyAllowed = false, defaultValue = @eu.algites.lib.data.dataobject.AIaDataObjectFieldDefault(kind = eu.algites.lib.data.dataobject.AInDataObjectFieldDefaultKind.DECLARATION_ONLY, value = "", defined = false), setterInheritancePolicy = eu.algites.lib.data.dataobject.AInFieldSetterInheritancePolicy.INHERIT_AS_GENERIC_PARAMETER)
+    @eu.algites.lib.data.dataobject.AIaDataObjectField(dataFieldName = "Kind", presence = eu.algites.lib.data.dataobject.AInFieldPresenceKind.REQUIRED, allowsNull = false, order = 0, minItemCount = 1, maxItemCount = 1, isEmptyAllowed = false, setterInheritancePolicy = eu.algites.lib.data.dataobject.AInFieldSetterInheritancePolicy.INHERIT_AS_GENERIC_PARAMETER)
         @eu.algites.lib.common.object.props.labels.AIaFieldLabel(label = "Kind")
     @eu.algites.lib.data.dataobject.xmldefs.AIaDataObjectFieldXmlSchema(namespace = "", namespaceLocalName = "Kind", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
             @Override eu.algites.lib.naming.convention.AIngNameFragmentsSegmentValueKind_1 getKind();

@@ -1,6 +1,7 @@
 package eu.algites.lib.data.smartdataobject.impl.common;
 
 import eu.algites.lib.data.dataobject.AIaDataObjectField;
+import eu.algites.lib.data.dataobject.AIaDataObjectFieldDefault;
 import eu.algites.lib.data.dataobject.AIaDataObjectFieldListConstraints;
 import eu.algites.lib.data.dataobject.AIaDataObjectFieldNumericConstraints;
 import eu.algites.lib.data.dataobject.AIaDataObjectFieldObjectConstraints;
@@ -111,6 +112,7 @@ public final class AIsSmartDataObjectMetadataRegistry {
                         throw new IllegalArgumentException("Embedded field cannot supply dataFieldName: " + locSemantic);
                     }
                 }
+                locBuilder.defaultValue = first(locMethod.getDeclaredAnnotation(AIaDataObjectFieldDefault.class), locBuilder.defaultValue);
                 locBuilder.string = first(locMethod.getDeclaredAnnotation(AIaDataObjectFieldStringConstraints.class), locBuilder.string);
                 locBuilder.numeric = first(locMethod.getDeclaredAnnotation(AIaDataObjectFieldNumericConstraints.class), locBuilder.numeric);
                 locBuilder.list = first(locMethod.getDeclaredAnnotation(AIaDataObjectFieldListConstraints.class), locBuilder.list);
@@ -163,6 +165,7 @@ public final class AIsSmartDataObjectMetadataRegistry {
         final String semanticFieldName;
         String dataFieldName;
         AIaDataObjectField definition;
+        AIaDataObjectFieldDefault defaultValue;
         Method getter;
         AIaDataObjectFieldStringConstraints string;
         AIaDataObjectFieldNumericConstraints numeric;
@@ -174,6 +177,7 @@ public final class AIsSmartDataObjectMetadataRegistry {
             semanticFieldName = aOriginal.semanticFieldName;
             dataFieldName = aOriginal.dataFieldName;
             definition = aOriginal.definition;
+            defaultValue = aOriginal.defaultValue;
             getter = aOriginal.getter;
             string = aOriginal.string;
             numeric = aOriginal.numeric;
@@ -183,12 +187,12 @@ public final class AIsSmartDataObjectMetadataRegistry {
         }
         ResolvedField build() {
             return new ResolvedField(semanticFieldName, dataFieldName, getter,
-                    definition, string, numeric, list, object, List.copyOf(keys));
+                    definition, defaultValue, string, numeric, list, object, List.copyOf(keys));
         }
     }
 
     private record ResolvedField(String semanticFieldName, String dataFieldName,
-            Method getter, AIaDataObjectField definition,
+            Method getter, AIaDataObjectField definition, AIaDataObjectFieldDefault defaultValue,
             AIaDataObjectFieldStringConstraints string,
             AIaDataObjectFieldNumericConstraints numeric,
             AIaDataObjectFieldListConstraints list,
@@ -199,6 +203,7 @@ public final class AIsSmartDataObjectMetadataRegistry {
         @Override public Method getEffectiveGetter() { return getter; }
         @Override public Type getEffectiveReturnType() { return getter.getGenericReturnType(); }
         @Override public AIaDataObjectField getDefinition() { return definition; }
+        @Override public AIaDataObjectFieldDefault getDefault() { return defaultValue; }
         @Override public AIaDataObjectFieldStringConstraints getStringConstraints() { return string; }
         @Override public AIaDataObjectFieldNumericConstraints getNumericConstraints() { return numeric; }
         @Override public AIaDataObjectFieldListConstraints getListConstraints() { return list; }

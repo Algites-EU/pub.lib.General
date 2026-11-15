@@ -288,7 +288,7 @@ format (e.g. `lower_snake_case` to `upper_camel_case`).
 
 The general `data/dataobject/intf` contract defines the schema-neutral
 `AIaDataObjectField` (`fieldName`, `presence`, `allowsNull`) and optional
-`AIaFieldDefault` backed by `CategoryProviderDiscovery`. Human-readable field
+standalone `AIaDataObjectFieldDefault` backed by `CategoryProviderDiscovery`. Human-readable field
 names, titles and descriptions are resolved through `AIaFieldLabel` and its
 specialized provider factories.
 

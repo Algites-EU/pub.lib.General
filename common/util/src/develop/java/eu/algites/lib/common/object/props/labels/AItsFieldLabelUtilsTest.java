@@ -1,7 +1,6 @@
 package eu.algites.lib.common.object.props.labels;
 
 import eu.algites.lib.common.object.rendering.AIiRenderingOutputFormat;
-import eu.algites.lib.common.object.rendering.AIiRenderingOutputPurpose;
 import eu.algites.lib.common.object.rendering.AInRenderingOutputBuiltinFormat;
 import eu.algites.lib.common.object.rendering.AInRenderingOutputBuiltinPurpose;
 
@@ -149,7 +148,7 @@ public class AItsFieldLabelUtilsTest {
 
 	private static final class AIcTestLabelResolver {
 		@AIaFieldLabel(labelResolver = @AIaCategoryProviderFactoryDefinition(
-                        factoryClass = AIiFieldLabelResolverFactory.class,
+                        factoryInterface = AIiFieldLabelResolverFactory.class,
                         factoryCategory = "test-field-label",
                         factoryProviderId = "algites-field-label-test"))
 		private String myProperty;
@@ -158,7 +157,7 @@ public class AItsFieldLabelUtilsTest {
 	private static final class AIcTestModeResolverWithMapping {
 		@AIaFieldLabel(
 				purposeResolver = @AIaCategoryProviderFactoryDefinition(
-                        factoryClass = AIiRenderingOutputPurposeResolverFactory.class,
+                        factoryInterface = AIiRenderingOutputPurposeResolverFactory.class,
                         factoryCategory = "test-purpose",
                         factoryProviderId = "algites-purpose-test"),
 				labels = {
@@ -196,7 +195,7 @@ public class AItsFieldLabelUtilsTest {
 	private static final class AIcTestInvalidAnnotation {
 		@AIaFieldLabel(
 				labelResolver = @AIaCategoryProviderFactoryDefinition(
-                        factoryClass = AIiFieldLabelResolverFactory.class,
+                        factoryInterface = AIiFieldLabelResolverFactory.class,
                         factoryCategory = "test-field-label",
                         factoryProviderId = "algites-field-label-test"),
 				labels = {

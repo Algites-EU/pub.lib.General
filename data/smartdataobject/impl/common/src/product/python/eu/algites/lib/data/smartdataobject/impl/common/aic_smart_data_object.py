@@ -11,6 +11,8 @@ from eu.algites.lib.data.smartdataobject.ain_sdo_field_value_loading_mode import
 from eu.algites.lib.data.dataobject.ain_field_presence_kind import AInFieldPresenceKind
 from eu.algites.lib.data.dataobject.ain_data_object_field_default_kind import AInDataObjectFieldDefaultKind
 from .ais_smart_data_object_format_binding_provider_registry import AIsSmartDataObjectFormatBindingProviderRegistry
+from eu.algites.lib.data.dataobject.aii_field_default_value_factory import AIiFieldDefaultValueFactory
+from eu.algites.lib.factory.cpdiscovery.ais_category_provider_discovery import AIsCategoryProviderDiscovery
 
 _EMPTY = object()
 
@@ -89,30 +91,42 @@ class AIcSmartDataObject(AIiSmartDataObject):
         raw = self._sdo_values.get(name)
         if present and raw is not _EMPTY:
             return raw
-        default = definition.default_value
-        if default.defined and (not present and default.kind is AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_NOT_PRESENT or
+        default = field.getDefault()
+        if default is not None and (not present and default.kind is AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_NOT_PRESENT or
                                 present and raw is _EMPTY and default.kind is AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_EMPTY):
             return self._parse_default(field)
         return '' if present and raw is _EMPTY else None
 
     @staticmethod
     def _parse_default(field):
-        definition = field.getDefinition()
-        val = definition.default_value.value
-        typ = getattr(definition, 'expected_type', None) or field.getEffectiveReturnType()
-        if typ in (None, str, Any): return val
-        if typ is bool: return val.lower() in ('true', '1')
-        if typ in (int, float, Decimal): return typ(val)
-        return val
+        default = field.getDefault()
+        if default is None:
+            raise ValueError('No default on ' + field.getSemanticFieldName())
+        from eu.algites.lib.data.dataobject.aii_field_default_value_factory_context import AIiFieldDefaultValueFactoryContext
+        from eu.algites.lib.data.dataobject.aicd_field_default_value import AIcdFieldDefaultValue
+        from typing import get_origin
+        selection = default.default_value_factory
+        typ = getattr(field.getDefinition(), 'expected_type', None) or field.getEffectiveReturnType()
+        raw_type = get_origin(typ) or typ
+        context = AIiFieldDefaultValueFactoryContext(raw_type, tuple(default.default_arguments))
+        resolved = AIsCategoryProviderDiscovery.get_instance(selection, AIiFieldDefaultValueFactory, 'default', context)
+        if not isinstance(resolved, AIcdFieldDefaultValue):
+            raise TypeError('Field default factory returned an incompatible result')
+        value = resolved.value
+        if value is None and not field.getDefinition().allows_null:
+            raise ValueError('Null default is not allowed: ' + field.getSemanticFieldName())
+        if value is not None and isinstance(raw_type, type) and not isinstance(value, raw_type):
+            raise TypeError('Incorrect default type for ' + field.getSemanticFieldName())
+        return value
 
     @staticmethod
     def _validate(field, value):
-        if value is None: return
         definition = field.getDefinition()
-        default = definition.default_value
-        if default.defined and default.kind is AInDataObjectFieldDefaultKind.CONSTRAINT_DEFAULT:
+        default = field.getDefault()
+        if default is not None and default.kind is AInDataObjectFieldDefaultKind.CONSTRAINT_DEFAULT:
             if value != AIcSmartDataObject._parse_default(field):
                 raise ValueError('FIXED constraint violated: ' + field.getSemanticFieldName())
+        if value is None: return
         from eu.algites.lib.common.list.aii_bounded_list import AIiBoundedList
         if isinstance(value, (list, tuple)) and not isinstance(value, AIiBoundedList):
             if definition.min_item_count >= 0 and len(value) < definition.min_item_count or (
@@ -154,8 +168,12 @@ class AIcSmartDataObject(AIiSmartDataObject):
 
     def set_EmptyField(self, name: str) -> None:
         """Assign the explicit empty sentinel if the schema permits it."""
-        if not self._field(name).getDefinition().is_empty_allowed:
+        field = self._field(name)
+        if not field.getDefinition().is_empty_allowed:
             raise ValueError('EMPTY not permitted: ' + name)
+        default = field.getDefault()
+        if default is not None and default.kind is AInDataObjectFieldDefaultKind.CONSTRAINT_DEFAULT:
+            raise ValueError('FIXED constraint violated: ' + name)
         self._sdo_values[name] = _EMPTY
 
     def isEmpty_Field(self, name: str) -> bool:
@@ -231,8 +249,8 @@ class AIcSmartDataObject(AIiSmartDataObject):
         result: dict[str, Any] = {}
         for field in self._metadata().getFields():
             name = field.getSemanticFieldName()
-            default = field.getDefinition().default_value
-            if name in self._sdo_values or (effective and default.defined and
+            default = field.getDefault()
+            if name in self._sdo_values or (effective and default is not None and
                     default.kind is AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_NOT_PRESENT):
                 result[name] = self.get_EffectiveField(name) if effective else self.get_RawField(name)
         return result
@@ -242,9 +260,9 @@ class AIcSmartDataObject(AIiSmartDataObject):
         for field in self._metadata().getFields():
             name = field.getSemanticFieldName()
             definition = field.getDefinition()
-            default = definition.default_value
+            default = field.getDefault()
             if (definition.presence is AInFieldPresenceKind.REQUIRED and name not in self._sdo_values and
-                    not (effective and default.defined and
+                    not (effective and default is not None and
                          default.kind is AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_NOT_PRESENT)):
                 result.add(name)
         return result

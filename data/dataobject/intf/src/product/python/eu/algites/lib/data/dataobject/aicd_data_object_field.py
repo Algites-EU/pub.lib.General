@@ -1,6 +1,5 @@
 """Schema-neutral normalized data-object field metadata."""
 from dataclasses import dataclass
-from .aia_data_object_field_default import AIaDataObjectFieldDefault
 from .ain_field_setter_inheritance_policy import AInFieldSetterInheritancePolicy
 from typing import Callable, Any
 from .ain_field_presence_kind import AInFieldPresenceKind
@@ -10,9 +9,8 @@ from .ain_field_presence_kind import AInFieldPresenceKind
 class AIcdDataObjectField:
     """Field identifier, presence and nullability independent of schema wire format.
 
-    ``default_value_resolver`` is a callable compatibility interface used by
-    non-annotation Python contracts; generated contracts may use AIaFieldDefault
-    and the CategoryProviderDiscovery factory selection instead.
+    ``default_value_resolver`` is a legacy callable used by non-annotation
+    Python contracts; the separate default annotation is resolved on getters.
     """
     field_name: str
     embedded: bool = False
@@ -27,7 +25,6 @@ class AIcdDataObjectField:
     min_item_count: int = -1
     max_item_count: int = -1
     is_empty_allowed: bool = False
-    default_value: AIaDataObjectFieldDefault = AIaDataObjectFieldDefault()
     string_constraints: Any = None
     numeric_constraints: Any = None
     list_constraints: Any = None

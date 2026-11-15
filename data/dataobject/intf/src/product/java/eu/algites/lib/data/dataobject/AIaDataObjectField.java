@@ -96,14 +96,6 @@ public @interface AIaDataObjectField {
     boolean isEmptyAllowed() default false;
 
     /**
-     * Nested schema default and XSD fixed constraint information.
-     * An unspecified default is metadata-only and does not change raw storage.
-     *
-     * @return the immutable default declaration
-     */
-    AIaDataObjectFieldDefault defaultValue() default @AIaDataObjectFieldDefault;
-
-    /**
      * Declares the inherited setter parameter-type strategy for this field.
      *
      * <p>{@code DEFAULT} delegates to the containing data object or configured generator default. A resolved

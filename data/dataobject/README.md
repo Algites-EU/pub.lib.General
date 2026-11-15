@@ -1,12 +1,14 @@
 # DataObject (pub.lib.General)
 
 `data/dataobject/intf` defines common Java/Python structured data-object contracts.
-`AIaDataObjectField` exposes `fieldName`, `presence`, `allowsNull` (default `true`), `order` (default `-1`), `isEmptyAllowed` (default `false`) and a nested `defaultValue` declaration.
-Its presentation text is declared through `AIaFieldLabel` in the common library,
-not through `description`. Historical `AIaFieldDefault.defaultValueResolver` category/provider factories remain supported
-for existing contracts; new schema-lexical defaults are declared by the
-`AIaDataObjectFieldDefault` nested annotation.
-Effective defaults do not make raw fields present and never replace explicit nulls.
+`AIaDataObjectField` exposes the shared field name, presence, nullability,
+order and empty-state permissions. An optional, **separate** getter annotation,
+`AIaDataObjectFieldDefault`, configures default semantics via a CPDiscovery
+factory. The earlier `AIaFieldDefault` annotation and nested
+`AIaDataObjectField.defaultValue` are no longer part of the current API.
+Presentation text belongs to `AIaFieldLabel`, not the field definition.
+Raw presence is unchanged by default evaluation, and an explicit null is not
+replaced with a default.
 
 XML metadata is separate, in `eu.algites.lib.data.dataobject.xmldefs` and the
 Python `xmldefs` package. `AIaDataObjectXmlSchema` represents XML types or global
@@ -29,35 +31,52 @@ not by this core data-object marker library.
 
 `AIaDataObjectFieldStringConstraints`, `AIaDataObjectFieldNumericConstraints`,
 `AIaDataObjectFieldListConstraints` a `AIaDataObjectFieldObjectConstraints`
-patří přímo na getter; nesou jen omezení příslušného typu. Obecné `order`,
-`isEmptyAllowed`, `presence` a `defaultValue` náleží `AIaDataObjectField`.
-Identita schématu pro XML/JSON/YAML je technologicky specifické metadata a
-nemění identitu samotného DataObject pole.
+patří přímo na getter; nesou jen omezení příslušného typu. Obecné `order`, `isEmptyAllowed` a `presence` náleží `AIaDataObjectField`;
+výchozí hodnota je **samostatná anotace getteru** `AIaDataObjectFieldDefault`.
+Technologicky specifická metadata XML/JSON/YAML neovlivňují její význam.
 
-Vnořená anotace `AIaDataObjectFieldDefault` používá `defined=true` i pro
-skutečnou výchozí hodnotu `""`. `AInDataObjectFieldDefaultKind` má čtyři režimy:
+Přítomnost anotace určuje, zda je default vůbec deklarovaný — atribut
+`defined` již neexistuje. `defaultValueFactory` obsahuje výběr CPDiscovery
+(`factoryInterface`, nepovinné `factoryCategory` a `factoryProviderId`).
+`defaultArguments` poskytuje lexikální parametry pro factory. Metadata SDO
+uchovávají tuto deklaraci na fieldu; při efektivním vyhodnocování předají
+`expectedType` (typ getteru) a argumenty vybrané factory. CPDiscovery drží
+registry již objevených providerů, a proto opakovaný lookup nespouští
+ServiceLoader scan. SDO neukládá sdílenou instanci defaultní hodnoty.
+`Optional.empty()` je explicitní default `null`, nikoliv chybějící anotace.
 
-- `DECLARATION_ONLY`: dokumentuje hodnotu, runtime ji nedosazuje;
-- `IF_FIELD_VALUE_NOT_PRESENT`: efektivní čtení dosadí hodnotu při absenci;
-- `IF_FIELD_VALUE_EMPTY`: efektivní čtení dosadí hodnotu jen při explicitním
-  interním `EMPTY_VALUE`, nikoli při přímém `setXxx("")`;
-- `CONSTRAINT_DEFAULT`: přepis XSD `fixed`; SDO odmítne každou nastavenou
-  hodnotu, která se nerovná deklarované hodnotě. Sám ji nenastavuje.
+Standardní `AIiFieldDefaultScalarValueFactory` zpracovává jednu řetězcovou
+hodnotu (String, boolean/Boolean, celočíselné a desetinné typy, BigInteger,
+BigDecimal a enumy s `AIiEnumItem.code()`). Nepotřebuje explicitní kategorii;
+standardní CPDiscovery kategorie je `"default"`.
 
-XML atribut `default` odpovídá `IF_FIELD_VALUE_NOT_PRESENT`; `default` XML
-*elementu* odpovídá `IF_FIELD_VALUE_EMPTY`. Při serializaci raw hodnot se nikdy
-nevypíše efektivně dosazený default místo skutečně uložené hodnoty. Když
-`isEmptyAllowed=false`, technické `_setEmpty_Xxxx` a `_isEmpty_Xxxx` vůbec
-nesmějí být generovány. Staré anotace zůstávají v období migrace dostupné
-jako `deprecated` a lze je odstranit až po úspěšném prvním deployi.
+`AInDataObjectFieldDefaultKind` má čtyři režimy:
+
+- `DECLARATION_ONLY`: default pouze dokumentuje, efektivní hodnotu nenahrazuje;
+- `IF_FIELD_VALUE_NOT_PRESENT`: dosadí default, jen když raw field chybí;
+- `IF_FIELD_VALUE_EMPTY`: dosadí default pouze pro technický sentinel EMPTY,
+  nikoliv při obyčejném `setXxx("")`;
+- `CONSTRAINT_DEFAULT`: neprovádí dosazení, ale odmítne přidělení hodnoty,
+  která se nerovná deklarovanému defaultu (XSD `fixed`).
+
+XML atribut `default` odpovídá `IF_FIELD_VALUE_NOT_PRESENT`, XML element
+`default` odpovídá `IF_FIELD_VALUE_EMPTY`. Raw serializace nikdy nevypisuje
+efektivní default místo uložené raw hodnoty.
 
 ```java
-@AIaDataObjectField(isEmptyAllowed = true,
-    defaultValue = @AIaDataObjectFieldDefault(
-        defined = true, kind = AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_EMPTY,
-        value = "Anonymous"))
+@AIaDataObjectField(dataFieldName = "Name", isEmptyAllowed = true)
+@AIaDataObjectFieldDefault(
+    kind = AInDataObjectFieldDefaultKind.IF_FIELD_VALUE_EMPTY,
+    defaultValueFactory = @AIaCategoryProviderFactoryDefinition(
+        factoryInterface = AIiFieldDefaultScalarValueFactory.class
+    ),
+    defaultArguments = {"Anonymous"}
+)
 String getName();
 ```
+
+V Pythonu jde o analogický samostatný dekorátor `@AIaDataObjectFieldDefault`
+s konfigurací `default_value_factory` a `default_arguments`.
 
 ## Canonical field identity and metadata inheritance
 

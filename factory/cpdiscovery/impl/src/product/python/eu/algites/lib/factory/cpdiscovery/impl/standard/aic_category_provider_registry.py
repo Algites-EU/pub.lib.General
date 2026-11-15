@@ -125,6 +125,9 @@ class AIcCategoryProviderRegistry(AIiCategoryProviderRegistry):
                 specialized = [t for t in cls.__mro__[1:]
                                if issubclass(t, AIiCategoryProviderFactory)
                                and t is not AIiCategoryProviderFactory and isabstract(t)]
+                specialized = [interface for interface in specialized
+                               if not any(interface is not other and issubclass(other, interface)
+                                          for other in specialized)]
                 if len(specialized) != 1:
                     raise AIxCategoryProviderDiscoveryException(f'Factory needs one specialized SPI: {cls}')
                 for category in categories:
