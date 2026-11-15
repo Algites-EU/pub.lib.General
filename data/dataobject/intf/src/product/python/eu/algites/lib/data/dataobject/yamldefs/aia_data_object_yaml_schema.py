@@ -1,10 +1,10 @@
-"""JSON Schema identity shared by JSONDEFS and YAMLDEFS DataObjects."""
+"""YAML source schema identity and instance-document metadata."""
 from dataclasses import dataclass
 
 
 @dataclass(frozen=True, slots=True)
-class AIaDataObjectJsonSchema:
-    """Immutable schema identity and optional instance-document metadata."""
+class AIaDataObjectYamlSchema:
+    """Format-local schema identity; independent of per-class naming conventions."""
     schema_id: str = ''
     schema_version: int = -1
     schema_url: str = ''

@@ -1,7 +1,7 @@
 package eu.algites.lib.data.smartdataobject.impl.format.xml;
 
-import eu.algites.lib.data.dataobject.xmlschema.AIaDataObjectFieldXmlSchema;
-import eu.algites.lib.data.dataobject.xmlschema.AIaDataObjectXmlSchema;
+import eu.algites.lib.data.dataobject.xmldefs.AIaDataObjectFieldXmlSchema;
+import eu.algites.lib.data.dataobject.xmldefs.AIaDataObjectXmlSchema;
 import eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind;
 import eu.algites.lib.data.smartdataobject.AIiSmartDataObject;
 import eu.algites.lib.data.smartdataobject.impl.common.*;

@@ -1,6 +1,6 @@
 """XML Schema wire metadata of a format-specific DataObject getter."""
 from dataclasses import dataclass
-from ..xmldefs.ain_xml_value_kind import AInXmlValueKind
+from .ain_xml_value_kind import AInXmlValueKind
 
 
 @dataclass(frozen=True, slots=True)

@@ -1,6 +1,6 @@
 package eu.algites.lib.data.smartdataobject.impl.format.yaml;
 
-import eu.algites.lib.data.dataobject.jsonschema.AIaDataObjectJsonSchema;
+import eu.algites.lib.data.dataobject.yamldefs.AIaDataObjectYamlSchema;
 import eu.algites.lib.data.smartdataobject.AIiSmartDataObject;
 import eu.algites.lib.data.smartdataobject.impl.common.*;
 import eu.algites.lib.text.format.AInTextFormatType;
@@ -24,12 +24,12 @@ public final class AIcYamlFormatBindingProvider implements AIiSmartDataObjectFor
     /** {@inheritDoc} */
     @Override public Optional<? extends AIiSmartDataObjectFormatBindingMetadata> resolveMetadata(
             AIiSmartDataObjectMetadata aMetadata) {
-        AIaDataObjectJsonSchema schema = null;
+        AIaDataObjectYamlSchema schema = null;
         for (Class<?> type : AIsSmartDataObjectFormatMetadataUtils.hierarchy(aMetadata.getImplementationClass())) {
-            AIaDataObjectJsonSchema next = type.getDeclaredAnnotation(AIaDataObjectJsonSchema.class);
+            AIaDataObjectYamlSchema next = type.getDeclaredAnnotation(AIaDataObjectYamlSchema.class);
             if (next != null) schema = next;
         }
-        AIaDataObjectJsonSchema result = schema;
+        AIaDataObjectYamlSchema result = schema;
         return schema == null ? Optional.empty() : Optional.of(new YamlMetadata(result));
     }
     /** {@inheritDoc} */
@@ -47,7 +47,7 @@ public final class AIcYamlFormatBindingProvider implements AIiSmartDataObjectFor
         };
     }
     /** YAML binding metadata derived from schema annotations shared by JSONDEFS/YAMLDEFS. */
-    public record YamlMetadata(AIaDataObjectJsonSchema schema)
+    public record YamlMetadata(AIaDataObjectYamlSchema schema)
             implements AIiSmartDataObjectFormatBindingMetadata {
         /** {@inheritDoc} */
         @Override public String getFormatId() { return AInTextFormatType.YAML.code(); }

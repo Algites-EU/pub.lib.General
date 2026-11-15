@@ -9,8 +9,8 @@ for existing contracts; new schema-lexical defaults are declared by the
 Effective defaults do not make raw fields present and never replace explicit nulls.
 
 XML metadata is separate, in `eu.algites.lib.data.dataobject.xmldefs` and the
-Python `xmldefs` package. `AIaXmlDataObject` represents XML types or global
-elements; `AIaXmlDataObjectField` marks XML QNames and ELEMENT/ATTRIBUTE fields.
+Python `xmldefs` package. `AIaDataObjectXmlSchema` represents XML types or global
+elements; `AIaDataObjectFieldXmlSchema` marks XML QNames and ELEMENT/ATTRIBUTE fields.
 Its optional `order` (default `-1`) is the zero-based declaration position
 within the XML type. Generated XML contracts provide this position explicitly;
 the Java SmartDataObject metadata scanner sorts annotated getters by position
@@ -91,15 +91,14 @@ and unset) use the canonical semantic ID. Serializers and `from_mapping` use
 external field names with an explicit mapping back to semantic IDs; XML uses
 its separate QName metadata. Raw typed graph keys remain semantic IDs.
 
-## Technology-specific contract markers
+## Independent schema metadata (XMLDEFS / JSONDEFS / YAMLDEFS)
 
-The `xmldefs`, `jsondefs`, and `yamldefs` packages define
-`AIiXmlDataObject`, `AIiJsonDataObject`, and `AIiYamlDataObject` respectively
-in both Java and Python. Generated read-only contracts extend the matching
-technology marker, which in turn extends `AIiDataObject`. These markers are
-source-definition identities, not serialization, validation, or runtime adapters.
-Mutable contracts additionally inherit the matching technology-specific
-SmartDataObject marker described in `data/smartdataobject/README.md`.
+Read-only Java and Python contracts use the common `AIiDataObject` API.
+XML, JSON and YAML identities are declared independently by
+`AIaDataObjectXmlSchema`, `AIaDataObjectJsonSchema` and
+`AIaDataObjectYamlSchema` (and corresponding Python metadata).
+No technology-specific DataObject or SmartDataObject superinterfaces exist.
+XML field wire names use `AIaDataObjectFieldXmlSchema`.
 
 ## Possible future extension: input-only field-name aliases (deferred)
 
@@ -164,25 +163,19 @@ serialization, an explicitly declared property with the same target metadata
 name is emitted **once**; a conflicting stored value fails rather than silently
 overriding the contract metadata. Missing or disabled metadata is not guessed.
 
-## Migrační anotace JSON Schema a XML Schema (1.1-SNAPSHOT)
+## Schématové anotace (1.1-SNAPSHOT)
 
-Vedle zachovaných `AIaJsonDataObject`, `AIaYamlDataObject`,
-`AIaXmlDataObject`, `AIaXmlDataObjectField` nyní existují
-`AIaDataObjectJsonSchema` (pro JSON i YAML definice),
-`AIaDataObjectXmlSchema` a `AIaDataObjectFieldXmlSchema`.
-Staré anotace zůstávají kompatibilní a jsou označené jako deprecated;
-nejde o změnu formátových markerů `AIiJsonDataObject`, `AIiYamlDataObject`
-a `AIiXmlDataObject`. Nové anotace popisují metadata schémat, nikoli
-sémantickou identitu společného DataObject typu.
+Pro identitu formátů se používají výhradně nezávislé anotace
+`AIaDataObjectXmlSchema` a `AIaDataObjectFieldXmlSchema` v `xmldefs`,
+`AIaDataObjectJsonSchema` v `jsondefs` a `AIaDataObjectYamlSchema` v
+`yamldefs`. Každá identita schématu je samostatná, i když více formátů
+sdílí jeden typ odvozený z `AIiDataObject`.
 
-`AIaDataObject` a `AIaDataObjectField` mají být deklarovány pouze na
-společných `AIig…` typech a getterech; formátové XML/JSON/YAML rozhraní
-přidává schématová metadata. Konzumenti mají číst nové anotace s
-kompatibilní podporou deprecated protějšků. Staré atributy se v rámci
-této fáze nemažou. Testy `AItcDataObjectSchemaMetadataCompatibilityTest`
-a `test_data_object_schema_metadata_compatibility.py` pokrývají
-pět shodných Java/Python případů.
-
+`AIaDataObject` a `AIaDataObjectField` nadále popisují společnou
+sémantiku typu a jeho polí; Defs i SDO Codegen zapisují pouze platné
+schématové anotace. Původní technologické markery a staré anotace
+nejsou součástí API. Pravidla výchozích hodnot a jejich resolverů se v
+této fázi nemění.
 
 ## Umístění nových schématových anotací
 
@@ -190,12 +183,12 @@ pět shodných Java/Python případů.
 
 | Anotace | Java package | Python modul |
 |---|---|---|
-| `AIaDataObjectJsonSchema` | `eu.algites.lib.data.dataobject.jsonschema` | `eu.algites.lib.data.dataobject.jsonschema.aia_data_object_json_schema` |
-| `AIaDataObjectXmlSchema` | `eu.algites.lib.data.dataobject.xmlschema` | `eu.algites.lib.data.dataobject.xmlschema.aia_data_object_xml_schema` |
-| `AIaDataObjectFieldXmlSchema` | `eu.algites.lib.data.dataobject.xmlschema` | `eu.algites.lib.data.dataobject.xmlschema.aia_data_object_field_xml_schema` |
+| `AIaDataObjectJsonSchema` | `eu.algites.lib.data.dataobject.jsonschema` | `eu.algites.lib.data.dataobject.jsondefs.aia_data_object_json_schema` |
+| `AIaDataObjectXmlSchema` | `eu.algites.lib.data.dataobject.xmlschema` | `eu.algites.lib.data.dataobject.xmldefs.aia_data_object_xml_schema` |
+| `AIaDataObjectFieldXmlSchema` | `eu.algites.lib.data.dataobject.xmlschema` | `eu.algites.lib.data.dataobject.xmldefs.aia_data_object_field_xml_schema` |
 
-Původní formátové anotace (`AIaJsonDataObject`, `AIaYamlDataObject`,
-`AIaXmlDataObject`, `AIaXmlDataObjectField`) zůstávají v dosavadních
+Původní formátové anotace (`AIaDataObjectJsonSchema`, `AIaDataObjectYamlSchema`,
+`AIaDataObjectXmlSchema`, `AIaDataObjectFieldXmlSchema`) zůstávají v dosavadních
 `jsondefs`, `yamldefs` a `xmldefs` packages jako deprecated; jejich veřejná
 signatura se nemění. Obecné `AIaDataObject` / `AIaDataObjectField` zůstávají
 v `eu.algites.lib.data.dataobject` a náleží výhradně společným `AIig…`

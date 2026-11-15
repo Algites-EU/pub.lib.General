@@ -5,7 +5,7 @@ import eu.algites.lib.data.dataobject.AIaDataObjectFieldListConstraints;
 import eu.algites.lib.data.dataobject.AIaDataObjectFieldNumericConstraints;
 import eu.algites.lib.data.dataobject.AIaDataObjectFieldObjectConstraints;
 import eu.algites.lib.data.dataobject.AIaDataObjectFieldStringConstraints;
-import eu.algites.lib.data.dataobject.AIaKeyDefinition;
+import eu.algites.lib.data.dataobject.AIaDataObjectListKeyDefinition;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -115,7 +115,7 @@ public final class AIsSmartDataObjectMetadataRegistry {
                 locBuilder.numeric = first(locMethod.getDeclaredAnnotation(AIaDataObjectFieldNumericConstraints.class), locBuilder.numeric);
                 locBuilder.list = first(locMethod.getDeclaredAnnotation(AIaDataObjectFieldListConstraints.class), locBuilder.list);
                 locBuilder.object = first(locMethod.getDeclaredAnnotation(AIaDataObjectFieldObjectConstraints.class), locBuilder.object);
-                AIaKeyDefinition[] locKeys = locMethod.getDeclaredAnnotationsByType(AIaKeyDefinition.class);
+                AIaDataObjectListKeyDefinition[] locKeys = locMethod.getDeclaredAnnotationsByType(AIaDataObjectListKeyDefinition.class);
                 if (locKeys.length > 0) locBuilder.keys = List.of(locKeys);
                 locFields.put(locSemantic, locBuilder);
             }
@@ -168,7 +168,7 @@ public final class AIsSmartDataObjectMetadataRegistry {
         AIaDataObjectFieldNumericConstraints numeric;
         AIaDataObjectFieldListConstraints list;
         AIaDataObjectFieldObjectConstraints object;
-        List<AIaKeyDefinition> keys = List.of();
+        List<AIaDataObjectListKeyDefinition> keys = List.of();
         FieldBuilder(String aSemantic) { semanticFieldName = aSemantic; }
         FieldBuilder(FieldBuilder aOriginal) {
             semanticFieldName = aOriginal.semanticFieldName;
@@ -193,7 +193,7 @@ public final class AIsSmartDataObjectMetadataRegistry {
             AIaDataObjectFieldNumericConstraints numeric,
             AIaDataObjectFieldListConstraints list,
             AIaDataObjectFieldObjectConstraints object,
-            List<AIaKeyDefinition> keys) implements AIiSmartDataObjectFieldMetadata {
+            List<AIaDataObjectListKeyDefinition> keys) implements AIiSmartDataObjectFieldMetadata {
         @Override public String getSemanticFieldName() { return semanticFieldName; }
         @Override public String getDataFieldName() { return dataFieldName; }
         @Override public Method getEffectiveGetter() { return getter; }
@@ -203,7 +203,7 @@ public final class AIsSmartDataObjectMetadataRegistry {
         @Override public AIaDataObjectFieldNumericConstraints getNumericConstraints() { return numeric; }
         @Override public AIaDataObjectFieldListConstraints getListConstraints() { return list; }
         @Override public AIaDataObjectFieldObjectConstraints getObjectConstraints() { return object; }
-        @Override public List<AIaKeyDefinition> getKeyDefinitions() { return keys; }
+        @Override public List<AIaDataObjectListKeyDefinition> getKeyDefinitions() { return keys; }
     }
 
     private static final class ResolvedMetadata implements AIiSmartDataObjectMetadata {

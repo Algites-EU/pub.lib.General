@@ -1,4 +1,4 @@
-package eu.algites.lib.data.dataobject.xmlschema;
+package eu.algites.lib.data.dataobject.xmldefs;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,7 +8,7 @@ import eu.algites.lib.data.dataobject.xmldefs.AInXmlObjectDefinitionKind;
 
 /**
  * XML Schema identity of an XMLDEFS data-object type or global element.
- * The XML wire technology remains an independent concern of AIiXmlDataObject.
+ * Schema metadata does not require a technology-specific DataObject interface.
  * @author linhart1
  */
 @Retention(RetentionPolicy.RUNTIME)

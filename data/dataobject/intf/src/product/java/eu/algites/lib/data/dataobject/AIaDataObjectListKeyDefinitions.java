@@ -6,16 +6,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Runtime carrier of multiple independent {@link AIaKeyDefinition} index
+ * Runtime carrier of multiple independent {@link AIaDataObjectListKeyDefinition} index
  * declarations attached to the same repeated field.
  *
  * @author linhart1
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface AIaKeyDefinitions {
+public @interface AIaDataObjectListKeyDefinitions {
     /**
      * @return ordered, nonempty set of key constraints for one list
      */
-    AIaKeyDefinition[] value();
+    AIaDataObjectListKeyDefinition[] value();
 }

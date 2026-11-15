@@ -1,14 +1,12 @@
-"""Python mirror of AItcDataObjectSchemaMetadataCompatibilityTest.
+"""Independent XML, JSON and YAML schema annotations on neutral DataObjects.
 
-The same five independent scenarios must pass in Java and Python.
+Only the format-specific schema descriptor varies. Fields and their defaults
+remain defined once by the common DataObject getter.
 """
-from eu.algites.lib.data.dataobject.jsonschema.aia_data_object_json_schema import AIaDataObjectJsonSchema
-from eu.algites.lib.data.dataobject.xmlschema.aia_data_object_xml_schema import AIaDataObjectXmlSchema
-from eu.algites.lib.data.dataobject.xmlschema.aia_data_object_field_xml_schema import AIaDataObjectFieldXmlSchema
-from eu.algites.lib.data.dataobject.jsondefs.aia_json_data_object import AIaJsonDataObject
-from eu.algites.lib.data.dataobject.yamldefs.aia_yaml_data_object import AIaYamlDataObject
-from eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object import AIaXmlDataObject
-from eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object_field import AIaXmlDataObjectField
+from eu.algites.lib.data.dataobject.jsondefs.aia_data_object_json_schema import AIaDataObjectJsonSchema
+from eu.algites.lib.data.dataobject.yamldefs.aia_data_object_yaml_schema import AIaDataObjectYamlSchema
+from eu.algites.lib.data.dataobject.xmldefs.aia_data_object_xml_schema import AIaDataObjectXmlSchema
+from eu.algites.lib.data.dataobject.xmldefs.aia_data_object_field_xml_schema import AIaDataObjectFieldXmlSchema
 from eu.algites.lib.data.dataobject.xmldefs.ain_xml_object_definition_kind import AInXmlObjectDefinitionKind
 from eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind import AInXmlValueKind
 from eu.algites.lib.data.dataobject.aicd_data_object import AIcdDataObject
@@ -24,57 +22,42 @@ class CommonContract:
         raise NotImplementedError
 
 
-class JsonContract(CommonContract):
-    __json_data_object__ = AIaJsonDataObject(schema_id='sample', schema_version=7)
-    __json_schema__ = AIaDataObjectJsonSchema(schema_id='sample', schema_version=7)
-
-
-class YamlContract(CommonContract):
-    __yaml_data_object__ = AIaYamlDataObject(schema_id='sample', schema_version=7)
-    __json_schema__ = AIaDataObjectJsonSchema(schema_id='sample', schema_version=7)
-
-
-class XmlContract(CommonContract):
-    __xml_data_object__ = AIaXmlDataObject(namespace='urn:example', namespace_local_name='Sample')
+class CombinedContract(CommonContract):
+    __json_schema__ = AIaDataObjectJsonSchema(schema_id='json-sample', schema_version=7)
+    __yaml_schema__ = AIaDataObjectYamlSchema(schema_id='yaml-sample', schema_version=11)
     __xml_schema__ = AIaDataObjectXmlSchema(namespace='urn:example', namespace_local_name='Sample')
-    __xml_data_object_fields__ = {'code': AIaXmlDataObjectField(namespace='urn:example',
-        namespace_local_name='Code', value_kind=AInXmlValueKind.ATTRIBUTE)}
-    __xml_schema_fields__ = {'code': AIaDataObjectFieldXmlSchema(namespace='urn:example',
-        namespace_local_name='Code', value_kind=AInXmlValueKind.ATTRIBUTE)}
+    __xml_schema_fields__ = {
+        'code': AIaDataObjectFieldXmlSchema(namespace='urn:example',
+            namespace_local_name='Code', value_kind=AInXmlValueKind.ATTRIBUTE),
+    }
 
 
-def test_common_json_schema_for_json_and_yaml():
-    """A single schema metadata class serves both serialization technologies."""
-    for cls in (JsonContract, YamlContract):
-        assert cls.__json_schema__.schema_id == 'sample'
-        assert cls.__json_schema__.schema_version == 7
-    assert JsonContract.__json_data_object__.schema_id == 'sample'
-    assert YamlContract.__yaml_data_object__.schema_id == 'sample'
+def test_json_and_yaml_identities_remain_independent():
+    """Two schema definitions on one neutral contract are not overwritten."""
+    assert CombinedContract.__json_schema__.schema_id == 'json-sample'
+    assert CombinedContract.__json_schema__.schema_version == 7
+    assert CombinedContract.__yaml_schema__.schema_id == 'yaml-sample'
+    assert CombinedContract.__yaml_schema__.schema_version == 11
+    assert CombinedContract.__json_schema__ != CombinedContract.__yaml_schema__
 
 
-def test_xml_schema_identity_is_identical():
-    """Old and new XML definitions have the same QName and definition kind."""
-    modern, legacy = XmlContract.__xml_schema__, XmlContract.__xml_data_object__
-    assert modern.definition_kind is AInXmlObjectDefinitionKind.TYPE
-    assert (modern.namespace, modern.namespace_local_name) == (legacy.namespace, legacy.namespace_local_name)
+def test_xml_schema_and_field_metadata_are_separate():
+    """XML QName metadata is independent of the JSON and YAML identities."""
+    schema = CombinedContract.__xml_schema__
+    assert schema.definition_kind is AInXmlObjectDefinitionKind.TYPE
+    assert (schema.namespace, schema.namespace_local_name) == ('urn:example', 'Sample')
+    field = CombinedContract.__xml_schema_fields__['code']
+    assert field.value_kind is AInXmlValueKind.ATTRIBUTE
+    assert (field.namespace, field.namespace_local_name) == ('urn:example', 'Code')
 
 
-def test_xml_field_identity_is_identical():
-    """Old and new field definitions have the same QName and attribute kind."""
-    modern, legacy = XmlContract.__xml_schema_fields__['code'], XmlContract.__xml_data_object_fields__['code']
-    assert modern.value_kind is AInXmlValueKind.ATTRIBUTE
-    assert (modern.namespace, modern.namespace_local_name) == (legacy.namespace, legacy.namespace_local_name)
-
-
-def test_generic_annotations_live_only_on_common_contract():
-    """A format projection inherits field semantics but declares only XML wire bindings."""
+def test_schema_projections_do_not_define_new_data_objects():
+    """One neutral contract owns data fields; formats contribute metadata only."""
     assert '__data_object__' in CommonContract.__dict__
-    assert '__data_object__' not in XmlContract.__dict__
+    assert '__data_object__' not in CombinedContract.__dict__
     assert hasattr(CommonContract.getCode, '__data_object_field__')
-    assert 'getCode' not in XmlContract.__dict__
-
-
-def test_legacy_annotations_deprecated_but_present():
-    """No legacy metadata type was deleted as part of the migration."""
-    for cls in (AIaJsonDataObject, AIaYamlDataObject, AIaXmlDataObject, AIaXmlDataObjectField):
-        assert 'deprecated' in cls.__deprecated__.lower()
+    assert 'getCode' not in CombinedContract.__dict__
+    assert set(CombinedContract.__dict__).isdisjoint({
+        '__json_schema__', '__yaml_schema__', '__xml_schema__',
+        '__xml_schema_fields__',
+    })

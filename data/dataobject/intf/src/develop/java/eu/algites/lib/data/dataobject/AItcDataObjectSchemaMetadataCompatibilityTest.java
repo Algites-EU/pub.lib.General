@@ -1,13 +1,9 @@
 package eu.algites.lib.data.dataobject;
 
-import eu.algites.lib.data.dataobject.jsonschema.AIaDataObjectJsonSchema;
-import eu.algites.lib.data.dataobject.xmlschema.AIaDataObjectXmlSchema;
-import eu.algites.lib.data.dataobject.xmlschema.AIaDataObjectFieldXmlSchema;
-
-import eu.algites.lib.data.dataobject.jsondefs.AIaJsonDataObject;
-import eu.algites.lib.data.dataobject.yamldefs.AIaYamlDataObject;
-import eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObject;
-import eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObjectField;
+import eu.algites.lib.data.dataobject.jsondefs.AIaDataObjectJsonSchema;
+import eu.algites.lib.data.dataobject.yamldefs.AIaDataObjectYamlSchema;
+import eu.algites.lib.data.dataobject.xmldefs.AIaDataObjectXmlSchema;
+import eu.algites.lib.data.dataobject.xmldefs.AIaDataObjectFieldXmlSchema;
 import eu.algites.lib.data.dataobject.xmldefs.AInXmlObjectDefinitionKind;
 import eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind;
 import java.lang.reflect.Method;
@@ -15,86 +11,61 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- * Java half of the schema-metadata compatibility regression suite. The same
- * scenarios are covered by test_data_object_schema_metadata_compatibility.py.
+ * Verify that format-specific schema identities coexist on one neutral field
+ * contract without technology-specific DataObject inheritance.
+ *
  * @author linhart1
  */
 public final class AItcDataObjectSchemaMetadataCompatibilityTest {
-    /** Common JSON Schema metadata must not encode JSON vs YAML wire format. */
+    /** Check independent JSON/YAML identities and their versions. */
     @Test
-    public void commonJsonSchemaWorksWithBothFormatMarkers() {
-        Assert.assertEquals(JsonContract.class.getAnnotation(AIaDataObjectJsonSchema.class).schemaId(), "sample");
-        Assert.assertEquals(YamlContract.class.getAnnotation(AIaDataObjectJsonSchema.class).schemaId(), "sample");
-        Assert.assertEquals(JsonContract.class.getAnnotation(AIaDataObjectJsonSchema.class).schemaVersion(), 7);
-        Assert.assertEquals(YamlContract.class.getAnnotation(AIaDataObjectJsonSchema.class).schemaVersion(), 7);
-        Assert.assertEquals(JsonContract.class.getAnnotation(AIaJsonDataObject.class).schemaId(), "sample");
-        Assert.assertEquals(YamlContract.class.getAnnotation(AIaYamlDataObject.class).schemaId(), "sample");
+    public void independentJsonAndYamlIdentities() {
+        var json = CombinedContract.class.getAnnotation(AIaDataObjectJsonSchema.class);
+        var yaml = CombinedContract.class.getAnnotation(AIaDataObjectYamlSchema.class);
+        Assert.assertEquals(json.schemaId(), "json-sample");
+        Assert.assertEquals(json.schemaVersion(), 7);
+        Assert.assertEquals(yaml.schemaId(), "yaml-sample");
+        Assert.assertEquals(yaml.schemaVersion(), 11);
     }
 
-    /** Both old and new XML Schema declarations preserve definition QName. */
+    /** Check that XML declaration and field QNames are retained independently. */
     @Test
-    public void xmlSchemaMetadataPreservesExactQName() {
-        AIaDataObjectXmlSchema modern = XmlContract.class.getAnnotation(AIaDataObjectXmlSchema.class);
-        AIaXmlDataObject legacy = XmlContract.class.getAnnotation(AIaXmlDataObject.class);
-        Assert.assertEquals(modern.definitionKind(), AInXmlObjectDefinitionKind.TYPE);
-        Assert.assertEquals(modern.namespace(), legacy.namespace());
-        Assert.assertEquals(modern.namespaceLocalName(), legacy.namespaceLocalName());
+    public void xmlSchemaMetadataPreservesExactQName() throws NoSuchMethodException {
+        AIaDataObjectXmlSchema schema = CombinedContract.class.getAnnotation(AIaDataObjectXmlSchema.class);
+        Method getter = CombinedContract.class.getDeclaredMethod("getCode");
+        AIaDataObjectFieldXmlSchema field = getter.getAnnotation(AIaDataObjectFieldXmlSchema.class);
+        Assert.assertEquals(schema.definitionKind(), AInXmlObjectDefinitionKind.TYPE);
+        Assert.assertEquals(schema.namespace(), "urn:example");
+        Assert.assertEquals(schema.namespaceLocalName(), "Sample");
+        Assert.assertEquals(field.valueKind(), AInXmlValueKind.ATTRIBUTE);
+        Assert.assertEquals(field.namespace(), "urn:example");
+        Assert.assertEquals(field.namespaceLocalName(), "Code");
     }
 
-    /** Both XML field metadata forms retain element/attribute and QName semantics. */
+    /** Ensure schema metadata does not create extra domain DataObject declarations. */
     @Test
-    public void xmlFieldMetadataPreservesExactQName() throws NoSuchMethodException {
-        Method getter = XmlContract.class.getDeclaredMethod("getCode");
-        AIaDataObjectFieldXmlSchema modern = getter.getAnnotation(AIaDataObjectFieldXmlSchema.class);
-        AIaXmlDataObjectField legacy = getter.getAnnotation(AIaXmlDataObjectField.class);
-        Assert.assertEquals(modern.valueKind(), AInXmlValueKind.ATTRIBUTE);
-        Assert.assertEquals(modern.namespace(), legacy.namespace());
-        Assert.assertEquals(modern.namespaceLocalName(), legacy.namespaceLocalName());
-    }
-
-    /** General annotations are owned by the format-neutral interface only. */
-    @Test
-    public void generalMetadataIsDeclaredOnlyOnCommonContract() throws NoSuchMethodException {
+    public void neutralFieldsRemainOnCommonContract() throws NoSuchMethodException {
         Assert.assertNotNull(CommonContract.class.getAnnotation(AIaDataObject.class));
-        Assert.assertNull(XmlContract.class.getDeclaredAnnotation(AIaDataObject.class));
+        Assert.assertNull(CombinedContract.class.getDeclaredAnnotation(AIaDataObject.class));
         Assert.assertNotNull(CommonContract.class.getDeclaredMethod("getCode")
                 .getAnnotation(AIaDataObjectField.class));
-        Assert.assertNull(XmlContract.class.getDeclaredMethod("getCode")
+        Assert.assertNull(CombinedContract.class.getDeclaredMethod("getCode")
                 .getAnnotation(AIaDataObjectField.class));
-    }
-
-    /** Legacy annotation types are retained for a staged migration. */
-    @Test
-    public void legacyAnnotationsAreDeprecatedButAvailable() {
-        for (Class<?> annotation : new Class<?>[]{AIaJsonDataObject.class,
-                AIaYamlDataObject.class, AIaXmlDataObject.class, AIaXmlDataObjectField.class}) {
-            Assert.assertNotNull(annotation.getAnnotation(Deprecated.class), annotation.getName());
-        }
     }
 
     @AIaDataObject(description = "Neutral example")
     private interface CommonContract {
+        /** @return sample field value */
         @AIaDataObjectField(fieldName = "code")
         String getCode();
     }
 
-    @AIaJsonDataObject(schemaId = "sample", schemaVersion = 7)
-    @AIaDataObjectJsonSchema(schemaId = "sample", schemaVersion = 7)
-    private interface JsonContract extends CommonContract,
-            eu.algites.lib.data.dataobject.jsondefs.AIiJsonDataObject { }
-
-    @AIaYamlDataObject(schemaId = "sample", schemaVersion = 7)
-    @AIaDataObjectJsonSchema(schemaId = "sample", schemaVersion = 7)
-    private interface YamlContract extends CommonContract,
-            eu.algites.lib.data.dataobject.yamldefs.AIiYamlDataObject { }
-
-    @AIaXmlDataObject(namespace = "urn:example", namespaceLocalName = "Sample")
+    @AIaDataObjectJsonSchema(schemaId = "json-sample", schemaVersion = 7)
+    @AIaDataObjectYamlSchema(schemaId = "yaml-sample", schemaVersion = 11)
     @AIaDataObjectXmlSchema(namespace = "urn:example", namespaceLocalName = "Sample")
-    private interface XmlContract extends CommonContract,
-            eu.algites.lib.data.dataobject.xmldefs.AIiXmlDataObject {
+    private interface CombinedContract extends CommonContract {
+        /** @return same logical field with an XML wire projection */
         @Override
-        @AIaXmlDataObjectField(namespace = "urn:example", namespaceLocalName = "Code",
-                valueKind = AInXmlValueKind.ATTRIBUTE)
         @AIaDataObjectFieldXmlSchema(namespace = "urn:example", namespaceLocalName = "Code",
                 valueKind = AInXmlValueKind.ATTRIBUTE)
         String getCode();

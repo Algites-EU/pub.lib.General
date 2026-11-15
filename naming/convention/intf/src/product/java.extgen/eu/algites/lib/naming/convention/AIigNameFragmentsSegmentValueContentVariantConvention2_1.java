@@ -20,7 +20,7 @@ public record AIigNameFragmentsSegmentValueContentVariantConvention2_1(String fi
         java.util.Objects.requireNonNull(field1, "Convention");
     }
 
-    @eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObjectField(namespace = "", namespaceLocalName = "Convention", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
+    @eu.algites.lib.data.dataobject.xmldefs.AIaDataObjectFieldXmlSchema(namespace = "", namespaceLocalName = "Convention", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
     @eu.algites.lib.data.dataobject.AIaDataObjectField(dataFieldName = "Convention", order = 0)
     /** @return Value of Convention (required) */
     public String getConvention() { return field1; }

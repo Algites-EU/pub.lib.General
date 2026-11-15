@@ -24,8 +24,8 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-@Repeatable(AIaKeyDefinitions.class)
-public @interface AIaKeyDefinition {
+@Repeatable(AIaDataObjectListKeyDefinitions.class)
+public @interface AIaDataObjectListKeyDefinition {
     /**
      * @return nonblank identity constraint name unique among this field's indexes
      */

@@ -1,10 +1,10 @@
 """Unbound xs:any element modeled as an XML data object, not a primitive string."""
 from __future__ import annotations
 from functools import lru_cache
-from .aii_xml_data_object import AIiXmlDataObject
+from ..aii_data_object import AIiDataObject
 
 
-class AIcXmlWildcardFragment(AIiXmlDataObject):
+class AIcXmlWildcardFragment(AIiDataObject):
     """Retain the complete namespace-aware subtree of an unbound XML element."""
 
     def __init__(self, xml_fragment: str) -> None:
@@ -23,8 +23,8 @@ class AIcXmlWildcardFragment(AIiXmlDataObject):
 @lru_cache(maxsize=256)
 def xml_wildcard_class(namespace_marker: type) -> type[AIcXmlWildcardFragment]:
     """Build a concrete XML fragment implementing its generated namespace marker."""
-    if not issubclass(namespace_marker, AIiXmlDataObject):
-        raise TypeError('XML wildcard namespace contract must extend AIiXmlDataObject')
+    if not issubclass(namespace_marker, AIiDataObject):
+        raise TypeError('XML wildcard namespace contract must extend AIiDataObject')
     if issubclass(AIcXmlWildcardFragment, namespace_marker):
         return AIcXmlWildcardFragment
     return type('AIcXmlWildcardFragment_' + namespace_marker.__name__,

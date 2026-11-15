@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True, slots=True)
-class AIcdSchemaIdentity:
+class AIcdDataObjectSchemaIdentity:
     """SchemaId and SchemaVersion form VersionedSchemaId; SchemaUrl is separate.
 
     SchemaUrl identifies one published representation and may be absent. None

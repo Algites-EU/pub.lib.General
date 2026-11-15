@@ -28,5 +28,5 @@ public interface AIiSmartDataObjectFieldMetadata {
     /** @return optional effective object constraints or null */
     AIaDataObjectFieldObjectConstraints getObjectConstraints();
     /** @return effective key definitions, never null */
-    List<AIaKeyDefinition> getKeyDefinitions();
+    List<AIaDataObjectListKeyDefinition> getKeyDefinitions();
 }

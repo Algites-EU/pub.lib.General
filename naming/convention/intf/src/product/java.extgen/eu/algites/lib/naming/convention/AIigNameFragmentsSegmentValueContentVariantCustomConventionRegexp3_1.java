@@ -20,7 +20,7 @@ public record AIigNameFragmentsSegmentValueContentVariantCustomConventionRegexp3
         java.util.Objects.requireNonNull(field1, "CustomConventionRegexp");
     }
 
-    @eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObjectField(namespace = "", namespaceLocalName = "CustomConventionRegexp", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
+    @eu.algites.lib.data.dataobject.xmldefs.AIaDataObjectFieldXmlSchema(namespace = "", namespaceLocalName = "CustomConventionRegexp", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
     @eu.algites.lib.data.dataobject.AIaDataObjectField(dataFieldName = "CustomConventionRegexp", order = 0)
     /** @return Value of CustomConventionRegexp (required) */
     public String getCustomConventionRegexp() { return field1; }

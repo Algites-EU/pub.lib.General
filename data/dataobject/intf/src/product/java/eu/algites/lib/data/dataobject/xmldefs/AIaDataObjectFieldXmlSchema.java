@@ -1,4 +1,4 @@
-package eu.algites.lib.data.dataobject.xmlschema;
+package eu.algites.lib.data.dataobject.xmldefs;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

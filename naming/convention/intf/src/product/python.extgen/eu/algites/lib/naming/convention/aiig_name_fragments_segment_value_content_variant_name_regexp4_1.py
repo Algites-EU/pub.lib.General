@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Any
 
-from eu.algites.lib.data.dataobject.xmldefs.aia_xml_data_object_field import AIaXmlDataObjectField
+from eu.algites.lib.data.dataobject.xmldefs.aia_data_object_field_xml_schema import AIaDataObjectFieldXmlSchema
 from eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind import AInXmlValueKind
 from dataclasses import dataclass
 from typing import final
@@ -18,8 +18,8 @@ class AIigNameFragmentsSegmentValueContentVariantNameRegexp4_1(AIigNameFragments
     """Exclusive canonical object variant"""
     __xml_choice_component_names__ = ('NameRegexp',)
     __xml_choice_first_qnames__ = ('NameRegexp',)
-    __xml_data_object_fields__ = {
-        'NameRegexp': AIaXmlDataObjectField(namespace='', namespace_local_name='NameRegexp', value_kind=AInXmlValueKind.ELEMENT, ),
+    __xml_schema_fields__ = {
+        'NameRegexp': AIaDataObjectFieldXmlSchema(namespace='', namespace_local_name='NameRegexp', value_kind=AInXmlValueKind.ELEMENT, ),
     }
 
     field1: AIigNameRegexp_1

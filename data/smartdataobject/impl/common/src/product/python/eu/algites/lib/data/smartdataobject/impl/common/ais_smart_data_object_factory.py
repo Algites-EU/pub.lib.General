@@ -48,9 +48,26 @@ def _materialize(binding, data: Mapping[str, Any], registry, visited):
         if semantic in assigned_semantics:
             raise ValueError('Duplicate aliases for semantic SDO field: ' + semantic)
         assigned_semantics.add(semantic)
-        converted = _convert(raw_value, field.getEffectiveReturnType(), binding, semantic,
-                             registry, visited)
-        instance.set_RawField(semantic, converted)
+        requested = field.getEffectiveReturnType()
+        # Generated collection getters are getter-only. Build the bounded (or
+        # indexed) list through the owning SDO, never replace it with a plain
+        # list or look for a non-existent collection setter.
+        from eu.algites.lib.common.list.aii_bounded_list import AIiBoundedList
+        from eu.algites.lib.common.list.aii_multi_mapped_list import AIiMultiMappedList
+        collection_type = get_origin(requested) or requested
+        if (isinstance(raw_value, (list, tuple)) and
+                isinstance(collection_type, type) and
+                issubclass(collection_type, AIiBoundedList)):
+            mapped = issubclass(collection_type, AIiMultiMappedList)
+            items = instance.get_OrCreateCollectionField(semantic, mapped)
+            item_types = get_args(requested)
+            for item in raw_value:
+                items.append(_convert(item, item_types[0] if item_types else Any,
+                                      binding, semantic, registry, visited))
+        else:
+            converted = _convert(raw_value, requested, binding, semantic,
+                                 registry, visited)
+            instance.set_RawField(semantic, converted)
     return instance
 
 

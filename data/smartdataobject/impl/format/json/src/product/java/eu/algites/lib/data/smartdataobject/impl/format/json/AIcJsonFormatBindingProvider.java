@@ -2,7 +2,7 @@ package eu.algites.lib.data.smartdataobject.impl.format.json;
 
 import eu.algites.lib.data.dataobject.AIiDataObject;
 import eu.algites.lib.data.smartdataobject.AIiSmartDataObject;
-import eu.algites.lib.data.dataobject.jsonschema.AIaDataObjectJsonSchema;
+import eu.algites.lib.data.dataobject.jsondefs.AIaDataObjectJsonSchema;
 import eu.algites.lib.data.smartdataobject.impl.common.*;
 import eu.algites.lib.text.format.AInTextFormatType;
 import java.util.LinkedHashMap;

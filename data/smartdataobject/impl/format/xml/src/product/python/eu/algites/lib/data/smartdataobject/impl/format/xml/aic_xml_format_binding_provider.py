@@ -6,7 +6,7 @@ selection belongs to the purpose-scoped SDO binding registry.
 """
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from decimal import Decimal
 from enum import Enum
@@ -15,6 +15,7 @@ import re
 import xml.etree.ElementTree as ET
 
 from eu.algites.lib.data.dataobject.aii_data_object import AIiDataObject
+from eu.algites.lib.common.list.aii_bounded_list import AIiBoundedList
 from eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind import AInXmlValueKind
 from eu.algites.lib.data.smartdataobject.impl.common.aic_smart_data_object import AIcSmartDataObject
 from eu.algites.lib.data.smartdataobject.impl.common.ais_smart_data_object_factory import AIsSmartDataObjectFactory
@@ -100,7 +101,7 @@ def _encode(node: AIcSmartDataObject, element: ET.Element, registry: Any,
                 if value is not None:
                     element.set(qualified, _scalar(value))
                 continue
-            for item in value if isinstance(value, (list, tuple)) else (value,):
+            for item in value if isinstance(value, (list, tuple, AIiBoundedList)) else (value,):
                 child = ET.SubElement(element, qualified)
                 if item is None:
                     child.set(_qualified(_XSI, 'nil'), 'true')
@@ -123,7 +124,9 @@ def _read_contract(value_type: Any) -> type | None:
 def _repeated(value_type: Any) -> bool:
     """Determine whether the effective getter declares a collection."""
     origin = get_origin(value_type)
-    return origin in (list, tuple, set, frozenset)
+    return origin in (list, tuple, set, frozenset) or (
+        isinstance(origin, type) and issubclass(origin, AIiBoundedList)) or (
+        isinstance(value_type, type) and issubclass(value_type, AIiBoundedList))
 
 
 def _decode(element: ET.Element, binding: Any, registry: Any, depth: int) -> dict[str, Any]:

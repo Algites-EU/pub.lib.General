@@ -20,7 +20,7 @@ public record AIigNameFragmentsSegmentValueContentVariantNameRegexp4_1(AIigNameR
         java.util.Objects.requireNonNull(field1, "NameRegexp");
     }
 
-    @eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObjectField(namespace = "", namespaceLocalName = "NameRegexp", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
+    @eu.algites.lib.data.dataobject.xmldefs.AIaDataObjectFieldXmlSchema(namespace = "", namespaceLocalName = "NameRegexp", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
     @eu.algites.lib.data.dataobject.AIaDataObjectField(dataFieldName = "NameRegexp", order = 0)
     /** @return Value of NameRegexp (required) */
     public AIigNameRegexp_1 getNameRegexp() { return field1; }

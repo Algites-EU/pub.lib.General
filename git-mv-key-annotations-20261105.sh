@@ -64,10 +64,10 @@ move_annotation() {
 
 move_annotation \
   "$base/xmldefs/AIaXmlKeyDefinition.java" \
-  "$base/AIaKeyDefinition.java"
+  "$base/AIaDataObjectListKeyDefinition.java"
 move_annotation \
   "$base/xmldefs/AIaXmlKeyDefinitions.java" \
-  "$base/AIaKeyDefinitions.java"
+  "$base/AIaDataObjectListKeyDefinitions.java"
 
 echo
 echo 'Staged changes (rename detection enabled):'

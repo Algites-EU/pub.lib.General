@@ -20,7 +20,7 @@ public record AIigNameFragmentsSegmentChoiceVariantNameFragmentsSegmentValue2_1(
         java.util.Objects.requireNonNull(field1, "NameFragmentsSegmentValue");
     }
 
-    @eu.algites.lib.data.dataobject.xmldefs.AIaXmlDataObjectField(namespace = "", namespaceLocalName = "NameFragmentsSegmentValue", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
+    @eu.algites.lib.data.dataobject.xmldefs.AIaDataObjectFieldXmlSchema(namespace = "", namespaceLocalName = "NameFragmentsSegmentValue", valueKind = eu.algites.lib.data.dataobject.xmldefs.AInXmlValueKind.ELEMENT)
     @eu.algites.lib.data.dataobject.AIaDataObjectField(dataFieldName = "NameFragmentsSegmentValue", order = 0)
     /** @return Value of NameFragmentsSegmentValue (required) */
     public AIigNameFragmentsSegmentValue_1 getNameFragmentsSegmentValue() { return field1; }

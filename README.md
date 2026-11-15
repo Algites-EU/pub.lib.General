@@ -293,8 +293,8 @@ names, titles and descriptions are resolved through `AIaFieldLabel` and its
 specialized provider factories.
 
 XML Schema identity and wire representation belong to the separate
-`data.dataobject.xmldefs` package: `AIaXmlDataObject` distinguishes types from
-global elements, and `AIaXmlDataObjectField` specifies QName, element/attribute
+`data.dataobject.xmldefs` package: `AIaDataObjectXmlSchema` distinguishes types from
+global elements, and `AIaDataObjectFieldXmlSchema` specifies QName, element/attribute
 representation and optional zero-based schema field order. This order is used
 to stabilize Java XML serialization independently of reflection method order;
 strict XSD sequence validation is a separate concern. Substitution groups are expressed through interface inheritance:
