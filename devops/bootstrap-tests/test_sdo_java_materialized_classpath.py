@@ -3,7 +3,7 @@
 from pathlib import Path
 
 
-BOOTSTRAP_ROOT = Path(__file__).resolve().parent
+BOOTSTRAP_ROOT = Path(__file__).resolve().parents[1] / 'bootstrap'
 GRADLE_SCRIPT = BOOTSTRAP_ROOT / "sdo-java.gradle"
 JAVA_CLI = (
     BOOTSTRAP_ROOT.parent.parent

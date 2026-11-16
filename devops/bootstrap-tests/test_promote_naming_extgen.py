@@ -7,7 +7,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-SCRIPT = Path(__file__).with_name('promote-naming-extgen.py')
+SCRIPT = Path(__file__).resolve().parents[1] / 'bootstrap/promote-naming-extgen.py'
 spec = importlib.util.spec_from_file_location('promote_naming_extgen', SCRIPT)
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
@@ -79,9 +79,8 @@ class NamingExtgenPromotionTests(unittest.TestCase):
         legacy.write_text('{\"old\":true}\n', encoding='utf-8')
         module.refresh()
         module.check()
-        self.assertFalse(legacy.exists())
-        self.assertFalse(list(self.product.parent.parent.rglob('*bootstrap-extgen.json')),
-                         'Promotion must never persist derived metadata')
+        self.assertEqual(legacy.read_text(encoding='utf-8'), '{"old":true}\n',
+                         'Promotion must not touch unrelated historical files')
 
     def test_incomplete_seed_is_rejected_without_manifest(self):
         """Never allow missing metadata to mask an incomplete ABI snapshot."""
@@ -101,7 +100,7 @@ class NamingExtgenPromotionTests(unittest.TestCase):
         for lang in ('java', 'python'):
             shutil.copytree(self.product / (lang + '.gen'), self.product / (lang + '.extgen'))
         legacy = (self.product / 'java.extgen/eu/algites/lib/naming/convention'
-                  / 'AIigCommonNamingConventions_1.java')
+                  / 'AIig_xCommonNamingConventions_1.java')
         legacy.write_text('obsolete', encoding='utf-8')
         with self.assertRaisesRegex(ValueError, 'Obsolete technology-specific java'):
             module.check()

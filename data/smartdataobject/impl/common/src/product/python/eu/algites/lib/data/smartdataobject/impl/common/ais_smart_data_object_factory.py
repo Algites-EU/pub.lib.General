@@ -3,10 +3,77 @@ from __future__ import annotations
 from collections.abc import Mapping
 from decimal import Decimal
 from enum import Enum
-from typing import Any, get_args, get_origin
+from importlib import import_module
+import re
+from typing import Any, get_args, get_origin, get_type_hints
 
 from .aic_smart_data_object import AIcSmartDataObject
 from .aic_smart_data_object_binding_registry import AIcSmartDataObjectBindingRegistry
+
+def resolve_effective_return_type(field: Any, registry: AIcSmartDataObjectBindingRegistry) -> Any:
+    """Resolve generated forward annotations against registered SDO contracts.
+
+    Codegen keeps nested contracts behind TYPE_CHECKING to avoid circular
+    imports. The owning purpose-scoped registry supplies the concrete types
+    when unmarshalling; never guess a type from an unqualified field name.
+    """
+    raw = field.getEffectiveReturnType()
+    if not isinstance(raw, str):
+        return raw
+    from eu.algites.lib.common.list.aii_bounded_list import AIiBoundedList
+    from eu.algites.lib.common.list.aii_multi_mapped_list import AIiMultiMappedList
+    known: dict[str, type] = {
+        'AIiBoundedList': AIiBoundedList,
+        'AIiMultiMappedList': AIiMultiMappedList,
+    }
+    ambiguous: set[str] = set()
+    # The Defs emitter declares enum imports explicitly on read contracts.
+    # Setter-oriented generated implementations omit these imports to avoid
+    # cycles, and may override the original typed getter without an annotation.
+    # Resolve only named, declared scalar types; never infer an enum from data.
+    referenced = frozenset(re.findall(r'\b[A-Za-z_]\w*\b', raw))
+    for binding in registry.getBindings():
+        for candidate in binding.getImplementationClass().__mro__:
+            if candidate is object:
+                continue
+            previous = known.get(candidate.__name__)
+            if previous is not None and previous is not candidate:
+                ambiguous.add(candidate.__name__)
+            else:
+                known[candidate.__name__] = candidate
+            declarations = candidate.__dict__.get('__xml_scalar_type_imports__', {})
+            if not isinstance(declarations, dict):
+                raise TypeError('Invalid generated XML scalar type declarations')
+            for qualified in declarations.values():
+                module_name, separator, class_name = qualified.partition(':')
+                if class_name not in referenced:
+                    continue
+                if not separator or not module_name or not class_name:
+                    raise ValueError('Invalid generated scalar import: ' + repr(qualified))
+                enum_type = getattr(import_module(module_name), class_name)
+                if not isinstance(enum_type, type) or not issubclass(enum_type, Enum):
+                    raise TypeError('Generated scalar type is not an enum: ' + qualified)
+                previous = known.get(class_name)
+                if previous is not None and previous is not enum_type:
+                    ambiguous.add(class_name)
+                else:
+                    known[class_name] = enum_type
+    if referenced.intersection(ambiguous):
+        raise ValueError('Ambiguous generated forward annotation: ' + raw)
+    getter = field.getEffectiveGetter()
+    try:
+        resolved = get_type_hints(getter, localns=known).get('return')
+    except (NameError, TypeError, AttributeError) as exc:
+        raise ValueError('Cannot resolve generated field return type ' + raw +
+                         '; register its referenced SDO implementation') from exc
+    if resolved is None:
+        # Inherited metadata retains the typed read-only getter when an SDO
+        # override intentionally has no return annotation of its own.
+        resolved = known.get(raw)
+    if resolved is None:
+        raise ValueError('Missing generated field return type: ' + raw)
+    return resolved
+
 
 class AIsSmartDataObjectFactory:
     """Create and populate a registered SDO from decoded canonical data fields."""
@@ -48,7 +115,7 @@ def _materialize(binding, data: Mapping[str, Any], registry, visited):
         if semantic in assigned_semantics:
             raise ValueError('Duplicate aliases for semantic SDO field: ' + semantic)
         assigned_semantics.add(semantic)
-        requested = field.getEffectiveReturnType()
+        requested = resolve_effective_return_type(field, registry)
         # Generated collection getters are getter-only. Build the bounded (or
         # indexed) list through the owning SDO, never replace it with a plain
         # list or look for a non-existent collection setter.

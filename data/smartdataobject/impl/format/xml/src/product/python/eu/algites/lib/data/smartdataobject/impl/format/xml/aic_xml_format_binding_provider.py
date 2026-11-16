@@ -18,7 +18,7 @@ from eu.algites.lib.data.dataobject.aii_data_object import AIiDataObject
 from eu.algites.lib.common.list.aii_bounded_list import AIiBoundedList
 from eu.algites.lib.data.dataobject.xmldefs.ain_xml_value_kind import AInXmlValueKind
 from eu.algites.lib.data.smartdataobject.impl.common.aic_smart_data_object import AIcSmartDataObject
-from eu.algites.lib.data.smartdataobject.impl.common.ais_smart_data_object_factory import AIsSmartDataObjectFactory
+from eu.algites.lib.data.smartdataobject.impl.common.ais_smart_data_object_factory import (AIsSmartDataObjectFactory, resolve_effective_return_type)
 
 _XSI = 'http://www.w3.org/2001/XMLSchema-instance'
 ET.register_namespace('xsi', _XSI)
@@ -147,7 +147,7 @@ def _decode(element: ET.Element, binding: Any, registry: Any, depth: int) -> dic
         children = [child for child in element if child.tag == tag]
         if not children:
             continue
-        requested_type = field.getEffectiveReturnType()
+        requested_type = resolve_effective_return_type(field, registry)
         contract = _read_contract(requested_type)
         values: list[Any] = []
         for child in children:

@@ -87,7 +87,22 @@ public final class AIsSmartDataObjectFactory {
                         + field.getSemanticFieldName() + " on " + binding.getImplementationClass().getName());
             Object decoded = convert(entry.getValue(), field.getEffectiveReturnType(),
                     binding, field.getSemanticFieldName(), registry, visited);
-            result.populateField(field.getSemanticFieldName(), decoded);
+            // Generated collection getters require AIiBoundedList (and sometimes
+            // AIiMultiMappedList), not an ordinary ArrayList. Always attach the
+            // metadata-driven collection: it carries cardinality and key indexes.
+            // This also preserves the same typed list contract when decoding XML.
+            if (decoded instanceof List<?> items &&
+                    eu.algites.lib.common.list.AIiBoundedList.class.isAssignableFrom(
+                            field.getEffectiveGetter().getReturnType())) {
+                boolean indexed = eu.algites.lib.common.list.AIiMultiMappedList.class
+                        .isAssignableFrom(field.getEffectiveGetter().getReturnType());
+                @SuppressWarnings("unchecked")
+                var collection = (eu.algites.lib.common.list.AIiBoundedList<Object>)
+                        result.get_OrCreateCollectionField(field.getSemanticFieldName(), indexed);
+                collection.modifyAtomically(values -> values.addAll(items));
+            } else {
+                result.populateField(field.getSemanticFieldName(), decoded);
+            }
         }
         return result;
     }

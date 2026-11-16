@@ -416,6 +416,7 @@ public final class AIcMultiMappedList<V> extends AbstractList<V> implements AIiM
     }
 
     private static <V> boolean sameOrder(List<Entry<V>> a, List<Entry<V>> b) {
+        if (a.size() != b.size()) return false;
         for (int i = 0; i < a.size(); i++) if (a.get(i) != b.get(i)) return false;
         return true;
     }

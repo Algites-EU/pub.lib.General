@@ -10,7 +10,7 @@ import tempfile
 import unittest
 
 
-SCRIPT = Path(__file__).with_name('bootstrap.sh')
+SCRIPT = Path(__file__).resolve().parents[1] / 'bootstrap/bootstrap.sh'
 
 
 class BootstrapRunIdTests(unittest.TestCase):

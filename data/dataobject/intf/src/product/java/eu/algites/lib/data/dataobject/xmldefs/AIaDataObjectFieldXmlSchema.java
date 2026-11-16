@@ -20,15 +20,4 @@ public @interface AIaDataObjectFieldXmlSchema {
     String namespaceLocalName() default "";
     /** @return ELEMENT or ATTRIBUTE representation */
     AInXmlValueKind valueKind() default AInXmlValueKind.ELEMENT;
-    /**
-     * Legacy XML-specific declaration order. Prefer the shared AIaDataObjectField.order().
-     * @return XML declaration order, or -1 when unspecified
-     * @deprecated use AIaDataObjectField.order() on the common getter
-     */
-    @Deprecated(since = "1.1", forRemoval = false)
-    int order() default -1;
-    /** @return original xs:any namespace expression, or empty if absent */
-    String wildcardNamespace() default "";
-    /** @return xs:any validation policy */
-    String wildcardProcessContents() default "strict";
 }

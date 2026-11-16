@@ -65,6 +65,12 @@ class AIcSmartDataObjectBindingRegistry:
                     raise ValueError('Explicit field implementation violates read contract')
                 return selected
         candidates = self.getBindingsForReadContract(aReadContract)
+        if not candidates:
+            # Mutable generated contracts extend their read-only equivalents.
+            # A nested getter may explicitly return the mutable contract,
+            # which is still satisfied by its registered concrete SDO class.
+            candidates = tuple(binding for binding in self._bindings.values()
+                               if issubclass(binding.implementation, aReadContract))
         primary = [binding for binding in candidates if aReadContract in binding.declared]
         if len(primary) == 1: return primary[0]
         if not primary and len(candidates) == 1: return candidates[0]
