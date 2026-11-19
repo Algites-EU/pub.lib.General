@@ -1,8 +1,10 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "https://defs.dev.algites.eu/api/jsonmetadefs/eu/algites/lib/common/defs/2020-12/dialect_1.jsonmetadef.schema.json",
   "$id": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/sourcecode/smartdataobject/smartdataobject-method-kind_1.jsondef.schema.json",
   "title": "SmartDataObject field method naming roles",
   "description": "SmartDataObject field method naming roles Each enum constant denotes a configuration key, not the literal generated field or method name.",
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind",
+  "x-algites-schema-version": 1,
   "type": "string",
   "enum": [
     "standard_getter",
@@ -49,7 +51,5 @@
       "title": "Raw Empty Checker Method",
       "description": "Optional generated technical method, enabled only for fields declaring isEmptyAllowed."
     }
-  ],
-  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.smartdataobject.smartdataobject-method-kind",
-  "x-algites-schema-version": 1
+  ]
 }

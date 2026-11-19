@@ -1,0 +1,11 @@
+{
+  "$schema": "https://defs.dev.algites.eu/api/jsonmetadefs/eu/algites/lib/common/defs/2020-12/dialect_1.jsonmetadef.schema.json",
+  "$id": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/common/defs/schema-reference_1.jsondef.schema.json",
+  "title": "Algites data document schema reference",
+  "description": "Absolute URI identifying the schema used to validate a JSON or YAML data document. Intended as the value schema for its optional $schema property; distinct from the JSON Schema $schema dialect keyword.",
+  "x-algites-schema-id": "eu.algites.lib.common.defs.schema-reference",
+  "x-algites-schema-version": 1,
+  "type": "string",
+  "minLength": 1,
+  "format": "uri"
+}

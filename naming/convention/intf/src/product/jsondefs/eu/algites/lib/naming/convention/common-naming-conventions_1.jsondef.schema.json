@@ -1,9 +1,11 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "https://defs.dev.algites.eu/api/jsonmetadefs/eu/algites/tool/codegen/defs/jsonmetadef/2020-12/dialect_1.jsonmetadef.schema.json",
   "$id": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/common-naming-conventions_1.jsondef.schema.json",
   "title": "Shared naming convention tools",
-  "type": "object",
   "description": "Reusable fragments, compositions, identifiers and version rules for any naming-convention domain.",
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.common-naming-conventions",
+  "x-algites-schema-version": 1,
+  "type": "object",
   "properties": {
     "$schema": {
       "type": "string",
@@ -443,7 +445,5 @@
       "title": "Identifier conversion style",
       "description": "Optional lexical splitting and formatting policy. Custom regex conventions without a conversion style are validation-only. The style, not the naming convention ID, controls conversion."
     }
-  },
-  "x-algites-schema-id": "eu.algites.lib.naming.convention.common-naming-conventions",
-  "x-algites-schema-version": 1
+  }
 }

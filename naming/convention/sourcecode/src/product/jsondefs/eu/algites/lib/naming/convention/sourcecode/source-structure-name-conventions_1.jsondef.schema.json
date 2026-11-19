@@ -3,6 +3,11 @@
   "$id": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/sourcecode/source-structure-name-conventions_1.jsondef.schema.json",
   "title": "Source structure name conventions v1",
   "description": "Named source-code structure naming profiles. Schema-metadata field roles belong to the separate DataObject convention contract.",
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.source-structure-name-conventions",
+  "x-algites-schema-version": 1,
+  "x-algites-defscodegen-extends": [
+    "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/common-naming-conventions_1.jsondef.schema.json"
+  ],
   "allOf": [
     {
       "$ref": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/common-naming-conventions_1.jsondef.schema.json"
@@ -96,10 +101,5 @@
   "type": "object",
   "required": [
     "SourceStructureNameConventions"
-  ],
-  "x-algites-defscodegen-extends": [
-    "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/common-naming-conventions_1.jsondef.schema.json"
-  ],
-  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.source-structure-name-conventions",
-  "x-algites-schema-version": 1
+  ]
 }

@@ -5,6 +5,8 @@ from eu.algites.lib.factory.cpdiscovery.category_provider_factory import categor
 from eu.algites.lib.factory.cpdiscovery.aix_category_provider_conflict_exception import AIxCategoryProviderConflictException
 from eu.algites.lib.factory.cpdiscovery.aix_category_provider_unavailable_exception import AIxCategoryProviderUnavailableException
 from eu.algites.lib.factory.cpdiscovery.impl.standard.aic_category_provider_registry import AIcCategoryProviderRegistry
+from eu.algites.lib.factory.cpdiscovery.aii_category_provider_factory_metadata import AIiCategoryProviderFactoryMetadata
+from eu.algites.lib.factory.cpdiscovery.impl.standard.aicd_category_provider_factory_metadata import AIcdCategoryProviderFactoryMetadata
 
 class AIiResult(ABC):
     pass
@@ -60,3 +62,41 @@ def test_duplicate_defaults_roll_back():
     r=AIcCategoryProviderRegistry();r.register_factories('a',(AIcFactoryA(),),{key:'a'})
     with pytest.raises(AIxCategoryProviderConflictException):r.register_factories('b',(),{key:'b'})
     assert r.get_instance(AIiExampleFactory,'filesystem',AIcContext()).provider=='a'
+
+def test_factory_selection_and_metadata_without_instantiation():
+    r = AIcCategoryProviderRegistry()
+    r.register_factories('a', (AIcFactoryA(),))
+    r.register_factories('b', (AIcFactoryB(),))
+    assert r.find_factory(AIiExampleFactory, 'filesystem', ('missing', 'b', 'a')).__class__ is AIcFactoryB
+    assert r.find_factory(AIiExampleFactory, 'filesystem', ('missing',)) is None
+    assert r.find_factory(AIiExampleFactory, 'missing', ('b',)) is None
+    assert r.has_category(AIiExampleFactory, 'filesystem')
+    assert not r.has_category(AIiExampleFactory, 'missing')
+    assert r.has_provider(AIiExampleFactory, 'filesystem', 'b')
+    assert not r.has_provider(AIiExampleFactory, 'durable', 'b')
+    assert r.get_available_categories(AIiExampleFactory) == frozenset(('filesystem', 'durable'))
+    assert r.get_available_provider_ids(AIiExampleFactory, 'filesystem') == frozenset(('a', 'b'))
+    metadata = r.get_available_factory_metadata(AIiExampleFactory)
+    assert [(m.category, m.provider_id) for m in metadata] == [
+        ('durable', 'a'), ('filesystem', 'a'), ('filesystem', 'b')]
+    assert all(not m.default_provider for m in metadata)
+    assert all(isinstance(m, AIcdCategoryProviderFactoryMetadata) for m in metadata)
+    assert all(isinstance(m, AIiCategoryProviderFactoryMetadata) for m in metadata)
+    assert metadata[0].context_interface_type is AIiContext
+    assert metadata[0].implementation_interface_type is AIiResult
+    r.unregister_factories('b')
+    assert r.find_factory(AIiExampleFactory, 'filesystem') is not None
+    assert r.get_available_provider_ids(AIiExampleFactory, 'filesystem') == frozenset(('a',))
+
+
+def test_ordered_fallback_and_configured_default_are_separate():
+    key = f'{AIiExampleFactory.__module__}.{AIiExampleFactory.__qualname__}.filesystem'
+    r = AIcCategoryProviderRegistry()
+    r.register_factories('a', (AIcFactoryA(),))
+    r.register_factories('b', (AIcFactoryB(),), {key: 'b'})
+    assert r.find_factory(AIiExampleFactory, 'filesystem').create_instance('filesystem', None).provider == 'b'
+    assert r.find_factory(AIiExampleFactory, 'filesystem', ['a', 'b']).create_instance('filesystem', None).provider == 'a'
+    assert [m.provider_id for m in r.get_available_factory_metadata(AIiExampleFactory)
+            if m.default_provider] == ['b']
+    r.unregister_factories('b')
+    assert r.find_factory(AIiExampleFactory, 'filesystem') is not None

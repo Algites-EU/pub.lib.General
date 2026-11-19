@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from eu.algites.lib.factory.cpdiscovery.aii_category_provider_factory_metadata import AIiCategoryProviderFactoryMetadata
+from eu.algites.lib.factory.cpdiscovery.impl.standard.aicd_category_provider_factory_metadata import AIcdCategoryProviderFactoryMetadata
 from inspect import isabstract
 from importlib import metadata
 from threading import RLock
@@ -79,17 +81,8 @@ class AIcCategoryProviderRegistry(AIiCategoryProviderRegistry):
 
     def get_instance(self, factory_type: type, category: str, context: Any,
                      provider_id: str | None = None) -> Any:
-        snapshot = self._snapshot
-        if provider_id is None:
-            key = (factory_type, category)
-            provider_id = snapshot.defaults.get(key)
-            if provider_id is None:
-                matches = [key[2] for key in snapshot.factories if key[:2] == (factory_type, category)]
-                if len(matches) != 1:
-                    raise AIxCategoryProviderUnavailableException(
-                        f'Cannot uniquely select provider for {factory_type}/{category}: {matches}')
-                provider_id = matches[0]
-        factory = snapshot.factories.get((factory_type, category, provider_id))
+        factory = self.find_factory(factory_type, category,
+                                    [provider_id] if provider_id is not None else None)
         if factory is None:
             raise AIxCategoryProviderUnavailableException(
                 f'Unavailable provider {provider_id} for {factory_type}/{category}')
@@ -100,6 +93,55 @@ class AIcCategoryProviderRegistry(AIiCategoryProviderRegistry):
         if not isinstance(instance, factory.get_implementation_interface_type()):
             raise AIxCategoryProviderDiscoveryException(f'Unexpected result for provider {provider_id}')
         return instance
+
+    def find_factory(self, factory_type: type, category: str,
+                     provider_ids: tuple[str, ...] | list[str] | None = None) -> AIiCategoryProviderFactory | None:
+        """Select a factory by ordered IDs, or a default/unique provider if omitted.
+
+        Missing providers return None. Ambiguity without preferences is an error.
+        The returned factory belongs to one immutable published snapshot.
+        """
+        if not category or category.strip() != category:
+            raise ValueError(f'Invalid category: {category!r}')
+        snapshot = self._snapshot
+        if provider_ids:
+            for provider_id in provider_ids:
+                if not provider_id or provider_id.strip() != provider_id:
+                    raise ValueError(f'Invalid provider ID: {provider_id!r}')
+                factory = snapshot.factories.get((factory_type, category, provider_id))
+                if factory is not None:
+                    return factory
+            return None
+        default_provider = snapshot.defaults.get((factory_type, category))
+        if default_provider is not None:
+            return snapshot.factories.get((factory_type, category, default_provider))
+        matches = [factory for (kind, name, _), factory in snapshot.factories.items()
+                   if kind is factory_type and name == category]
+        if len(matches) > 1:
+            raise AIxCategoryProviderUnavailableException(
+                f'Ambiguous provider for {factory_type}/{category}; supply preferred provider IDs')
+        return matches[0] if matches else None
+
+    def get_available_categories(self, factory_type: type) -> frozenset[str]:
+        """Inspect category presence without instantiating any implementation."""
+        return frozenset(category for kind, category, _ in self._snapshot.factories
+                         if kind is factory_type)
+
+    def get_available_provider_ids(self, factory_type: type, category: str) -> frozenset[str]:
+        """Inspect registered providers for an interface and category."""
+        return frozenset(provider_id for kind, name, provider_id in self._snapshot.factories
+                         if kind is factory_type and name == category)
+
+    def get_available_factory_metadata(self, factory_type: type) -> tuple[AIiCategoryProviderFactoryMetadata, ...]:
+        """Return immutable, sorted metadata for one specialized factory contract."""
+        snapshot = self._snapshot
+        result = [AIcdCategoryProviderFactoryMetadata(category, provider_id,
+                   factory.get_implementation_interface_type(), factory.get_context_interface_type(),
+                   snapshot.defaults.get((kind, category)) == provider_id,
+                   f'{type(factory).__module__}.{type(factory).__qualname__}')
+                  for (kind, category, provider_id), factory in snapshot.factories.items()
+                  if kind is factory_type]
+        return tuple(sorted(result, key=lambda item: (item.category, item.provider_id)))
 
     @staticmethod
     def _aggregate(sources):

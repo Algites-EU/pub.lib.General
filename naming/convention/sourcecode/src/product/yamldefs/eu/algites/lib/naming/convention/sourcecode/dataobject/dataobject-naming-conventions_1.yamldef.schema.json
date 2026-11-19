@@ -3,6 +3,11 @@
   "$id": "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/sourcecode/dataobject/dataobject-naming-conventions_1.yamldef.schema.json",
   "title": "DataObject naming conventions",
   "description": "Reusable DataObject schema metadata naming profiles. Does not specify generated accessor names.",
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-naming-conventions",
+  "x-algites-schema-version": 1,
+  "x-algites-defscodegen-extends": [
+    "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.yamldef.schema.json"
+  ],
   "allOf": [
     {
       "$ref": "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.yamldef.schema.json"
@@ -42,11 +47,6 @@
   "required": [
     "DataObjectNameConventions"
   ],
-  "x-algites-defscodegen-extends": [
-    "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/common-naming-conventions_1.yamldef.schema.json"
-  ],
-  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-naming-conventions",
-  "x-algites-schema-version": 1,
   "$defs": {
     "DataObjectNameConvention": {
       "type": "object",

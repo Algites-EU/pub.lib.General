@@ -22,7 +22,7 @@ build/*
 !**/run/bld/.gitkeep
 
 # Build-system spillover (authoritative generated output belongs under run/)
-**/build/
+/build/
 **/*.egg-info/
 
 # temporary python generated projects:

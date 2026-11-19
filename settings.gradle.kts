@@ -26,6 +26,7 @@ buildscript {
     }
     dependencies {
         classpath("eu.algites.pltf.modustro.builder:pub.gov.Algites_devops.build.modustro.builder.gradleinit:1.0-SNAPSHOT")
+//        classpath("eu.algites.pltf.modustro.builder:pub.pltf.Modustro_platform.builder.gradle:1.1-SNAPSHOT")
     }
 }
 apply(plugin = "eu.algites.pltf.modustro.builder.settings")

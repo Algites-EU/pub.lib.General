@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://defs.dev.algites.eu/api/jsonmetadefs/eu/algites/lib/common/defs/draft-07/dialect_1.jsonmetadef.schema.json",
+  "title": "Algites Common Defs JSON Schema draft-07 dialect 1",
+  "description": "Standard JSON Schema plus the Algites Common Defs logical identity annotations x-algites-schema-id and x-algites-schema-version.",
+  "x-algites-schema-id": "eu.algites.lib.common.defs.draft-07.dialect",
+  "x-algites-schema-version": 1,
+  "type": [
+    "object",
+    "boolean"
+  ],
+  "allOf": [
+    {
+      "$ref": "http://json-schema.org/draft-07/schema#"
+    },
+    {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "https://defs.dev.algites.eu/api/jsonmetadefs/eu/algites/lib/common/defs/draft-07/vocabulary_1.jsonmetadef.schema.json"
+        }
+      ]
+    }
+  ]
+}

@@ -1,11 +1,13 @@
 package eu.algites.lib.factory.cpdiscovery;
 
 import java.util.Objects;
+import java.util.List;
+import java.util.Set;
 import java.util.ServiceLoader;
 
 /**
  * Entry point for resolving annotation-declared provider factories through a single
- * explicitly configured, or service-discovered, {@link AIiCategoryProviderRegistry}.
+ * service-discovered, {@link AIiCategoryProviderRegistry}.
  * The registry owns ClassLoader/ModuleLayer registration and its immutable snapshots;
  * this utility never instantiates resolver implementation classes reflectively.
  */
@@ -16,18 +18,7 @@ public final class AIsCategoryProviderDiscovery {
     }
 
     /**
-     * Installs the application-scoped registry, for instance after registering the desired
-     * module layers or classloaders. A null value clears the override and permits service
-     * discovery. Callers should install it during startup before resolving field metadata.
-     *
-     * @param aRegistry application registry, or null to restore service lookup
-     */
-    public static void setRegistry(AIiCategoryProviderRegistry aRegistry) {
-        registry = aRegistry;
-    }
-
-    /**
-     * Returns the application registry; when none is explicitly installed, discovers one
+     * Returns the application registry; when first called, discovers one
      * through ServiceLoader and registers the current context classloader as a factory scope.
      * An absent or ambiguous registry fails explicitly instead of silently ignoring resolvers.
      *
@@ -84,4 +75,55 @@ public final class AIsCategoryProviderDiscovery {
                 ? null : aDefinition.factoryProviderId();
         return getRegistry().getInstance(aRequiredFactoryType, locCategory, locProviderId, aContext);
     }
+    /**
+     * Discovers the first registered provider matching ordered preferences, without
+     * constructing a provider instance. A missing match returns null.
+     *
+     * @param aFactoryType specialized factory SPI
+     * @param aCategory category identifier
+     * @param aProviderIds preferred provider IDs in priority order, or null for default selection
+     * @param <I> produced implementation type
+     * @param <C> context contract
+     * @return registered factory, or null if unavailable
+     */
+    public static <I, C> AIiCategoryProviderFactory<I, C> findFactory(
+            Class<? extends AIiCategoryProviderFactory<I, C>> aFactoryType,
+            String aCategory, List<String> aProviderIds) {
+        return getRegistry().findFactory(aFactoryType, aCategory, aProviderIds);
+    }
+
+    /**
+     * Lists the available categories for a specialized factory SPI.
+     *
+     * @param aFactoryType specialized factory SPI
+     * @return immutable available categories
+     */
+    public static Set<String> getAvailableCategories(
+            Class<? extends AIiCategoryProviderFactory<?, ?>> aFactoryType) {
+        return getRegistry().getAvailableCategories(aFactoryType);
+    }
+
+    /**
+     * Lists providers registered for a specialized SPI and category.
+     *
+     * @param aFactoryType specialized factory SPI
+     * @param aCategory category identifier
+     * @return immutable provider identities
+     */
+    public static Set<String> getAvailableProviderIds(
+            Class<? extends AIiCategoryProviderFactory<?, ?>> aFactoryType, String aCategory) {
+        return getRegistry().getAvailableProviderIds(aFactoryType, aCategory);
+    }
+
+    /**
+     * Returns provider metadata without creating implementation instances.
+     *
+     * @param aFactoryType specialized factory SPI
+     * @return immutable metadata, sorted by category and provider ID
+     */
+    public static List<AIiCategoryProviderFactoryMetadata> getAvailableFactoryMetadata(
+            Class<? extends AIiCategoryProviderFactory<?, ?>> aFactoryType) {
+        return getRegistry().getAvailableFactoryMetadata(aFactoryType);
+    }
+
 }

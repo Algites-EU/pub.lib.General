@@ -1,8 +1,11 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "https://defs.dev.algites.eu/api/jsonmetadefs/eu/algites/lib/common/defs/2020-12/dialect_1.jsonmetadef.schema.json",
   "$id": "https://defs.dev.algites.eu/api/yamldefs/eu/algites/lib/naming/convention/sourcecode/container-structure-type_1.yamldef.schema.json",
-  "type": "string",
   "title": "Container structure type",
+  "description": "Kind of represented container, independent of its naming profile.",
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.container-structure-type",
+  "x-algites-schema-version": 1,
+  "type": "string",
   "enum": [
     "object",
     "class",
@@ -12,9 +15,6 @@
     "annotation",
     "resource_bundle"
   ],
-  "description": "Kind of represented container, independent of its naming profile.",
-  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.container-structure-type",
-  "x-algites-schema-version": 1,
   "oneOf": [
     {
       "const": "object",

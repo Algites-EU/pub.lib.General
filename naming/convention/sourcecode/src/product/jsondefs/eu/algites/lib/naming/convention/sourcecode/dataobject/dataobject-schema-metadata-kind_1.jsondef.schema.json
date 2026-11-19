@@ -1,8 +1,10 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "https://defs.dev.algites.eu/api/jsonmetadefs/eu/algites/lib/common/defs/2020-12/dialect_1.jsonmetadef.schema.json",
   "$id": "https://defs.dev.algites.eu/api/jsondefs/eu/algites/lib/naming/convention/sourcecode/dataobject/dataobject-schema-metadata-kind_1.jsondef.schema.json",
   "title": "DataObject schema metadata naming roles",
   "description": "DataObject schema metadata naming roles Each enum constant denotes a configuration key, not the literal generated field or method name.",
+  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-schema-metadata-kind",
+  "x-algites-schema-version": 1,
   "type": "string",
   "enum": [
     "schema_source_schema_url",
@@ -43,7 +45,5 @@
       "title": "Instance schema version field",
       "description": "Field in a serialized DataObject instance carrying the logical schema version. Omitted or empty mapping disables reading and emitting this field; requires source version mapping when enabled."
     }
-  ],
-  "x-algites-schema-id": "eu.algites.lib.naming.convention.sourcecode.dataobject.dataobject-schema-metadata-kind",
-  "x-algites-schema-version": 1
+  ]
 }
